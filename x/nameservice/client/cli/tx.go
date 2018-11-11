@@ -58,7 +58,7 @@ func GetCmdSetName(cdc *codec.Codec) *cobra.Command {
 	return &cobra.Command{
 		Use:   "set-name [name] [value]",
 		Short: "set the value associated with a name that you own",
-		Args:  cobra.ExactArgs(2),
+		Args:  cobra.ExactArgs(3),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			cliCtx := context.NewCLIContext().
 				WithCodec(cdc).
@@ -75,7 +75,7 @@ func GetCmdSetName(cdc *codec.Codec) *cobra.Command {
 				return err
 			}
 
-			msg := nameservice.NewMsgSetName(args[0], args[1], account)
+			msg := nameservice.NewMsgSetName(args[0], args[1], args[2], account)
 			err = msg.ValidateBasic()
 			if err != nil {
 				return err

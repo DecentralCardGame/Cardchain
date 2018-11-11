@@ -45,6 +45,7 @@ type Whois struct {
 	Value string         `json:"value"`
 	Owner sdk.AccAddress `json:"owner"`
 	Price sdk.Coins      `json:"price"`
+	CardType string			 `json:"value"`
 }
 
 // nolint: unparam
@@ -56,6 +57,7 @@ func queryWhois(ctx sdk.Context, path []string, req abci.RequestQuery, keeper Ke
 	whois.Value = keeper.ResolveName(ctx, name)
 	whois.Owner = keeper.GetOwner(ctx, name)
 	whois.Price = keeper.GetPrice(ctx, name)
+	whois.CardType = keeper.GetType(ctx, name)
 
 	bz, err2 := codec.MarshalJSONIndent(keeper.cdc, whois)
 	if err2 != nil {

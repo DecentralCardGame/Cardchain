@@ -10,15 +10,17 @@ import (
 type MsgSetName struct {
 	NameID string
 	Value  string
+	CardType string
 	Owner  sdk.AccAddress
 }
 
 // NewSetNameMsg is a constructor function for MsgSetName
-func NewMsgSetName(name string, value string, owner sdk.AccAddress) MsgSetName {
+func NewMsgSetName(name string, value string, cardType string, owner sdk.AccAddress) MsgSetName {
 	return MsgSetName{
 		NameID: name,
 		Value:  value,
 		Owner:  owner,
+		CardType: cardType,
 	}
 }
 

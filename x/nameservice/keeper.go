@@ -14,17 +14,19 @@ type Keeper struct {
 	namesStoreKey  sdk.StoreKey // Unexposed key to access name store from sdk.Context
 	ownersStoreKey sdk.StoreKey // Unexposed key to access owners store from sdk.Context
 	pricesStoreKey sdk.StoreKey // Unexposed key to access prices store from sdk.Context
+	cardTypesStoreKey sdk.StoreKey // Unexposed key to access prices store from sdk.Context
 
 	cdc *codec.Codec // The wire codec for binary encoding/decoding.
 }
 
 // NewKeeper creates new instances of the nameservice Keeper
-func NewKeeper(coinKeeper bank.Keeper, namesStoreKey sdk.StoreKey, ownersStoreKey sdk.StoreKey, priceStoreKey sdk.StoreKey, cdc *codec.Codec) Keeper {
+func NewKeeper(coinKeeper bank.Keeper, namesStoreKey sdk.StoreKey, ownersStoreKey sdk.StoreKey, priceStoreKey sdk.StoreKey, cardTypesStoreKey sdk.StoreKey, cdc *codec.Codec) Keeper {
 	return Keeper{
 		coinKeeper:     coinKeeper,
 		namesStoreKey:  namesStoreKey,
 		ownersStoreKey: ownersStoreKey,
 		pricesStoreKey: priceStoreKey,
+		cardTypesStoreKey: cardTypesStoreKey,
 		cdc:            cdc,
 	}
 }
@@ -37,9 +39,11 @@ func (k Keeper) ResolveName(ctx sdk.Context, name string) string {
 }
 
 // SetName - sets the value string that a name resolves to
-func (k Keeper) SetName(ctx sdk.Context, name string, value string) {
+func (k Keeper) SetName(ctx sdk.Context, name string, value string, cardType string) {
 	store := ctx.KVStore(k.namesStoreKey)
 	store.Set([]byte(name), []byte(value))
+	// /store2 := ctx.KVStore(k.cardTypesStoreKey)
+	// store2.Set([]byte(name), []byte(cardType))
 }
 
 // HasOwner - returns whether or not the name already has an owner
@@ -52,6 +56,13 @@ func (k Keeper) HasOwner(ctx sdk.Context, name string) bool {
 // GetOwner - get the current owner of a name
 func (k Keeper) GetOwner(ctx sdk.Context, name string) sdk.AccAddress {
 	store := ctx.KVStore(k.ownersStoreKey)
+	bz := store.Get([]byte(name))
+	return bz
+}
+
+// GetOwner - get the current owner of a name
+func (k Keeper) GetType(ctx sdk.Context, name string) sdk.AccAddress {
+	store := ctx.KVStore(k.typessStoreKey)
 	bz := store.Get([]byte(name))
 	return bz
 }
