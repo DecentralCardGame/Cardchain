@@ -70,6 +70,7 @@ func GetCmdSetName(cdc *codec.Codec) *cobra.Command {
 				return err
 			}
 
+			msg := nameservice.NewMsgSetName(args[0], args[1], account)
 			err = msg.ValidateBasic()
 			if err != nil {
 				return err
