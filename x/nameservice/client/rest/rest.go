@@ -21,6 +21,7 @@ const (
 func RegisterRoutes(cliCtx context.CLIContext, r *mux.Router, cdc *codec.Codec, storeName string) {
 	r.HandleFunc(fmt.Sprintf("/%s/names", storeName), buyNameHandler(cdc, cliCtx)).Methods("POST")
 	r.HandleFunc(fmt.Sprintf("/%s/names", storeName), setNameHandler(cdc, cliCtx)).Methods("PUT")
+	r.HandleFunc(fmt.Sprintf("/%s/types", storeName), setTypeHandler(cdc, cliCtx)).Methods("PUT")
 	r.HandleFunc(fmt.Sprintf("/%s/names/{%s}", storeName, restName), resolveNameHandler(cdc, cliCtx, storeName)).Methods("GET")
 	r.HandleFunc(fmt.Sprintf("/%s/names/{%s}/whois", storeName, restName), whoIsHandler(cdc, cliCtx, storeName)).Methods("GET")
 }
@@ -99,6 +100,38 @@ func setNameHandler(cdc *codec.Codec, cliCtx context.CLIContext) http.HandlerFun
 
 		// create the message
 		msg := nameservice.NewMsgSetName(req.Name, req.Value, addr)
+		err = msg.ValidateBasic()
+		if err != nil {
+			utils.WriteErrorResponse(w, http.StatusBadRequest, err.Error())
+			return
+		}
+
+		utils.CompleteAndBroadcastTxREST(w, r, cliCtx, baseReq, []sdk.Msg{msg}, cdc)
+	}
+}
+
+func setTypeHandler(cdc *codec.Codec, cliCtx context.CLIContext) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		var req setNameReq
+		err := utils.ReadRESTReq(w, r, cdc, &req)
+		if err != nil {
+			utils.WriteErrorResponse(w, http.StatusBadRequest, err.Error())
+			return
+		}
+
+		baseReq := req.BaseReq.Sanitize()
+		if !baseReq.ValidateBasic(w) {
+			return
+		}
+
+		addr, err := sdk.AccAddressFromBech32(req.Owner)
+		if err != nil {
+			utils.WriteErrorResponse(w, http.StatusBadRequest, err.Error())
+			return
+		}
+
+		// create the message
+		msg := nameservice.NewMsgSetType(req.Name, req.Value, addr)
 		err = msg.ValidateBasic()
 		if err != nil {
 			utils.WriteErrorResponse(w, http.StatusBadRequest, err.Error())

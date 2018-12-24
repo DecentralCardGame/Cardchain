@@ -14,17 +14,19 @@ type Keeper struct {
 	namesStoreKey  sdk.StoreKey // Unexposed key to access name store from sdk.Context
 	ownersStoreKey sdk.StoreKey // Unexposed key to access owners store from sdk.Context
 	pricesStoreKey sdk.StoreKey // Unexposed key to access prices store from sdk.Context
+	typesStoreKey  sdk.StoreKey // Unexposed key to access types store from sdk.Context
 
 	cdc *codec.Codec // The wire codec for binary encoding/decoding.
 }
 
 // NewKeeper creates new instances of the nameservice Keeper
-func NewKeeper(coinKeeper bank.Keeper, namesStoreKey sdk.StoreKey, ownersStoreKey sdk.StoreKey, priceStoreKey sdk.StoreKey, cdc *codec.Codec) Keeper {
+func NewKeeper(coinKeeper bank.Keeper, namesStoreKey sdk.StoreKey, ownersStoreKey sdk.StoreKey, priceStoreKey sdk.StoreKey, typesStoreKey sdk.StoreKey, cdc *codec.Codec) Keeper {
 	return Keeper{
 		coinKeeper:     coinKeeper,
 		namesStoreKey:  namesStoreKey,
 		ownersStoreKey: ownersStoreKey,
 		pricesStoreKey: priceStoreKey,
+		typesStoreKey:  typesStoreKey,
 		cdc:            cdc,
 	}
 }
@@ -79,4 +81,18 @@ func (k Keeper) GetPrice(ctx sdk.Context, name string) sdk.Coins {
 func (k Keeper) SetPrice(ctx sdk.Context, name string, price sdk.Coins) {
 	store := ctx.KVStore(k.pricesStoreKey)
 	store.Set([]byte(name), k.cdc.MustMarshalBinaryBare(price))
+}
+
+
+// GetOwner - get the current owner of a name
+func (k Keeper) GetType(ctx sdk.Context, name string) string  {
+	store := ctx.KVStore(k.typesStoreKey)
+	bz := store.Get([]byte(name))
+	return string(bz)
+}
+
+// SetPrice - sets the current type of a card
+func (k Keeper) SetType(ctx sdk.Context, name string, cardtype string) {
+	store := ctx.KVStore(k.typesStoreKey)
+	store.Set([]byte(name), []byte(cardtype))
 }

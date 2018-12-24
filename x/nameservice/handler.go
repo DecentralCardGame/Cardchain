@@ -12,6 +12,8 @@ func NewHandler(keeper Keeper) sdk.Handler {
 		switch msg := msg.(type) {
 		case MsgSetName:
 			return handleMsgSetName(ctx, keeper, msg)
+		case MsgSetType:
+			return handleMsgSetType(ctx, keeper, msg)
 		case MsgBuyName:
 			return handleMsgBuyName(ctx, keeper, msg)
 		default:
@@ -19,6 +21,15 @@ func NewHandler(keeper Keeper) sdk.Handler {
 			return sdk.ErrUnknownRequest(errMsg).Result()
 		}
 	}
+}
+
+// Handle MsgSetType
+func handleMsgSetType(ctx sdk.Context, keeper Keeper, msg MsgSetType) sdk.Result {
+	if !msg.Owner.Equals(keeper.GetOwner(ctx, msg.NameID)) { // Checks if the the msg sender is the same as the current owner
+		return sdk.ErrUnauthorized("Incorrect Owner").Result() // If not, throw an error
+	}
+	keeper.SetType(ctx, msg.NameID, msg.Value) // If so, set the type to the value specified in the msg.
+	return sdk.Result{}                        // return
 }
 
 // Handle MsgSetName
