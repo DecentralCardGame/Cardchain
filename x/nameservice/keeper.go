@@ -39,7 +39,6 @@ func (k Keeper) ResolveName(ctx sdk.Context, name string) string {
 }
 
 // SetName - sets the value string that a name resolves to
-func (k Keeper) SetName(ctx sdk.Context, name string, value string) {
 	store := ctx.KVStore(k.namesStoreKey)
 	store.Set([]byte(name), []byte(value))
 }
@@ -54,6 +53,13 @@ func (k Keeper) HasOwner(ctx sdk.Context, name string) bool {
 // GetOwner - get the current owner of a name
 func (k Keeper) GetOwner(ctx sdk.Context, name string) sdk.AccAddress {
 	store := ctx.KVStore(k.ownersStoreKey)
+	bz := store.Get([]byte(name))
+	return bz
+}
+
+// GetOwner - get the current owner of a name
+func (k Keeper) GetType(ctx sdk.Context, name string) sdk.AccAddress {
+	store := ctx.KVStore(k.typessStoreKey)
 	bz := store.Get([]byte(name))
 	return bz
 }
