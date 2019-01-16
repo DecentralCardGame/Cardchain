@@ -18,9 +18,9 @@ import (
 	auth "github.com/cosmos/cosmos-sdk/x/auth/client/rest"
 	bankcmd "github.com/cosmos/cosmos-sdk/x/bank/client/cli"
 	bank "github.com/cosmos/cosmos-sdk/x/bank/client/rest"
-	app "github.com/cosmos/sdk-application-tutorial"
-	nsclient "github.com/cosmos/sdk-application-tutorial/x/nameservice/client"
-	nsrest "github.com/cosmos/sdk-application-tutorial/x/nameservice/client/rest"
+	app "github.com/DecentralCardGame/Cardchain"
+	nsclient "github.com/DecentralCardGame/Cardchain/x/nameservice/client"
+	nsrest "github.com/DecentralCardGame/Cardchain/x/nameservice/client/rest"
 )
 
 const (
