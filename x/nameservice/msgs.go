@@ -54,29 +54,29 @@ func (msg MsgSetName) GetSigners() []sdk.AccAddress {
 }
 
 // MsgBuyName defines the BuyName message
-type MsgBuyName struct {
+type MsgBuyCardScheme struct {
 	NameID string
 	Bid    sdk.Coins
 	Buyer  sdk.AccAddress
 }
 
 // NewMsgBuyName is the constructor function for MsgBuyName
-func NewMsgBuyName(name string, bid sdk.Coins, buyer sdk.AccAddress) MsgBuyName {
-	return MsgBuyName{
-		NameID: name,
+func NewMsgBuyCardScheme(bid sdk.Coins, buyer sdk.AccAddress) MsgBuyCardScheme {
+	return MsgBuyCardScheme{
+		//NameID: name,
 		Bid:    bid,
 		Buyer:  buyer,
 	}
 }
 
 // Name Implements Msg.
-func (msg MsgBuyName) Route() string { return "nameservice" }
+func (msg MsgBuyCardScheme) Route() string { return "nameservice" }
 
 // Type Implements Msg.
-func (msg MsgBuyName) Type() string { return "buy_name" }
+func (msg MsgBuyCardScheme) Type() string { return "buy_name" }
 
 // ValidateBasic Implements Msg.
-func (msg MsgBuyName) ValidateBasic() sdk.Error {
+func (msg MsgBuyCardScheme) ValidateBasic() sdk.Error {
 	if msg.Buyer.Empty() {
 		return sdk.ErrInvalidAddress(msg.Buyer.String())
 	}
@@ -90,7 +90,7 @@ func (msg MsgBuyName) ValidateBasic() sdk.Error {
 }
 
 // GetSignBytes Implements Msg.
-func (msg MsgBuyName) GetSignBytes() []byte {
+func (msg MsgBuyCardScheme) GetSignBytes() []byte {
 	b, err := json.Marshal(msg)
 	if err != nil {
 		panic(err)
@@ -99,7 +99,7 @@ func (msg MsgBuyName) GetSignBytes() []byte {
 }
 
 // GetSigners Implements Msg.
-func (msg MsgBuyName) GetSigners() []sdk.AccAddress {
+func (msg MsgBuyCardScheme) GetSigners() []sdk.AccAddress {
 	return []sdk.AccAddress{msg.Buyer}
 }
 

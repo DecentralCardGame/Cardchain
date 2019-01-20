@@ -12,8 +12,8 @@ import (
 	authtxb "github.com/cosmos/cosmos-sdk/x/auth/client/txbuilder"
 )
 
-// GetCmdBuyName is the CLI command for sending a BuyName transaction
-func GetCmdBuyName(cdc *codec.Codec) *cobra.Command {
+// GetCmdBuyCardScheme is the CLI command for sending a BuyCardScheme transaction
+func GetCmdBuyCardScheme(cdc *codec.Codec) *cobra.Command {
 	return &cobra.Command{
 		Use:   "buy-name [name] [amount]",
 		Short: "bid for existing name or claim new name",
@@ -37,7 +37,7 @@ func GetCmdBuyName(cdc *codec.Codec) *cobra.Command {
 				return err
 			}
 
-			msg := nameservice.NewMsgBuyName(args[0], coins, account)
+			msg := nameservice.NewMsgBuyCardScheme(coins, account)
 			err = msg.ValidateBasic()
 			if err != nil {
 				return err

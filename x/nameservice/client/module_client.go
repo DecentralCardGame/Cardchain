@@ -41,7 +41,7 @@ func (mc ModuleClient) GetTxCmd() *cobra.Command {
 	}
 
 	govTxCmd.AddCommand(client.PostCommands(
-		nameservicecmd.GetCmdBuyName(mc.cdc),
+		nameservicecmd.GetCmdBuyCardScheme(mc.cdc),
 		nameservicecmd.GetCmdSetName(mc.cdc),
 	)...)
 

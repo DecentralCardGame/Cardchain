@@ -60,7 +60,7 @@ func buyNameHandler(cdc *codec.Codec, cliCtx context.CLIContext) http.HandlerFun
 		}
 
 		// create the message
-		msg := nameservice.NewMsgBuyName(req.Name, coins, addr)
+		msg := nameservice.NewMsgBuyCardScheme(coins, addr)
 		err = msg.ValidateBasic()
 		if err != nil {
 			utils.WriteErrorResponse(w, http.StatusBadRequest, err.Error())

@@ -2,7 +2,7 @@ package nameservice
 
 import (
 	"fmt"
-
+	"strconv"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
@@ -14,8 +14,8 @@ func NewHandler(keeper Keeper) sdk.Handler {
 			return handleMsgSetName(ctx, keeper, msg)
 		case MsgSetType:
 			return handleMsgSetType(ctx, keeper, msg)
-		case MsgBuyName:
-			return handleMsgBuyName(ctx, keeper, msg)
+		case MsgBuyCardScheme:
+			return handleMsgBuyCardScheme(ctx, keeper, msg)
 		default:
 			errMsg := fmt.Sprintf("Unrecognized nameservice Msg type: %v", msg.Type())
 			return sdk.ErrUnknownRequest(errMsg).Result()
@@ -42,12 +42,19 @@ func handleMsgSetName(ctx sdk.Context, keeper Keeper, msg MsgSetName) sdk.Result
 }
 
 // Handle MsgBuyName
-func handleMsgBuyName(ctx sdk.Context, keeper Keeper, msg MsgBuyName) sdk.Result {
-	if keeper.GetPrice(ctx, msg.NameID).IsAllGT(msg.Bid) { // Checks if the the bid price is greater than the price paid by the current owner
+func handleMsgBuyCardScheme(ctx sdk.Context, keeper Keeper, msg MsgBuyCardScheme) sdk.Result {
+	lastId := keeper.GetLastCardScheme(ctx) // first get last card bought id
+	gottenId, err := strconv.Atoi(lastId)
+	currId := string(gottenId + 1)
+	if err != nil {
+      return sdk.ErrUnknownRequest("GetLastCardScheme Atoi mess up").Result()
+  }
+
+	if keeper.GetPrice(ctx, currId).IsAllGT(msg.Bid) { // Checks if the the bid price is greater than the price paid by the current owner
 		return sdk.ErrInsufficientCoins("Bid not high enough").Result() // If not, throw an error
 	}
-	if keeper.HasOwner(ctx, msg.NameID) {
-		_, err := keeper.coinKeeper.SendCoins(ctx, msg.Buyer, keeper.GetOwner(ctx, msg.NameID), msg.Bid)
+	if keeper.HasOwner(ctx, currId) {
+		_, err := keeper.coinKeeper.SendCoins(ctx, msg.Buyer, keeper.GetOwner(ctx, currId), msg.Bid)
 		if err != nil {
 			return sdk.ErrInsufficientCoins("Buyer does not have enough coins").Result()
 		}
@@ -57,7 +64,7 @@ func handleMsgBuyName(ctx sdk.Context, keeper Keeper, msg MsgBuyName) sdk.Result
 			return sdk.ErrInsufficientCoins("Buyer does not have enough coins").Result()
 		}
 	}
-	keeper.SetOwner(ctx, msg.NameID, msg.Buyer)
-	keeper.SetPrice(ctx, msg.NameID, msg.Bid)
+	keeper.SetOwner(ctx, currId, msg.Buyer)
+	keeper.SetPrice(ctx, currId, msg.Bid)
 	return sdk.Result{}
 }

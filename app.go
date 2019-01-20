@@ -32,7 +32,8 @@ type nameserviceApp struct {
 	keyNSnames       *sdk.KVStoreKey
 	keyNSowners      *sdk.KVStoreKey
 	keyNSprices      *sdk.KVStoreKey
-	keyNStypes      *sdk.KVStoreKey
+	keyNStypes       *sdk.KVStoreKey
+	keyCSinternal		 *sdk.KVStoreKey
 	keyFeeCollection *sdk.KVStoreKey
 
 	accountKeeper       auth.AccountKeeper
@@ -61,6 +62,7 @@ func NewnameserviceApp(logger log.Logger, db dbm.DB) *nameserviceApp {
 		keyNSowners:      sdk.NewKVStoreKey("ns_owners"),
 		keyNSprices:      sdk.NewKVStoreKey("ns_prices"),
 		keyNStypes:       sdk.NewKVStoreKey("ns_types"),
+		keyCSinternal:		sdk.NewKVStoreKey("cs_internal"),
 		keyFeeCollection: sdk.NewKVStoreKey("fee_collection"),
 	}
 
@@ -85,6 +87,7 @@ func NewnameserviceApp(logger log.Logger, db dbm.DB) *nameserviceApp {
 		app.keyNSowners,
 		app.keyNSprices,
 		app.keyNStypes,
+		app.keyCSinternal,
 		app.cdc,
 	)
 
@@ -111,6 +114,7 @@ func NewnameserviceApp(logger log.Logger, db dbm.DB) *nameserviceApp {
 		app.keyNSowners,
 		app.keyNSprices,
 		app.keyNStypes,
+		app.keyCSinternal,
 	)
 
 	err := app.LoadLatestVersion(app.keyMain)
