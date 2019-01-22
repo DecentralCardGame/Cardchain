@@ -43,11 +43,15 @@ func handleMsgSetName(ctx sdk.Context, keeper Keeper, msg MsgSetName) sdk.Result
 
 // Handle MsgBuyName
 func handleMsgBuyCardScheme(ctx sdk.Context, keeper Keeper, msg MsgBuyCardScheme) sdk.Result {
+
 	lastId := keeper.GetLastCardScheme(ctx) // first get last card bought id
+	if lastId == "" {
+		lastId = "0"
+	}
 	gottenId, err := strconv.Atoi(lastId)
-	currId := string(gottenId + 1)
+	currId := strconv.Itoa(gottenId+1)		// iterate it by 1
 	if err != nil {
-      return sdk.ErrUnknownRequest("GetLastCardScheme Atoi mess up").Result()
+      return sdk.ErrUnknownRequest("GetLastCardScheme Atoi mess up: "+currId).Result()
   }
 
 	if keeper.GetPrice(ctx, currId).IsAllGT(msg.Bid) { // Checks if the the bid price is greater than the price paid by the current owner
@@ -64,6 +68,8 @@ func handleMsgBuyCardScheme(ctx sdk.Context, keeper Keeper, msg MsgBuyCardScheme
 			return sdk.ErrInsufficientCoins("Buyer does not have enough coins").Result()
 		}
 	}
+
+	keeper.SetLastCardScheme(ctx, currId)
 	keeper.SetOwner(ctx, currId, msg.Buyer)
 	keeper.SetPrice(ctx, currId, msg.Bid)
 	return sdk.Result{}

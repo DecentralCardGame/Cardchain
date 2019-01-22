@@ -80,9 +80,9 @@ func (msg MsgBuyCardScheme) ValidateBasic() sdk.Error {
 	if msg.Buyer.Empty() {
 		return sdk.ErrInvalidAddress(msg.Buyer.String())
 	}
-	if len(msg.NameID) == 0 {
+	/*if len(msg.NameID) == 0 {
 		return sdk.ErrUnknownRequest("Name cannot be empty")
-	}
+	}*/
 	if !msg.Bid.IsPositive() {
 		return sdk.ErrInsufficientCoins("Bids must be positive")
 	}
