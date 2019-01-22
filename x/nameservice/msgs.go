@@ -55,7 +55,7 @@ func (msg MsgSetName) GetSigners() []sdk.AccAddress {
 
 // MsgBuyName defines the BuyName message
 type MsgBuyCardScheme struct {
-	NameID string
+	//NameID string
 	Bid    sdk.Coins
 	Buyer  sdk.AccAddress
 }
@@ -73,7 +73,7 @@ func NewMsgBuyCardScheme(bid sdk.Coins, buyer sdk.AccAddress) MsgBuyCardScheme {
 func (msg MsgBuyCardScheme) Route() string { return "nameservice" }
 
 // Type Implements Msg.
-func (msg MsgBuyCardScheme) Type() string { return "buy_name" }
+func (msg MsgBuyCardScheme) Type() string { return "buy_card_scheme" }
 
 // ValidateBasic Implements Msg.
 func (msg MsgBuyCardScheme) ValidateBasic() sdk.Error {

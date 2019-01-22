@@ -15,9 +15,9 @@ import (
 // GetCmdBuyCardScheme is the CLI command for sending a BuyCardScheme transaction
 func GetCmdBuyCardScheme(cdc *codec.Codec) *cobra.Command {
 	return &cobra.Command{
-		Use:   "buy-name [name] [amount]",
-		Short: "bid for existing name or claim new name",
-		Args:  cobra.ExactArgs(2),
+		Use:   "buy-card-scheme [amount]",
+		Short: "bid for a card scheme",
+		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			cliCtx := context.NewCLIContext().WithCodec(cdc).WithAccountDecoder(cdc)
 
@@ -27,7 +27,7 @@ func GetCmdBuyCardScheme(cdc *codec.Codec) *cobra.Command {
 				return err
 			}
 
-			coins, err := sdk.ParseCoins(args[1])
+			coins, err := sdk.ParseCoins(args[0])
 			if err != nil {
 				return err
 			}

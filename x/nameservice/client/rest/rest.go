@@ -19,23 +19,23 @@ const (
 
 // RegisterRoutes - Central function to define routes that get registered by the main application
 func RegisterRoutes(cliCtx context.CLIContext, r *mux.Router, cdc *codec.Codec, storeName string) {
-	r.HandleFunc(fmt.Sprintf("/%s/names", storeName), buyNameHandler(cdc, cliCtx)).Methods("POST")
+	r.HandleFunc(fmt.Sprintf("/%s/names", storeName), buyCardSchemeHandler(cdc, cliCtx)).Methods("POST")
 	r.HandleFunc(fmt.Sprintf("/%s/names", storeName), setNameHandler(cdc, cliCtx)).Methods("PUT")
 	r.HandleFunc(fmt.Sprintf("/%s/types", storeName), setTypeHandler(cdc, cliCtx)).Methods("PUT")
 	r.HandleFunc(fmt.Sprintf("/%s/names/{%s}", storeName, restName), resolveNameHandler(cdc, cliCtx, storeName)).Methods("GET")
 	r.HandleFunc(fmt.Sprintf("/%s/names/{%s}/whois", storeName, restName), whoIsHandler(cdc, cliCtx, storeName)).Methods("GET")
 }
 
-type buyNameReq struct {
+type buyCardSchemeReq struct {
 	BaseReq utils.BaseReq `json:"base_req"`
-	Name    string        `json:"name"`
+	//Name    string        `json:"name"`
 	Amount  string        `json:"amount"`
 	Buyer   string        `json:"buyer"`
 }
 
-func buyNameHandler(cdc *codec.Codec, cliCtx context.CLIContext) http.HandlerFunc {
+func buyCardSchemeHandler(cdc *codec.Codec, cliCtx context.CLIContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		var req buyNameReq
+		var req buyCardSchemeReq
 		err := utils.ReadRESTReq(w, r, cdc, &req)
 		if err != nil {
 			utils.WriteErrorResponse(w, http.StatusBadRequest, err.Error())
