@@ -20,7 +20,7 @@ import (
 )
 
 const (
-	appName = "nameservice"
+	appName = "cardservice"
 )
 
 type nameserviceApp struct {
@@ -117,6 +117,11 @@ func NewnameserviceApp(logger log.Logger, db dbm.DB) *nameserviceApp {
 		app.keyCSinternal,
 	)
 
+
+
+	app.SetEndBlocker(app.blaTerror)
+
+
 	err := app.LoadLatestVersion(app.keyMain)
 	if err != nil {
 		cmn.Exit(err.Error())
@@ -124,6 +129,17 @@ func NewnameserviceApp(logger log.Logger, db dbm.DB) *nameserviceApp {
 
 	return app
 }
+
+func (asdf *nameserviceApp) blaTerror(deliverStateContext sdk.Context, req abci.RequestEndBlock) abci.ResponseEndBlock {
+	panic(penis)
+	return abci.ResponseEndBlock{}
+}
+
+/*
+func (ba *bam.BaseApp) EndTerror(deliverStateContext sdk.Context, req string) sdk.EndBlocker {
+	return abci.ResponseEndBlock{}
+}
+*/
 
 // GenesisState represents chain state at the start of the chain. Any initial state (account balances) are stored here.
 type GenesisState struct {
