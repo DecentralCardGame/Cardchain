@@ -112,3 +112,16 @@ func (k Keeper) SetLastCardScheme(ctx sdk.Context, lastId string) {
 	store := ctx.KVStore(k.internalStoreKey)
 	store.Set([]byte("lastCardScheme"), []byte(lastId))
 }
+
+// GetPrice - gets the current price of a card.  If price doesn't exist yet, set to 1steak.
+func (k Keeper) GetSchemeAuctionPrice(ctx sdk.Context) string {
+	store := ctx.KVStore(k.internalStoreKey)
+	bz := store.Get([]byte("currentCardSchemeAuctionPrice"))
+	return string(bz)
+}
+
+// SetPrice - sets the current price of a name
+func (k Keeper) SetSchemeAuctionPrice(ctx sdk.Context, price string) {
+	store := ctx.KVStore(k.internalStoreKey)
+	store.Set([]byte("currentCardSchemeAuctionPrice"), []byte(price))
+}

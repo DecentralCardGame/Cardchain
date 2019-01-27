@@ -2,6 +2,7 @@ package app
 
 import (
 	"encoding/json"
+	"encoding/binary"
 
 	"github.com/tendermint/tendermint/libs/log"
 
@@ -117,10 +118,8 @@ func NewnameserviceApp(logger log.Logger, db dbm.DB) *nameserviceApp {
 		app.keyCSinternal,
 	)
 
-
-
-	app.SetEndBlocker(app.blaTerror)
-
+	// The EndBlocker is called at the end of each block after txs are handled
+	app.SetEndBlocker(app.blockHandler)
 
 	err := app.LoadLatestVersion(app.keyMain)
 	if err != nil {
@@ -130,16 +129,26 @@ func NewnameserviceApp(logger log.Logger, db dbm.DB) *nameserviceApp {
 	return app
 }
 
-func (asdf *nameserviceApp) blaTerror(deliverStateContext sdk.Context, req abci.RequestEndBlock) abci.ResponseEndBlock {
-	panic(penis)
-	return abci.ResponseEndBlock{}
-}
+func (app *nameserviceApp) blockHandler(ctx sdk.Context, req abci.RequestEndBlock) abci.ResponseEndBlock {
 
-/*
-func (ba *bam.BaseApp) EndTerror(deliverStateContext sdk.Context, req string) sdk.EndBlocker {
+
+	store := ctx.KVStore(app.keyCSinternal)
+	bz := store.Get([]byte("currentCardSchemeAuctionPrice"))
+	data := binary.BigEndian.Uint64(bz)
+
+	//fmt.Println("price is: "+string(data)) // put whatever logging is possible in cosmos-sdk here
+
+	if(data == 0) {
+
+		var price uint64 = 1000
+		b := make([]byte, 8)
+		binary.BigEndian.PutUint64(b, price)
+
+		store.Set([]byte("currentCardSchemeAuctionPrice"), []byte(b))
+	}
+
 	return abci.ResponseEndBlock{}
 }
-*/
 
 // GenesisState represents chain state at the start of the chain. Any initial state (account balances) are stored here.
 type GenesisState struct {
