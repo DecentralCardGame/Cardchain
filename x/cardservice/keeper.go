@@ -122,9 +122,15 @@ func (k Keeper) GetCardAuctionPrice(ctx sdk.Context) uint64 {
 		return price
 }
 
+func (k Keeper) SetCardAuctionPrice(ctx sdk.Context, price uint64) {
+	store := ctx.KVStore(k.internalStoreKey)
+	b := make([]byte, 8)
+	binary.BigEndian.PutUint64(b, price)
+	store.Set([]byte("currentCardSchemeAuctionPrice"), []byte(b))
+}
+
 //
 func (k Keeper) DoubleCardSchemeAuctionPrice(ctx sdk.Context) {
-
 	store := ctx.KVStore(k.internalStoreKey)
 	bz := store.Get([]byte("currentCardSchemeAuctionPrice"))
 	store.Set([]byte("lastCardScheme"), []byte(bz))

@@ -2,7 +2,7 @@ package app
 
 import (
 	"encoding/json"
-	"encoding/binary"
+	//"encoding/binary"
 	"strconv"
 
 	"github.com/tendermint/tendermint/libs/log"
@@ -131,25 +131,13 @@ func NewcardserviceApp(logger log.Logger, db dbm.DB) *cardserviceApp {
 }
 
 func (app *cardserviceApp) blockHandler(ctx sdk.Context, req abci.RequestEndBlock) abci.ResponseEndBlock {
+	// update the price of card auction (currently 1% decay per block)
+	price := app.csKeeper.GetCardAuctionPrice(ctx)
+	newprice := price - uint64(float64(price)*0.01)
+	app.csKeeper.SetCardAuctionPrice(ctx, newprice)
 
-
-	store := ctx.KVStore(app.keyCSinternal)
-	bz := store.Get([]byte("currentCardSchemeAuctionPrice"))
-	price := binary.BigEndian.Uint64(bz)
-
-	//GetCardAuctionPrice
-
-	app.Logger.Info("price: "+strconv.FormatUint(price, 10))
 	//app.Logger.Info("len: "+strconv.Itoa(len(bz)))
-
-	if(price > 0) {
-
-		b := make([]byte, 8)
-		binary.BigEndian.PutUint64(b, price - uint64((float64(price)*0.1)))
-
-		store.Set([]byte("currentCardSchemeAuctionPrice"), []byte(b))
-	}
-
+	app.Logger.Info("price: "+strconv.FormatUint(price, 10))
 	return abci.ResponseEndBlock{}
 }
 
