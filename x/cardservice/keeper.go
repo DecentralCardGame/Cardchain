@@ -1,6 +1,8 @@
-package nameservice
+package cardservice
 
 import (
+	"encoding/binary"
+
 	"github.com/cosmos/cosmos-sdk/codec"
 	"github.com/cosmos/cosmos-sdk/x/bank"
 
@@ -67,7 +69,7 @@ func (k Keeper) SetOwner(ctx sdk.Context, name string, owner sdk.AccAddress) {
 	store.Set([]byte(name), owner)
 }
 
-// GetPrice - gets the current price of a card.  If price doesn't exist yet, set to 1steak.
+// GetPrice - gets the current price of a name.  If price doesn't exist yet, set to 1steak.
 func (k Keeper) GetPrice(ctx sdk.Context, name string) sdk.Coins {
 	if !k.HasOwner(ctx, name) {
 		return sdk.Coins{sdk.NewInt64Coin("mycoin", 1)}
@@ -113,15 +115,17 @@ func (k Keeper) SetLastCardScheme(ctx sdk.Context, lastId string) {
 	store.Set([]byte("lastCardScheme"), []byte(lastId))
 }
 
-// GetPrice - gets the current price of a card.  If price doesn't exist yet, set to 1steak.
-func (k Keeper) GetSchemeAuctionPrice(ctx sdk.Context) string {
-	store := ctx.KVStore(k.internalStoreKey)
-	bz := store.Get([]byte("currentCardSchemeAuctionPrice"))
-	return string(bz)
+func (k Keeper) GetCardAuctionPrice(ctx sdk.Context) uint64 {
+		store := ctx.KVStore(k.internalStoreKey)
+		bz := store.Get([]byte("currentCardSchemeAuctionPrice"))
+		price := binary.BigEndian.Uint64(bz)
+		return price
 }
 
-// SetPrice - sets the current price of a name
-func (k Keeper) SetSchemeAuctionPrice(ctx sdk.Context, price string) {
+//
+func (k Keeper) DoubleCardSchemeAuctionPrice(ctx sdk.Context) {
+
 	store := ctx.KVStore(k.internalStoreKey)
-	store.Set([]byte("currentCardSchemeAuctionPrice"), []byte(price))
+	bz := store.Get([]byte("currentCardSchemeAuctionPrice"))
+	store.Set([]byte("lastCardScheme"), []byte(bz))
 }

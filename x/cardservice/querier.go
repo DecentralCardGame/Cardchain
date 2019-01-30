@@ -1,4 +1,4 @@
-package nameservice
+package cardservice
 
 import (
 	"github.com/cosmos/cosmos-sdk/codec"
@@ -22,7 +22,7 @@ func NewQuerier(keeper Keeper) sdk.Querier {
 		case QueryWhois:
 			return queryWhois(ctx, path[1:], req, keeper)
 		default:
-			return nil, sdk.ErrUnknownRequest("unknown nameservice query endpoint")
+			return nil, sdk.ErrUnknownRequest("unknown cardservice query endpoint")
 		}
 	}
 }

@@ -1,4 +1,4 @@
-package nameservice
+package cardservice
 
 import (
 	"encoding/json"
@@ -23,10 +23,10 @@ func NewMsgSetName(name string, value string, owner sdk.AccAddress) MsgSetName {
 }
 
 // Name Implements Msg.
-func (msg MsgSetName) Route() string { return "nameservice" }
+func (msg MsgSetName) Route() string { return "cardservice" }
 
 // Type Implements Msg.
-func (msg MsgSetName) Type() string { return "set_name" }
+func (msg MsgSetName) Type() string { return "set_card" }
 
 // ValdateBasic Implements Msg.
 func (msg MsgSetName) ValidateBasic() sdk.Error {
@@ -70,7 +70,7 @@ func NewMsgBuyCardScheme(bid sdk.Coins, buyer sdk.AccAddress) MsgBuyCardScheme {
 }
 
 // Name Implements Msg.
-func (msg MsgBuyCardScheme) Route() string { return "nameservice" }
+func (msg MsgBuyCardScheme) Route() string { return "cardservice" }
 
 // Type Implements Msg.
 func (msg MsgBuyCardScheme) Type() string { return "buy_card_scheme" }

@@ -3,6 +3,7 @@ package app
 import (
 	"encoding/json"
 	"encoding/binary"
+	"strconv"
 
 	"github.com/tendermint/tendermint/libs/log"
 
@@ -10,7 +11,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/x/auth"
 	"github.com/cosmos/cosmos-sdk/x/bank"
 	"github.com/cosmos/cosmos-sdk/x/stake"
-	"github.com/DecentralCardGame/Cardchain/x/nameservice"
+	"github.com/DecentralCardGame/Cardchain/x/cardservice"
 
 	bam "github.com/cosmos/cosmos-sdk/baseapp"
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -24,7 +25,7 @@ const (
 	appName = "cardservice"
 )
 
-type nameserviceApp struct {
+type cardserviceApp struct {
 	*bam.BaseApp
 	cdc *codec.Codec
 
@@ -40,11 +41,11 @@ type nameserviceApp struct {
 	accountKeeper       auth.AccountKeeper
 	bankKeeper          bank.Keeper
 	feeCollectionKeeper auth.FeeCollectionKeeper
-	nsKeeper            nameservice.Keeper
+	csKeeper            cardservice.Keeper
 }
 
-// NewnameserviceApp is a constructor function for nameserviceApp
-func NewnameserviceApp(logger log.Logger, db dbm.DB) *nameserviceApp {
+// NewcardserviceApp is a constructor function for cardserviceApp
+func NewcardserviceApp(logger log.Logger, db dbm.DB) *cardserviceApp {
 
 	// First define the top level codec that will be shared by the different modules
 	cdc := MakeCodec()
@@ -53,7 +54,7 @@ func NewnameserviceApp(logger log.Logger, db dbm.DB) *nameserviceApp {
 	bApp := bam.NewBaseApp(appName, logger, db, auth.DefaultTxDecoder(cdc))
 
 	// Here you initialize your application with the store keys it requires
-	var app = &nameserviceApp{
+	var app = &cardserviceApp{
 		BaseApp: bApp,
 		cdc:     cdc,
 
@@ -80,9 +81,9 @@ func NewnameserviceApp(logger log.Logger, db dbm.DB) *nameserviceApp {
 	// The FeeCollectionKeeper collects transaction fees and renders them to the fee distribution module
 	app.feeCollectionKeeper = auth.NewFeeCollectionKeeper(cdc, app.keyFeeCollection)
 
-	// The NameserviceKeeper is the Keeper from the module for this tutorial
-	// It handles interactions with the namestore
-	app.nsKeeper = nameservice.NewKeeper(
+	// The CardserviceKeeper is the Keeper from the module for this tutorial
+	// It handles interactions with the cardstore
+	app.csKeeper = cardservice.NewKeeper(
 		app.bankKeeper,
 		app.keyNSnames,
 		app.keyNSowners,
@@ -96,14 +97,14 @@ func NewnameserviceApp(logger log.Logger, db dbm.DB) *nameserviceApp {
 	app.SetAnteHandler(auth.NewAnteHandler(app.accountKeeper, app.feeCollectionKeeper))
 
 	// The app.Router is the main transaction router where each module registers its routes
-	// Register the bank and nameservice routes here
+	// Register the bank and cardservice routes here
 	app.Router().
 		AddRoute("bank", bank.NewHandler(app.bankKeeper)).
-		AddRoute("nameservice", nameservice.NewHandler(app.nsKeeper))
+		AddRoute("cardservice", cardservice.NewHandler(app.csKeeper))
 
 	// The app.QueryRouter is the main query router where each module registers its routes
 	app.QueryRouter().
-		AddRoute("nameservice", nameservice.NewQuerier(app.nsKeeper))
+		AddRoute("cardservice", cardservice.NewQuerier(app.csKeeper))
 
 	// The initChainer handles translating the genesis.json file into initial state for the network
 	app.SetInitChainer(app.initChainer)
@@ -129,20 +130,22 @@ func NewnameserviceApp(logger log.Logger, db dbm.DB) *nameserviceApp {
 	return app
 }
 
-func (app *nameserviceApp) blockHandler(ctx sdk.Context, req abci.RequestEndBlock) abci.ResponseEndBlock {
+func (app *cardserviceApp) blockHandler(ctx sdk.Context, req abci.RequestEndBlock) abci.ResponseEndBlock {
 
 
 	store := ctx.KVStore(app.keyCSinternal)
 	bz := store.Get([]byte("currentCardSchemeAuctionPrice"))
-	data := binary.BigEndian.Uint64(bz)
+	price := binary.BigEndian.Uint64(bz)
 
-	//fmt.Println("price is: "+string(data)) // put whatever logging is possible in cosmos-sdk here
+	//GetCardAuctionPrice
 
-	if(data == 0) {
+	app.Logger.Info("price: "+strconv.FormatUint(price, 10))
+	//app.Logger.Info("len: "+strconv.Itoa(len(bz)))
 
-		var price uint64 = 1000
+	if(price > 0) {
+
 		b := make([]byte, 8)
-		binary.BigEndian.PutUint64(b, price)
+		binary.BigEndian.PutUint64(b, price - uint64((float64(price)*0.1)))
 
 		store.Set([]byte("currentCardSchemeAuctionPrice"), []byte(b))
 	}
@@ -155,7 +158,7 @@ type GenesisState struct {
 	Accounts []*auth.BaseAccount `json:"accounts"`
 }
 
-func (app *nameserviceApp) initChainer(ctx sdk.Context, req abci.RequestInitChain) abci.ResponseInitChain {
+func (app *cardserviceApp) initChainer(ctx sdk.Context, req abci.RequestInitChain) abci.ResponseInitChain {
 	stateJSON := req.AppStateBytes
 
 	genesisState := new(GenesisState)
@@ -169,11 +172,15 @@ func (app *nameserviceApp) initChainer(ctx sdk.Context, req abci.RequestInitChai
 		app.accountKeeper.SetAccount(ctx, acc)
 	}
 
+	// initialize CardScheme auction price
+	store := ctx.KVStore(app.keyCSinternal)
+	store.Set([]byte("currentCardSchemeAuctionPrice"), []byte("1000"))
+
 	return abci.ResponseInitChain{}
 }
 
 // ExportAppStateAndValidators does the things
-func (app *nameserviceApp) ExportAppStateAndValidators() (appState json.RawMessage, validators []tmtypes.GenesisValidator, err error) {
+func (app *cardserviceApp) ExportAppStateAndValidators() (appState json.RawMessage, validators []tmtypes.GenesisValidator, err error) {
 	ctx := app.NewContext(true, abci.Header{})
 	accounts := []*auth.BaseAccount{}
 
@@ -203,7 +210,7 @@ func MakeCodec() *codec.Codec {
 	var cdc = codec.New()
 	auth.RegisterCodec(cdc)
 	bank.RegisterCodec(cdc)
-	nameservice.RegisterCodec(cdc)
+	cardservice.RegisterCodec(cdc)
 	stake.RegisterCodec(cdc)
 	sdk.RegisterCodec(cdc)
 	codec.RegisterCrypto(cdc)
