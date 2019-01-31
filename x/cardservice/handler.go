@@ -44,33 +44,30 @@ func handleMsgSetName(ctx sdk.Context, keeper Keeper, msg MsgSetName) sdk.Result
 // Handle MsgBuyName
 func handleMsgBuyCardScheme(ctx sdk.Context, keeper Keeper, msg MsgBuyCardScheme) sdk.Result {
 
-	lastId := keeper.GetLastCardScheme(ctx) // first get last card bought id
-	if lastId == "" {
-		lastId = "0"
-	}
-	gottenId, err := strconv.Atoi(lastId)
-	currId := strconv.Itoa(gottenId+1)		// iterate it by 1
-	if err != nil {
-      return sdk.ErrUnknownRequest("GetLastCardScheme Atoi mess up: "+currId).Result()
-  }
+	lastId := keeper.GetLastCardSchemeId(ctx) // first get last card bought id
+	currId := lastId+1		// iterate it by 1
+	stringId := strconv.FormatUint(currId, 10)
 
-	if keeper.GetPrice(ctx, currId).IsAllGT(msg.Bid) { // Checks if the the bid price is greater than the price paid by the current owner
+	price := keeper.GetCardAuctionPrice(ctx)
+
+	if price.IsAllGT(msg.Bid) { // Checks if the the bid price is greater than the price paid by the current owner
 		return sdk.ErrInsufficientCoins("Bid not high enough").Result() // If not, throw an error
 	}
-	if keeper.HasOwner(ctx, currId) {
-		_, err := keeper.coinKeeper.SendCoins(ctx, msg.Buyer, keeper.GetOwner(ctx, currId), msg.Bid)
+	/*if keeper.HasOwner(ctx, stringId) {
+		_, err := keeper.coinKeeper.SendCoins(ctx, msg.Buyer, keeper.GetOwner(ctx, stringId), msg.Bid)
 		if err != nil {
 			return sdk.ErrInsufficientCoins("Buyer does not have enough coins").Result()
 		}
-	} else {
+	} else {*/
 		_, _, err := keeper.coinKeeper.SubtractCoins(ctx, msg.Buyer, msg.Bid) // If so, deduct the Bid amount from the sender
 		if err != nil {
 			return sdk.ErrInsufficientCoins("Buyer does not have enough coins").Result()
 		}
-	}
+	//}
 
-	keeper.SetLastCardScheme(ctx, currId)
-	keeper.SetOwner(ctx, currId, msg.Buyer)
-	keeper.SetPrice(ctx, currId, msg.Bid)
+	keeper.SetCardAuctionPrice(ctx, price.Plus(price))
+	keeper.SetLastCardSchemeId(ctx, currId)
+	keeper.SetOwner(ctx, stringId, msg.Buyer)
+	keeper.SetPrice(ctx, stringId, msg.Bid)
 	return sdk.Result{}
 }

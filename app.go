@@ -131,13 +131,19 @@ func NewcardserviceApp(logger log.Logger, db dbm.DB) *cardserviceApp {
 }
 
 func (app *cardserviceApp) blockHandler(ctx sdk.Context, req abci.RequestEndBlock) abci.ResponseEndBlock {
+
+	app.Logger.Info("currId: "+strconv.FormatUint(app.csKeeper.GetLastCardSchemeId(ctx),10))
+
 	// update the price of card auction (currently 1% decay per block)
 	price := app.csKeeper.GetCardAuctionPrice(ctx)
-	newprice := price - uint64(float64(price)*0.01)
+	newprice, err := price.SafeMinus(sdk.Coins{sdk.NewCoin("credits", price.AmountOf("credits").Div(sdk.NewInt(100)))})
+	if err == true {
+		panic("SafeMinus did go into negative in blockHandler(..)")
+	}
 	app.csKeeper.SetCardAuctionPrice(ctx, newprice)
 
 	//app.Logger.Info("len: "+strconv.Itoa(len(bz)))
-	app.Logger.Info("price: "+strconv.FormatUint(price, 10))
+	app.Logger.Info("price: "+newprice.String())
 	return abci.ResponseEndBlock{}
 }
 
@@ -160,9 +166,11 @@ func (app *cardserviceApp) initChainer(ctx sdk.Context, req abci.RequestInitChai
 		app.accountKeeper.SetAccount(ctx, acc)
 	}
 
+	// initialize CardScheme Id
+	app.csKeeper.SetLastCardSchemeId(ctx, uint64(0))
+
 	// initialize CardScheme auction price
-	store := ctx.KVStore(app.keyCSinternal)
-	store.Set([]byte("currentCardSchemeAuctionPrice"), []byte("1000"))
+	app.csKeeper.SetCardAuctionPrice(ctx, sdk.Coins{sdk.NewInt64Coin("credits", 1000)})
 
 	return abci.ResponseInitChain{}
 }

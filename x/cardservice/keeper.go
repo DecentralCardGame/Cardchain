@@ -88,7 +88,6 @@ func (k Keeper) SetPrice(ctx sdk.Context, name string, price sdk.Coins) {
 	store.Set([]byte(name), k.cdc.MustMarshalBinaryBare(price))
 }
 
-
 // GetOwner - get the current owner of a card
 func (k Keeper) GetType(ctx sdk.Context, name string) string  {
 	store := ctx.KVStore(k.typesStoreKey)
@@ -103,35 +102,31 @@ func (k Keeper) SetType(ctx sdk.Context, name string, cardtype string) {
 }
 
 // GetLastCardScheme - get the current id of the last bought card scheme
-func (k Keeper) GetLastCardScheme(ctx sdk.Context) string  {
+func (k Keeper) GetLastCardSchemeId(ctx sdk.Context) uint64 {
 	store := ctx.KVStore(k.internalStoreKey)
 	bz := store.Get([]byte("lastCardScheme"))
-	return string(bz)
+	return binary.BigEndian.Uint64(bz)
 }
 
 // SetLastCardScheme - sets the current id of the last bought card scheme
-func (k Keeper) SetLastCardScheme(ctx sdk.Context, lastId string) {
+func (k Keeper) SetLastCardSchemeId(ctx sdk.Context, lastId uint64) {
 	store := ctx.KVStore(k.internalStoreKey)
-	store.Set([]byte("lastCardScheme"), []byte(lastId))
+	b := make([]byte, 8)
+	binary.BigEndian.PutUint64(b, lastId)
+	store.Set([]byte("lastCardScheme"), []byte(b))
 }
 
-func (k Keeper) GetCardAuctionPrice(ctx sdk.Context) uint64 {
+// returns the current price of the card scheme auction
+func (k Keeper) GetCardAuctionPrice(ctx sdk.Context) sdk.Coins {
 		store := ctx.KVStore(k.internalStoreKey)
 		bz := store.Get([]byte("currentCardSchemeAuctionPrice"))
-		price := binary.BigEndian.Uint64(bz)
+		var price sdk.Coins
+		k.cdc.MustUnmarshalBinaryBare(bz, &price)
 		return price
 }
 
-func (k Keeper) SetCardAuctionPrice(ctx sdk.Context, price uint64) {
+// sets the current price of the card scheme auction
+func (k Keeper) SetCardAuctionPrice(ctx sdk.Context, price sdk.Coins) {
 	store := ctx.KVStore(k.internalStoreKey)
-	b := make([]byte, 8)
-	binary.BigEndian.PutUint64(b, price)
-	store.Set([]byte("currentCardSchemeAuctionPrice"), []byte(b))
-}
-
-//
-func (k Keeper) DoubleCardSchemeAuctionPrice(ctx sdk.Context) {
-	store := ctx.KVStore(k.internalStoreKey)
-	bz := store.Get([]byte("currentCardSchemeAuctionPrice"))
-	store.Set([]byte("lastCardScheme"), []byte(bz))
+	store.Set([]byte("currentCardSchemeAuctionPrice"), k.cdc.MustMarshalBinaryBare(price))
 }
