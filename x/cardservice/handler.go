@@ -50,7 +50,7 @@ func handleMsgBuyCardScheme(ctx sdk.Context, keeper Keeper, msg MsgBuyCardScheme
 
 	price := keeper.GetCardAuctionPrice(ctx)
 
-	if price.IsAllGT(msg.Bid) { // Checks if the the bid price is greater than the price paid by the current owner
+	if price.IsGTE(msg.Bid) { // Checks if the the bid price is greater than the price paid by the current owner
 		return sdk.ErrInsufficientCoins("Bid not high enough").Result() // If not, throw an error
 	}
 	/*if keeper.HasOwner(ctx, stringId) {
@@ -59,15 +59,16 @@ func handleMsgBuyCardScheme(ctx sdk.Context, keeper Keeper, msg MsgBuyCardScheme
 			return sdk.ErrInsufficientCoins("Buyer does not have enough coins").Result()
 		}
 	} else {*/
-		_, _, err := keeper.coinKeeper.SubtractCoins(ctx, msg.Buyer, msg.Bid) // If so, deduct the Bid amount from the sender
+		_, _, err := keeper.coinKeeper.SubtractCoins(ctx, msg.Buyer, sdk.Coins{msg.Bid}) // If so, deduct the Bid amount from the sender
 		if err != nil {
 			return sdk.ErrInsufficientCoins("Buyer does not have enough coins").Result()
 		}
 	//}
 
+	keeper.DeltaPublicPoolCredits(ctx, price)
 	keeper.SetCardAuctionPrice(ctx, price.Plus(price))
 	keeper.SetLastCardSchemeId(ctx, currId)
 	keeper.SetOwner(ctx, stringId, msg.Buyer)
-	keeper.SetPrice(ctx, stringId, msg.Bid)
+	//keeper.SetPrice(ctx, stringId, msg.Bid)
 	return sdk.Result{}
 }

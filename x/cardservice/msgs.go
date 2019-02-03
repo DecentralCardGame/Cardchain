@@ -56,12 +56,12 @@ func (msg MsgSetName) GetSigners() []sdk.AccAddress {
 // MsgBuyName defines the BuyName message
 type MsgBuyCardScheme struct {
 	//NameID string
-	Bid    sdk.Coins
+	Bid    sdk.Coin
 	Buyer  sdk.AccAddress
 }
 
 // NewMsgBuyName is the constructor function for MsgBuyName
-func NewMsgBuyCardScheme(bid sdk.Coins, buyer sdk.AccAddress) MsgBuyCardScheme {
+func NewMsgBuyCardScheme(bid sdk.Coin, buyer sdk.AccAddress) MsgBuyCardScheme {
 	return MsgBuyCardScheme{
 		//NameID: name,
 		Bid:    bid,

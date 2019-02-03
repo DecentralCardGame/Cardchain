@@ -117,16 +117,41 @@ func (k Keeper) SetLastCardSchemeId(ctx sdk.Context, lastId uint64) {
 }
 
 // returns the current price of the card scheme auction
-func (k Keeper) GetCardAuctionPrice(ctx sdk.Context) sdk.Coins {
+func (k Keeper) GetCardAuctionPrice(ctx sdk.Context) sdk.Coin {
 		store := ctx.KVStore(k.internalStoreKey)
 		bz := store.Get([]byte("currentCardSchemeAuctionPrice"))
-		var price sdk.Coins
+		var price sdk.Coin
 		k.cdc.MustUnmarshalBinaryBare(bz, &price)
 		return price
 }
 
 // sets the current price of the card scheme auction
-func (k Keeper) SetCardAuctionPrice(ctx sdk.Context, price sdk.Coins) {
+func (k Keeper) SetCardAuctionPrice(ctx sdk.Context, price sdk.Coin) {
 	store := ctx.KVStore(k.internalStoreKey)
 	store.Set([]byte("currentCardSchemeAuctionPrice"), k.cdc.MustMarshalBinaryBare(price))
+}
+
+// gets the credits in the public pool
+func (k Keeper) GetPublicPoolCredits(ctx sdk.Context) sdk.Coin {
+		store := ctx.KVStore(k.internalStoreKey)
+		bz := store.Get([]byte("publicPoolCredits"))
+		var amount sdk.Coin
+		k.cdc.MustUnmarshalBinaryBare(bz, &amount)
+		return amount
+}
+
+// sets the credits in the public pool
+func (k Keeper) SetPublicPoolCredits(ctx sdk.Context, price sdk.Coin) {
+	store := ctx.KVStore(k.internalStoreKey)
+	store.Set([]byte("publicPoolCredits"), k.cdc.MustMarshalBinaryBare(price))
+}
+
+// adds or subtracts credits from the public pool
+func (k Keeper) DeltaPublicPoolCredits(ctx sdk.Context, delta sdk.Coin) {
+	store := ctx.KVStore(k.internalStoreKey)
+	bz := store.Get([]byte("publicPoolCredits"))
+	var amount sdk.Coin
+	k.cdc.MustUnmarshalBinaryBare(bz, &amount)
+	newAmount := amount.Plus(delta)
+	store.Set([]byte("publicPoolCredits"), k.cdc.MustMarshalBinaryBare(newAmount))
 }

@@ -136,14 +136,13 @@ func (app *cardserviceApp) blockHandler(ctx sdk.Context, req abci.RequestEndBloc
 
 	// update the price of card auction (currently 1% decay per block)
 	price := app.csKeeper.GetCardAuctionPrice(ctx)
-	newprice, err := price.SafeMinus(sdk.Coins{sdk.NewCoin("credits", price.AmountOf("credits").Div(sdk.NewInt(100)))})
-	if err == true {
-		panic("SafeMinus did go into negative in blockHandler(..)")
-	}
+	newprice := price.Minus(sdk.NewCoin("credits", price.Amount.Div(sdk.NewInt(100))))
 	app.csKeeper.SetCardAuctionPrice(ctx, newprice)
 
 	//app.Logger.Info("len: "+strconv.Itoa(len(bz)))
-	app.Logger.Info("price: "+newprice.String())
+	app.Logger.Info("auction price: "+newprice.String())
+	app.Logger.Info("public pool: "+app.csKeeper.GetPublicPoolCredits(ctx).String())
+
 	return abci.ResponseEndBlock{}
 }
 
@@ -170,7 +169,10 @@ func (app *cardserviceApp) initChainer(ctx sdk.Context, req abci.RequestInitChai
 	app.csKeeper.SetLastCardSchemeId(ctx, uint64(0))
 
 	// initialize CardScheme auction price
-	app.csKeeper.SetCardAuctionPrice(ctx, sdk.Coins{sdk.NewInt64Coin("credits", 1000)})
+	app.csKeeper.SetCardAuctionPrice(ctx, sdk.NewInt64Coin("credits", 1000))
+
+	// initialize public pool
+	app.csKeeper.SetPublicPoolCredits(ctx, sdk.NewInt64Coin("credits", 1000))
 
 	return abci.ResponseInitChain{}
 }

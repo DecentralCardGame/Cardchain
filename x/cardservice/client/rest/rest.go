@@ -53,7 +53,7 @@ func buyCardSchemeHandler(cdc *codec.Codec, cliCtx context.CLIContext) http.Hand
 			return
 		}
 
-		coins, err := sdk.ParseCoins(req.Amount)
+		coins, err := sdk.ParseCoin(req.Amount)
 		if err != nil {
 			utils.WriteErrorResponse(w, http.StatusBadRequest, err.Error())
 			return

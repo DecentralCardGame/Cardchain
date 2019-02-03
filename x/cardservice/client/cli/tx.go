@@ -27,7 +27,7 @@ func GetCmdBuyCardScheme(cdc *codec.Codec) *cobra.Command {
 				return err
 			}
 
-			coins, err := sdk.ParseCoins(args[0])
+			coins, err := sdk.ParseCoin(args[0])
 			if err != nil {
 				return err
 			}
