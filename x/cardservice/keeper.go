@@ -9,6 +9,22 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
+type Card struct {
+	owner sdk.AccAddress
+	content []byte
+	votePool sdk.Coin
+	voteRights []VoteRights
+	fairEnoughVotes int64
+	overpoweredVotes int64
+	underpoweredVotes int64
+	nerflevel int64
+}
+
+type VoteRight struct {
+	holder sdk.AccAddress
+	expireBlock int64
+}
+
 // Keeper maintains the link to data storage and exposes getter/setter methods for the various parts of the state machine
 type Keeper struct {
 	coinKeeper bank.Keeper
@@ -95,7 +111,7 @@ func (k Keeper) GetType(ctx sdk.Context, name string) string  {
 	return string(bz)
 }
 
-// SetPrice - sets the current type of a card
+// SetType - sets the current type of a card
 func (k Keeper) SetType(ctx sdk.Context, name string, cardtype string) {
 	store := ctx.KVStore(k.typesStoreKey)
 	store.Set([]byte(name), []byte(cardtype))
@@ -155,3 +171,13 @@ func (k Keeper) DeltaPublicPoolCredits(ctx sdk.Context, delta sdk.Coin) {
 	newAmount := amount.Plus(delta)
 	store.Set([]byte("publicPoolCredits"), k.cdc.MustMarshalBinaryBare(newAmount))
 }
+
+func (k Keeper) GetVoteRights(ctx sdk.Context, cardId string, voter sdk.AccAddress) []VoteRight {
+	store := ctx.KVStore(k.voteRightsStoreKey)
+	bz := store.Get(k.cdc.MustMarshalBinaryBare(voter))
+	var voteRights []VoteRight
+	k.cdc.MustUnmarshalBinaryBare(bz, &voteRights)
+	return voteRights
+}
+
+func (k Keeper) SetVoteRights(ctx sdk.Context, cardId string, voter sdk.AccAddress)

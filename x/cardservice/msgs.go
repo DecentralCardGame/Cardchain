@@ -124,7 +124,7 @@ func NewMsgSetType(name string, value string, owner sdk.AccAddress) MsgSetType {
 }
 
 // Name Implements Msg.
-func (msg MsgSetType) Route() string { return "nameservice" }
+func (msg MsgSetType) Route() string { return "cardservice" }
 
 // Type Implements Msg.
 func (msg MsgSetType) Type() string { return "set_type" }
@@ -152,4 +152,55 @@ func (msg MsgSetType) GetSignBytes() []byte {
 // GetSigners Implements Msg.
 func (msg MsgSetType) GetSigners() []sdk.AccAddress {
 	return []sdk.AccAddress{msg.Owner}
+}
+
+///////////////
+// Vote Card //
+///////////////
+
+// MsgVoteCard defines a VoteCard message
+type MsgVoteCard struct {
+	CardID string
+	Type   string
+	Voter  sdk.AccAddress
+}
+
+// NewMsgVoteCard is a constructor function for MsgVoteCard
+func NewMsgVoteCard(cardId string, type string, voter sdk.AccAddress) MsgSetType {
+	return MsgSetType{
+		CardID: cardId,
+		Type:   type,
+		Voter:  voter,
+	}
+}
+
+// Name Implements Msg.
+func (msg MsgVoteCard) Route() string { return "cardservice" }
+
+// Type Implements Msg.
+func (msg MsgVoteCard) Type() string { return "vote_card" }
+
+// ValdateBasic Implements Msg.
+func (msg MsgVoteCard) ValidateBasic() sdk.Error {
+	if msg.MsgVoteCard.Empty() {
+		return sdk.ErrInvalidAddress(msg.MsgVoteCard.String())
+	}
+	if len(msg.CardID) == 0 || len(msg.Type) == 0 {
+		return sdk.ErrUnknownRequest("CardId and/or Vote Typeui cannot be empty")
+	}
+	return nil
+}
+
+// GetSignBytes Implements Msg.
+func (msg MsgVoteCard) GetSignBytes() []byte {
+	b, err := json.Marshal(msg)
+	if err != nil {
+		panic(err)
+	}
+	return sdk.MustSortJSON(b)
+}
+
+// GetSigners Implements Msg.
+func (msg MsgVoteCard) GetSigners() []sdk.AccAddress {
+	return []sdk.AccAddress{msg.Voter}
 }

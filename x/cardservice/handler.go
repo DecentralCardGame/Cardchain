@@ -16,6 +16,8 @@ func NewHandler(keeper Keeper) sdk.Handler {
 			return handleMsgSetType(ctx, keeper, msg)
 		case MsgBuyCardScheme:
 			return handleMsgBuyCardScheme(ctx, keeper, msg)
+		case MsgVoteCard:
+			return handleMsgVoteCard(ctx, keeper, msg)
 		default:
 			errMsg := fmt.Sprintf("Unrecognized cardservice Msg type: %v", msg.Type())
 			return sdk.ErrUnknownRequest(errMsg).Result()
@@ -59,7 +61,7 @@ func handleMsgBuyCardScheme(ctx sdk.Context, keeper Keeper, msg MsgBuyCardScheme
 			return sdk.ErrInsufficientCoins("Buyer does not have enough coins").Result()
 		}
 	} else {*/
-		_, _, err := keeper.coinKeeper.SubtractCoins(ctx, msg.Buyer, sdk.Coins{msg.Bid}) // If so, deduct the Bid amount from the sender
+		_, _, err := keeper.coinKeeper.SubtractCoins(ctx, msg.Buyer, sdk.Coins{price}) // If so, deduct the Bid amount from the sender
 		if err != nil {
 			return sdk.ErrInsufficientCoins("Buyer does not have enough coins").Result()
 		}
@@ -71,4 +73,34 @@ func handleMsgBuyCardScheme(ctx sdk.Context, keeper Keeper, msg MsgBuyCardScheme
 	keeper.SetOwner(ctx, stringId, msg.Buyer)
 	//keeper.SetPrice(ctx, stringId, msg.Bid)
 	return sdk.Result{}
+}
+
+// handle vote card message
+func handleMsgVoteCard(ctx sdk.Context, keeper Keeper, msg MsgVoteCard) sdk.Result {
+
+	voteRights := keeper.GetVoteRights(ctx, msg.CardId, msg.Voter)
+
+	// check if voting rights are true
+	if(msg.Voter.voteRights contains msg.CardId) {
+		//check if voting rights are timed out
+		if(ctx.BlockHeight() - msg.Card.voteRights.blockheight < params.cardVoteDuration) {
+
+		}
+	}
+
+	// check for bounty
+	if(msg.Card.votePool > 0) {
+		msg.Voter add Coins from votepool
+	}
+
+	sdk.Result{}
+}
+
+func VoterInVoteRights(cardId string, rights []voteRights) bool {
+    for _, b := range rights {
+        if b. == cardId {
+            return true
+        }
+    }
+    return false
 }

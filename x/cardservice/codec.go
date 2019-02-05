@@ -9,4 +9,5 @@ func RegisterCodec(cdc *codec.Codec) {
 	cdc.RegisterConcrete(MsgSetName{}, "cardservice/SetName", nil)
 	cdc.RegisterConcrete(MsgBuyCardScheme{}, "cardservice/BuyCardScheme", nil)
 	cdc.RegisterConcrete(MsgSetType{}, "cardservice/SetType", nil)
+	//cdc.RegisterConcrete(VoteRight{})
 }
