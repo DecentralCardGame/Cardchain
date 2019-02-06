@@ -56,8 +56,8 @@ func queryWhois(ctx sdk.Context, path []string, req abci.RequestQuery, keeper Ke
 
 	whois.Value = keeper.ResolveName(ctx, name)
 	whois.Owner = keeper.GetOwner(ctx, name)
-	whois.Price = keeper.GetPrice(ctx, name)
-	whois.Type = keeper.GetType(ctx, name)
+	//whois.Price = keeper.GetPrice(ctx, name)
+	//whois.Type = keeper.GetType(ctx, name)
 
 	bz, err2 := codec.MarshalJSONIndent(keeper.cdc, whois)
 	if err2 != nil {

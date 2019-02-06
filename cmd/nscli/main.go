@@ -66,7 +66,7 @@ func main() {
 		version.VersionCmd,
 	)
 
-	executor := cli.PrepareMainCmd(rootCmd, "NS", defaultCLIHome)
+	executor := cli.PrepareMainCmd(rootCmd, "CS", defaultCLIHome)
 	err := executor.Execute()
 	if err != nil {
 		panic(err)

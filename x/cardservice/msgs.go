@@ -53,6 +53,10 @@ func (msg MsgSetName) GetSigners() []sdk.AccAddress {
 	return []sdk.AccAddress{msg.Owner}
 }
 
+/////////////////////
+// Buy Card Scheme //
+/////////////////////
+
 // MsgBuyName defines the BuyName message
 type MsgBuyCardScheme struct {
 	//NameID string
@@ -103,10 +107,64 @@ func (msg MsgBuyCardScheme) GetSigners() []sdk.AccAddress {
 	return []sdk.AccAddress{msg.Buyer}
 }
 
+///////////////////////
+// Save Card Content //
+///////////////////////
+
+// MsgBuyName defines the BuyName message
+type MsgSaveCardContent struct {
+	CardId	uint64
+	Content []byte
+	Owner		sdk.AccAddress
+}
+
+// NewMsgBuyName is the constructor function for MsgBuyName
+func NewMsgSaveCardContent(cardId uint64, content []byte, owner sdk.AccAddress) MsgSaveCardContent {
+	return MsgSaveCardContent{
+		CardId: 	cardId,
+		Content:	content,
+		Owner: 		owner,
+	}
+}
+
+// Name Implements Msg.
+func (msg MsgSaveCardContent) Route() string { return "cardservice" }
+
+// Type Implements Msg.
+func (msg MsgSaveCardContent) Type() string { return "save_card_content" }
+
+// ValidateBasic Implements Msg.
+func (msg MsgSaveCardContent) ValidateBasic() sdk.Error {
+	if msg.Owner.Empty() {
+		return sdk.ErrInvalidAddress(msg.Owner.String())
+	}
+	if len(msg.Content) == 0 {
+		return sdk.ErrUnknownRequest("Content cannot be empty")
+	}
+	/*if !msg.Bid.IsPositive() {
+		return sdk.ErrInsufficientCoins("Bids must be positive")
+	}*/
+	return nil
+}
+
+// GetSignBytes Implements Msg.
+func (msg MsgSaveCardContent) GetSignBytes() []byte {
+	b, err := json.Marshal(msg)
+	if err != nil {
+		panic(err)
+	}
+	return sdk.MustSortJSON(b)
+}
+
+// GetSigners Implements Msg.
+func (msg MsgSaveCardContent) GetSigners() []sdk.AccAddress {
+	return []sdk.AccAddress{msg.Owner}
+}
+
 //////////////
 // Set Type //
 //////////////
-
+/*
 // MsgSetName defines a SetName message
 type MsgSetType struct {
 	NameID string
@@ -153,24 +211,24 @@ func (msg MsgSetType) GetSignBytes() []byte {
 func (msg MsgSetType) GetSigners() []sdk.AccAddress {
 	return []sdk.AccAddress{msg.Owner}
 }
-
+*/
 ///////////////
 // Vote Card //
 ///////////////
 
 // MsgVoteCard defines a VoteCard message
 type MsgVoteCard struct {
-	CardID string
-	Type   string
-	Voter  sdk.AccAddress
+	CardID 		uint64
+	VoteType	string
+	Voter  		sdk.AccAddress
 }
 
 // NewMsgVoteCard is a constructor function for MsgVoteCard
-func NewMsgVoteCard(cardId string, type string, voter sdk.AccAddress) MsgSetType {
-	return MsgSetType{
-		CardID: cardId,
-		Type:   type,
-		Voter:  voter,
+func NewMsgVoteCard(cardId uint64, voteType string, voter sdk.AccAddress) MsgVoteCard {
+	return MsgVoteCard{
+		CardID:		cardId,
+		VoteType:	voteType,
+		Voter:		voter,
 	}
 }
 
@@ -182,11 +240,12 @@ func (msg MsgVoteCard) Type() string { return "vote_card" }
 
 // ValdateBasic Implements Msg.
 func (msg MsgVoteCard) ValidateBasic() sdk.Error {
-	if msg.MsgVoteCard.Empty() {
-		return sdk.ErrInvalidAddress(msg.MsgVoteCard.String())
+	if msg.Voter.Empty() {
+		return sdk.ErrInvalidAddress(msg.Voter.String())
 	}
-	if len(msg.CardID) == 0 || len(msg.Type) == 0 {
-		return sdk.ErrUnknownRequest("CardId and/or Vote Typeui cannot be empty")
+	// the check of CardID < 0 might be pointless.. should be validated in the rest api or nscli
+	if msg.CardID < 0 || len(msg.VoteType) == 0 {
+		return sdk.ErrUnknownRequest("CardId and/or Vote Type cannot be empty")
 	}
 	return nil
 }

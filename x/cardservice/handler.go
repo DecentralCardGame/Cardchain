@@ -2,9 +2,14 @@ package cardservice
 
 import (
 	"fmt"
-	"strconv"
+
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
+
+type VoteRight struct {
+	cardId string
+	expireBlock int64
+}
 
 // NewHandler returns a handler for "cardservice" type messages.
 func NewHandler(keeper Keeper) sdk.Handler {
@@ -12,8 +17,10 @@ func NewHandler(keeper Keeper) sdk.Handler {
 		switch msg := msg.(type) {
 		case MsgSetName:
 			return handleMsgSetName(ctx, keeper, msg)
-		case MsgSetType:
-			return handleMsgSetType(ctx, keeper, msg)
+		case MsgSaveCardContent:
+			return handleMsgSaveCardContent(ctx, keeper, msg)
+		//case MsgSetType:
+			//return handleMsgSetType(ctx, keeper, msg)
 		case MsgBuyCardScheme:
 			return handleMsgBuyCardScheme(ctx, keeper, msg)
 		case MsgVoteCard:
@@ -25,6 +32,7 @@ func NewHandler(keeper Keeper) sdk.Handler {
 	}
 }
 
+/*
 // Handle MsgSetType
 func handleMsgSetType(ctx sdk.Context, keeper Keeper, msg MsgSetType) sdk.Result {
 	if !msg.Owner.Equals(keeper.GetOwner(ctx, msg.NameID)) { // Checks if the the msg sender is the same as the current owner
@@ -33,6 +41,7 @@ func handleMsgSetType(ctx sdk.Context, keeper Keeper, msg MsgSetType) sdk.Result
 	keeper.SetType(ctx, msg.NameID, msg.Value) // If so, set the type to the value specified in the msg.
 	return sdk.Result{}                        // return
 }
+*/
 
 // Handle MsgSetName
 func handleMsgSetName(ctx sdk.Context, keeper Keeper, msg MsgSetName) sdk.Result {
@@ -48,7 +57,7 @@ func handleMsgBuyCardScheme(ctx sdk.Context, keeper Keeper, msg MsgBuyCardScheme
 
 	lastId := keeper.GetLastCardSchemeId(ctx) // first get last card bought id
 	currId := lastId+1		// iterate it by 1
-	stringId := strconv.FormatUint(currId, 10)
+	//stringId := strconv.FormatUint(currId, 10)
 
 	price := keeper.GetCardAuctionPrice(ctx)
 
@@ -70,37 +79,71 @@ func handleMsgBuyCardScheme(ctx sdk.Context, keeper Keeper, msg MsgBuyCardScheme
 	keeper.DeltaPublicPoolCredits(ctx, price)
 	keeper.SetCardAuctionPrice(ctx, price.Plus(price))
 	keeper.SetLastCardSchemeId(ctx, currId)
-	keeper.SetOwner(ctx, stringId, msg.Buyer)
-	//keeper.SetPrice(ctx, stringId, msg.Bid)
+
+	newCard := Card{
+		owner: msg.Buyer,
+		content: []byte{},
+		status: "scheme",
+		votePool: sdk.NewInt64Coin("credits", 0),
+		fairEnoughVotes: 0,
+		overpoweredVotes: 0,
+		underpoweredVotes: 0,
+		nerflevel: 0,
+	}
+
+	keeper.SetCard(ctx, currId, newCard)
+
+	return sdk.Result{}
+}
+
+func handleMsgSaveCardContent(ctx sdk.Context, keeper Keeper, msg MsgSaveCardContent) sdk.Result {
+	card := keeper.GetCard(ctx, msg.CardId)
+
+	if !msg.Owner.Equals(card.owner) { // Checks if the the msg sender is the same as the current owner
+		return sdk.ErrUnauthorized("Incorrect Owner").Result() // If not, throw an error
+	}
+
+
+
 	return sdk.Result{}
 }
 
 // handle vote card message
 func handleMsgVoteCard(ctx sdk.Context, keeper Keeper, msg MsgVoteCard) sdk.Result {
 
-	voteRights := keeper.GetVoteRights(ctx, msg.CardId, msg.Voter)
+	// TODO activate vote right check, implement sdk.Errs
+	/*
+	voteRights := keeper.GetVoteRights(ctx, msg.Voter)
+	rightsIndex := searchVoteRights(msg.CardId, voteRights)
 
 	// check if voting rights are true
-	if(msg.Voter.voteRights contains msg.CardId) {
-		//check if voting rights are timed out
-		if(ctx.BlockHeight() - msg.Card.voteRights.blockheight < params.cardVoteDuration) {
-
-		}
+	if(rightsIndex < 0) {
+		return sdk.ErrNoVoteRight("The right to vote on the card has expired")
 	}
+
+	//check if voting rights are timed out
+	if(ctx.BlockHeight() > voteRights[rightsIndex].expireBlock) {
+		return sdk.ErrVoteRightHasExpired("The right to vote on the card has expired")
+	}
+	*/
+	/*
+	// if the vote right is valid, get the Card
+	keeper.GetCard(msg.CardID)
 
 	// check for bounty
 	if(msg.Card.votePool > 0) {
 		msg.Voter add Coins from votepool
 	}
-
-	sdk.Result{}
+	*/
+	return sdk.Result{}
 }
-
-func VoterInVoteRights(cardId string, rights []voteRights) bool {
-    for _, b := range rights {
-        if b. == cardId {
-            return true
+/*
+func searchVoteRights(cardId string, rights []voteRight) int {
+    for i, b := range rights {
+        if b.cardId == cardId {
+            return i
         }
     }
-    return false
+    return -1
 }
+*/

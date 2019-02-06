@@ -31,10 +31,10 @@ type cardserviceApp struct {
 
 	keyMain          *sdk.KVStoreKey
 	keyAccount       *sdk.KVStoreKey
-	keyNSnames       *sdk.KVStoreKey
-	keyNSowners      *sdk.KVStoreKey
-	keyNSprices      *sdk.KVStoreKey
-	keyNStypes       *sdk.KVStoreKey
+	keyCScards       *sdk.KVStoreKey
+	keyCSusers      *sdk.KVStoreKey
+	//keyNSprices      *sdk.KVStoreKey
+	//keyNStypes       *sdk.KVStoreKey
 	keyCSinternal		 *sdk.KVStoreKey
 	keyFeeCollection *sdk.KVStoreKey
 
@@ -60,10 +60,10 @@ func NewcardserviceApp(logger log.Logger, db dbm.DB) *cardserviceApp {
 
 		keyMain:          sdk.NewKVStoreKey("main"),
 		keyAccount:       sdk.NewKVStoreKey("acc"),
-		keyNSnames:       sdk.NewKVStoreKey("ns_names"),
-		keyNSowners:      sdk.NewKVStoreKey("ns_owners"),
-		keyNSprices:      sdk.NewKVStoreKey("ns_prices"),
-		keyNStypes:       sdk.NewKVStoreKey("ns_types"),
+		keyCScards:       sdk.NewKVStoreKey("cs_cards"),
+		keyCSusers:	      sdk.NewKVStoreKey("cs_users"),
+		//keyNSprices:      sdk.NewKVStoreKey("ns_prices"),
+		//keyNStypes:       sdk.NewKVStoreKey("ns_types"),
 		keyCSinternal:		sdk.NewKVStoreKey("cs_internal"),
 		keyFeeCollection: sdk.NewKVStoreKey("fee_collection"),
 	}
@@ -85,10 +85,10 @@ func NewcardserviceApp(logger log.Logger, db dbm.DB) *cardserviceApp {
 	// It handles interactions with the cardstore
 	app.csKeeper = cardservice.NewKeeper(
 		app.bankKeeper,
-		app.keyNSnames,
-		app.keyNSowners,
-		app.keyNSprices,
-		app.keyNStypes,
+		app.keyCScards,
+		app.keyCSusers,
+		//app.keyNSprices,
+		//app.keyNStypes,
 		app.keyCSinternal,
 		app.cdc,
 	)
@@ -112,10 +112,10 @@ func NewcardserviceApp(logger log.Logger, db dbm.DB) *cardserviceApp {
 	app.MountStores(
 		app.keyMain,
 		app.keyAccount,
-		app.keyNSnames,
-		app.keyNSowners,
-		app.keyNSprices,
-		app.keyNStypes,
+		app.keyCScards,
+		app.keyCSusers,
+		//app.keyNSprices,
+		//app.keyNStypes,
 		app.keyCSinternal,
 	)
 
