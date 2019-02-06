@@ -1,6 +1,7 @@
 package cardservice
 
 import (
+	//"strconv"
 	"fmt"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -97,6 +98,7 @@ func handleMsgBuyCardScheme(ctx sdk.Context, keeper Keeper, msg MsgBuyCardScheme
 }
 
 func handleMsgSaveCardContent(ctx sdk.Context, keeper Keeper, msg MsgSaveCardContent) sdk.Result {
+
 	card := keeper.GetCard(ctx, msg.CardId)
 
 	if !msg.Owner.Equals(card.owner) { // Checks if the the msg sender is the same as the current owner
