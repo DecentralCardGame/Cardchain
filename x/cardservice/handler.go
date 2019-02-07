@@ -80,16 +80,7 @@ func handleMsgBuyCardScheme(ctx sdk.Context, keeper Keeper, msg MsgBuyCardScheme
 	keeper.SetCardAuctionPrice(ctx, price.Plus(price))
 	keeper.SetLastCardSchemeId(ctx, currId)
 
-	newCard := Card{
-		owner: msg.Buyer,
-		content: []byte{},
-		status: "scheme",
-		votePool: sdk.NewInt64Coin("credits", 0),
-		fairEnoughVotes: 0,
-		overpoweredVotes: 0,
-		underpoweredVotes: 0,
-		nerflevel: 0,
-	}
+	newCard := NewCard(msg.Buyer)
 
 	keeper.SetCard(ctx, currId, newCard)
 
@@ -97,13 +88,18 @@ func handleMsgBuyCardScheme(ctx sdk.Context, keeper Keeper, msg MsgBuyCardScheme
 }
 
 func handleMsgSaveCardContent(ctx sdk.Context, keeper Keeper, msg MsgSaveCardContent) sdk.Result {
-	card := keeper.GetCard(ctx, msg.CardId)
+	card :=	keeper.GetCard(ctx, msg.CardId)
 
-	if !msg.Owner.Equals(card.owner) { // Checks if the the msg sender is the same as the current owner
+	if !msg.Owner.Equals(card.Owner) { // Checks if the the msg sender is the same as the current owner
 		return sdk.ErrUnauthorized("Incorrect Owner").Result() // If not, throw an error
 	}
 
+	// card content should be deserialized and serialized here
+	// serialize it
+	// ...
 
+	card.Content = msg.Content
+	keeper.SetCard(ctx, msg.CardId, card)
 
 	return sdk.Result{}
 }

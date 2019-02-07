@@ -6,6 +6,31 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
+
+type Card struct {
+	Owner sdk.AccAddress
+	Content []byte
+	Status string
+	VotePool sdk.Coin
+	FairEnoughVotes int64
+	OverpoweredVotes int64
+	UnderpoweredVotes int64
+	Nerflevel int64
+}
+
+func NewCard(owner sdk.AccAddress) Card {
+	return Card{
+		Owner: owner,
+		Content: []byte{},
+		Status: "scheme",
+		VotePool: sdk.NewInt64Coin("credits", 0),
+		FairEnoughVotes: 0,
+		OverpoweredVotes: 0,
+		UnderpoweredVotes: 0,
+		Nerflevel: 0,
+	}
+}
+
 // MsgSetName defines a SetName message
 type MsgSetName struct {
 	NameID string

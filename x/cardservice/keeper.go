@@ -9,16 +9,6 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
-type Card struct {
-	owner sdk.AccAddress
-	content []byte
-	status string
-	votePool sdk.Coin
-	fairEnoughVotes int64
-	overpoweredVotes int64
-	underpoweredVotes int64
-	nerflevel int64
-}
 
 type User struct {
 	voteRights []VoteRight
@@ -176,9 +166,7 @@ func (k Keeper) DeltaPublicPoolCredits(ctx sdk.Context, delta sdk.Coin) {
 
 func (k Keeper) GetCard(ctx sdk.Context, cardId uint64) Card {
 	store := ctx.KVStore(k.cardsStoreKey)
-	b := make([]byte, 8)
-	binary.BigEndian.PutUint64(b, cardId)
-	bz := store.Get([]byte(b))
+	bz := store.Get(sdk.Uint64ToBigEndian(cardId))
 
 	var gottenCard Card
 	k.cdc.MustUnmarshalBinaryBare(bz, &gottenCard)
@@ -187,9 +175,7 @@ func (k Keeper) GetCard(ctx sdk.Context, cardId uint64) Card {
 
 func (k Keeper) SetCard(ctx sdk.Context, cardId uint64, newCard Card) {
 	store := ctx.KVStore(k.cardsStoreKey)
-	b := make([]byte, 8)
-	binary.BigEndian.PutUint64(b, cardId)
-	store.Set([]byte(b), k.cdc.MustMarshalBinaryBare(newCard))
+	store.Set(sdk.Uint64ToBigEndian(cardId), k.cdc.MustMarshalBinaryBare(newCard))
 }
 
 func (k Keeper) GetVoteRights(ctx sdk.Context, voter sdk.AccAddress) []VoteRight {
