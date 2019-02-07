@@ -44,6 +44,7 @@ func (mc ModuleClient) GetTxCmd() *cobra.Command {
 		cardservicecmd.GetCmdBuyCardScheme(mc.cdc),
 		cardservicecmd.GetCmdSetName(mc.cdc),
 		cardservicecmd.GetCmdSaveCardContent(mc.cdc),
+		cardservicecmd.GetCmdVoteCard(mc.cdc),
 	)...)
 
 	return govTxCmd

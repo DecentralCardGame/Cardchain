@@ -119,9 +119,7 @@ func (k Keeper) GetLastCardSchemeId(ctx sdk.Context) uint64 {
 // SetLastCardScheme - sets the current id of the last bought card scheme
 func (k Keeper) SetLastCardSchemeId(ctx sdk.Context, lastId uint64) {
 	store := ctx.KVStore(k.internalStoreKey)
-	b := make([]byte, 8)
-	binary.BigEndian.PutUint64(b, lastId)
-	store.Set([]byte("lastCardScheme"), []byte(b))
+	store.Set([]byte("lastCardScheme"), sdk.Uint64ToBigEndian(lastId))
 }
 
 // returns the current price of the card scheme auction

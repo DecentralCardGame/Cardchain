@@ -89,12 +89,8 @@ func handleMsgBuyCardScheme(ctx sdk.Context, keeper Keeper, msg MsgBuyCardScheme
 }
 
 func handleMsgSaveCardContent(ctx sdk.Context, keeper Keeper, msg MsgSaveCardContent) sdk.Result {
-<<<<<<< HEAD
-	card :=	keeper.GetCard(ctx, msg.CardId)
-=======
 
 	card := keeper.GetCard(ctx, msg.CardId)
->>>>>>> eba47594cd5ebda453005800f2bc8c8897621150
 
 	if !msg.Owner.Equals(card.Owner) { // Checks if the the msg sender is the same as the current owner
 		return sdk.ErrUnauthorized("Incorrect Owner").Result() // If not, throw an error
@@ -103,6 +99,9 @@ func handleMsgSaveCardContent(ctx sdk.Context, keeper Keeper, msg MsgSaveCardCon
 	// card content should be deserialized and serialized here
 	// serialize it
 	// ...
+
+	// TODO cards get a starting pool currently, this should be removed later and the starting pool should come after council decision
+	card.VotePool.Plus(sdk.NewInt64Coin("credits", 10))
 
 	card.Content = msg.Content
 	keeper.SetCard(ctx, msg.CardId, card)
@@ -128,15 +127,38 @@ func handleMsgVoteCard(ctx sdk.Context, keeper Keeper, msg MsgVoteCard) sdk.Resu
 		return sdk.ErrVoteRightHasExpired("The right to vote on the card has expired")
 	}
 	*/
-	/*
-	// if the vote right is valid, get the Card
-	keeper.GetCard(msg.CardID)
 
-	// check for bounty
-	if(msg.Card.votePool > 0) {
-		msg.Voter add Coins from votepool
+	// if the vote right is valid, get the Card
+	card := keeper.GetCard(ctx, msg.CardID)
+
+	// check if card status is valid // TODO enable
+	/*
+	if(card.Status != "permanent" && card.Status != "trial") {
+		return sdk.ErrUnknownRequest("Voting on a card is only possible if it is in trial or a permanent card").Result()
 	}
 	*/
+
+	switch msg.VoteType {
+	case "fairenough":
+		card.FairEnoughVotes++
+	case "inappropriate":
+		card.InappropriateVotes++
+	case "overpowered":
+		card.OverpoweredVotes++
+	case "underpowered":
+		card.UnderpoweredVotes++
+	default:
+		errMsg := fmt.Sprintf("Unrecognized card vote type: %s", msg.VoteType)
+		return sdk.ErrUnknownRequest(errMsg).Result()
+	}
+
+	// check for bounty
+	if(!card.VotePool.IsZero()) {
+		card.VotePool.Minus(sdk.NewInt64Coin("credits", 1))
+		keeper.coinKeeper.AddCoins(ctx, msg.Voter, sdk.Coins{sdk.NewInt64Coin("credits", 1)})
+	}
+
+
 	return sdk.Result{}
 }
 /*

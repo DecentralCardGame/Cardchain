@@ -12,9 +12,10 @@ type Card struct {
 	Content []byte
 	Status string
 	VotePool sdk.Coin
-	FairEnoughVotes int64
-	OverpoweredVotes int64
-	UnderpoweredVotes int64
+	FairEnoughVotes uint64
+	OverpoweredVotes uint64
+	UnderpoweredVotes uint64
+	InappropriateVotes uint64
 	Nerflevel int64
 }
 
@@ -27,6 +28,7 @@ func NewCard(owner sdk.AccAddress) Card {
 		FairEnoughVotes: 0,
 		OverpoweredVotes: 0,
 		UnderpoweredVotes: 0,
+		InappropriateVotes: 0,
 		Nerflevel: 0,
 	}
 }
@@ -186,57 +188,6 @@ func (msg MsgSaveCardContent) GetSigners() []sdk.AccAddress {
 	return []sdk.AccAddress{msg.Owner}
 }
 
-//////////////
-// Set Type //
-//////////////
-/*
-// MsgSetName defines a SetName message
-type MsgSetType struct {
-	NameID string
-	Value  string
-	Owner  sdk.AccAddress
-}
-
-// NewSetNameMsg is a constructor function for MsgSetType
-func NewMsgSetType(name string, value string, owner sdk.AccAddress) MsgSetType {
-	return MsgSetType{
-		NameID: name,
-		Value:  value,
-		Owner:  owner,
-	}
-}
-
-// Name Implements Msg.
-func (msg MsgSetType) Route() string { return "cardservice" }
-
-// Type Implements Msg.
-func (msg MsgSetType) Type() string { return "set_type" }
-
-// ValdateBasic Implements Msg.
-func (msg MsgSetType) ValidateBasic() sdk.Error {
-	if msg.Owner.Empty() {
-		return sdk.ErrInvalidAddress(msg.Owner.String())
-	}
-	if len(msg.NameID) == 0 || len(msg.Value) == 0 {
-		return sdk.ErrUnknownRequest("Name and/or Value cannot be empty")
-	}
-	return nil
-}
-
-// GetSignBytes Implements Msg.
-func (msg MsgSetType) GetSignBytes() []byte {
-	b, err := json.Marshal(msg)
-	if err != nil {
-		panic(err)
-	}
-	return sdk.MustSortJSON(b)
-}
-
-// GetSigners Implements Msg.
-func (msg MsgSetType) GetSigners() []sdk.AccAddress {
-	return []sdk.AccAddress{msg.Owner}
-}
-*/
 ///////////////
 // Vote Card //
 ///////////////
@@ -288,3 +239,7 @@ func (msg MsgVoteCard) GetSignBytes() []byte {
 func (msg MsgVoteCard) GetSigners() []sdk.AccAddress {
 	return []sdk.AccAddress{msg.Voter}
 }
+
+////////////////////
+// Donate to Card //
+////////////////////
