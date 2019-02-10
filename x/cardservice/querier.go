@@ -29,9 +29,10 @@ func NewQuerier(keeper Keeper) sdk.Querier {
 
 // nolint: unparam
 func queryResolve(ctx sdk.Context, path []string, req abci.RequestQuery, keeper Keeper) (res []byte, err sdk.Error) {
-	name := path[0]
+	//name := path[0]
 
-	value := keeper.ResolveName(ctx, name)
+	//value := keeper.ResolveName(ctx, name)
+	value := ""
 
 	if value == "" {
 		return []byte{}, sdk.ErrUnknownRequest("could not resolve name")
@@ -50,12 +51,12 @@ type Whois struct {
 
 // nolint: unparam
 func queryWhois(ctx sdk.Context, path []string, req abci.RequestQuery, keeper Keeper) (res []byte, err sdk.Error) {
-	name := path[0]
+	//name := path[0]
 
 	whois := Whois{}
 
-	whois.Value = keeper.ResolveName(ctx, name)
-	whois.Owner = keeper.GetOwner(ctx, name)
+	whois.Value = "" //keeper.ResolveName(ctx, name)
+	whois.Owner = nil //keeper.GetOwner(ctx, name)
 	//whois.Price = keeper.GetPrice(ctx, name)
 	//whois.Type = keeper.GetType(ctx, name)
 

@@ -257,31 +257,34 @@ type MsgTransferCard struct {
 func NewMsgTransferCard(cardId uint64, source sdk.AccAddress, target sdk.AccAddress) MsgTransferCard {
 	return MsgTransferCard{
 		CardID:		cardId,
-		VoteType:	voteType,
-		Voter:		voter,
+		Source:		source,
+		Target:		target,
 	}
 }
 
 // Name Implements Msg.
-func (msg MsgVoteCard) Route() string { return "cardservice" }
+func (msg MsgTransferCard) Route() string { return "cardservice" }
 
 // Type Implements Msg.
-func (msg MsgVoteCard) Type() string { return "vote_card" }
+func (msg MsgTransferCard) Type() string { return "vote_card" }
 
 // ValdateBasic Implements Msg.
-func (msg MsgVoteCard) ValidateBasic() sdk.Error {
-	if msg.Voter.Empty() {
-		return sdk.ErrInvalidAddress(msg.Voter.String())
+func (msg MsgTransferCard) ValidateBasic() sdk.Error {
+	if msg.Source.Empty() {
+		return sdk.ErrInvalidAddress(msg.Source.String())
+	}
+	if msg.Target.Empty() {
+		return sdk.ErrInvalidAddress(msg.Target.String())
 	}
 	// the check of CardID < 0 might be pointless.. should be validated in the rest api or nscli
-	if msg.CardID < 0 || len(msg.VoteType) == 0 {
+	if msg.CardID < 0 {
 		return sdk.ErrUnknownRequest("CardId and/or Vote Type cannot be empty")
 	}
 	return nil
 }
 
 // GetSignBytes Implements Msg.
-func (msg MsgVoteCard) GetSignBytes() []byte {
+func (msg MsgTransferCard) GetSignBytes() []byte {
 	b, err := json.Marshal(msg)
 	if err != nil {
 		panic(err)
@@ -298,12 +301,12 @@ func (msg MsgVoteCard) GetSignBytes() []byte {
 type MsgDonateToCard struct {
 	CardID 		uint64
 	Donator 	sdk.AccAddress
-	Amount		bid sdk.Coin
+	Amount		sdk.Coin
 }
 
 // NewMsgMsgDonateToCard is a constructor function for MsgDonateToCard
-func NewMsgDonateToCard(cardId uint64, donator sdk.AccAddress, amount sdk.Coin) MsgTransferCard {
-	return MsgTransferCard{
+func NewMsgDonateToCard(cardId uint64, donator sdk.AccAddress, amount sdk.Coin) MsgDonateToCard {
+	return MsgDonateToCard{
 		CardID:		cardId,
 		Donator:	donator,
 		Amount:		amount,
@@ -322,7 +325,7 @@ func (msg MsgDonateToCard) ValidateBasic() sdk.Error {
 		return sdk.ErrInvalidAddress(msg.Donator.String())
 	}
 	// the check of CardID < 0 might be pointless.. should be validated in the rest api or nscli
-	if msg.CardID < 0 || msg.Amount.Amount <= 0 {
+	if msg.CardID < 0 || msg.Amount.IsZero() {
 		return sdk.ErrUnknownRequest("CardId cannot be empty and Amount must be positive")
 	}
 	return nil
