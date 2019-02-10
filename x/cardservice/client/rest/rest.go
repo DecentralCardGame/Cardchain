@@ -20,8 +20,8 @@ const (
 // RegisterRoutes - Central function to define routes that get registered by the main application
 func RegisterRoutes(cliCtx context.CLIContext, r *mux.Router, cdc *codec.Codec, storeName string) {
 	r.HandleFunc(fmt.Sprintf("/%s/cards", storeName), buyCardSchemeHandler(cdc, cliCtx)).Methods("POST")
-	r.HandleFunc(fmt.Sprintf("/%s/cards", storeName), setNameHandler(cdc, cliCtx)).Methods("PUT")
-	//r.HandleFunc(fmt.Sprintf("/%s/types", storeName), setTypeHandler(cdc, cliCtx)).Methods("PUT")
+	r.HandleFunc(fmt.Sprintf("/%s/cards", storeName), saveCardContentHandler(cdc, cliCtx)).Methods("PUT")
+	
 	r.HandleFunc(fmt.Sprintf("/%s/cards/{%s}", storeName, restName), resolveNameHandler(cdc, cliCtx, storeName)).Methods("GET")
 	r.HandleFunc(fmt.Sprintf("/%s/cards/{%s}/whois", storeName, restName), whoIsHandler(cdc, cliCtx, storeName)).Methods("GET")
 }

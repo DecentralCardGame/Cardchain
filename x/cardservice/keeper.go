@@ -9,23 +9,12 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
-
-type User struct {
-	voteRights []VoteRight
-}
-
-
-
 // Keeper maintains the link to data storage and exposes getter/setter methods for the various parts of the state machine
 type Keeper struct {
 	coinKeeper bank.Keeper
 
 	cardsStoreKey  sdk.StoreKey // Unexposed key to access card store from sdk.Context
 	usersStoreKey  sdk.StoreKey // Unexposed key to access user store from sdk.Context
-	//ownersStoreKey sdk.StoreKey // Unexposed key to access owners store from sdk.Context
-	//pricesStoreKey sdk.StoreKey // Unexposed key to access prices store from sdk.Context
-	//typesStoreKey  sdk.StoreKey // Unexposed key to access types store from sdk.Context
-
 	internalStoreKey sdk.StoreKey // Unexposed key to access internal variables from sdk.Context
 
 	cdc *codec.Codec // The wire codec for binary encoding/decoding.
@@ -42,6 +31,7 @@ func NewKeeper(coinKeeper bank.Keeper, cardsStoreKey sdk.StoreKey, usersStoreKey
 	}
 }
 
+/*
 // ResolveName - returns the string that the name resolves to
 func (k Keeper) ResolveName(ctx sdk.Context, name string) string {
 	store := ctx.KVStore(k.cardsStoreKey)
@@ -75,7 +65,7 @@ func (k Keeper) SetOwner(ctx sdk.Context, name string, owner sdk.AccAddress) {
 	store.Set([]byte(name), owner)
 }
 
-/*
+
 // GetPrice - gets the current price of a name.  If price doesn't exist yet, set to 1steak.
 func (k Keeper) GetPrice(ctx sdk.Context, name string) sdk.Coins {
 	if !k.HasOwner(ctx, name) {
