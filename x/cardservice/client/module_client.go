@@ -42,9 +42,12 @@ func (mc ModuleClient) GetTxCmd() *cobra.Command {
 
 	govTxCmd.AddCommand(client.PostCommands(
 		cardservicecmd.GetCmdBuyCardScheme(mc.cdc),
-		cardservicecmd.GetCmdSetName(mc.cdc),
+		//cardservicecmd.GetCmdSetName(mc.cdc),
 		cardservicecmd.GetCmdSaveCardContent(mc.cdc),
 		cardservicecmd.GetCmdVoteCard(mc.cdc),
+		cardservicecmd.GetCmdTransferCard(mc.cdc),
+		cardservicecmd.GetCmdDonateToCard(mc.cdc),
+		cardservicecmd.GetCmdCreateUser(mc.cdc),
 	)...)
 
 	return govTxCmd

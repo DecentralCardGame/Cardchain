@@ -20,8 +20,8 @@ const (
 // RegisterRoutes - Central function to define routes that get registered by the main application
 func RegisterRoutes(cliCtx context.CLIContext, r *mux.Router, cdc *codec.Codec, storeName string) {
 	r.HandleFunc(fmt.Sprintf("/%s/cards", storeName), buyCardSchemeHandler(cdc, cliCtx)).Methods("POST")
-	r.HandleFunc(fmt.Sprintf("/%s/cards", storeName), saveCardContentHandler(cdc, cliCtx)).Methods("PUT")
-	
+	//r.HandleFunc(fmt.Sprintf("/%s/cards", storeName), saveCardContentHandler(cdc, cliCtx)).Methods("PUT")
+
 	r.HandleFunc(fmt.Sprintf("/%s/cards/{%s}", storeName, restName), resolveNameHandler(cdc, cliCtx, storeName)).Methods("GET")
 	r.HandleFunc(fmt.Sprintf("/%s/cards/{%s}/whois", storeName, restName), whoIsHandler(cdc, cliCtx, storeName)).Methods("GET")
 }
@@ -70,7 +70,7 @@ func buyCardSchemeHandler(cdc *codec.Codec, cliCtx context.CLIContext) http.Hand
 		utils.CompleteAndBroadcastTxREST(w, r, cliCtx, baseReq, []sdk.Msg{msg}, cdc)
 	}
 }
-
+/*
 type setNameReq struct {
 	BaseReq utils.BaseReq `json:"base_req"`
 	Name    string        `json:"name"`
@@ -109,7 +109,7 @@ func setNameHandler(cdc *codec.Codec, cliCtx context.CLIContext) http.HandlerFun
 		utils.CompleteAndBroadcastTxREST(w, r, cliCtx, baseReq, []sdk.Msg{msg}, cdc)
 	}
 }
-/*
+
 func setTypeHandler(cdc *codec.Codec, cliCtx context.CLIContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		var req setNameReq

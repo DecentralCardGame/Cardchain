@@ -138,7 +138,7 @@ func GetCmdVoteCard(cdc *codec.Codec) *cobra.Command {
 // GetCmdTransferCard is the CLI command for transferring the ownership of a card
 func GetCmdTransferCard(cdc *codec.Codec) *cobra.Command {
 	return &cobra.Command{
-		Use:   "transfer-card [card id] [target user]",
+		Use:   "transfer-card [card id] [receiver address]",
 		Short: "transfer the ownership of a card",
 		Args:  cobra.ExactArgs(2),
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -160,7 +160,53 @@ func GetCmdTransferCard(cdc *codec.Codec) *cobra.Command {
 				return err
 			}
 
-			msg := cardservice.NewMsgTransferCard(cardId, args[1], account)
+			var receiver sdk.AccAddress
+			cdc.MustUnmarshalBinaryBare([]byte(args[1]), &receiver)
+
+			msg := cardservice.NewMsgTransferCard(cardId, account, receiver)
+			err = msg.ValidateBasic()
+			if err != nil {
+				return err
+			}
+
+			cliCtx.PrintResponse = true
+
+			return utils.CompleteAndBroadcastTxCli(txBldr, cliCtx, []sdk.Msg{msg})
+		},
+	}
+}
+
+// GetCmdDonateToCard is the CLI command for donating credits to a card
+func GetCmdDonateToCard(cdc *codec.Codec) *cobra.Command {
+	return &cobra.Command{
+		Use:   "donate-to-card [card id] [amount]",
+		Short: "donate credits to the voters pool of a card",
+		Args:  cobra.ExactArgs(2),
+		RunE: func(cmd *cobra.Command, args []string) error {
+			cliCtx := context.NewCLIContext().WithCodec(cdc).WithAccountDecoder(cdc)
+
+			txBldr := authtxb.NewTxBuilderFromCLI().WithCodec(cdc)
+
+			if err := cliCtx.EnsureAccountExists(); err != nil {
+				return err
+			}
+
+			cardId, err := strconv.ParseUint(args[0], 10, 64);
+			if err != nil {
+				return err
+			}
+
+			account, err := cliCtx.GetFromAddress()
+			if err != nil {
+				return err
+			}
+
+			coins, err := sdk.ParseCoin(args[1])
+			if err != nil {
+				return err
+			}
+
+			msg := cardservice.NewMsgDonateToCard(cardId, account, coins)
 			err = msg.ValidateBasic()
 			if err != nil {
 				return err
@@ -177,7 +223,7 @@ func GetCmdTransferCard(cdc *codec.Codec) *cobra.Command {
 func GetCmdCreateUser(cdc *codec.Codec) *cobra.Command {
 	return &cobra.Command{
 		Use:   "create-user [Addresss]",
-		Short: "transfer the ownership of a card",
+		Short: "create a user, this means giving starting credits and starting cards",
 		Args:  cobra.ExactArgs(2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			cliCtx := context.NewCLIContext().WithCodec(cdc).WithAccountDecoder(cdc)
@@ -193,7 +239,10 @@ func GetCmdCreateUser(cdc *codec.Codec) *cobra.Command {
 				return err
 			}
 
-			msg := cardservice.NewMsgCreateUser(args[1], account)
+			var newUser sdk.AccAddress
+			cdc.MustUnmarshalBinaryBare([]byte(args[1]), &newUser)
+
+			msg := cardservice.NewMsgCreateUser(account, newUser)
 			err = msg.ValidateBasic()
 			if err != nil {
 				return err
@@ -205,7 +254,7 @@ func GetCmdCreateUser(cdc *codec.Codec) *cobra.Command {
 		},
 	}
 }
-
+/*
 // this is deprecated...
 // GetCmdSetName is the CLI command for sending a SetName transaction
 func GetCmdSetName(cdc *codec.Codec) *cobra.Command {
@@ -239,3 +288,4 @@ func GetCmdSetName(cdc *codec.Codec) *cobra.Command {
 		},
 	}
 }
+*/

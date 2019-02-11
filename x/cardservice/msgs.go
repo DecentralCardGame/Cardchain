@@ -249,16 +249,16 @@ func (msg MsgVoteCard) GetSigners() []sdk.AccAddress {
 // MsgTransferCard defines a TransferCard message
 type MsgTransferCard struct {
 	CardID 		uint64
-	Source 		sdk.AccAddress
-	Target		sdk.AccAddress
+	Sender 		sdk.AccAddress
+	Receiver	sdk.AccAddress
 }
 
 // NewMsgTransferCard is a constructor function for MsgTransferCard
-func NewMsgTransferCard(cardId uint64, source sdk.AccAddress, target sdk.AccAddress) MsgTransferCard {
+func NewMsgTransferCard(cardId uint64, sender sdk.AccAddress, receiver sdk.AccAddress) MsgTransferCard {
 	return MsgTransferCard{
 		CardID:		cardId,
-		Source:		source,
-		Target:		target,
+		Sender:		sender,
+		Receiver:	receiver,
 	}
 }
 
@@ -266,19 +266,19 @@ func NewMsgTransferCard(cardId uint64, source sdk.AccAddress, target sdk.AccAddr
 func (msg MsgTransferCard) Route() string { return "cardservice" }
 
 // Type Implements Msg.
-func (msg MsgTransferCard) Type() string { return "vote_card" }
+func (msg MsgTransferCard) Type() string { return "transfer_card" }
 
 // ValdateBasic Implements Msg.
 func (msg MsgTransferCard) ValidateBasic() sdk.Error {
-	if msg.Source.Empty() {
-		return sdk.ErrInvalidAddress(msg.Source.String())
+	if msg.Sender.Empty() {
+		return sdk.ErrInvalidAddress(msg.Sender.String())
 	}
-	if msg.Target.Empty() {
-		return sdk.ErrInvalidAddress(msg.Target.String())
+	if msg.Receiver.Empty() {
+		return sdk.ErrInvalidAddress(msg.Receiver.String())
 	}
 	// the check of CardID < 0 might be pointless.. should be validated in the rest api or nscli
 	if msg.CardID < 0 {
-		return sdk.ErrUnknownRequest("CardId and/or Vote Type cannot be empty")
+		return sdk.ErrUnknownRequest("CardId cannot be empty")
 	}
 	return nil
 }
@@ -292,6 +292,10 @@ func (msg MsgTransferCard) GetSignBytes() []byte {
 	return sdk.MustSortJSON(b)
 }
 
+// GetSigners Implements Msg.
+func (msg MsgTransferCard) GetSigners() []sdk.AccAddress {
+	return []sdk.AccAddress{msg.Sender}
+}
 
 ////////////////////
 // Donate to Card //
@@ -338,4 +342,55 @@ func (msg MsgDonateToCard) GetSignBytes() []byte {
 		panic(err)
 	}
 	return sdk.MustSortJSON(b)
+}
+
+// GetSigners Implements Msg.
+func (msg MsgDonateToCard) GetSigners() []sdk.AccAddress {
+	return []sdk.AccAddress{msg.Donator}
+}
+
+/////////////////
+// Create User //
+/////////////////
+
+// MsgCreateUser defines a CreateUser message
+type MsgCreateUser struct {
+	NewUser 	sdk.AccAddress
+	Creator 	sdk.AccAddress
+}
+
+// NewMsgCreateUser is a constructor function for MsgCreateUser
+func NewMsgCreateUser(creator sdk.AccAddress, newUser sdk.AccAddress) MsgCreateUser {
+	return MsgCreateUser{
+		NewUser:	newUser,
+		Creator: creator,
+	}
+}
+
+// Name Implements Msg.
+func (msg MsgCreateUser) Route() string { return "cardservice" }
+
+// Type Implements Msg.
+func (msg MsgCreateUser) Type() string { return "create_user" }
+
+// ValdateBasic Implements Msg.
+func (msg MsgCreateUser) ValidateBasic() sdk.Error {
+	if msg.NewUser.Empty() {
+		return sdk.ErrInvalidAddress(msg.NewUser.String())
+	}
+	return nil
+}
+
+// GetSignBytes Implements Msg.
+func (msg MsgCreateUser) GetSignBytes() []byte {
+	b, err := json.Marshal(msg)
+	if err != nil {
+		panic(err)
+	}
+	return sdk.MustSortJSON(b)
+}
+
+// GetSigners Implements Msg.
+func (msg MsgCreateUser) GetSigners() []sdk.AccAddress {
+	return []sdk.AccAddress{msg.Creator}
 }
