@@ -53,6 +53,7 @@ func handleMsgSetName(ctx sdk.Context, keeper Keeper, msg MsgSetName) sdk.Result
 	return sdk.Result{}                        // return
 }
 */
+
 // Handle MsgBuyName
 func handleMsgBuyCardScheme(ctx sdk.Context, keeper Keeper, msg MsgBuyCardScheme) sdk.Result {
 
@@ -96,7 +97,7 @@ func handleMsgSaveCardContent(ctx sdk.Context, keeper Keeper, msg MsgSaveCardCon
 		return sdk.ErrUnauthorized("Incorrect Owner").Result() // If not, throw an error
 	}
 
-	// card content should be deserialized and serialized here
+	// TODO card content should be deserialized and serialized here
 	// serialize it
 	// ...
 
@@ -129,7 +130,7 @@ func handleMsgVoteCard(ctx sdk.Context, keeper Keeper, msg MsgVoteCard) sdk.Resu
 	*/
 
 	// if the vote right is valid, get the Card
-	card := keeper.GetCard(ctx, msg.CardID)
+	card := keeper.GetCard(ctx, msg.CardId)
 
 	// check if card status is valid // TODO enable
 	/*
@@ -158,6 +159,7 @@ func handleMsgVoteCard(ctx sdk.Context, keeper Keeper, msg MsgVoteCard) sdk.Resu
 		keeper.coinKeeper.AddCoins(ctx, msg.Voter, sdk.Coins{sdk.NewInt64Coin("credits", 1)})
 	}
 
+	keeper.SetCard(ctx, msg.CardId, card)
 
 	return sdk.Result{}
 }
@@ -171,3 +173,55 @@ func searchVoteRights(cardId string, rights []voteRight) int {
     return -1
 }
 */
+
+// handle vote card message
+func handleMsgTransferCard(ctx sdk.Context, keeper Keeper, msg MsgTransferCard) sdk.Result {
+
+	// if the vote right is valid, get the Card
+	card := keeper.GetCard(ctx, msg.CardId)
+
+	// check if card status is valid // TODO ponder if this is necessary for transfer card
+	/*
+	if(card.Status != "permanent" && card.Status != "trial") {
+		return sdk.ErrUnknownRequest("Transferring a card is only possible if it is in trial or a permanent card").Result()
+	}
+	*/
+
+	if !msg.Sender.Equals(card.Owner) { // Checks if the the msg sender is the same as the current owner
+		return sdk.ErrUnauthorized("Incorrect Owner").Result() // If not, throw an error
+	}
+
+	card.Owner = msg.Receiver
+	keeper.SetCard(ctx, msg.CardId, card)
+
+	return sdk.Result{}
+}
+
+// handle donate to card message
+func handleMsgDonateToCard(ctx sdk.Context, keeper Keeper, msg MsgDonateToCard) sdk.Result {
+
+	_, _, err := keeper.coinKeeper.SubtractCoins(ctx, msg.Donator, sdk.Coins{msg.Amount}) // If so, deduct the Bid amount from the sender
+	if err != nil {
+		return sdk.ErrInsufficientCoins("Donator does not have enough coins").Result()
+	}
+
+	card := keeper.GetCard(ctx, msg.CardId)
+	card.VotePool.Plus(msg.Amount)
+	keeper.SetCard(ctx, msg.CardId, card)
+
+	return sdk.Result{}
+}
+
+// handle create user message
+func handleMsgCreateUser(ctx sdk.Context, keeper Keeper, msg MsgCreateUser) sdk.Result {
+	newUser := NewUser()
+	keeper.SetUser(ctx, msg.NewUser, newUser)
+
+	// give starting credits
+	if(!keeper.GetPublicPoolCredits(ctx).IsZero()) {
+		keeper.DeltaPublicPoolCredits(ctx, sdk.NewInt64Coin("credits", -1))
+		keeper.coinKeeper.AddCoins(ctx, msg.NewUser, sdk.Coins{sdk.NewInt64Coin("credits", 1)})
+	}
+
+	return sdk.Result{}
+}

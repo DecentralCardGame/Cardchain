@@ -11,6 +11,11 @@ type User struct {
 	voteRights []VoteRight
 }
 
+func NewUser() User {
+	return User{
+		voteRights: []VoteRight{},
+	}
+}
 
 type Card struct {
 	Owner sdk.AccAddress
@@ -196,7 +201,7 @@ func (msg MsgSaveCardContent) GetSigners() []sdk.AccAddress {
 
 // MsgVoteCard defines a VoteCard message
 type MsgVoteCard struct {
-	CardID 		uint64
+	CardId 		uint64
 	VoteType	string
 	Voter  		sdk.AccAddress
 }
@@ -204,7 +209,7 @@ type MsgVoteCard struct {
 // NewMsgVoteCard is a constructor function for MsgVoteCard
 func NewMsgVoteCard(cardId uint64, voteType string, voter sdk.AccAddress) MsgVoteCard {
 	return MsgVoteCard{
-		CardID:		cardId,
+		CardId:		cardId,
 		VoteType:	voteType,
 		Voter:		voter,
 	}
@@ -222,7 +227,7 @@ func (msg MsgVoteCard) ValidateBasic() sdk.Error {
 		return sdk.ErrInvalidAddress(msg.Voter.String())
 	}
 	// the check of CardID < 0 might be pointless.. should be validated in the rest api or nscli
-	if msg.CardID < 0 || len(msg.VoteType) == 0 {
+	if msg.CardId < 0 || len(msg.VoteType) == 0 {
 		return sdk.ErrUnknownRequest("CardId and/or Vote Type cannot be empty")
 	}
 	return nil
@@ -248,7 +253,7 @@ func (msg MsgVoteCard) GetSigners() []sdk.AccAddress {
 
 // MsgTransferCard defines a TransferCard message
 type MsgTransferCard struct {
-	CardID 		uint64
+	CardId 		uint64
 	Sender 		sdk.AccAddress
 	Receiver	sdk.AccAddress
 }
@@ -256,7 +261,7 @@ type MsgTransferCard struct {
 // NewMsgTransferCard is a constructor function for MsgTransferCard
 func NewMsgTransferCard(cardId uint64, sender sdk.AccAddress, receiver sdk.AccAddress) MsgTransferCard {
 	return MsgTransferCard{
-		CardID:		cardId,
+		CardId:		cardId,
 		Sender:		sender,
 		Receiver:	receiver,
 	}
@@ -277,7 +282,7 @@ func (msg MsgTransferCard) ValidateBasic() sdk.Error {
 		return sdk.ErrInvalidAddress(msg.Receiver.String())
 	}
 	// the check of CardID < 0 might be pointless.. should be validated in the rest api or nscli
-	if msg.CardID < 0 {
+	if msg.CardId < 0 {
 		return sdk.ErrUnknownRequest("CardId cannot be empty")
 	}
 	return nil
@@ -303,7 +308,7 @@ func (msg MsgTransferCard) GetSigners() []sdk.AccAddress {
 
 // MsgDonateToCard defines a TransferCard message
 type MsgDonateToCard struct {
-	CardID 		uint64
+	CardId 		uint64
 	Donator 	sdk.AccAddress
 	Amount		sdk.Coin
 }
@@ -311,7 +316,7 @@ type MsgDonateToCard struct {
 // NewMsgMsgDonateToCard is a constructor function for MsgDonateToCard
 func NewMsgDonateToCard(cardId uint64, donator sdk.AccAddress, amount sdk.Coin) MsgDonateToCard {
 	return MsgDonateToCard{
-		CardID:		cardId,
+		CardId:		cardId,
 		Donator:	donator,
 		Amount:		amount,
 	}
@@ -329,7 +334,7 @@ func (msg MsgDonateToCard) ValidateBasic() sdk.Error {
 		return sdk.ErrInvalidAddress(msg.Donator.String())
 	}
 	// the check of CardID < 0 might be pointless.. should be validated in the rest api or nscli
-	if msg.CardID < 0 || msg.Amount.IsZero() {
+	if msg.CardId < 0 || msg.Amount.IsZero() {
 		return sdk.ErrUnknownRequest("CardId cannot be empty and Amount must be positive")
 	}
 	return nil

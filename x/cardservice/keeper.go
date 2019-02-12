@@ -166,6 +166,20 @@ func (k Keeper) SetCard(ctx sdk.Context, cardId uint64, newCard Card) {
 	store.Set(sdk.Uint64ToBigEndian(cardId), k.cdc.MustMarshalBinaryBare(newCard))
 }
 
+func (k Keeper) GetUser(ctx sdk.Context, user sdk.AccAddress) User {
+	store := ctx.KVStore(k.usersStoreKey)
+	bz := store.Get(user)
+
+	var gottenUser User
+	k.cdc.MustUnmarshalBinaryBare(bz, &gottenUser)
+	return gottenUser
+}
+
+func (k Keeper) SetUser(ctx sdk.Context, address sdk.AccAddress, userData User) {
+	store := ctx.KVStore(k.usersStoreKey)
+	store.Set(address, k.cdc.MustMarshalBinaryBare(userData))
+}
+
 func (k Keeper) GetVoteRights(ctx sdk.Context, voter sdk.AccAddress) []VoteRight {
 	store := ctx.KVStore(k.usersStoreKey)
 	bz := store.Get(k.cdc.MustMarshalBinaryBare(voter))
