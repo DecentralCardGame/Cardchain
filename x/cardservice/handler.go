@@ -33,27 +33,6 @@ func NewHandler(keeper Keeper) sdk.Handler {
 	}
 }
 
-/*
-// Handle MsgSetType
-func handleMsgSetType(ctx sdk.Context, keeper Keeper, msg MsgSetType) sdk.Result {
-	if !msg.Owner.Equals(keeper.GetOwner(ctx, msg.NameID)) { // Checks if the the msg sender is the same as the current owner
-		return sdk.ErrUnauthorized("Incorrect Owner").Result() // If not, throw an error
-	}
-	keeper.SetType(ctx, msg.NameID, msg.Value) // If so, set the type to the value specified in the msg.
-	return sdk.Result{}                        // return
-}
-
-
-// Handle MsgSetName
-func handleMsgSetName(ctx sdk.Context, keeper Keeper, msg MsgSetName) sdk.Result {
-	if !msg.Owner.Equals(keeper.GetOwner(ctx, msg.NameID)) { // Checks if the the msg sender is the same as the current owner
-		return sdk.ErrUnauthorized("Incorrect Owner").Result() // If not, throw an error
-	}
-	keeper.SetName(ctx, msg.NameID, msg.Value) // If so, set the name to the value specified in the msg.
-	return sdk.Result{}                        // return
-}
-*/
-
 // Handle MsgBuyName
 func handleMsgBuyCardScheme(ctx sdk.Context, keeper Keeper, msg MsgBuyCardScheme) sdk.Result {
 
@@ -225,3 +204,15 @@ func handleMsgCreateUser(ctx sdk.Context, keeper Keeper, msg MsgCreateUser) sdk.
 
 	return sdk.Result{}
 }
+
+/*
+func sellCardInstances(ctx sdk.Context, keeper Keeper, msg MsgSellCardInstances) sdk.Result {
+
+	_, err := keeper.coinKeeper.SendCoins(ctx, msg.Buyer, keeper.GetOwner(ctx, stringId), msg.Bid)
+	if err != nil {
+		return sdk.ErrInsufficientCoins("Buyer does not have enough coins").Result()
+	}
+
+	return sdk.Result{}
+}
+*/

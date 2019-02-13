@@ -254,38 +254,3 @@ func GetCmdCreateUser(cdc *codec.Codec) *cobra.Command {
 		},
 	}
 }
-/*
-// this is deprecated...
-// GetCmdSetName is the CLI command for sending a SetName transaction
-func GetCmdSetName(cdc *codec.Codec) *cobra.Command {
-	return &cobra.Command{
-		Use:   "set-name [name] [value]",
-		Short: "set the value associated with a name that you own",
-		Args:  cobra.ExactArgs(2),
-		RunE: func(cmd *cobra.Command, args []string) error {
-			cliCtx := context.NewCLIContext().WithCodec(cdc).WithAccountDecoder(cdc)
-
-			txBldr := authtxb.NewTxBuilderFromCLI().WithCodec(cdc)
-
-			if err := cliCtx.EnsureAccountExists(); err != nil {
-				return err
-			}
-
-			account, err := cliCtx.GetFromAddress()
-			if err != nil {
-				return err
-			}
-
-			msg := cardservice.NewMsgSetName(args[0], args[1], account)
-			err = msg.ValidateBasic()
-			if err != nil {
-				return err
-			}
-
-			cliCtx.PrintResponse = true
-
-			return utils.CompleteAndBroadcastTxCli(txBldr, cliCtx, []sdk.Msg{msg})
-		},
-	}
-}
-*/
