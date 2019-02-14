@@ -26,7 +26,7 @@ func (mc ModuleClient) GetQueryCmd() *cobra.Command {
 	}
 
 	govQueryCmd.AddCommand(client.GetCommands(
-		cardservicecmd.GetCmdResolveName(mc.storeKey, mc.cdc),
+		cardservicecmd.GetCmdResolveCard(mc.storeKey, mc.cdc),
 		cardservicecmd.GetCmdWhois(mc.storeKey, mc.cdc),
 	)...)
 
@@ -42,7 +42,6 @@ func (mc ModuleClient) GetTxCmd() *cobra.Command {
 
 	govTxCmd.AddCommand(client.PostCommands(
 		cardservicecmd.GetCmdBuyCardScheme(mc.cdc),
-		//cardservicecmd.GetCmdSetName(mc.cdc),
 		cardservicecmd.GetCmdSaveCardContent(mc.cdc),
 		cardservicecmd.GetCmdVoteCard(mc.cdc),
 		cardservicecmd.GetCmdTransferCard(mc.cdc),

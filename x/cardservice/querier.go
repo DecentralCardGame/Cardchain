@@ -1,6 +1,7 @@
 package cardservice
 
 import (
+	"strconv"
 	"github.com/cosmos/cosmos-sdk/codec"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -27,18 +28,38 @@ func NewQuerier(keeper Keeper) sdk.Querier {
 	}
 }
 
+// CardJSON represents a card for json parsing
+type CardJSON struct {
+	Owner sdk.AccAddress			`json:"owner"`
+	Content []byte						`json:"owner"`
+	Status string							`json:"owner"`
+	VotePool sdk.Coin					`json:"owner"`
+	FairEnoughVotes uint64		`json:"owner"`
+	OverpoweredVotes uint64		`json:"owner"`
+	UnderpoweredVotes uint64	`json:"owner"`
+	InappropriateVotes uint64	`json:"owner"`
+	Nerflevel int64						`json:"owner"`
+}
+
 // nolint: unparam
 func queryResolve(ctx sdk.Context, path []string, req abci.RequestQuery, keeper Keeper) (res []byte, err sdk.Error) {
-	//name := path[0]
+	cardId, error := strconv.ParseUint(path[0], 10, 64);
+	if error != nil {
+		return nil, sdk.ErrUnknownRequest("could not parse cardId")
+	}
 
-	//value := keeper.ResolveName(ctx, name)
-	value := ""
+	card := keeper.GetCard(ctx, cardId)
 
-	if value == "" {
+	if &card == nil {
 		return []byte{}, sdk.ErrUnknownRequest("could not resolve name")
 	}
 
-	return []byte(value), nil
+	bz, err2 := codec.MarshalJSONIndent(keeper.cdc,  card)
+	if err2 != nil {
+		panic("could not marshal result to JSON")
+	}
+
+	return bz, nil
 }
 
 // Whois represents a name -> value lookup
