@@ -33,8 +33,6 @@ type cardserviceApp struct {
 	keyAccount       *sdk.KVStoreKey
 	keyCScards       *sdk.KVStoreKey
 	keyCSusers      *sdk.KVStoreKey
-	//keyNSprices      *sdk.KVStoreKey
-	//keyNStypes       *sdk.KVStoreKey
 	keyCSinternal		 *sdk.KVStoreKey
 	keyFeeCollection *sdk.KVStoreKey
 
@@ -62,8 +60,6 @@ func NewcardserviceApp(logger log.Logger, db dbm.DB) *cardserviceApp {
 		keyAccount:       sdk.NewKVStoreKey("acc"),
 		keyCScards:       sdk.NewKVStoreKey("cs_cards"),
 		keyCSusers:	      sdk.NewKVStoreKey("cs_users"),
-		//keyNSprices:      sdk.NewKVStoreKey("ns_prices"),
-		//keyNStypes:       sdk.NewKVStoreKey("ns_types"),
 		keyCSinternal:		sdk.NewKVStoreKey("cs_internal"),
 		keyFeeCollection: sdk.NewKVStoreKey("fee_collection"),
 	}
@@ -87,8 +83,6 @@ func NewcardserviceApp(logger log.Logger, db dbm.DB) *cardserviceApp {
 		app.bankKeeper,
 		app.keyCScards,
 		app.keyCSusers,
-		//app.keyNSprices,
-		//app.keyNStypes,
 		app.keyCSinternal,
 		app.cdc,
 	)

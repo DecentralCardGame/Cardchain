@@ -19,7 +19,7 @@ const (
 
 // RegisterRoutes - Central function to define routes that get registered by the main application
 func RegisterRoutes(cliCtx context.CLIContext, r *mux.Router, cdc *codec.Codec, storeName string) {
-	r.HandleFunc(fmt.Sprintf("/%s/cards", storeName), buyCardSchemeHandler(cdc, cliCtx)).Methods("POST")
+	r.HandleFunc(fmt.Sprintf("/%s/buy_card_scheme", storeName), buyCardSchemeHandler(cdc, cliCtx)).Methods("POST")
 	//r.HandleFunc(fmt.Sprintf("/%s/cards", storeName), saveCardContentHandler(cdc, cliCtx)).Methods("PUT")
 
 	r.HandleFunc(fmt.Sprintf("/%s/cards/{%s}", storeName, restName), resolveNameHandler(cdc, cliCtx, storeName)).Methods("GET")
@@ -28,7 +28,6 @@ func RegisterRoutes(cliCtx context.CLIContext, r *mux.Router, cdc *codec.Codec, 
 
 type buyCardSchemeReq struct {
 	BaseReq utils.BaseReq `json:"base_req"`
-	//Name    string        `json:"name"`
 	Amount  string        `json:"amount"`
 	Buyer   string        `json:"buyer"`
 }

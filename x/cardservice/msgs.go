@@ -49,7 +49,6 @@ func NewCard(owner sdk.AccAddress) Card {
 
 // MsgBuyName defines the BuyName message
 type MsgBuyCardScheme struct {
-	//NameID string
 	Bid    sdk.Coin
 	Buyer  sdk.AccAddress
 }
@@ -57,7 +56,6 @@ type MsgBuyCardScheme struct {
 // NewMsgBuyName is the constructor function for MsgBuyName
 func NewMsgBuyCardScheme(bid sdk.Coin, buyer sdk.AccAddress) MsgBuyCardScheme {
 	return MsgBuyCardScheme{
-		//NameID: name,
 		Bid:    bid,
 		Buyer:  buyer,
 	}
@@ -74,9 +72,6 @@ func (msg MsgBuyCardScheme) ValidateBasic() sdk.Error {
 	if msg.Buyer.Empty() {
 		return sdk.ErrInvalidAddress(msg.Buyer.String())
 	}
-	/*if len(msg.NameID) == 0 {
-		return sdk.ErrUnknownRequest("Name cannot be empty")
-	}*/
 	if !msg.Bid.IsPositive() {
 		return sdk.ErrInsufficientCoins("Bids must be positive")
 	}

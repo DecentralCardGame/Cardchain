@@ -49,16 +49,6 @@ func queryResolve(ctx sdk.Context, path []string, req abci.RequestQuery, keeper 
 	return bz, nil
 }
 
-/*
-// Whois represents a name -> value lookup
-type Whois struct {
-	Value string         `json:"value"`
-	Owner sdk.AccAddress `json:"owner"`
-	Price sdk.Coins      `json:"price"`
-	Type string      		 `json:"type"`
-}
-*/
-
 // nolint: unparam
 func queryWhois(ctx sdk.Context, path []string, req abci.RequestQuery, keeper Keeper) (res []byte, err sdk.Error) {
 
@@ -68,13 +58,6 @@ func queryWhois(ctx sdk.Context, path []string, req abci.RequestQuery, keeper Ke
 	}
 
 	user := keeper.GetUser(ctx, address)
-
-	//whois := Whois{}
-
-	//whois.Value = "" //keeper.ResolveName(ctx, name)
-	//whois.Owner = nil //keeper.GetOwner(ctx, name)
-	//whois.Price = keeper.GetPrice(ctx, name)
-	//whois.Type = keeper.GetType(ctx, name)
 
 	bz, err2 := codec.MarshalJSONIndent(keeper.cdc, user)
 	if err2 != nil {
