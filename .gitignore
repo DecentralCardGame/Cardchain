@@ -9,7 +9,6 @@
 vendor
 .vendor-new
 build
-Gopkg.lock
 
 # IDE
 .idea/
