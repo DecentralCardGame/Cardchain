@@ -1,6 +1,8 @@
 install:
 
 go get github.com/cosmos/cosmos-sdk
+cd cosmos-sdk && git checkout master
+make tools install
 
 go get github.com/DecentralCardGame/Cardchain
 
