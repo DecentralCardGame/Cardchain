@@ -58,7 +58,7 @@ func handleMsgBuyCardScheme(ctx sdk.Context, keeper Keeper, msg MsgBuyCardScheme
 	//}
 
 	keeper.DeltaPublicPoolCredits(ctx, price)
-	keeper.SetCardAuctionPrice(ctx, price.Plus(price))
+	keeper.SetCardAuctionPrice(ctx, price.Add(price))
 	keeper.SetLastCardSchemeId(ctx, currId)
 
 	newCard := NewCard(msg.Buyer)
@@ -81,7 +81,7 @@ func handleMsgSaveCardContent(ctx sdk.Context, keeper Keeper, msg MsgSaveCardCon
 	// ...
 
 	// TODO cards get a starting pool currently, this should be removed later and the starting pool should come after council decision
-	card.VotePool.Plus(sdk.NewInt64Coin("credits", 10))
+	card.VotePool.Add(sdk.NewInt64Coin("credits", 10))
 
 	card.Content = msg.Content
 	keeper.SetCard(ctx, msg.CardId, card)
@@ -134,7 +134,7 @@ func handleMsgVoteCard(ctx sdk.Context, keeper Keeper, msg MsgVoteCard) sdk.Resu
 
 	// check for bounty
 	if(!card.VotePool.IsZero()) {
-		card.VotePool.Minus(sdk.NewInt64Coin("credits", 1))
+		card.VotePool.Sub(sdk.NewInt64Coin("credits", 1))
 		keeper.coinKeeper.AddCoins(ctx, msg.Voter, sdk.Coins{sdk.NewInt64Coin("credits", 1)})
 	}
 
@@ -185,7 +185,7 @@ func handleMsgDonateToCard(ctx sdk.Context, keeper Keeper, msg MsgDonateToCard) 
 	}
 
 	card := keeper.GetCard(ctx, msg.CardId)
-	card.VotePool.Plus(msg.Amount)
+	card.VotePool.Add(msg.Amount)
 	keeper.SetCard(ctx, msg.CardId, card)
 
 	return sdk.Result{}

@@ -10,7 +10,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/codec"
 	"github.com/cosmos/cosmos-sdk/x/auth"
 	"github.com/cosmos/cosmos-sdk/x/bank"
-	"github.com/cosmos/cosmos-sdk/x/stake"
+	"github.com/cosmos/cosmos-sdk/x/staking"
 	"github.com/DecentralCardGame/Cardchain/x/cardservice"
 
 	bam "github.com/cosmos/cosmos-sdk/baseapp"
@@ -108,8 +108,6 @@ func NewcardserviceApp(logger log.Logger, db dbm.DB) *cardserviceApp {
 		app.keyAccount,
 		app.keyCScards,
 		app.keyCSusers,
-		//app.keyNSprices,
-		//app.keyNStypes,
 		app.keyCSinternal,
 	)
 
@@ -130,7 +128,7 @@ func (app *cardserviceApp) blockHandler(ctx sdk.Context, req abci.RequestEndBloc
 
 	// update the price of card auction (currently 1% decay per block)
 	price := app.csKeeper.GetCardAuctionPrice(ctx)
-	newprice := price.Minus(sdk.NewCoin("credits", price.Amount.Div(sdk.NewInt(100))))
+	newprice := price.Sub(sdk.NewCoin("credits", price.Amount.Quo(sdk.NewInt(100))))
 	app.csKeeper.SetCardAuctionPrice(ctx, newprice)
 
 	//app.Logger.Info("len: "+strconv.Itoa(len(bz)))
@@ -203,7 +201,7 @@ func MakeCodec() *codec.Codec {
 	auth.RegisterCodec(cdc)
 	bank.RegisterCodec(cdc)
 	cardservice.RegisterCodec(cdc)
-	stake.RegisterCodec(cdc)
+	staking.RegisterCodec(cdc)
 	sdk.RegisterCodec(cdc)
 	codec.RegisterCrypto(cdc)
 	return cdc

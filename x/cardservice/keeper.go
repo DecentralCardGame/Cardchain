@@ -80,7 +80,7 @@ func (k Keeper) DeltaPublicPoolCredits(ctx sdk.Context, delta sdk.Coin) {
 	bz := store.Get([]byte("publicPoolCredits"))
 	var amount sdk.Coin
 	k.cdc.MustUnmarshalBinaryBare(bz, &amount)
-	newAmount := amount.Plus(delta)
+	newAmount := amount.Add(delta)
 	store.Set([]byte("publicPoolCredits"), k.cdc.MustMarshalBinaryBare(newAmount))
 }
 
