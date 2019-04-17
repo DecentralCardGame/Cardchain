@@ -1,15 +1,3 @@
-install:
-
-go get github.com/cosmos/cosmos-sdk 
-
-cd cosmos-sdk && git checkout master 
-
-make tools install
-
-go get github.com/DecentralCardGame/Cardchain
-
-This is initially forked from:
-
 # SDK Application Tutorial
 
 This repository contains the source code of the nameservice tutorial.
@@ -21,3 +9,6 @@ This repository contains the source code of the nameservice tutorial.
 ## Building and running the example
 
 **[Click here](./tutorial/build-run.md)**  for instructions on how to build and run the code.
+
+Translations:
+- [中文](./README_cn.md)

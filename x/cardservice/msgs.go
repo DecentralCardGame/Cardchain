@@ -6,7 +6,6 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
-
 type User struct {
 	voteRights []VoteRight
 }

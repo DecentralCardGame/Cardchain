@@ -1,9 +1,18 @@
-package cardservice
+# Querier
+
+首先创建`./x/nameservice/querier.go`文件。在这里定义应用程序用户可以对那些状态进行查询。你的`nameservice`模块会暴露两个querier:
+
+- `resolve` : 传入一个`域名`返回`nameservice`给定的`解析值`。类似于DNS查询。
+- `whois` : 传入一个`域名`返回`价格`，`解析值`和域名的`所有者`。用于确定你想要购买名称的成本。
+
+首先定义`NewQuerier`函数，该函数充当查询此模块的子路由器（类似于`NewHandler`函数）。请注意，因为querier没有类似于Msg的接口，所以需要手动定义switch语句（它们无法从query.Route()函数中删除）：
+
+```go
+package nameservice
 
 import (
 	"fmt"
 	"strings"
-	"strconv"
 
 	"github.com/cosmos/cosmos-sdk/codec"
 
@@ -33,24 +42,22 @@ func NewQuerier(keeper Keeper) sdk.Querier {
 		}
 	}
 }
+```
 
+现在已定义路由器，为每个查询定义输入和响应：
+
+```go
 // nolint: unparam
 func queryResolve(ctx sdk.Context, path []string, req abci.RequestQuery, keeper Keeper) (res []byte, err sdk.Error) {
-	cardId, error := strconv.ParseUint(path[0], 10, 64);
-	if error != nil {
-		return nil, sdk.ErrUnknownRequest("could not parse cardId")
-	}
+	name := path[0]
 
-	card := keeper.GetCard(ctx, cardId)
+	value := keeper.ResolveName(ctx, name)
 
-	if &card == nil {
+	if value == "" {
 		return []byte{}, sdk.ErrUnknownRequest("could not resolve name")
 	}
 
-	/* old code:
 	bz, err2 := codec.MarshalJSONIndent(keeper.cdc, QueryResResolve{value})
-	*/
-	bz, err2 := codec.MarshalJSONIndent(keeper.cdc, card)
 	if err2 != nil {
 		panic("could not marshal result to JSON")
 	}
@@ -58,7 +65,6 @@ func queryResolve(ctx sdk.Context, path []string, req abci.RequestQuery, keeper 
 	return bz, nil
 }
 
-// TODO check if this can be removed
 // Query Result Payload for a resolve query
 type QueryResResolve struct {
 	Value string `json:"value"`
@@ -71,14 +77,11 @@ func (r QueryResResolve) String() string {
 
 // nolint: unparam
 func queryWhois(ctx sdk.Context, path []string, req abci.RequestQuery, keeper Keeper) (res []byte, err sdk.Error) {
-	address, error := sdk.AccAddressFromBech32(path[0])
-	if error != nil {
-		return nil, sdk.ErrUnknownRequest("could not parse user address")
-	}
+	name := path[0]
 
-	user := keeper.GetUser(ctx, address)
+	whois := keeper.GetWhois(ctx, name)
 
-	bz, err2 := codec.MarshalJSONIndent(keeper.cdc, user)
+	bz, err2 := codec.MarshalJSONIndent(keeper.cdc, whois)
 	if err2 != nil {
 		panic("could not marshal result to JSON")
 	}
@@ -118,3 +121,14 @@ type QueryResNames []string
 func (n QueryResNames) String() string {
 	return strings.Join(n[:], "\n")
 }
+```
+
+上述代码中要注意：
+
+- 在这里你的`Keeper`的 getter 和 setter 方法被大量使用。在构建使用此模块的任何其他应用程序时，你可能需要返回并定义更多getter/setter以访问所需的状态。
+- 按照惯例，每个输出类型都应该是 JSON marshallable 和 stringable（实现 Golang fmt.Stringer 接口）。 返回的字节应该是输出结果的JSON编码。
+  - 因此，对于输出类型的解析，我们将解析字符串包装在一个名为 QueryResResolve 的结构中，该结构既是JSON marshallable 的又有.String（）方法。
+  - 对于 Whois 的输出，正常的 Whois 结构已经是 JSON marshallable 的，但我们需要在其上添加.String（）方法。
+  - 名称查询的输出也一样，[]字符串本身已经可 marshallable ，但我们需要在其上添加.String（）方法。
+
+###  既然你有办法改变和查看模块状态，那么现在是时候完成它了！ 接下来以[Amino编码](./09-codec.md)格式注册类型！

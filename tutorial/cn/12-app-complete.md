@@ -1,8 +1,8 @@
-# Import your modules and finish your application
+# 引入你的模块并完成程序
 
-Now that your module is ready, it can be incorporated in the `./app.go` file, along with the other two modules [`auth`](https://godoc.org/github.com/cosmos/cosmos-sdk/x/auth) and [`bank`](https://godoc.org/github.com/cosmos/cosmos-sdk/x/bank):
+现在你的模块已就绪，它可以和其它两个模块[`auth`](https://godoc.org/github.com/cosmos/cosmos-sdk/x/auth)和[`bank`](https://godoc.org/github.com/cosmos/cosmos-sdk/x/bank)被合并到`./app.go`文件中:
 
-> _*NOTE*_: Your application needs to import the code you just wrote. Here the import path is set to this repository (`github.com/cosmos/sdk-application-tutorial/x/nameservice`). If you are following along in your own repo you will need to change the import path to reflect that (`github.com/{ .Username }/{ .Project.Repo }/x/nameservice`).
+> 你的应用程序需要导入你刚编写的代码。这里导入路径设置为此存储库（github.com/cosmos/sdk-application-tutorial/x/nameservice）。如果您是在自己的仓库中进行的前面的操作，则需要更改导入路径（github.com/{.Username}/{.Project.Repo}/x/nameservice）。
 
 ```go
 package app
@@ -28,7 +28,7 @@ import (
 )
 ```
 
-Next you need to add the stores' keys as well as the `Keepers` in your `nameServiceApp` struct, and update the constructor accordingly
+接下来，你需要在`nameServiceApp`结构体中添加存储的key和`Keepers`，并更新构造函数：
 
 ```go
 
@@ -80,16 +80,16 @@ func NewNameServiceApp(logger log.Logger, db dbm.DB) *nameServiceApp {
 }
 ```
 
-At this point, the constructor still lacks important logic. Namely, it needs to:
+此时，构造函数仍然缺少重要的逻辑。它需要：
 
-- Instantiate required `Keepers` from each desired module.
-- Generate `storeKeys` required by each `Keeper`.
-- Register `Handler`s from each module. The `AddRoute()` method from `baseapp`'s `router` is used to this end.
-- Register `Querier`s from each module. The `AddRoute()` method from `baseapp`'s `queryRouter` is used to this end.
-- Mount `KVStore`s to the provided keys in the `baseApp` multistore.
-- Set the `initChainer` for defining the initial application state.
+- 从每个所需模块中实例化所需的`Keeper`。
+- 生成每个`Keeper`所需的`storeKey`。
+- 注册每个模块的`handler`。`baseapp`的`路由器`的 `AddRoute()` 方法用来做这个。
+- 注册每个模块的`querier`。`baseapp`的`queryRouter`中的`AddRoute()`方法用来做这个。
+- 将`KVStores`挂载到`baseApp`的multistore提供的key值。
+- 设置`initChainer`来定义初始应用程序状态。
 
-Your finalized constructor should look like this:
+你最终的构造函数应该如下所示：
 
 ```go
 // NewNameServiceApp is a constructor function for nameServiceApp
@@ -178,11 +178,11 @@ func NewNameServiceApp(logger log.Logger, db dbm.DB) *nameServiceApp {
 }
 ```
 
-> _*NOTE*_: The TransientStore mentioned above is an in-memory implementation of the KVStore for state that is not persisted.
+> 注意：上面提到的 TransientStore 是 KVStore 的内存实现，用于未持久化的状态。
 
-The `initChainer` defines how accounts in `genesis.json` are mapped into the application state on initial chain start. The `ExportAppStateAndValidators` function helps bootstrap the initial state for the application. You don't need to worry too much about either of these for now.
+`initChainer`定义了`genesis.json`中的帐户如何在初始化区块链时被映射到应用程序状态。`ExportAppStateAndValidators`函数可帮助引导初始化应用程序的状态。你现在不需要太关心它们。
 
-The constructor registers the `initChainer` function, but it isn't defined yet. Go ahead and create it:
+构造函数注册了`initChainer`函数，但尚未定义。继续创建它：
 
 ```go
 // GenesisState represents chain state at the start of the chain. Any initial state (account balances) are stored here.
@@ -244,7 +244,7 @@ func (app *nameServiceApp) ExportAppStateAndValidators() (appState json.RawMessa
 }
 ```
 
-Finally add a helper function to generate an amino [`*codec.Codec`](https://godoc.org/github.com/cosmos/cosmos-sdk/codec#Codec) that properly registers all of the modules used in your application:
+最后添加一个辅助函数来生成一个animo--[`*codec.Codec`](https://godoc.org/github.com/cosmos/cosmos-sdk/codec#Codec)，它可以正确地注册你应用程序中使用的所有模块：
 
 ```go
 // MakeCodec generates the necessary codecs for Amino
@@ -260,4 +260,7 @@ func MakeCodec() *codec.Codec {
 }
 ```
 
-### Now that you have created an application that includes your module, it's time to [build your entrypoints](entrypoint.md)!
+###  现在您已经创建了一个包含模块的应用程序，现在是时候[构建入口点了](./13-entrypoint.md)！
+
+
+

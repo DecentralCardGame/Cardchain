@@ -23,11 +23,11 @@ type Keeper struct {
 // NewKeeper creates new instances of the nameservice Keeper
 func NewKeeper(coinKeeper bank.Keeper, cardsStoreKey sdk.StoreKey, usersStoreKey sdk.StoreKey, internalStoreKey sdk.StoreKey, cdc *codec.Codec) Keeper {
 	return Keeper{
-		coinKeeper:     	coinKeeper,
+		coinKeeper: 			coinKeeper,
 		cardsStoreKey:  	cardsStoreKey,
 		usersStoreKey: 		usersStoreKey,
 		internalStoreKey: internalStoreKey,
-		cdc:            	cdc,
+		cdc:        			cdc,
 	}
 }
 
@@ -123,4 +123,12 @@ func (k Keeper) GetVoteRights(ctx sdk.Context, voter sdk.AccAddress) []VoteRight
 func (k Keeper) SetVoteRights(ctx sdk.Context, voteRights []VoteRight, voter sdk.AccAddress) {
 	store := ctx.KVStore(k.usersStoreKey)
 	store.Set(k.cdc.MustMarshalBinaryBare(voter), k.cdc.MustMarshalBinaryBare(voteRights))
+}
+
+// IS THIS NEEDED?
+// Get an iterator over all names in which the keys are the names and the values are the whois
+
+func (k Keeper) GetNamesIterator(ctx sdk.Context) sdk.Iterator {
+	store := ctx.KVStore(k.cardsStoreKey)
+	return sdk.KVStorePrefixIterator(store, nil)
 }

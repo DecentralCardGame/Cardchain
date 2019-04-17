@@ -1,20 +1,20 @@
-# Entrypoints
+# Entrypoint
 
-In golang the convention is to place files that compile to a binary in the `./cmd` folder of a project. For your application there are 2 binaries that you want to create:
+golang的规范是把编译成可执行程序的文件放在项目的`./cmd`文件夹中。对于你的应用程序，您要创建2个可执行程序：
 
-- `nsd`: This binary is similar to `bitcoind` or other cryptocurrency daemons in that it maintains p2p connections, propagates transactions, handles local storage and provides an RPC interface to interact with the network. In this case, Tendermint is used for networking and transaction ordering.
-- `nscli`: This binary provides commands that allow users to interact with your application.
+- `nsd` : 此可执行程序类似于`bitcoind`或其他加密货币的daemon，因为它维护p2p连接，广播交易，处理本地存储并提供用以与网络交互的RPC接口。在这种情况下，Tendermint被用于网络层和排序交易。
+- `nscli` : 此可执行程序提供用户与你的应用程序交互的命令。
 
-To get started create two files in your project directory that will instantiate these binaries:
+首先请在项目目录中创建两个将会被实例化成这可执行程序的文件：
 
 - `./cmd/nsd/main.go`
 - `./cmd/nscli/main.go`
 
 ## `nsd`
 
-Start by adding the following code to `nsd/main.go`:
+首先将如下代码加进`nsd/main.go` :
 
-> _*NOTE*_: Your application needs to import the code you just wrote. Here the import path is set to this repository (`github.com/cosmos/sdk-application-tutorial`). If you are following along in your own repo you will need to change the import path to reflect that (`github.com/{ .Username }/{ .Project.Repo }`).
+> 注意：你的应用程序需要导入你刚编写的代码。这里导入路径设置为此存储库（`github.com/cosmos/sdk-application-tutorial`）。如果您是在自己的仓库中进行的前面的操作，则需要更改导入路径（github.com/{.Username}/{.Project.Repo}）。
 
 ```go
 package main
@@ -249,17 +249,20 @@ func SimpleAppGenTx(cdc *codec.Codec, pk crypto.PubKey) (
 }
 ```
 
-Notes on the above code:
+注意上述代码中：
 
-- Most of the code above combines the CLI commands from Tendermint, Cosmos-SDK and your Nameservice module.
-- `InitCmd` allows the app to generate genesis state from the configuration. Dig into the function calls there to learn more about the chain bootstrapping process
-- `AddGenesisAccountCmd` is a convenience for adding accounts to the genesis file, allowing for wallets with coins at chain start
+- 上面的大部分代码都结合了来自以下包的CLI命令：
+  1. Tendermint
+  2. Cosmos-SDK
+  3. 你的nameservice模块
+- `InitCmd`允许应用程序从配置中生成创世纪状态。深入了解函数调用，以了解有关区块链初始化过程的更多信息。
+- `AddGenesisAccountCmd`可以方便地将帐户添加到创世文件中，允许在区块链启动时就使用资产钱包。
 
-## `nscli`
+## nscli
 
-Finish up by building the `nscli` command:
+通过构建nscli命令完成：
 
-> _*NOTE*_: Your application needs to import the code you just wrote. Here the import path is set to this repository (`github.com/cosmos/sdk-application-tutorial`). If you are following along in your own repo you will need to change the import path to reflect that (`github.com/{ .Username }/{ .Project.Repo }`).
+> 注意：你的应用程序需要导入你刚编写的代码。这里导入路径设置为此存储库（`github.com/cosmos/sdk-application-tutorial`）。如果您是在自己的仓库中进行的前面的操作，则需要更改导入路径（github.com/{.Username}/{.Project.Repo}）。
 
 ```go
 package main
@@ -420,11 +423,12 @@ func initConfig(cmd *cobra.Command) error {
 }
 ```
 
-Note:
+注意：
 
-- The code combines the CLI commands from Tendermint, Cosmos-SDK and your Nameservice module.
-- The [`cobra` CLI documentation](http://github.com/spf13/cobra) will help with understanding the above code.
-- You can see the `ModuleClient` defined earlier in action here.
-- Note how the routes are included in the `registerRoutes` function
+- 代码结合了来自以下包的CLI命令：Tendermint、Cosmos-SDK、你的nameservice模块。
+- [`cobra` CLI文档](https://github.com/spf13/cobra)将有助于理解上述代码。
+- 你可以在这里看到之前定义的`ModuleClient`。
+- 注意如何将路由包含在`registerRoutes`函数中
 
-### Now that you have your binaries defined its time to deal with [dependency management and build your app](dep.md)!
+### 现在你已经定义了二进制文件，那么就可以来处理[依赖关系管理并构建应用程序](./14-dep.md)！
+

@@ -1,4 +1,4 @@
-# SDK Application Tutorial
+# Getting Started
 
 In this tutorial, you will build a functional [Cosmos SDK](https://github.com/cosmos/cosmos-sdk/) application and, in the process, learn the basic concepts and structures of the SDK. The example will showcase how quickly and easily you can **build your own blockchain from scratch** on top of the Cosmos SDK.
 
@@ -8,7 +8,7 @@ All of the final source code for this tutorial project is in this directory (and
 
 ## Requirements
 
-- [`golang` >1.11](https://golang.org/doc/install) installed
+- [`golang` >1.12.1](https://golang.org/doc/install) installed
 - A working [`$GOPATH`](https://github.com/golang/go/wiki/SettingGOPATH)
 - Desire to create your own blockchain!
 
@@ -29,14 +29,18 @@ Through the course of this tutorial you will create the following files that mak
 └── x
     └── nameservice
         ├── client
-        │   └── cli
-        │       ├── query.go
-        │       └── tx.go
+        │   ├── cli
+        │   │   ├── query.go
+        │   │   └── tx.go
+        │   ├── rest
+        │   │   └── rest.go
+        │   └── module_client.go
         ├── codec.go
         ├── handler.go
         ├── keeper.go
         ├── msgs.go
-        └── querier.go
+        ├── querier.go
+        └── types.go
 ```
 
 Start by creating a new git repository:
@@ -53,17 +57,19 @@ Then, just follow along! The first step describes the design of your application
 
 1. [Design](./app-design.md) the application.
 2. Begin the implementation of your application in [`./app.go`](./app-init.md).
-2. Start building your module with the [`Keeper`](./keeper.md).
-3. Define state transitions through [`Msgs` and `Handlers`](./msgs-handlers.md).
-    * [`SetName`](./set-name.md)
+3. Start building your module by defining some basic [`Types`](types.md).
+4. Create the main core of the module using the [`Keeper`](./keeper.md).
+5. Define state transitions through [`Msgs` and `Handlers`](./msgs-handlers.md).
+    * [`SetName`](set-name.md)
     * [`BuyName`](./buy-name.md)
-4. Make views on your state machine with [`Queriers`](./queriers.md).
-5. Register your types in the encoding format using [`sdk.Codec`](./codec.md).
-6. Create [CLI interactions for your module](./cli.md).
-7. Create [HTTP routes for clients to access your nameservice](./rest.md)
-8. Import your module and [finish building your application](./app-complete.md)!
-9. Create the [`nsd` and `nscli` entry points](./entrypoint.md) to your application.
-10. Setup [dependency management using `dep`](./dep.md).
-11. [Build and run](./build-run.md) the example.
+6. Make views on your state machine with [`Queriers`](./queriers.md).
+7. Register your types in the encoding format using [`sdk.Codec`](./codec.md).
+8. Create [CLI interactions for your module](./cli.md).
+9. Create [HTTP routes for clients to access your nameservice](rest.md)
+10. Import your module and [finish building your application](./app-complete.md)!
+11. Create the [`nsd` and `nscli` entry points](./entrypoint.md) to your application.
+12. Setup [dependency management using `dep`](./dep.md).
+13. [Build and run](./build-run.md) the example.
+14. [Run REST routes](run-rest.md).
 
 ## [Click here](./app-design.md) to get started with the tutorial!

@@ -1,8 +1,8 @@
-# Buy Name
+# BuyName
 
-## Msg
+## `Msg`
 
-Now it is time to define the `Msg` for buying names and add it to the `./x/nameservice/msgs.go` file. This code is very similar to `SetName`:
+现在来定义购买域名的`Msg`，并加在`./x/nameservice/msgs.go`文件中。代码同`SetName`非常相似：
 
 ```go
 // MsgBuyName defines the BuyName message
@@ -56,7 +56,7 @@ func (msg MsgBuyName) GetSigners() []sdk.AccAddress {
 }
 ```
 
-Next, in the `./x/nameservice/handler.go` file, add the `MsgBuyName` handler to the module router:
+接着，在`./x/nameservice/handler.go`文件中，把`MsgBuyName`加入到模块路由器中：
 
 ```go
 // NewHandler returns a handler for "nameservice" type messages.
@@ -75,7 +75,7 @@ func NewHandler(keeper Keeper) sdk.Handler {
 }
 ```
 
-Finally, define the `BuyName` `handler` function which performs the state transitions triggered by the message. Keep in mind that at this point the message has had its `ValidateBasic` function run so there has been some input verification. However, `ValidateBasic` cannot query application state. Validation logic that is dependent on network state (e.g. account balances) should be performed in the `handler` function.
+最后，定义`BuyName`的`handler`，该函数执行由msg触发的状态转换。请记住，此时msg已运行其`ValidateBasic`函数，因此已进行了一些输入验证。但是，`ValidateBasic`无法查询应用程序状态。应在`handler`中执行依赖于网络状态（例如帐户余额）的验证逻辑。
 
 ```go
 // Handle a message to buy name
@@ -100,13 +100,12 @@ func handleMsgBuyName(ctx sdk.Context, keeper Keeper, msg MsgBuyName) sdk.Result
 }
 ```
 
-First check to make sure that the bid is higher than the current price. Then, check to see whether the name already has an owner. If it does, the former owner will receive the money from the `Buyer`.
+首先确保出价高于当前价格。然后，检查域名是否已有所有者。如果有，之前的所有者将会收到`Buyer`的钱。
 
-If there is no owner, your `nameservice` module "burns" (i.e. sends to an unrecoverable address) the coins from the `Buyer`.
+如果没有所有者，你的`nameservice`模块会把`Buyer`的资金“燃烧”（即发送到不可恢复的地址）。
 
-If either `SubtractCoins` or `SendCoins` returns a non-nil error, the handler throws an error, reverting the state transition. Otherwise, using the getters and setters defined on the `Keeper` earlier, the handler sets the buyer to the new owner and sets the new price to be the current bid.
+如果`SubtractCoins`或`SendCoins`返回一个非空错误，handler会抛出一个错误，回退状态转变。没有的话，使用之前在`Keeper`上定义的 getter 和 setter，handler 将买方设置为新所有者，并将新价格设置为当前出价。
 
-> _*NOTE*_: This handler uses functions from the `coinKeeper` to perform currency operations. If your application is performing currency operations you may want to take a look at the [godocs for this module](https://godoc.org/github.com/cosmos/cosmos-sdk/x/bank#BaseKeeper) to see what functions it exposes.
+> 注意：此handler使用`coinKeeper`中的函数执行货币相关操作。如果你的应用程序正在执行货币相关操作，你可能需要查看此模块的[文档](https://godoc.org/github.com/cosmos/cosmos-sdk/x/bank#BaseKeeper)，以查看它提供的功能。
 
-### Now that you have your `Msgs` and `Handlers` defined it's time to learn about making the data from these transactions [available for querying](queriers.md)!
-
+###  现在已经有了 `Msgs` and `Handlers` 定义，是时候学习如何使交易中的数据能被[查询](./08-queriers.md)到！
