@@ -1,0 +1,45 @@
+{
+  "prevaluate":[
+    "sh setup.sh",
+    "nohup nsd start &",
+    "AliceAddress=$(nscli keys show alice --address)",
+    "BobAddress=$(nscli keys show  bob --address)",
+    "nohup nscli rest-server --chain-id testCardchain --trust-node &",
+    "echo 'this is pointless'"
+  ],
+  "TestCases":
+  [
+    {
+    "name":"buyCardScheme",
+    "route": "https://localhost:1317/cardservice/buy_card_scheme",
+    "reqBody": {
+      "base_req": {
+        "name":"alice",
+        "from":"alice",
+        "password":"asdfasdf",
+        "chain_id":"testCardchain",
+        "sequence":"%s",
+        "account_number":"%s"
+      },
+      "amount":"991credits",
+      "buyer":"%s"},
+    "evaluate": [
+      "echo ${AliceSequence}",
+      "echo ${AliceAccountNumber}",
+      "echo ${AliceAddress}"
+    ],
+    "expected": {
+      "properties": {
+        "hash": {
+            "description":"hash of tx",
+            "type":"string"
+          }
+        }
+      }
+    }
+  ],
+  "postvaluate":[
+    "kill %1",
+    "kill %2"
+  ]
+}

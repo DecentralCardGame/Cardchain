@@ -19,17 +19,17 @@ import (
 	auth "github.com/cosmos/cosmos-sdk/x/auth/client/rest"
 	bankcmd "github.com/cosmos/cosmos-sdk/x/bank/client/cli"
 	bank "github.com/cosmos/cosmos-sdk/x/bank/client/rest"
-	app "github.com/cosmos/sdk-application-tutorial"
-	nsclient "github.com/cosmos/sdk-application-tutorial/x/nameservice/client"
-	nsrest "github.com/cosmos/sdk-application-tutorial/x/nameservice/client/rest"
+	app "github.com/DecentralCardGame/Cardchain"
+	nsclient "github.com/DecentralCardGame/Cardchain/x/nameservice/client"
+	nsrest "github.com/DecentralCardGame/Cardchain/x/nameservice/client/rest"
 )
 
 const (
 	storeAcc = "acc"
-	storeNS  = "nameservice"
+	storeCS  = "cardservice"
 )
 
-var defaultCLIHome = os.ExpandEnv("$HOME/.nscli")
+var defaultCLIHome = os.ExpandEnv("$HOME/.cscli")
 
 func main() {
 	cobra.EnableCommandSorting = false
@@ -44,12 +44,12 @@ func main() {
 	config.Seal()
 
 	mc := []sdk.ModuleClients{
-		nsclient.NewModuleClient(storeNS, cdc),
+		nsclient.NewModuleClient(storeCS, cdc),
 	}
 
 	rootCmd := &cobra.Command{
-		Use:   "nscli",
-		Short: "nameservice Client",
+		Use:   "cscli",
+		Short: "cardservice Client",
 	}
 
 	// Add --chain-id to persistent flags and mark it required
@@ -71,7 +71,7 @@ func main() {
 		client.LineBreak,
 	)
 
-	executor := cli.PrepareMainCmd(rootCmd, "NS", defaultCLIHome)
+	executor := cli.PrepareMainCmd(rootCmd, "CS", defaultCLIHome)
 	err := executor.Execute()
 	if err != nil {
 		panic(err)

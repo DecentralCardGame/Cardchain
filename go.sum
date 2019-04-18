@@ -1,5 +1,7 @@
 cloud.google.com/go v0.26.0/go.mod h1:aQUYkXzVsufM+DwF1aE+0xfcU+56JwCaLick0ClmMTw=
 github.com/BurntSushi/toml v0.3.1/go.mod h1:xHWCNGjB5oqiDr8zfno3MHue2Ht5sIBksp03qcyfWMU=
+github.com/DecentralCardGame/Cardchain v0.0.0-20190313181338-9b5e25f7f04c h1:+VPkXTniLBlHyJbZr71Tt4qkOEF2mIvZpbafMtL041E=
+github.com/DecentralCardGame/Cardchain v0.0.0-20190313181338-9b5e25f7f04c/go.mod h1:xAwWd2rv9sBIy5FLy2iDJbA2CIQp1Y+qbSHfJSYTW3o=
 github.com/aead/siphash v1.0.1/go.mod h1:Nywa3cDsYNNK3gaciGTWPwHt0wlpNV15vwmswBAUSII=
 github.com/alecthomas/template v0.0.0-20160405071501-a0175ee3bccc/go.mod h1:LOuyumcjzFXgccqObfd/Ljyb9UuFJ6TxHnclSeseNhc=
 github.com/alecthomas/units v0.0.0-20151022065526-2efee857e7cf/go.mod h1:ybxpYRFXyAe+OPACYpWeL0wqObRcbAqCMya13uyzqw0=

@@ -24,7 +24,7 @@ import (
 
 	gaiaInit "github.com/cosmos/cosmos-sdk/cmd/gaia/init"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	app "github.com/cosmos/sdk-application-tutorial"
+	app "github.com/DecentralCardGame/Cardchain"
 	abci "github.com/tendermint/tendermint/abci/types"
 	cfg "github.com/tendermint/tendermint/config"
 	dbm "github.com/tendermint/tendermint/libs/db"
@@ -32,7 +32,7 @@ import (
 )
 
 // DefaultNodeHome sets the folder where the applcation data and configuration will be stored
-var DefaultNodeHome = os.ExpandEnv("$HOME/.nsd")
+var DefaultNodeHome = os.ExpandEnv("$HOME/.csd")
 
 const (
 	flagOverwrite = "overwrite"
@@ -45,8 +45,8 @@ func main() {
 	ctx := server.NewDefaultContext()
 
 	rootCmd := &cobra.Command{
-		Use:               "nsd",
-		Short:             "nameservice App Daemon (server)",
+		Use:               "csd",
+		Short:             "cardservice App Daemon (server)",
 		PersistentPreRunE: server.PersistentPreRunEFn(ctx),
 	}
 
@@ -55,7 +55,7 @@ func main() {
 	server.AddCommands(ctx, cdc, rootCmd, newApp, appExporter())
 
 	// prepare and add flags
-	executor := cli.PrepareBaseCmd(rootCmd, "NS", DefaultNodeHome)
+	executor := cli.PrepareBaseCmd(rootCmd, "CS", DefaultNodeHome)
 	err := executor.Execute()
 	if err != nil {
 		// handle with #870

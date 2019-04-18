@@ -8,8 +8,8 @@ import (
 	"github.com/spf13/cobra"
 )
 
-// GetCmdResolveName queries information about a name
-func GetCmdResolveName(queryRoute string, cdc *codec.Codec) *cobra.Command {
+// GetCmdResolveCard queries information about a card
+func GetCmdResolveCard(queryRoute string, cdc *codec.Codec) *cobra.Command {
 	return &cobra.Command{
 		Use:   "resolve [name]",
 		Short: "resolve name",

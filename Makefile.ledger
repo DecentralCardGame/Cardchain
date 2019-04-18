@@ -1,4 +1,4 @@
-LEDGER_ENABLED ?= false
+LEDGER_ENABLED ?= true
 
 build_tags =
 ifeq ($(LEDGER_ENABLED),true)
