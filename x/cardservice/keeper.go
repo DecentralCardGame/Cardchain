@@ -20,7 +20,7 @@ type Keeper struct {
 	cdc *codec.Codec // The wire codec for binary encoding/decoding.
 }
 
-// NewKeeper creates new instances of the nameservice Keeper
+// NewKeeper creates new instances of the cardservice Keeper
 func NewKeeper(coinKeeper bank.Keeper, cardsStoreKey sdk.StoreKey, usersStoreKey sdk.StoreKey, internalStoreKey sdk.StoreKey, cdc *codec.Codec) Keeper {
 	return Keeper{
 		coinKeeper: 			coinKeeper,

@@ -2,7 +2,7 @@ package client
 
 import (
 	"github.com/cosmos/cosmos-sdk/client"
-	cardservicecmd "github.com/cosmos/sdk-application-tutorial/x/cardservice/client/cli"
+	cardservicecmd "github.com/DecentralCardGame/Cardchain/x/cardservice/client/cli"
 	"github.com/spf13/cobra"
 	amino "github.com/tendermint/go-amino"
 )

@@ -11,7 +11,7 @@ import (
 	abci "github.com/tendermint/tendermint/abci/types"
 )
 
-// query endpoints supported by the nameservice Querier
+// query endpoints supported by the cardservice Querier
 const (
 	QueryResolve = "resolve"
 	QueryWhois   = "whois"
@@ -29,7 +29,7 @@ func NewQuerier(keeper Keeper) sdk.Querier {
 		case QueryNames:
 			return queryNames(ctx, req, keeper)
 		default:
-			return nil, sdk.ErrUnknownRequest("unknown nameservice query endpoint")
+			return nil, sdk.ErrUnknownRequest("unknown cardservice query endpoint")
 		}
 	}
 }
