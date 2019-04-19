@@ -1,4 +1,4 @@
-module Cardchain
+module cardchain
 
 go 1.12
 
