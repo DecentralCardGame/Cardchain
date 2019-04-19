@@ -1,4 +1,4 @@
-module cardchain
+module sdk-application-tutorial
 
 go 1.12
 
