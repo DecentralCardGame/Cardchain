@@ -3,7 +3,6 @@ module Cardchain
 go 1.12
 
 require (
-	github.com/DecentralCardGame/Cardchain
 	github.com/bartekn/go-bip39 v0.0.0-20171116152956-a05967ea095d
 	github.com/beorn7/perks v0.0.0-20180321164747-3a771d992973
 	github.com/bgentry/speakeasy v0.1.0
