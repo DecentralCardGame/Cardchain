@@ -20,8 +20,8 @@ import (
 	bankcmd "github.com/cosmos/cosmos-sdk/x/bank/client/cli"
 	bank "github.com/cosmos/cosmos-sdk/x/bank/client/rest"
 	app "github.com/DecentralCardGame/Cardchain"
-	nsclient "github.com/DecentralCardGame/Cardchain/x/nameservice/client"
-	nsrest "github.com/DecentralCardGame/Cardchain/x/nameservice/client/rest"
+	nsclient "github.com/DecentralCardGame/Cardchain/x/cardservice/client"
+	nsrest "github.com/DecentralCardGame/Cardchain/x/cardservice/client/rest"
 )
 
 const (

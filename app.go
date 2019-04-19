@@ -24,8 +24,6 @@ const (
 	appName = "cardservice"
 )
 
-asdsdfsdf
-
 type cardserviceApp struct {
 	*bam.BaseApp
 	cdc *codec.Codec
@@ -43,11 +41,11 @@ type cardserviceApp struct {
 	bankKeeper          bank.Keeper
 	feeCollectionKeeper auth.FeeCollectionKeeper
 	paramsKeeper        params.Keeper
-	csKeeper            nameservice.Keeper
+	csKeeper            cardservice.Keeper
 }
 
-// NewNameServiceApp is a constructor function for nameServiceApp
-func NewCardServiceApp(logger log.Logger, db dbm.DB) *cardServiceApp {
+// NewcardserviceApp is a constructor function for cardserviceApp
+func NewCardserviceApp(logger log.Logger, db dbm.DB) *cardserviceApp {
 
 	// First define the top level codec that will be shared by the different modules
 	cdc := MakeCodec()
@@ -56,7 +54,7 @@ func NewCardServiceApp(logger log.Logger, db dbm.DB) *cardServiceApp {
 	bApp := bam.NewBaseApp(appName, logger, db, auth.DefaultTxDecoder(cdc))
 
 	// Here you initialize your application with the store keys it requires
-	var app = &nameServiceApp{
+	var app = &cardserviceApp{
 		BaseApp: bApp,
 		cdc:     cdc,
 
@@ -91,9 +89,9 @@ func NewCardServiceApp(logger log.Logger, db dbm.DB) *cardServiceApp {
 	// The FeeCollectionKeeper collects transaction fees and renders them to the fee distribution module
 	app.feeCollectionKeeper = auth.NewFeeCollectionKeeper(cdc, app.keyFeeCollection)
 
-	// The NameserviceKeeper is the Keeper from the module for this tutorial
+	// The cardserviceKeeper is the Keeper from the module for this tutorial
 	// It handles interactions with the namestore
-	app.csKeeper = nameservice.NewKeeper(
+	app.csKeeper = cardservice.NewKeeper(
 		app.bankKeeper,
 		app.keyCScards,
 		app.keyCSusers,
@@ -105,14 +103,14 @@ func NewCardServiceApp(logger log.Logger, db dbm.DB) *cardServiceApp {
 	app.SetAnteHandler(auth.NewAnteHandler(app.accountKeeper, app.feeCollectionKeeper))
 
 	// The app.Router is the main transaction router where each module registers its routes
-	// Register the bank and nameservice routes here
+	// Register the bank and cardservice routes here
 	app.Router().
 		AddRoute("bank", bank.NewHandler(app.bankKeeper)).
-		AddRoute("cardservice", nameservice.NewHandler(app.csKeeper))
+		AddRoute("cardservice", cardservice.NewHandler(app.csKeeper))
 
 	// The app.QueryRouter is the main query router where each module registers its routes
 	app.QueryRouter().
-		AddRoute("cardservice", nameservice.NewQuerier(app.csKeeper)).
+		AddRoute("cardservice", cardservice.NewQuerier(app.csKeeper)).
 		AddRoute("acc", auth.NewQuerier(app.accountKeeper))
 
 	// The initChainer handles translating the genesis.json file into initial state for the network
@@ -162,7 +160,7 @@ type GenesisState struct {
 	Accounts []*auth.BaseAccount `json:"accounts"`
 }
 
-func (app *cardServiceApp) initChainer(ctx sdk.Context, req abci.RequestInitChain) abci.ResponseInitChain {
+func (app *cardserviceApp) initChainer(ctx sdk.Context, req abci.RequestInitChain) abci.ResponseInitChain {
 	stateJSON := req.AppStateBytes
 
 	genesisState := new(GenesisState)
@@ -192,7 +190,7 @@ func (app *cardServiceApp) initChainer(ctx sdk.Context, req abci.RequestInitChai
 }
 
 // ExportAppStateAndValidators does the things
-func (app *nameServiceApp) ExportAppStateAndValidators() (appState json.RawMessage, validators []tmtypes.GenesisValidator, err error) {
+func (app *cardserviceApp) ExportAppStateAndValidators() (appState json.RawMessage, validators []tmtypes.GenesisValidator, err error) {
 	ctx := app.NewContext(true, abci.Header{})
 	accounts := []*auth.BaseAccount{}
 
@@ -227,7 +225,7 @@ func MakeCodec() *codec.Codec {
 	var cdc = codec.New()
 	auth.RegisterCodec(cdc)
 	bank.RegisterCodec(cdc)
-	nameservice.RegisterCodec(cdc)
+	cardservice.RegisterCodec(cdc)
 	staking.RegisterCodec(cdc)
 	sdk.RegisterCodec(cdc)
 	codec.RegisterCrypto(cdc)

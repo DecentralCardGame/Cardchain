@@ -2,7 +2,7 @@ package client
 
 import (
 	"github.com/cosmos/cosmos-sdk/client"
-	nameservicecmd "github.com/cosmos/sdk-application-tutorial/x/nameservice/client/cli"
+	cardservicecmd "github.com/cosmos/sdk-application-tutorial/x/cardservice/client/cli"
 	"github.com/spf13/cobra"
 	amino "github.com/tendermint/go-amino"
 )
@@ -19,7 +19,7 @@ func NewModuleClient(storeKey string, cdc *amino.Codec) ModuleClient {
 
 // GetQueryCmd returns the cli query commands for this module
 func (mc ModuleClient) GetQueryCmd() *cobra.Command {
-	// Group nameservice queries under a subcommand
+	// Group cardservice queries under a subcommand
 	cardserviceQueryCmd := &cobra.Command{
 		Use:   "cardservice",
 		Short: "Querying commands for the cardservice module",
