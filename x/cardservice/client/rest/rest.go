@@ -5,7 +5,7 @@ import (
 	"net/http"
 
 	"github.com/cosmos/cosmos-sdk/client/context"
-	"github.com/DecentralCardGame/Cardchain/x/nameservice"
+	"github.com/DecentralCardGame/Cardchain/x/cardservice"
 
 	clientrest "github.com/cosmos/cosmos-sdk/client/rest"
 	"github.com/cosmos/cosmos-sdk/codec"
@@ -25,11 +25,11 @@ func RegisterRoutes(cliCtx context.CLIContext, r *mux.Router, cdc *codec.Codec, 
 	//r.HandleFunc(fmt.Sprintf("/%s/cards", storeName), saveCardContentHandler(cdc, cliCtx)).Methods("PUT")
 
 	r.HandleFunc(fmt.Sprintf("/%s/cards/{%s}", storeName, restName), resolveNameHandler(cdc, cliCtx, storeName)).Methods("GET")
-	r.HandleFunc(fmt.Sprintf("/%s/cards/{%s}/whois", storeName, restName), whoIsHandler(cdc, cliCtx, storeName)).Methods("GET")}
+	r.HandleFunc(fmt.Sprintf("/%s/cards/{%s}/whois", storeName, restName), whoIsHandler(cdc, cliCtx, storeName)).Methods("GET")
 }
 
 type buyCardSchemeReq struct {
-	BaseReq utils.BaseReq `json:"base_req"`
+	BaseReq rest.BaseReq `json:"base_req"`
 	Amount  string        `json:"amount"`
 	Buyer   string        `json:"buyer"`
 }
@@ -39,9 +39,8 @@ func buyCardSchemeHandler(cdc *codec.Codec, cliCtx context.CLIContext) http.Hand
 	return func(w http.ResponseWriter, r *http.Request) {
 		var req buyCardSchemeReq
 
-		err := utils.ReadRESTReq(w, r, cdc, &req)
-		if err != nil {
-			utils.WriteErrorResponse(w, http.StatusBadRequest, err.Error())
+		if !rest.ReadRESTReq(w, r, cdc, &req) {
+			rest.WriteErrorResponse(w, http.StatusBadRequest, "failed to parse request")
 			return
 		}
 
@@ -52,13 +51,13 @@ func buyCardSchemeHandler(cdc *codec.Codec, cliCtx context.CLIContext) http.Hand
 
 		addr, err := sdk.AccAddressFromBech32(req.Buyer)
 		if err != nil {
-			utils.WriteErrorResponse(w, http.StatusBadRequest, err.Error())
+			rest.WriteErrorResponse(w, http.StatusBadRequest, err.Error())
 			return
 		}
 
 		coins, err := sdk.ParseCoin(req.Amount)
 		if err != nil {
-			utils.WriteErrorResponse(w, http.StatusBadRequest, err.Error())
+			rest.WriteErrorResponse(w, http.StatusBadRequest, err.Error())
 			return
 		}
 
@@ -66,7 +65,7 @@ func buyCardSchemeHandler(cdc *codec.Codec, cliCtx context.CLIContext) http.Hand
 		msg := cardservice.NewMsgBuyCardScheme(coins, addr)
 		err = msg.ValidateBasic()
 		if err != nil {
-			utils.WriteErrorResponse(w, http.StatusBadRequest, err.Error())
+			rest.WriteErrorResponse(w, http.StatusBadRequest, err.Error())
 			return
 		}
 
@@ -83,6 +82,7 @@ type setNameReq struct {
 	Owner   string       `json:"owner"`
 }
 
+/*
 func setNameHandler(cdc *codec.Codec, cliCtx context.CLIContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		var req setNameReq
@@ -103,7 +103,7 @@ func setNameHandler(cdc *codec.Codec, cliCtx context.CLIContext) http.HandlerFun
 		}
 
 		// create the message
-		msg := nameservice.NewMsgSetName(req.Name, req.Value, addr)
+		msg := cardservice.NewMsgSetName(req.Name, req.Value, addr)
 		err = msg.ValidateBasic()
 		if err != nil {
 			rest.WriteErrorResponse(w, http.StatusBadRequest, err.Error())
@@ -113,6 +113,7 @@ func setNameHandler(cdc *codec.Codec, cliCtx context.CLIContext) http.HandlerFun
 		clientrest.WriteGenerateStdTxResponse(w, cdc, cliCtx, baseReq, []sdk.Msg{msg})
 	}
 }
+*/
 
 func resolveNameHandler(cdc *codec.Codec, cliCtx context.CLIContext, storeName string) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {

@@ -97,12 +97,7 @@ func GetCmdBuyCardScheme(cdc *codec.Codec) *cobra.Command {
 				return err
 			}
 
-			account, err := cliCtx.GetFromAddress()
-			if err != nil {
-				return err
-			}
-
-			msg := cardservice.NewMsgBuyCardScheme(coins, account)
+			msg := cardservice.NewMsgBuyCardScheme(coins, cliCtx.GetFromAddress())
 			err = msg.ValidateBasic()
 			if err != nil {
 				return err
@@ -143,12 +138,7 @@ func GetCmdSaveCardContent(cdc *codec.Codec) *cobra.Command {
 				return err
 			}
 
-			account, err := cliCtx.GetFromAddress()
-			if err != nil {
-				return err
-			}
-
-			msg := cardservice.NewMsgSaveCardContent(cardId, []byte(args[1]), account)
+			msg := cardservice.NewMsgSaveCardContent(cardId, []byte(args[1]), cliCtx.GetFromAddress())
 			err = msg.ValidateBasic()
 			if err != nil {
 				return err
@@ -181,12 +171,7 @@ func GetCmdVoteCard(cdc *codec.Codec) *cobra.Command {
 				return err
 			}
 
-			account, err := cliCtx.GetFromAddress()
-			if err != nil {
-				return err
-			}
-
-			msg := cardservice.NewMsgVoteCard(cardId, args[1], account)
+			msg := cardservice.NewMsgVoteCard(cardId, args[1], cliCtx.GetFromAddress())
 			err = msg.ValidateBasic()
 			if err != nil {
 				return err
@@ -219,15 +204,10 @@ func GetCmdTransferCard(cdc *codec.Codec) *cobra.Command {
 				return err
 			}
 
-			account, err := cliCtx.GetFromAddress()
-			if err != nil {
-				return err
-			}
-
 			var receiver sdk.AccAddress
 			cdc.MustUnmarshalBinaryBare([]byte(args[1]), &receiver)
 
-			msg := cardservice.NewMsgTransferCard(cardId, account, receiver)
+			msg := cardservice.NewMsgTransferCard(cardId, cliCtx.GetFromAddress(), receiver)
 			err = msg.ValidateBasic()
 			if err != nil {
 				return err
@@ -260,17 +240,12 @@ func GetCmdDonateToCard(cdc *codec.Codec) *cobra.Command {
 				return err
 			}
 
-			account, err := cliCtx.GetFromAddress()
-			if err != nil {
-				return err
-			}
-
 			coins, err := sdk.ParseCoin(args[1])
 			if err != nil {
 				return err
 			}
 
-			msg := cardservice.NewMsgDonateToCard(cardId, account, coins)
+			msg := cardservice.NewMsgDonateToCard(cardId, cliCtx.GetFromAddress(), coins)
 			err = msg.ValidateBasic()
 			if err != nil {
 				return err
@@ -298,16 +273,11 @@ func GetCmdCreateUser(cdc *codec.Codec) *cobra.Command {
 				return err
 			}
 
-			account, err := cliCtx.GetFromAddress()
-			if err != nil {
-				return err
-			}
-
 			var newUser sdk.AccAddress
 			cdc.MustUnmarshalBinaryBare([]byte(args[1]), &newUser)
 
-			msg := cardservice.NewMsgCreateUser(account, newUser)
-			err = msg.ValidateBasic()
+			msg := cardservice.NewMsgCreateUser(cliCtx.GetFromAddress(), newUser)
+			err := msg.ValidateBasic()
 			if err != nil {
 				return err
 			}
