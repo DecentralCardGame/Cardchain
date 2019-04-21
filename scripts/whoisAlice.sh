@@ -1,1 +1,1 @@
-nscli query cardservice whois $(nscli keys show alice --address) --chain-id testCardchain 
+cscli query cardservice whois $(cscli keys show alice --address) --chain-id testCardchain
