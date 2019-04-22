@@ -1,12 +1,15 @@
 {
   "prevaluate":[
     "sh setup.sh",
-    "nohup nsd start &",
-    "AliceAddress=$(nscli keys show alice --address)",
-    "BobAddress=$(nscli keys show  bob --address)",
-    "nohup nscli rest-server --chain-id testCardchain --trust-node &",
-    "echo 'this is pointless'"
+    "nohup csd start &",
+    "AliceAddress=$(cscli keys show alice --address)",
+    "BobAddress=$(cscli keys show  bob --address)",
+    "nohup cscli rest-server --chain-id testCardchain --trust-node &",
+    "URL='http://localhost:1317/auth/accounts/'",
+    "curlcmd='curl'",
+    "echo $URL"
   ],
+  "oldcurlcmd": "curl -s --insecure",
   "TestCases":
   [
     {

@@ -6,7 +6,11 @@ colorGreen='\033[0;32m'
 colorRed='\033[0;31m'
 colorNormal='\033[0m'
 
-JSON=$(cat tests/testREST.json)
+# set working directory to script directory
+cd "$(dirname "$0")"
+
+# read the json for these REST tests
+JSON=$(cat testREST.json)
 
 # iterate over all prevaluations
 printf "${colorCyan}executing prevaluation commands ${colorNormal}\n"
@@ -21,14 +25,14 @@ for i in `seq 0 $((length-1))`;
   done
 
 
-URL="https://localhost:1317/auth/accounts/"
+#URL="https://localhost:1317/auth/accounts/"
 printf "${colorCyan}querying rest-server ${colorNormal}"
 
 while [ -z "$RES" ]; do
   sleep 1
 
-  RES=$(curl -s --insecure ${URL}${AliceAddress});
-  RES2=$(curl -s --insecure ${URL}${BobAddress});
+  RES=$(${curlcmd} ${URL}${AliceAddress});
+  RES2=$(${curlcmd} ${URL}${BobAddress});
 
   printf '.'
 done

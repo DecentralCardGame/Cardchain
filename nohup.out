@@ -1,0 +1,3 @@
+I[2019-04-22|11:03:50.928] Starting ABCI with Tendermint                module=main 
+ERROR: couldn't create db: Error initializing DB: resource temporarily unavailable
+ERROR: Failed to listen on localhost:1317: listen tcp 127.0.0.1:1317: bind: address already in use
