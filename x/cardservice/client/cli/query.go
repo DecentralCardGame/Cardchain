@@ -26,9 +26,13 @@ func GetCmdResolveCard(queryRoute string, cdc *codec.Codec) *cobra.Command {
 				return nil
 			}
 
-			var out cardservice.QueryResResolve
-			cdc.MustUnmarshalJSON(res, &out)
-			return cliCtx.PrintOutput(out)
+			fmt.Println(string(res))
+
+			return nil
+
+			//var out cardservice.QueryResResolve
+			//cdc.MustUnmarshalJSON(res, &out)
+			//return cliCtx.PrintOutput(out)
 		},
 	}
 }
