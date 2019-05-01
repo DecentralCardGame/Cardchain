@@ -21,7 +21,7 @@ import (
 	bank "github.com/cosmos/cosmos-sdk/x/bank/client/rest"
 	app "github.com/DecentralCardGame/Cardchain"
 	nsclient "github.com/DecentralCardGame/Cardchain/x/cardservice/client"
-	nsrest "github.com/DecentralCardGame/Cardchain/x/cardservice/client/rest"
+	csrest "github.com/DecentralCardGame/Cardchain/x/cardservice/client/rest"
 )
 
 const (
@@ -84,7 +84,7 @@ func registerRoutes(rs *lcd.RestServer) {
 	tx.RegisterRoutes(rs.CliCtx, rs.Mux, rs.Cdc)
 	auth.RegisterRoutes(rs.CliCtx, rs.Mux, rs.Cdc, storeAcc)
 	bank.RegisterRoutes(rs.CliCtx, rs.Mux, rs.Cdc, rs.KeyBase)
-	nsrest.RegisterRoutes(rs.CliCtx, rs.Mux, rs.Cdc, storeCS)
+	csrest.RegisterRoutes(rs.CliCtx, rs.Mux, rs.Cdc, storeCS)
 }
 
 func queryCmd(cdc *amino.Codec, mc []sdk.ModuleClients) *cobra.Command {

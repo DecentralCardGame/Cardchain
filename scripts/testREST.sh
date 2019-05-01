@@ -78,7 +78,7 @@ for i in `seq 0 $((length-1))`;
     #echo $REQ
     #echo $Route
 
-    cmd="curl -XPOST -s --insecure ${Route} --data-binary ${REQ}"
+    cmd="${curlpost} ${Route} -d ${REQ}"
     echo $cmd
 
     RES=$($cmd)

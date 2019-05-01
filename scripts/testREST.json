@@ -7,6 +7,7 @@
     "nohup cscli rest-server --chain-id testCardchain --trust-node &",
     "URL='http://localhost:1317/auth/accounts/'",
     "curlcmd='curl'",
+    "curlpost='curl -XPOST'",
     "echo $URL"
   ],
   "oldcurlcmd": "curl -s --insecure",
@@ -14,12 +15,10 @@
   [
     {
     "name":"buyCardScheme",
-    "route": "https://localhost:1317/cardservice/buy_card_scheme",
+    "route": "http://localhost:1317/cardservice/buy_card_scheme",
     "reqBody": {
       "base_req": {
-        "name":"alice",
-        "from":"alice",
-        "password":"asdfasdf",
+        "from":"%s",
         "chain_id":"testCardchain",
         "sequence":"%s",
         "account_number":"%s"
@@ -27,6 +26,7 @@
       "amount":"991credits",
       "buyer":"%s"},
     "evaluate": [
+      "echo ${AliceAddress}",
       "echo ${AliceSequence}",
       "echo ${AliceAccountNumber}",
       "echo ${AliceAddress}"

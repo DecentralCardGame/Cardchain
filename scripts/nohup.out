@@ -1,9 +1,0 @@
-I[2019-04-22|11:05:52.779] Starting ABCI with Tendermint                module=main 
-ERROR: Failed to listen on 0.0.0.0:26657: listen tcp 0.0.0.0:26657: bind: address already in use
-ERROR: Failed to listen on localhost:1317: listen tcp 127.0.0.1:1317: bind: address already in use
-I[2019-04-22|11:06:26.442] Starting ABCI with Tendermint                module=main 
-ERROR: Failed to listen on 0.0.0.0:26657: listen tcp 0.0.0.0:26657: bind: address already in use
-ERROR: Failed to listen on localhost:1317: listen tcp 127.0.0.1:1317: bind: address already in use
-I[2019-04-22|11:08:47.199] Starting ABCI with Tendermint                module=main 
-ERROR: Failed to listen on 0.0.0.0:26657: listen tcp 0.0.0.0:26657: bind: address already in use
-ERROR: Failed to listen on localhost:1317: listen tcp 127.0.0.1:1317: bind: address already in use
