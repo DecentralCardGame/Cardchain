@@ -7,7 +7,6 @@
     "nohup cscli rest-server --chain-id testCardchain --trust-node &",
     "URL='http://localhost:1317/auth/accounts/'",
     "curlcmd='curl'",
-    "curlpost='curl -XPOST'",
     "echo $URL"
   ],
   "oldcurlcmd": "curl -s --insecure",
@@ -24,13 +23,46 @@
         "account_number":"%s"
       },
       "amount":"991credits",
-      "buyer":"%s"},
+      "buyer":"%s"
+    },
     "evaluate": [
       "echo ${AliceAddress}",
       "echo ${AliceSequence}",
       "echo ${AliceAccountNumber}",
       "echo ${AliceAddress}"
     ],
+    "curlprefix": "-XPOST",
+    "expected": {
+      "properties": {
+        "hash": {
+            "description":"hash of tx",
+            "type":"string"
+          }
+        }
+      }
+    },
+
+    {
+    "name":"saveCardContent",
+    "route": "http://localhost:1317/cardservice/save_card_content",
+    "reqBody": {
+      "base_req": {
+        "from":"%s",
+        "chain_id":"testCardchain",
+        "sequence":"1",
+        "account_number":"%s"
+      },
+      "cardId":"0",
+      "content":"",
+      "owner":"%s"
+    },
+    "evaluate": [
+      "echo ${AliceAddress}",
+      "echo ${AliceSequence}",
+      "echo ${AliceAccountNumber}",
+      "echo ${AliceAddress}"
+    ],
+    "curlprefix": "-XPUT",
     "expected": {
       "properties": {
         "hash": {
@@ -40,7 +72,9 @@
         }
       }
     }
+
   ],
+
   "postvaluate":[
     "kill %1",
     "kill %2"

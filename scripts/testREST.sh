@@ -74,11 +74,9 @@ for i in `seq 0 $((length-1))`;
 
     REQ=$(echo ${currJSON} | jq -c '.reqBody')
     Route=$(echo ${currJSON} | jq -r '.route')
+    curlprefix=$(echo ${currJSON} | jq -r '.curlprefix')
 
-    #echo $REQ
-    #echo $Route
-
-    cmd="${curlpost} ${Route} -d ${REQ}"
+    cmd="${curlcmd} ${curlprefix} ${Route} -d ${REQ}"
     echo $cmd
 
     RES=$($cmd)

@@ -13,3 +13,6 @@ build
 # IDE
 .idea/
 *.iml
+
+# Tests
+/scripts/nohup.out
