@@ -1,6 +1,7 @@
 package cardservice
 
 import (
+	"strconv"
 	"encoding/json"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -173,10 +174,14 @@ func (msg MsgVoteCard) ValidateBasic() sdk.Error {
 	if msg.Voter.Empty() {
 		return sdk.ErrInvalidAddress(msg.Voter.String())
 	}
-	// the check of CardID < 0 might be pointless.. should be validated in the rest api or nscli
-	if msg.CardId < 0 || len(msg.VoteType) == 0 {
-		return sdk.ErrUnknownRequest("CardId and/or Vote Type cannot be empty")
+	// the check of CardID < 0 might be pointless.. should be validated in the rest api or cscli
+	if msg.CardId < 0 {
+		return sdk.ErrUnknownRequest("CardId is: "+strconv.FormatUint(msg.CardId, 10)+" - should be non-negative")
 	}
+	if len(msg.VoteType) == 0 {
+		return sdk.ErrUnknownRequest("Vote Type is: "+msg.VoteType+" - cannot be empty")
+	}
+
 	return nil
 }
 

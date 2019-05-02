@@ -127,12 +127,11 @@ func saveCardContentHandler(cdc *codec.Codec, cliCtx context.CLIContext) http.Ha
 
 
 type voteCardReq struct {
-	BaseReq rest.BaseReq `json:"base_req"`
-	CardId	string			 `json:"cardid"`
-	VoteType string      `json:"votetype"`
-	Voter   string       `json:"voter"`
+	BaseReq  rest.BaseReq	`json:"base_req"`
+	VoteType string   	  `json:"votetype"`
+	CardId	 string				`json:"cardid"`
+	Voter    string       `json:"voter"`
 }
-
 
 func voteCardHandler(cdc *codec.Codec, cliCtx context.CLIContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
@@ -154,7 +153,12 @@ func voteCardHandler(cdc *codec.Codec, cliCtx context.CLIContext) http.HandlerFu
 			return
 		}
 
+		// TODO sanitize?
 		voteType := req.VoteType
+		if len(voteType) == 0 {
+			rest.WriteErrorResponse(w, http.StatusBadRequest, req.VoteType)
+			return
+		}
 
 		voter, err := sdk.AccAddressFromBech32(req.Voter)
 		if err != nil {
