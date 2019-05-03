@@ -1,1 +1,1 @@
-{"type":"auth/StdTx","value":{"msg":[{"type":"cardservice/TransferCard","value":{"CardId":"1","Sender":"cosmos189ujy6ep9pflja9j00tt4pk3q0kqenayf3l7hh","Receiver":"cosmos1a2e728jkct4h45hhcpgz2l8ak9jhw5fkvyyy6k"}}],"fee":{"amount":null,"gas":"13530"},"signatures":null,"memo":""}}
+{"type":"auth/StdTx","value":{"msg":[{"type":"cardservice/DonateToCard","value":{"CardId":"1","Donator":"cosmos189ujy6ep9pflja9j00tt4pk3q0kqenayf3l7hh","Amount":{"denom":"credits","amount":"1"}}}],"fee":{"amount":null,"gas":"32676"},"signatures":null,"memo":""}}

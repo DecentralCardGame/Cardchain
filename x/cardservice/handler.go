@@ -120,7 +120,7 @@ func handleMsgVoteCard(ctx sdk.Context, keeper Keeper, msg MsgVoteCard) sdk.Resu
 	*/
 
 	switch msg.VoteType {
-	case "fairenough":
+	case "fair_enough":
 		card.FairEnoughVotes++
 	case "inappropriate":
 		card.InappropriateVotes++
