@@ -21,8 +21,14 @@ func NewHandler(keeper Keeper) sdk.Handler {
 				return handleMsgBuyCardScheme(ctx, keeper, msg)
 			case MsgVoteCard:
 				return handleMsgVoteCard(ctx, keeper, msg)
+			case MsgTransferCard:
+				return handleMsgTransferCard(ctx, keeper, msg)
+			case MsgDonateToCard:
+				return handleMsgDonateToCard(ctx, keeper, msg)
+			case MsgCreateUser:
+				return handleMsgCreateUser(ctx, keeper, msg)
 		default:
-			errMsg := fmt.Sprintf("Unrecognized cardservice Msg type: %v", msg.Type())
+			errMsg := fmt.Sprintf("Unrecognized cardservice Msg type in handler.go: %v", msg.Type())
 			return sdk.ErrUnknownRequest(errMsg).Result()
 		}
 	}
@@ -52,7 +58,7 @@ func handleMsgBuyCardScheme(ctx sdk.Context, keeper Keeper, msg MsgBuyCardScheme
 		}
 	//}
 
-	keeper.DeltaPublicPoolCredits(ctx, price)
+	keeper.AddPublicPoolCredits(ctx, price)
 	keeper.SetCardAuctionPrice(ctx, price.Add(price))
 	keeper.SetLastCardSchemeId(ctx, currId)
 
@@ -193,7 +199,7 @@ func handleMsgCreateUser(ctx sdk.Context, keeper Keeper, msg MsgCreateUser) sdk.
 
 	// give starting credits
 	if(!keeper.GetPublicPoolCredits(ctx).IsZero()) {
-		keeper.DeltaPublicPoolCredits(ctx, sdk.NewInt64Coin("credits", -1))
+		keeper.SubtractPublicPoolCredits(ctx, sdk.NewInt64Coin("credits", 1))
 		keeper.coinKeeper.AddCoins(ctx, msg.NewUser, sdk.Coins{sdk.NewInt64Coin("credits", 1)})
 	}
 

@@ -74,8 +74,18 @@ func (k Keeper) SetPublicPoolCredits(ctx sdk.Context, price sdk.Coin) {
 	store.Set([]byte("publicPoolCredits"), k.cdc.MustMarshalBinaryBare(price))
 }
 
+// subtracts credits from the public pool
+func (k Keeper) SubtractPublicPoolCredits(ctx sdk.Context, delta sdk.Coin) {
+	store := ctx.KVStore(k.internalStoreKey)
+	bz := store.Get([]byte("publicPoolCredits"))
+	var amount sdk.Coin
+	k.cdc.MustUnmarshalBinaryBare(bz, &amount)
+	newAmount := amount.Sub(delta)
+	store.Set([]byte("publicPoolCredits"), k.cdc.MustMarshalBinaryBare(newAmount))
+}
+
 // adds or subtracts credits from the public pool
-func (k Keeper) DeltaPublicPoolCredits(ctx sdk.Context, delta sdk.Coin) {
+func (k Keeper) AddPublicPoolCredits(ctx sdk.Context, delta sdk.Coin) {
 	store := ctx.KVStore(k.internalStoreKey)
 	bz := store.Get([]byte("publicPoolCredits"))
 	var amount sdk.Coin

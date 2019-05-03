@@ -140,8 +140,10 @@ func GetCmdTransferCard(cdc *codec.Codec) *cobra.Command {
 				return err
 			}
 
-			var receiver sdk.AccAddress
-			cdc.MustUnmarshalBinaryBare([]byte(args[1]), &receiver)
+			receiver, err := sdk.AccAddressFromBech32(args[1])
+			if err != nil {
+				return err
+			}
 
 			msg := cardservice.NewMsgTransferCard(cardId, cliCtx.GetFromAddress(), receiver)
 			err = msg.ValidateBasic()
@@ -199,7 +201,7 @@ func GetCmdCreateUser(cdc *codec.Codec) *cobra.Command {
 	return &cobra.Command{
 		Use:   "create-user [Addresss]",
 		Short: "create a user, this means giving starting credits and starting cards",
-		Args:  cobra.ExactArgs(2),
+		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			cliCtx := context.NewCLIContext().WithCodec(cdc).WithAccountDecoder(cdc)
 
@@ -209,11 +211,13 @@ func GetCmdCreateUser(cdc *codec.Codec) *cobra.Command {
 				return err
 			}
 
-			var newUser sdk.AccAddress
-			cdc.MustUnmarshalBinaryBare([]byte(args[1]), &newUser)
+			newUser, err := sdk.AccAddressFromBech32(args[0])
+			if err != nil {
+				return err
+			}
 
 			msg := cardservice.NewMsgCreateUser(cliCtx.GetFromAddress(), newUser)
-			err := msg.ValidateBasic()
+			err = msg.ValidateBasic()
 			if err != nil {
 				return err
 			}
