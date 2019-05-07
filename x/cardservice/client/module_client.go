@@ -26,9 +26,9 @@ func (mc ModuleClient) GetQueryCmd() *cobra.Command {
 	}
 
 	cardserviceQueryCmd.AddCommand(client.GetCommands(
-		cardservicecmd.GetCmdResolveCard(mc.storeKey, mc.cdc),
+		cardservicecmd.GetCmdCard(mc.storeKey, mc.cdc),
 		cardservicecmd.GetCmdWhois(mc.storeKey, mc.cdc),
-		//cardservicecmd.GetCmdNames(mc.storeKey, mc.cdc),
+		cardservicecmd.GetCmdCardList(mc.storeKey, mc.cdc),
 	)...)
 
 	return cardserviceQueryCmd

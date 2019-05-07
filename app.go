@@ -1,6 +1,7 @@
 package app
 
 import (
+	"fmt"
 	"encoding/json"
 
 	"github.com/tendermint/tendermint/libs/log"
@@ -172,19 +173,20 @@ func (app *cardserviceApp) initChainer(ctx sdk.Context, req abci.RequestInitChai
 	for _, acc := range genesisState.Accounts {
 		acc.AccountNumber = app.accountKeeper.GetNextAccountNumber(ctx)
 		app.accountKeeper.SetAccount(ctx, acc)
+
+		fmt.Println( acc.GetAddress().String() )
+		//fmt.Println( sdk.AccAddressFromHex( acc.GetAddress().String() ) )
+		app.csKeeper.InitUser(ctx, acc.GetAddress())
 	}
-
-	// initialize CardScheme Id
-	app.csKeeper.SetLastCardSchemeId(ctx, uint64(0))
-
-	// initialize CardScheme auction price
-	app.csKeeper.SetCardAuctionPrice(ctx, sdk.NewInt64Coin("credits", 1000))
-
-	// initialize public pool
-	app.csKeeper.SetPublicPoolCredits(ctx, sdk.NewInt64Coin("credits", 1000))
 
 	auth.InitGenesis(ctx, app.accountKeeper, app.feeCollectionKeeper, genesisState.AuthData)
 	bank.InitGenesis(ctx, app.bankKeeper, genesisState.BankData)
+
+	// initialize CardScheme Id, Auction price and public pool
+	app.csKeeper.SetLastCardSchemeId(ctx, uint64(0))
+	app.csKeeper.SetCardAuctionPrice(ctx, sdk.NewInt64Coin("credits", 10))
+	app.csKeeper.SetPublicPoolCredits(ctx, sdk.NewInt64Coin("credits", 1000))
+
 
 	return abci.ResponseInitChain{}
 }

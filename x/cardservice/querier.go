@@ -44,7 +44,7 @@ func queryResolve(ctx sdk.Context, path []string, req abci.RequestQuery, keeper 
 	card := keeper.GetCard(ctx, cardId)
 
 	if &card == nil {
-		return []byte{}, sdk.ErrUnknownRequest("could not resolve name")
+		return []byte{}, sdk.ErrUnknownRequest("cardId does not represent a card")
 	}
 
 	/* old code:
@@ -57,7 +57,7 @@ func queryResolve(ctx sdk.Context, path []string, req abci.RequestQuery, keeper 
 
 	return bz, nil
 }
-
+/*
 // TODO check if this can be removed
 // Query Result Payload for a resolve query
 type QueryResResolve struct {
@@ -68,7 +68,7 @@ type QueryResResolve struct {
 func (r QueryResResolve) String() string {
 	return r.Value
 }
-
+*/
 // nolint: unparam
 func queryWhois(ctx sdk.Context, path []string, req abci.RequestQuery, keeper Keeper) (res []byte, err sdk.Error) {
 	address, error := sdk.AccAddressFromBech32(path[0])
@@ -82,6 +82,10 @@ func queryWhois(ctx sdk.Context, path []string, req abci.RequestQuery, keeper Ke
 	if err2 != nil {
 		panic("could not marshal result to JSON")
 	}
+
+	fmt.Println("Blaaaa")
+	fmt.Println(user)
+	fmt.Println("Blaaaa")
 
 	return bz, nil
 }

@@ -8,11 +8,15 @@ import (
 )
 
 type User struct {
+	alias string
+	ownedCards []uint64
 	voteRights []VoteRight
 }
 
 func NewUser() User {
 	return User{
+		alias: "pipikaka",
+		ownedCards: []uint64{},
 		voteRights: []VoteRight{},
 	}
 }

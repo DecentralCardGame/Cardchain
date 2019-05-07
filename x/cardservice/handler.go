@@ -65,6 +65,7 @@ func handleMsgBuyCardScheme(ctx sdk.Context, keeper Keeper, msg MsgBuyCardScheme
 	newCard := NewCard(msg.Buyer)
 
 	keeper.SetCard(ctx, currId, newCard)
+	keeper.AddOwnedCard(ctx, currId, msg.Buyer)
 
 	return sdk.Result{}
 }
@@ -194,14 +195,17 @@ func handleMsgDonateToCard(ctx sdk.Context, keeper Keeper, msg MsgDonateToCard) 
 
 // handle create user message
 func handleMsgCreateUser(ctx sdk.Context, keeper Keeper, msg MsgCreateUser) sdk.Result {
-	newUser := NewUser()
-	keeper.SetUser(ctx, msg.NewUser, newUser)
+	//newUser := NewUser()
+	//keeper.SetUser(ctx, msg.NewUser, newUser)
+
+	keeper.InitUser(ctx, msg.NewUser)
+
 
 	// give starting credits
-	if(!keeper.GetPublicPoolCredits(ctx).IsZero()) {
-		keeper.SubtractPublicPoolCredits(ctx, sdk.NewInt64Coin("credits", 1))
-		keeper.coinKeeper.AddCoins(ctx, msg.NewUser, sdk.Coins{sdk.NewInt64Coin("credits", 1)})
-	}
+	//if(!keeper.GetPublicPoolCredits(ctx).IsZero()) {
+		//keeper.SubtractPublicPoolCredits(ctx, sdk.NewInt64Coin("credits", 1))
+		//keeper.coinKeeper.AddCoins(ctx, msg.NewUser, sdk.Coins{sdk.NewInt64Coin("credits", 1)})
+	//}
 
 	return sdk.Result{}
 }

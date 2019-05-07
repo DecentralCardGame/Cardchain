@@ -11,10 +11,10 @@ import (
 )
 
 // GetCmdResolveCard queries information about a card
-func GetCmdResolveCard(queryRoute string, cdc *codec.Codec) *cobra.Command {
+func GetCmdCard(queryRoute string, cdc *codec.Codec) *cobra.Command {
 	return &cobra.Command{
-		Use:   "resolve [name]",
-		Short: "resolve name",
+		Use:   "resolve [cardId]",
+		Short: "resolve card",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			cliCtx := context.NewCLIContext().WithCodec(cdc)
@@ -37,11 +37,11 @@ func GetCmdResolveCard(queryRoute string, cdc *codec.Codec) *cobra.Command {
 	}
 }
 
-// GetCmdWhois queries information about a domain
+// GetCmdWhois queries information about a user
 func GetCmdWhois(queryRoute string, cdc *codec.Codec) *cobra.Command {
 	return &cobra.Command{
 		Use:   "whois [name]",
-		Short: "Query whois info of name",
+		Short: "Query whois info of user",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			cliCtx := context.NewCLIContext().WithCodec(cdc)
@@ -53,19 +53,25 @@ func GetCmdWhois(queryRoute string, cdc *codec.Codec) *cobra.Command {
 				return nil
 			}
 
+			fmt.Println(string(res))
+
+			return nil
+
+			/*
 			var out cardservice.Whois
 			cdc.MustUnmarshalJSON(res, &out)
 			return cliCtx.PrintOutput(out)
+			*/
 		},
 	}
 }
 
 // GetCmdNames queries a list of all names
-func GetCmdNames(queryRoute string, cdc *codec.Codec) *cobra.Command {
+func GetCmdCardList(queryRoute string, cdc *codec.Codec) *cobra.Command {
 	return &cobra.Command{
 		Use:   "names",
 		Short: "names",
-		// Args:  cobra.ExactArgs(1),
+		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			cliCtx := context.NewCLIContext().WithCodec(cdc)
 
