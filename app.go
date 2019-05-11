@@ -174,8 +174,6 @@ func (app *cardserviceApp) initChainer(ctx sdk.Context, req abci.RequestInitChai
 		acc.AccountNumber = app.accountKeeper.GetNextAccountNumber(ctx)
 		app.accountKeeper.SetAccount(ctx, acc)
 
-		fmt.Println( acc.GetAddress().String() )
-		//fmt.Println( sdk.AccAddressFromHex( acc.GetAddress().String() ) )
 		app.csKeeper.InitUser(ctx, acc.GetAddress())
 	}
 

@@ -2,7 +2,7 @@ package cardservice
 
 import (
 	"encoding/binary"
-	"fmt"
+	//"fmt"
 
 	"github.com/cosmos/cosmos-sdk/codec"
 	"github.com/cosmos/cosmos-sdk/x/bank"
@@ -109,13 +109,9 @@ func (k Keeper) SetCard(ctx sdk.Context, cardId uint64, newCard Card) {
 	store.Set(sdk.Uint64ToBigEndian(cardId), k.cdc.MustMarshalBinaryBare(newCard))
 }
 
-func (k Keeper) GetUser(ctx sdk.Context, user sdk.AccAddress) User {
+func (k Keeper) GetUser(ctx sdk.Context, address sdk.AccAddress) User {
 	store := ctx.KVStore(k.usersStoreKey)
-	bz := store.Get(user)
-
-
-	//fmt.Println(string(bz))
-
+	bz := store.Get(address)
 
 	var gottenUser User
 	k.cdc.MustUnmarshalBinaryBare(bz, &gottenUser)
@@ -131,36 +127,27 @@ func (k Keeper) InitUser(ctx sdk.Context, address sdk.AccAddress) {
 	store := ctx.KVStore(k.usersStoreKey)
 
 	newUser := NewUser()
-	fmt.Println("Blaaaa")
-	fmt.Println(newUser)
-	fmt.Println("Blaaaa")
 
 	k.coinKeeper.AddCoins(ctx, address, sdk.Coins{sdk.NewInt64Coin("credits", 1000)})
 	store.Set(address, k.cdc.MustMarshalBinaryBare(newUser))
 }
 
-func (k Keeper) AddOwnedCard(ctx sdk.Context, cardId uint64, owner sdk.AccAddress) {
+func (k Keeper) AddOwnedCard(ctx sdk.Context, cardId uint64, address sdk.AccAddress) {
 	store := ctx.KVStore(k.usersStoreKey)
-	bz := store.Get(owner)
+	bz := store.Get(address)
 
 	var gottenUser User
 	k.cdc.MustUnmarshalBinaryBare(bz, &gottenUser)
 
-	gottenUser.ownedCards = append(gottenUser.ownedCards, cardId)
+	gottenUser.OwnedCards = append(gottenUser.OwnedCards, cardId)
 
-	fmt.Println("Blaaaa")
-	fmt.Println(gottenUser)
-	fmt.Println(gottenUser.alias)
-	fmt.Println("Blaaaa")
-
-	store.Set(owner, k.cdc.MustMarshalBinaryBare(gottenUser))
-
+	store.Set(address, k.cdc.MustMarshalBinaryBare(gottenUser))
 
 }
 
 func (k Keeper) GetVoteRights(ctx sdk.Context, voter sdk.AccAddress) []VoteRight {
 	store := ctx.KVStore(k.usersStoreKey)
-	bz := store.Get(k.cdc.MustMarshalBinaryBare(voter))
+	bz := store.Get(voter)
 	var voteRights []VoteRight
 	k.cdc.MustUnmarshalBinaryBare(bz, &voteRights)
 	return voteRights
@@ -168,7 +155,7 @@ func (k Keeper) GetVoteRights(ctx sdk.Context, voter sdk.AccAddress) []VoteRight
 
 func (k Keeper) SetVoteRights(ctx sdk.Context, voteRights []VoteRight, voter sdk.AccAddress) {
 	store := ctx.KVStore(k.usersStoreKey)
-	store.Set(k.cdc.MustMarshalBinaryBare(voter), k.cdc.MustMarshalBinaryBare(voteRights))
+	store.Set(voter, k.cdc.MustMarshalBinaryBare(voteRights))
 }
 
 // IS THIS NEEDED?

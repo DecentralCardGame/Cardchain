@@ -76,16 +76,13 @@ func queryWhois(ctx sdk.Context, path []string, req abci.RequestQuery, keeper Ke
 		return nil, sdk.ErrUnknownRequest("could not parse user address")
 	}
 
+	fmt.Println(address)
 	user := keeper.GetUser(ctx, address)
 
 	bz, err2 := codec.MarshalJSONIndent(keeper.cdc, user)
 	if err2 != nil {
 		panic("could not marshal result to JSON")
 	}
-
-	fmt.Println("Blaaaa")
-	fmt.Println(user)
-	fmt.Println("Blaaaa")
 
 	return bz, nil
 }
