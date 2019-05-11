@@ -1,7 +1,7 @@
 package app
 
 import (
-	"fmt"
+	//"fmt"
 	"encoding/json"
 
 	"github.com/tendermint/tendermint/libs/log"
