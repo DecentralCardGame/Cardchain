@@ -123,12 +123,25 @@ func (k Keeper) SetUser(ctx sdk.Context, address sdk.AccAddress, userData User) 
 	store.Set(address, k.cdc.MustMarshalBinaryBare(userData))
 }
 
-func (k Keeper) InitUser(ctx sdk.Context, address sdk.AccAddress) {
+func (k Keeper) SetUserName(ctx sdk.Context, address sdk.AccAddress, name string) {
+	store := ctx.KVStore(k.usersStoreKey)
+	bz := store.Get(address)
+
+	var gottenUser User
+	k.cdc.MustUnmarshalBinaryBare(bz, &gottenUser)
+
+	gottenUser.Alias = name
+
+	store.Set(address, k.cdc.MustMarshalBinaryBare(gottenUser))
+}
+
+func (k Keeper) InitUser(ctx sdk.Context, address sdk.AccAddress, alias string) {
 	store := ctx.KVStore(k.usersStoreKey)
 
 	newUser := NewUser()
-
+	newUser.Alias = alias
 	k.coinKeeper.AddCoins(ctx, address, sdk.Coins{sdk.NewInt64Coin("credits", 1000)})
+
 	store.Set(address, k.cdc.MustMarshalBinaryBare(newUser))
 }
 

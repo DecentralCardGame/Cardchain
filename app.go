@@ -2,6 +2,7 @@ package app
 
 import (
 	//"fmt"
+	"strconv"
 	"encoding/json"
 
 	"github.com/tendermint/tendermint/libs/log"
@@ -170,11 +171,11 @@ func (app *cardserviceApp) initChainer(ctx sdk.Context, req abci.RequestInitChai
 		panic(err)
 	}
 
-	for _, acc := range genesisState.Accounts {
+	for id, acc := range genesisState.Accounts {
 		acc.AccountNumber = app.accountKeeper.GetNextAccountNumber(ctx)
 		app.accountKeeper.SetAccount(ctx, acc)
 
-		app.csKeeper.InitUser(ctx, acc.GetAddress())
+		app.csKeeper.InitUser(ctx, acc.GetAddress(), "genesis#"+strconv.Itoa(id))
 	}
 
 	auth.InitGenesis(ctx, app.accountKeeper, app.feeCollectionKeeper, genesisState.AuthData)

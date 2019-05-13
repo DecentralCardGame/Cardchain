@@ -195,12 +195,20 @@ func handleMsgDonateToCard(ctx sdk.Context, keeper Keeper, msg MsgDonateToCard) 
 
 // handle create user message
 func handleMsgCreateUser(ctx sdk.Context, keeper Keeper, msg MsgCreateUser) sdk.Result {
-	//newUser := NewUser()
-	//keeper.SetUser(ctx, msg.NewUser, newUser)
 
-	keeper.InitUser(ctx, msg.NewUser)
+	// check if Creator is valid
+	if true {
 
+	}
 
+	// check if user already exists
+	if keeper.GetUser(ctx, msg.NewUser).Alias == "" {
+		keeper.InitUser(ctx, msg.NewUser, msg.Alias)
+	}	else {
+		keeper.SetUserName(ctx, msg.NewUser, msg.Alias)
+	}
+
+	// this has been moved to keeper.InitUser, but maybe will be back here some day?
 	// give starting credits
 	//if(!keeper.GetPublicPoolCredits(ctx).IsZero()) {
 		//keeper.SubtractPublicPoolCredits(ctx, sdk.NewInt64Coin("credits", 1))

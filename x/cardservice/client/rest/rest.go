@@ -285,6 +285,7 @@ type createUserReq struct {
 	BaseReq rest.BaseReq `json:"base_req"`
 	NewUser	string			 `json:"new_user"`
 	Creator string    	 `json:"creator"`
+	Alias	string				 `json:"alias"`
 }
 
 func createUserHandler(cdc *codec.Codec, cliCtx context.CLIContext) http.HandlerFunc {
@@ -314,7 +315,7 @@ func createUserHandler(cdc *codec.Codec, cliCtx context.CLIContext) http.Handler
 		}
 
 		// create the message
-		msg := cardservice.NewMsgCreateUser(creator, newUser)
+		msg := cardservice.NewMsgCreateUser(creator, newUser, req.Alias)
 		err = msg.ValidateBasic()
 		if err != nil {
 			rest.WriteErrorResponse(w, http.StatusBadRequest, err.Error())
@@ -355,12 +356,12 @@ func resolveCardsHandler(cdc *codec.Codec, cliCtx context.CLIContext, storeName 
 	}
 }
 
-func whoIsHandler(cdc *codec.Codec, cliCtx context.CLIContext, storeName string) http.HandlerFunc {
+func whoIsHandler(cdc *codec.Codec, cliCtx context.CLIContext, userAddress string) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		vars := mux.Vars(r)
 		paramType := vars[restName]
 
-		res, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/whois/%s", storeName, paramType), nil)
+		res, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/whois/%s", userAddress, paramType), nil)
 		if err != nil {
 			rest.WriteErrorResponse(w, http.StatusNotFound, err.Error())
 			return

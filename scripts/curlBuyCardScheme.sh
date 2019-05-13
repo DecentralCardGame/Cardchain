@@ -3,7 +3,7 @@ curl -XPOST \
   http://127.0.0.1:1317/cardservice/buy_card_scheme \
   -d '{
   "base_req":{
-      "from":"cosmos189ujy6ep9pflja9j00tt4pk3q0kqenayf3l7hh",
+      "from":"'$(cscli keys show alice --address)'",
       "password":"asdfasdf",
       "chain_id":"testCardchain",
       "sequence":"0",
@@ -11,6 +11,6 @@ curl -XPOST \
       "gas": "auto",
       "gas_adjustment": "1.5"
     },
-    "amount":"801credits",
-    "buyer":"cosmos189ujy6ep9pflja9j00tt4pk3q0kqenayf3l7hh"
+    "amount":"800credits",
+    "buyer":"'$(cscli keys show alice --address)'"
   }'

@@ -199,9 +199,9 @@ func GetCmdDonateToCard(cdc *codec.Codec) *cobra.Command {
 // GetCmdCreateUser is the CLI command for voting for a card
 func GetCmdCreateUser(cdc *codec.Codec) *cobra.Command {
 	return &cobra.Command{
-		Use:   "create-user [Addresss]",
+		Use:   "create-user [Addresss] [alias]",
 		Short: "create a user, this means giving starting credits and starting cards",
-		Args:  cobra.ExactArgs(1),
+		Args:  cobra.ExactArgs(2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			cliCtx := context.NewCLIContext().WithCodec(cdc).WithAccountDecoder(cdc)
 
@@ -216,7 +216,7 @@ func GetCmdCreateUser(cdc *codec.Codec) *cobra.Command {
 				return err
 			}
 
-			msg := cardservice.NewMsgCreateUser(cliCtx.GetFromAddress(), newUser)
+			msg := cardservice.NewMsgCreateUser(cliCtx.GetFromAddress(), newUser, args[1])
 			err = msg.ValidateBasic()
 			if err != nil {
 				return err

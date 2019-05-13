@@ -20,3 +20,44 @@ func NewWhois() Whois {
 		Price: MinNamePrice,
 	}
 }
+
+
+type User struct {
+	Alias string
+	OwnedCards []uint64
+	VoteRights []VoteRight
+}
+
+func NewUser() User {
+	return User{
+		Alias: "newPlayer",
+		OwnedCards: []uint64{},
+		VoteRights: []VoteRight{},
+	}
+}
+
+type Card struct {
+	Owner sdk.AccAddress
+	Content []byte
+	Status string
+	VotePool sdk.Coin
+	FairEnoughVotes uint64
+	OverpoweredVotes uint64
+	UnderpoweredVotes uint64
+	InappropriateVotes uint64
+	Nerflevel int64
+}
+
+func NewCard(owner sdk.AccAddress) Card {
+	return Card{
+		Owner: owner,
+		Content: []byte{},
+		Status: "scheme",
+		VotePool: sdk.NewInt64Coin("credits", 0),
+		FairEnoughVotes: 0,
+		OverpoweredVotes: 0,
+		UnderpoweredVotes: 0,
+		InappropriateVotes: 0,
+		Nerflevel: 0,
+	}
+}
