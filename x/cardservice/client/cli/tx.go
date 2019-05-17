@@ -1,6 +1,7 @@
 package cli
 
 import (
+	"fmt"
 	"strconv"
 	"github.com/spf13/cobra"
 
@@ -74,7 +75,11 @@ func GetCmdSaveCardContent(cdc *codec.Codec) *cobra.Command {
 				return err
 			}
 
-			msg := cardservice.NewMsgSaveCardContent(cardId, []byte(args[1]), cliCtx.GetFromAddress())
+			fmt.Println("")
+			fmt.Println(string([]byte(args[1])))
+			fmt.Println("")
+
+			msg := cardservice.NewMsgSaveCardContent(cardId, args[1], cliCtx.GetFromAddress())
 			err = msg.ValidateBasic()
 			if err != nil {
 				return err

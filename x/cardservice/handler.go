@@ -85,7 +85,7 @@ func handleMsgSaveCardContent(ctx sdk.Context, keeper Keeper, msg MsgSaveCardCon
 	// TODO cards get a starting pool currently, this should be removed later and the starting pool should come after council decision
 	card.VotePool.Add(sdk.NewInt64Coin("credits", 10))
 
-	card.Content = msg.Content
+	card.Content = []byte(msg.Content)
 	keeper.SetCard(ctx, msg.CardId, card)
 
 	return sdk.Result{}
