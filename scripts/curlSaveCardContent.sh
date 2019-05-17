@@ -12,4 +12,4 @@ curl -XPUT \
       "owner":"'$(cscli keys show alice --address)'",
       "content":"this_is_shitcard",
       "cardid":"1"
-    }'
+    }' > unsignedTx.json

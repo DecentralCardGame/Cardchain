@@ -14,4 +14,4 @@ curl -XPUT \
     "new_user":"'$(cscli keys show alice --address)'",
     "creator":"'$(cscli keys show alice --address)'",
     "alias":"Alice"
-  }'
+  }' > unsignedTx.json

@@ -12,4 +12,4 @@ curl -XPOST \
       "cardid":"1",
       "amount":"1credits",
       "donator":"'$(cscli keys show alice --address)'"
-    }'
+    }' > unsignedTx.json

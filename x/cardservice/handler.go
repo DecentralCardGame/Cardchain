@@ -187,7 +187,7 @@ func handleMsgDonateToCard(ctx sdk.Context, keeper Keeper, msg MsgDonateToCard) 
 	}
 
 	card := keeper.GetCard(ctx, msg.CardId)
-	card.VotePool.Add(msg.Amount)
+	card.VotePool = card.VotePool.Add(msg.Amount)
 	keeper.SetCard(ctx, msg.CardId, card)
 
 	return sdk.Result{}

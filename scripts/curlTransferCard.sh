@@ -13,4 +13,4 @@ curl -XPOST \
       "sender":"'$(cscli keys show alice --address)'",
       "receiver":"'$(cscli keys show bob --address)'",
       "cardid":"1"
-    }'
+    }' > unsignedTx.json

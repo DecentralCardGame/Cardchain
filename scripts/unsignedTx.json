@@ -1,1 +1,0 @@
-{"type":"auth/StdTx","value":{"msg":[{"type":"cardservice/CreateUser","value":{"NewUser":"cosmos1k2k8v4509aa26c7z63fdxnvkx6pq9ywd3qe6f4","Creator":"cosmos1k2k8v4509aa26c7z63fdxnvkx6pq9ywd3qe6f4","Alias":"Alice"}}],"fee":{"amount":null,"gas":"20410"},"signatures":null,"memo":""}}

@@ -12,4 +12,4 @@ curl -XPUT \
       "voter":"'$(cscli keys show alice --address)'",
       "votetype":"fair_enough",
       "cardid":"1"
-    }'
+    }' > unsignedTx.json

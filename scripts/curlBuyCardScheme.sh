@@ -13,4 +13,4 @@ curl -XPOST \
     },
     "amount":"800credits",
     "buyer":"'$(cscli keys show alice --address)'"
-  }'
+  }' > unsignedTx.json
