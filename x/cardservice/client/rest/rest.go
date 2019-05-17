@@ -30,7 +30,7 @@ func RegisterRoutes(cliCtx context.CLIContext, r *mux.Router, cdc *codec.Codec, 
 	r.HandleFunc(fmt.Sprintf("/%s/create_user", storeName), createUserHandler(cdc, cliCtx)).Methods("PUT")
 
 	r.HandleFunc(fmt.Sprintf("/%s/card/{%s}", storeName, restName), resolveCardHandler(cdc, cliCtx, storeName)).Methods("GET")
-	r.HandleFunc(fmt.Sprintf("/%s/cards/{%s}", storeName, restName), resolveCardsHandler(cdc, cliCtx, storeName)).Methods("GET")
+	r.HandleFunc(fmt.Sprintf("/%s/cards", storeName), resolveCardsHandler(cdc, cliCtx, storeName)).Methods("GET")
 	r.HandleFunc(fmt.Sprintf("/%s/whois/{%s}", storeName, restName), whoIsHandler(cdc, cliCtx, storeName)).Methods("GET")
 }
 
@@ -345,8 +345,9 @@ func resolveCardsHandler(cdc *codec.Codec, cliCtx context.CLIContext, storeName 
 	return func(w http.ResponseWriter, r *http.Request) {
 		vars := mux.Vars(r)
 		paramType := vars[restName]
+		fmt.Println(paramType)
 
-		res, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/resolve/%s", storeName, paramType), nil)
+		res, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/cards", storeName), nil)
 		if err != nil {
 			rest.WriteErrorResponse(w, http.StatusNotFound, err.Error())
 			return

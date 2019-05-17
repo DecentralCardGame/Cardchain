@@ -54,6 +54,8 @@ for i in `seq 0 $((length-1))`;
     # get the ith case
     currentCase=$(echo ${JSON} | jq -r ".TestCases["${i}"]")
 
+    echo $currentCase
+
     printf "${colorCyan}running test: "$(echo ${currentCase} | jq -r ".name")"${colorNormal}\n"
 
     # evaluate all .evaluate entries
@@ -71,16 +73,23 @@ for i in `seq 0 $((length-1))`;
 
     # fill in %s entries
     currJSON=$(printf "${currentCase}" "${result[@]}")
+    echo $currJSON
 
+    REQ=$()
     REQ=$(echo ${currJSON} | jq -c '.reqBody')
+    Route=$()
     Route=$(echo ${currJSON} | jq -r '.route')
+    curlprefix=$()
     curlprefix=$(echo ${currJSON} | jq -r '.curlprefix')
+
+    echo $REQ
+    echo $Route
+    echo $curlprefix
 
     cmd="${curlcmd} ${curlprefix} ${Route} -d ${REQ}"
     echo $cmd
 
     RES=$($cmd)
-
     echo $RES
 
     #compare with expected

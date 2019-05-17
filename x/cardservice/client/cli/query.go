@@ -7,7 +7,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/codec"
 	"github.com/spf13/cobra"
 
-	"github.com/DecentralCardGame/Cardchain/x/cardservice"
+	//"github.com/DecentralCardGame/Cardchain/x/cardservice"
 )
 
 // GetCmdResolveCard queries information about a card
@@ -66,24 +66,29 @@ func GetCmdWhois(queryRoute string, cdc *codec.Codec) *cobra.Command {
 	}
 }
 
-// GetCmdNames queries a list of all names
+// GetCmdNames queries a list of 50 cards
 func GetCmdCardList(queryRoute string, cdc *codec.Codec) *cobra.Command {
 	return &cobra.Command{
-		Use:   "names",
-		Short: "names",
+		Use:   "cards",
+		Short: "cards",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			cliCtx := context.NewCLIContext().WithCodec(cdc)
 
-			res, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/names", queryRoute), nil)
+			res, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/cards", queryRoute), nil)
 			if err != nil {
 				fmt.Printf("could not get query names\n")
 				return nil
 			}
 
-			var out cardservice.QueryResNames
+			fmt.Println(string(res))
+
+			return nil
+/*
+			var out cardservice.QueryResCards
 			cdc.MustUnmarshalJSON(res, &out)
 			return cliCtx.PrintOutput(out)
+			*/
 		},
 	}
 }

@@ -15,7 +15,7 @@ import (
 const (
 	QueryResolve = "resolve"
 	QueryWhois   = "whois"
-	QueryNames   = "names"
+	QueryNames   = "cards"
 )
 
 // NewQuerier is the module level router for state queries
@@ -27,7 +27,7 @@ func NewQuerier(keeper Keeper) sdk.Querier {
 		case QueryWhois:
 			return queryWhois(ctx, path[1:], req, keeper)
 		case QueryNames:
-			return queryNames(ctx, req, keeper)
+			return queryCards(ctx, req, keeper)
 		default:
 			return nil, sdk.ErrUnknownRequest("unknown cardservice query endpoint")
 		}
@@ -92,17 +92,17 @@ Value: %s
 Price: %s`, w.Owner, w.Value, w.Price))
 }
 
-func queryNames(ctx sdk.Context, req abci.RequestQuery, keeper Keeper) (res []byte, err sdk.Error) {
-	var namesList QueryResNames
+func queryCards(ctx sdk.Context, req abci.RequestQuery, keeper Keeper) (res []byte, err sdk.Error) {
+	var cardsList QueryResCards
 
-	iterator := keeper.GetNamesIterator(ctx)
+	iterator := keeper.GetCardsIterator(ctx)
 
 	for ; iterator.Valid(); iterator.Next() {
-		name := string(iterator.Key())
-		namesList = append(namesList, name)
+		card := string(iterator.Key())
+		cardsList = append(cardsList, card)
 	}
 
-	bz, err2 := codec.MarshalJSONIndent(keeper.cdc, namesList)
+	bz, err2 := codec.MarshalJSONIndent(keeper.cdc, cardsList)
 	if err2 != nil {
 		panic("could not marshal result to JSON")
 	}
@@ -111,9 +111,9 @@ func queryNames(ctx sdk.Context, req abci.RequestQuery, keeper Keeper) (res []by
 }
 
 // Query Result Payload for a names query
-type QueryResNames []string
+type QueryResCards []string
 
 // implement fmt.Stringer
-func (n QueryResNames) String() string {
+func (n QueryResCards) String() string {
 	return strings.Join(n[:], "\n")
 }

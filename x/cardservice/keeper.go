@@ -174,7 +174,7 @@ func (k Keeper) SetVoteRights(ctx sdk.Context, voteRights []VoteRight, voter sdk
 // IS THIS NEEDED?
 // Get an iterator over all names in which the keys are the names and the values are the whois
 
-func (k Keeper) GetNamesIterator(ctx sdk.Context) sdk.Iterator {
+func (k Keeper) GetCardsIterator(ctx sdk.Context) sdk.Iterator {
 	store := ctx.KVStore(k.cardsStoreKey)
 	return sdk.KVStorePrefixIterator(store, nil)
 }
