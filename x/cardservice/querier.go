@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"strings"
 	"strconv"
+	"encoding/json"
 
 	"github.com/cosmos/cosmos-sdk/codec"
 
@@ -98,8 +99,19 @@ func queryCards(ctx sdk.Context, req abci.RequestQuery, keeper Keeper) (res []by
 	iterator := keeper.GetCardsIterator(ctx)
 
 	for ; iterator.Valid(); iterator.Next() {
-		card := string(iterator.Key())
-		cardsList = append(cardsList, card)
+
+		var gottenCard Card
+		keeper.cdc.MustUnmarshalBinaryBare(iterator.Value(), &gottenCard)
+
+		fmt.Println(gottenCard)
+
+		// TODO check if json.Marshal is fair enough here
+		b, err := json.Marshal(gottenCard)
+		if err != nil {
+			panic("could not marshal result to JSON")
+		}
+
+		cardsList = append(cardsList, string(b))
 	}
 
 	bz, err2 := codec.MarshalJSONIndent(keeper.cdc, cardsList)
