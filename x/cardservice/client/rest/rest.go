@@ -106,7 +106,7 @@ func saveCardContentHandler(cdc *codec.Codec, cliCtx context.CLIContext) http.Ha
 			return
 		}
 
-		content := req.Content//[]byte(req.Content)
+		content := []byte(req.Content)
 
 		owner, err := sdk.AccAddressFromBech32(req.Owner)
 		if err != nil {

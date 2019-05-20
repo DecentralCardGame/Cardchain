@@ -1,8 +1,8 @@
 package cardservice
 
 import (
-	"encoding/binary"
 	//"fmt"
+	"encoding/binary"
 
 	"github.com/cosmos/cosmos-sdk/codec"
 	"github.com/cosmos/cosmos-sdk/x/bank"
@@ -155,7 +155,6 @@ func (k Keeper) AddOwnedCard(ctx sdk.Context, cardId uint64, address sdk.AccAddr
 	gottenUser.OwnedCards = append(gottenUser.OwnedCards, cardId)
 
 	store.Set(address, k.cdc.MustMarshalBinaryBare(gottenUser))
-
 }
 
 func (k Keeper) GetVoteRights(ctx sdk.Context, voter sdk.AccAddress) []VoteRight {

@@ -63,12 +63,12 @@ func (msg MsgBuyCardScheme) GetSigners() []sdk.AccAddress {
 // MsgBuyName defines the BuyName message
 type MsgSaveCardContent struct {
 	CardId	uint64
-	Content string
+	Content []byte
 	Owner		sdk.AccAddress
 }
 
 // NewMsgBuyName is the constructor function for MsgBuyName
-func NewMsgSaveCardContent(cardId uint64, content string, owner sdk.AccAddress) MsgSaveCardContent {
+func NewMsgSaveCardContent(cardId uint64, content []byte, owner sdk.AccAddress) MsgSaveCardContent {
 	return MsgSaveCardContent{
 		CardId: 	cardId,
 		Content:	content,

@@ -103,8 +103,6 @@ func queryCards(ctx sdk.Context, req abci.RequestQuery, keeper Keeper) (res []by
 		var gottenCard Card
 		keeper.cdc.MustUnmarshalBinaryBare(iterator.Value(), &gottenCard)
 
-		fmt.Println(gottenCard)
-
 		// TODO check if json.Marshal is fair enough here
 		b, err := json.Marshal(gottenCard)
 		if err != nil {
