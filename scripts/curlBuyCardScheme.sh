@@ -4,10 +4,7 @@ curl -XPOST \
   -d '{
   "base_req":{
       "from":"'$(cscli keys show alice --address)'",
-      "password":"asdfasdf",
       "chain_id":"testCardchain",
-      "sequence":"0",
-      "account_number":"0",
       "gas": "auto",
       "gas_adjustment": "1.5"
     },

@@ -1,1 +1,1 @@
-cscli tx sign unsignedTx.json --from alice --offline --chain-id testCardchain --sequence $1 --account-number 0 > signedTx.json
+printf 'asdfasdf\n' | cscli tx sign unsignedTx.json --from alice --offline --chain-id testCardchain --sequence $(cscli query account $(cscli keys show alice --address) --chain-id testCardchain -o json | jq '.value.sequence | tonumber') --account-number 0 > signedTx.json
