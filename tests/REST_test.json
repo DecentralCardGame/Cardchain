@@ -10,8 +10,26 @@
     "echo $URL"
   ],
   "oldcurlcmd": "curl -s --insecure",
-  "TestCases":
+  "testCases":
   [
+    {
+    "name":"getFirstCard",
+    "route": "http://localhost:1317/cardservice/card/1",
+    "reqBody": {
+    },
+    "evaluate": [
+    ],
+    "method": "GET",
+    "expected": {
+      "required": ["value"],
+      "properties": {
+        "value": {
+            "type":"object"
+          }
+        }
+      }
+    },
+
     {
     "name":"buyCardScheme",
     "route": "http://localhost:1317/cardservice/buy_card_scheme",
@@ -19,8 +37,8 @@
       "base_req": {
         "from":"%s",
         "chain_id":"testCardchain",
-        "sequence":"%s",
-        "account_number":"%s"
+        "gas": "auto",
+        "gas_adjustment": "1.5"
       },
       "amount":"991credits",
       "buyer":"%s"
@@ -31,7 +49,7 @@
       "echo ${AliceAccountNumber}",
       "echo ${AliceAddress}"
     ],
-    "curlprefix": "-XPOST",
+    "method": "POST",
     "expected": {
       "properties": {
         "hash": {
@@ -62,7 +80,7 @@
       "echo ${AliceAccountNumber}",
       "echo ${AliceAddress}"
     ],
-    "curlprefix": "-XPUT",
+    "method": "-XPUT",
     "expected": {
       "properties": {
         "hash": {
