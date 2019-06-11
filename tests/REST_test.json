@@ -1,35 +1,13 @@
 {
   "prevaluate":[
-    "sh setup.sh",
-    "nohup csd start &",
-    "AliceAddress=$(cscli keys show alice --address)",
-    "BobAddress=$(cscli keys show  bob --address)",
-    "nohup cscli rest-server --chain-id testCardchain --trust-node &",
-    "URL='http://localhost:1317/auth/accounts/'",
-    "curlcmd='curl'",
-    "echo $URL"
+    "sh ../scripts/setup.sh"
   ],
-  "oldcurlcmd": "curl -s --insecure",
+  "runProcesses":[
+    "csd start",
+    "cscli rest-server --chain-id testCardchain --trust-node"
+  ],
   "testCases":
   [
-    {
-    "name":"getFirstCard",
-    "route": "http://localhost:1317/cardservice/card/1",
-    "reqBody": {
-    },
-    "evaluate": [
-    ],
-    "method": "GET",
-    "expected": {
-      "required": ["value"],
-      "properties": {
-        "value": {
-            "type":"object"
-          }
-        }
-      }
-    },
-
     {
     "name":"buyCardScheme",
     "route": "http://localhost:1317/cardservice/buy_card_scheme",
@@ -44,12 +22,12 @@
       "buyer":"%s"
     },
     "evaluate": [
-      "echo ${AliceAddress}",
-      "echo ${AliceSequence}",
-      "echo ${AliceAccountNumber}",
-      "echo ${AliceAddress}"
+      "sh getAliceAddress.sh",
+      "sh getAliceAddress.sh"
     ],
     "method": "POST",
+    "sign": "sh signAlice.sh",
+    "broadcast": "cscli tx broadcast signedTx.json",
     "expected": {
       "properties": {
         "hash": {
@@ -61,26 +39,46 @@
     },
 
     {
+    "name":"getFirstCard",
+    "route": "http://localhost:1317/cardservice/card/1",
+    "reqBody": {
+    },
+    "evaluate": [
+    ],
+    "method": "GET",
+    "sign": "",
+    "broadcast": "",
+    "expected": {
+      "required": ["value"],
+      "properties": {
+        "value": {
+            "type":"object"
+          }
+        }
+      }
+    },
+
+    {
     "name":"saveCardContent",
     "route": "http://localhost:1317/cardservice/save_card_content",
     "reqBody": {
-      "base_req": {
-        "from":"%s",
-        "chain_id":"testCardchain",
-        "sequence":"1",
-        "account_number":"%s"
-      },
-      "cardId":"0",
-      "content":"",
-      "owner":"%s"
-    },
+        "base_req":{
+            "from":"%s",
+            "chain_id":"testCardchain",
+            "gas": "auto",
+            "gas_adjustment": "1.5"
+          },
+          "owner":"%s",
+          "content":"this_is_shitcard",
+          "cardid":"1"
+        },
     "evaluate": [
-      "echo ${AliceAddress}",
-      "echo ${AliceSequence}",
-      "echo ${AliceAccountNumber}",
-      "echo ${AliceAddress}"
+      "cscli keys show alice --address",
+      "cscli keys show alice --address"
     ],
-    "method": "-XPUT",
+    "method": "PUT",
+    "sign": "sh signAlice.sh",
+    "broadcast": "cscli tx broadcast signedTx.json",
     "expected": {
       "properties": {
         "hash": {
@@ -92,9 +90,6 @@
     }
 
   ],
-
   "postvaluate":[
-    "kill %1",
-    "kill %2"
   ]
 }

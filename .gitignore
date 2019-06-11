@@ -18,3 +18,5 @@ build
 /scripts/nohup.out
 /scripts/signedTx.json
 /scripts/unsignedTx.json
+/tests/signedTx.json
+/tests/unsignedTx.json
