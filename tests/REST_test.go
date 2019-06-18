@@ -95,32 +95,13 @@ func TestRESTroutes(t *testing.T) {
 	}
 	defer background.terminate()
 
-
-
-/*
-	for i := 0; i < len(data.Prevaluate); i++ {
-		fmt.Println(data.Prevaluate[i])
-	}
-
-	for i := 0; i < len(data.Postvaluate); i++ {
-		fmt.Println(data.Postvaluate[i])
-	}
-
-	for i := 0; i < len(data.TestCases); i++ {
-		fmt.Println("Name: ", data.TestCases[i].Name)
-		fmt.Println("Route: ", data.TestCases[i].Route)
-		fmt.Println("ReqBody: ", data.TestCases[i].ReqBody)
-		fmt.Println("Evaluate: ", data.TestCases[i].Evaluate)
-		fmt.Println("Expected: ", data.TestCases[i].Expected)
-	}
-
-*/
+	// run all of the test cases
 	for i := 0; i < len(data.TestCases); i++ {
 
 		t.Run(data.TestCases[i].Name, func(t *testing.T) {
 			thisCase := data.TestCases[i]
 
-			fmt.Println("\x1b[33;1mrunning test: \x1b[0m", thisCase.Name)
+			log.Println("\x1b[33;1mrunning test: \x1b[0m", thisCase.Name)
 
 			// evaluate test specific commands
 			var evals []interface{}
@@ -130,20 +111,16 @@ func TestRESTroutes(t *testing.T) {
 				evals = append(evals, resultval)
 			}
 
-			// insert values into request body
-			reqbody, err := json.Marshal(thisCase.ReqBody)
-			if err != nil {
-				t.Errorf(fmt.Sprintf("\x1b[31;1m thisCase.ReqBody marshal failed \x1b[0m"))
-			}
-			reqbodyStr := fmt.Sprintf(string(reqbody), evals...)
-
-
 
 			var resBody []byte
 
 			switch thisCase.Method {
-
 	    case "GET":
+				// insert values into request address
+				thisCase.Route = fmt.Sprintf(thisCase.Route, evals...)
+
+				log.Println("\x1b[36;1mHTTP-GET: \x1b[0m", thisCase.Route)
+
 				res, err := http.Get(thisCase.Route)
 				if err != nil {
 					t.Errorf(fmt.Sprintf("\x1b[31;1m GET request failed \x1b[0m"))
@@ -152,6 +129,13 @@ func TestRESTroutes(t *testing.T) {
 				resBody, err = ioutil.ReadAll(res.Body)
 
 	    case "POST":
+				// insert values into request body
+				reqbody, err := json.Marshal(thisCase.ReqBody)
+				if err != nil {
+					t.Errorf(fmt.Sprintf("\x1b[31;1m thisCase.ReqBody marshal failed \x1b[0m"))
+				}
+				reqbodyStr := fmt.Sprintf(string(reqbody), evals...)
+
 				log.Println("\x1b[36;1mHTTP-POST: \x1b[0m", thisCase.Route, reqbodyStr)
 
 				res, err := http.Post(thisCase.Route, "application/json", bytes.NewBuffer([]byte(reqbodyStr)))
@@ -163,6 +147,13 @@ func TestRESTroutes(t *testing.T) {
 				resBody, err = ioutil.ReadAll(res.Body)
 
 	    case "PUT":
+				// insert values into request body
+				reqbody, err := json.Marshal(thisCase.ReqBody)
+				if err != nil {
+					t.Errorf(fmt.Sprintf("\x1b[31;1m thisCase.ReqBody marshal failed \x1b[0m"))
+				}
+				reqbodyStr := fmt.Sprintf(string(reqbody), evals...)
+
 				log.Println("\x1b[36;1mHTTP-PUT: \x1b[0m", thisCase.Route, reqbodyStr)
 
 				client := &http.Client{}
@@ -188,38 +179,44 @@ func TestRESTroutes(t *testing.T) {
 
 			log.Println("\x1b[36;1mresponse body: \x1b[0m", string(resBody))
 
-			err = ioutil.WriteFile("unsignedTx.json", resBody, 0644)
-			if err != nil {
-				t.Errorf(fmt.Sprintf("\x1b[31;1m writing unsignedTx.json failed \x1b[0m"))
-			}
-
-			if thisCase.Sign != "" {
-				evaluateCmd(thisCase.Sign)
-			}
-			var broadcast string
-			if thisCase.Broadcast != "" {
-				broadcast = evaluateCmd(thisCase.Broadcast)
-
-				success := strings.Contains(broadcast, `"success":true,"log"`)
-				if success {
-					log.Println("\x1b[32;1m", "great success, very nice","\x1b[0m")
-				} else {
-					t.Errorf(fmt.Sprintf("\x1b[31;1m broadcast failed \x1b[0m"))
-				}
-			}
-
 			// Check if the response body is what we expect.
 			schemaLoader := gojsonschema.NewGoLoader(thisCase.Expected)
 			documentLoader := gojsonschema.NewStringLoader(string(resBody))
 			result, err := gojsonschema.Validate(schemaLoader, documentLoader)
 			if err != nil {
-					t.Errorf(fmt.Sprintf("\x1b[31;1m gojsonschema.Validate failed \x1b[0m"))
+				log.Println("\x1b[31;1mgojsonschema.Validate failed. This can lead to data structures that make following tests fail.\x1b[0m")
+				
+				//for _, desc := range result.Errors() {
+					//	fmt.Printf("- %s\n", desc)
+				//}
+
+				t.Errorf(fmt.Sprintf("\x1b[31;1m gojsonschema.Validate failed - %s\x1b[0m", err.Error()))
 			} else if result.Valid() {
-					fmt.Printf("\x1b[32;1mThe document is valid \x1b[0m\n")
+					log.Println("\x1b[32;1mThe response is valid, if possible try to sign and broadcast it.\x1b[0m")
+
+					err = ioutil.WriteFile("unsignedTx.json", resBody, 0644)
+					if err != nil {
+						t.Errorf(fmt.Sprintf("\x1b[31;1m writing unsignedTx.json failed \x1b[0m"))
+					}
+
+					if thisCase.Sign != "" {
+						evaluateCmd(thisCase.Sign)
+					}
+					var broadcast string
+					if thisCase.Broadcast != "" {
+						broadcast = evaluateCmd(thisCase.Broadcast)
+
+						success := strings.Contains(broadcast, `"success":true,"log"`)
+						if success {
+							log.Println("\x1b[32;1mTransaction successfully signed and broadcasted.","\x1b[0m")
+						} else {
+							t.Errorf(fmt.Sprintf("\x1b[31;1m broadcast failed \x1b[0m"))
+						}
+					}
 			} else {
-					fmt.Printf("\x1b[31;1m The document is not valid. see errors :\n \x1b[0m")
+					log.Println("\x1b[31;1m The document is not valid. see errors : \x1b[0m")
 					for _, desc := range result.Errors() {
-							//fmt.Printf("- %s\n", desc)
+							fmt.Printf("- %s\n", desc)
 							t.Errorf(fmt.Sprintf("%s", desc))
 					}
 			}
@@ -246,7 +243,7 @@ func evaluateCmd(cmdstr string) string {
 	if err != nil {
 	    log.Fatal(fmt.Sprint(err) + ": " + stderr.String())
 	}
-	log.Println("\x1b[36;1mResult: \x1b[0m" + out.String())
+	log.Println("\x1b[36;1mresult: \x1b[0m" + out.String())
 
 	return out.String()
 }

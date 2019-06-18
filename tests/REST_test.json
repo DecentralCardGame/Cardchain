@@ -29,10 +29,98 @@
     "sign": "sh signAlice.sh",
     "broadcast": "cscli tx broadcast signedTx.json",
     "expected": {
+      "required": ["value"],
       "properties": {
-        "hash": {
-            "description":"hash of tx",
-            "type":"string"
+        "value": {
+          "required": ["msg"],
+          "properties": {
+            "msg": {
+              "properties": {
+                "0": {
+                    "required": ["NewUser", "Creator", "Alias", "???"]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    {
+    "name":"createUser",
+    "route": "http://localhost:1317/cardservice/create_user",
+    "reqBody": {
+      "base_req": {
+        "from":"%s",
+        "chain_id":"testCardchain",
+        "gas": "auto",
+        "gas_adjustment": "1.5"
+      },
+      "new_user":"%s",
+      "creator":"%s",
+      "alias":"Alice"
+    },
+    "evaluate": [
+      "sh getAliceAddress.sh",
+      "sh getAliceAddress.sh",
+      "sh getAliceAddress.sh"
+    ],
+    "method": "PUT",
+    "sign": "sh signAlice.sh",
+    "broadcast": "cscli tx broadcast signedTx.json",
+    "expected": {
+      "required": ["value"],
+      "properties": {
+        "value": {
+            "properties": {
+              "msg": {
+                "properties": {
+                  "0": {
+                    "required": ["NewUser", "Creator", "Alias"]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    {
+    "name":"donateToCard",
+    "route": "http://localhost:1317/cardservice/donate_to_card",
+    "reqBody": {
+      "base_req": {
+        "from":"%s",
+        "chain_id":"testCardchain",
+        "gas": "auto",
+        "gas_adjustment": "1.5"
+      },
+      "cardid":"1",
+      "amount":"1credits",
+      "donator":"%s"
+    },
+    "evaluate": [
+      "sh getAliceAddress.sh",
+      "sh getAliceAddress.sh"
+    ],
+    "method": "POST",
+    "sign": "sh signAlice.sh",
+    "broadcast": "cscli tx broadcast signedTx.json",
+    "expected": {
+      "required": ["value"],
+      "properties": {
+        "value": {
+            "properties": {
+              "msg": {
+                "properties": {
+                  "0": {
+                    "required": ["Cardid", "Amount", "Donator"]
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -84,6 +172,142 @@
         "hash": {
             "description":"hash of tx",
             "type":"string"
+          }
+        }
+      }
+    },
+
+    {
+    "name":"transferCard",
+    "route": "http://localhost:1317/cardservice/transfer_card",
+    "reqBody": {
+      "base_req": {
+        "from":"%s",
+        "chain_id":"testCardchain",
+        "gas": "auto",
+        "gas_adjustment": "1.5"
+      },
+      "cardid":"1",
+      "receiver":"%s",
+      "sender":"%s"
+    },
+    "evaluate": [
+      "sh getAliceAddress.sh",
+      "sh getBobAddress.sh",
+      "sh getAliceAddress.sh"
+    ],
+    "method": "POST",
+    "sign": "sh signAlice.sh",
+    "broadcast": "cscli tx broadcast signedTx.json",
+    "expected": {
+      "required": ["value"],
+      "properties": {
+        "value": {
+            "properties": {
+              "msg": {
+                "properties": {
+                  "0": {
+                    "required": ["Cardid", "Amount", "Donator"]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    {
+    "name":"voteCard",
+    "route": "http://localhost:1317/cardservice/vote_card",
+    "reqBody": {
+      "base_req": {
+        "from":"%s",
+        "chain_id":"testCardchain",
+        "gas": "auto",
+        "gas_adjustment": "1.5"
+      },
+      "cardid":"1",
+      "voter":"%s",
+      "votetype":"fair_enough"
+    },
+    "evaluate": [
+      "sh getAliceAddress.sh",
+      "sh getAliceAddress.sh"
+    ],
+    "method": "PUT",
+    "sign": "sh signAlice.sh",
+    "broadcast": "cscli tx broadcast signedTx.json",
+    "expected": {
+      "required": ["value"],
+      "properties": {
+        "value": {
+            "properties": {
+              "msg": {
+                "properties": {
+                  "0": {
+                    "required": ["Cardid", "Amount", "Donator"]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    {
+    "name":"getCards",
+    "route": "http://localhost:1317/cardservice/cards",
+    "reqBody": {
+    },
+    "evaluate": [
+    ],
+    "method": "GET",
+    "sign": "",
+    "broadcast": "",
+    "expected": {
+      "required": ["value"],
+      "properties": {
+        "value": {
+            "properties": {
+              "msg": {
+                "properties": {
+                  "0": {
+                    "required": ["Cardid", "Amount", "Donator"]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    {
+    "name":"whoisAlice",
+    "route": "http://localhost:1317/cardservice/whois/%s",
+    "reqBody": {
+    },
+    "evaluate": [
+      "sh getAliceAddress.sh"
+    ],
+    "method": "GET",
+    "sign": "",
+    "broadcast": "",
+    "expected": {
+      "required": ["value"],
+      "properties": {
+        "value": {
+            "properties": {
+              "msg": {
+                "properties": {
+                  "0": {
+                    "required": ["Cardid", "Amount", "Donator"]
+                  }
+                }
+              }
+            }
           }
         }
       }
