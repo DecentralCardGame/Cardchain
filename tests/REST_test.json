@@ -35,9 +35,12 @@
           "required": ["msg"],
           "properties": {
             "msg": {
-              "properties": {
-                "0": {
-                    "required": ["NewUser", "Creator", "Alias", "???"]
+              "items": {
+                  "required": ["value"],
+                  "properties": {
+                    "value": {
+                      "required": ["Buyer"]
+                    }
                   }
                 }
               }
@@ -73,11 +76,15 @@
       "required": ["value"],
       "properties": {
         "value": {
-            "properties": {
-              "msg": {
-                "properties": {
-                  "0": {
-                    "required": ["NewUser", "Creator", "Alias"]
+          "required": ["msg"],
+          "properties": {
+            "msg": {
+              "items": {
+                  "required": ["value"],
+                  "properties": {
+                    "value": {
+                      "required": ["NewUser", "Creator", "Alias"]
+                    }
                   }
                 }
               }
@@ -112,11 +119,15 @@
       "required": ["value"],
       "properties": {
         "value": {
-            "properties": {
-              "msg": {
-                "properties": {
-                  "0": {
-                    "required": ["Cardid", "Amount", "Donator"]
+          "required": ["msg"],
+          "properties": {
+            "msg": {
+              "items": {
+                  "required": ["value"],
+                  "properties": {
+                    "value": {
+                      "required": ["CardId", "Amount", "Donator"]
+                    }
                   }
                 }
               }
@@ -140,10 +151,24 @@
       "required": ["value"],
       "properties": {
         "value": {
-            "type":"object"
+            "required": ["VotePool", "FairEnoughVotes"],
+            "properties": {
+              "FairEnoughVotes": {
+                  "enum": ["0"]
+                },
+              "VotePool": {
+                "required": ["amount"],
+
+                "properties": {
+                  "amount": {
+                     "enum": ["1"]
+                   }
+                  }
+                }
+              }
+            }
           }
         }
-      }
     },
 
     {
@@ -168,10 +193,22 @@
     "sign": "sh signAlice.sh",
     "broadcast": "cscli tx broadcast signedTx.json",
     "expected": {
+      "required": ["value"],
       "properties": {
-        "hash": {
-            "description":"hash of tx",
-            "type":"string"
+        "value": {
+          "required": ["msg"],
+          "properties": {
+            "msg": {
+              "items": {
+                  "required": ["value"],
+                  "properties": {
+                    "value": {
+                      "required": ["Owner", "Content", "CardId"]
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -203,11 +240,15 @@
       "required": ["value"],
       "properties": {
         "value": {
-            "properties": {
-              "msg": {
-                "properties": {
-                  "0": {
-                    "required": ["Cardid", "Amount", "Donator"]
+          "required": ["msg"],
+          "properties": {
+            "msg": {
+              "items": {
+                  "required": ["value"],
+                  "properties": {
+                    "value": {
+                      "required": ["Sender", "Receiver", "CardId"]
+                    }
                   }
                 }
               }
@@ -242,11 +283,15 @@
       "required": ["value"],
       "properties": {
         "value": {
-            "properties": {
-              "msg": {
-                "properties": {
-                  "0": {
-                    "required": ["Cardid", "Amount", "Donator"]
+          "required": ["msg"],
+          "properties": {
+            "msg": {
+              "items": {
+                  "required": ["value"],
+                  "properties": {
+                    "value": {
+                      "required": ["Voter", "VoteType", "CardId"]
+                    }
                   }
                 }
               }
@@ -267,20 +312,14 @@
     "sign": "",
     "broadcast": "",
     "expected": {
-      "required": ["value"],
-      "properties": {
-        "value": {
-            "properties": {
-              "msg": {
-                "properties": {
-                  "0": {
-                    "required": ["Cardid", "Amount", "Donator"]
-                  }
-                }
-              }
-            }
+      "items": [
+          {
+
+
           }
-        }
+        ],
+      "minItems": 1,
+      "maxItems": 3
       }
     },
 
@@ -299,13 +338,13 @@
       "required": ["value"],
       "properties": {
         "value": {
-            "properties": {
-              "msg": {
-                "properties": {
-                  "0": {
-                    "required": ["Cardid", "Amount", "Donator"]
-                  }
-                }
+          "required": ["OwnedCards"],
+          "properties": {
+            "OwnedCards": {
+              "items": [{
+                  "type": "string",
+                  "enum": ["1"]
+                }]
               }
             }
           }

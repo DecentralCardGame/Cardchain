@@ -74,6 +74,7 @@ func TestRESTroutes(t *testing.T) {
 	// read the file with the test specs
 	file, err := ioutil.ReadFile("REST_test.json")
 	if err != nil {
+		log.Println("\x1b[31;1mreading REST_test.json failed\x1b[0m")
 		t.Errorf(fmt.Sprintf("reading REST_test.json failed"))
 	}
 
@@ -101,6 +102,7 @@ func TestRESTroutes(t *testing.T) {
 		t.Run(data.TestCases[i].Name, func(t *testing.T) {
 			thisCase := data.TestCases[i]
 
+			fmt.Println(" ")
 			log.Println("\x1b[33;1mrunning test: \x1b[0m", thisCase.Name)
 
 			// evaluate test specific commands
@@ -184,8 +186,8 @@ func TestRESTroutes(t *testing.T) {
 			documentLoader := gojsonschema.NewStringLoader(string(resBody))
 			result, err := gojsonschema.Validate(schemaLoader, documentLoader)
 			if err != nil {
-				log.Println("\x1b[31;1mgojsonschema.Validate failed. This can lead to data structures that make following tests fail.\x1b[0m")
-				
+				log.Println("\x1b[31;1mgojsonschema.Validate failed. This can lead to data structures that make following tests fail.\x1b[0ms")
+
 				//for _, desc := range result.Errors() {
 					//	fmt.Printf("- %s\n", desc)
 				//}
