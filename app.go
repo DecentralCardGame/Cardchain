@@ -148,9 +148,10 @@ func (app *cardserviceApp) blockHandler(ctx sdk.Context, req abci.RequestEndBloc
 	newprice := price.Sub(sdk.NewCoin("credits", price.Amount.Quo(sdk.NewInt(100))))
 	app.csKeeper.SetCardAuctionPrice(ctx, newprice)
 
-	//app.Logger.Info("len: "+strconv.Itoa(len(bz)))
-	//app.Logger.Info("auction price: "+newprice.String())
-	//app.Logger.Info("public pool: "+app.csKeeper.GetPublicPoolCredits(ctx).String())
+	// automated nerf/buff happens here // TODO adjust the mod10 here
+	if app.LastBlockHeight() % 10 == 0 {
+		cardservice.UpdateNerfLevels(ctx, app.csKeeper)
+	}
 
 	return abci.ResponseEndBlock{}
 }

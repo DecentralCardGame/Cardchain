@@ -170,8 +170,24 @@ func (k Keeper) SetVoteRights(ctx sdk.Context, voteRights []VoteRight, voter sdk
 	store.Set(voter, k.cdc.MustMarshalBinaryBare(voteRights))
 }
 
-// IS THIS NEEDED?
-// Get an iterator over all names in which the keys are the names and the values are the whois
+func (k Keeper) NerfBuffCards(ctx sdk.Context, cardIds []uint64, buff bool) {
+	store := ctx.KVStore(k.cardsStoreKey)
+
+	for _, val := range cardIds {
+		bz := store.Get(sdk.Uint64ToBigEndian(val))
+		var buffCard Card
+		k.cdc.MustUnmarshalBinaryBare(bz, &buffCard)
+
+		if buff {
+			buffCard.Nerflevel -= 1
+		} else {
+			buffCard.Nerflevel += 1
+		}
+
+		store.Set(sdk.Uint64ToBigEndian(val), k.cdc.MustMarshalBinaryBare(buffCard))
+	 }
+}
+
 
 func (k Keeper) GetCardsIterator(ctx sdk.Context) sdk.Iterator {
 	store := ctx.KVStore(k.cardsStoreKey)

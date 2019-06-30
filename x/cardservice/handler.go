@@ -6,11 +6,6 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
-type VoteRight struct {
-	cardId string
-	expireBlock int64
-}
-
 // NewHandler returns a handler for "cardservice" type messages.
 func NewHandler(keeper Keeper) sdk.Handler {
 	return func(ctx sdk.Context, msg sdk.Msg) sdk.Result {

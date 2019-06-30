@@ -61,3 +61,8 @@ func NewCard(owner sdk.AccAddress) Card {
 		Nerflevel: 0,
 	}
 }
+
+type VoteRight struct {
+	cardId string
+	expireBlock int64
+}

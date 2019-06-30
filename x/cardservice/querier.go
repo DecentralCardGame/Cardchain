@@ -106,7 +106,7 @@ func queryCards(ctx sdk.Context, req abci.RequestQuery, keeper Keeper) (res []by
 		// TODO check if json.Marshal is fair enough here
 		b, err := json.Marshal(gottenCard)
 		if err != nil {
-			panic("could not marshal result to JSON")
+			panic("could not marshal gottenCard to JSON")
 		}
 
 		cardsList = append(cardsList, string(b))
