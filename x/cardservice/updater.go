@@ -10,7 +10,7 @@ import (
 
 type candidate struct {
     id uint64
-    votes uint64
+    votes int64
 }
 
 // handle donate to card message
@@ -35,10 +35,10 @@ func UpdateNerfLevels(ctx sdk.Context, keeper Keeper) sdk.Result {
 		keeper.cdc.MustUnmarshalBinaryBare(iterator.Value(), &gottenCard)
 
 		id := binary.BigEndian.Uint64(iterator.Key())
-		nettoOP := gottenCard.OverpoweredVotes - gottenCard.FairEnoughVotes - gottenCard.UnderpoweredVotes
-		nettoUP := gottenCard.UnderpoweredVotes - gottenCard.FairEnoughVotes - gottenCard.OverpoweredVotes
+		nettoOP := int64(gottenCard.OverpoweredVotes - gottenCard.FairEnoughVotes - gottenCard.UnderpoweredVotes)
+		nettoUP := int64(gottenCard.UnderpoweredVotes - gottenCard.FairEnoughVotes - gottenCard.OverpoweredVotes)
 
-		fmt.Println(id);
+		fmt.Println("id:",id," - op:",nettoOP," / up:", nettoUP);
 		fmt.Println(gottenCard)
 
 		if nettoOP > 0 {
@@ -68,8 +68,7 @@ func UpdateNerfLevels(ctx sdk.Context, keeper Keeper) sdk.Result {
 			giniOP := giniOPsum/float64(len(OPcandidates)*len(OPcandidates))/µOP
 			cutvalue := giniOP*float64(OPcandidates[len(OPcandidates)-1].votes)
 
-			fmt.Println(µOP, giniOP)
-			fmt.Println(cutvalue)
+			fmt.Println("µ/gini/cut: ",µOP, giniOP,cutvalue)
 
 			for i := 0; i < len(OPcandidates); i++ {
 				if float64(OPcandidates[i].votes) > cutvalue {
@@ -95,8 +94,7 @@ func UpdateNerfLevels(ctx sdk.Context, keeper Keeper) sdk.Result {
 			giniUP := giniUPsum/float64(len(UPcandidates)*len(UPcandidates))/µUP
 			cutvalue := giniUP*float64(UPcandidates[len(UPcandidates)-1].votes)
 
-			fmt.Println(µUP, giniUP)
-			fmt.Println(cutvalue)
+			fmt.Println("µ/gini/cut: ",µUP, giniUP,cutvalue)
 
 			for i := 0; i < len(UPcandidates); i++ {
 				if float64(UPcandidates[i].votes) > cutvalue {
@@ -113,6 +111,10 @@ func UpdateNerfLevels(ctx sdk.Context, keeper Keeper) sdk.Result {
 	fmt.Println("nerf:")
 	fmt.Println(nerfbois)
 	keeper.NerfBuffCards(ctx, nerfbois, false)
+	fmt.Println("fair:")
+	fmt.Println(fairbois)
+
+	keeper.ResetAllVotes(ctx)
 
 	return sdk.Result{}
 }
