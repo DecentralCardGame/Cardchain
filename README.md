@@ -8,5 +8,4 @@ csd start
 
 cscli help
 
-see /scripts
-
+see /scripts (jq needed)
