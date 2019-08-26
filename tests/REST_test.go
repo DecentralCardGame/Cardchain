@@ -207,12 +207,14 @@ func TestRESTroutes(t *testing.T) {
 					var broadcast string
 					if thisCase.Broadcast != "" {
 						broadcast = evaluateCmd(thisCase.Broadcast)
+						time.Sleep(5 * time.Second)
 
-						success := strings.Contains(broadcast, `"success":true,"log"`)
+						success := strings.Contains(broadcast, `TxHash:`) && !strings.Contains(broadcast, `signature verification failed`)
 						if success {
 							log.Println("\x1b[32;1mTransaction successfully signed and broadcasted.","\x1b[0m")
 						} else {
 							t.Errorf(fmt.Sprintf("\x1b[31;1m broadcast failed \x1b[0m"))
+							log.Println("\x1b[31;1mbroadcast failed\x1b[0m")
 						}
 					}
 			} else {
@@ -271,7 +273,7 @@ func (pr *processes) startProcess(cmdstr string) {
 	    return
 	}
 
-	time.Sleep(3 * time.Second)
+	time.Sleep(5 * time.Second)
 	pr.running = append(pr.running, cmd)
 }
 

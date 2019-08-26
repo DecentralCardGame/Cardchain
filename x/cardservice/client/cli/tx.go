@@ -2,9 +2,11 @@ package cli
 
 import (
 	//"fmt"
+	"errors"
 	"strconv"
-	"github.com/spf13/cobra"
+	"strings"
 
+	"github.com/spf13/cobra"
 	"github.com/cosmos/cosmos-sdk/client/context"
 	"github.com/cosmos/cosmos-sdk/client/utils"
 	"github.com/cosmos/cosmos-sdk/codec"
@@ -12,6 +14,7 @@ import (
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	authtxb "github.com/cosmos/cosmos-sdk/x/auth/client/txbuilder"
+	"github.com/DecentralCardGame/cardobject"
 )
 
 // GetCmdBuyCardScheme is the CLI command for sending a BuyCardScheme transaction
@@ -47,7 +50,7 @@ func GetCmdBuyCardScheme(cdc *codec.Codec) *cobra.Command {
 	}
 }
 
-// GetCmdBuyCardScheme is the CLI command for saving the content of a card
+// GetCmdSaveCardContent is the CLI command for saving the content of a card
 func GetCmdSaveCardContent(cdc *codec.Codec) *cobra.Command {
 	return &cobra.Command{
 		Use:   "save-card-content [card id] [content]",
@@ -62,20 +65,20 @@ func GetCmdSaveCardContent(cdc *codec.Codec) *cobra.Command {
 				return err
 			}
 
-			// TODO instead of parsecoin here should the cardobject be parsed
-			/*
-			coins, err := sdk.ParseCoin(args[0])
+			cardobj, err := cardobject.ProcessCard(args[1])
 			if err != nil {
 				return err
 			}
-			*/
+			if strings.Compare(args[1], cardobj) != 0 {
+				return errors.New("Card content string and card content object don't match. This means ProcessCard() removed or could not parse parts of the card content.")
+			}
 
 			cardId, err := strconv.ParseUint(args[0], 10, 64);
 			if err != nil {
 				return err
 			}
 
-			msg := cardservice.NewMsgSaveCardContent(cardId, []byte(args[1]), cliCtx.GetFromAddress())
+			msg := cardservice.NewMsgSaveCardContent(cardId, []byte(cardobj), cliCtx.GetFromAddress())
 			err = msg.ValidateBasic()
 			if err != nil {
 				return err
