@@ -3,6 +3,7 @@ package cardservice
 import (
 	"fmt"
 
+	"github.com/DecentralCardGame/Cardchain/x/cardservice/internal/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 

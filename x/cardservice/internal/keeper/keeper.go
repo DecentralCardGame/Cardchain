@@ -1,4 +1,4 @@
-package cardservice
+package keeper
 
 import (
 	//"fmt"
@@ -6,6 +6,7 @@ import (
 
 	"github.com/cosmos/cosmos-sdk/codec"
 	"github.com/cosmos/cosmos-sdk/x/bank"
+	"github.com/DecentralCardGame/Cardchain/x/cardservice/internal/types"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )

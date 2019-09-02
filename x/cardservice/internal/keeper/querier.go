@@ -1,4 +1,4 @@
-package cardservice
+package keeper
 
 import (
 	"fmt"
@@ -7,6 +7,7 @@ import (
 	"encoding/json"
 
 	"github.com/cosmos/cosmos-sdk/codec"
+	"github.com/DecentralCardGame/Cardchain/x/cardservice/internal/types"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	abci "github.com/tendermint/tendermint/abci/types"
@@ -56,18 +57,6 @@ func queryResolve(ctx sdk.Context, path []string, req abci.RequestQuery, keeper 
 	return bz, nil
 }
 
-/*
-// TODO check if this can be removed
-// Query Result Payload for a resolve query
-type QueryResResolve struct {
-	Value string `json:"value"`
-}
-
-// implement fmt.Stringer
-func (r QueryResResolve) String() string {
-	return r.Value
-}
-*/
 
 // nolint: unparam
 func queryWhois(ctx sdk.Context, path []string, req abci.RequestQuery, keeper Keeper) (res []byte, err sdk.Error) {
@@ -120,6 +109,7 @@ func queryCards(ctx sdk.Context, req abci.RequestQuery, keeper Keeper) (res []by
 	return bz, nil
 }
 
+// TODO move this to types.go?
 // Query Result Payload for a names query
 type QueryResCards []string
 

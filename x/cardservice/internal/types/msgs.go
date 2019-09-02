@@ -1,4 +1,4 @@
-package cardservice
+package types
 
 import (
 	"strconv"
@@ -6,6 +6,8 @@ import (
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
+
+const RouterKey = ModuleName // this was defined in your key.go file
 
 /////////////////////
 // Buy Card Scheme //
@@ -49,6 +51,8 @@ func (msg MsgBuyCardScheme) GetSignBytes() []byte {
 		panic(err)
 	}
 	return sdk.MustSortJSON(b)
+
+	//return sdk.MustSortJSON(ModuleCdc.MustMarshalJSON(msg))			// TODO this is the new style, maybe it messes up signing?
 }
 
 // GetSigners Implements Msg.

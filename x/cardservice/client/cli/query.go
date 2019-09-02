@@ -3,12 +3,28 @@ package cli
 import (
 	"fmt"
 
+	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/context"
 	"github.com/cosmos/cosmos-sdk/codec"
+	"github.com/DecentralCardGame/Cardchain/x/cardservice/internal/types"
 	"github.com/spf13/cobra"
-
-	//"github.com/DecentralCardGame/Cardchain/x/cardservice"
 )
+
+func GetQueryCmd(storeKey string, cdc *codec.Codec) *cobra.Command {
+	cardserviceQueryCmd := &cobra.Command{
+		Use:                        types.ModuleName,
+		Short:                      "Querying commands for the cardservice module",
+		DisableFlagParsing:         true,
+		SuggestionsMinimumDistance: 2,
+		RunE:                       client.ValidateCmd,
+	}
+	cardserviceQueryCmd.AddCommand(client.GetCommands(
+		GetCmdCard(storeKey, cdc),
+		GetCmdWhois(storeKey, cdc),
+		GetCmdCardList(storeKey, cdc),
+	)...)
+	return cardserviceQueryCmd
+}
 
 // GetCmdResolveCard queries information about a card
 func GetCmdCard(queryRoute string, cdc *codec.Codec) *cobra.Command {
@@ -20,7 +36,7 @@ func GetCmdCard(queryRoute string, cdc *codec.Codec) *cobra.Command {
 			cliCtx := context.NewCLIContext().WithCodec(cdc)
 			name := args[0]
 
-			res, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/resolve/%s", queryRoute, name), nil)
+			res, _, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/resolve/%s", queryRoute, name), nil)
 			if err != nil {
 				fmt.Printf("could not resolve name - %s \n", string(name))
 				return nil
@@ -47,7 +63,7 @@ func GetCmdWhois(queryRoute string, cdc *codec.Codec) *cobra.Command {
 			cliCtx := context.NewCLIContext().WithCodec(cdc)
 			name := args[0]
 
-			res, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/whois/%s", queryRoute, name), nil)
+			res, _, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/whois/%s", queryRoute, name), nil)
 			if err != nil {
 				fmt.Printf("could not resolve whois - %s \n", string(name))
 				return nil
@@ -75,7 +91,7 @@ func GetCmdCardList(queryRoute string, cdc *codec.Codec) *cobra.Command {
 		RunE: func(cmd *cobra.Command, args []string) error {
 			cliCtx := context.NewCLIContext().WithCodec(cdc)
 
-			res, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/cards", queryRoute), nil)
+			res, _, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/cards", queryRoute), nil)
 			if err != nil {
 				fmt.Printf("could not get query names\n")
 				return nil

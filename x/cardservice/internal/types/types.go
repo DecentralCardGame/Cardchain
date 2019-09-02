@@ -1,6 +1,9 @@
-package cardservice
+package types
 
 import (
+	"fmt"
+	"strings"
+
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
@@ -21,11 +24,18 @@ func NewWhois() Whois {
 	}
 }
 
+// implement fmt.Stringer
+func (w Whois) String() string {
+	return strings.TrimSpace(fmt.Sprintf(`Owner: %s
+Value: %s
+Price: %s`, w.Owner, w.Value, w.Price))
+}
+
 
 type User struct {
-	Alias string
-	OwnedCards []uint64
-	VoteRights []VoteRight
+	Alias string         		`json:"value"`
+	OwnedCards []uint64			`json:"ownedCards"`
+	VoteRights []VoteRight	`json:"voteRight"`
 }
 
 func NewUser() User {

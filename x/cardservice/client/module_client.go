@@ -1,3 +1,4 @@
+/*
 package client
 
 import (
@@ -52,3 +53,4 @@ func (mc ModuleClient) GetTxCmd() *cobra.Command {
 
 	return cardserviceTxCmd
 }
+*/
