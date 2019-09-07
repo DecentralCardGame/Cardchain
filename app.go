@@ -2,7 +2,7 @@ package app
 
 import (
 	//"fmt"
-	"strconv"
+	//"strconv"
 	"encoding/json"
 	"os"
 
@@ -88,9 +88,11 @@ type cardserviceApp struct {
 	tkeyStaking *sdk.TransientStoreKey
 	keyDistr    *sdk.KVStoreKey
 	tkeyDistr   *sdk.TransientStoreKey
+	*/
 	keyCScards       *sdk.KVStoreKey
 	keyCSusers       *sdk.KVStoreKey
 	keyCSinternal		 *sdk.KVStoreKey
+	/*
 	keyParams   *sdk.KVStoreKey
 	tkeyParams  *sdk.TransientStoreKey
 	keySlashing *sdk.KVStoreKey
@@ -121,7 +123,7 @@ func NewCardserviceApp(logger log.Logger, db dbm.DB, baseAppOptions ...func(*bam
 
 	keys := sdk.NewKVStoreKeys(bam.MainStoreKey, auth.StoreKey, staking.StoreKey,
 	supply.StoreKey, distr.StoreKey, slashing.StoreKey, params.StoreKey,
-	CScards.StoreKey, CSusers.StoreKey, CS.internal.StoreKey)
+	cardservice.StoreKey/*, cardservice.Cards, cardservice.Users, cardservice.Internal*/)
 	tkeys := sdk.NewTransientStoreKeys(staking.TStoreKey, params.TStoreKey)
 
 	// Here you initialize your application with the store keys it requires
@@ -139,9 +141,11 @@ func NewCardserviceApp(logger log.Logger, db dbm.DB, baseAppOptions ...func(*bam
 		tkeyStaking: sdk.NewTransientStoreKey(staking.TStoreKey),
 		keyDistr:    sdk.NewKVStoreKey(distr.StoreKey),
 		tkeyDistr:   sdk.NewTransientStoreKey(distr.TStoreKey),
+		*/
 		keyCScards:       sdk.NewKVStoreKey("cs_cards"),
 		keyCSusers:	      sdk.NewKVStoreKey("cs_users"),
 		keyCSinternal:		sdk.NewKVStoreKey("cs_internal"),
+		/*
 		keyParams:   sdk.NewKVStoreKey(params.StoreKey),
 		tkeyParams:  sdk.NewTransientStoreKey(params.TStoreKey),
 		keySlashing: sdk.NewKVStoreKey(slashing.StoreKey),
@@ -223,8 +227,11 @@ func NewCardserviceApp(logger log.Logger, db dbm.DB, baseAppOptions ...func(*bam
 	// It handles interactions with the cardstore
 	app.csKeeper = cardservice.NewKeeper(
 		app.bankKeeper,
-				keys[cardservice.StoreKey],
-				app.cdc,
+		keys[cardservice.StoreKey],
+		app.keyCScards,
+		app.keyCSusers,
+		app.keyCSinternal,
+		app.cdc,
 	)
 
 	app.mm = module.NewManager(
@@ -232,11 +239,11 @@ func NewCardserviceApp(logger log.Logger, db dbm.DB, baseAppOptions ...func(*bam
 		genutil.NewAppModule(app.accountKeeper, app.stakingKeeper, app.BaseApp.DeliverTx),
 		auth.NewAppModule(app.accountKeeper),
 		bank.NewAppModule(app.bankKeeper, app.accountKeeper),
-		cardservice.NewAppModule(app.csKeeper, app.bankKeeper),
 		supply.NewAppModule(app.supplyKeeper, app.accountKeeper),
 		distr.NewAppModule(app.distrKeeper, app.supplyKeeper),
 		slashing.NewAppModule(app.slashingKeeper, app.stakingKeeper),
 		staking.NewAppModule(app.stakingKeeper, app.distrKeeper, app.accountKeeper, app.supplyKeeper),
+		cardservice.NewAppModule(app.csKeeper, app.bankKeeper),
 	)
 
 	app.mm.SetOrderBeginBlockers(distr.ModuleName, slashing.ModuleName)
@@ -273,13 +280,15 @@ func NewCardserviceApp(logger log.Logger, db dbm.DB, baseAppOptions ...func(*bam
 
 	// initialize stores
 	app.MountKVStores(keys)
+	app.MountStore(app.keyCScards, sdk.StoreTypeDB)
+	app.MountStore(app.keyCSusers, sdk.StoreTypeDB)
+	app.MountStore(app.keyCSinternal, sdk.StoreTypeDB)
 	app.MountTransientStores(tkeys)
 
-	err := app.LoadLatestVersion(app.keyMain)
+	err := app.LoadLatestVersion(app.keys[bam.MainStoreKey])
 	if err != nil {
 		cmn.Exit(err.Error())
 	}
-
 	return app
 }
 
@@ -290,7 +299,7 @@ func NewDefaultGenesisState() GenesisState {
 	return ModuleBasics.DefaultGenesis()
 }
 
-func (app *cardServiceApp) InitChainer(ctx sdk.Context, req abci.RequestInitChain) abci.ResponseInitChain {
+func (app *cardserviceApp) InitChainer(ctx sdk.Context, req abci.RequestInitChain) abci.ResponseInitChain {
 	var genesisState GenesisState
 
 	err := app.cdc.UnmarshalJSON(req.AppStateBytes, &genesisState)
@@ -306,10 +315,10 @@ func (app *cardServiceApp) InitChainer(ctx sdk.Context, req abci.RequestInitChai
 	return app.mm.InitGenesis(ctx, genesisState)
 }
 
-func (app *cardServiceApp) BeginBlocker(ctx sdk.Context, req abci.RequestBeginBlock) abci.ResponseBeginBlock {
+func (app *cardserviceApp) BeginBlocker(ctx sdk.Context, req abci.RequestBeginBlock) abci.ResponseBeginBlock {
 	return app.mm.BeginBlock(ctx, req)
 }
-func (app *cardServiceApp) EndBlocker(ctx sdk.Context, req abci.RequestEndBlock) abci.ResponseEndBlock {
+func (app *cardserviceApp) EndBlocker(ctx sdk.Context, req abci.RequestEndBlock) abci.ResponseEndBlock {
 	//app.Logger.Info("currId: "+strconv.FormatUint(app.csKeeper.GetLastCardSchemeId(ctx),10))
 
 	// update the price of card auction (currently 1% decay per block)
@@ -324,12 +333,12 @@ func (app *cardServiceApp) EndBlocker(ctx sdk.Context, req abci.RequestEndBlock)
 
 	return app.mm.EndBlock(ctx, req)
 }
-func (app *cardServiceApp) LoadHeight(height int64) error {
-	return app.LoadVersion(height, app.keyMain)
+func (app *cardserviceApp) LoadHeight(height int64) error {
+	return app.LoadVersion(height, app.keys[bam.MainStoreKey])
 }
 
 // ModuleAccountAddrs returns all the app's module account addresses.
-func (app *cardServiceApp) ModuleAccountAddrs() map[string]bool {
+func (app *cardserviceApp) ModuleAccountAddrs() map[string]bool {
 	modAccAddrs := make(map[string]bool)
 	for acc := range maccPerms {
 		modAccAddrs[supply.NewModuleAddress(acc).String()] = true
@@ -341,7 +350,7 @@ func (app *cardServiceApp) ModuleAccountAddrs() map[string]bool {
 
 //_________________________________________________________
 
-func (app *cardServiceApp) ExportAppStateAndValidators(forZeroHeight bool, jailWhiteList []string,
+func (app *cardserviceApp) ExportAppStateAndValidators(forZeroHeight bool, jailWhiteList []string,
 ) (appState json.RawMessage, validators []tmtypes.GenesisValidator, err error) {
 
 	// as if they could withdraw from the start of the next block

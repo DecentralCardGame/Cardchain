@@ -3,7 +3,7 @@ package cardservice
 import (
 	"fmt"
 
-	"github.com/DecentralCardGame/Cardchain/x/cardservice/internal/types"
+	//"github.com/DecentralCardGame/Cardchain/x/cardservice/internal/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
@@ -42,23 +42,19 @@ func handleMsgBuyCardScheme(ctx sdk.Context, keeper Keeper, msg MsgBuyCardScheme
 	if price.IsGTE(msg.Bid) { // Checks if the the bid price is greater than the price paid by the current owner
 		return sdk.ErrInsufficientCoins("Bid not high enough").Result() // If not, throw an error
 	}
-	/*if keeper.HasOwner(ctx, stringId) {
-		_, err := keeper.coinKeeper.SendCoins(ctx, msg.Buyer, keeper.GetOwner(ctx, stringId), msg.Bid)
-		if err != nil {
-			return sdk.ErrInsufficientCoins("Buyer does not have enough coins").Result()
-		}
-	} else {*/
-		_, _, err := keeper.coinKeeper.SubtractCoins(ctx, msg.Buyer, sdk.Coins{price}) // If so, deduct the Bid amount from the sender
-		if err != nil {
-			return sdk.ErrInsufficientCoins("Buyer does not have enough coins").Result()
-		}
-	//}
+	_, err := keeper.CoinKeeper.SubtractCoins(ctx, msg.Buyer, sdk.Coins{price}) // If so, deduct the Bid amount from the sender
+	if err != nil {
+		return sdk.ErrInsufficientCoins("Buyer does not have enough coins").Result()
+	}
 
 	keeper.AddPublicPoolCredits(ctx, price)
 	keeper.SetCardAuctionPrice(ctx, price.Add(price))
 	keeper.SetLastCardSchemeId(ctx, currId)
 
 	newCard := NewCard(msg.Buyer)
+
+	fmt.Println(currId)
+	fmt.Println(newCard)
 
 	keeper.SetCard(ctx, currId, newCard)
 	keeper.AddOwnedCard(ctx, currId, msg.Buyer)
@@ -133,7 +129,7 @@ func handleMsgVoteCard(ctx sdk.Context, keeper Keeper, msg MsgVoteCard) sdk.Resu
 	// check for bounty
 	if(!card.VotePool.IsZero()) {
 		card.VotePool.Sub(sdk.NewInt64Coin("credits", 1))
-		keeper.coinKeeper.AddCoins(ctx, msg.Voter, sdk.Coins{sdk.NewInt64Coin("credits", 1)})
+		keeper.CoinKeeper.AddCoins(ctx, msg.Voter, sdk.Coins{sdk.NewInt64Coin("credits", 1)})
 	}
 
 	keeper.SetCard(ctx, msg.CardId, card)
@@ -177,7 +173,7 @@ func handleMsgTransferCard(ctx sdk.Context, keeper Keeper, msg MsgTransferCard) 
 // handle donate to card message
 func handleMsgDonateToCard(ctx sdk.Context, keeper Keeper, msg MsgDonateToCard) sdk.Result {
 
-	_, _, err := keeper.coinKeeper.SubtractCoins(ctx, msg.Donator, sdk.Coins{msg.Amount}) // If so, deduct the Bid amount from the sender
+	_, err := keeper.CoinKeeper.SubtractCoins(ctx, msg.Donator, sdk.Coins{msg.Amount}) // If so, deduct the Bid amount from the sender
 	if err != nil {
 		return sdk.ErrInsufficientCoins("Donator does not have enough coins").Result()
 	}

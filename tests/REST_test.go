@@ -209,7 +209,7 @@ func TestRESTroutes(t *testing.T) {
 						broadcast = evaluateCmd(thisCase.Broadcast)
 						time.Sleep(5 * time.Second)
 
-						success := strings.Contains(broadcast, `TxHash:`) && !strings.Contains(broadcast, `signature verification failed`)
+						success := strings.Contains(broadcast, `"success": true`) && !strings.Contains(broadcast, `signature verification failed`)
 						if success {
 							log.Println("\x1b[32;1mTransaction successfully signed and broadcasted.","\x1b[0m")
 						} else {

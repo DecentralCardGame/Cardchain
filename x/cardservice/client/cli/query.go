@@ -38,7 +38,11 @@ func GetCmdCard(queryRoute string, cdc *codec.Codec) *cobra.Command {
 
 			res, _, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/resolve/%s", queryRoute, name), nil)
 			if err != nil {
-				fmt.Printf("could not resolve name - %s \n", string(name))
+				fmt.Println(queryRoute)
+				fmt.Println(args[0])
+
+				fmt.Println("could not resolve card - %s \n", string(name))
+				fmt.Println(err.Error())
 				return nil
 			}
 

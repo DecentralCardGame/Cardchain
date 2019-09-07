@@ -23,6 +23,8 @@ const (
 // NewQuerier is the module level router for state queries
 func NewQuerier(keeper Keeper) sdk.Querier {
 	return func(ctx sdk.Context, path []string, req abci.RequestQuery) (res []byte, err sdk.Error) {
+		fmt.Println(path[0])
+		fmt.Println("SHITZENS")
 		switch path[0] {
 		case QueryResolve:
 			return queryResolve(ctx, path[1:], req, keeper)
@@ -38,12 +40,15 @@ func NewQuerier(keeper Keeper) sdk.Querier {
 
 // nolint: unparam
 func queryResolve(ctx sdk.Context, path []string, req abci.RequestQuery, keeper Keeper) (res []byte, err sdk.Error) {
+	fmt.Println("Suxens")
 	cardId, error := strconv.ParseUint(path[0], 10, 64);
 	if error != nil {
 		return nil, sdk.ErrUnknownRequest("could not parse cardId")
 	}
 
 	card := keeper.GetCard(ctx, cardId)
+
+	fmt.Println(card)
 
 	if &card == nil {
 		return []byte{}, sdk.ErrUnknownRequest("cardId does not represent a card")
@@ -75,13 +80,6 @@ func queryWhois(ctx sdk.Context, path []string, req abci.RequestQuery, keeper Ke
 	return bz, nil
 }
 
-// implement fmt.Stringer
-func (w Whois) String() string {
-	return strings.TrimSpace(fmt.Sprintf(`Owner: %s
-Value: %s
-Price: %s`, w.Owner, w.Value, w.Price))
-}
-
 func queryCards(ctx sdk.Context, req abci.RequestQuery, keeper Keeper) (res []byte, err sdk.Error) {
 	var cardsList QueryResCards
 
@@ -89,7 +87,7 @@ func queryCards(ctx sdk.Context, req abci.RequestQuery, keeper Keeper) (res []by
 
 	for ; iterator.Valid(); iterator.Next() {
 
-		var gottenCard Card
+		var gottenCard types.Card
 		keeper.cdc.MustUnmarshalBinaryBare(iterator.Value(), &gottenCard)
 
 		// TODO check if json.Marshal is fair enough here

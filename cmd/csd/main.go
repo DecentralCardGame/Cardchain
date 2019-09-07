@@ -81,7 +81,7 @@ func exportAppStateAndTMValidators(
 		return csApp.ExportAppStateAndValidators(forZeroHeight, jailWhiteList)
 	}
 
-	csApp := app.NewCardServiceApp(logger, db)
+	csApp := app.NewCardserviceApp(logger, db)
 
 	return csApp.ExportAppStateAndValidators(forZeroHeight, jailWhiteList)
 }

@@ -31,8 +31,16 @@ func UpdateNerfLevels(ctx sdk.Context, keeper Keeper) sdk.Result {
 
 	for ; iterator.Valid(); iterator.Next() {
 
-		var gottenCard Card
-		keeper.cdc.MustUnmarshalBinaryBare(iterator.Value(), &gottenCard)
+		//var gottenCard Card
+		//keeper.cdc.MustUnmarshalBinaryBare(iterator.Value(), &gottenCard)
+
+		fmt.Println(iterator.Value())
+		iterator.Next()
+		fmt.Println(iterator.Value())
+
+
+
+		gottenCard := keeper.UnmarshalCard(ctx, iterator.Value())
 
 		id := binary.BigEndian.Uint64(iterator.Key())
 		nettoOP := int64(gottenCard.OverpoweredVotes - gottenCard.FairEnoughVotes - gottenCard.UnderpoweredVotes)
