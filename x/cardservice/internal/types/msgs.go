@@ -46,13 +46,14 @@ func (msg MsgBuyCardScheme) ValidateBasic() sdk.Error {
 
 // GetSignBytes Implements Msg.
 func (msg MsgBuyCardScheme) GetSignBytes() []byte {
+	/*
 	b, err := json.Marshal(msg)
 	if err != nil {
 		panic(err)
 	}
 	return sdk.MustSortJSON(b)
-
-	//return sdk.MustSortJSON(ModuleCdc.MustMarshalJSON(msg))			// TODO this is the new style, maybe it messes up signing?
+	*/
+	return sdk.MustSortJSON(ModuleCdc.MustMarshalJSON(msg))		
 }
 
 // GetSigners Implements Msg.

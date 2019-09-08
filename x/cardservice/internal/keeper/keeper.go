@@ -192,18 +192,25 @@ func (k Keeper) NerfBuffCards(ctx sdk.Context, cardIds []uint64, buff bool) {
 }
 
 func (k Keeper) ResetAllVotes(ctx sdk.Context) {
+	/*
 	store := ctx.KVStore(k.cardsStoreKey)
 	iterator := sdk.KVStorePrefixIterator(store, nil)
 
 	for ; iterator.Valid(); iterator.Next() {
 		var resetCard types.Card
 		k.cdc.MustUnmarshalBinaryBare(iterator.Value(), &resetCard)
+		*/
+
+	for i := uint64(1); i <= k.GetLastCardSchemeId(ctx); i++ {
+
+		resetCard := k.GetCard(ctx, i)
 
 		resetCard.FairEnoughVotes = 0
 		resetCard.OverpoweredVotes = 0
 		resetCard.UnderpoweredVotes = 0
 
-		store.Set(iterator.Key(), k.cdc.MustMarshalBinaryBare(resetCard))
+		k.SetCard(ctx, i, resetCard)
+		//store.Set(iterator.Key(), k.cdc.MustMarshalBinaryBare(resetCard))
 	}
 }
 

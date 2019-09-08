@@ -81,21 +81,9 @@ type cardserviceApp struct {
 	tkeys map[string]*sdk.TransientStoreKey
 
 	/*
-	keyMain     *sdk.KVStoreKey
-	keyAccount  *sdk.KVStoreKey
-	keySupply   *sdk.KVStoreKey
-	keyStaking  *sdk.KVStoreKey
-	tkeyStaking *sdk.TransientStoreKey
-	keyDistr    *sdk.KVStoreKey
-	tkeyDistr   *sdk.TransientStoreKey
-	*/
 	keyCScards       *sdk.KVStoreKey
 	keyCSusers       *sdk.KVStoreKey
 	keyCSinternal		 *sdk.KVStoreKey
-	/*
-	keyParams   *sdk.KVStoreKey
-	tkeyParams  *sdk.TransientStoreKey
-	keySlashing *sdk.KVStoreKey
 	*/
 
 	// Keepers
@@ -123,7 +111,7 @@ func NewCardserviceApp(logger log.Logger, db dbm.DB, baseAppOptions ...func(*bam
 
 	keys := sdk.NewKVStoreKeys(bam.MainStoreKey, auth.StoreKey, staking.StoreKey,
 	supply.StoreKey, distr.StoreKey, slashing.StoreKey, params.StoreKey,
-	cardservice.StoreKey/*, cardservice.Cards, cardservice.Users, cardservice.Internal*/)
+	cardservice.StoreKey, cardservice.Cards, cardservice.Users, cardservice.Internal)
 	tkeys := sdk.NewTransientStoreKeys(staking.TStoreKey, params.TStoreKey)
 
 	// Here you initialize your application with the store keys it requires
@@ -134,21 +122,9 @@ func NewCardserviceApp(logger log.Logger, db dbm.DB, baseAppOptions ...func(*bam
 		tkeys:   tkeys,
 
 		/*
-		keyMain:     sdk.NewKVStoreKey(bam.MainStoreKey),
-		keyAccount:  sdk.NewKVStoreKey(auth.StoreKey),
-		keySupply:   sdk.NewKVStoreKey(supply.StoreKey),
-		keyStaking:  sdk.NewKVStoreKey(staking.StoreKey),
-		tkeyStaking: sdk.NewTransientStoreKey(staking.TStoreKey),
-		keyDistr:    sdk.NewKVStoreKey(distr.StoreKey),
-		tkeyDistr:   sdk.NewTransientStoreKey(distr.TStoreKey),
-		*/
 		keyCScards:       sdk.NewKVStoreKey("cs_cards"),
 		keyCSusers:	      sdk.NewKVStoreKey("cs_users"),
 		keyCSinternal:		sdk.NewKVStoreKey("cs_internal"),
-		/*
-		keyParams:   sdk.NewKVStoreKey(params.StoreKey),
-		tkeyParams:  sdk.NewTransientStoreKey(params.TStoreKey),
-		keySlashing: sdk.NewKVStoreKey(slashing.StoreKey),
 		*/
 	}
 
@@ -228,9 +204,12 @@ func NewCardserviceApp(logger log.Logger, db dbm.DB, baseAppOptions ...func(*bam
 	app.csKeeper = cardservice.NewKeeper(
 		app.bankKeeper,
 		keys[cardservice.StoreKey],
-		app.keyCScards,
+		keys[cardservice.Cards],
+		keys[cardservice.Users],
+		keys[cardservice.Internal],
+		/*app.keyCScards,
 		app.keyCSusers,
-		app.keyCSinternal,
+		app.keyCSinternal,*/
 		app.cdc,
 	)
 
@@ -280,9 +259,9 @@ func NewCardserviceApp(logger log.Logger, db dbm.DB, baseAppOptions ...func(*bam
 
 	// initialize stores
 	app.MountKVStores(keys)
-	app.MountStore(app.keyCScards, sdk.StoreTypeDB)
-	app.MountStore(app.keyCSusers, sdk.StoreTypeDB)
-	app.MountStore(app.keyCSinternal, sdk.StoreTypeDB)
+	//app.MountStore(app.keyCScards, sdk.StoreTypeDB)
+	//app.MountStore(app.keyCSusers, sdk.StoreTypeDB)
+	//app.MountStore(app.keyCSinternal, sdk.StoreTypeDB)
 	app.MountTransientStores(tkeys)
 
 	err := app.LoadLatestVersion(app.keys[bam.MainStoreKey])
