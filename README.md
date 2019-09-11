@@ -1,20 +1,29 @@
-Decentral-card.net Cardchain // Crowd Control Chain
+# Decentral-card.net Cardchain
+## Crowd Control Chain
 
 install go version 1.11 or higher
 
-echo "export GOPATH=$HOME/go" >> ~/.bashrc \
+Then set path variables:
+> echo "export GOPATH=$HOME/go" >> ~/.bashrc \
 source ~/.bashrc \
 echo "export GOBIN=$GOPATH/bin" >> ~/.bashrc \
 source ~/.bashrc \
 echo "export PATH=$PATH:$GOBIN" >> ~/.bashrc \
 source ~/.bashrc
 
-make install
+install jq
 
-sh scripts/setup.sh
+build the project:
+> make install
 
-csd start
+this runs all init commands of nsd and nscli to setup accounts bob and alice:
+> sh scripts/setup.sh
 
-cscli help
+this starts a blockchain node:
+> csd start
 
-see /scripts (jq needed)
+you can start a restserver via:
+> sh scripts/startRESTserver.sh
+
+In the scripts folder the most useful commands can be found in .sh files. In addition the client gives help and shows all possible transaction and queries:
+> cscli help
