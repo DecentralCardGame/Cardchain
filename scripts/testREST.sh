@@ -1,3 +1,5 @@
+#!/bin/bash
+
 #!/bin/sh
 
 colorMagenta='\033[0;35m'

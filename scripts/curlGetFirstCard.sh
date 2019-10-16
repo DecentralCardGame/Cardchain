@@ -1,1 +1,3 @@
-curl -GET http://127.0.0.1:1317/cardservice/card/1 | jq '.'
+#!/bin/bash
+
+curl -X GET http://127.0.0.1:1317/cardservice/cards/1 | jq '.'

@@ -1,2 +1,4 @@
+#!/bin/bash
+
 pacman -S jq
 sudo pip install json-spec

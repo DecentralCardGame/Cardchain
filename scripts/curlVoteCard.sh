@@ -1,3 +1,5 @@
+#!/bin/bash
+
 curl -XPUT \
     http://127.0.0.1:1317/cardservice/vote_card \
     -d '{

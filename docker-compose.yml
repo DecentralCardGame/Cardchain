@@ -1,0 +1,40 @@
+version: '3'
+services:
+  ai:
+    image: tensorflow/serving
+    volumes:
+      - ../ai/models:/models/goat_herd
+    environment:
+      - MODEL_NAME=goat_herd
+    ports:
+      - 8501:8501
+
+  blockchain:
+    build: .
+    command: /go/bin/csd start --rpc.laddr tcp://0.0.0.0:26657
+    ports:
+      - 26657:26657
+
+  goat:
+    build: .
+    command: ./scripts/startRESTserver.sh
+    container_name: goat
+    depends_on:
+      - blockchain
+    ports:
+      - 1317:1317
+
+  herd:
+    image: nginx:latest
+    container_name: herd
+    depends_on:
+      - goat
+      - ai
+    volumes:
+      - ./config/nginx.conf:/etc/nginx/conf.d/default.conf
+      - ./config/ai.conf:/etc/nginx/conf.d/ai.conf
+    ports:
+      - 80:80
+      - 81:81
+      - 443:443
+    command: /bin/bash -c "exec nginx -g 'daemon off;'"

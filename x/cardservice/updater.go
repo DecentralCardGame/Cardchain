@@ -3,7 +3,7 @@ package cardservice
 import (
 	"fmt"
 	"sort"
-	//"encoding/binary"
+	"encoding/binary"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
@@ -27,24 +27,14 @@ func UpdateNerfLevels(ctx sdk.Context, keeper Keeper) sdk.Result {
 	var µOP float64 = 0
 
 	//analyse all cards
-	//iterator := keeper.GetCardsIterator(ctx)
+	iterator := keeper.GetCardsIterator(ctx)
 
-	for i := uint64(1); i <= keeper.GetLastCardSchemeId(ctx); i++ {
+	for ; iterator.Valid(); iterator.Next() {
 
-	//for ; iterator.Valid(); iterator.Next() {
+		var gottenCard Card
+		keeper.cdc.MustUnmarshalBinaryBare(iterator.Value(), &gottenCard)
 
-		//var gottenCard Card
-		//keeper.cdc.MustUnmarshalBinaryBare(iterator.Value(), &gottenCard)
-
-		//fmt.Println(iterator.Value())
-		//iterator.Next()
-		//fmt.Println(iterator.Value())
-
-
-		//gottenCard := keeper.UnmarshalCard(ctx, iterator.Value())
-		gottenCard := keeper.GetCard(ctx, i)
-
-		id := i //binary.BigEndian.Uint64(iterator.Key())
+		id := binary.BigEndian.Uint64(iterator.Key())
 		nettoOP := int64(gottenCard.OverpoweredVotes - gottenCard.FairEnoughVotes - gottenCard.UnderpoweredVotes)
 		nettoUP := int64(gottenCard.UnderpoweredVotes - gottenCard.FairEnoughVotes - gottenCard.OverpoweredVotes)
 

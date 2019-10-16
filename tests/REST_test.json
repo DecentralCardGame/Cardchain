@@ -139,7 +139,7 @@
 
     {
     "name":"getFirstCard",
-    "route": "http://localhost:1317/cardservice/card/1",
+    "route": "http://localhost:1317/cardservice/cards/1",
     "reqBody": {
     },
     "evaluate": [
