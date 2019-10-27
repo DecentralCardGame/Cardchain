@@ -22,5 +22,7 @@ build
 /tests/unsignedTx.json
 
 # misc
+signedTx.json
+unsignedTx.json
 nohup.out
 keysAliceBob.log
