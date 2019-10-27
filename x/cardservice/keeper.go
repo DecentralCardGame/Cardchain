@@ -239,3 +239,14 @@ func (k Keeper) GetCardsIterator(ctx sdk.Context) sdk.Iterator {
 	store := ctx.KVStore(k.cardsStoreKey)
 	return sdk.KVStorePrefixIterator(store, nil)
 }
+
+func (k Keeper) CreateUser(ctx sdk.Context, newUser sdk.AccAddress, alias string) sdk.Iterator {
+	// check if user already exists
+	if k.GetUser(ctx, newUser).Alias == "" {
+		k.InitUser(ctx, NewUser, alias)
+	} else {
+		k.SetUserName(ctx, newUser, alias)
+	}
+
+	return k.GetUser(ctx, newUser)
+}

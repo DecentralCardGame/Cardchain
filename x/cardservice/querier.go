@@ -33,6 +33,8 @@ func NewQuerier(keeper Keeper) sdk.Querier {
 			return queryCards(ctx, req, keeper)
 		case QueryVotableCards:
 			return queryVotableCards(ctx, path[1:], req, keeper)
+		case QueryRegisterUser:
+			return queryRegisterUser(ctx, path[1:], req, keeper)
 		default:
 			return nil, sdk.ErrUnknownRequest("unknown cardservice query endpoint")
 		}
@@ -81,6 +83,23 @@ func queryWhois(ctx sdk.Context, path []string, req abci.RequestQuery, keeper Ke
 	}
 
 	user := keeper.GetUser(ctx, address)
+
+	bz, err2 := codec.MarshalJSONIndent(keeper.cdc, user)
+	if err2 != nil {
+		panic("could not marshal result to JSON")
+	}
+
+	return bz, nil
+}
+
+// nolint: unparam
+func queryRegisterUser(ctx sdk.Context, path []string, req abci.RequestQuery, keeper Keeper) (res []byte, err sdk.Error) {
+	address, error := sdk.AccAddressFromBech32(path[0])
+	if error != nil {
+		return nil, sdk.ErrUnknownRequest("could not parse user address")
+	}
+
+	user := keeper.CreateUser(ctx, address)
 
 	bz, err2 := codec.MarshalJSONIndent(keeper.cdc, user)
 	if err2 != nil {
