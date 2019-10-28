@@ -4,6 +4,7 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
+/*
 // Initial Starting Price for a name that was never previously owned
 var MinNamePrice = sdk.Coins{sdk.NewInt64Coin("nametoken", 1)}
 
@@ -20,6 +21,7 @@ func NewWhois() Whois {
 		Price: MinNamePrice,
 	}
 }
+*/
 
 type User struct {
 	Alias      string

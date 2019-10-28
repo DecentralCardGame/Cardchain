@@ -29,10 +29,10 @@ func RegisterRoutes(cliCtx context.CLIContext, r *mux.Router, cdc *codec.Codec, 
 	r.HandleFunc(fmt.Sprintf("/%s/donate_to_card", storeName), donateToCardHandler(cdc, cliCtx)).Methods(http.MethodPost)
 	r.HandleFunc(fmt.Sprintf("/%s/create_user", storeName), createUserHandler(cdc, cliCtx)).Methods(http.MethodPut)
 
-	r.HandleFunc(fmt.Sprintf("/%s/cards/{%s}", storeName, restName), resolveCardHandler(cdc, cliCtx, storeName)).Methods(http.MethodGet)
-	r.HandleFunc(fmt.Sprintf("/%s/cards", storeName), resolveCardsHandler(cdc, cliCtx, storeName)).Methods(http.MethodGet)
-	r.HandleFunc(fmt.Sprintf("/%s/whois/{%s}", storeName, restName), whoIsHandler(cdc, cliCtx, storeName)).Methods(http.MethodGet)
-	r.HandleFunc(fmt.Sprintf("/%s/votable_cards/{%s}", storeName, restName), resolveVotableCardsHandler(cdc, cliCtx, storeName)).Methods(http.MethodGet)
+	r.HandleFunc(fmt.Sprintf("/%s/cards/{%s}", storeName, restName), getCardHandler(cdc, cliCtx, storeName)).Methods(http.MethodGet)
+	r.HandleFunc(fmt.Sprintf("/%s/cards", storeName), getCardsHandler(cdc, cliCtx, storeName)).Methods(http.MethodGet)
+	r.HandleFunc(fmt.Sprintf("/%s/user/{%s}", storeName, restName), getUserHandler(cdc, cliCtx, storeName)).Methods(http.MethodGet)
+	r.HandleFunc(fmt.Sprintf("/%s/votable_cards/{%s}", storeName, restName), getVotableCardsHandler(cdc, cliCtx, storeName)).Methods(http.MethodGet)
 }
 
 type buyCardSchemeReq struct {
@@ -324,12 +324,12 @@ func createUserHandler(cdc *codec.Codec, cliCtx context.CLIContext) http.Handler
 	}
 }
 
-func resolveCardHandler(cdc *codec.Codec, cliCtx context.CLIContext, storeName string) http.HandlerFunc {
+func getCardHandler(cdc *codec.Codec, cliCtx context.CLIContext, storeName string) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		vars := mux.Vars(r)
 		paramType := vars[restName]
 
-		res, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/resolve/%s", storeName, paramType), nil)
+		res, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/card/%s", storeName, paramType), nil)
 		if err != nil {
 			rest.WriteErrorResponse(w, http.StatusNotFound, err.Error())
 			return
@@ -339,7 +339,7 @@ func resolveCardHandler(cdc *codec.Codec, cliCtx context.CLIContext, storeName s
 	}
 }
 
-func resolveCardsHandler(cdc *codec.Codec, cliCtx context.CLIContext, storeName string) http.HandlerFunc {
+func getCardsHandler(cdc *codec.Codec, cliCtx context.CLIContext, storeName string) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		vars := mux.Vars(r)
 		paramType := vars[restName]
@@ -355,7 +355,7 @@ func resolveCardsHandler(cdc *codec.Codec, cliCtx context.CLIContext, storeName 
 	}
 }
 
-func resolveVotableCardsHandler(cdc *codec.Codec, cliCtx context.CLIContext, storeName string) http.HandlerFunc {
+func getVotableCardsHandler(cdc *codec.Codec, cliCtx context.CLIContext, storeName string) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		fmt.Println("storeName")
 		fmt.Println(storeName)
@@ -373,12 +373,12 @@ func resolveVotableCardsHandler(cdc *codec.Codec, cliCtx context.CLIContext, sto
 	}
 }
 
-func whoIsHandler(cdc *codec.Codec, cliCtx context.CLIContext, userAddress string) http.HandlerFunc {
+func getUserHandler(cdc *codec.Codec, cliCtx context.CLIContext, userAddress string) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		vars := mux.Vars(r)
 		paramType := vars[restName]
 
-		res, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/whois/%s", userAddress, paramType), nil)
+		res, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/user/%s", userAddress, paramType), nil)
 		if err != nil {
 			rest.WriteErrorResponse(w, http.StatusNotFound, err.Error())
 			return

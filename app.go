@@ -92,7 +92,7 @@ func NewCardserviceApp(logger log.Logger, db dbm.DB) *cardserviceApp {
 	app.feeCollectionKeeper = auth.NewFeeCollectionKeeper(cdc, app.keyFeeCollection)
 
 	// The cardserviceKeeper is the Keeper from the module for this tutorial
-	// It handles interactions with the namestore
+	// It handles interactions with the cardstore
 	app.csKeeper = cardservice.NewKeeper(
 		app.bankKeeper,
 		app.keyCScards,

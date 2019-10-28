@@ -3,7 +3,7 @@ package cardservice
 import (
 	"encoding/binary"
 	"encoding/json"
-	"fmt"
+	//"fmt"
 	"strconv"
 	"strings"
 
@@ -15,9 +15,9 @@ import (
 
 // query endpoints supported by the cardservice Querier
 const (
-	QueryResolve      = "resolve"
-	QueryWhois        = "whois"
-	QueryNames        = "cards"
+	QueryCard      		= "card"
+	QueryUser         = "user"
+	QueryCards        = "cards"
 	QueryVotableCards = "votable-cards"
 )
 
@@ -25,11 +25,11 @@ const (
 func NewQuerier(keeper Keeper) sdk.Querier {
 	return func(ctx sdk.Context, path []string, req abci.RequestQuery) (res []byte, err sdk.Error) {
 		switch path[0] {
-		case QueryResolve:
-			return queryResolve(ctx, path[1:], req, keeper)
-		case QueryWhois:
-			return queryWhois(ctx, path[1:], req, keeper)
-		case QueryNames:
+		case QueryCard:
+			return queryCard(ctx, path[1:], req, keeper)
+		case QueryUser:
+			return queryUser(ctx, path[1:], req, keeper)
+		case QueryCards:
 			return queryCards(ctx, req, keeper)
 		case QueryVotableCards:
 			return queryVotableCards(ctx, path[1:], req, keeper)
@@ -40,7 +40,7 @@ func NewQuerier(keeper Keeper) sdk.Querier {
 }
 
 // nolint: unparam
-func queryResolve(ctx sdk.Context, path []string, req abci.RequestQuery, keeper Keeper) (res []byte, err sdk.Error) {
+func queryCard(ctx sdk.Context, path []string, req abci.RequestQuery, keeper Keeper) (res []byte, err sdk.Error) {
 	cardId, error := strconv.ParseUint(path[0], 10, 64)
 	if error != nil {
 		return nil, sdk.ErrUnknownRequest("could not parse cardId")
@@ -60,21 +60,8 @@ func queryResolve(ctx sdk.Context, path []string, req abci.RequestQuery, keeper 
 	return bz, nil
 }
 
-/*
-// TODO check if this can be removed
-// Query Result Payload for a resolve query
-type QueryResResolve struct {
-	Value string `json:"value"`
-}
-
-// implement fmt.Stringer
-func (r QueryResResolve) String() string {
-	return r.Value
-}
-*/
-
 // nolint: unparam
-func queryWhois(ctx sdk.Context, path []string, req abci.RequestQuery, keeper Keeper) (res []byte, err sdk.Error) {
+func queryUser(ctx sdk.Context, path []string, req abci.RequestQuery, keeper Keeper) (res []byte, err sdk.Error) {
 	address, error := sdk.AccAddressFromBech32(path[0])
 	if error != nil {
 		return nil, sdk.ErrUnknownRequest("could not parse user address")
@@ -90,12 +77,14 @@ func queryWhois(ctx sdk.Context, path []string, req abci.RequestQuery, keeper Ke
 	return bz, nil
 }
 
+/*
 // implement fmt.Stringer
 func (w Whois) String() string {
 	return strings.TrimSpace(fmt.Sprintf(`Owner: %s
 Value: %s
 Price: %s`, w.Owner, w.Value, w.Price))
 }
+*/
 
 func queryCards(ctx sdk.Context, req abci.RequestQuery, keeper Keeper) (res []byte, err sdk.Error) {
 	var cardsList QueryResCards
@@ -124,7 +113,7 @@ func queryCards(ctx sdk.Context, req abci.RequestQuery, keeper Keeper) (res []by
 	return bz, nil
 }
 
-// Query Result Payload for a names query
+// Query Result Payload for a cards query
 type QueryResCards []string
 
 // implement fmt.Stringer

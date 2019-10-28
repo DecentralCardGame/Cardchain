@@ -1,3 +1,3 @@
 #!/bin/bash
 
-cscli query cardservice resolve 1 --chain-id testCardchain
+cscli query cardservice card 1 --chain-id testCardchain

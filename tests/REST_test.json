@@ -324,8 +324,8 @@
     },
 
     {
-    "name":"whoisAlice",
-    "route": "http://localhost:1317/cardservice/whois/%s",
+    "name":"getUserAlice",
+    "route": "http://localhost:1317/cardservice/user/%s",
     "reqBody": {
     },
     "evaluate": [
