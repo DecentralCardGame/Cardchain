@@ -21,10 +21,8 @@ services:
     container_name: herd
     depends_on:
       - goat
-      - ai
     volumes:
       - ./config/nginx.conf:/etc/nginx/conf.d/default.conf
-      - ./config/ai.conf:/etc/nginx/conf.d/ai.conf
     ports:
       - 80:80
       - 81:81
