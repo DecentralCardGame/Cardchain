@@ -190,17 +190,13 @@ func handleMsgDonateToCard(ctx sdk.Context, keeper Keeper, msg MsgDonateToCard) 
 // handle create user message
 func handleMsgCreateUser(ctx sdk.Context, keeper Keeper, msg MsgCreateUser) sdk.Result {
 
-	// check if Creator is valid
+	// check if Creator is valid, later this is for preventing sybil attack
 	if true {
 
 	}
 
 	// check if user already exists
-	if keeper.GetUser(ctx, msg.NewUser).Alias == "" {
-		keeper.InitUser(ctx, msg.NewUser, msg.Alias)
-	} else {
-		keeper.SetUserName(ctx, msg.NewUser, msg.Alias)
-	}
+	keeper.CreateUser(ctx, msg.NewUser, msg.Alias)
 
 	// this has been moved to keeper.InitUser, but maybe will be back here some day?
 	// give starting credits

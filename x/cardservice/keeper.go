@@ -179,6 +179,18 @@ func (k Keeper) InitUser(ctx sdk.Context, address sdk.AccAddress, alias string) 
 	store.Set(address, k.cdc.MustMarshalBinaryBare(newUser))
 }
 
+func (k Keeper) CreateUser(ctx sdk.Context, newUser sdk.AccAddress, alias string) User {
+	// check if user already exists
+	store := ctx.KVStore(k.usersStoreKey)
+	bz := store.Get(newUser)
+
+	if bz == nil {
+		k.InitUser(ctx, newUser, alias)
+	}
+
+	return k.GetUser(ctx, newUser)
+}
+
 func (k Keeper) AddOwnedCard(ctx sdk.Context, cardId uint64, address sdk.AccAddress) {
 	store := ctx.KVStore(k.usersStoreKey)
 	bz := store.Get(address)
@@ -238,15 +250,4 @@ func (k Keeper) ResetAllVotes(ctx sdk.Context) {
 func (k Keeper) GetCardsIterator(ctx sdk.Context) sdk.Iterator {
 	store := ctx.KVStore(k.cardsStoreKey)
 	return sdk.KVStorePrefixIterator(store, nil)
-}
-
-func (k Keeper) CreateUser(ctx sdk.Context, newUser sdk.AccAddress, alias string) User {
-	// check if user already exists
-	if k.GetUser(ctx, newUser).Alias == "" {
-		k.InitUser(ctx, newUser, alias)
-	} else {
-		k.SetUserName(ctx, newUser, alias)
-	}
-
-	return k.GetUser(ctx, newUser)
 }
