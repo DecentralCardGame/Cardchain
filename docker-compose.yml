@@ -1,13 +1,5 @@
 version: '3'
 services:
-  ai:
-    image: tensorflow/serving
-    volumes:
-      - ../ai/models:/models/goat_herd
-    environment:
-      - MODEL_NAME=goat_herd
-    ports:
-      - 8501:8501
 
   blockchain:
     build: .
@@ -29,10 +21,8 @@ services:
     container_name: herd
     depends_on:
       - goat
-      - ai
     volumes:
       - ./config/nginx.conf:/etc/nginx/conf.d/default.conf
-      - ./config/ai.conf:/etc/nginx/conf.d/ai.conf
     ports:
       - 80:80
       - 81:81
