@@ -191,16 +191,45 @@ func (k Keeper) CreateUser(ctx sdk.Context, newUser sdk.AccAddress, alias string
 	return k.GetUser(ctx, newUser)
 }
 
-func (k Keeper) AddOwnedCard(ctx sdk.Context, cardId uint64, address sdk.AccAddress) {
+func (k Keeper) AddOwnedCardScheme(ctx sdk.Context, cardId uint64, address sdk.AccAddress) {
 	store := ctx.KVStore(k.usersStoreKey)
 	bz := store.Get(address)
 
 	var gottenUser User
 	k.cdc.MustUnmarshalBinaryBare(bz, &gottenUser)
 
-	gottenUser.OwnedCards = append(gottenUser.OwnedCards, cardId)
+	gottenUser.OwnedCardSchemes = append(gottenUser.OwnedCardSchemes, cardId)
 
 	store.Set(address, k.cdc.MustMarshalBinaryBare(gottenUser))
+}
+
+func (k Keeper) TransferSchemeToCard(ctx sdk.Context, cardId uint64, address sdk.AccAddress) {
+	store := ctx.KVStore(k.usersStoreKey)
+	bz := store.Get(address)
+
+	var gottenUser User
+	k.cdc.MustUnmarshalBinaryBare(bz, &gottenUser)
+
+	idPosition := indexOfId(cardId, gottenUser.OwnedCardSchemes)
+
+	if idPosition >= 0 {
+			gottenUser.OwnedCards = append(gottenUser.OwnedCards, cardId)
+			gottenUser.OwnedCardSchemes = append(gottenUser.OwnedCardSchemes[:idPosition], gottenUser.OwnedCardSchemes[idPosition+1:]...)
+
+			store.Set(address, k.cdc.MustMarshalBinaryBare(gottenUser))
+	}
+}
+
+func indexOfId(cardID uint64, cards []uint64) int {
+	if cards == nil {
+		return -1
+	}
+	for i, b := range cards {
+		if b == cardID {
+			return i
+		}
+	}
+	return -1
 }
 
 func (k Keeper) GetVoteRights(ctx sdk.Context, voter sdk.AccAddress) []VoteRight {

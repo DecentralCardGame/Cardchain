@@ -41,17 +41,11 @@ func handleMsgBuyCardScheme(ctx sdk.Context, keeper Keeper, msg MsgBuyCardScheme
 	if price.IsGTE(msg.Bid) { // Checks if the the bid price is greater than the price paid by the current owner
 		return sdk.ErrInsufficientCoins("Bid not high enough").Result() // If not, throw an error
 	}
-	/*if keeper.HasOwner(ctx, stringId) {
-		_, err := keeper.coinKeeper.SendCoins(ctx, msg.Buyer, keeper.GetOwner(ctx, stringId), msg.Bid)
-		if err != nil {
-			return sdk.ErrInsufficientCoins("Buyer does not have enough coins").Result()
-		}
-	} else {*/
+
 	_, _, err := keeper.coinKeeper.SubtractCoins(ctx, msg.Buyer, sdk.Coins{price}) // If so, deduct the Bid amount from the sender
 	if err != nil {
 		return sdk.ErrInsufficientCoins("Buyer does not have enough coins").Result()
 	}
-	//}
 
 	keeper.AddPublicPoolCredits(ctx, price)
 	keeper.SetCardAuctionPrice(ctx, price.Add(price))
@@ -60,7 +54,7 @@ func handleMsgBuyCardScheme(ctx sdk.Context, keeper Keeper, msg MsgBuyCardScheme
 	newCard := NewCard(msg.Buyer)
 
 	keeper.SetCard(ctx, currId, newCard)
-	keeper.AddOwnedCard(ctx, currId, msg.Buyer)
+	keeper.AddOwnedCardScheme(ctx, currId, msg.Buyer)
 
 	return sdk.Result{}
 }
@@ -83,6 +77,7 @@ func handleMsgSaveCardContent(ctx sdk.Context, keeper Keeper, msg MsgSaveCardCon
 	card.Content = []byte(msg.Content)
 	card.Status = "prototype"
 	keeper.SetCard(ctx, msg.CardId, card)
+	keeper.TransferSchemeToCard(ctx, msg.CardId, msg.Owner)
 
 	return sdk.Result{}
 }

@@ -24,16 +24,18 @@ func NewWhois() Whois {
 */
 
 type User struct {
-	Alias      string
-	OwnedCards []uint64
-	VoteRights []VoteRight
+	Alias      			 string
+	OwnedCardSchemes []uint64
+	OwnedCards			 []uint64
+	VoteRights 			 []VoteRight
 }
 
 func NewUser() User {
 	return User{
-		Alias:      "newPlayer",
-		OwnedCards: []uint64{},
-		VoteRights: []VoteRight{},
+		Alias:	      		"newPlayer",
+		OwnedCardSchemes: []uint64{},
+		OwnedCards: 			[]uint64{},
+		VoteRights: 			[]VoteRight{},
 	}
 }
 

@@ -11,13 +11,13 @@ import (
 // Buy Card Scheme //
 /////////////////////
 
-// MsgBuyName defines the BuyName message
+// MsgBuyCard defines the BuyCard message
 type MsgBuyCardScheme struct {
 	Bid    sdk.Coin
 	Buyer  sdk.AccAddress
 }
 
-// NewMsgBuyName is the constructor function for MsgBuyName
+// NewMsgBuyCard is the constructor function for MsgBuyCard
 func NewMsgBuyCardScheme(bid sdk.Coin, buyer sdk.AccAddress) MsgBuyCardScheme {
 	return MsgBuyCardScheme{
 		Bid:    bid,
@@ -25,7 +25,7 @@ func NewMsgBuyCardScheme(bid sdk.Coin, buyer sdk.AccAddress) MsgBuyCardScheme {
 	}
 }
 
-// Name Implements Msg.
+// BuyCardScheme Implements Msg.
 func (msg MsgBuyCardScheme) Route() string { return "cardservice" }
 
 // Type Implements Msg.
