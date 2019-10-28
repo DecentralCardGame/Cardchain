@@ -1,13 +1,5 @@
 version: '3'
 services:
-  ai:
-    image: tensorflow/serving
-    volumes:
-      - ../ai/models:/models/goat_herd
-    environment:
-      - MODEL_NAME=goat_herd
-    ports:
-      - 8501:8501
 
   blockchain:
     build: .
