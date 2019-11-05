@@ -108,11 +108,28 @@ func GetCmdVotableCardList(queryRoute string, cdc *codec.Codec) *cobra.Command {
 			fmt.Println(string(res))
 
 			return nil
-/*
-			var out cardservice.QueryResCards
-			cdc.MustUnmarshalJSON(res, &out)
-			return cliCtx.PrintOutput(out)
-			*/
+		},
+	}
+}
+
+// GetCmdUser queries information about a user
+func GetCmdCardchainInfo(queryRoute string, cdc *codec.Codec) *cobra.Command {
+	return &cobra.Command{
+		Use:   "cardchain-info",
+		Short: "Query all info of the cardchain that is relevant for the cards",
+		Args:  cobra.ExactArgs(0),
+		RunE: func(cmd *cobra.Command, args []string) error {
+			cliCtx := context.NewCLIContext().WithCodec(cdc)
+
+			res, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/cardchain-info", queryRoute), nil)
+			if err != nil {
+				fmt.Printf("could not query cardchain info\n")
+				return nil
+			}
+
+			fmt.Println(string(res))
+
+			return nil
 		},
 	}
 }

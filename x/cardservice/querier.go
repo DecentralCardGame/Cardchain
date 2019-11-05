@@ -15,10 +15,11 @@ import (
 
 // query endpoints supported by the cardservice Querier
 const (
-	QueryCard      		= "card"
-	QueryUser         = "user"
-	QueryCards        = "cards"
-	QueryVotableCards = "votable-cards"
+	QueryCard      	 	 = "card"
+	QueryUser          = "user"
+	QueryCards         = "cards"
+	QueryVotableCards  = "votable-cards"
+	QueryCardchainInfo = "cardchain-info"
 )
 
 // NewQuerier is the module level router for state queries
@@ -33,6 +34,8 @@ func NewQuerier(keeper Keeper) sdk.Querier {
 			return queryCards(ctx, req, keeper)
 		case QueryVotableCards:
 			return queryVotableCards(ctx, path[1:], req, keeper)
+		case QueryCardchainInfo:
+			return queryCardchainInfo(ctx, req, keeper)
 		default:
 			return nil, sdk.ErrUnknownRequest("unknown cardservice query endpoint")
 		}
@@ -152,6 +155,18 @@ func queryVotableCards(ctx sdk.Context, path []string, req abci.RequestQuery, ke
 	}
 
 	bz, err2 := codec.MarshalJSONIndent(keeper.cdc, cardsList)
+	if err2 != nil {
+		panic("could not marshal result to JSON")
+	}
+
+	return bz, nil
+}
+
+func queryCardchainInfo(ctx sdk.Context, req abci.RequestQuery, keeper Keeper) (res []byte, err sdk.Error) {
+
+	info := keeper.GetCardAuctionPrice(ctx)
+
+	bz, err2 := codec.MarshalJSONIndent(keeper.cdc, info)
 	if err2 != nil {
 		panic("could not marshal result to JSON")
 	}
