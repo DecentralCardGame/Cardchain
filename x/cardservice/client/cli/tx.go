@@ -65,7 +65,7 @@ func GetCmdSaveCardContent(cdc *codec.Codec) *cobra.Command {
 				return err
 			}
 
-			cardobj, err := cardobject.ProcessCard(args[1])
+			cardobj, err := cardobject.FunctionalCardJson(args[1])
 			if err != nil {
 				return err
 			}
