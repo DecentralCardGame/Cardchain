@@ -157,7 +157,7 @@ func (app *cardserviceApp) blockHandler(ctx sdk.Context, req abci.RequestEndBloc
 	// automated nerf/buff happens here // TODO adjust the mod10 here
 	if app.LastBlockHeight()%epochBlockTime == 0 {
 		cardservice.UpdateNerfLevels(ctx, app.csKeeper)
-		app.csKeeper.AddVotingRightsToUsers(ctx, ctx.BlockHeight()+votingRightsExpirationTime)
+		app.csKeeper.AddVoteRightsToAllUsers(ctx, ctx.BlockHeight()+votingRightsExpirationTime)
 	}
 
 	return abci.ResponseEndBlock{}

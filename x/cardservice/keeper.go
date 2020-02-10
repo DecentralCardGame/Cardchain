@@ -118,18 +118,8 @@ func (k Keeper) GetUser(ctx sdk.Context, address sdk.AccAddress) User {
 	return gottenUser
 }
 
-func (k Keeper) AddVotingRightsToUsers(ctx sdk.Context, expireBlock int64) {
-	cardStore := ctx.KVStore(k.cardsStoreKey)
-	cardIterator := sdk.KVStorePrefixIterator(cardStore, nil)
-
-	votingRights := []VoteRight{}
-
-	for ; cardIterator.Valid(); cardIterator.Next() {
-		right := NewVoteRight(binary.BigEndian.Uint64(cardIterator.Key()), expireBlock)
-		votingRights = append(votingRights, right)
-	}
-
-	cardIterator.Close()
+func (k Keeper) AddVoteRightsToAllUsers(ctx sdk.Context, expireBlock int64) {
+	votingRights := k.GetVoteRightToAllCards(ctx, expireBlock)
 
 	userStore := ctx.KVStore(k.usersStoreKey)
 
@@ -143,6 +133,21 @@ func (k Keeper) AddVotingRightsToUsers(ctx sdk.Context, expireBlock int64) {
 	}
 
 	userIterator.Close()
+}
+
+func (k Keeper) GetVoteRightToAllCards(ctx sdk.Context, expireBlock int64) []VoteRight {
+	cardStore := ctx.KVStore(k.cardsStoreKey)
+	cardIterator := sdk.KVStorePrefixIterator(cardStore, nil)
+
+	votingRights := []VoteRight{}
+
+	for ; cardIterator.Valid(); cardIterator.Next() {
+		right := NewVoteRight(binary.BigEndian.Uint64(cardIterator.Key()), expireBlock)
+		votingRights = append(votingRights, right)
+	}
+	cardIterator.Close()
+
+	return votingRights
 }
 
 func (k Keeper) RemoveVoteRight(ctx sdk.Context, userAddress sdk.AccAddress, rightsIndex int) {
@@ -175,6 +180,7 @@ func (k Keeper) InitUser(ctx sdk.Context, address sdk.AccAddress, alias string) 
 	newUser := NewUser()
 	newUser.Alias = alias
 	k.coinKeeper.AddCoins(ctx, address, sdk.Coins{sdk.NewInt64Coin("credits", 1000)})
+	newUser.VoteRights := k.GetVoteRightToAllCards(ctx, expireBlock)
 
 	store.Set(address, k.cdc.MustMarshalBinaryBare(newUser))
 }
