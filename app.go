@@ -144,7 +144,7 @@ func NewCardserviceApp(logger log.Logger, db dbm.DB) *cardserviceApp {
 const epochBlockTime = 10
 
 // votingRightsExpirationTime defines after how many blocks a voting right expires by default
-const votingRightsExpirationTime = 5
+const votingRightsExpirationTime = 500
 
 func (app *cardserviceApp) blockHandler(ctx sdk.Context, req abci.RequestEndBlock) abci.ResponseEndBlock {
 	//app.Logger.Info("currId: "+strconv.FormatUint(app.csKeeper.GetLastCardSchemeId(ctx),10))
