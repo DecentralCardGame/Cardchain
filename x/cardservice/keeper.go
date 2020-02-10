@@ -181,7 +181,7 @@ func (k Keeper) InitUser(ctx sdk.Context, address sdk.AccAddress, alias string) 
 	newUser.Alias = alias
 	k.coinKeeper.AddCoins(ctx, address, sdk.Coins{sdk.NewInt64Coin("credits", 1000)})
 	const votingRightsExpirationTime = 500
-	newUser.VoteRights := k.GetVoteRightToAllCards(ctx, ctx.BlockHeight()+votingRightsExpirationTime)
+	newUser.VoteRights = k.GetVoteRightToAllCards(ctx, ctx.BlockHeight()+votingRightsExpirationTime)
 
 	store.Set(address, k.cdc.MustMarshalBinaryBare(newUser))
 }
