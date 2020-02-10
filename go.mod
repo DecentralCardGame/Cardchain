@@ -1,6 +1,6 @@
 module github.com/DecentralCardGame/Cardchain
 
-go 1.12
+go 1.13
 
 require (
 	github.com/DecentralCardGame/cardobject v0.1.3
@@ -60,7 +60,6 @@ require (
 	golang.org/x/net v0.0.0-20190628185345-da137c7871d7
 	golang.org/x/sys v0.0.0-20190329044733-9eb1bfa1ce65
 	golang.org/x/text v0.3.0
-	google.golang.org/appengine v1.4.0 // indirect
 	google.golang.org/genproto v0.0.0-20190327125643-d831d65fe17d
 	google.golang.org/grpc v1.22.0
 	gopkg.in/yaml.v2 v2.2.2
