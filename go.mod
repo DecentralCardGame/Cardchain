@@ -43,10 +43,10 @@ require (
 	github.com/rs/cors v1.6.0
 	github.com/spf13/afero v1.2.2
 	github.com/spf13/cast v1.3.0
-	github.com/spf13/cobra v0.0.3
+	github.com/spf13/cobra v0.0.5
 	github.com/spf13/jwalterweatherman v1.1.0
-	github.com/spf13/pflag v1.0.3
-	github.com/spf13/viper v1.0.3
+	github.com/spf13/pflag v1.0.5
+	github.com/spf13/viper v1.3.2
 	github.com/stretchr/testify v1.3.0
 	github.com/syndtr/goleveldb v1.0.1-0.20190318030020-c3a204f8e965
 	github.com/tendermint/btcd v0.1.1
@@ -58,9 +58,8 @@ require (
 	github.com/zondax/hid v0.9.0
 	github.com/zondax/ledger-go v0.8.0
 	golang.org/x/net v0.0.0-20190628185345-da137c7871d7
-	golang.org/x/sys v0.0.0-20190329044733-9eb1bfa1ce65
+	golang.org/x/sys v0.0.0-20191105231009-c1f44814a5cd
 	golang.org/x/text v0.3.0
-	google.golang.org/appengine v1.4.0 // indirect
 	google.golang.org/genproto v0.0.0-20190327125643-d831d65fe17d
 	google.golang.org/grpc v1.22.0
 	gopkg.in/yaml.v2 v2.2.2

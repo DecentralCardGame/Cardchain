@@ -1,7 +1,7 @@
 package cardservice
 
 import (
-	"encoding/binary"
+	//"encoding/binary"
 	"encoding/json"
 	//"fmt"
 	"strconv"
@@ -131,7 +131,7 @@ func queryVotableCards(ctx sdk.Context, path []string, req abci.RequestQuery, ke
 	}
 
 	user := keeper.GetUser(ctx, address)
-
+	/*
 	var cardsList QueryResCards
 
 	iterator := keeper.GetCardsIterator(ctx)
@@ -153,8 +153,10 @@ func queryVotableCards(ctx sdk.Context, path []string, req abci.RequestQuery, ke
 			cardsList = append(cardsList, string(b))
 		}
 	}
-
 	bz, err2 := codec.MarshalJSONIndent(keeper.cdc, cardsList)
+	*/
+
+	bz, err2 := codec.MarshalJSONIndent(keeper.cdc, user.VoteRights)
 	if err2 != nil {
 		panic("could not marshal result to JSON")
 	}
