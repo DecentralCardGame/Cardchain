@@ -141,7 +141,7 @@ func NewCardserviceApp(logger log.Logger, db dbm.DB) *cardserviceApp {
 }
 
 // epochBlockTime defines how many blocks are one game epoch
-const epochBlockTime = 10
+const epochBlockTime = 20
 
 // votingRightsExpirationTime defines after how many blocks a voting right expires by default
 const votingRightsExpirationTime = 500
