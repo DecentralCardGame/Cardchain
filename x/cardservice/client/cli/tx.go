@@ -1,234 +1,112 @@
 package cli
 
 import (
-	//"fmt"
-	"errors"
-	"strconv"
-	"strings"
+	"bufio"
 
 	"github.com/spf13/cobra"
-	"github.com/cosmos/cosmos-sdk/client/context"
-	"github.com/cosmos/cosmos-sdk/client/utils"
-	"github.com/cosmos/cosmos-sdk/codec"
-	"github.com/DecentralCardGame/Cardchain/x/cardservice"
 
+	"github.com/cosmos/cosmos-sdk/client"
+	"github.com/cosmos/cosmos-sdk/client/context"
+	"github.com/cosmos/cosmos-sdk/client/flags"
+	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	authtxb "github.com/cosmos/cosmos-sdk/x/auth/client/txbuilder"
-	"github.com/DecentralCardGame/cardobject"
+	"github.com/cosmos/cosmos-sdk/x/auth"
+	"github.com/cosmos/cosmos-sdk/x/auth/client/utils"
+	"github.com/DecentralCardGame/Cardchain/x/cardservice/internal/types"
 )
 
-// GetCmdBuyCardScheme is the CLI command for sending a BuyCardScheme transaction
-func GetCmdBuyCardScheme(cdc *codec.Codec) *cobra.Command {
+func GetTxCmd(storeKey string, cdc *codec.Codec) *cobra.Command {
+	cardserviceTxCmd := &cobra.Command{
+		Use:                        types.ModuleName,
+		Short:                      "cardservice transaction subcommands",
+		DisableFlagParsing:         true,
+		SuggestionsMinimumDistance: 2,
+		RunE:                       client.ValidateCmd,
+	}
+
+	cardserviceTxCmd.AddCommand(flags.PostCommands(
+		GetCmdBuyName(cdc),
+		GetCmdSetName(cdc),
+		GetCmdDeleteName(cdc),
+	)...)
+
+	return cardserviceTxCmd
+}
+
+// GetCmdBuyName is the CLI command for sending a BuyName transaction
+func GetCmdBuyName(cdc *codec.Codec) *cobra.Command {
 	return &cobra.Command{
-		Use:   "buy-card-scheme [amount]",
-		Short: "bid for a card scheme",
+		Use:   "buy-name [name] [amount]",
+		Short: "bid for existing name or claim new name",
+		Args:  cobra.ExactArgs(2),
+		RunE: func(cmd *cobra.Command, args []string) error {
+			inBuf := bufio.NewReader(cmd.InOrStdin())
+			cliCtx := context.NewCLIContext().WithCodec(cdc)
+
+			txBldr := auth.NewTxBuilderFromCLI(inBuf).WithTxEncoder(utils.GetTxEncoder(cdc))
+
+			coins, err := sdk.ParseCoins(args[1])
+			if err != nil {
+				return err
+			}
+
+			msg := types.NewMsgBuyName(args[0], coins, cliCtx.GetFromAddress())
+			err = msg.ValidateBasic()
+			if err != nil {
+				return err
+			}
+
+			return utils.GenerateOrBroadcastMsgs(cliCtx, txBldr, []sdk.Msg{msg})
+		},
+	}
+}
+
+// GetCmdSetName is the CLI command for sending a SetName transaction
+func GetCmdSetName(cdc *codec.Codec) *cobra.Command {
+	return &cobra.Command{
+		Use:   "set-name [name] [value]",
+		Short: "set the value associated with a name that you own",
+		Args:  cobra.ExactArgs(2),
+		RunE: func(cmd *cobra.Command, args []string) error {
+			cliCtx := context.NewCLIContext().WithCodec(cdc)
+			inBuf := bufio.NewReader(cmd.InOrStdin())
+			txBldr := auth.NewTxBuilderFromCLI(inBuf).WithTxEncoder(utils.GetTxEncoder(cdc))
+
+			// if err := cliCtx.EnsureAccountExists(); err != nil {
+			// 	return err
+			// }
+
+			msg := types.NewMsgSetName(args[0], args[1], cliCtx.GetFromAddress())
+			err := msg.ValidateBasic()
+			if err != nil {
+				return err
+			}
+
+			// return utils.CompleteAndBroadcastTxCLI(txBldr, cliCtx, msgs)
+			return utils.GenerateOrBroadcastMsgs(cliCtx, txBldr, []sdk.Msg{msg})
+		},
+	}
+}
+
+// GetCmdDeleteName is the CLI command for sending a DeleteName transaction
+func GetCmdDeleteName(cdc *codec.Codec) *cobra.Command {
+	return &cobra.Command{
+		Use:   "delete-name [name]",
+		Short: "delete the name that you own along with it's associated fields",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
-			cliCtx := context.NewCLIContext().WithCodec(cdc).WithAccountDecoder(cdc)
+			cliCtx := context.NewCLIContext().WithCodec(cdc)
+			inBuf := bufio.NewReader(cmd.InOrStdin())
+			txBldr := auth.NewTxBuilderFromCLI(inBuf).WithTxEncoder(utils.GetTxEncoder(cdc))
 
-			txBldr := authtxb.NewTxBuilderFromCLI().WithTxEncoder(utils.GetTxEncoder(cdc))
-
-			if err := cliCtx.EnsureAccountExists(); err != nil {
-				return err
-			}
-
-			coins, err := sdk.ParseCoin(args[0])
+			msg := types.NewMsgDeleteName(args[0], cliCtx.GetFromAddress())
+			err := msg.ValidateBasic()
 			if err != nil {
 				return err
 			}
 
-			msg := cardservice.NewMsgBuyCardScheme(coins, cliCtx.GetFromAddress())
-			err = msg.ValidateBasic()
-			if err != nil {
-				return err
-			}
-
-			cliCtx.PrintResponse = true
-
-			return utils.GenerateOrBroadcastMsgs(cliCtx, txBldr, []sdk.Msg{msg}, false)
-		},
-	}
-}
-
-// GetCmdSaveCardContent is the CLI command for saving the content of a card
-func GetCmdSaveCardContent(cdc *codec.Codec) *cobra.Command {
-	return &cobra.Command{
-		Use:   "save-card-content [card id] [content]",
-		Short: "save the content of a card",
-		Args:  cobra.ExactArgs(2),
-		RunE: func(cmd *cobra.Command, args []string) error {
-			cliCtx := context.NewCLIContext().WithCodec(cdc).WithAccountDecoder(cdc)
-
-			txBldr := authtxb.NewTxBuilderFromCLI().WithTxEncoder(utils.GetTxEncoder(cdc))
-
-			if err := cliCtx.EnsureAccountExists(); err != nil {
-				return err
-			}
-
-			cardobj, err := cardobject.FunctionalCardJson(args[1])
-			if err != nil {
-				return err
-			}
-			if strings.Compare(args[1], cardobj) != 0 {
-				return errors.New("Card content string and card content object don't match. This means ProcessCard() removed or could not parse parts of the card content.")
-			}
-
-			cardId, err := strconv.ParseUint(args[0], 10, 64);
-			if err != nil {
-				return err
-			}
-
-			msg := cardservice.NewMsgSaveCardContent(cardId, []byte(cardobj), cliCtx.GetFromAddress())
-			err = msg.ValidateBasic()
-			if err != nil {
-				return err
-			}
-
-			cliCtx.PrintResponse = true
-
-			return utils.GenerateOrBroadcastMsgs(cliCtx, txBldr, []sdk.Msg{msg}, false)
-		},
-	}
-}
-
-// GetCmdVoteCard is the CLI command for voting for a card
-func GetCmdVoteCard(cdc *codec.Codec) *cobra.Command {
-	return &cobra.Command{
-		Use:   "vote-card [card id] [vote type]",
-		Short: "vote a card as inappropriate, underpowered, overpowered or fair enough",
-		Args:  cobra.ExactArgs(2),
-		RunE: func(cmd *cobra.Command, args []string) error {
-			cliCtx := context.NewCLIContext().WithCodec(cdc).WithAccountDecoder(cdc)
-
-			txBldr := authtxb.NewTxBuilderFromCLI().WithTxEncoder(utils.GetTxEncoder(cdc))
-
-			if err := cliCtx.EnsureAccountExists(); err != nil {
-				return err
-			}
-
-			cardId, err := strconv.ParseUint(args[0], 10, 64);
-			if err != nil {
-				return err
-			}
-
-			msg := cardservice.NewMsgVoteCard(cardId, args[1], cliCtx.GetFromAddress())
-			err = msg.ValidateBasic()
-			if err != nil {
-				return err
-			}
-
-			cliCtx.PrintResponse = true
-
-			return utils.GenerateOrBroadcastMsgs(cliCtx, txBldr, []sdk.Msg{msg}, false)
-		},
-	}
-}
-
-// GetCmdTransferCard is the CLI command for transferring the ownership of a card
-func GetCmdTransferCard(cdc *codec.Codec) *cobra.Command {
-	return &cobra.Command{
-		Use:   "transfer-card [card id] [receiver address]",
-		Short: "transfer the ownership of a card",
-		Args:  cobra.ExactArgs(2),
-		RunE: func(cmd *cobra.Command, args []string) error {
-			cliCtx := context.NewCLIContext().WithCodec(cdc).WithAccountDecoder(cdc)
-
-			txBldr := authtxb.NewTxBuilderFromCLI().WithTxEncoder(utils.GetTxEncoder(cdc))
-
-			if err := cliCtx.EnsureAccountExists(); err != nil {
-				return err
-			}
-
-			cardId, err := strconv.ParseUint(args[0], 10, 64);
-			if err != nil {
-				return err
-			}
-
-			receiver, err := sdk.AccAddressFromBech32(args[1])
-			if err != nil {
-				return err
-			}
-
-			msg := cardservice.NewMsgTransferCard(cardId, cliCtx.GetFromAddress(), receiver)
-			err = msg.ValidateBasic()
-			if err != nil {
-				return err
-			}
-
-			cliCtx.PrintResponse = true
-
-			return utils.GenerateOrBroadcastMsgs(cliCtx, txBldr, []sdk.Msg{msg}, false)
-		},
-	}
-}
-
-// GetCmdDonateToCard is the CLI command for donating credits to a card
-func GetCmdDonateToCard(cdc *codec.Codec) *cobra.Command {
-	return &cobra.Command{
-		Use:   "donate-to-card [card id] [amount]",
-		Short: "donate credits to the voters pool of a card",
-		Args:  cobra.ExactArgs(2),
-		RunE: func(cmd *cobra.Command, args []string) error {
-			cliCtx := context.NewCLIContext().WithCodec(cdc).WithAccountDecoder(cdc)
-
-			txBldr := authtxb.NewTxBuilderFromCLI().WithTxEncoder(utils.GetTxEncoder(cdc))
-
-			if err := cliCtx.EnsureAccountExists(); err != nil {
-				return err
-			}
-
-			cardId, err := strconv.ParseUint(args[0], 10, 64);
-			if err != nil {
-				return err
-			}
-
-			coins, err := sdk.ParseCoin(args[1])
-			if err != nil {
-				return err
-			}
-
-			msg := cardservice.NewMsgDonateToCard(cardId, cliCtx.GetFromAddress(), coins)
-			err = msg.ValidateBasic()
-			if err != nil {
-				return err
-			}
-
-			cliCtx.PrintResponse = true
-
-			return utils.GenerateOrBroadcastMsgs(cliCtx, txBldr, []sdk.Msg{msg}, false)
-		},
-	}
-}
-
-// GetCmdCreateUser is the CLI command for voting for a card
-func GetCmdCreateUser(cdc *codec.Codec) *cobra.Command {
-	return &cobra.Command{
-		Use:   "create-user [Addresss] [alias]",
-		Short: "create a user, this means giving starting credits and starting cards",
-		Args:  cobra.ExactArgs(2),
-		RunE: func(cmd *cobra.Command, args []string) error {
-			cliCtx := context.NewCLIContext().WithCodec(cdc).WithAccountDecoder(cdc)
-
-			txBldr := authtxb.NewTxBuilderFromCLI().WithTxEncoder(utils.GetTxEncoder(cdc))
-
-			if err := cliCtx.EnsureAccountExists(); err != nil {
-				return err
-			}
-
-			newUser, err := sdk.AccAddressFromBech32(args[0])
-			if err != nil {
-				return err
-			}
-
-			msg := cardservice.NewMsgCreateUser(cliCtx.GetFromAddress(), newUser, args[1])
-			err = msg.ValidateBasic()
-			if err != nil {
-				return err
-			}
-
-			cliCtx.PrintResponse = true
-
-			return utils.GenerateOrBroadcastMsgs(cliCtx, txBldr, []sdk.Msg{msg}, false)
+			// return utils.CompleteAndBroadcastTxCLI(txBldr, cliCtx, msgs)
+			return utils.GenerateOrBroadcastMsgs(cliCtx, txBldr, []sdk.Msg{msg})
 		},
 	}
 }
