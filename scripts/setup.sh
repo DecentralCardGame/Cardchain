@@ -11,3 +11,4 @@ csd add-genesis-account $(cscli keys show bob --address) 1000stake,1000credits
 csd add-genesis-account cosmos178x4cwg7zuppfgypdd7c0wy0kp304wad9v0awe 1stake,1credits
 
 #sed -i 's/create_empty_blocks = true/create_empty_blocks = false/g' ~/.csd/config/config.toml
+sed -i 's/create_empty_blocks_interval = "0s"/create_empty_blocks_interval = "60s"/g' ~/.csd/config/config.toml 
