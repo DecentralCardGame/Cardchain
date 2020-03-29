@@ -1,12 +1,12 @@
 package types
 
 import (
-	"fmt"
-	"strings"
+	//"fmt"
+	//"strings"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
-
+/*
 // MinNamePrice is Initial Starting Price for a name that was never previously owned
 var MinNamePrice = sdk.Coins{sdk.NewInt64Coin("nametoken", 1)}
 
@@ -29,4 +29,59 @@ func (w Whois) String() string {
 	return strings.TrimSpace(fmt.Sprintf(`Owner: %s
 Value: %s
 Price: %s`, w.Owner, w.Value, w.Price))
+}
+*/
+
+type User struct {
+	Alias      			 string
+	OwnedCardSchemes []uint64
+	OwnedCards			 []uint64
+	VoteRights 			 []VoteRight
+}
+
+func NewUser() User {
+	return User{
+		Alias:	      		"newPlayer",
+		OwnedCardSchemes: []uint64{},
+		OwnedCards: 			[]uint64{},
+		VoteRights: 			[]VoteRight{},
+	}
+}
+
+type Card struct {
+	Owner              sdk.AccAddress
+	Content            []byte
+	Status             string
+	VotePool           sdk.Coin
+	FairEnoughVotes    uint64
+	OverpoweredVotes   uint64
+	UnderpoweredVotes  uint64
+	InappropriateVotes uint64
+	Nerflevel          int64
+}
+
+func NewCard(owner sdk.AccAddress) Card {
+	return Card{
+		Owner:              owner,
+		Content:            []byte{},
+		Status:             "scheme",
+		VotePool:           sdk.NewInt64Coin("credits", 0),
+		FairEnoughVotes:    0,
+		OverpoweredVotes:   0,
+		UnderpoweredVotes:  0,
+		InappropriateVotes: 0,
+		Nerflevel:          0,
+	}
+}
+
+type VoteRight struct {
+	CardId      uint64
+	ExpireBlock int64
+}
+
+func NewVoteRight(cardId uint64, expireBlock int64) VoteRight {
+	return VoteRight{
+		CardId:      cardId,
+		ExpireBlock: expireBlock,
+	}
 }

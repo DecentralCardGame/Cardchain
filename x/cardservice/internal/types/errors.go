@@ -5,5 +5,7 @@ import (
 )
 
 var (
-	ErrNameDoesNotExist = sdkerrors.Register(ModuleName, 1, "name does not exist")
+	ErrCardDoesNotExist 				= sdkerrors.Register(ModuleName, 1, "card does not exist")
+	ErrVoterHasNoVotingRights 	= sdkerrors.Register(ModuleName, 2, "The voter doesn't have any voting rights")
+	ErrVoteRightIsExpired 			= sdkerrors.Register(ModuleName, 3, "The right to vote on the card has expired")
 )

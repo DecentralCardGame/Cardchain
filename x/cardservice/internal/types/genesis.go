@@ -5,23 +5,23 @@ import (
 )
 
 type GenesisState struct {
-	WhoisRecords []Whois `json:"whois_records"`
+	CardRecords []Card `json:"cards_records"`
 }
 
-func NewGenesisState(whoIsRecords []Whois) GenesisState {
-	return GenesisState{WhoisRecords: nil}
+func NewGenesisState(cardsRecords []Card) GenesisState {
+	return GenesisState{CardRecords: nil}
 }
 
 func ValidateGenesis(data GenesisState) error {
-	for _, record := range data.WhoisRecords {
+	for _, record := range data.CardRecords {
 		if record.Owner == nil {
-			return fmt.Errorf("invalid WhoisRecord: Value: %s. Error: Missing Owner", record.Value)
+			return fmt.Errorf("invalid CardRecord: Owner: %s. Error: Missing Owner", record.Owner)
 		}
-		if record.Value == "" {
-			return fmt.Errorf("invalid WhoisRecord: Owner: %s. Error: Missing Value", record.Owner)
+		if record.Content == nil {
+			return fmt.Errorf("invalid CardRecord: Content: %s. Error: Missing Content", record.Content)
 		}
-		if record.Price == nil {
-			return fmt.Errorf("invalid WhoisRecord: Value: %s. Error: Missing Price", record.Value)
+		if record.Status == "" {
+			return fmt.Errorf("invalid CardRecord: Status: %s. Error: Missing Status", record.Status)
 		}
 	}
 	return nil
@@ -29,6 +29,6 @@ func ValidateGenesis(data GenesisState) error {
 
 func DefaultGenesisState() GenesisState {
 	return GenesisState{
-		WhoisRecords: []Whois{},
+		CardRecords: []Card{},
 	}
 }

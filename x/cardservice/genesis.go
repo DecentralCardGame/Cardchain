@@ -8,23 +8,23 @@ import (
 )
 
 type GenesisState struct {
-	WhoisRecords []Whois `json:"whois_records"`
+	CardRecords []Card `json:"whois_records"`
 }
 
-func NewGenesisState(whoIsRecords []Whois) GenesisState {
-	return GenesisState{WhoisRecords: nil}
+func NewGenesisState(cardsRecords []Card) GenesisState {
+	return GenesisState{CardRecords: nil}
 }
 
 func ValidateGenesis(data GenesisState) error {
-	for _, record := range data.WhoisRecords {
+	for _, record := range data.CardRecords {
 		if record.Owner == nil {
-			return fmt.Errorf("invalid WhoisRecord: Value: %s. Error: Missing Owner", record.Value)
+			return fmt.Errorf("invalid CardRecord: Owner: %s. Error: Missing Owner", record.Owner)
 		}
-		if record.Value == "" {
-			return fmt.Errorf("invalid WhoisRecord: Owner: %s. Error: Missing Value", record.Owner)
+		if record.Content == nil {
+			return fmt.Errorf("invalid CardRecord: Content: %s. Error: Missing Content", record.Content)
 		}
-		if record.Price == nil {
-			return fmt.Errorf("invalid WhoisRecord: Value: %s. Error: Missing Price", record.Value)
+		if record.Status == "" {
+			return fmt.Errorf("invalid CardRecord: Status: %s. Error: Missing Status", record.Status)
 		}
 	}
 	return nil
@@ -32,26 +32,23 @@ func ValidateGenesis(data GenesisState) error {
 
 func DefaultGenesisState() GenesisState {
 	return GenesisState{
-		WhoisRecords: []Whois{},
+		CardRecords: []Card{},
 	}
 }
 
 func InitGenesis(ctx sdk.Context, keeper Keeper, data GenesisState) []abci.ValidatorUpdate {
-	for _, record := range data.WhoisRecords {
-		keeper.SetWhois(ctx, record.Value, record)
+	for _, record := range data.CardRecords {
+		lastId := keeper.GetLastCardSchemeId(ctx) // first get last card bought id
+		currId := lastId + 1                      // iterate it by 1
+
+		keeper.SetLastCardSchemeId(ctx, currId)
+		keeper.SetCard(ctx, currId, record)
+		keeper.AddOwnedCardScheme(ctx, currId, record.Owner)
 	}
 	return []abci.ValidatorUpdate{}
 }
 
 func ExportGenesis(ctx sdk.Context, k Keeper) GenesisState {
-	var records []Whois
-	iterator := k.GetNamesIterator(ctx)
-	for ; iterator.Valid(); iterator.Next() {
-
-		name := string(iterator.Key())
-		whois := k.GetWhois(ctx, name)
-		records = append(records, whois)
-
-	}
-	return GenesisState{WhoisRecords: records}
+	records := k.GetAllCards(ctx)
+	return GenesisState{CardRecords: records}
 }

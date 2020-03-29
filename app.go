@@ -117,7 +117,8 @@ func NewCardServiceApp(
 	bApp.SetAppVersion(version.Version)
 
 	keys := sdk.NewKVStoreKeys(bam.MainStoreKey, auth.StoreKey, staking.StoreKey,
-		supply.StoreKey, distr.StoreKey, slashing.StoreKey, params.StoreKey, cardservice.StoreKey)
+		supply.StoreKey, distr.StoreKey, slashing.StoreKey, params.StoreKey,
+		cardservice.UsersStoreKey, cardservice.CardsStoreKey, cardservice.InternalStoreKey)
 
 	tkeys := sdk.NewTransientStoreKeys(params.TStoreKey)
 
@@ -200,7 +201,9 @@ func NewCardServiceApp(
 	// It handles interactions with the namestore
 	app.csKeeper = cardservice.NewKeeper(
 		app.bankKeeper,
-		keys[cardservice.StoreKey],
+		keys[cardservice.CardsStoreKey],
+		keys[cardservice.UsersStoreKey],
+		keys[cardservice.InternalStoreKey],
 		app.cdc,
 	)
 
@@ -268,6 +271,11 @@ func NewDefaultGenesisState() GenesisState {
 	return ModuleBasics.DefaultGenesis()
 }
 
+// epochBlockTime defines how many blocks are one game epoch
+const epochBlockTime = 20
+// votingRightsExpirationTime defines after how many blocks a voting right expires by default
+const votingRightsExpirationTime = 500
+
 func (app *cardServiceApp) InitChainer(ctx sdk.Context, req abci.RequestInitChain) abci.ResponseInitChain {
 	var genesisState GenesisState
 
@@ -275,6 +283,11 @@ func (app *cardServiceApp) InitChainer(ctx sdk.Context, req abci.RequestInitChai
 	if err != nil {
 		panic(err)
 	}
+
+	// initialize CardScheme Id, Auction price and public pool
+	app.csKeeper.SetLastCardSchemeId(ctx, uint64(0))
+	app.csKeeper.SetCardAuctionPrice(ctx, sdk.NewInt64Coin("credits", 10))
+	app.csKeeper.SetPublicPoolCredits(ctx, sdk.NewInt64Coin("credits", 1000))
 
 	return app.mm.InitGenesis(ctx, genesisState)
 }
@@ -284,6 +297,19 @@ func (app *cardServiceApp) BeginBlocker(ctx sdk.Context, req abci.RequestBeginBl
 }
 
 func (app *cardServiceApp) EndBlocker(ctx sdk.Context, req abci.RequestEndBlock) abci.ResponseEndBlock {
+	//app.Logger.Info("currId: "+strconv.FormatUint(app.csKeeper.GetLastCardSchemeId(ctx),10))
+
+	// update the price of card auction (currently 1% decay per block)
+	price := app.csKeeper.GetCardAuctionPrice(ctx)
+	newprice := price.Sub(sdk.NewCoin("credits", price.Amount.Quo(sdk.NewInt(100))))
+	app.csKeeper.SetCardAuctionPrice(ctx, newprice)
+
+	// automated nerf/buff happens here // TODO adjust the mod10 here
+	if app.LastBlockHeight()%epochBlockTime == 0 {
+		cardservice.UpdateNerfLevels(ctx, app.csKeeper)
+		app.csKeeper.AddVoteRightsToAllUsers(ctx, ctx.BlockHeight()+votingRightsExpirationTime)
+	}
+
 	return app.mm.EndBlock(ctx, req)
 }
 

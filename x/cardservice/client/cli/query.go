@@ -20,29 +20,34 @@ func GetQueryCmd(storeKey string, cdc *codec.Codec) *cobra.Command {
 		RunE:                       client.ValidateCmd,
 	}
 	cardserviceQueryCmd.AddCommand(flags.GetCommands(
-		GetCmdResolveName(storeKey, cdc),
-		GetCmdWhois(storeKey, cdc),
-		GetCmdNames(storeKey, cdc),
+		GetCmdCard(storeKey, cdc),
+		GetCmdUser(storeKey, cdc),
+		GetCmdCardList(storeKey, cdc),
+		GetCmdVotableCardList(storeKey, cdc),
+		GetCmdCardchainInfo(storeKey, cdc),
 	)...)
 
 	return cardserviceQueryCmd
 }
 
-// GetCmdResolveName queries information about a name
-func GetCmdResolveName(queryRoute string, cdc *codec.Codec) *cobra.Command {
+// GetCmdCard queries information about a card
+func GetCmdCard(queryRoute string, cdc *codec.Codec) *cobra.Command {
 	return &cobra.Command{
-		Use:   "resolve [name]",
-		Short: "resolve name",
+		Use:   "card [cardId]",
+		Short: "queries info of a card with given id",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			cliCtx := context.NewCLIContext().WithCodec(cdc)
-			name := args[0]
+			id := args[0]
 
-			res, _, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/resolve/%s", queryRoute, name), nil)
+			res, _, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/card/%s", queryRoute, id), nil)
 			if err != nil {
-				fmt.Printf("could not resolve name - %s \n", name)
+				fmt.Printf("could not query the card with id - %s \n", string(id))
 				return nil
 			}
+
+			//fmt.Println(string(res))
+			//return nil
 
 			var out types.QueryResResolve
 			cdc.MustUnmarshalJSON(res, &out)
@@ -51,45 +56,102 @@ func GetCmdResolveName(queryRoute string, cdc *codec.Codec) *cobra.Command {
 	}
 }
 
-// GetCmdWhois queries information about a domain
-func GetCmdWhois(queryRoute string, cdc *codec.Codec) *cobra.Command {
+// GetCmdUser queries information about a user
+func GetCmdUser(queryRoute string, cdc *codec.Codec) *cobra.Command {
 	return &cobra.Command{
-		Use:   "whois [name]",
-		Short: "Query whois info of name",
+		Use:   "user [address]",
+		Short: "Query all info of user, that is beyond the pure bank account",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			cliCtx := context.NewCLIContext().WithCodec(cdc)
-			name := args[0]
+			address := args[0]
 
-			res, _, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/whois/%s", queryRoute, name), nil)
+			res, _, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/user/%s", queryRoute, address), nil)
 			if err != nil {
-				fmt.Printf("could not resolve whois - %s \n", name)
+				fmt.Printf("could not query user - %s \n", string(address))
 				return nil
 			}
 
-			var out types.Whois
+			//fmt.Println(string(res))
+			//return nil
+
+			var out types.QueryResResolve
 			cdc.MustUnmarshalJSON(res, &out)
 			return cliCtx.PrintOutput(out)
 		},
 	}
 }
 
-// GetCmdNames queries a list of all names
-func GetCmdNames(queryRoute string, cdc *codec.Codec) *cobra.Command {
+// GetCmdCardList queries a list of 50 or all? cards
+func GetCmdCardList(queryRoute string, cdc *codec.Codec) *cobra.Command {
 	return &cobra.Command{
-		Use:   "names",
-		Short: "names",
-		// Args:  cobra.ExactArgs(1),
+		Use:   "cards",
+		Short: "cards",
+		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			cliCtx := context.NewCLIContext().WithCodec(cdc)
 
-			res, _, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/names", queryRoute), nil)
+			res, _, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/cards", queryRoute), nil)
 			if err != nil {
-				fmt.Printf("could not get query names\n")
+				fmt.Printf("could not get query cards\n")
 				return nil
 			}
 
-			var out types.QueryResNames
+			//fmt.Println(string(res))
+			//return nil
+
+			var out types.QueryResResolve
+			cdc.MustUnmarshalJSON(res, &out)
+			return cliCtx.PrintOutput(out)
+		},
+	}
+}
+
+// GetCmdVotableCardList looks up the cards votable by a user
+func GetCmdVotableCardList(queryRoute string, cdc *codec.Codec) *cobra.Command {
+	return &cobra.Command{
+		Use:   "votable-cards [address]",
+		Short: "Query cards votable of a user.",
+		Args:  cobra.ExactArgs(1),
+		RunE: func(cmd *cobra.Command, args []string) error {
+			cliCtx := context.NewCLIContext().WithCodec(cdc)
+			address := args[0]
+
+			res, _, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/votable-cards/%s", queryRoute, address), nil)
+			if err != nil {
+				fmt.Printf("could not get query votable cards\n")
+				return nil
+			}
+
+			//fmt.Println(string(res))
+			//return nil
+
+			var out types.QueryResResolve
+			cdc.MustUnmarshalJSON(res, &out)
+			return cliCtx.PrintOutput(out)
+		},
+	}
+}
+
+// GetCmdUser queries information about a user
+func GetCmdCardchainInfo(queryRoute string, cdc *codec.Codec) *cobra.Command {
+	return &cobra.Command{
+		Use:   "cardchain-info",
+		Short: "Query all info of the cardchain that is relevant for the cards",
+		Args:  cobra.ExactArgs(0),
+		RunE: func(cmd *cobra.Command, args []string) error {
+			cliCtx := context.NewCLIContext().WithCodec(cdc)
+
+			res, _, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/cardchain-info", queryRoute), nil)
+			if err != nil {
+				fmt.Printf("could not query cardchain info\n")
+				return nil
+			}
+
+			//fmt.Println(string(res))
+			//return nil
+
+			var out types.QueryResResolve
 			cdc.MustUnmarshalJSON(res, &out)
 			return cliCtx.PrintOutput(out)
 		},

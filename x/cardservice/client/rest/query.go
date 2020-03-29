@@ -11,12 +11,12 @@ import (
 	"github.com/gorilla/mux"
 )
 
-func resolveNameHandler(cliCtx context.CLIContext, storeName string) http.HandlerFunc {
+func getCardHandler(cliCtx context.CLIContext, storeName string) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		vars := mux.Vars(r)
 		paramType := vars[restName]
 
-		res, _, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/resolve/%s", storeName, paramType), nil)
+		res, _, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/card/%s", storeName, paramType), nil)
 		if err != nil {
 			rest.WriteErrorResponse(w, http.StatusNotFound, err.Error())
 			return
@@ -26,12 +26,14 @@ func resolveNameHandler(cliCtx context.CLIContext, storeName string) http.Handle
 	}
 }
 
-func whoIsHandler(cliCtx context.CLIContext, storeName string) http.HandlerFunc {
+// TODO change this to give a list of cards
+func getCardsHandler(cliCtx context.CLIContext, storeName string) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		vars := mux.Vars(r)
 		paramType := vars[restName]
+		fmt.Println(paramType)
 
-		res, _, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/whois/%s", storeName, paramType), nil)
+		res, _, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/cards", storeName), nil)
 		if err != nil {
 			rest.WriteErrorResponse(w, http.StatusNotFound, err.Error())
 			return
@@ -41,13 +43,50 @@ func whoIsHandler(cliCtx context.CLIContext, storeName string) http.HandlerFunc 
 	}
 }
 
-func namesHandler(cliCtx context.CLIContext, storeName string) http.HandlerFunc {
+func getVotableCardsHandler(cliCtx context.CLIContext, storeName string) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		res, _, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/names", storeName), nil)
+		fmt.Println("storeName")
+		fmt.Println(storeName)
+		vars := mux.Vars(r)
+		name := vars[restName]
+		fmt.Println(name)
+
+		res, _, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/votable-cards/%s", storeName, name), nil)
 		if err != nil {
 			rest.WriteErrorResponse(w, http.StatusNotFound, err.Error())
 			return
 		}
+
+		rest.PostProcessResponse(w, cliCtx, res)
+	}
+}
+
+func getUserHandler(cliCtx context.CLIContext, userAddress string) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		vars := mux.Vars(r)
+		paramType := vars[restName]
+
+		res, _, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/user/%s", userAddress, paramType), nil)
+		if err != nil {
+			rest.WriteErrorResponse(w, http.StatusNotFound, err.Error())
+			return
+		}
+
+		rest.PostProcessResponse(w, cliCtx, res)
+	}
+}
+
+func getCardchainInfoHandler(cliCtx context.CLIContext, storeName string) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		//vars := mux.Vars(r)
+		//paramType := vars[restName]
+
+		res, _, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/cardchain-info", storeName), nil)
+		if err != nil {
+			rest.WriteErrorResponse(w, http.StatusNotFound, err.Error())
+			return
+		}
+
 		rest.PostProcessResponse(w, cliCtx, res)
 	}
 }

@@ -2,6 +2,7 @@ package rest
 
 import (
 	"net/http"
+	"strconv"
 
 	"github.com/cosmos/cosmos-sdk/client/context"
 	"github.com/DecentralCardGame/Cardchain/x/cardservice/internal/types"
@@ -11,16 +12,15 @@ import (
 	"github.com/cosmos/cosmos-sdk/x/auth/client/utils"
 )
 
-type buyNameReq struct {
+type buyCardSchemeReq struct {
 	BaseReq rest.BaseReq `json:"base_req"`
-	Name    string       `json:"name"`
 	Amount  string       `json:"amount"`
 	Buyer   string       `json:"buyer"`
 }
 
-func buyNameHandler(cliCtx context.CLIContext) http.HandlerFunc {
+func buyCardSchemeHandler(cliCtx context.CLIContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		var req buyNameReq
+		var req buyCardSchemeReq
 
 		if !rest.ReadRESTReq(w, r, cliCtx.Codec, &req) {
 			rest.WriteErrorResponse(w, http.StatusBadRequest, "failed to parse request")
@@ -38,14 +38,14 @@ func buyNameHandler(cliCtx context.CLIContext) http.HandlerFunc {
 			return
 		}
 
-		coins, err := sdk.ParseCoins(req.Amount)
+		coins, err := sdk.ParseCoin(req.Amount)
 		if err != nil {
 			rest.WriteErrorResponse(w, http.StatusBadRequest, err.Error())
 			return
 		}
 
 		// create the message
-		msg := types.NewMsgBuyName(req.Name, coins, addr)
+		msg := types.NewMsgBuyCardScheme(coins, addr)
 		err = msg.ValidateBasic()
 		if err != nil {
 			rest.WriteErrorResponse(w, http.StatusBadRequest, err.Error())
@@ -56,16 +56,17 @@ func buyNameHandler(cliCtx context.CLIContext) http.HandlerFunc {
 	}
 }
 
-type setNameReq struct {
+type saveCardContentReq struct {
 	BaseReq rest.BaseReq `json:"base_req"`
-	Name    string       `json:"name"`
-	Value   string       `json:"value"`
+	CardId  string       `json:"cardid"`
+	Content string       `json:"content"`
 	Owner   string       `json:"owner"`
 }
 
-func setNameHandler(cliCtx context.CLIContext) http.HandlerFunc {
+func saveCardContentHandler(cliCtx context.CLIContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		var req setNameReq
+		var req saveCardContentReq
+
 		if !rest.ReadRESTReq(w, r, cliCtx.Codec, &req) {
 			rest.WriteErrorResponse(w, http.StatusBadRequest, "failed to parse request")
 			return
@@ -76,14 +77,21 @@ func setNameHandler(cliCtx context.CLIContext) http.HandlerFunc {
 			return
 		}
 
-		addr, err := sdk.AccAddressFromBech32(req.Owner)
+		cardId, err := strconv.ParseUint(req.CardId, 10, 64)
+		if err != nil {
+			return
+		}
+
+		content := []byte(req.Content)
+
+		owner, err := sdk.AccAddressFromBech32(req.Owner)
 		if err != nil {
 			rest.WriteErrorResponse(w, http.StatusBadRequest, err.Error())
 			return
 		}
 
 		// create the message
-		msg := types.NewMsgSetName(req.Name, req.Value, addr)
+		msg := types.NewMsgSaveCardContent(cardId, content, owner)
 		err = msg.ValidateBasic()
 		if err != nil {
 			rest.WriteErrorResponse(w, http.StatusBadRequest, err.Error())
@@ -94,15 +102,17 @@ func setNameHandler(cliCtx context.CLIContext) http.HandlerFunc {
 	}
 }
 
-type deleteNameReq struct {
-	BaseReq rest.BaseReq `json:"base_req"`
-	Name    string       `json:"name"`
-	Owner   string       `json:"owner"`
+type voteCardReq struct {
+	BaseReq  rest.BaseReq `json:"base_req"`
+	VoteType string       `json:"votetype"`
+	CardId   string       `json:"cardid"`
+	Voter    string       `json:"voter"`
 }
 
-func deleteNameHandler(cliCtx context.CLIContext) http.HandlerFunc {
+func voteCardHandler(cliCtx context.CLIContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		var req deleteNameReq
+		var req voteCardReq
+
 		if !rest.ReadRESTReq(w, r, cliCtx.Codec, &req) {
 			rest.WriteErrorResponse(w, http.StatusBadRequest, "failed to parse request")
 			return
@@ -113,16 +123,176 @@ func deleteNameHandler(cliCtx context.CLIContext) http.HandlerFunc {
 			return
 		}
 
-		addr, err := sdk.AccAddressFromBech32(req.Owner)
+		cardId, err := strconv.ParseUint(req.CardId, 10, 64)
+		if err != nil {
+			rest.WriteErrorResponse(w, http.StatusBadRequest, err.Error())
+			return
+		}
+
+		// TODO sanitize?
+		voteType := req.VoteType
+		if len(voteType) == 0 {
+			rest.WriteErrorResponse(w, http.StatusBadRequest, req.VoteType)
+			return
+		}
+
+		voter, err := sdk.AccAddressFromBech32(req.Voter)
 		if err != nil {
 			rest.WriteErrorResponse(w, http.StatusBadRequest, err.Error())
 			return
 		}
 
 		// create the message
-		msg := types.NewMsgDeleteName(req.Name, addr)
+		msg := types.NewMsgVoteCard(cardId, voteType, voter)
 		err = msg.ValidateBasic()
-		if err := msg.ValidateBasic(); err != nil {
+		if err != nil {
+			rest.WriteErrorResponse(w, http.StatusBadRequest, err.Error())
+			return
+		}
+
+		utils.WriteGenerateStdTxResponse(w, cliCtx, baseReq, []sdk.Msg{msg})
+	}
+}
+
+type transferCardReq struct {
+	BaseReq  rest.BaseReq `json:"base_req"`
+	CardId   string       `json:"cardid"`
+	Sender   string       `json:"sender"`
+	Receiver string       `json:"receiver"`
+}
+
+func transferCardHandler(cliCtx context.CLIContext) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		var req transferCardReq
+
+		if !rest.ReadRESTReq(w, r, cliCtx.Codec, &req) {
+			rest.WriteErrorResponse(w, http.StatusBadRequest, "failed to parse request")
+			return
+		}
+
+		baseReq := req.BaseReq.Sanitize()
+		if !baseReq.ValidateBasic(w) {
+			return
+		}
+
+		cardId, err := strconv.ParseUint(req.CardId, 10, 64)
+		if err != nil {
+			rest.WriteErrorResponse(w, http.StatusBadRequest, err.Error())
+			return
+		}
+
+		receiver, err := sdk.AccAddressFromBech32(req.Receiver)
+		if err != nil {
+			rest.WriteErrorResponse(w, http.StatusBadRequest, err.Error())
+			return
+		}
+
+		sender, err := sdk.AccAddressFromBech32(req.Sender)
+		if err != nil {
+			rest.WriteErrorResponse(w, http.StatusBadRequest, err.Error())
+			return
+		}
+
+		// create the message
+		msg := types.NewMsgTransferCard(cardId, sender, receiver)
+		err = msg.ValidateBasic()
+		if err != nil {
+			rest.WriteErrorResponse(w, http.StatusBadRequest, err.Error())
+			return
+		}
+
+		utils.WriteGenerateStdTxResponse(w, cliCtx, baseReq, []sdk.Msg{msg})
+	}
+}
+
+type donateToCardReq struct {
+	BaseReq rest.BaseReq `json:"base_req"`
+	CardId  string       `json:"cardid"`
+	Amount  string       `json:"amount"`
+	Donator string       `json:"donator"`
+}
+
+func donateToCardHandler(cliCtx context.CLIContext) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		var req donateToCardReq
+
+		if !rest.ReadRESTReq(w, r, cliCtx.Codec, &req) {
+			rest.WriteErrorResponse(w, http.StatusBadRequest, "failed to parse request")
+			return
+		}
+
+		baseReq := req.BaseReq.Sanitize()
+		if !baseReq.ValidateBasic(w) {
+			return
+		}
+
+		cardId, err := strconv.ParseUint(req.CardId, 10, 64)
+		if err != nil {
+			rest.WriteErrorResponse(w, http.StatusBadRequest, err.Error())
+			return
+		}
+
+		coins, err := sdk.ParseCoin(req.Amount)
+		if err != nil {
+			rest.WriteErrorResponse(w, http.StatusBadRequest, err.Error())
+			return
+		}
+
+		donator, err := sdk.AccAddressFromBech32(req.Donator)
+		if err != nil {
+			rest.WriteErrorResponse(w, http.StatusBadRequest, err.Error())
+			return
+		}
+
+		// create the message
+		msg := types.NewMsgDonateToCard(cardId, donator, coins)
+		err = msg.ValidateBasic()
+		if err != nil {
+			rest.WriteErrorResponse(w, http.StatusBadRequest, err.Error())
+			return
+		}
+
+		utils.WriteGenerateStdTxResponse(w, cliCtx, baseReq, []sdk.Msg{msg})
+	}
+}
+
+type createUserReq struct {
+	BaseReq rest.BaseReq `json:"base_req"`
+	NewUser string       `json:"new_user"`
+	Creator string       `json:"creator"`
+	Alias   string       `json:"alias"`
+}
+
+func createUserHandler(cliCtx context.CLIContext) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		var req createUserReq
+
+		if !rest.ReadRESTReq(w, r, cliCtx.Codec, &req) {
+			rest.WriteErrorResponse(w, http.StatusBadRequest, "failed to parse request")
+			return
+		}
+
+		baseReq := req.BaseReq.Sanitize()
+		if !baseReq.ValidateBasic(w) {
+			return
+		}
+
+		creator, err := sdk.AccAddressFromBech32(req.Creator)
+		if err != nil {
+			rest.WriteErrorResponse(w, http.StatusBadRequest, err.Error())
+			return
+		}
+
+		newUser, err := sdk.AccAddressFromBech32(req.NewUser)
+		if err != nil {
+			rest.WriteErrorResponse(w, http.StatusBadRequest, err.Error())
+			return
+		}
+
+		// create the message
+		msg := types.NewMsgCreateUser(creator, newUser, req.Alias)
+		err = msg.ValidateBasic()
+		if err != nil {
 			rest.WriteErrorResponse(w, http.StatusBadRequest, err.Error())
 			return
 		}
