@@ -19,7 +19,4 @@ func RegisterCodec(cdc *codec.Codec) {
 	cdc.RegisterConcrete(MsgTransferCard{}, "cardservice/TransferCard", nil)
 	cdc.RegisterConcrete(MsgDonateToCard{}, "cardservice/DonateToCard", nil)
 	cdc.RegisterConcrete(MsgCreateUser{}, "cardservice/CreateUser", nil)
-	cdc.RegisterConcrete(Card{}, "cardservice/Card", nil)
-	cdc.RegisterConcrete(User{}, "cardservice/User", nil)
-	cdc.RegisterConcrete(VoteRight{}, "cardservice/VoteRight", nil)
 }

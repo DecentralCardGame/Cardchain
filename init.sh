@@ -1,25 +1,27 @@
 #!/usr/bin/env bash
 
-rm -rf ~/.nsd
-rm -rf ~/.nscli
+rm -rf ~/.csd
+rm -rf ~/.cscli
 
-nsd init test --chain-id=namechain
+csd init test --chain-id=testCardchain
 
-nscli keys add test1
-nscli keys add test2
+cscli config output json
+cscli config indent true
+cscli config trust-node true
+cscli config chain-id testCardchain
+cscli config keyring-backend test
 
-nsd add-genesis-account $(nscli keys show test1 -a) 10000000000000000000000000stake,1000000nametoken
-nsd add-genesis-account $(nscli keys show test2 -a) 100000000000stake,1000nametoken
+cscli keys add jack
+cscli keys add alice
 
-nscli config output json
-nscli config indent true
-nscli config trust-node true
-nscli config chain-id namechain
+csd add-genesis-account $(cscli keys show jack -a) 10000000000000000000000000stake,1000000credits
+csd add-genesis-account $(cscli keys show alice -a) 100000000000stake,1000credits
+#csd add-genesis-account cosmos178x4cwg7zuppfgypdd7c0wy0kp304wad9v0awe 1stake,1credits
 
-nsd gentx --name test1
+csd gentx --name jack --keyring-backend test
 
 echo "Collecting genesis txs..."
-nsd collect-gentxs
+csd collect-gentxs
 
 echo "Validating genesis file..."
-nsd validate-genesis
+csd validate-genesis

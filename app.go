@@ -3,6 +3,7 @@ package app
 import (
 	"encoding/json"
 	"os"
+	"fmt"
 
 	abci "github.com/tendermint/tendermint/abci/types"
 	"github.com/tendermint/tendermint/libs/log"
@@ -115,6 +116,10 @@ func NewCardServiceApp(
 	bApp := bam.NewBaseApp(appName, logger, db, auth.DefaultTxDecoder(cdc), baseAppOptions...)
 
 	bApp.SetAppVersion(version.Version)
+
+	fmt.Println(cardservice.UsersStoreKey)
+	fmt.Println(cardservice.CardsStoreKey)
+	fmt.Println(cardservice.InternalStoreKey)
 
 	keys := sdk.NewKVStoreKeys(bam.MainStoreKey, auth.StoreKey, staking.StoreKey,
 		supply.StoreKey, distr.StoreKey, slashing.StoreKey, params.StoreKey,

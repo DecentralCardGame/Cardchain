@@ -4,14 +4,13 @@ import (
 	"fmt"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	abci "github.com/tendermint/tendermint/abci/types"
 )
 
 type GenesisState struct {
-	CardRecords []Card `json:"whois_records"`
+	CardRecords []Card `json:"card_records"`
 }
 
-func NewGenesisState(cardsRecords []Card) GenesisState {
+func NewGenesisState(cardRecords []Card) GenesisState {
 	return GenesisState{CardRecords: nil}
 }
 
@@ -36,16 +35,16 @@ func DefaultGenesisState() GenesisState {
 	}
 }
 
-func InitGenesis(ctx sdk.Context, keeper Keeper, data GenesisState) []abci.ValidatorUpdate {
-	for _, record := range data.CardRecords {
-		lastId := keeper.GetLastCardSchemeId(ctx) // first get last card bought id
-		currId := lastId + 1                      // iterate it by 1
+func InitGenesis(ctx sdk.Context, keeper Keeper, data GenesisState) {
+	for id, record := range data.CardRecords {
+		fmt.Println(id)
+		lastId := keeper.GetLastCardSchemeId(ctx)
+		currId := lastId + 1                     
 
 		keeper.SetLastCardSchemeId(ctx, currId)
 		keeper.SetCard(ctx, currId, record)
 		keeper.AddOwnedCardScheme(ctx, currId, record.Owner)
 	}
-	return []abci.ValidatorUpdate{}
 }
 
 func ExportGenesis(ctx sdk.Context, k Keeper) GenesisState {

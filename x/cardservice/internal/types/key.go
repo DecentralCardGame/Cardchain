@@ -5,7 +5,7 @@ const (
 	ModuleName = "cardservice"
 
 	// StoreKey to be used when creating the KVStore
-	StoreKey = ModuleName
+	//StoreKey = ModuleName
 	CardsStoreKey = "Cards"
 	UsersStoreKey = "Users"
 	InternalStoreKey = "Internal"
