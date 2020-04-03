@@ -7,10 +7,10 @@ services:
     ports:
       - 26657:26657
 
-  goat1:
+  goat:
     build: .
     command: ./scripts/startRESTserver.sh
-    container_name: goat1
+    container_name: goat
     depends_on:
       - blockchain
     ports:
@@ -20,7 +20,7 @@ services:
     image: nginx:latest
     container_name: herd
     depends_on:
-      - goat1
+      - goat
     volumes:
       - /etc/letsencrypt/live/cardchain.crowdcontrol.network/fullchain.pem:/etc/letsencrypt/live/cardchain.crowdcontrol.network/fullchain.pem
       - /etc/letsencrypt/live/cardchain.crowdcontrol.network/privkey.pem:/etc/letsencrypt/live/cardchain.crowdcontrol.network/privkey.pem
