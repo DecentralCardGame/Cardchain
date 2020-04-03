@@ -25,3 +25,6 @@ csd collect-gentxs
 
 echo "Validating genesis file..."
 csd validate-genesis
+
+# change parameters in config files
+sed -i 's/create_empty_blocks_interval = "0s"/create_empty_blocks_interval = "60s"/g' ~/.csd/config/config.toml

@@ -25,6 +25,7 @@ services:
       - /etc/letsencrypt/live/cardchain.crowdcontrol.network/fullchain.pem:/etc/letsencrypt/live/cardchain.crowdcontrol.network/fullchain.pem
       - /etc/letsencrypt/live/cardchain.crowdcontrol.network/privkey.pem:/etc/letsencrypt/live/cardchain.crowdcontrol.network/privkey.pem
       - ./config/nginx.conf:/etc/nginx/conf.d/default.conf
+      - /etc/nginx/ssl/dhparam-4096.pem:/etc/nginx/ssl/dhparam-4096.pem
     ports:
       - 80:80
       - 81:81
