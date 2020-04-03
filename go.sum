@@ -9,8 +9,14 @@ github.com/ChainSafe/go-schnorrkel v0.0.0-20200102211924-4bcbc698314f h1:4O1om+U
 github.com/ChainSafe/go-schnorrkel v0.0.0-20200102211924-4bcbc698314f/go.mod h1:URdX5+vg25ts3aCh8H5IFZybJYKWhJHYMTnf+ULtoC4=
 github.com/ChainSafe/go-schnorrkel v0.0.0-20200115165343-aa45d48b5ed6 h1:wfM1NefWZdwihyFmcpWjBSP2lMEIWj+WHpbjNi+jIQo=
 github.com/ChainSafe/go-schnorrkel v0.0.0-20200115165343-aa45d48b5ed6/go.mod h1:URdX5+vg25ts3aCh8H5IFZybJYKWhJHYMTnf+ULtoC4=
-github.com/DecentralCardGame/cardobject v0.1.4 h1:qBojSIo5hz+Yj8Vhs+twzGPXHP1ACkJo1TRjkO4a9Ds=
-github.com/DecentralCardGame/cardobject v0.1.4/go.mod h1:vStjDNHCzd30WszBdrmiR6RVVOyayrapPxwu2jCSgEk=
+github.com/DecentralCardGame/cardobject v0.1.6 h1:84yBY57NJ+7jNCVwEKd9tkN5XKF7K7Rhp8vxUiB0Kx4=
+github.com/DecentralCardGame/cardobject v0.1.6/go.mod h1:vStjDNHCzd30WszBdrmiR6RVVOyayrapPxwu2jCSgEk=
+github.com/DecentralCardGame/cardobject v0.1.7 h1:1kCuSwcdrYCPYwz73P66Wfq4+PPYJBBhch3Zy078qRc=
+github.com/DecentralCardGame/cardobject v0.1.7/go.mod h1:vStjDNHCzd30WszBdrmiR6RVVOyayrapPxwu2jCSgEk=
+github.com/DecentralCardGame/cardobject v0.1.8 h1:JFz9LDPmfeG/AdvwKCWMgaX0IOHD5ixVy8uxNFp7G/k=
+github.com/DecentralCardGame/cardobject v0.1.8/go.mod h1:vStjDNHCzd30WszBdrmiR6RVVOyayrapPxwu2jCSgEk=
+github.com/DecentralCardGame/cardobject v0.1.10 h1:SQGKP6TI0dVFQykznjIpAe5zm33x4L4XisFqK5NoSNQ=
+github.com/DecentralCardGame/cardobject v0.1.10/go.mod h1:vStjDNHCzd30WszBdrmiR6RVVOyayrapPxwu2jCSgEk=
 github.com/OneOfOne/xxhash v1.2.2/go.mod h1:HSdplMjZKSmBqAxg5vPj2TmRDmfkzw+cTzAElWljhcU=
 github.com/VividCortex/gohistogram v1.0.0 h1:6+hBz+qvs0JOrrNhhmR7lFxo5sINxBCGXrdtl/UvroE=
 github.com/VividCortex/gohistogram v1.0.0/go.mod h1:Pf5mBqqDxYaXu3hDrrU+w6nw50o/4+TcAqDqk/vUH7g=

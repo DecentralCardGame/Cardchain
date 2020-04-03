@@ -78,6 +78,8 @@ func GetCmdSaveCardContent(cdc *codec.Codec) *cobra.Command {
 			inBuf := bufio.NewReader(cmd.InOrStdin())
 			txBldr := auth.NewTxBuilderFromCLI(inBuf).WithTxEncoder(utils.GetTxEncoder(cdc))
 
+			
+
 			cardobj, err := cardobject.FunctionalCardJson(args[1])
 			if err != nil {
 				return err

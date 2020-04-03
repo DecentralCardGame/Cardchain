@@ -1,8 +1,10 @@
 package rest
 
 import (
-	"net/http"
+	"fmt"
+	"strings"
 	"strconv"
+	"net/http"
 
 	"github.com/cosmos/cosmos-sdk/client/context"
 	"github.com/DecentralCardGame/Cardchain/x/cardservice/internal/types"
@@ -10,6 +12,7 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/rest"
 	"github.com/cosmos/cosmos-sdk/x/auth/client/utils"
+	"github.com/DecentralCardGame/cardobject"
 )
 
 type buyCardSchemeReq struct {
@@ -72,17 +75,30 @@ func saveCardContentHandler(cliCtx context.CLIContext) http.HandlerFunc {
 			return
 		}
 
+		fmt.Println(req.Content)
+
 		baseReq := req.BaseReq.Sanitize()
 		if !baseReq.ValidateBasic(w) {
 			return
 		}
 
-		cardId, err := strconv.ParseUint(req.CardId, 10, 64)
+		cardobj, err := cardobject.FunctionalCardJson(req.Content)
 		if err != nil {
+			rest.WriteErrorResponse(w, http.StatusBadRequest, err.Error())
+			return
+		}
+		if strings.Compare(req.Content, cardobj) != 0 {
+			rest.WriteErrorResponse(w, http.StatusBadRequest, "card has invalid keys in json")
 			return
 		}
 
-		content := []byte(req.Content)
+		fmt.Println(cardobj)
+
+		cardId, err := strconv.ParseUint(req.CardId, 10, 64)
+		if err != nil {
+			rest.WriteErrorResponse(w, http.StatusBadRequest, "card id unknown")
+			return
+		}
 
 		owner, err := sdk.AccAddressFromBech32(req.Owner)
 		if err != nil {
@@ -91,7 +107,7 @@ func saveCardContentHandler(cliCtx context.CLIContext) http.HandlerFunc {
 		}
 
 		// create the message
-		msg := types.NewMsgSaveCardContent(cardId, content, owner)
+		msg := types.NewMsgSaveCardContent(cardId, []byte(cardobj), owner)
 		err = msg.ValidateBasic()
 		if err != nil {
 			rest.WriteErrorResponse(w, http.StatusBadRequest, err.Error())

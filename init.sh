@@ -11,14 +11,14 @@ cscli config trust-node true
 cscli config chain-id testCardchain
 cscli config keyring-backend test
 
-cscli keys add jack
 cscli keys add alice
+cscli keys add bob
 
-csd add-genesis-account $(cscli keys show jack -a) 10000000000000000000000000stake,1000000credits
-csd add-genesis-account $(cscli keys show alice -a) 100000000000stake,1000credits
-#csd add-genesis-account cosmos178x4cwg7zuppfgypdd7c0wy0kp304wad9v0awe 1stake,1credits
+csd add-genesis-account $(cscli keys show alice -a) 10000000000000credits,100000000stake
+csd add-genesis-account $(cscli keys show bob -a) 10000000000000credits,100000000stake
+csd add-genesis-account cosmos178x4cwg7zuppfgypdd7c0wy0kp304wad9v0awe 1stake,1credits
 
-csd gentx --name jack --keyring-backend test
+csd gentx --name bob --keyring-backend test
 
 echo "Collecting genesis txs..."
 csd collect-gentxs

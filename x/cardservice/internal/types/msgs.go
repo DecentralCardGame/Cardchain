@@ -182,7 +182,7 @@ func (msg MsgTransferCard) ValidateBasic() error {
 	if msg.Receiver.Empty() {
 		return sdkerrors.Wrap(sdkerrors.ErrInvalidAddress, msg.Receiver.String())
 	}
-	// the check of CardID < 0 might be pointless.. should be validated in the rest api or nscli
+	// the check of CardID < 0 might be pointless.. should be validated in the rest api or cscli ?
 	if msg.CardId < 0 {
 		return sdkerrors.Wrap(sdkerrors.ErrUnknownRequest, "CardId cannot be empty")
 	}
@@ -228,7 +228,7 @@ func (msg MsgDonateToCard) ValidateBasic() error {
 	if msg.Donator.Empty() {
 		return sdkerrors.Wrap(sdkerrors.ErrInvalidAddress, msg.Donator.String())
 	}
-	// the check of CardID < 0 might be pointless.. should be validated in the rest api or nscli
+	// the check of CardID < 0 might be pointless.. should be validated in the rest api or cscli ?
 	if msg.CardId < 0 || msg.Amount.IsZero() {
 		return sdkerrors.Wrap(sdkerrors.ErrUnknownRequest, "CardId cannot be empty or donation cannot be 0.")
 	}

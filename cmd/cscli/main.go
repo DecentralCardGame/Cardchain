@@ -36,7 +36,7 @@ func main() {
 	config.Seal()
 
 	rootCmd := &cobra.Command{
-		Use:   "nscli",
+		Use:   "cscli",
 		Short: "cardservice Client",
 	}
 
@@ -61,7 +61,7 @@ func main() {
 		flags.NewCompletionCmd(rootCmd, true),
 	)
 
-	executor := cli.PrepareMainCmd(rootCmd, "NS", app.DefaultCLIHome)
+	executor := cli.PrepareMainCmd(rootCmd, "CS", app.DefaultCLIHome)
 	err := executor.Execute()
 
 	if err != nil {

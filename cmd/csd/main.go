@@ -61,7 +61,7 @@ func main() {
 	server.AddCommands(ctx, cdc, rootCmd, newApp, exportAppStateAndTMValidators)
 
 	// prepare and add flags
-	executor := cli.PrepareBaseCmd(rootCmd, "NS", app.DefaultNodeHome)
+	executor := cli.PrepareBaseCmd(rootCmd, "CS", app.DefaultNodeHome)
 	err := executor.Execute()
 	if err != nil {
 		panic(err)
@@ -77,15 +77,15 @@ func exportAppStateAndTMValidators(
 ) (json.RawMessage, []tmtypes.GenesisValidator, error) {
 
 	if height != -1 {
-		nsApp := app.NewCardServiceApp(logger, db)
-		err := nsApp.LoadHeight(height)
+		csApp := app.NewCardServiceApp(logger, db)
+		err := csApp.LoadHeight(height)
 		if err != nil {
 			return nil, nil, err
 		}
-		return nsApp.ExportAppStateAndValidators(forZeroHeight, jailWhiteList)
+		return csApp.ExportAppStateAndValidators(forZeroHeight, jailWhiteList)
 	}
 
-	nsApp := app.NewCardServiceApp(logger, db)
+	csApp := app.NewCardServiceApp(logger, db)
 
-	return nsApp.ExportAppStateAndValidators(forZeroHeight, jailWhiteList)
+	return csApp.ExportAppStateAndValidators(forZeroHeight, jailWhiteList)
 }
