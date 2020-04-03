@@ -1,12 +1,27 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-rm ~/.csd/ -rf
+rm -rf ~/.csd
+rm -rf ~/.cscli
 
-csd init --chain-id testCardchain
-printf 'asdfasdf\n' | cscli keys delete alice
-printf 'asdfasdf\n' | cscli keys delete bob
-printf 'asdfasdf\nasdfasdf\n' | cscli keys add alice &>> keysAliceBob.log
-printf 'asdfasdf\nasdfasdf\n' | cscli keys add bob &>> keysAliceBob.log
-csd add-genesis-account $(cscli keys show alice --address) 1000stake,1000credits
-csd add-genesis-account $(cscli keys show bob --address) 1000stake,1000credits
+csd init test --chain-id=testCardchain
+
+cscli config output json
+cscli config indent true
+cscli config trust-node true
+cscli config chain-id testCardchain
+cscli config keyring-backend test
+
+cscli keys add alice &>> keysAliceBob.log
+cscli keys add bob &>> keysAliceBob.log
+
+csd add-genesis-account $(cscli keys show alice -a) 10000000000000credits,1000stake
+csd add-genesis-account $(cscli keys show bob -a) 10000000000000credits,1000stake
 csd add-genesis-account cosmos178x4cwg7zuppfgypdd7c0wy0kp304wad9v0awe 1stake,1credits
+
+csd gentx --name bob --keyring-backend test
+
+echo "Collecting genesis txs..."
+csd collect-gentxs
+
+echo "Validating genesis file..."
+csd validate-genesis
