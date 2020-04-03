@@ -264,13 +264,8 @@ func NewCardServiceApp(
 	return app
 }
 
-<<<<<<< HEAD
 // GenesisState represents chain state at the start of the chain. Any initial state (account balances) are stored here.
 type GenesisState map[string]json.RawMessage
-=======
-// epochBlockTime defines how many blocks are one game epoch
-const epochBlockTime = 20
->>>>>>> master
 
 func NewDefaultGenesisState() GenesisState {
 	return ModuleBasics.DefaultGenesis()
