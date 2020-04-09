@@ -72,13 +72,11 @@ func GetCmdSaveCardContent(cdc *codec.Codec) *cobra.Command {
 	return &cobra.Command{
 		Use:   "save-card-content [card id] [content]",
 		Short: "save the content of a card",
-		Args:  cobra.ExactArgs(2),
+		Args:  cobra.ExactArgs(3),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			cliCtx := context.NewCLIContext().WithCodec(cdc)
 			inBuf := bufio.NewReader(cmd.InOrStdin())
 			txBldr := auth.NewTxBuilderFromCLI(inBuf).WithTxEncoder(utils.GetTxEncoder(cdc))
-
-			
 
 			cardobj, err := cardobject.FunctionalCardJson(args[1])
 			if err != nil {
@@ -93,7 +91,7 @@ func GetCmdSaveCardContent(cdc *codec.Codec) *cobra.Command {
 				return err
 			}
 
-			msg := types.NewMsgSaveCardContent(cardId, []byte(cardobj), cliCtx.GetFromAddress())
+			msg := types.NewMsgSaveCardContent(cardId, []byte(cardobj), []byte(args[2]), cliCtx.GetFromAddress())
 			err = msg.ValidateBasic()
 			if err != nil {
 				return err

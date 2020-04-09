@@ -78,8 +78,6 @@ func getUserHandler(cliCtx context.CLIContext, userAddress string) http.HandlerF
 
 func getCardchainInfoHandler(cliCtx context.CLIContext, storeName string) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		//vars := mux.Vars(r)
-		//paramType := vars[restName]
 
 		res, _, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/cardchain-info", storeName), nil)
 		if err != nil {

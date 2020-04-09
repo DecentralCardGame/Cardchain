@@ -14,8 +14,8 @@ cscli config keyring-backend test
 cscli keys add alice &>> keysAliceBob.log
 cscli keys add bob &>> keysAliceBob.log
 
-csd add-genesis-account $(cscli keys show alice -a) 10000000000000credits,1000stake
-csd add-genesis-account $(cscli keys show bob -a) 10000000000000credits,1000stake
+csd add-genesis-account $(cscli keys show alice -a) 10000000000000credits,100000000stake
+csd add-genesis-account $(cscli keys show bob -a) 10000000000000credits,100000000stake
 csd add-genesis-account cosmos178x4cwg7zuppfgypdd7c0wy0kp304wad9v0awe 1stake,1credits
 
 csd gentx --name bob --keyring-backend test

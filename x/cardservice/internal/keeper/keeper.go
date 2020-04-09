@@ -143,8 +143,11 @@ func (k Keeper) GetVoteRightToAllCards(ctx sdk.Context, expireBlock int64) []typ
 	votingRights := []types.VoteRight{}
 
 	for ; cardIterator.Valid(); cardIterator.Next() {
-		right := types.NewVoteRight(binary.BigEndian.Uint64(cardIterator.Key()), expireBlock)
-		votingRights = append(votingRights, right)
+		// here only give right if card is not a scheme or banished
+		//if cardIterator.Value().Status == "permanent" || cardIterator.Value().Status == "trial" {
+			right := types.NewVoteRight(binary.BigEndian.Uint64(cardIterator.Key()), expireBlock)
+			votingRights = append(votingRights, right)
+		//}
 	}
 	cardIterator.Close()
 
@@ -178,6 +181,9 @@ func (k Keeper) SetUserName(ctx sdk.Context, address sdk.AccAddress, name string
 func (k Keeper) InitUser(ctx sdk.Context, address sdk.AccAddress, alias string) {
 	store := ctx.KVStore(k.UsersStoreKey)
 
+	if alias == "" {
+		alias = "newbie"
+	}
 	newUser := types.NewUser()
 	newUser.Alias = alias
 	k.CoinKeeper.AddCoins(ctx, address, sdk.Coins{sdk.NewInt64Coin("credits", 1000)})

@@ -75,6 +75,7 @@ func handleMsgSaveCardContent(ctx sdk.Context, keeper Keeper, msg MsgSaveCardCon
 	card.VotePool.Add(sdk.NewInt64Coin("credits", 10))
 
 	card.Content = []byte(msg.Content)
+	card.Image = []byte(msg.Image)
 	card.Status = "prototype"
 	keeper.SetCard(ctx, msg.CardId, card)
 	keeper.TransferSchemeToCard(ctx, msg.CardId, msg.Owner)

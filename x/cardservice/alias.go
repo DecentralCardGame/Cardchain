@@ -39,5 +39,4 @@ type (
 	User								= types.User
 	Card								= types.Card
 	VoteRight						= types.VoteRight
-
 )

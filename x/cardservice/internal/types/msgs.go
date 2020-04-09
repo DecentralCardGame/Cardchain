@@ -59,14 +59,16 @@ func (msg MsgBuyCardScheme) GetSigners() []sdk.AccAddress {
 type MsgSaveCardContent struct {
 	CardId	uint64					`json:"cardid"`
 	Content []byte					`json:"content"`
+	Image 	[]byte					`json:"image"`
 	Owner		sdk.AccAddress	`json:"owner"`
 }
 
 // NewMsgBuyName is the constructor function for MsgBuyName
-func NewMsgSaveCardContent(cardId uint64, content []byte, owner sdk.AccAddress) MsgSaveCardContent {
+func NewMsgSaveCardContent(cardId uint64, content []byte, image []byte, owner sdk.AccAddress) MsgSaveCardContent {
 	return MsgSaveCardContent{
 		CardId: 	cardId,
 		Content:	content,
+		Image: 		image,
 		Owner: 		owner,
 	}
 }
