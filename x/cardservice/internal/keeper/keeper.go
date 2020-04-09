@@ -165,16 +165,14 @@ func (k Keeper) RemoveVoteRight(ctx sdk.Context, userAddress sdk.AccAddress, rig
 
 func (k Keeper) SetUser(ctx sdk.Context, address sdk.AccAddress, userData types.User) {
 	store := ctx.KVStore(k.UsersStoreKey)
+	fmt.Println("userdata:", userData)
 	store.Set(address, k.cdc.MustMarshalBinaryBare(userData))
 }
 
 func (k Keeper) SetUserName(ctx sdk.Context, address sdk.AccAddress, name string) {
 	store := ctx.KVStore(k.UsersStoreKey)
-
 	gottenUser := k.GetUser(ctx, address)
-
 	gottenUser.Alias = name
-
 	store.Set(address, k.cdc.MustMarshalBinaryBare(gottenUser))
 }
 

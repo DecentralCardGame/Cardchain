@@ -3,7 +3,7 @@ module github.com/DecentralCardGame/Cardchain
 go 1.13
 
 require (
-	github.com/DecentralCardGame/cardobject v0.1.10
+	github.com/DecentralCardGame/cardobject v0.1.11
 	github.com/cosmos/cosmos-sdk v0.38.0
 	github.com/gorilla/mux v1.7.4
 	github.com/spf13/cobra v0.0.6

@@ -1,6 +1,7 @@
 package cli
 
 import (
+	"fmt"
 	"strconv"
 	"strings"
 	"errors"
@@ -208,6 +209,8 @@ func GetCmdCreateUser(cdc *codec.Codec) *cobra.Command {
 			if err != nil {
 				return err
 			}
+
+			fmt.Println(newUser)
 
 			msg := types.NewMsgCreateUser(cliCtx.GetFromAddress(), newUser, args[1])
 			err = msg.ValidateBasic()

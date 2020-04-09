@@ -72,9 +72,6 @@ func GetCmdUser(queryRoute string, cdc *codec.Codec) *cobra.Command {
 				return nil
 			}
 
-			//fmt.Println(string(res))
-			//return nil
-
 			var out types.QueryResResolve
 			cdc.MustUnmarshalJSON(res, &out)
 			return cliCtx.PrintOutput(out)

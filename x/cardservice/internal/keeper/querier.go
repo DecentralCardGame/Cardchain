@@ -3,7 +3,7 @@ package keeper
 import (
 	//"encoding/binary"
 	"encoding/json"
-	//"fmt"
+	"fmt"
 	"strconv"
 	"strings"
 
@@ -52,6 +52,8 @@ func queryCard(ctx sdk.Context, path []string, req abci.RequestQuery, keeper Kee
 		return nil, sdkerrors.Wrap(sdkerrors.ErrUnknownRequest, "could not parse cardId")
 	}
 
+			//fmt.Println(string(res))
+			//return nil
 	card := keeper.GetCard(ctx, cardId)
 
 	if &card == nil {
@@ -74,6 +76,8 @@ func queryUser(ctx sdk.Context, path []string, req abci.RequestQuery, keeper Kee
 	}
 
 	user := keeper.GetUser(ctx, address)
+
+	fmt.Println(user)
 
 	res, err := codec.MarshalJSONIndent(keeper.cdc, user)
 	if err != nil {
