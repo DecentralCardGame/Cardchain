@@ -3,8 +3,8 @@ package cli
 import (
 	"fmt"
 	"strconv"
-	"strings"
-	"errors"
+	//"strings"
+	//"errors"
 	"bufio"
 
 	"github.com/spf13/cobra"
@@ -82,9 +82,6 @@ func GetCmdSaveCardContent(cdc *codec.Codec) *cobra.Command {
 			cardobj, err := cardobject.FunctionalCardJson(args[1])
 			if err != nil {
 				return err
-			}
-			if strings.Compare(args[1], cardobj) != 0 {
-				return errors.New("Card content string and card content object don't match. This means FunctionalCardJson() removed or could not parse parts of the card content.")
 			}
 
 			cardId, err := strconv.ParseUint(args[0], 10, 64);
