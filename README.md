@@ -1,16 +1,32 @@
-# Nameservice Application Tutorial
+# Crowd Control Cardchain
 
-In this tutorial we will build a fully-functional nameservice application on a blockchain with the Cosmos SDK
+This blockchain is based on Cosmos SDK. Current version is 0.38.
+The current features are:
+Buy card scheme - ongoing auction to sell rights to create new cards
+Save content of a card - write content to a card scheme
+Transfer card - change ownership of a card 
+Vote on a card - give your opinion if a card is overpowered, underpowered or fair enough
+donate to a card - donate credits on a card to incentivize voting
 
+All features are shown as examples in /scripts, REST and CLI examples are given. The same applies for query commands.
 
-**[Click here](./tutorial/00-intro.md)** to start the tutorial. You can also view it on the [website](https://tutorials.cosmos.network/).
+A testnet is live and our [website](https:://www.crowdcontrol.network) connects to it.
 
-## Building and running the example
+## Building and running
 
-If you are on the website, you can [find the code here on Github](https:://www.github.com/cosmos/sdk-tutorials)
-**[Click here](./tutorial/21-build-run.md)** for instructions on how to build and run the code.
+Prerequisites: Go 1.13, some scripts require jq
 
-Translations:
-- [中文](./README_cn.md)
+make intall
+sh scripts/setup.sh
+csd start
 
-## [Slides](https://docs.google.com/presentation/d/1aCMAdkVY-gfgnGNPTygwVk3o68czPQ_VYfvdMy9Ek5Q/edit?usp=sharing)
+sh scripts/startRESTserverLocal.sh
+
+The last command is only necessary if you want to run the curl scripts.
+
+The blockchain can also be started in a Docker:
+
+docker-compose build
+docker-compose up
+
+Have fun and join us at https://discord.gg/yPA3aKe if you like to dev with us :)
