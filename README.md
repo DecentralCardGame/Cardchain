@@ -16,9 +16,9 @@ A testnet is live and our [website](https:://www.crowdcontrol.network) connects 
 
 Prerequisites: Go 1.13, some scripts require jq
 
-make intall
-sh scripts/setup.sh
-csd start
+make intall  
+sh scripts/setup.sh  
+csd start  
 
 sh scripts/startRESTserverLocal.sh
 
