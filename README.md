@@ -10,7 +10,7 @@ donate to a card - donate credits on a card to incentivize voting
 
 All features are shown as examples in /scripts, REST and CLI examples are given. The same applies for query commands.
 
-A testnet is live and our [website](https:://www.crowdcontrol.network) connects to it.
+A testnet is live and our [website](https://www.crowdcontrol.network) connects to it.
 
 ## Building and running
 
