@@ -9,7 +9,7 @@ type GenesisState struct {
 }
 
 func NewGenesisState(cardsRecords []Card) GenesisState {
-	return GenesisState{CardRecords: nil}
+	return GenesisState{CardRecords: cardsRecords}
 }
 
 func ValidateGenesis(data GenesisState) error {
