@@ -27,13 +27,19 @@ func getCardHandler(cliCtx context.CLIContext, storeName string) http.HandlerFun
 }
 
 // TODO change this to give a list of cards
-func getCardsHandler(cliCtx context.CLIContext, storeName string) http.HandlerFunc {
+func getCardsHandler(cliCtx context.CLIContext, storeName string, status bool) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		vars := mux.Vars(r)
-		paramType := vars[restName]
-		fmt.Println(paramType)
+		var reqStatus string
 
-		res, _, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/cards", storeName), nil)
+		if status {
+			vars := mux.Vars(r)
+			reqStatus = vars[restName]
+		} else {
+			reqStatus = ""
+		}
+		fmt.Println(restName)
+
+		res, _, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/cards/%s", storeName, reqStatus), nil)
 		if err != nil {
 			rest.WriteErrorResponse(w, http.StatusNotFound, err.Error())
 			return

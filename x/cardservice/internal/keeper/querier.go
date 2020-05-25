@@ -34,7 +34,7 @@ func NewQuerier(keeper Keeper) sdk.Querier {
 		case QueryUser:
 			return queryUser(ctx, path[1:], req, keeper)
 		case QueryCards:
-			return queryCards(ctx, req, keeper)
+			return queryCards(ctx, path[1:], req, keeper)
 		case QueryVotableCards:
 			return queryVotableCards(ctx, path[1:], req, keeper)
 		case QueryCardchainInfo:
@@ -88,7 +88,7 @@ func queryUser(ctx sdk.Context, path []string, req abci.RequestQuery, keeper Kee
 }
 
 // TODO this should be changed to query card ids
-func queryCards(ctx sdk.Context, req abci.RequestQuery, keeper Keeper) ([]byte, error) {
+func queryCards(ctx sdk.Context, status []string, req abci.RequestQuery, keeper Keeper) ([]byte, error) {
 	var cardsList []uint64
 
 	iterator := keeper.GetCardsIterator(ctx)
@@ -98,7 +98,9 @@ func queryCards(ctx sdk.Context, req abci.RequestQuery, keeper Keeper) ([]byte, 
 		var gottenCard types.Card
 		keeper.cdc.MustUnmarshalBinaryBare(iterator.Value(), &gottenCard)
 
-		cardsList = append(cardsList, binary.BigEndian.Uint64(iterator.Key()))
+		if(status[0] == "" || gottenCard.Status == status[0]) {
+				cardsList = append(cardsList, binary.BigEndian.Uint64(iterator.Key()))
+		}
 	}
 
 	res, err2 := codec.MarshalJSONIndent(keeper.cdc, cardsList)
