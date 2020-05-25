@@ -1,8 +1,8 @@
 package keeper
 
 import (
-	//"encoding/binary"
-	"encoding/json"
+	"encoding/binary"
+	//"encoding/json"
 	"fmt"
 	"strconv"
 	"strings"
@@ -89,7 +89,7 @@ func queryUser(ctx sdk.Context, path []string, req abci.RequestQuery, keeper Kee
 
 // TODO this should be changed to query card ids
 func queryCards(ctx sdk.Context, req abci.RequestQuery, keeper Keeper) ([]byte, error) {
-	var cardsList QueryResCards
+	var cardsList []uint64
 
 	iterator := keeper.GetCardsIterator(ctx)
 
@@ -98,13 +98,7 @@ func queryCards(ctx sdk.Context, req abci.RequestQuery, keeper Keeper) ([]byte, 
 		var gottenCard types.Card
 		keeper.cdc.MustUnmarshalBinaryBare(iterator.Value(), &gottenCard)
 
-		// TODO check if json.Marshal is fair enough here
-		b, err := json.Marshal(gottenCard)
-		if err != nil {
-			return nil, sdkerrors.Wrap(sdkerrors.ErrJSONMarshal, err.Error())
-		}
-
-		cardsList = append(cardsList, string(b))
+		cardsList = append(cardsList, binary.BigEndian.Uint64(iterator.Key()))
 	}
 
 	res, err2 := codec.MarshalJSONIndent(keeper.cdc, cardsList)

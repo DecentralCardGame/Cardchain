@@ -97,9 +97,10 @@ func GetCmdCardList(queryRoute string, cdc *codec.Codec) *cobra.Command {
 			//fmt.Println(string(res))
 			//return nil
 
-			var out types.QueryResResolve
-			cdc.MustUnmarshalJSON(res, &out)
-			return cliCtx.PrintOutput(out)
+			//var out types.QueryResResolve
+			//cdc.MustUnmarshalJSON(res, &out)
+
+			return cliCtx.PrintOutput(string(res))
 		},
 	}
 }

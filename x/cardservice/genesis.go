@@ -39,7 +39,7 @@ func InitGenesis(ctx sdk.Context, keeper Keeper, data GenesisState) {
 	for id, record := range data.CardRecords {
 		fmt.Println(id)
 		lastId := keeper.GetLastCardSchemeId(ctx)
-		currId := lastId + 1                     
+		currId := lastId + 1
 
 		keeper.SetLastCardSchemeId(ctx, currId)
 		keeper.SetCard(ctx, currId, record)
