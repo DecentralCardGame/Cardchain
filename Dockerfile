@@ -8,4 +8,5 @@ COPY . .
 RUN make install
 RUN ./scripts/setup.sh
 
+CMD ./docker-run.sh
 CMD /go/bin/csd start
