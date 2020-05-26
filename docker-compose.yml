@@ -4,6 +4,8 @@ services:
   blockchain:
     build: .
     command: /go/bin/csd start --rpc.laddr tcp://0.0.0.0:26657
+    volumes:
+       - blockchain-data:/var/blockchain
     ports:
       - 26657:26657
 

@@ -1,3 +1,3 @@
 #!/bin/bash
 
-docker-compose exec blockchain pkill -f csd; csd export --for-zero-height > genesis.json
+pkill -f csd; csd export --for-zero-height > /var/blockchain/genesis.json
