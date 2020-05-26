@@ -3,7 +3,7 @@ services:
 
   blockchain:
     build: .
-    command: /go/bin/csd start --rpc.laddr tcp://0.0.0.0:26657
+    command: ./docker-run.sh
     volumes:
        - blockchain-data:/var/blockchain
     ports:
