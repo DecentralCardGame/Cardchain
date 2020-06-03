@@ -144,10 +144,13 @@ func (k Keeper) GetVoteRightToAllCards(ctx sdk.Context, expireBlock int64) []typ
 
 	for ; cardIterator.Valid(); cardIterator.Next() {
 		// here only give right if card is not a scheme or banished
-		//if cardIterator.Value().Status == "permanent" || cardIterator.Value().Status == "trial" {
+		var gottenCard types.Card
+		k.cdc.MustUnmarshalBinaryBare(cardIterator.Value(), &gottenCard)
+
+		if gottenCard.Status == "permanent" || gottenCard.Status == "trial" || gottenCard.Status == "prototype" {
 			right := types.NewVoteRight(binary.BigEndian.Uint64(cardIterator.Key()), expireBlock)
 			votingRights = append(votingRights, right)
-		//}
+		}
 	}
 	cardIterator.Close()
 

@@ -21,6 +21,9 @@ build
 /tests/signedTx.json
 /tests/unsignedTx.json
 
+# data
+/blockchain-data/
+
 # misc
 signedTx.json
 unsignedTx.json
