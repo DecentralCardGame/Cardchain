@@ -1,7 +1,7 @@
 package keeper
 
 import (
-	"fmt"
+	//"fmt"
 	"sort"
 	"encoding/binary"
 
@@ -168,7 +168,7 @@ func (k Keeper) RemoveVoteRight(ctx sdk.Context, userAddress sdk.AccAddress, rig
 
 func (k Keeper) SetUser(ctx sdk.Context, address sdk.AccAddress, userData types.User) {
 	store := ctx.KVStore(k.UsersStoreKey)
-	fmt.Println("userdata:", userData)
+	//fmt.Println("userdata:", userData)
 	store.Set(address, k.cdc.MustMarshalBinaryBare(userData))
 }
 
@@ -284,8 +284,8 @@ func (k Keeper) GetOPandUPCards(ctx sdk.Context) ([]uint64, []uint64, []uint64) 
 		nettoOP := int64(gottenCard.OverpoweredVotes - gottenCard.FairEnoughVotes - gottenCard.UnderpoweredVotes)
 		nettoUP := int64(gottenCard.UnderpoweredVotes - gottenCard.FairEnoughVotes - gottenCard.OverpoweredVotes)
 
-		fmt.Println("id:",id," - op:",nettoOP," / up:", nettoUP);
-		fmt.Println(gottenCard)
+		//fmt.Println("id:",id," - op:",nettoOP," / up:", nettoUP);
+		//fmt.Println(gottenCard)
 
 		if nettoOP > 0 {
 			µOP += float64(nettoOP)
@@ -312,7 +312,7 @@ func (k Keeper) GetOPandUPCards(ctx sdk.Context) ([]uint64, []uint64, []uint64) 
 			giniOP := giniOPsum/float64(len(OPcandidates)*len(OPcandidates))/µOP
 			cutvalue := giniOP*float64(OPcandidates[len(OPcandidates)-1].votes)
 
-			fmt.Println("µ/gini/cut: ",µOP, giniOP,cutvalue)
+			//fmt.Println("µ/gini/cut: ",µOP, giniOP,cutvalue)
 
 			for i := 0; i < len(OPcandidates); i++ {
 				if float64(OPcandidates[i].votes) > cutvalue {
@@ -338,7 +338,7 @@ func (k Keeper) GetOPandUPCards(ctx sdk.Context) ([]uint64, []uint64, []uint64) 
 			giniUP := giniUPsum/float64(len(UPcandidates)*len(UPcandidates))/µUP
 			cutvalue := giniUP*float64(UPcandidates[len(UPcandidates)-1].votes)
 
-			fmt.Println("µ/gini/cut: ",µUP, giniUP,cutvalue)
+			//fmt.Println("µ/gini/cut: ",µUP, giniUP,cutvalue)
 
 			for i := 0; i < len(UPcandidates); i++ {
 				if float64(UPcandidates[i].votes) > cutvalue {
