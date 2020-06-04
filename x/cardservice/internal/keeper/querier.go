@@ -127,37 +127,17 @@ func queryVotableCards(ctx sdk.Context, path []string, req abci.RequestQuery, ke
 	}
 
 	user := keeper.GetUser(ctx, address)
-	/*
-	var cardsList QueryResCards
 
-	iterator := keeper.GetCardsIterator(ctx)
-
-	for ; iterator.Valid(); iterator.Next() {
-
-		var gottenCard Card
-		cardId := binary.BigEndian.Uint64(iterator.Key())
-		keeper.cdc.MustUnmarshalBinaryBare(iterator.Value(), &gottenCard)
-
-		// TODO check if json.Marshal is fair enough here
-		b, err := json.Marshal(gottenCard)
+	if len(user.VoteRights) == 0 {
+		return []byte("no vote rights"), nil
+	} else {
+		res, err := codec.MarshalJSONIndent(keeper.cdc, user.VoteRights)
 		if err != nil {
-			panic("could not marshal gottenCard to JSON")
+			return nil, sdkerrors.Wrap(sdkerrors.ErrJSONMarshal, err.Error())
 		}
-
-		var voteRight = SearchVoteRights(cardId, user.VoteRights)
-		if voteRight >= 0 {
-			cardsList = append(cardsList, string(b))
-		}
-	}
-	bz, err2 := codec.MarshalJSONIndent(keeper.cdc, cardsList)
-	*/
-
-	res, err := codec.MarshalJSONIndent(keeper.cdc, user.VoteRights)
-	if err != nil {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrJSONMarshal, err.Error())
+		return res, nil
 	}
 
-	return res, nil
 }
 
 func queryCardchainInfo(ctx sdk.Context, req abci.RequestQuery, keeper Keeper) ([]byte, error) {

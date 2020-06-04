@@ -26,7 +26,6 @@ func getCardHandler(cliCtx context.CLIContext, storeName string) http.HandlerFun
 	}
 }
 
-// TODO change this to give a list of cards
 func getCardsHandler(cliCtx context.CLIContext, storeName string, status bool) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		var reqStatus string
