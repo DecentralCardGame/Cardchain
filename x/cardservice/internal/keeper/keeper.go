@@ -202,7 +202,6 @@ func (k Keeper) CreateUser(ctx sdk.Context, newUser sdk.AccAddress, alias string
 	if bz == nil {
 		k.InitUser(ctx, newUser, alias)
 	}
-
 	return k.GetUser(ctx, newUser)
 }
 

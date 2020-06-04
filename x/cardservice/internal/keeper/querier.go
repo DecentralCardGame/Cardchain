@@ -128,8 +128,12 @@ func queryVotableCards(ctx sdk.Context, path []string, req abci.RequestQuery, ke
 
 	user := keeper.GetUser(ctx, address)
 
+	if user.Alias == "" {
+		return []byte("{\"unregistered\": true}"), nil
+	}
+
 	if len(user.VoteRights) == 0 {
-		return []byte("no vote rights"), nil
+		return []byte("{\"noVoteRights\": true}"), nil
 	} else {
 		res, err := codec.MarshalJSONIndent(keeper.cdc, user.VoteRights)
 		if err != nil {
