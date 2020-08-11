@@ -1,7 +1,7 @@
 # Crowd Control Cardchain
 
 This blockchain is based on Cosmos SDK. Current version is 0.38.
-The current features are:
+The current features are:  
 Buy card scheme - ongoing auction to sell rights to create new cards  
 Save content of a card - write content to a card scheme  
 Transfer card - change ownership of a card  
