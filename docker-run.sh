@@ -8,4 +8,5 @@ if test -f "/var/blockchain/genesis.json"; then
 fi
 
 /go/bin/csd start --rpc.laddr tcp://0.0.0.0:26657
+# the following line is evaluated if csd is terminated via pkill (docker-stop-and-export.sh)
 csd export --for-zero-height > /var/blockchain/genesis.json
