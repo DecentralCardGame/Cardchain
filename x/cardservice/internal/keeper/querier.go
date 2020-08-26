@@ -14,6 +14,8 @@ import (
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 
 	"github.com/DecentralCardGame/Cardchain/x/cardservice/internal/types"
+
+	//"github.com/DecentralCardGame/cardobject"
 )
 
 // query endpoints supported by the cardservice Querier
@@ -34,7 +36,7 @@ func NewQuerier(keeper Keeper) sdk.Querier {
 		case QueryUser:
 			return queryUser(ctx, path[1:], req, keeper)
 		case QueryCards:
-			return queryCards(ctx, path[1:], req, keeper)
+			return queryCards(ctx, path[1], path[2], path[3], req, keeper)
 		case QueryVotableCards:
 			return queryVotableCards(ctx, path[1:], req, keeper)
 		case QueryCardchainInfo:
@@ -87,9 +89,12 @@ func queryUser(ctx sdk.Context, path []string, req abci.RequestQuery, keeper Kee
 	return res, nil
 }
 
-// TODO this should be changed to query card ids
-func queryCards(ctx sdk.Context, status []string, req abci.RequestQuery, keeper Keeper) ([]byte, error) {
+func queryCards(ctx sdk.Context, owner string, status string, nameContains string, req abci.RequestQuery, keeper Keeper) ([]byte, error) {
 	var cardsList []uint64
+
+	fmt.Println("status:", status)
+	fmt.Println("nameContains:", nameContains)
+	fmt.Println("owner:", owner)
 
 	iterator := keeper.GetCardsIterator(ctx)
 
@@ -98,9 +103,31 @@ func queryCards(ctx sdk.Context, status []string, req abci.RequestQuery, keeper 
 		var gottenCard types.Card
 		keeper.cdc.MustUnmarshalBinaryBare(iterator.Value(), &gottenCard)
 
-		if(status[0] == "" || gottenCard.Status == status[0]) {
-				cardsList = append(cardsList, binary.BigEndian.Uint64(iterator.Key()))
+		if status != "" {
+			if gottenCard.Status != status {
+				continue
+			}
 		}
+		if owner != "" {
+			if gottenCard.Owner.String() != owner {
+				continue
+			}
+		}
+		if nameContains != "" {
+			/*
+			var card card
+			err := json.Unmarshal([]byte(gottenCard.Content), &card)
+			if err != nil {
+				return "Can't deserialize", err
+			}
+			*/
+
+			fmt.Println(string(gottenCard.Content))
+
+		}
+
+		cardsList = append(cardsList, binary.BigEndian.Uint64(iterator.Key()))
+
 	}
 
 	res, err2 := codec.MarshalJSONIndent(keeper.cdc, cardsList)
