@@ -272,9 +272,9 @@ func NewDefaultGenesisState() GenesisState {
 }
 
 // epochBlockTime defines how many blocks are one game epoch
-const epochBlockTime = 20
+const epochBlockTime = 14000
 // votingRightsExpirationTime defines after how many blocks a voting right expires by default
-const votingRightsExpirationTime = 500
+const votingRightsExpirationTime = 28000
 
 func (app *cardServiceApp) InitChainer(ctx sdk.Context, req abci.RequestInitChain) abci.ResponseInitChain {
 	var genesisState GenesisState
