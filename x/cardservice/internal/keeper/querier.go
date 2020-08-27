@@ -15,7 +15,6 @@ import (
 
 	"github.com/DecentralCardGame/Cardchain/x/cardservice/internal/types"
 	"github.com/DecentralCardGame/cardobject"
-	"github.com/fatih/structs"
 )
 
 // query endpoints supported by the cardservice Querier
@@ -115,10 +114,23 @@ func queryCards(ctx sdk.Context, owner string, status string, nameContains strin
 				return nil, sdkerrors.Wrap(sdkerrors.ErrJSONMarshal, err.Error())
 			}
 
-			fmt.Println(structs.Names(cardobj) )
-
-			if true {
+			if cardobj.Action != nil {
+				if !strings.Contains(cardobj.Action.CardName, nameContains) {
+					continue
+				}
+			}
+			if cardobj.Entity != nil {
 				if !strings.Contains(cardobj.Entity.CardName, nameContains) {
+					continue
+				}
+			}
+			if cardobj.Headquarter != nil {
+				if !strings.Contains(cardobj.Headquarter.CardName, nameContains) {
+					continue
+				}
+			}
+			if cardobj.Place != nil {
+				if !strings.Contains(cardobj.Place.CardName, nameContains) {
 					continue
 				}
 			}
