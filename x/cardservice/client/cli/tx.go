@@ -6,6 +6,7 @@ import (
 	//"strings"
 	//"errors"
 	"bufio"
+	"encoding/json"
 
 	"github.com/spf13/cobra"
 
@@ -79,7 +80,12 @@ func GetCmdSaveCardContent(cdc *codec.Codec) *cobra.Command {
 			inBuf := bufio.NewReader(cmd.InOrStdin())
 			txBldr := auth.NewTxBuilderFromCLI(inBuf).WithTxEncoder(utils.GetTxEncoder(cdc))
 
-			cardobj, err := cardobject.FunctionalCardJson(args[1])
+			cardobj, err := cardobject.NewCardFromJson(args[1])
+			if err != nil {
+				return err
+			}
+
+			cardbytes, err := json.Marshal(cardobj)
 			if err != nil {
 				return err
 			}
@@ -89,7 +95,7 @@ func GetCmdSaveCardContent(cdc *codec.Codec) *cobra.Command {
 				return err
 			}
 
-			msg := types.NewMsgSaveCardContent(cardId, []byte(cardobj), []byte(args[2]), cliCtx.GetFromAddress())
+			msg := types.NewMsgSaveCardContent(cardId, cardbytes, []byte(args[2]), cliCtx.GetFromAddress())
 			err = msg.ValidateBasic()
 			if err != nil {
 				return err

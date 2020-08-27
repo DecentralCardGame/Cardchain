@@ -4,6 +4,7 @@ import (
 	//"fmt"
 	"strconv"
 	"net/http"
+	"encoding/json"
 
 	"github.com/cosmos/cosmos-sdk/client/context"
 	"github.com/DecentralCardGame/Cardchain/x/cardservice/internal/types"
@@ -80,19 +81,17 @@ func saveCardContentHandler(cliCtx context.CLIContext) http.HandlerFunc {
 			return
 		}
 
-		cardobj, err := cardobject.FunctionalCardJson(req.Content)
+		cardobj, err := cardobject.NewCardFromJson(req.Content)
 		if err != nil {
 			rest.WriteErrorResponse(w, http.StatusBadRequest, err.Error())
 			return
 		}
 
-		//fmt.Println(cardobj)
-		/*
-		if strings.Compare(req.Content, cardobj) != 0 {
-			rest.WriteErrorResponse(w, http.StatusBadRequest, "card has invalid keys in json")
+		cardbytes, err := json.Marshal(cardobj)
+		if err != nil {
+			rest.WriteErrorResponse(w, http.StatusBadRequest, err.Error())
 			return
 		}
-		*/
 
 		cardId, err := strconv.ParseUint(req.CardId, 10, 64)
 		if err != nil {
@@ -107,7 +106,7 @@ func saveCardContentHandler(cliCtx context.CLIContext) http.HandlerFunc {
 		}
 
 		// create the message
-		msg := types.NewMsgSaveCardContent(cardId, []byte(cardobj), []byte(req.Image), owner)
+		msg := types.NewMsgSaveCardContent(cardId, cardbytes, []byte(req.Image), owner)
 		err = msg.ValidateBasic()
 		if err != nil {
 			rest.WriteErrorResponse(w, http.StatusBadRequest, err.Error())

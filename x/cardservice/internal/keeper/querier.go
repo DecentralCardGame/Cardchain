@@ -14,8 +14,7 @@ import (
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 
 	"github.com/DecentralCardGame/Cardchain/x/cardservice/internal/types"
-
-	//"github.com/DecentralCardGame/cardobject"
+	"github.com/DecentralCardGame/cardobject"
 )
 
 // query endpoints supported by the cardservice Querier
@@ -92,10 +91,6 @@ func queryUser(ctx sdk.Context, path []string, req abci.RequestQuery, keeper Kee
 func queryCards(ctx sdk.Context, owner string, status string, nameContains string, req abci.RequestQuery, keeper Keeper) ([]byte, error) {
 	var cardsList []uint64
 
-	fmt.Println("status:", status)
-	fmt.Println("nameContains:", nameContains)
-	fmt.Println("owner:", owner)
-
 	iterator := keeper.GetCardsIterator(ctx)
 
 	for ; iterator.Valid(); iterator.Next() {
@@ -114,20 +109,16 @@ func queryCards(ctx sdk.Context, owner string, status string, nameContains strin
 			}
 		}
 		if nameContains != "" {
-			/*
-			var card card
-			err := json.Unmarshal([]byte(gottenCard.Content), &card)
+			cardobj, err := cardobject.NewCardFromJson(string(gottenCard.Content))
 			if err != nil {
-				return "Can't deserialize", err
+				return nil, sdkerrors.Wrap(sdkerrors.ErrJSONMarshal, err.Error())
 			}
-			*/
 
-			fmt.Println(string(gottenCard.Content))
-
+			if !strings.Contains(cardobj.Entity.CardName, nameContains) {
+				continue
+			}
 		}
-
 		cardsList = append(cardsList, binary.BigEndian.Uint64(iterator.Key()))
-
 	}
 
 	res, err2 := codec.MarshalJSONIndent(keeper.cdc, cardsList)
