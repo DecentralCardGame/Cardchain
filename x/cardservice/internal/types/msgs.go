@@ -60,15 +60,17 @@ type MsgSaveCardContent struct {
 	CardId	uint64					`json:"cardid"`
 	Content []byte					`json:"content"`
 	Image 	[]byte					`json:"image"`
+	Notes 	string					`json:"string"`
 	Owner		sdk.AccAddress	`json:"owner"`
 }
 
 // NewMsgBuyName is the constructor function for MsgBuyName
-func NewMsgSaveCardContent(cardId uint64, content []byte, image []byte, owner sdk.AccAddress) MsgSaveCardContent {
+func NewMsgSaveCardContent(cardId uint64, content []byte, image []byte, notes string, owner sdk.AccAddress) MsgSaveCardContent {
 	return MsgSaveCardContent{
 		CardId: 	cardId,
 		Content:	content,
 		Image: 		image,
+		Notes:		notes,
 		Owner: 		owner,
 	}
 }

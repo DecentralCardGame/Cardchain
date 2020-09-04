@@ -67,16 +67,13 @@ func handleMsgSaveCardContent(ctx sdk.Context, keeper Keeper, msg MsgSaveCardCon
 		return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "Incorrect Owner")
 	}
 
-	// TODO card content should be deserialized and serialized here
-	// serialize it
-	// ...
-
 	// TODO cards get a starting pool currently, this should be removed later and the starting pool should come after council decision
 	card.VotePool.Add(sdk.NewInt64Coin("credits", 10))
 
 	card.Content = []byte(msg.Content)
 	card.Image = []byte(msg.Image)
 	card.Status = "prototype"
+	card.Notes = msg.Notes
 	keeper.SetCard(ctx, msg.CardId, card)
 	keeper.TransferSchemeToCard(ctx, msg.CardId, msg.Owner)
 

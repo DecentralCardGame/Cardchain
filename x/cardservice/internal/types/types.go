@@ -27,6 +27,7 @@ type Card struct {
 	Owner              sdk.AccAddress
 	Content            []byte
 	Image							 []byte
+	Notes							 string
 	Status             string
 	VotePool           sdk.Coin
 	FairEnoughVotes    uint64

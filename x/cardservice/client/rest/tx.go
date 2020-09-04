@@ -64,6 +64,7 @@ type saveCardContentReq struct {
 	CardId  string       `json:"cardid"`
 	Content string       `json:"content"`
 	Image		string			 `json:"image"`
+	Notes		string			 `json:"notes"`
 	Owner   string       `json:"owner"`
 }
 
@@ -106,7 +107,7 @@ func saveCardContentHandler(cliCtx context.CLIContext) http.HandlerFunc {
 		}
 
 		// create the message
-		msg := types.NewMsgSaveCardContent(cardId, cardbytes, []byte(req.Image), owner)
+		msg := types.NewMsgSaveCardContent(cardId, cardbytes, []byte(req.Image), req.Notes, owner)
 		err = msg.ValidateBasic()
 		if err != nil {
 			rest.WriteErrorResponse(w, http.StatusBadRequest, err.Error())

@@ -11,6 +11,7 @@ curl -XPUT \
       },
       "owner":"'$(cscli keys show alice --address)'",
       "content":"{\"Entity\":{\"Name\":\"Archer\",\"Tags\":[\"RANGE\"],\"Text\":\"Ping\",\"CostType\":{\"Food\":true,\"Lumber\":true,\"Generic\":true},\"CastingCost\":2,\"Abilities\":[{\"ActivatedAbility\":{\"AbilityCost\":1,\"MultipleUse\":true,\"Effects\":[{\"TargetEffect\":{\"EntityTargetEffect\":{\"EntitySelector\":{\"PlayerMode\":\"TARGET\",\"PlayerCondition\":{\"IntCondition\":{\"IntProperty\":\"HANDSIZE\",\"IntComparator\":\"GREATER\",\"IntValue\":1}},\"Zone\":\"FIELD\",\"CardMode\":\"TARGET\",\"CardCondition\":{\"IntCondition\":{\"IntProperty\":\"HEALTH\",\"IntComparator\":\"GREATER\",\"IntValue\":1}}},\"EntityManipulations\":[{\"EntityIntManipulation\":{\"IntProperty\":\"HEALTH\",\"IntOperator\":\"SUBTRACT\",\"IntValue\":1}}]}}}]}}],\"Health\":2,\"Attack\":1}}",
-      "image": "a",
+      "notes": "no notes",
+      "image": "no image",
       "cardid":"1"
     }' > unsignedTx.json
