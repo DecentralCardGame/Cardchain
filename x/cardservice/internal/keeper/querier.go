@@ -53,8 +53,6 @@ func queryCard(ctx sdk.Context, path []string, req abci.RequestQuery, keeper Kee
 		return nil, sdkerrors.Wrap(sdkerrors.ErrUnknownRequest, "could not parse cardId")
 	}
 
-			//fmt.Println(string(res))
-			//return nil
 	card := keeper.GetCard(ctx, cardId)
 
 	if &card == nil {
@@ -98,16 +96,23 @@ func queryCards(ctx sdk.Context, owner string, status string, nameContains strin
 		var gottenCard types.Card
 		keeper.cdc.MustUnmarshalBinaryBare(iterator.Value(), &gottenCard)
 
+		// first skip all cards with irrelevant status
+		if gottenCard.Status == "" || gottenCard.Status == "scheme" {
+			continue
+		}
+		// then check if a status constrain was given and skip the card if it has the wrong status
 		if status != "" {
 			if gottenCard.Status != status {
 				continue
 			}
 		}
+		// then check if an owner constrain was given and skip the card if it has the wrong owner
 		if owner != "" {
 			if gottenCard.Owner.String() != owner {
 				continue
 			}
 		}
+		// lastly check if the name should contain a certain string and skip the card if it does not
 		if nameContains != "" {
 			cardobj, err := cardobject.NewCardFromJson(string(gottenCard.Content))
 			if err != nil {
@@ -135,6 +140,7 @@ func queryCards(ctx sdk.Context, owner string, status string, nameContains strin
 				}
 			}
 		}
+		// finally if all checks were passed, add the card
 		cardsList = append(cardsList, binary.BigEndian.Uint64(iterator.Key()))
 	}
 
