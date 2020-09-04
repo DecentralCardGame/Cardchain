@@ -8,10 +8,16 @@ import (
 
 type GenesisState struct {
 	CardRecords []Card `json:"card_records"`
+	Users []User `json:"users"`
+	SdkAddresses []sdk.AccAddress `json:"addresses"`
 }
 
-func NewGenesisState(cardRecords []Card) GenesisState {
-	return GenesisState{CardRecords: nil}
+func NewGenesisState(cardRecords []Card, users []User, addresses []sdk.AccAddress) GenesisState {
+	return GenesisState{
+		CardRecords: cardRecords,
+		Users: users,
+		SdkAddresses: addresses,
+	}
 }
 
 func ValidateGenesis(data GenesisState) error {
@@ -32,10 +38,15 @@ func ValidateGenesis(data GenesisState) error {
 func DefaultGenesisState() GenesisState {
 	return GenesisState{
 		CardRecords: []Card{},
+		Users: []User{},
+		SdkAddresses: []sdk.AccAddress{},
 	}
 }
 
 func InitGenesis(ctx sdk.Context, keeper Keeper, data GenesisState) {
+	for id := range data.Users {
+		keeper.SetUser(ctx, data.SdkAddresses[id], data.Users[id])
+	}
 	for id, record := range data.CardRecords {
 		fmt.Println(id)
 		lastId := keeper.GetLastCardSchemeId(ctx)
@@ -49,5 +60,10 @@ func InitGenesis(ctx sdk.Context, keeper Keeper, data GenesisState) {
 
 func ExportGenesis(ctx sdk.Context, k Keeper) GenesisState {
 	records := k.GetAllCards(ctx)
-	return GenesisState{CardRecords: records}
+	users, addresses := k.GetAllUsers(ctx)
+	return GenesisState{
+		CardRecords: records,
+		Users: users,
+		SdkAddresses: addresses,
+	}
 }

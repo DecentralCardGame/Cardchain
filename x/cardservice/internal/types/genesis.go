@@ -2,14 +2,21 @@ package types
 
 import (
 	"fmt"
+	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
 type GenesisState struct {
-	CardRecords []Card `json:"cards_records"`
+	CardRecords []Card `json:"card_records"`
+	Users []User `json:"users"`
+	SdkAddresses []sdk.AccAddress `json:"addresses"`
 }
 
-func NewGenesisState(cardsRecords []Card) GenesisState {
-	return GenesisState{CardRecords: cardsRecords}
+func NewGenesisState(cardRecords []Card, users []User, addresses []sdk.AccAddress) GenesisState {
+	return GenesisState{
+		CardRecords: cardRecords,
+		Users: users,
+		SdkAddresses: addresses,
+	}
 }
 
 func ValidateGenesis(data GenesisState) error {
@@ -30,5 +37,7 @@ func ValidateGenesis(data GenesisState) error {
 func DefaultGenesisState() GenesisState {
 	return GenesisState{
 		CardRecords: []Card{},
+		Users: []User{},
+		SdkAddresses: []sdk.AccAddress{},
 	}
 }

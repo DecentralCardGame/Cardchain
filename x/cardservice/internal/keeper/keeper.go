@@ -168,7 +168,6 @@ func (k Keeper) RemoveVoteRight(ctx sdk.Context, userAddress sdk.AccAddress, rig
 
 func (k Keeper) SetUser(ctx sdk.Context, address sdk.AccAddress, userData types.User) {
 	store := ctx.KVStore(k.UsersStoreKey)
-	//fmt.Println("userdata:", userData)
 	store.Set(address, k.cdc.MustMarshalBinaryBare(userData))
 }
 
@@ -189,7 +188,7 @@ func (k Keeper) InitUser(ctx sdk.Context, address sdk.AccAddress, alias string) 
 	newUser.Alias = alias
 	k.CoinKeeper.AddCoins(ctx, address, sdk.Coins{sdk.NewInt64Coin("credits", 100000)})
 	const votingRightsExpirationTime = 14000
-	newUser.VoteRights = k.GetVoteRightToAllCards(ctx, ctx.BlockHeight()+votingRightsExpirationTime)
+	newUser.VoteRights = k.GetVoteRightToAllCards(ctx, ctx.BlockHeight()+votingRightsExpirationTime)		// TODO this might be a good thing to remove later, so that sybil voting is not possible
 
 	store.Set(address, k.cdc.MustMarshalBinaryBare(newUser))
 }
@@ -423,10 +422,23 @@ func (k Keeper) GetAllCards(ctx sdk.Context) []types.Card {
 	return allCards
 }
 
-/*
-// Check if the name is present in the store or not
-func (k Keeper) IsNamePresent(ctx sdk.Context, name string) bool {
-	store := ctx.KVStore(k.storeKey)
-	return store.Has([]byte(name))
+func (k Keeper) GetUsersIterator(ctx sdk.Context) sdk.Iterator {
+	store := ctx.KVStore(k.UsersStoreKey)
+	return sdk.KVStorePrefixIterator(store, nil)
 }
-*/
+
+func (k Keeper) GetAllUsers(ctx sdk.Context) ([]types.User, []sdk.AccAddress) {
+	var allUsers []types.User
+	var allAddresses []sdk.AccAddress
+
+	iterator := k.GetUsersIterator(ctx)
+	for ; iterator.Valid(); iterator.Next() {
+
+		var gottenUser types.User
+		k.cdc.MustUnmarshalBinaryBare(iterator.Value(), &gottenUser)
+
+		allUsers = append(allUsers, gottenUser)
+		allAddresses = append(allAddresses, iterator.Key())
+	}
+	return allUsers, allAddresses
+}
