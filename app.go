@@ -271,7 +271,7 @@ func NewDefaultGenesisState() GenesisState {
 	return ModuleBasics.DefaultGenesis()
 }
 
-// epochBlockTime defines how many blocks are one game epoch
+// epochBlockTime defines how many blocks are one buffnerf epoch
 const epochBlockTime = 14000
 // votingRightsExpirationTime defines after how many blocks a voting right expires by default
 const votingRightsExpirationTime = 28000

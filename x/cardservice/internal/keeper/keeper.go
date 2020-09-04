@@ -261,13 +261,15 @@ type candidate struct {
     votes int64
 }
 
-func (k Keeper) GetOPandUPCards(ctx sdk.Context) ([]uint64, []uint64, []uint64) {
+func (k Keeper) GetOPandUPCards(ctx sdk.Context) ([]uint64, []uint64, []uint64, []uint64) {
 	var OPcandidates []candidate
 	var UPcandidates []candidate
+	var IAcandidates []candidate
 
 	var nerfbois []uint64
 	var buffbois []uint64
 	var fairbois []uint64
+	var banbois []uint64
 
 	var µUP float64 = 0
 	var µOP float64 = 0
@@ -282,11 +284,14 @@ func (k Keeper) GetOPandUPCards(ctx sdk.Context) ([]uint64, []uint64, []uint64) 
 		id := binary.BigEndian.Uint64(iterator.Key())
 		nettoOP := int64(gottenCard.OverpoweredVotes - gottenCard.FairEnoughVotes - gottenCard.UnderpoweredVotes)
 		nettoUP := int64(gottenCard.UnderpoweredVotes - gottenCard.FairEnoughVotes - gottenCard.OverpoweredVotes)
+		nettoIA := int64(gottenCard.InappropriateVotes - gottenCard.FairEnoughVotes - gottenCard.OverpoweredVotes - gottenCard.UnderpoweredVotes)
 
 		//fmt.Println("id:",id," - op:",nettoOP," / up:", nettoUP);
 		//fmt.Println(gottenCard)
 
-		if nettoOP > 0 {
+		if nettoIA > 0 {
+			IAcandidates = append(IAcandidates, candidate{id: id, votes: nettoIA})
+		} else if nettoOP > 0 {
 			µOP += float64(nettoOP)
 			OPcandidates = append(OPcandidates, candidate{id: id, votes: nettoOP})
 		} else if nettoUP > 0 {
@@ -347,8 +352,13 @@ func (k Keeper) GetOPandUPCards(ctx sdk.Context) ([]uint64, []uint64, []uint64) 
 				}
 			}
 	}
+	if(len(IAcandidates) > 0) {
+		for i := 0; i < len(IAcandidates); i++ {
+			banbois = append(banbois, IAcandidates[i].id)
+		}
+	}
 
-	return buffbois, nerfbois, fairbois
+	return buffbois, nerfbois, fairbois, banbois
 }
 
 func (k Keeper) NerfBuffCards(ctx sdk.Context, cardIds []uint64, buff bool) {
@@ -366,6 +376,16 @@ func (k Keeper) NerfBuffCards(ctx sdk.Context, cardIds []uint64, buff bool) {
 		}
 
 		store.Set(sdk.Uint64ToBigEndian(val), k.cdc.MustMarshalBinaryBare(buffCard))
+	}
+}
+
+func (k Keeper) RemoveCards(ctx sdk.Context, cardIds []uint64) {
+	store := ctx.KVStore(k.CardsStoreKey)
+
+	for _, val := range cardIds {
+		var emptyCard types.Card
+
+		store.Set(sdk.Uint64ToBigEndian(val), k.cdc.MustMarshalBinaryBare(emptyCard))
 	}
 }
 
