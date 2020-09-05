@@ -60,7 +60,7 @@ type MsgSaveCardContent struct {
 	CardId	uint64					`json:"cardid"`
 	Content []byte					`json:"content"`
 	Image 	[]byte					`json:"image"`
-	Notes 	string					`json:"string"`
+	Notes 	string					`json:"notes"`
 	Owner		sdk.AccAddress	`json:"owner"`
 }
 
