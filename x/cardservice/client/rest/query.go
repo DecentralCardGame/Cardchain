@@ -25,6 +25,25 @@ func getCardHandler(cliCtx context.CLIContext, storeName string) http.HandlerFun
 	}
 }
 
+func getCardSVGHandler(cliCtx context.CLIContext, storeName string) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		vars := mux.Vars(r)
+		paramType := vars[restName]
+
+		res, _, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/cardsvg/%s", storeName, paramType), nil)
+		if err != nil {
+			rest.WriteErrorResponse(w, http.StatusNotFound, err.Error())
+			return
+		}
+
+		stringres := string("<svg  xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" height=\"100\" width=\"100\"> <circle cx=\"50\" cy=\"50\" r=\"40\" stroke=\"black\" stroke-width=\"3\" fill=\"red\" /> Sorry, your browser does not support inline SVG. </svg> ")
+		res = []byte(stringres)
+
+		w.Header().Set("Content-Type", "image/svg+xml")
+		_, _ = w.Write(res)
+	}
+}
+
 type getCardsReq struct {
 	BaseReq rest.BaseReq `json:"base_req"`
 	Amount  string       `json:"amount"`

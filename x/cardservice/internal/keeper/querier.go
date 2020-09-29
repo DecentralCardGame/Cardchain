@@ -22,6 +22,7 @@ const (
 	QueryCard      	 	 = "card"
 	QueryUser          = "user"
 	QueryCards         = "cards"
+	QueryCardSVG       = "cardsvg"
 	QueryVotableCards  = "votable-cards"
 	QueryCardchainInfo = "cardchain-info"
 )
@@ -36,6 +37,8 @@ func NewQuerier(keeper Keeper) sdk.Querier {
 			return queryUser(ctx, path[1:], req, keeper)
 		case QueryCards:
 			return queryCards(ctx, path[1], path[2], path[3], req, keeper)
+		case QueryCardSVG:
+			return queryCardSVG(ctx, path[1:], req, keeper)
 		case QueryVotableCards:
 			return queryVotableCards(ctx, path[1:], req, keeper)
 		case QueryCardchainInfo:
@@ -57,6 +60,46 @@ func queryCard(ctx sdk.Context, path []string, req abci.RequestQuery, keeper Kee
 
 	if &card == nil {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrUnknownRequest, "cardId does not represent a card")
+	}
+
+	res, err := codec.MarshalJSONIndent(keeper.cdc, card)
+	if err != nil {
+		return nil, sdkerrors.Wrap(sdkerrors.ErrJSONMarshal, err.Error())
+	}
+
+	return res, nil
+}
+
+// nolint: unparam
+func queryCardSVG(ctx sdk.Context, path []string, req abci.RequestQuery, keeper Keeper) ([]byte, error) {
+	cardId, error := strconv.ParseUint(path[0], 10, 64)
+	if error != nil {
+		return nil, sdkerrors.Wrap(sdkerrors.ErrUnknownRequest, "could not parse cardId")
+	}
+
+	card := keeper.GetCard(ctx, cardId)
+
+	if &card == nil {
+		return nil, sdkerrors.Wrap(sdkerrors.ErrUnknownRequest, "cardId does not represent a card")
+	}
+
+	cardobj, err := cardobject.NewCardFromJson(string(card.Content))
+	if err != nil {
+		return nil, sdkerrors.Wrap(sdkerrors.ErrJSONMarshal, err.Error())
+	}
+
+	if cardobj.Action != nil {
+		return []byte(cardobj.Action.CardName), nil
+	}
+	if cardobj.Entity != nil {
+		fmt.Println(cardobj.Entity.CardName)
+		return []byte(cardobj.Entity.CardName), nil
+	}
+	if cardobj.Headquarter != nil {
+		return []byte(cardobj.Headquarter.CardName), nil
+	}
+	if cardobj.Place != nil {
+		return []byte(cardobj.Place.CardName), nil
 	}
 
 	res, err := codec.MarshalJSONIndent(keeper.cdc, card)
