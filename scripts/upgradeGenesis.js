@@ -29,7 +29,7 @@ console.log('merged:', genesisnew.app_state)
 console.log('users:', genesisnew.app_state.cardservice.users)
 console.log('addresses:', genesisnew.app_state.cardservice.addresses)
 
-ids = R.map(x => x.Owner, genesisnew.app_state.cardservice.card_records)
+//ids = R.map(x => x.Owner, genesisnew.app_state.cardservice.card_records)
 //console.log(ids)
 
 fs.writeFileSync('./genesis.merged.json', JSON.stringify(genesisnew) , 'utf-8');

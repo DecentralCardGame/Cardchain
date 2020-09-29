@@ -36,7 +36,7 @@ func getCardSVGHandler(cliCtx context.CLIContext, storeName string) http.Handler
 			return
 		}
 
-		stringres := string("<svg  xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" height=\"100\" width=\"100\"> <circle cx=\"50\" cy=\"50\" r=\"40\" stroke=\"black\" stroke-width=\"3\" fill=\"red\" /> Sorry, your browser does not support inline SVG. </svg> ")
+		stringres := string("<?xml version=\"1.0\" encoding=\"ISO-8859-1\" standalone=\"no\"?> <!DOCTYPE svg PUBLIC \"-//W3C//DTD SVG 1.1//EN\" \"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd\"> <svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" height=\"100\" width=\"100\"> <circle cx=\"50\" cy=\"50\" r=\"40\" stroke=\"black\" stroke-width=\"3\" fill=\"red\" /> Sorry, your browser does not support inline SVG. </svg> ")
 		res = []byte(stringres)
 
 		w.Header().Set("Content-Type", "image/svg+xml")
