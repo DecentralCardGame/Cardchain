@@ -11,6 +11,7 @@ console.log('old:', genesisold.app_state)
 console.log('new:', genesisnew.app_state)
 
 // TODO double ids for owned cards
+// TODO BUY CARD SCHEMES OVERWRITE REAL CARDS
 genesisnew.app_state.auth.accounts = genesisold.app_state.auth.accounts
 genesisnew.app_state.cardservice.users = genesisold.app_state.cardservice.users
 genesisnew.app_state.cardservice.addresses = genesisold.app_state.cardservice.addresses

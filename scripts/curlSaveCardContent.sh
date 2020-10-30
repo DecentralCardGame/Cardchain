@@ -10,7 +10,7 @@ curl -XPUT \
         "gas_adjustment": "1.5"
       },
       "owner":"'$(cscli keys show alice --address)'",
-      "content":"{\"Entity\":{\"Name\":\"Archer\",\"Tags\":[\"RANGE\"],\"Text\":\"Ping\",\"CostType\":{\"Food\":true,\"Lumber\":true,\"Generic\":true},\"CastingCost\":2,\"Abilities\":[{\"ActivatedAbility\":{\"AbilityCost\":1,\"MultipleUse\":true,\"Effects\":[{\"TargetEffect\":{\"EntityTargetEffect\":{\"EntitySelector\":{\"PlayerMode\":\"TARGET\",\"PlayerCondition\":{\"IntCondition\":{\"IntProperty\":\"HANDSIZE\",\"IntComparator\":\"GREATER\",\"IntValue\":1}},\"Zone\":\"FIELD\",\"CardMode\":\"TARGET\",\"CardCondition\":{\"IntCondition\":{\"IntProperty\":\"HEALTH\",\"IntComparator\":\"GREATER\",\"IntValue\":1}}},\"EntityManipulations\":[{\"EntityIntManipulation\":{\"IntProperty\":\"HEALTH\",\"IntOperator\":\"SUBTRACT\",\"IntValue\":1}}]}}}]}}],\"Health\":2,\"Attack\":1}}",
+      "content":"{\"Place\":{\"CardName\":\"M\u00FChle\",\"CastingCost\":2,\"CostType\":{\"Energy\":false,\"Food\":false,\"Lumber\":true,\"Iron\":false,\"Mana\":false},\"Abilities\":[],\"Health\":3,\"FlavourText\":\"lulul\",\"Tags\":[\"PRIMITIVE\"]}}",
       "notes": "no notes",
       "image": "no image",
       "cardid":"1"

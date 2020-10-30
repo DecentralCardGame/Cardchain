@@ -117,11 +117,14 @@ func handleMsgVoteCard(ctx sdk.Context, keeper Keeper, msg MsgVoteCard) (*sdk.Re
 		return nil, sdkerrors.Wrap(sdkerrors.ErrUnknownRequest, errMsg)
 	}
 
-	// check for bounty
+	// check for specific bounty on the card
 	if !card.VotePool.IsZero() {
 		card.VotePool.Sub(sdk.NewInt64Coin("credits", 1))
 		keeper.CoinKeeper.AddCoins(ctx, msg.Voter, sdk.Coins{sdk.NewInt64Coin("credits", 1)})
 	}
+
+	// give generic bounty for voting
+	keeper.CoinKeeper.AddCoins(ctx, msg.Voter, sdk.Coins{sdk.NewInt64Coin("credits", 1)})
 
 	keeper.SetCard(ctx, msg.CardId, card)
 

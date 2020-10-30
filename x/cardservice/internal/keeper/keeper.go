@@ -85,7 +85,6 @@ func (k Keeper) SubtractPublicPoolCredits(ctx sdk.Context, delta sdk.Coin) {
 	store.Set([]byte("publicPoolCredits"), k.cdc.MustMarshalBinaryBare(newAmount))
 }
 
-
 // adds or subtracts credits from the public pool
 func (k Keeper) AddPublicPoolCredits(ctx sdk.Context, delta sdk.Coin) {
 	store := ctx.KVStore(k.InternalStoreKey)
@@ -186,8 +185,8 @@ func (k Keeper) InitUser(ctx sdk.Context, address sdk.AccAddress, alias string) 
 	}
 	newUser := types.NewUser()
 	newUser.Alias = alias
-	k.CoinKeeper.AddCoins(ctx, address, sdk.Coins{sdk.NewInt64Coin("credits", 100000)})
-	const votingRightsExpirationTime = 14000
+	k.CoinKeeper.AddCoins(ctx, address, sdk.Coins{sdk.NewInt64Coin("credits", 10000)})
+	const votingRightsExpirationTime = 86000
 	newUser.VoteRights = k.GetVoteRightToAllCards(ctx, ctx.BlockHeight()+votingRightsExpirationTime)		// TODO this might be a good thing to remove later, so that sybil voting is not possible
 
 	store.Set(address, k.cdc.MustMarshalBinaryBare(newUser))
