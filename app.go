@@ -272,9 +272,10 @@ func NewDefaultGenesisState() GenesisState {
 }
 
 // epochBlockTime defines how many blocks are one buffnerf epoch
-const epochBlockTime = 86000
+//const epochBlockTime = 86000
+const epochBlockTime = 8
 // votingRightsExpirationTime defines after how many blocks a voting right expires by default
-const votingRightsExpirationTime = 86000
+const votingRightsExpirationTime = epochBlockTime	// we use the same as epoch time
 
 func (app *cardServiceApp) InitChainer(ctx sdk.Context, req abci.RequestInitChain) abci.ResponseInitChain {
 	var genesisState GenesisState

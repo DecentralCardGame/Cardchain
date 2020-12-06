@@ -378,12 +378,32 @@ func (k Keeper) NerfBuffCards(ctx sdk.Context, cardIds []uint64, buff bool) {
 }
 
 func (k Keeper) RemoveCards(ctx sdk.Context, cardIds []uint64) {
-	store := ctx.KVStore(k.CardsStoreKey)
+	cardsStore := ctx.KVStore(k.CardsStoreKey)
+	usersStore := ctx.KVStore(k.UsersStoreKey)
 
-	for _, val := range cardIds {
-		var emptyCard types.Card
+	// go through all cardIds that should be removed
+	for _, id := range cardIds {
+		var removeCard types.Card
+		bz := cardsStore.Get(sdk.Uint64ToBigEndian(id))
+		k.cdc.MustUnmarshalBinaryBare(bz, &removeCard)
+		address := removeCard.Owner
 
-		store.Set(sdk.Uint64ToBigEndian(val), k.cdc.MustMarshalBinaryBare(emptyCard))
+		// remove the card from the Cards store
+		cardsStore.Set(sdk.Uint64ToBigEndian(id), k.cdc.MustMarshalBinaryBare(emptyCard))
+
+		// remove the card from the ownedCards of the owner
+		bz := usersStore.Get(address)
+		var gottenUser types.User
+		k.cdc.MustUnmarshalBinaryBare(bz, &gottenUser)
+
+		idPosition := indexOfId(cardId, gottenUser.OwnedCardSchemes)
+		if idPosition >= 0 {
+				gottenUser.OwnedCards = append(gottenUser.OwnedCardSchemes[:idPosition], gottenUser.OwnedCardSchemes[idPosition+1:]...)
+				usersStore.Set(address, k.cdc.MustMarshalBinaryBare(gottenUser))
+		}
+		else {
+			fmt.Println("trying to delete card id:",id," of owner",address);
+		}
 	}
 }
 
