@@ -52,6 +52,7 @@ func InitGenesis(ctx sdk.Context, keeper Keeper, data GenesisState) {
 		lastId := keeper.GetLastCardSchemeId(ctx)
 		currId := lastId + 1
 
+		fmt.Println("currId: ", currId)
 		keeper.SetLastCardSchemeId(ctx, currId)
 		keeper.SetCard(ctx, currId, record)
 		keeper.AddOwnedCardScheme(ctx, currId, record.Owner)
@@ -59,6 +60,8 @@ func InitGenesis(ctx sdk.Context, keeper Keeper, data GenesisState) {
 }
 
 func ExportGenesis(ctx sdk.Context, k Keeper) GenesisState {
+	fmt.Println(k.GetLastCardSchemeId(ctx))
+
 	records := k.GetAllCards(ctx)
 	users, addresses := k.GetAllUsers(ctx)
 	return GenesisState{
