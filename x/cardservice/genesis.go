@@ -54,7 +54,9 @@ func InitGenesis(ctx sdk.Context, keeper Keeper, data GenesisState) {
 
 		keeper.SetLastCardSchemeId(ctx, currId)
 		keeper.SetCard(ctx, currId, record)
-		keeper.AddOwnedCardScheme(ctx, currId, record.Owner)
+
+		if (record.status == "scheme")
+			keeper.AddOwnedCardScheme(ctx, currId, record.Owner)
 	}
 }
 
