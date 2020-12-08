@@ -1,7 +1,7 @@
 package keeper
 
 import (
-	//"fmt"
+	"fmt"
 	"sort"
 	"encoding/binary"
 
@@ -389,20 +389,20 @@ func (k Keeper) RemoveCards(ctx sdk.Context, cardIds []uint64) {
 		address := removeCard.Owner
 
 		// remove the card from the Cards store
+		var emptyCard types.Card
 		cardsStore.Set(sdk.Uint64ToBigEndian(id), k.cdc.MustMarshalBinaryBare(emptyCard))
 
 		// remove the card from the ownedCards of the owner
-		bz := usersStore.Get(address)
+		bz2 := usersStore.Get(address)
 		var gottenUser types.User
-		k.cdc.MustUnmarshalBinaryBare(bz, &gottenUser)
+		k.cdc.MustUnmarshalBinaryBare(bz2, &gottenUser)
 
-		idPosition := indexOfId(cardId, gottenUser.OwnedCardSchemes)
+		idPosition := indexOfId(id, gottenUser.OwnedCardSchemes)
 		if idPosition >= 0 {
 				gottenUser.OwnedCards = append(gottenUser.OwnedCardSchemes[:idPosition], gottenUser.OwnedCardSchemes[idPosition+1:]...)
 				usersStore.Set(address, k.cdc.MustMarshalBinaryBare(gottenUser))
-		}
-		else {
-			fmt.Println("trying to delete card id:",id," of owner",address);
+		} else {
+			fmt.Println("trying to delete card id:",id," of owner",address," but does not exist");
 		}
 	}
 }
