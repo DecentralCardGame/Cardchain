@@ -25,6 +25,7 @@ func getCardHandler(cliCtx context.CLIContext, storeName string) http.HandlerFun
 	}
 }
 
+// this was mainly built to get cards on untap.in but this might have no use at all... TODO
 func getCardSVGHandler(cliCtx context.CLIContext, storeName string) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		vars := mux.Vars(r)
