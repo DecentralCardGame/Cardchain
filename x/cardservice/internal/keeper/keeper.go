@@ -54,6 +54,21 @@ func (k Keeper) GetCardAuctionPrice(ctx sdk.Context) sdk.Coin {
 	return price
 }
 
+// SetLastCardScheme - sets the current id of the last bought card scheme
+func (k Keeper) SetLastVotingResults(ctx sdk.Context, results votingResults) {
+	store := ctx.KVStore(k.InternalStoreKey)
+	store.Set([]byte("lastVotingResults"), k.cdc.MustMarshalBinaryBare(results))
+}
+
+// returns the current price of the card scheme auction
+func (k Keeper) GetLastVotingResults(ctx sdk.Context) votingResults {
+	store := ctx.KVStore(k.InternalStoreKey)
+	bz := store.Get([]byte("lastVotingResults"))
+	var results votingResults
+	k.cdc.MustUnmarshalBinaryBare(bz, &results)
+	return results
+}
+
 // sets the current price of the card scheme auction
 func (k Keeper) SetCardAuctionPrice(ctx sdk.Context, price sdk.Coin) {
 	store := ctx.KVStore(k.InternalStoreKey)
@@ -118,6 +133,12 @@ func (k Keeper) GetUser(ctx sdk.Context, address sdk.AccAddress) types.User {
 	return gottenUser
 }
 
+func (k Keeper) SetUser(ctx sdk.Context, address sdk.AccAddress, userData types.User) {
+	store := ctx.KVStore(k.UsersStoreKey)
+	store.Set(address, k.cdc.MustMarshalBinaryBare(userData))
+}
+
+
 func (k Keeper) AddVoteRightsToAllUsers(ctx sdk.Context, expireBlock int64) {
 	votingRights := k.GetVoteRightToAllCards(ctx, expireBlock)
 
@@ -163,11 +184,6 @@ func (k Keeper) RemoveVoteRight(ctx sdk.Context, userAddress sdk.AccAddress, rig
 	user.VoteRights = user.VoteRights[:len(user.VoteRights)-1]
 	userStore := ctx.KVStore(k.UsersStoreKey)
 	userStore.Set(userAddress, k.cdc.MustMarshalBinaryBare(user))
-}
-
-func (k Keeper) SetUser(ctx sdk.Context, address sdk.AccAddress, userData types.User) {
-	store := ctx.KVStore(k.UsersStoreKey)
-	store.Set(address, k.cdc.MustMarshalBinaryBare(userData))
 }
 
 func (k Keeper) SetUserName(ctx sdk.Context, address sdk.AccAddress, name string) {
