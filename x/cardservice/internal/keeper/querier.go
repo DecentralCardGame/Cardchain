@@ -25,6 +25,7 @@ const (
 	QueryCardSVG       = "cardsvg"
 	QueryVotableCards  = "votable-cards"
 	QueryCardchainInfo = "cardchain-info"
+	QueryVotingResults = "cardchain-votingresults"
 )
 
 // NewQuerier is the module level router for state queries
@@ -43,6 +44,8 @@ func NewQuerier(keeper Keeper) sdk.Querier {
 			return queryVotableCards(ctx, path[1:], req, keeper)
 		case QueryCardchainInfo:
 			return queryCardchainInfo(ctx, req, keeper)
+		case QueryVotingResults:
+			return queryVotingResults(ctx, req, keeper)
 		default:
 			return nil, sdkerrors.Wrap(sdkerrors.ErrUnknownRequest, "unknown cardservice query endpoint")
 		}
@@ -230,6 +233,17 @@ func queryVotableCards(ctx sdk.Context, path []string, req abci.RequestQuery, ke
 
 func queryCardchainInfo(ctx sdk.Context, req abci.RequestQuery, keeper Keeper) ([]byte, error) {
 	info := keeper.GetCardAuctionPrice(ctx)
+
+	res, err := codec.MarshalJSONIndent(keeper.cdc, info)
+	if err != nil {
+		return nil, sdkerrors.Wrap(sdkerrors.ErrJSONMarshal, err.Error())
+	}
+
+	return res, nil
+}
+
+func queryVotingResults(ctx sdk.Context, req abci.RequestQuery, keeper Keeper) ([]byte, error) {
+	info := keeper.GetLastVotingResults(ctx)
 
 	res, err := codec.MarshalJSONIndent(keeper.cdc, info)
 	if err != nil {

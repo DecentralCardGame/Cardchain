@@ -63,3 +63,21 @@ func NewVoteRight(cardId uint64, expireBlock int64) VoteRight {
 		ExpireBlock: expireBlock,
 	}
 }
+
+type VotingResult struct {
+	CardId      				uint64
+	FairEnoughVotes   	uint64
+	OverpoweredVotes  	uint64
+	UnderpoweredVotes 	uint64
+	InappropriateVotes	uint64
+	Result							string
+}
+
+type VotingResults struct {
+	TotalVotes							uint64
+	TotalFairEnoughVotes		uint64
+	TotalOverpoweredVotes		uint64
+	TotalUnderpoweredVotes	uint64
+	TotalInappropriateVotes	uint64
+	CardResults	 						[]VotingResult
+}

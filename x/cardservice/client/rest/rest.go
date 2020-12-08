@@ -25,5 +25,6 @@ func RegisterRoutes(cliCtx context.CLIContext, r *mux.Router, storeName string) 
 	r.HandleFunc(fmt.Sprintf("/%s/user/{%s}", storeName, restName), getUserHandler(cliCtx, storeName)).Methods("GET")
 	r.HandleFunc(fmt.Sprintf("/%s/votable_cards/{%s}", storeName, restName), getVotableCardsHandler(cliCtx, storeName)).Methods("GET")
 	r.HandleFunc(fmt.Sprintf("/%s/cardchain_info", storeName), getCardchainInfoHandler(cliCtx, storeName)).Methods("GET")
+	r.HandleFunc(fmt.Sprintf("/%s/cardchain_votingresults", storeName), getVotingResultsHandler(cliCtx, storeName)).Methods("GET")
 	r.HandleFunc(fmt.Sprintf("/%s/cardSVG/{%s}", storeName, restName), getCardSVGHandler(cliCtx, storeName)).Methods("GET")
 }
