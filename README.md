@@ -26,8 +26,8 @@ The last command is only necessary if you want to run the curl scripts.
 
 The blockchain can also be started in a Docker:
 
-docker-compose build
-docker-compose up
+docker-compose build  
+docker-compose up  
 
 Have fun and join us at https://discord.gg/yPA3aKe if you like to dev with us :)
 
