@@ -9,6 +9,10 @@ github.com/DecentralCardGame/cardobject v0.1.18 h1:4Pfa8JD1j7crL8UnW2o+r0MB7rmZx
 github.com/DecentralCardGame/cardobject v0.1.18/go.mod h1:vStjDNHCzd30WszBdrmiR6RVVOyayrapPxwu2jCSgEk=
 github.com/DecentralCardGame/cardobject v0.1.19 h1:mrw34y/Ob5mHDE1KFOuulajZKi96+CUxnXnNlu2HN50=
 github.com/DecentralCardGame/cardobject v0.1.19/go.mod h1:vStjDNHCzd30WszBdrmiR6RVVOyayrapPxwu2jCSgEk=
+github.com/DecentralCardGame/cardobject v0.1.20 h1:Y+YxC+yzfjw5M5/XTpcQbSaW1mqfl07vD82BQgudMLk=
+github.com/DecentralCardGame/cardobject v0.1.20/go.mod h1:vStjDNHCzd30WszBdrmiR6RVVOyayrapPxwu2jCSgEk=
+github.com/DecentralCardGame/cardobject v0.1.21 h1:qYHkHpGVMXwN7XQfMimgN/9kGSKPiSYx/DWCaq5VZQQ=
+github.com/DecentralCardGame/cardobject v0.1.21/go.mod h1:vStjDNHCzd30WszBdrmiR6RVVOyayrapPxwu2jCSgEk=
 github.com/OneOfOne/xxhash v1.2.2/go.mod h1:HSdplMjZKSmBqAxg5vPj2TmRDmfkzw+cTzAElWljhcU=
 github.com/VividCortex/gohistogram v1.0.0 h1:6+hBz+qvs0JOrrNhhmR7lFxo5sINxBCGXrdtl/UvroE=
 github.com/VividCortex/gohistogram v1.0.0/go.mod h1:Pf5mBqqDxYaXu3hDrrU+w6nw50o/4+TcAqDqk/vUH7g=

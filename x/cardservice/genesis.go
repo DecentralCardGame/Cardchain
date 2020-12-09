@@ -48,11 +48,10 @@ func InitGenesis(ctx sdk.Context, keeper Keeper, data GenesisState) {
 		keeper.SetUser(ctx, data.SdkAddresses[id], data.Users[id])
 	}
 	for id, record := range data.CardRecords {
-		fmt.Println(id)
+		fmt.Println("read card id", id)
 		lastId := keeper.GetLastCardSchemeId(ctx)
 		currId := lastId + 1
 
-		fmt.Println("currId: ", currId)
 		keeper.SetLastCardSchemeId(ctx, currId)
 		keeper.SetCard(ctx, currId, record)
 

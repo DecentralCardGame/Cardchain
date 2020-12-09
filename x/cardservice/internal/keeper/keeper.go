@@ -55,16 +55,16 @@ func (k Keeper) GetCardAuctionPrice(ctx sdk.Context) sdk.Coin {
 }
 
 // SetLastCardScheme - sets the current id of the last bought card scheme
-func (k Keeper) SetLastVotingResults(ctx sdk.Context, results votingResults) {
+func (k Keeper) SetLastVotingResults(ctx sdk.Context, results types.VotingResults) {
 	store := ctx.KVStore(k.InternalStoreKey)
 	store.Set([]byte("lastVotingResults"), k.cdc.MustMarshalBinaryBare(results))
 }
 
 // returns the current price of the card scheme auction
-func (k Keeper) GetLastVotingResults(ctx sdk.Context) votingResults {
+func (k Keeper) GetLastVotingResults(ctx sdk.Context) types.VotingResults {
 	store := ctx.KVStore(k.InternalStoreKey)
 	bz := store.Get([]byte("lastVotingResults"))
-	var results votingResults
+	var results types.VotingResults
 	k.cdc.MustUnmarshalBinaryBare(bz, &results)
 	return results
 }
@@ -285,13 +285,23 @@ func (k Keeper) GetOPandUPCards(ctx sdk.Context) ([]uint64, []uint64, []uint64, 
 	var fairbois []uint64
 	var banbois []uint64
 
+	//var votingResults VotingResults
+	votingResults := types.VotingResults{
+		TotalVotes: 0,
+		TotalFairEnoughVotes: 0,
+		TotalOverpoweredVotes: 0,
+		TotalUnderpoweredVotes: 0,
+		TotalInappropriateVotes: 0,
+		CardResults: []types.VotingResult{},
+	}
+
 	var µUP float64 = 0
 	var µOP float64 = 0
 
 	iterator := k.GetCardsIterator(ctx)
 
+	// go through all cards and collect candidates
 	for ; iterator.Valid(); iterator.Next() {
-
 		var gottenCard types.Card
 		k.cdc.MustUnmarshalBinaryBare(iterator.Value(), &gottenCard)
 
@@ -300,22 +310,42 @@ func (k Keeper) GetOPandUPCards(ctx sdk.Context) ([]uint64, []uint64, []uint64, 
 		nettoUP := int64(gottenCard.UnderpoweredVotes - gottenCard.FairEnoughVotes - gottenCard.OverpoweredVotes)
 		nettoIA := int64(gottenCard.InappropriateVotes - gottenCard.FairEnoughVotes - gottenCard.OverpoweredVotes - gottenCard.UnderpoweredVotes)
 
+		votingResults.TotalFairEnoughVotes += gottenCard.FairEnoughVotes
+		votingResults.TotalOverpoweredVotes += gottenCard.OverpoweredVotes
+		votingResults.TotalUnderpoweredVotes += gottenCard.UnderpoweredVotes
+		votingResults.TotalInappropriateVotes += gottenCard.InappropriateVotes
+		votingResults.TotalVotes += gottenCard.FairEnoughVotes + gottenCard.OverpoweredVotes + gottenCard.UnderpoweredVotes + gottenCard.InappropriateVotes
+
 		//fmt.Println("id:",id," - op:",nettoOP," / up:", nettoUP);
 		//fmt.Println(gottenCard)
 
-		if nettoIA > 0 {
-			IAcandidates = append(IAcandidates, candidate{id: id, votes: nettoIA})
-		} else if nettoOP > 0 {
-			µOP += float64(nettoOP)
-			OPcandidates = append(OPcandidates, candidate{id: id, votes: nettoOP})
-		} else if nettoUP > 0 {
-			µUP += float64(nettoUP)
-			UPcandidates = append(UPcandidates, candidate{id: id, votes: nettoUP})
+		// all candidates are added to the results log
+		if (nettoIA > 0 || nettoOP > 0 || nettoUP > 0) {
+			votingResults.CardResults = append(votingResults.CardResults, types.VotingResult{
+				CardId: 						id,
+				FairEnoughVotes:		gottenCard.FairEnoughVotes,
+				OverpoweredVotes:		gottenCard.OverpoweredVotes,
+				UnderpoweredVotes:	gottenCard.UnderpoweredVotes,
+				InappropriateVotes:	gottenCard.InappropriateVotes,
+				Result:							"fair enough",
+			})
+
+			// sort candidates into the specific arrays
+			if nettoIA > 0 {
+				IAcandidates = append(IAcandidates, candidate{id: id, votes: nettoIA})
+			} else if nettoOP > 0 {
+				µOP += float64(nettoOP)
+				OPcandidates = append(OPcandidates, candidate{id: id, votes: nettoOP})
+			} else if nettoUP > 0 {
+				µUP += float64(nettoUP)
+				UPcandidates = append(UPcandidates, candidate{id: id, votes: nettoUP})
+			}
 		}
 	}
 
-	// µ is actually the average, so it must be divided by n
+	// go through all OP candidates and calculate the cutoff value and collect all above this value
 	if(len(OPcandidates) > 0) {
+			// µ is the average, so it must be divided by n, but we can do this only after all cards are counted
 			µOP /= float64(len(OPcandidates))
 
 			sort.Slice(OPcandidates, func(i, j int) bool {
@@ -339,8 +369,8 @@ func (k Keeper) GetOPandUPCards(ctx sdk.Context) ([]uint64, []uint64, []uint64, 
 					fairbois = append(fairbois, OPcandidates[i].id)
 				}
 			}
-
 	}
+	// go through all UP candidates and calculate the cutoff value and collect all above this value
 	if(len(UPcandidates) > 0) {
 			µUP /= float64(len(UPcandidates))
 
@@ -366,11 +396,34 @@ func (k Keeper) GetOPandUPCards(ctx sdk.Context) ([]uint64, []uint64, []uint64, 
 				}
 			}
 	}
+	// go through all IA candidates and collect them (there is no cutoff here)
 	if(len(IAcandidates) > 0) {
 		for i := 0; i < len(IAcandidates); i++ {
 			banbois = append(banbois, IAcandidates[i].id)
 		}
 	}
+
+	// add the result to the voting log
+	for i := 1; i < len(votingResults.CardResults); i++ {
+		for j := 1; j < len(buffbois); j++ {
+			if (votingResults.CardResults[i].CardId == buffbois[j] ) {
+				votingResults.CardResults[i].Result = "buff"
+			}
+		}
+		for j := 1; j < len(nerfbois); j++ {
+			if (votingResults.CardResults[i].CardId == nerfbois[j] ) {
+				votingResults.CardResults[i].Result = "nerf"
+			}
+		}
+		for j := 1; j < len(banbois); j++ {
+			if (votingResults.CardResults[i].CardId == banbois[j] ) {
+				votingResults.CardResults[i].Result = "ban"
+			}
+		}
+	}
+
+	// and save the log
+	k.SetLastVotingResults(ctx, votingResults)
 
 	return buffbois, nerfbois, fairbois, banbois
 }
