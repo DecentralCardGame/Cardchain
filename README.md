@@ -30,3 +30,16 @@ docker-compose build
 docker-compose up
 
 Have fun and join us at https://discord.gg/yPA3aKe if you like to dev with us :)
+
+## Upgrading with data
+
+sh docker-stop-and-export.sh
+mv blockchain-data/genesis.json scripts/genesis.old.json
+git pull
+docker-compose build
+docker-compose up -d
+sh docker-stop-and-export.sh
+mv blockchain-data/genesis.json scripts/genesis.new.json
+node scripts/upgradeGenesis.js
+cp genesis.merged.json blockchain-data/genesis.json
+docker-compose up -d
