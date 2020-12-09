@@ -24,6 +24,10 @@ build
 # data
 /blockchain-data/
 
+# scripts
+/scripts/node_modules/
+/scripts/genesis.*
+
 # misc
 signedTx.json
 unsignedTx.json
