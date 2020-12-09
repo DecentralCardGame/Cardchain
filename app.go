@@ -272,8 +272,9 @@ func NewDefaultGenesisState() GenesisState {
 }
 
 // epochBlockTime defines how many blocks are one buffnerf epoch
-//const epochBlockTime = 86000
-const epochBlockTime = 8
+const epochBlockTime = 86000	// this is 1 week with 7s block time
+//const epochBlockTime = 5		// this is great for debugging
+
 // votingRightsExpirationTime defines after how many blocks a voting right expires by default
 const votingRightsExpirationTime = epochBlockTime	// we use the same as epoch time
 

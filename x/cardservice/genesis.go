@@ -7,16 +7,18 @@ import (
 )
 
 type GenesisState struct {
-	CardRecords []Card `json:"card_records"`
-	Users []User `json:"users"`
-	SdkAddresses []sdk.AccAddress `json:"addresses"`
+	CardRecords 				[]Card 						`json:"card_records"`
+	Users 							[]User 						`json:"users"`
+	SdkAddresses 				[]sdk.AccAddress	`json:"addresses"`
+	LastCardSchemeId 		uint64						`json:"last_card_scheme_id"`
 }
 
-func NewGenesisState(cardRecords []Card, users []User, addresses []sdk.AccAddress) GenesisState {
+func NewGenesisState(cardRecords []Card, users []User, addresses []sdk.AccAddress, lastCardSchemeId uint64) GenesisState {
 	return GenesisState{
 		CardRecords: cardRecords,
 		Users: users,
 		SdkAddresses: addresses,
+		LastCardSchemeId: lastCardSchemeId,
 	}
 }
 
@@ -37,9 +39,10 @@ func ValidateGenesis(data GenesisState) error {
 
 func DefaultGenesisState() GenesisState {
 	return GenesisState{
-		CardRecords: []Card{},
-		Users: []User{},
-		SdkAddresses: []sdk.AccAddress{},
+		CardRecords: 					[]Card{},
+		Users: 								[]User{},
+		SdkAddresses: 				[]sdk.AccAddress{},
+		LastCardSchemeId: 		0,
 	}
 }
 
@@ -47,8 +50,9 @@ func InitGenesis(ctx sdk.Context, keeper Keeper, data GenesisState) {
 	for id := range data.Users {
 		keeper.SetUser(ctx, data.SdkAddresses[id], data.Users[id])
 	}
+	fmt.Println("reading cards with id:")
 	for id, record := range data.CardRecords {
-		fmt.Println("read card id", id)
+		fmt.Println(id)
 		lastId := keeper.GetLastCardSchemeId(ctx)
 		currId := lastId + 1
 
@@ -63,13 +67,12 @@ func InitGenesis(ctx sdk.Context, keeper Keeper, data GenesisState) {
 }
 
 func ExportGenesis(ctx sdk.Context, k Keeper) GenesisState {
-	fmt.Println(k.GetLastCardSchemeId(ctx))
-
 	records := k.GetAllCards(ctx)
 	users, addresses := k.GetAllUsers(ctx)
 	return GenesisState{
-		CardRecords: records,
-		Users: users,
-		SdkAddresses: addresses,
+		CardRecords: 			records,
+		Users: 						users,
+		SdkAddresses: 		addresses,
+		LastCardSchemeId:	k.GetLastCardSchemeId(ctx),
 	}
 }

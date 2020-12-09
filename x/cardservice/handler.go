@@ -220,20 +220,20 @@ func sellCardInstances(ctx sdk.Context, keeper Keeper, msg MsgSellCardInstances)
 // apply nerf levels and remove inappropriate cards
 func UpdateNerfLevels(ctx sdk.Context, keeper Keeper) sdk.Result {
 
-	buffbois, nerfbois, fairbois, banbois := keeper.GetOPandUPCards(ctx)
-
-	// TODO instead of print write a log file
+	buffbois, nerfbois, _, banbois := keeper.GetOPandUPCards(ctx)
+	/*
 	fmt.Println("buff:")
 	fmt.Println(buffbois)
-	keeper.NerfBuffCards(ctx, buffbois, true)
 	fmt.Println("nerf:")
 	fmt.Println(nerfbois)
-	keeper.NerfBuffCards(ctx, nerfbois, false)
 	fmt.Println("fair:")
 	fmt.Println(fairbois)
-	keeper.RemoveCards(ctx, banbois)
 	fmt.Println("ban:")
 	fmt.Println(banbois)
+	*/
+	keeper.NerfBuffCards(ctx, buffbois, true)
+	keeper.NerfBuffCards(ctx, nerfbois, false)
+	keeper.RemoveCards(ctx, banbois)
 
 	keeper.ResetAllVotes(ctx)
 

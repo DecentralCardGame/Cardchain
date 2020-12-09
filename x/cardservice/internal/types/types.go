@@ -80,4 +80,17 @@ type VotingResults struct {
 	TotalUnderpoweredVotes	uint64
 	TotalInappropriateVotes	uint64
 	CardResults	 						[]VotingResult
+	Notes										string
+}
+
+func NewVotingResults() VotingResults {
+	return VotingResults{
+		TotalVotes:							0,
+		TotalFairEnoughVotes:		0,
+		TotalOverpoweredVotes:	0,
+		TotalUnderpoweredVotes:	0,
+		TotalInappropriateVotes:0,
+		CardResults: []VotingResult{},
+		Notes: "none",
+	}
 }

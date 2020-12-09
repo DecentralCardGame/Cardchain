@@ -69,9 +69,6 @@ func getCardsHandler(cliCtx context.CLIContext, storeName string) http.HandlerFu
 			nameContains = query["nameContains"][0]
 		}
 
-		fmt.Println(status, owner, nameContains)
-
-
 		res, _, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/cards/%s/%s/%s", storeName, owner, status, nameContains), nil)
 		if err != nil {
 			rest.WriteErrorResponse(w, http.StatusNotFound, err.Error())
@@ -84,11 +81,8 @@ func getCardsHandler(cliCtx context.CLIContext, storeName string) http.HandlerFu
 
 func getVotableCardsHandler(cliCtx context.CLIContext, storeName string) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-
-		fmt.Println(storeName)
 		vars := mux.Vars(r)
 		name := vars[restName]
-		fmt.Println(name)
 
 		res, _, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/votable-cards/%s", storeName, name), nil)
 		if err != nil {

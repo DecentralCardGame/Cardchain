@@ -286,14 +286,7 @@ func (k Keeper) GetOPandUPCards(ctx sdk.Context) ([]uint64, []uint64, []uint64, 
 	var banbois []uint64
 
 	//var votingResults VotingResults
-	votingResults := types.VotingResults{
-		TotalVotes: 0,
-		TotalFairEnoughVotes: 0,
-		TotalOverpoweredVotes: 0,
-		TotalUnderpoweredVotes: 0,
-		TotalInappropriateVotes: 0,
-		CardResults: []types.VotingResult{},
-	}
+	votingResults := types.NewVotingResults()
 
 	var µUP float64 = 0
 	var µOP float64 = 0

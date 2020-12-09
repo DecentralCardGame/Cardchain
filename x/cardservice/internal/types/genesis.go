@@ -6,16 +6,18 @@ import (
 )
 
 type GenesisState struct {
-	CardRecords []Card `json:"card_records"`
-	Users []User `json:"users"`
-	SdkAddresses []sdk.AccAddress `json:"addresses"`
+	CardRecords 				[]Card 						`json:"card_records"`
+	Users 							[]User 						`json:"users"`
+	SdkAddresses 				[]sdk.AccAddress	`json:"addresses"`
+	LastCardSchemeId 		uint64						`json:"last_card_scheme_id"`
 }
 
-func NewGenesisState(cardRecords []Card, users []User, addresses []sdk.AccAddress) GenesisState {
+func NewGenesisState(cardRecords []Card, users []User, addresses []sdk.AccAddress, lastCardSchemeId uint64) GenesisState {
 	return GenesisState{
 		CardRecords: cardRecords,
 		Users: users,
 		SdkAddresses: addresses,
+		LastCardSchemeId: lastCardSchemeId,
 	}
 }
 
@@ -36,8 +38,9 @@ func ValidateGenesis(data GenesisState) error {
 
 func DefaultGenesisState() GenesisState {
 	return GenesisState{
-		CardRecords: []Card{},
-		Users: []User{},
-		SdkAddresses: []sdk.AccAddress{},
+		CardRecords: 					[]Card{},
+		Users: 								[]User{},
+		SdkAddresses: 				[]sdk.AccAddress{},
+		LastCardSchemeId: 		0,
 	}
 }
