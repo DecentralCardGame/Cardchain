@@ -10,7 +10,8 @@ donate to a card - donate credits on a card to incentivize voting
 
 All features are shown as examples in /scripts, REST and CLI examples are given. The same applies for query commands.
 
-A testnet is live and our [website](https://www.crowdcontrol.network) connects to it.
+A testnet is live and our [website](https://www.crowdcontrol.network) connects to it.  
+If you want to join the testnet or get in contact (dev with us): Join us at https://discord.gg/yPA3aKe 
 
 ## Building and running
 
@@ -28,8 +29,6 @@ The blockchain can also be started in a Docker:
 
 docker-compose build  
 docker-compose up  
-
-Have fun and join us at https://discord.gg/yPA3aKe if you like to dev with us :)
 
 ## Upgrading with data
 
