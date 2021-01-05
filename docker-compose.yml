@@ -50,6 +50,7 @@ services:
   hottub:
     image: crowdcontrol/hottub:cd5e207eae08df0acc2d48187b66ce2ab9272e24
     restart: always
+    container_name: hottub
     environment:
       ENVIRONMENT: production
       PG_PORT: 5432
