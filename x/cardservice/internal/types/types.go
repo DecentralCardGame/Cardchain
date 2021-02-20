@@ -52,6 +52,35 @@ func NewCard(owner sdk.AccAddress) Card {
 	}
 }
 
+type CardNoB64 struct {
+	Owner              sdk.AccAddress
+	Content            string
+	Image							 string
+	Notes							 string
+	Status             string
+	VotePool           sdk.Coin
+	FairEnoughVotes    uint64
+	OverpoweredVotes   uint64
+	UnderpoweredVotes  uint64
+	InappropriateVotes uint64
+	Nerflevel          int64
+}
+
+func CardNoB64FromCard(card Card) CardNoB64 {
+	return CardNoB64{
+		Owner:              card.Owner,
+		Content:            string(card.Content),
+		Image:							string(card.Image),
+		Status:             card.Status,
+		VotePool:           card.VotePool,
+		FairEnoughVotes:    card.FairEnoughVotes,
+		OverpoweredVotes:   card.OverpoweredVotes,
+		UnderpoweredVotes:  card.UnderpoweredVotes,
+		InappropriateVotes: card.InappropriateVotes,
+		Nerflevel:          card.Nerflevel,
+	}
+}
+
 type VoteRight struct {
 	CardId      uint64
 	ExpireBlock int64

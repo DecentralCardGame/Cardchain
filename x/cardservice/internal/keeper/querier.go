@@ -60,7 +60,7 @@ func queryCard(ctx sdk.Context, path []string, req abci.RequestQuery, keeper Kee
 		return nil, sdkerrors.Wrap(sdkerrors.ErrUnknownRequest, "could not parse cardId")
 	}
 
-	card := keeper.GetCard(ctx, cardId)
+	card := types.CardNoB64FromCard(keeper.GetCard(ctx, cardId))
 
 	if &card == nil {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrUnknownRequest, "cardId does not represent a card")
