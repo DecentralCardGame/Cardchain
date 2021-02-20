@@ -23,9 +23,12 @@ services:
     container_name: herd
     depends_on:
       - goat
+      - hottub
     volumes:
       - /etc/letsencrypt/live/cardchain.crowdcontrol.network/fullchain.pem:/etc/letsencrypt/live/cardchain.crowdcontrol.network/fullchain.pem
       - /etc/letsencrypt/live/cardchain.crowdcontrol.network/privkey.pem:/etc/letsencrypt/live/cardchain.crowdcontrol.network/privkey.pem
+      - /etc/letsencrypt/live/hottub.crowdcontrol.network/fullchain.pem:/etc/letsencrypt/live/hottub.crowdcontrol.network/fullchain.pem
+      - /etc/letsencrypt/live/hottub.crowdcontrol.network/privkey.pem:/etc/letsencrypt/live/hottub.crowdcontrol.network/privkey.pem
       - ./config/nginx.conf:/etc/nginx/conf.d/default.conf
       - /etc/nginx/ssl/dhparam-4096.pem:/etc/nginx/ssl/dhparam-4096.pem
     ports:
@@ -33,3 +36,30 @@ services:
       - 81:81
       - 443:443
     command: /bin/bash -c "exec nginx -g 'daemon off;'"
+
+  database:
+    image: postgres:13.1-alpine
+    restart: always
+    volumes:
+      - database-data:/var/lib/postgresql/data/
+    environment:
+      POSTGRES_DB: crowdcontrol
+      POSTGRES_PASSWORD: olDOKfRiGfs78wRV
+      POSTGRES_USER: crowdcontrol
+
+  hottub:
+    image: crowdcontrol/hottub:cd5e207eae08df0acc2d48187b66ce2ab9272e24
+    restart: always
+    container_name: hottub
+    environment:
+      ENVIRONMENT: production
+      PG_PORT: 5432
+      PG_ADDRESS: database
+      PG_DB: crowdcontrol
+      PG_PASSWORD: olDOKfRiGfs78wRV
+      PG_USER: crowdcontrol
+    ports:
+      - 1323:1323
+
+volumes:
+  database-data: # named volumes can be managed easier using docker-compose

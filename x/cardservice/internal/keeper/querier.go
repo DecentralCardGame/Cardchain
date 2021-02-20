@@ -4,6 +4,7 @@ import (
 	"encoding/binary"
 	//"encoding/json"
 	"fmt"
+	"sort"
 	"strconv"
 	"strings"
 
@@ -37,7 +38,7 @@ func NewQuerier(keeper Keeper) sdk.Querier {
 		case QueryUser:
 			return queryUser(ctx, path[1:], req, keeper)
 		case QueryCards:
-			return queryCards(ctx, path[1], path[2], path[3], req, keeper)
+			return queryCards(ctx, path[1], path[2], path[3], path[4], path[5], path[6], req, keeper)
 		case QueryCardSVG:
 			return queryCardSVG(ctx, path[1:], req, keeper)
 		case QueryVotableCards:
@@ -132,8 +133,14 @@ func queryUser(ctx sdk.Context, path []string, req abci.RequestQuery, keeper Kee
 	return res, nil
 }
 
-func queryCards(ctx sdk.Context, owner string, status string, nameContains string, req abci.RequestQuery, keeper Keeper) ([]byte, error) {
+func queryCards(ctx sdk.Context, owner string, status string, cardType string, sortBy string, nameContains string, notesContains string, req abci.RequestQuery, keeper Keeper) ([]byte, error) {
 	var cardsList []uint64
+
+	type Result struct {
+		Id uint64
+		Value string
+	}
+	var results []Result
 
 	iterator := keeper.GetCardsIterator(ctx)
 
@@ -158,36 +165,79 @@ func queryCards(ctx sdk.Context, owner string, status string, nameContains strin
 				continue
 			}
 		}
+		// then check if the notes should contain something and skip the card if it does not
+		if notesContains != "" {
+			if !strings.Contains(gottenCard.Notes, notesContains) {
+				continue
+			}
+		}
+
 		// lastly check if the name should contain a certain string and skip the card if it does not
-		if nameContains != "" {
+		if nameContains != "" || cardType != "" || sortBy != "" {
 			cardobj, err := cardobject.NewCardFromJson(string(gottenCard.Content))
 			if err != nil {
 				return nil, sdkerrors.Wrap(sdkerrors.ErrJSONMarshal, err.Error())
 			}
 
 			if cardobj.Action != nil {
+				if cardType != "Action" {
+					continue
+				}
 				if !strings.Contains(cardobj.Action.CardName, nameContains) {
 					continue
 				}
+				if sortBy == "Name" {
+
+					results = append(results, Result{binary.BigEndian.Uint64(iterator.Key()), cardobj.Action.CardName})
+				}
 			}
 			if cardobj.Entity != nil {
+				if cardType != "Entity" {
+					continue
+				}
 				if !strings.Contains(cardobj.Entity.CardName, nameContains) {
 					continue
 				}
+				if sortBy == "Name" {
+					results = append(results, Result{binary.BigEndian.Uint64(iterator.Key()), cardobj.Entity.CardName})
+				}
 			}
 			if cardobj.Headquarter != nil {
+				if cardType != "Headquarter" {
+					continue
+				}
 				if !strings.Contains(cardobj.Headquarter.CardName, nameContains) {
 					continue
 				}
+				if sortBy == "Name" {
+					results = append(results, Result{binary.BigEndian.Uint64(iterator.Key()), cardobj.Headquarter.CardName})
+				}
 			}
 			if cardobj.Place != nil {
+				if cardType != "Place" {
+					continue
+				}
 				if !strings.Contains(cardobj.Place.CardName, nameContains) {
 					continue
+				}
+				if sortBy == "Name" {
+					results = append(results, Result{binary.BigEndian.Uint64(iterator.Key()), cardobj.Place.CardName})
 				}
 			}
 		}
 		// finally if all checks were passed, add the card
-		cardsList = append(cardsList, binary.BigEndian.Uint64(iterator.Key()))
+		if sortBy == "" {
+			cardsList = append(cardsList, binary.BigEndian.Uint64(iterator.Key()))
+		}
+	}
+
+	if sortBy	!= "" {
+		sort.Slice(results[:], func(i, j int) bool {
+			return results[i].Value < results[j].Value
+		})
+		for _,val := range results {
+			cardsList = append(cardsList, val.Id)
+		}
 	}
 
 	res, err2 := codec.MarshalJSONIndent(keeper.cdc, cardsList)
