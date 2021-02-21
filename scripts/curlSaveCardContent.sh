@@ -10,8 +10,8 @@ curl -XPUT \
         "gas_adjustment": "1.5"
       },
       "owner":"'$(cscli keys show alice --address)'",
-      "content":"{\"Place\":{\"CardName\":\"M\u00FChle\",\"CastingCost\":2,\"CostType\":{\"Energy\":false,\"Food\":false,\"Lumber\":true,\"Iron\":false,\"Mana\":false},\"Abilities\":[],\"Health\":3,\"FlavourText\":\"lulul\",\"Tags\":[\"PRIMITIVE\"]}}",
+      "content":"{\"Entity\":{\"CardName\":\"A\u00FChle\",\"CastingCost\":1,\"CostType\":{\"Energy\":false,\"Food\":false,\"Lumber\":true,\"Iron\":false,\"Mana\":false},\"Abilities\":[],\"Health\":3,\"FlavourText\":\"lulul\",\"Tags\":[\"PRIMITIVE\"]}}",
       "notes": "no notes",
       "image": "no image",
-      "cardid":"1"
+      "cardid":"4"
     }' > unsignedTx.json

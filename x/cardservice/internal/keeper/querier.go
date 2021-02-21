@@ -59,7 +59,7 @@ func queryCard(ctx sdk.Context, path []string, req abci.RequestQuery, keeper Kee
 	if error != nil {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrUnknownRequest, "could not parse cardId")
 	}
-	
+
 	card := types.CardNoB64FromCard(keeper.GetCard(ctx, cardId))
 
 	if &card == nil {
@@ -133,7 +133,7 @@ func queryUser(ctx sdk.Context, path []string, req abci.RequestQuery, keeper Kee
 	return res, nil
 }
 
-func queryCards(ctx sdk.Context, owner string, status string, cardType string, sortBy string, nameContains string, notesContains string, req abci.RequestQuery, keeper Keeper) ([]byte, error) {
+func queryCards(ctx sdk.Context, owner string, status string, cardType string, classes string, sortBy string, nameContains string, notesContains string, req abci.RequestQuery, keeper Keeper) ([]byte, error) {
 	var cardsList []uint64
 
 	type Result struct {
@@ -178,21 +178,24 @@ func queryCards(ctx sdk.Context, owner string, status string, cardType string, s
 			if err != nil {
 				return nil, sdkerrors.Wrap(sdkerrors.ErrJSONMarshal, err.Error())
 			}
+			fmt.Println("sortby:", sortBy)
+
 
 			if cardobj.Action != nil {
-				if cardType != "Action" {
+				if cardType != "" && cardType != "Action" {
 					continue
 				}
 				if !strings.Contains(cardobj.Action.CardName, nameContains) {
 					continue
 				}
 				if sortBy == "Name" {
-
 					results = append(results, Result{binary.BigEndian.Uint64(iterator.Key()), cardobj.Action.CardName})
+				} else if sortBy == "CastingCost" {
+					results = append(results, Result{binary.BigEndian.Uint64(iterator.Key()), strconv.Itoa(cardobj.Action.CastingCost)})
 				}
 			}
 			if cardobj.Entity != nil {
-				if cardType != "Entity" {
+				if cardType != "" && cardType != "Entity" {
 					continue
 				}
 				if !strings.Contains(cardobj.Entity.CardName, nameContains) {
@@ -200,10 +203,15 @@ func queryCards(ctx sdk.Context, owner string, status string, cardType string, s
 				}
 				if sortBy == "Name" {
 					results = append(results, Result{binary.BigEndian.Uint64(iterator.Key()), cardobj.Entity.CardName})
+				} else if sortBy == "CastingCost" {
+					fmt.Println("castingcost:", cardobj.Entity.CastingCost)
+					fmt.Println(strconv.Itoa(cardobj.Entity.CastingCost))
+					results = append(results, Result{binary.BigEndian.Uint64(iterator.Key()), strconv.Itoa(cardobj.Entity.CastingCost)})
 				}
 			}
 			if cardobj.Headquarter != nil {
-				if cardType != "Headquarter" {
+				fmt.Println("cardobj:", cardobj.Headquarter)
+				if cardType != "" && cardType != "Headquarter" {
 					continue
 				}
 				if !strings.Contains(cardobj.Headquarter.CardName, nameContains) {
@@ -211,10 +219,12 @@ func queryCards(ctx sdk.Context, owner string, status string, cardType string, s
 				}
 				if sortBy == "Name" {
 					results = append(results, Result{binary.BigEndian.Uint64(iterator.Key()), cardobj.Headquarter.CardName})
+				} else if sortBy == "CastingCost" {
+					results = append(results, Result{binary.BigEndian.Uint64(iterator.Key()), "0"})
 				}
 			}
 			if cardobj.Place != nil {
-				if cardType != "Place" {
+				if cardType != "" && cardType != "Place" {
 					continue
 				}
 				if !strings.Contains(cardobj.Place.CardName, nameContains) {
@@ -222,23 +232,31 @@ func queryCards(ctx sdk.Context, owner string, status string, cardType string, s
 				}
 				if sortBy == "Name" {
 					results = append(results, Result{binary.BigEndian.Uint64(iterator.Key()), cardobj.Place.CardName})
+				} else if sortBy == "CastingCost" {
+					fmt.Println("castingcost:", cardobj.Place.CastingCost)
+					results = append(results, Result{binary.BigEndian.Uint64(iterator.Key()), strconv.Itoa(cardobj.Place.CastingCost)})
 				}
 			}
 		}
-		// finally if all checks were passed, add the card
+		// finally if all checks were passed and unsorted, add the card
 		if sortBy == "" {
 			cardsList = append(cardsList, binary.BigEndian.Uint64(iterator.Key()))
 		}
 	}
 
+	fmt.Println(results)
+
 	if sortBy	!= "" {
+		fmt.Println(results)
 		sort.Slice(results[:], func(i, j int) bool {
 			return results[i].Value < results[j].Value
 		})
+
 		for _,val := range results {
 			cardsList = append(cardsList, val.Id)
 		}
 	}
+	fmt.Println(cardsList)
 
 	res, err2 := codec.MarshalJSONIndent(keeper.cdc, cardsList)
 	if err2 != nil {

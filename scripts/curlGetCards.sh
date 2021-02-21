@@ -11,5 +11,14 @@ curl -X GET 'http://127.0.0.1:1317/cardservice/cardList?status=&owner='$(cscli k
 echo -e ${GREEN}prototype, owned by alice, nameContains Archer:${NC}
 curl -X GET 'http://127.0.0.1:1317/cardservice/cardList?status=prototype&owner='$(cscli keys show alice --address)'&nameContains=Archer' | jq .
 
-echo -e ${GREEN}nameContains fuxer:${NC}
-curl -X GET 'http://127.0.0.1:1317/cardservice/cardList?&nameContains=fuxer' | jq .
+echo -e ${GREEN}notesContains no:${NC}
+curl -X GET 'http://127.0.0.1:1317/cardservice/cardList?&notesContains=no' | jq .
+
+echo -e ${GREEN}cardType Headquarter:${NC}
+curl -X GET 'http://127.0.0.1:1317/cardservice/cardList?&cardType=Headquarter' | jq .
+
+echo -e ${GREEN}all cards sorted by name:${NC}
+curl -X GET 'http://127.0.0.1:1317/cardservice/cardList?&sortBy=Name' | jq .
+
+echo -e ${GREEN}all cards sorted by CastingCost:${NC}
+curl -X GET 'http://127.0.0.1:1317/cardservice/cardList?&sortBy=CastingCost' | jq .
