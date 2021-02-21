@@ -60,7 +60,6 @@ func handleMsgBuyCardScheme(ctx sdk.Context, keeper Keeper, msg MsgBuyCardScheme
 }
 
 func handleMsgSaveCardContent(ctx sdk.Context, keeper Keeper, msg MsgSaveCardContent) (*sdk.Result, error) {
-
 	card := keeper.GetCard(ctx, msg.CardId)
 
 	if !msg.Owner.Equals(card.Owner) { // Checks if the the msg sender is the same as the current owner
