@@ -53,7 +53,6 @@ type getCardsReq struct {
 
 func getCardsHandler(cliCtx context.CLIContext, storeName string) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-
 		query := r.URL.Query()
 
 		owner := ""
@@ -68,6 +67,10 @@ func getCardsHandler(cliCtx context.CLIContext, storeName string) http.HandlerFu
 		if len(query["cardType"]) > 0 {
 			cardType = query["cardType"][0]
 		}
+		classes := ""
+		if len(query["classes"]) > 0 {
+			classes = query["classes"][0]
+		}
 		sortBy := ""
 		if len(query["sortBy"]) > 0 {
 			sortBy = query["sortBy"][0]
@@ -81,7 +84,7 @@ func getCardsHandler(cliCtx context.CLIContext, storeName string) http.HandlerFu
 			notesContains = query["notesContains"][0]
 		}
 
-		res, _, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/cards/%s/%s/%s/%s/%s/%s", storeName, owner, status, cardType, sortBy, nameContains, notesContains), nil)
+		res, _, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/cards/%s/%s/%s/%s/%s/%s/%s", storeName, owner, status, cardType, classes, sortBy, nameContains, notesContains), nil)
 		if err != nil {
 			rest.WriteErrorResponse(w, http.StatusNotFound, err.Error())
 			return
