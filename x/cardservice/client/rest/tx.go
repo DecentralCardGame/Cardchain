@@ -12,7 +12,7 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/rest"
 	"github.com/cosmos/cosmos-sdk/x/auth/client/utils"
-	"github.com/DecentralCardGame/keywords"
+	"github.com/DecentralCardGame/cardobject"
 )
 
 type buyCardSchemeReq struct {
@@ -82,7 +82,7 @@ func saveCardContentHandler(cliCtx context.CLIContext) http.HandlerFunc {
 			return
 		}
 
-		cardobj, err := keywords.Unmarshal([]byte(req.Content))
+		cardobj, err := cardobject.UnmarshalKeyworded([]byte(req.Content))
 		if err != nil {
 			rest.WriteErrorResponse(w, http.StatusBadRequest, err.Error())
 			return

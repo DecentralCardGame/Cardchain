@@ -87,7 +87,7 @@ func queryCardSVG(ctx sdk.Context, path []string, req abci.RequestQuery, keeper 
 		return nil, sdkerrors.Wrap(sdkerrors.ErrUnknownRequest, "cardId does not represent a card")
 	}
 
-	cardobj, err := cardobject.NewCardFromJson(string(card.Content))
+	cardobj, err := cardobject.UnmarshalRaw(card.Content)
 	if err != nil {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrJSONMarshal, err.Error())
 	}
@@ -171,7 +171,7 @@ func queryCards(ctx sdk.Context, owner string, status string, cardType string, c
 		}
 		// lastly check if the name should contain a certain string and skip the card if it does not
 		if nameContains != "" || cardType != "" || sortBy != "" {
-			cardobj, err := cardobject.NewCardFromJson(string(gottenCard.Content))
+			cardobj, err := cardobject.UnmarshalRaw(gottenCard.Content)
 			if err != nil {
 				return nil, sdkerrors.Wrap(sdkerrors.ErrJSONMarshal, err.Error())
 			}

@@ -3,8 +3,8 @@ module github.com/DecentralCardGame/Cardchain
 go 1.13
 
 require (
-	github.com/DecentralCardGame/cardobject v0.2.7
-	github.com/DecentralCardGame/keywords v0.0.1
+	github.com/DecentralCardGame/cardobject v0.3.0
+	github.com/DecentralCardGame/keywords v0.0.2
 	github.com/cosmos/cosmos-sdk v0.38.0
 	github.com/fatih/structs v1.1.0
 	github.com/gopherjs/gopherjs v0.0.0-20191106031601-ce3c9ade29de // indirect
