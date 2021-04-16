@@ -33,45 +33,65 @@ genesisnew.app_state.cardservice.card_records = R.map(x => {
 
   let content = JSON.parse(atob(x.Content != null ? x.Content : btoa('{}')))
 
-  if (content.Action) {
-    console.log('Action')
-    costType = content.Action.CostType
-    if (!costType.Energy && !costType.Food && !costType.Lumber && !costType.Mana && !costType.Iron) {
-      console.log('fail!')
+  //console.log(content)
 
-      costType.Food = true
-      console.log(content)
+  if (content.Action) {
+    content.Action.Class = {
+      "Nature": content.Action.CostType.Lumber,
+      "Mysticism": content.Action.CostType.Mana,
+      "Technology": content.Action.CostType.Iron || content.Action.CostType.Energy,
+      "Culture": content.Action.CostType.Food
     }
+    content.Action.Keywords = []
+    content.Action.RulesText = ""
+
+    delete content.Action.CostType
+
+    console.log(content)
+
   }
   else if (content.Place) {
-    console.log('Place')
-    costType = content.Place.CostType
-    if (!costType.Energy && !costType.Food && !costType.Lumber && !costType.Mana && !costType.Iron) {
-      console.log('fail!')
 
-      costType.Food = true
-      console.log(content)
+    content.Place.Class = {
+      "Nature": content.Place.CostType.Lumber,
+      "Mysticism": content.Place.CostType.Mana,
+      "Technology": content.Place.CostType.Iron || content.Place.CostType.Energy,
+      "Culture": content.Place.CostType.Food
     }
+    content.Place.Keywords = []
+    content.Place.RulesText = ""
+
+    delete content.Place.CostType
+
+    console.log(content)
   }
   else if (content.Headquarter) {
-    console.log('Headquarter')
-    costType = content.Headquarter.CostType
-    if (!costType.Energy && !costType.Food && !costType.Lumber && !costType.Mana && !costType.Iron) {
-      console.log('fail!')
-
-      costType.Food = true
-      console.log(content)
+    content.Headquarter.Delay = 0
+    content.Headquarter.Class = {
+      "Nature": content.Headquarter.CostType.Lumber,
+      "Mysticism": content.Headquarter.CostType.Mana,
+      "Technology": content.Headquarter.CostType.Iron || content.Headquarter.CostType.Energy,
+      "Culture": content.Headquarter.CostType.Food
     }
+    content.Headquarter.Keywords = []
+    content.Headquarter.RulesText = ""
+
+    delete content.Headquarter.StartingHandSize
+    delete content.Headquarter.Growth
+    delete content.Headquarter.Wisdom
+    delete content.Headquarter.CostType
   }
   else if (content.Entity) {
-    console.log('Entity')
-    costType = content.Entity.CostType
-    if (!costType.Energy && !costType.Food && !costType.Lumber && !costType.Mana && !costType.Iron) {
-      console.log('fail!')
-
-      costType.Food = true
-      console.log(content)
+    content.Entity.Class = {
+      "Nature": content.Entity.CostType.Lumber,
+      "Mysticism": content.Entity.CostType.Mana,
+      "Technology": content.Entity.CostType.Iron || content.Entity.CostType.Energy,
+      "Culture": content.Entity.CostType.Food
     }
+    content.Entity.Keywords = []
+    content.Entity.RulesText = ""
+
+    delete content.Entity.CostType
   }
 
   x.Content = btoa(JSON.stringify(content))
@@ -79,13 +99,13 @@ genesisnew.app_state.cardservice.card_records = R.map(x => {
   //console.log(content)
 }, genesisnew.app_state.cardservice.card_records)
 
-
+/*
 console.log('users written in the file:', genesisnew.app_state.cardservice.users)
 //console.log('addresses:', genesisnew.app_state.cardservice.addresses)
 console.log('cards:', R.map(x => {
     return atob(x.Content ? x.Content : '')
   }, genesisnew.app_state.cardservice.card_records))
-
+*/
 //ids = R.map(x => x.Owner, genesisnew.app_state.cardservice.card_records)
 //console.log(ids)
 
