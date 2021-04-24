@@ -18,7 +18,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/x/auth"
 	"github.com/cosmos/cosmos-sdk/x/auth/client/utils"
 	"github.com/DecentralCardGame/Cardchain/x/cardservice/internal/types"
-	"github.com/DecentralCardGame/cardobject"
+	"github.com/DecentralCardGame/cardobject/keywords"
 )
 
 func GetTxCmd(storeKey string, cdc *codec.Codec) *cobra.Command {
@@ -80,7 +80,7 @@ func GetCmdSaveCardContent(cdc *codec.Codec) *cobra.Command {
 			inBuf := bufio.NewReader(cmd.InOrStdin())
 			txBldr := auth.NewTxBuilderFromCLI(inBuf).WithTxEncoder(utils.GetTxEncoder(cdc))
 
-			cardobj, err := cardobject.UnmarshalKeyworded([]byte(args[1]))
+			cardobj, err := keywords.Unmarshal([]byte(args[1]))
 			if err != nil {
 				return err
 			}

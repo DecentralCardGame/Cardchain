@@ -42,13 +42,16 @@ genesisnew.app_state.cardservice.card_records = R.map(x => {
       "Technology": content.Action.CostType.Iron || content.Action.CostType.Energy,
       "Culture": content.Action.CostType.Food
     }
+    if (! (content.Action.Class.Nature || content.Action.Class.Mysticism || content.Action.Class.Technology || content.Action.Class.Culture) ) {
+      content.Action.Class.Culture =  true
+    }
+    content.Action.Effects = []
     content.Action.Keywords = []
     content.Action.RulesText = ""
 
     delete content.Action.CostType
 
-    console.log(content)
-
+    //console.log(content)
   }
   else if (content.Place) {
 
@@ -58,12 +61,15 @@ genesisnew.app_state.cardservice.card_records = R.map(x => {
       "Technology": content.Place.CostType.Iron || content.Place.CostType.Energy,
       "Culture": content.Place.CostType.Food
     }
+    if (! (content.Place.Class.Nature || content.Place.Class.Mysticism || content.Place.Class.Technology || content.Place.Class.Culture) ) {
+      content.Place.Class.Culture =  true
+    }
+    content.Place.Abilities = []
     content.Place.Keywords = []
     content.Place.RulesText = ""
 
     delete content.Place.CostType
 
-    console.log(content)
   }
   else if (content.Headquarter) {
     content.Headquarter.Delay = 0
@@ -73,6 +79,10 @@ genesisnew.app_state.cardservice.card_records = R.map(x => {
       "Technology": content.Headquarter.CostType.Iron || content.Headquarter.CostType.Energy,
       "Culture": content.Headquarter.CostType.Food
     }
+    if (! (content.Headquarter.Class.Nature || content.Headquarter.Class.Mysticism || content.Headquarter.Class.Technology || content.Headquarter.Class.Culture) ) {
+      content.Headquarter.Class.Culture =  true
+    }
+    content.Headquarter.Abilities = []
     content.Headquarter.Keywords = []
     content.Headquarter.RulesText = ""
 
@@ -88,10 +98,17 @@ genesisnew.app_state.cardservice.card_records = R.map(x => {
       "Technology": content.Entity.CostType.Iron || content.Entity.CostType.Energy,
       "Culture": content.Entity.CostType.Food
     }
+    if (! (content.Entity.Class.Nature || content.Entity.Class.Mysticism || content.Entity.Class.Technology || content.Entity.Class.Culture) ) {
+      content.Entity.Class.Culture =  true
+    }
+    content.Entity.Abilities = []
     content.Entity.Keywords = []
     content.Entity.RulesText = ""
 
     delete content.Entity.CostType
+
+
+    //console.log(content)
   }
 
   x.Content = btoa(JSON.stringify(content))

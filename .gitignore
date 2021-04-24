@@ -23,6 +23,7 @@ build
 
 # data
 /blockchain-data/
+genesis.json
 
 # scripts
 /scripts/node_modules/

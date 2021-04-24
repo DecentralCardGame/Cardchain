@@ -13,5 +13,5 @@ curl -XPUT \
       "content": "{\r\n  \"Entity\":{\r\n    \"CardName\":\"Name\",\r\n    \"Tags\":[\"SPIRITUAL\"],\r\n    \"FlavourText\":\"-.-\",\r\n    \"CostType\":{\r\n      \"Lumber\":true,\r\n      \"Energy\":false,\r\n      \"Food\":false,\r\n      \"Iron\":false,\r\n      \"Mana\":false\r\n    },\r\n    \"CastingCost\":13,\r\n    \"Attack\":10,\r\n    \"Health\":10,\r\n    \"Abilities\":[\r\n      {\r\n        \"Pay\":{\r\n          \"RessourceAmount\":2,\r\n          \"Effects\":[\r\n            {\r\n              \"Arm\": {\r\n                \"Amount\":2\r\n              }\r\n            }\r\n          ]\r\n        }\r\n      }\r\n    ]\r\n  }\r\n}",
       "notes": "no notes",
       "image": "no image",
-      "cardid":"4"
+      "cardid":"1"
     }' > unsignedTx.json
