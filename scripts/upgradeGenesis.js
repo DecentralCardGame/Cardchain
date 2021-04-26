@@ -47,7 +47,7 @@ genesisnew.app_state.cardservice.card_records = R.map(x => {
     }
     content.Action.Effects = []
     content.Action.Keywords = []
-    content.Action.RulesText = ""
+    content.Action.RulesTexts = ""
 
     delete content.Action.CostType
 
@@ -66,7 +66,7 @@ genesisnew.app_state.cardservice.card_records = R.map(x => {
     }
     content.Place.Abilities = []
     content.Place.Keywords = []
-    content.Place.RulesText = ""
+    content.Place.RulesTexts = ""
 
     delete content.Place.CostType
 
@@ -84,7 +84,7 @@ genesisnew.app_state.cardservice.card_records = R.map(x => {
     }
     content.Headquarter.Abilities = []
     content.Headquarter.Keywords = []
-    content.Headquarter.RulesText = ""
+    content.Headquarter.RulesTexts = ""
 
     delete content.Headquarter.StartingHandSize
     delete content.Headquarter.Growth
@@ -103,7 +103,7 @@ genesisnew.app_state.cardservice.card_records = R.map(x => {
     }
     content.Entity.Abilities = []
     content.Entity.Keywords = []
-    content.Entity.RulesText = ""
+    content.Entity.RulesTexts = ""
 
     delete content.Entity.CostType
 
