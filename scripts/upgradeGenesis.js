@@ -28,6 +28,7 @@ genesisnew.app_state.cardservice.users = R.map(function(x) { x.OwnedCardSchemes 
 genesisnew.app_state.cardservice.users = R.map(function(x) { x.OwnedCardSchemes = x.OwnedCardSchemes && x.OwnedCards ? R.without(x.OwnedCards, x.OwnedCardSchemes) : x.OwnedCardSchemes; return x }, genesisnew.app_state.cardservice.users)
 
 // card model merger
+/*
 genesisnew.app_state.cardservice.card_records = R.map(x => {
   //console.log('decoded:', atob(x.Content != null ? x.Content : btoa('{}')))
 
@@ -115,7 +116,7 @@ genesisnew.app_state.cardservice.card_records = R.map(x => {
   return x
   //console.log(content)
 }, genesisnew.app_state.cardservice.card_records)
-
+*/
 /*
 console.log('users written in the file:', genesisnew.app_state.cardservice.users)
 //console.log('addresses:', genesisnew.app_state.cardservice.addresses)
