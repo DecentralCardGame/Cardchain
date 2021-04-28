@@ -38,17 +38,21 @@ genesisnew.app_state.cardservice.card_records = R.map(x => {
 
   if (content.Action) {
     content.Action.RulesTexts = []
+    content.Action.Effects = []
     //console.log(content)
   }
   else if (content.Place) {
     content.Place.RulesTexts = []
-
+    content.Place.Abilities = []
+    //console.log(content)
   }
   else if (content.Headquarter) {
     content.Headquarter.RulesTexts = []
+    content.Headquarter.Abilities = []
   }
   else if (content.Entity) {
     content.Entity.RulesTexts = []
+    content.Entity.Abilities = []
 
     //console.log(content)
   }
