@@ -28,7 +28,7 @@ genesisnew.app_state.cardservice.users = R.map(function(x) { x.OwnedCardSchemes 
 genesisnew.app_state.cardservice.users = R.map(function(x) { x.OwnedCardSchemes = x.OwnedCardSchemes && x.OwnedCards ? R.without(x.OwnedCards, x.OwnedCardSchemes) : x.OwnedCardSchemes; return x }, genesisnew.app_state.cardservice.users)
 
 // card model merger
-/*
+
 genesisnew.app_state.cardservice.card_records = R.map(x => {
   //console.log('decoded:', atob(x.Content != null ? x.Content : btoa('{}')))
 
@@ -37,77 +37,18 @@ genesisnew.app_state.cardservice.card_records = R.map(x => {
   //console.log(content)
 
   if (content.Action) {
-    content.Action.Class = {
-      "Nature": content.Action.CostType.Lumber,
-      "Mysticism": content.Action.CostType.Mana,
-      "Technology": content.Action.CostType.Iron || content.Action.CostType.Energy,
-      "Culture": content.Action.CostType.Food
-    }
-    if (! (content.Action.Class.Nature || content.Action.Class.Mysticism || content.Action.Class.Technology || content.Action.Class.Culture) ) {
-      content.Action.Class.Culture =  true
-    }
-    content.Action.Effects = []
-    content.Action.Keywords = []
-    content.Action.RulesTexts = ""
-
-    delete content.Action.CostType
-
+    content.Action.RulesTexts = []
     //console.log(content)
   }
   else if (content.Place) {
-
-    content.Place.Class = {
-      "Nature": content.Place.CostType.Lumber,
-      "Mysticism": content.Place.CostType.Mana,
-      "Technology": content.Place.CostType.Iron || content.Place.CostType.Energy,
-      "Culture": content.Place.CostType.Food
-    }
-    if (! (content.Place.Class.Nature || content.Place.Class.Mysticism || content.Place.Class.Technology || content.Place.Class.Culture) ) {
-      content.Place.Class.Culture =  true
-    }
-    content.Place.Abilities = []
-    content.Place.Keywords = []
-    content.Place.RulesTexts = ""
-
-    delete content.Place.CostType
+    content.Place.RulesTexts = []
 
   }
   else if (content.Headquarter) {
-    content.Headquarter.Delay = 0
-    content.Headquarter.Class = {
-      "Nature": content.Headquarter.CostType.Lumber,
-      "Mysticism": content.Headquarter.CostType.Mana,
-      "Technology": content.Headquarter.CostType.Iron || content.Headquarter.CostType.Energy,
-      "Culture": content.Headquarter.CostType.Food
-    }
-    if (! (content.Headquarter.Class.Nature || content.Headquarter.Class.Mysticism || content.Headquarter.Class.Technology || content.Headquarter.Class.Culture) ) {
-      content.Headquarter.Class.Culture =  true
-    }
-    content.Headquarter.Abilities = []
-    content.Headquarter.Keywords = []
-    content.Headquarter.RulesTexts = ""
-
-    delete content.Headquarter.StartingHandSize
-    delete content.Headquarter.Growth
-    delete content.Headquarter.Wisdom
-    delete content.Headquarter.CostType
+    content.Headquarter.RulesTexts = []
   }
   else if (content.Entity) {
-    content.Entity.Class = {
-      "Nature": content.Entity.CostType.Lumber,
-      "Mysticism": content.Entity.CostType.Mana,
-      "Technology": content.Entity.CostType.Iron || content.Entity.CostType.Energy,
-      "Culture": content.Entity.CostType.Food
-    }
-    if (! (content.Entity.Class.Nature || content.Entity.Class.Mysticism || content.Entity.Class.Technology || content.Entity.Class.Culture) ) {
-      content.Entity.Class.Culture =  true
-    }
-    content.Entity.Abilities = []
-    content.Entity.Keywords = []
-    content.Entity.RulesTexts = ""
-
-    delete content.Entity.CostType
-
+    content.Entity.RulesTexts = []
 
     //console.log(content)
   }
@@ -116,7 +57,7 @@ genesisnew.app_state.cardservice.card_records = R.map(x => {
   return x
   //console.log(content)
 }, genesisnew.app_state.cardservice.card_records)
-*/
+
 /*
 console.log('users written in the file:', genesisnew.app_state.cardservice.users)
 //console.log('addresses:', genesisnew.app_state.cardservice.addresses)
