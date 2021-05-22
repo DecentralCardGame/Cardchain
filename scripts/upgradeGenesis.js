@@ -40,25 +40,81 @@ genesisnew.app_state.cardservice.card_records = R.map(x => {
 
   //console.log(content)
 
+
   if (content.Action) {
+    content.Action.Effects.forEach(function(ability) {
+      checkstring = JSON.stringify(ability)
+      if (checkstring.includes("Arm") ||
+          checkstring.includes("Harm") ||
+          checkstring.includes("Repair") ||
+          checkstring.includes("Kill") ||
+          checkstring.includes("Heal")  ) {
+          if (!checkstring.includes("Target")) {
+            console.log("FAIILLLL:")
+          }
+        console.log(util.inspect(content.Action.Effects, {showHidden: false, depth: null}))
+      }
+    })
     //content.Action.RulesTexts = []
     //content.Action.Effects = []
-    console.log(util.inspect(content.Action.Effects, {showHidden: false, depth: null}))
+    //console.log(util.inspect(content.Action.Effects, {showHidden: false, depth: null}))
   }
-  else if (content.Place) {
+  else if (content.Place && content.Place.Abilities) {
+    content.Place.Abilities.forEach(function(ability) {
+      checkstring = JSON.stringify(ability)
+
+      if (checkstring.includes("Arm") ||
+          checkstring.includes("Harm") ||
+          checkstring.includes("Repair") ||
+          checkstring.includes("Kill") ||
+          checkstring.includes("Heal") ) {
+
+        if (!checkstring.includes("Target") ) {
+          console.log("FAIILLLL:")
+        }
+        console.log(util.inspect(content.Place.Abilities, {showHidden: false, depth: null}))
+      }
+    })
     //content.Place.RulesTexts = []
     //content.Place.Abilities = []
-    console.log(util.inspect(content.Place.Abilities, {showHidden: false, depth: null}))
+    //console.log(util.inspect(content.Place.Abilities, {showHidden: false, depth: null}))
   }
   else if (content.Headquarter) {
+    content.Headquarter.Abilities.forEach(function(ability) {
+      checkstring = JSON.stringify(ability)
+
+      if (checkstring.includes("Arm")||
+          checkstring.includes("Harm")||
+          checkstring.includes("Repair") ||
+          checkstring.includes("Kill") ||
+          checkstring.includes("Heal")  ) {
+        if (!checkstring.includes("TARGET") ) {
+          console.log("FAIILLLL:")
+        }
+        console.log(util.inspect(content.Headquarter.Abilities, {showHidden: false, depth: null}))
+      }
+    })
     //content.Headquarter.RulesTexts = []
     //content.Headquarter.Abilities = []
-    console.log(util.inspect(content.Headquarter.Abilities, {showHidden: false, depth: null}))
+    //console.log(util.inspect(content.Headquarter.Abilities, {showHidden: false, depth: null}))
   }
   else if (content.Entity) {
+    content.Entity.Abilities.forEach(function(ability) {
+      checkstring = JSON.stringify(ability)
+      if (checkstring.includes("Arm") ||
+          checkstring.includes("Harm") ||
+          checkstring.includes("Repair") ||
+          checkstring.includes("Kill") ||
+          checkstring.includes("Heal") ) {
+        if (!checkstring.includes("Target") ) {
+          console.log("FAIILLLL:")
+        }
+        console.log(util.inspect(content.Entity.Abilities, {showHidden: false, depth: null}))
+      }
+    })
     //content.Entity.RulesTexts = []
     //content.Entity.Abilities = []
-    console.log(util.inspect(content.Entity.Abilities, {showHidden: false, depth: null}))
+    //console.log(util.inspect(content.Entity.Abilities, {showHidden: false, depth: null}))
   }
 
   x.Content = btoa(JSON.stringify(content))
