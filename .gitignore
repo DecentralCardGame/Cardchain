@@ -24,6 +24,7 @@ build
 # data
 /blockchain-data/
 genesis.json
+genesis.merged.json
 
 # scripts
 /scripts/node_modules/

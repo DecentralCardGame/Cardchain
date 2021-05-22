@@ -2,6 +2,7 @@
 // file system module to perform file operations
 const fs = require('fs');
 const R = require('ramda');
+const util = require('util')
 const atob = require('atob')
 const btoa = require('btoa')
 
@@ -28,9 +29,12 @@ genesisnew.app_state.cardservice.users = R.map(function(x) { x.OwnedCardSchemes 
 genesisnew.app_state.cardservice.users = R.map(function(x) { x.OwnedCardSchemes = x.OwnedCardSchemes && x.OwnedCards ? R.without(x.OwnedCards, x.OwnedCardSchemes) : x.OwnedCardSchemes; return x }, genesisnew.app_state.cardservice.users)
 
 // card model merger
+let id = 0
 
 genesisnew.app_state.cardservice.card_records = R.map(x => {
   //console.log('decoded:', atob(x.Content != null ? x.Content : btoa('{}')))
+  console.log(id)
+  id++
 
   let content = JSON.parse(atob(x.Content != null ? x.Content : btoa('{}')))
 
@@ -39,22 +43,22 @@ genesisnew.app_state.cardservice.card_records = R.map(x => {
   if (content.Action) {
     //content.Action.RulesTexts = []
     //content.Action.Effects = []
-    //console.log(content)
+    console.log(util.inspect(content.Action.Effects, {showHidden: false, depth: null}))
   }
   else if (content.Place) {
     //content.Place.RulesTexts = []
     //content.Place.Abilities = []
-    //console.log(content)
+    console.log(util.inspect(content.Place.Abilities, {showHidden: false, depth: null}))
   }
   else if (content.Headquarter) {
     //content.Headquarter.RulesTexts = []
     //content.Headquarter.Abilities = []
+    console.log(util.inspect(content.Headquarter.Abilities, {showHidden: false, depth: null}))
   }
   else if (content.Entity) {
     //content.Entity.RulesTexts = []
     //content.Entity.Abilities = []
-
-    //console.log(content)
+    console.log(util.inspect(content.Entity.Abilities, {showHidden: false, depth: null}))
   }
 
   x.Content = btoa(JSON.stringify(content))

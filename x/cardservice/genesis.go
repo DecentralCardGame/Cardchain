@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	"github.com/DecentralCardGame/cardobject/keywords"
 )
 
 type GenesisState struct {
@@ -55,6 +56,12 @@ func InitGenesis(ctx sdk.Context, keeper Keeper, data GenesisState) {
 		fmt.Println(id)
 		lastId := keeper.GetLastCardSchemeId(ctx)
 		currId := lastId + 1
+
+		_, err := keywords.Unmarshal(record.Content)
+		if err != nil {
+			fmt.Println(err.Error())
+		}
+
 
 		keeper.SetLastCardSchemeId(ctx, currId)
 		keeper.SetCard(ctx, currId, record)
