@@ -40,91 +40,46 @@ genesisnew.app_state.cardservice.card_records = R.map(x => {
 
   //console.log(content)
 
-  if (content.Action) {
-    R.filter(ability => {
+  let filterWords = ["Arm", "Harm", "Repair", "Kill", "Heal"]
+
+  let filterFunction = entry => {
+    entry = R.filter(ability => {
       let checkstring = JSON.stringify(ability)
-      if (checkstring.includes("Arm") ||
-          checkstring.includes("Harm") ||
-          checkstring.includes("Repair") ||
-          checkstring.includes("Kill") ||
-          checkstring.includes("Heal")  ) {
-          if (!checkstring.includes("Target")) {
-            console.log("FAIILLLL:", ability)
-            //console.log(util.inspect(content.Action.Effects, {showHidden: false, depth: null}))
-            return {}
-          }
+
+      if (R.any(R.identity, R.map(R.includes(R.__, checkstring), filterWords))) {
+        console.log("Filtering:", util.inspect(entry, {showHidden: false, depth: null}))
+
+        if (!checkstring.includes("Target")) {
+          console.log("Filtering out:", ability)
+
+          return false
+        }
       }
-      return ability
-    }, content.Action.Effects)
-    //content.Action.RulesTexts = []
-    //content.Action.Effects = []
-    //console.log(util.inspect(content.Action.Effects, {showHidden: false, depth: null}))
+      return true
+    }, entry)
+
+    return entry
+  }
+
+  if (content.Action) {
+    content.Action.Effects = filterFunction(content.Action.Effects)
+    content.Action.Keywords = filterFunction(content.Action.Keywords)
+    content.Action.RulesTexts = filterFunction(content.Action.RulesTexts)
   }
   else if (content.Place && content.Place.Abilities) {
-    R.filter(ability => {
-      let checkstring = JSON.stringify(ability)
-
-      if (checkstring.includes("Arm") ||
-          checkstring.includes("Harm") ||
-          checkstring.includes("Repair") ||
-          checkstring.includes("Kill") ||
-          checkstring.includes("Heal") ) {
-
-        if (!checkstring.includes("Target") ) {
-          console.log("FAIILLLL:", ability)
-          return {}
-          //console.log(util.inspect(content.Place.Abilities, {showHidden: false, depth: null}))
-        }
-
-      }
-      return ability
-    }, content.Place.Abilities)
-    //content.Place.RulesTexts = []
-    //content.Place.Abilities = []
-    //console.log(util.inspect(content.Place.Abilities, {showHidden: false, depth: null}))
+    content.Place.Abilities = filterFunction(content.Place.Abilities)
+    content.Place.Keywords = filterFunction(content.Place.Keywords)
+    content.Place.RulesTexts = filterFunction(content.Place.RulesTexts)
   }
   else if (content.Headquarter) {
-    R.filter(ability => {
-      checkstring = JSON.stringify(ability)
-
-      if (checkstring.includes("Arm")||
-          checkstring.includes("Harm")||
-          checkstring.includes("Repair") ||
-          checkstring.includes("Kill") ||
-          checkstring.includes("Heal")  ) {
-        if (!checkstring.includes("TARGET") ) {
-          console.log("FAIILLLL:", ability)
-          return {}
-          //console.log(util.inspect(content.Headquarter.Abilities, {showHidden: false, depth: null}))
-        }
-
-      }
-      return ability
-    }, content.Headquarter.Abilities)
-    //content.Headquarter.RulesTexts = []
-    //content.Headquarter.Abilities = []
-    //console.log(util.inspect(content.Headquarter.Abilities, {showHidden: false, depth: null}))
+    content.Headquarter.Abilities = filterFunction(content.Headquarter.Abilities)
+    content.Headquarter.Keywords = filterFunction(content.Headquarter.Keywords)
+    content.Headquarter.RulesTexts = filterFunction(content.Headquarter.RulesTexts)
   }
   else if (content.Entity) {
-    R.filter(ability => {
-      checkstring = JSON.stringify(ability)
-      if (checkstring.includes("Arm") ||
-          checkstring.includes("Harm") ||
-          checkstring.includes("Repair") ||
-          checkstring.includes("Kill") ||
-          checkstring.includes("Heal") ) {
-        if (!checkstring.includes("Target") ) {
-          console.log("FAIILLLL:", ability)
-          return {}
-          console.log(util.inspect(content.Entity.Abilities, {showHidden: false, depth: null}))
-        }
-
-      }
-      return ability
-    }, content.Entity.Abilities)
-    //content.Entity.RulesTexts = []
-    //content.Entity.Abilities = []
-    //console.log(util.inspect(content.Entity.Abilities, {showHidden: false, depth: null}))
+    content.Entity.Abilities = filterFunction(content.Entity.Abilities)
+    content.Entity.Keywords = filterFunction(content.Entity.Keywords)
+    content.Entity.RulesTexts = filterFunction(content.Entity.RulesTexts)
   }
 
   x.Content = btoa(JSON.stringify(content))
