@@ -43,43 +43,31 @@ genesisnew.app_state.cardservice.card_records = R.map(x => {
   let filterWords = ["Arm", "Harm", "Repair", "Kill", "Heal"]
 
   let filterFunction = entry => {
-    entry = R.filter(ability => {
-      let checkstring = JSON.stringify(ability)
+    stringified = JSON.stringify(entry)
 
-      if (R.any(R.identity, R.map(R.includes(R.__, checkstring), filterWords))) {
-        console.log("Filtering:", util.inspect(entry, {showHidden: false, depth: null}))
-
-        if (!checkstring.includes("Target")) {
-          console.log("Filtering out:", ability)
-
-          return false
-        }
-      }
-      return true
-    }, entry)
-
+    console.log("Filtering:", util.inspect(entry, {showHidden: false, depth: null}))
     return entry
   }
 
   if (content.Action) {
-    content.Action.Effects = filterFunction(content.Action.Effects)
-    content.Action.Keywords = filterFunction(content.Action.Keywords)
-    content.Action.RulesTexts = filterFunction(content.Action.RulesTexts)
+    //content.Action.Effects = filterFunction(content.Action.Effects)
+    //content.Action.Keywords = filterFunction(content.Action.Keywords)
+    //content.Action.RulesTexts = filterFunction(content.Action.RulesTexts)
   }
   else if (content.Place && content.Place.Abilities) {
-    content.Place.Abilities = filterFunction(content.Place.Abilities)
-    content.Place.Keywords = filterFunction(content.Place.Keywords)
-    content.Place.RulesTexts = filterFunction(content.Place.RulesTexts)
+    //content.Place.Abilities = filterFunction(content.Place.Abilities)
+    //content.Place.Keywords = filterFunction(content.Place.Keywords)
+    //content.Place.RulesTexts = filterFunction(content.Place.RulesTexts)
   }
   else if (content.Headquarter) {
-    content.Headquarter.Abilities = filterFunction(content.Headquarter.Abilities)
-    content.Headquarter.Keywords = filterFunction(content.Headquarter.Keywords)
-    content.Headquarter.RulesTexts = filterFunction(content.Headquarter.RulesTexts)
+    //content.Headquarter.Abilities = filterFunction(content.Headquarter.Abilities)
+    //content.Headquarter.Keywords = filterFunction(content.Headquarter.Keywords)
+    //content.Headquarter.RulesTexts = filterFunction(content.Headquarter.RulesTexts)
   }
   else if (content.Entity) {
-    content.Entity.Abilities = filterFunction(content.Entity.Abilities)
-    content.Entity.Keywords = filterFunction(content.Entity.Keywords)
-    content.Entity.RulesTexts = filterFunction(content.Entity.RulesTexts)
+    //content.Entity.Abilities = filterFunction(content.Entity.Abilities)
+    //content.Entity.Keywords = filterFunction(content.Entity.Keywords)
+    //content.Entity.RulesTexts = filterFunction(content.Entity.RulesTexts)
   }
 
   x.Content = btoa(JSON.stringify(content))

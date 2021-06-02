@@ -62,7 +62,6 @@ func InitGenesis(ctx sdk.Context, keeper Keeper, data GenesisState) {
 			fmt.Println(err.Error())
 		}
 
-
 		keeper.SetLastCardSchemeId(ctx, currId)
 		keeper.SetCard(ctx, currId, record)
 
