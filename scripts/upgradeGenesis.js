@@ -40,32 +40,71 @@ genesisnew.app_state.cardservice.card_records = R.map(x => {
 
   //console.log(content)
 
-  let filterWords = ["Arm", "Harm", "Repair", "Kill", "Heal"]
+  let filterWords = R.map(s => s.charAt(0).toUpperCase() + s.slice(1), [
+    "arm",
+    "armor",
+    "burn",
+    "dice",
+    "discount",
+    "grow",
+    "harm",
+    "insight",
+    "mill",
+    "produce",
+    "ravage",
+    "repair",
+    "selfBurn",
+    "spawn",
+    "strengthen",
+  ])
+
 
   let filterFunction = entry => {
-    stringified = JSON.stringify(entry)
+    entry = R.map(ability => {
+      //let checkstring = JSON.stringify(ability)
 
-    console.log("Filtering:", util.inspect(entry, {showHidden: false, depth: null}))
+      if (R.any(R.identity, R.map(R.includes(R.__, JSON.stringify(ability)), filterWords))) {
+        console.log("Updating:", util.inspect(entry, {showHidden: false, depth: null}))
+
+        let recursiveFilter = x => {
+          if (R.any(R.identity, R.map(y => y === "Amount", R.keys(x)))) {
+            x.Amount = {
+              SimpleIntValue: x.Amount
+            }
+          }
+          else {
+            R.map(y => recursiveFilter(x[y]), R.keys(x))
+          }
+        }
+
+        recursiveFilter(ability)
+
+        console.log("Updated:", util.inspect(entry, {showHidden: false, depth: null}))
+      }
+
+      return ability
+    }, entry)
+
     return entry
   }
 
   if (content.Action) {
-    //content.Action.Effects = filterFunction(content.Action.Effects)
+    content.Action.Effects = filterFunction(content.Action.Effects)
     //content.Action.Keywords = filterFunction(content.Action.Keywords)
     //content.Action.RulesTexts = filterFunction(content.Action.RulesTexts)
   }
   else if (content.Place && content.Place.Abilities) {
-    //content.Place.Abilities = filterFunction(content.Place.Abilities)
+    content.Place.Abilities = filterFunction(content.Place.Abilities)
     //content.Place.Keywords = filterFunction(content.Place.Keywords)
     //content.Place.RulesTexts = filterFunction(content.Place.RulesTexts)
   }
   else if (content.Headquarter) {
-    //content.Headquarter.Abilities = filterFunction(content.Headquarter.Abilities)
+    content.Headquarter.Abilities = filterFunction(content.Headquarter.Abilities)
     //content.Headquarter.Keywords = filterFunction(content.Headquarter.Keywords)
     //content.Headquarter.RulesTexts = filterFunction(content.Headquarter.RulesTexts)
   }
   else if (content.Entity) {
-    //content.Entity.Abilities = filterFunction(content.Entity.Abilities)
+    content.Entity.Abilities = filterFunction(content.Entity.Abilities)
     //content.Entity.Keywords = filterFunction(content.Entity.Keywords)
     //content.Entity.RulesTexts = filterFunction(content.Entity.RulesTexts)
   }
