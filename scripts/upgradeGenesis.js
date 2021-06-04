@@ -67,9 +67,14 @@ genesisnew.app_state.cardservice.card_records = R.map(x => {
         console.log("Updating:", util.inspect(entry, {showHidden: false, depth: null}))
 
         let recursiveFilter = x => {
-          if (R.any(R.identity, R.map(y => y === "Amount", R.keys(x)))) {
-            x.Amount = {
-              SimpleIntValue: x.Amount
+          if (R.any(R.identity, R.map(y => y === "ManaAmount", R.keys(x)))) {
+            x.ManaAmount = {
+              SimpleIntValue: x.ManaAmount
+            }
+          }
+          else if (R.any(R.identity, R.map(y => y === "WisdomAmount", R.keys(x)))) {
+            x.WisdomAmount = {
+              SimpleIntValue: x.WisdomAmount
             }
           }
           else {
