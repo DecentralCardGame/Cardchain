@@ -41,29 +41,17 @@ genesisnew.app_state.cardservice.card_records = R.map(x => {
   //console.log(content)
 
   let filterWords = R.map(s => s.charAt(0).toUpperCase() + s.slice(1), [
-    "arm",
-    "armor",
-    "burn",
-    "dice",
-    "discount",
-    "grow",
-    "harm",
     "insight",
-    "mill",
     "produce",
-    "ravage",
-    "repair",
-    "selfBurn",
-    "spawn",
-    "strengthen",
-  ])
+    ])
 
 
   let filterFunction = entry => {
     entry = R.map(ability => {
       //let checkstring = JSON.stringify(ability)
+      includesKeyword = x => R.any(R.identity, R.map(R.includes(R.__, JSON.stringify(x)), filterWords))
 
-      if (R.any(R.identity, R.map(R.includes(R.__, JSON.stringify(ability)), filterWords))) {
+      if (includesKeyword(ability)) {
         console.log("Updating:", util.inspect(entry, {showHidden: false, depth: null}))
 
         let recursiveFilter = x => {
