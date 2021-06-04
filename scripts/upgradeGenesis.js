@@ -54,23 +54,23 @@ genesisnew.app_state.cardservice.card_records = R.map(x => {
       if (includesKeyword(ability)) {
         console.log("Updating:", util.inspect(entry, {showHidden: false, depth: null}))
 
-        let recursiveFilter = x => {
-          if (R.any(R.identity, R.map(y => y === "ManaAmount", R.keys(x)))) {
+        let recursiveFilter = (x, name) => {
+          if (includesKeyword(name) && R.any(R.identity, R.map(y => y === "ManaAmount", R.keys(x)))) {
             x.ManaAmount = {
               SimpleIntValue: x.ManaAmount
             }
           }
-          else if (R.any(R.identity, R.map(y => y === "WisdomAmount", R.keys(x)))) {
+          else if (includesKeyword(name) && R.any(R.identity, R.map(y => y === "WisdomAmount", R.keys(x)))) {
             x.WisdomAmount = {
               SimpleIntValue: x.WisdomAmount
             }
           }
           else {
-            R.map(y => recursiveFilter(x[y]), R.keys(x))
+            R.map(y => recursiveFilter(x[y], y), R.keys(x))
           }
         }
 
-        recursiveFilter(ability)
+        recursiveFilter(ability, "root")
 
         console.log("Updated:", util.inspect(entry, {showHidden: false, depth: null}))
       }
