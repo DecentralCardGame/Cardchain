@@ -22,3 +22,6 @@ curl -X GET 'http://127.0.0.1:1317/cardservice/cardList?&sortBy=Name' | jq .
 
 echo -e ${GREEN}all cards sorted by CastingCost:${NC}
 curl -X GET 'http://127.0.0.1:1317/cardservice/cardList?&sortBy=CastingCost' | jq .
+
+echo -e ${GREEN}all cards with class Culture:${NC}
+curl -X GET 'http://127.0.0.1:1317/cardservice/cardList?&classes=Culture' | jq .

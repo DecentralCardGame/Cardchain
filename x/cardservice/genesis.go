@@ -52,14 +52,16 @@ func InitGenesis(ctx sdk.Context, keeper Keeper, data GenesisState) {
 		keeper.SetUser(ctx, data.SdkAddresses[id], data.Users[id])
 	}
 	fmt.Println("reading cards with id:")
-	for id, record := range data.CardRecords {
-		fmt.Println(id)
+	for _, record := range data.CardRecords {
 		lastId := keeper.GetLastCardSchemeId(ctx)
 		currId := lastId + 1
 
+		fmt.Println(currId)
 		_, err := keywords.Unmarshal(record.Content)
 		if err != nil {
 			fmt.Println(err.Error())
+			fmt.Println(string(record.Content))
+			fmt.Println("-----")
 		}
 
 		keeper.SetLastCardSchemeId(ctx, currId)

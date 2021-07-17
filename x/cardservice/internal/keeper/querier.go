@@ -16,6 +16,7 @@ import (
 
 	"github.com/DecentralCardGame/Cardchain/x/cardservice/internal/types"
 	"github.com/DecentralCardGame/cardobject/keywords"
+	"github.com/DecentralCardGame/cardobject/cardobject"
 )
 
 // query endpoints supported by the cardservice Querier
@@ -101,7 +102,6 @@ func queryCards(ctx sdk.Context, owner string, status string, cardType string, c
 	iterator := keeper.GetCardsIterator(ctx)
 
 	for ; iterator.Valid(); iterator.Next() {
-
 		var gottenCard types.Card
 		keeper.cdc.MustUnmarshalBinaryBare(iterator.Value(), &gottenCard)
 
@@ -127,15 +127,35 @@ func queryCards(ctx sdk.Context, owner string, status string, cardType string, c
 				continue
 			}
 		}
-		// lastly check if the name should contain a certain string and skip the card if it does not
-		if nameContains != "" || cardType != "" || sortBy != "" {
+
+		// lastly check if this is a special request and skip the card if it does not meet it
+		if nameContains != "" || cardType != "" || sortBy != "" || classes != "" {
 			cardobj, err := keywords.Unmarshal(gottenCard.Content)
 			if err != nil {
 				return nil, sdkerrors.Wrap(sdkerrors.ErrJSONMarshal, err.Error())
 			}
 
+			checkClasses := func (cardobjClass cardobject.Class) bool {
+				if bool(cardobjClass.Mysticism) && strings.Contains(classes, "Mysticism") {
+					return true
+				}
+				if bool(cardobjClass.Nature) == true && strings.Contains(classes, "Nature") {
+					return true
+				}
+				if bool(cardobjClass.Technology) && strings.Contains(classes, "Technology") {
+					return true
+				}
+				if bool(cardobjClass.Culture) && strings.Contains(classes, "Culture") {
+					return true
+				}
+				return false
+			}
+
 			if cardobj.Action != nil {
 				if cardType != "" && cardType != "Action" {
+					continue
+				}
+				if classes != "" && !checkClasses(cardobj.Action.Class) {
 					continue
 				}
 				if !strings.Contains(string(cardobj.Action.CardName), nameContains) {
@@ -145,10 +165,15 @@ func queryCards(ctx sdk.Context, owner string, status string, cardType string, c
 					results = append(results, Result{binary.BigEndian.Uint64(iterator.Key()), string(cardobj.Action.CardName), 0})
 				} else if sortBy == "CastingCost" {
 					results = append(results, Result{binary.BigEndian.Uint64(iterator.Key()), "", int(cardobj.Action.CastingCost)})
+				} else if sortBy == "Id" {
+					cardsList = append(cardsList, binary.BigEndian.Uint64(iterator.Key()))
 				}
 			}
 			if cardobj.Entity != nil {
 				if cardType != "" && cardType != "Entity" {
+					continue
+				}
+				if classes != "" && !checkClasses(cardobj.Entity.Class) {
 					continue
 				}
 				if !strings.Contains(string(cardobj.Entity.CardName), nameContains) {
@@ -158,10 +183,15 @@ func queryCards(ctx sdk.Context, owner string, status string, cardType string, c
 					results = append(results, Result{binary.BigEndian.Uint64(iterator.Key()), string(cardobj.Entity.CardName), 0})
 				} else if sortBy == "CastingCost" {
 					results = append(results, Result{binary.BigEndian.Uint64(iterator.Key()), "", int(cardobj.Entity.CastingCost)})
+				} else if sortBy == "Id" {
+					cardsList = append(cardsList, binary.BigEndian.Uint64(iterator.Key()))
 				}
 			}
 			if cardobj.Headquarter != nil {
 				if cardType != "" && cardType != "Headquarter" {
+					continue
+				}
+				if classes != "" && !checkClasses(cardobj.Headquarter.Class) {
 					continue
 				}
 				if !strings.Contains(string(cardobj.Headquarter.CardName), nameContains) {
@@ -171,10 +201,15 @@ func queryCards(ctx sdk.Context, owner string, status string, cardType string, c
 					results = append(results, Result{binary.BigEndian.Uint64(iterator.Key()), string(cardobj.Headquarter.CardName), 0})
 				} else if sortBy == "CastingCost" {
 					results = append(results, Result{binary.BigEndian.Uint64(iterator.Key()), "", 0})
+				} else if sortBy == "Id" {
+					cardsList = append(cardsList, binary.BigEndian.Uint64(iterator.Key()))
 				}
 			}
 			if cardobj.Place != nil {
 				if cardType != "" && cardType != "Place" {
+					continue
+				}
+				if classes != "" && !checkClasses(cardobj.Place.Class) {
 					continue
 				}
 				if !strings.Contains(string(cardobj.Place.CardName), nameContains) {
@@ -184,6 +219,8 @@ func queryCards(ctx sdk.Context, owner string, status string, cardType string, c
 					results = append(results, Result{binary.BigEndian.Uint64(iterator.Key()), string(cardobj.Place.CardName), 0})
 				} else if sortBy == "CastingCost" {
 					results = append(results, Result{binary.BigEndian.Uint64(iterator.Key()), "", int(cardobj.Place.CastingCost)})
+				} else if sortBy == "Id" {
+					cardsList = append(cardsList, binary.BigEndian.Uint64(iterator.Key()))
 				}
 			}
 		}
