@@ -86,73 +86,25 @@ genesisnew.app_state.cardservice.card_records = R.map(x => {
     //content.Action.Effects = filterFunction(content.Action.Effects)
     //content.Action.Keywords = filterFunction(content.Action.Keywords)
     //content.Action.RulesTexts = filterFunction(content.Action.RulesTexts)
-    if (R.includes(id, fixClassIds)) {
-      content.Action.Class = {
-        Nature: true,
-        Mysticism: true,
-        Technology: true,
-        Culture: true
-      }
-      console.log(content)
-    }
-    if (R.includes(id, fixAdditionalCostsIds)) {
-      console.log(content)
-      delete content.Action.AdditionalCost
-    }
+
   }
   else if (content.Place && content.Place.Abilities) {
     //content.Place.Abilities = filterFunction(content.Place.Abilities)
     //content.Place.Keywords = filterFunction(content.Place.Keywords)
     //content.Place.RulesTexts = filterFunction(content.Place.RulesTexts)
-    if (R.includes(id, fixClassIds)) {
-      content.Place.Class = {
-        Nature: true,
-        Mysticism: true,
-        Technology: true,
-        Culture: true
-      }
-      console.log(content)
-    }
-    if (R.includes(id, fixAdditionalCostsIds)) {
-      console.log(content)
-      delete content.Place.AdditionalCost
-    }
+
   }
   else if (content.Headquarter) {
     //content.Headquarter.Abilities = filterFunction(content.Headquarter.Abilities)
     //content.Headquarter.Keywords = filterFunction(content.Headquarter.Keywords)
     //content.Headquarter.RulesTexts = filterFunction(content.Headquarter.RulesTexts)
-    if (R.includes(id, fixClassIds)) {
-      content.Headquarter.Class = {
-        Nature: true,
-        Mysticism: true,
-        Technology: true,
-        Culture: true
-      }
-      console.log(content)
-    }
-    if (R.includes(id, fixAdditionalCostsIds)) {
-      console.log(content)
-      delete content.Headquarter.AdditionalCost
-    }
+
   }
   else if (content.Entity) {
     //content.Entity.Abilities = filterFunction(content.Entity.Abilities)
     //content.Entity.Keywords = filterFunction(content.Entity.Keywords)
     //content.Entity.RulesTexts = filterFunction(content.Entity.RulesTexts)
-    if (R.includes(id, fixClassIds)) {
-      content.Entity.Class = {
-        Nature: true,
-        Mysticism: true,
-        Technology: true,
-        Culture: true
-      }
-      console.log(content)
-    }
-    if (R.includes(id, fixAdditionalCostsIds)) {
-      console.log(content)
-      delete content.Entity.AdditionalCost
-    }
+    
   }
 
   x.Content = btoa(JSON.stringify(content))
