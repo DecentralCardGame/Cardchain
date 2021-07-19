@@ -136,19 +136,35 @@ func queryCards(ctx sdk.Context, owner string, status string, cardType string, c
 			}
 
 			checkClasses := func (cardobjClass cardobject.Class) bool {
-				if bool(cardobjClass.Mysticism) && strings.Contains(classes, "Mysticism") {
+				if strings.Contains(classes, "OR") {
+					if bool(cardobjClass.Mysticism) && strings.Contains(classes, "Mysticism") {
+						return true
+					}
+					if bool(cardobjClass.Nature) == true && strings.Contains(classes, "Nature") {
+						return true
+					}
+					if bool(cardobjClass.Technology) && strings.Contains(classes, "Technology") {
+						return true
+					}
+					if bool(cardobjClass.Culture) && strings.Contains(classes, "Culture") {
+						return true
+					}
+					return false
+				} else {
+					if bool(cardobjClass.Mysticism) != strings.Contains(classes, "Mysticism") {
+						return false
+					}
+					if bool(cardobjClass.Nature) != strings.Contains(classes, "Nature") {
+						return false
+					}
+					if bool(cardobjClass.Technology) != strings.Contains(classes, "Technology") {
+						return false
+					}
+					if bool(cardobjClass.Culture) != strings.Contains(classes, "Culture") {
+						return false
+					}
 					return true
 				}
-				if bool(cardobjClass.Nature) == true && strings.Contains(classes, "Nature") {
-					return true
-				}
-				if bool(cardobjClass.Technology) && strings.Contains(classes, "Technology") {
-					return true
-				}
-				if bool(cardobjClass.Culture) && strings.Contains(classes, "Culture") {
-					return true
-				}
-				return false
 			}
 
 			if cardobj.Action != nil {
