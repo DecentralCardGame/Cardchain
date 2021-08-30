@@ -38,73 +38,146 @@ genesisnew.app_state.cardservice.card_records = R.map(x => {
 
   let content = JSON.parse(atob(x.Content != null ? x.Content : btoa('{}')))
 
-  let filterWords = R.map(s => s.charAt(0).toUpperCase() + s.slice(1), [
-    "insight",
-    "produce",
+  let illegalWords = R.map(s => s.charAt(0).toUpperCase() + s.slice(1), [
+    "arm",
     ])
 
-  let fixClassIds = R.map(x => x+1,[10, 17, 68, 83, 112, 127, 134, 146, 170, 172, 183, 194, 198, 202, 211, 225, 227, 233, 258, 260])
+  let illegalTags = R.map(s => s.toUpperCase(), [
+    "dwarf",
+    "engineer",
+    "equipment",
+    "farm",
+    "knight",
+    "farm",
+    "magic",
+    "militant",
+    "primitive",
+    "range",
+    "spiritual"
+  ])
 
-  let fixAdditionalCostsIds = R.map(x => x+1,[260, 259, 258, 233, 232, 231, 230, 229, 228, 227, 226, 225, 224, 223, 222, 221, 220, 219, 113, 112, 100, 91, 50])
+  let oldWords = R.map(s => s.charAt(0).toUpperCase() + s.slice(1), [
+    "armor",
+    ])
 
   let filterFunction = entry => {
+    console.log(entry)
+    return R.map(ability => {
+      return JSON.parse(R.replace('EQUIPMENT', 'WEAPON', JSON.stringify(ability)))
+    }, entry)
+  }
+
+  let illegalArm = entry => {
+    let isIllegal = false
     entry = R.map(ability => {
       //let checkstring = JSON.stringify(ability)
-      includesKeyword = x => R.any(R.identity, R.map(R.includes(R.__, JSON.stringify(x)), filterWords))
+      let includesKeyword = x => R.any(R.identity, R.map(R.includes(R.__, JSON.stringify(x)), illegalWords))
 
       if (includesKeyword(ability)) {
-        console.log("Updating:", util.inspect(entry, {showHidden: false, depth: null}))
-
-        let recursiveFilter = (x, name) => {
-          if (includesKeyword(name) && R.any(R.identity, R.map(y => y === "ManaAmount", R.keys(x)))) {
-            x.ManaAmount = {
-              SimpleIntValue: x.ManaAmount
-            }
-          }
-          else if (includesKeyword(name) && R.any(R.identity, R.map(y => y === "WisdomAmount", R.keys(x)))) {
-            x.WisdomAmount = {
-              SimpleIntValue: x.WisdomAmount
-            }
-          }
-          else {
-            R.map(y => recursiveFilter(x[y], y), R.keys(x))
-          }
-        }
-
-        recursiveFilter(ability, "root")
-
-        console.log("Updated:", util.inspect(entry, {showHidden: false, depth: null}))
+        isIllegal = true
+        //console.log("Updated:", util.inspect(entry, {showHidden: false, depth: null}))
+        return
       }
-
       return ability
     }, entry)
 
-    return entry
+    return isIllegal
+  }
+
+  let oldTags = entry => {
+    return R.without(illegalTags, entry)
+  }
+
+  let illegalArmor = entry => {
+    if (!entry) return false
+    let isIllegal = false
+    entry = R.map(ability => {
+
+      let includesKeyword = x => R.any(R.identity, R.map(R.includes(R.__, JSON.stringify(x)), oldWords))
+
+      if (includesKeyword(ability)) {
+        isIllegal = true
+        console.log("Updated:", util.inspect(entry, {showHidden: false, depth: null}))
+        return
+      }
+      return ability
+    }, entry)
+
+    return isIllegal
   }
 
   if (content.Action) {
-    //content.Action.Effects = filterFunction(content.Action.Effects)
-    //content.Action.Keywords = filterFunction(content.Action.Keywords)
-    //content.Action.RulesTexts = filterFunction(content.Action.RulesTexts)
+    if (content.Action.Class.Mysticism && !content.Action.Class.Technology && !content.Action.Class.Culture) {
+        if (illegalArm(content.Action.Effects)) {
+          content.Action.Class.Technology = true
+          //console.log("Updated1:", util.inspect(content.Action, {showHidden: false, depth: null}))
+        }
+    }
 
+    if (illegalArmor(content.Action.Effects)) {
+      content.Action.Effects = []
+      content.Action.Keywords = []
+      content.Action.RulesTexts = []
+
+      console.log("Updated1:", util.inspect(content.Action, {showHidden: false, depth: null}))
+    }
+
+    content.Action.Tags = oldTags(content.Action.Tags)
   }
   else if (content.Place && content.Place.Abilities) {
-    //content.Place.Abilities = filterFunction(content.Place.Abilities)
-    //content.Place.Keywords = filterFunction(content.Place.Keywords)
-    //content.Place.RulesTexts = filterFunction(content.Place.RulesTexts)
+    if (content.Place.Class.Mysticism && !content.Place.Class.Technology && !content.Place.Class.Culture) {
+        if (illegalArm(content.Place.Abilities)) {
+          content.Place.Class.Technology = true
+          //console.log("Updated1:", util.inspect(content.Place, {showHidden: false, depth: null}))
+        }
+    }
 
+    if (illegalArmor(content.Place.Abilities)) {
+      content.Place.Abilities = []
+      content.Place.Keywords = []
+      content.Place.RulesTexts = []
+
+      console.log("Updated1:", util.inspect(content.Place, {showHidden: false, depth: null}))
+    }
+
+    content.Place.Tags = oldTags(content.Place.Tags)
   }
   else if (content.Headquarter) {
-    //content.Headquarter.Abilities = filterFunction(content.Headquarter.Abilities)
-    //content.Headquarter.Keywords = filterFunction(content.Headquarter.Keywords)
-    //content.Headquarter.RulesTexts = filterFunction(content.Headquarter.RulesTexts)
+    if (content.Headquarter.Class.Mysticism && !content.Headquarter.Class.Technology && !content.Headquarter.Class.Culture) {
+        if (illegalArm(content.Headquarter.Abilities)) {
+          content.Headquarter.Class.Technology = true
+          //console.log("Updated1:", util.inspect(content.Headquarter, {showHidden: false, depth: null}))
+        }
+    }
 
+    if (illegalArmor(content.Headquarter.Abilities)) {
+      content.Headquarter.Abilities = []
+      content.Headquarter.Keywords = []
+      content.Headquarter.RulesTexts = []
+
+      console.log("Updated1:", util.inspect(content.Headquarter, {showHidden: false, depth: null}))
+    }
+
+    content.Headquarter.Tags = oldTags(content.Headquarter.Tags)
   }
   else if (content.Entity) {
-    //content.Entity.Abilities = filterFunction(content.Entity.Abilities)
-    //content.Entity.Keywords = filterFunction(content.Entity.Keywords)
-    //content.Entity.RulesTexts = filterFunction(content.Entity.RulesTexts)
-    
+    if (content.Entity.Class.Mysticism && !content.Entity.Class.Technology && !content.Entity.Class.Culture) {
+        if (illegalArm(content.Entity.Abilities)) {
+          content.Entity.Class.Technology = true
+        }
+    }
+    content.Entity.Abilities = filterFunction(content.Entity.Abilities)
+    if (illegalArmor(content.Entity.Abilities)) {
+      content.Entity.Abilities = []
+      content.Entity.Keywords = []
+      content.Entity.RulesTexts = []
+
+
+      console.log("Updated1:", util.inspect(content.Entity, {showHidden: false, depth: null}))
+    }
+
+    content.Entity.Tags = oldTags(content.Entity.Tags)
+
   }
 
   x.Content = btoa(JSON.stringify(content))
