@@ -83,8 +83,12 @@ func getCardsHandler(cliCtx context.CLIContext, storeName string) http.HandlerFu
 		if len(query["notesContains"]) > 0 {
 			notesContains = query["notesContains"][0]
 		}
+		keywordsContains := ""
+		if len(query["keywordsContains"]) > 0 {
+			keywordsContains = query["keywordsContains"][0]
+		}
 
-		res, _, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/cards/%s/%s/%s/%s/%s/%s/%s", storeName, owner, status, cardType, classes, sortBy, nameContains, notesContains), nil)
+		res, _, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/cards/%s/%s/%s/%s/%s/%s/%s/%s", storeName, owner, status, cardType, classes, sortBy, nameContains, keywordsContains, notesContains), nil)
 		if err != nil {
 			rest.WriteErrorResponse(w, http.StatusNotFound, err.Error())
 			return

@@ -2,7 +2,7 @@ package keeper
 
 import (
 	"encoding/binary"
-	//"encoding/json"
+	"encoding/json"
 	//"fmt"
 	"sort"
 	"strconv"
@@ -38,7 +38,7 @@ func NewQuerier(keeper Keeper) sdk.Querier {
 		case QueryUser:
 			return queryUser(ctx, path[1:], req, keeper)
 		case QueryCards:
-			return queryCards(ctx, path[1], path[2], path[3], path[4], path[5], path[6], path[7], req, keeper)
+			return queryCards(ctx, path[1], path[2], path[3], path[4], path[5], path[6], path[7], path[8], req, keeper)
 		case QueryVotableCards:
 			return queryVotableCards(ctx, path[1:], req, keeper)
 		case QueryCardchainInfo:
@@ -89,7 +89,7 @@ func queryUser(ctx sdk.Context, path []string, req abci.RequestQuery, keeper Kee
 	return res, nil
 }
 
-func queryCards(ctx sdk.Context, owner string, status string, cardType string, classes string, sortBy string, nameContains string, notesContains string, req abci.RequestQuery, keeper Keeper) ([]byte, error) {
+func queryCards(ctx sdk.Context, owner string, status string, cardType string, classes string, sortBy string, nameContains string, keywordsContains string, notesContains string, req abci.RequestQuery, keeper Keeper) ([]byte, error) {
 	var cardsList []uint64
 
 	type Result struct {
@@ -98,6 +98,50 @@ func queryCards(ctx sdk.Context, owner string, status string, cardType string, c
 		Num int
 	}
 	var results []Result
+
+	checkName := func (cardName cardobject.CardName) bool {
+		if nameContains != "" && !strings.Contains(strings.ToLower(string(cardName)), strings.ToLower(nameContains)) {
+			return false
+		}
+		return true
+	}
+	checkAbilities := func (cardAbilities string) bool {
+		if strings.Contains(strings.ToLower(cardAbilities), strings.ToLower(keywordsContains)) {
+			return true
+		}
+		return false
+	}
+	checkClasses := func (cardobjClass cardobject.Class) bool {
+		if strings.Contains(classes, "OR") {
+			if bool(cardobjClass.Mysticism) && strings.Contains(classes, "Mysticism") {
+				return true
+			}
+			if bool(cardobjClass.Nature) == true && strings.Contains(classes, "Nature") {
+				return true
+			}
+			if bool(cardobjClass.Technology) && strings.Contains(classes, "Technology") {
+				return true
+			}
+			if bool(cardobjClass.Culture) && strings.Contains(classes, "Culture") {
+				return true
+			}
+			return false
+		} else {
+			if bool(cardobjClass.Mysticism) != strings.Contains(classes, "Mysticism") {
+				return false
+			}
+			if bool(cardobjClass.Nature) != strings.Contains(classes, "Nature") {
+				return false
+			}
+			if bool(cardobjClass.Technology) != strings.Contains(classes, "Technology") {
+				return false
+			}
+			if bool(cardobjClass.Culture) != strings.Contains(classes, "Culture") {
+				return false
+			}
+			return true
+		}
+	}
 
 	iterator := keeper.GetCardsIterator(ctx)
 
@@ -129,42 +173,10 @@ func queryCards(ctx sdk.Context, owner string, status string, cardType string, c
 		}
 
 		// lastly check if this is a special request and skip the card if it does not meet it
-		if nameContains != "" || cardType != "" || sortBy != "" || classes != "" {
+		if nameContains != "" || cardType != "" || sortBy != "" || classes != "" || keywordsContains != "" {
 			cardobj, err := keywords.Unmarshal(gottenCard.Content)
 			if err != nil {
 				return nil, sdkerrors.Wrap(sdkerrors.ErrJSONMarshal, err.Error())
-			}
-
-			checkClasses := func (cardobjClass cardobject.Class) bool {
-				if strings.Contains(classes, "OR") {
-					if bool(cardobjClass.Mysticism) && strings.Contains(classes, "Mysticism") {
-						return true
-					}
-					if bool(cardobjClass.Nature) == true && strings.Contains(classes, "Nature") {
-						return true
-					}
-					if bool(cardobjClass.Technology) && strings.Contains(classes, "Technology") {
-						return true
-					}
-					if bool(cardobjClass.Culture) && strings.Contains(classes, "Culture") {
-						return true
-					}
-					return false
-				} else {
-					if bool(cardobjClass.Mysticism) != strings.Contains(classes, "Mysticism") {
-						return false
-					}
-					if bool(cardobjClass.Nature) != strings.Contains(classes, "Nature") {
-						return false
-					}
-					if bool(cardobjClass.Technology) != strings.Contains(classes, "Technology") {
-						return false
-					}
-					if bool(cardobjClass.Culture) != strings.Contains(classes, "Culture") {
-						return false
-					}
-					return true
-				}
 			}
 
 			if cardobj.Action != nil {
@@ -174,8 +186,14 @@ func queryCards(ctx sdk.Context, owner string, status string, cardType string, c
 				if classes != "" && !checkClasses(cardobj.Action.Class) {
 					continue
 				}
-				if !strings.Contains(string(cardobj.Action.CardName), nameContains) {
+				if !checkName(cardobj.Action.CardName) {
 					continue
+				}
+				if keywordsContains != "" {
+					jsonStr, _ := json.Marshal(cardobj.Action.Effects)
+					if !checkAbilities(string(jsonStr)) {
+						continue
+					}
 				}
 				if sortBy == "Name" {
 					results = append(results, Result{binary.BigEndian.Uint64(iterator.Key()), string(cardobj.Action.CardName), 0})
@@ -192,8 +210,14 @@ func queryCards(ctx sdk.Context, owner string, status string, cardType string, c
 				if classes != "" && !checkClasses(cardobj.Entity.Class) {
 					continue
 				}
-				if !strings.Contains(string(cardobj.Entity.CardName), nameContains) {
+				if !checkName(cardobj.Entity.CardName) {
 					continue
+				}
+				if keywordsContains != "" {
+					jsonStr, _ := json.Marshal(cardobj.Entity.Abilities)
+					if !checkAbilities(string(jsonStr)) {
+						continue
+					}
 				}
 				if sortBy == "Name" {
 					results = append(results, Result{binary.BigEndian.Uint64(iterator.Key()), string(cardobj.Entity.CardName), 0})
@@ -210,8 +234,14 @@ func queryCards(ctx sdk.Context, owner string, status string, cardType string, c
 				if classes != "" && !checkClasses(cardobj.Headquarter.Class) {
 					continue
 				}
-				if !strings.Contains(string(cardobj.Headquarter.CardName), nameContains) {
+				if !checkName(cardobj.Headquarter.CardName) {
 					continue
+				}
+				if keywordsContains != "" {
+					jsonStr, _ := json.Marshal(cardobj.Headquarter.Abilities)
+					if !checkAbilities(string(jsonStr)) {
+						continue
+					}
 				}
 				if sortBy == "Name" {
 					results = append(results, Result{binary.BigEndian.Uint64(iterator.Key()), string(cardobj.Headquarter.CardName), 0})
@@ -225,11 +255,14 @@ func queryCards(ctx sdk.Context, owner string, status string, cardType string, c
 				if cardType != "" && cardType != "Place" {
 					continue
 				}
-				if classes != "" && !checkClasses(cardobj.Place.Class) {
+				if !checkName(cardobj.Place.CardName) {
 					continue
 				}
-				if !strings.Contains(string(cardobj.Place.CardName), nameContains) {
-					continue
+				if keywordsContains != "" {
+					jsonStr, _ := json.Marshal(cardobj.Place.Abilities)
+					if !checkAbilities(string(jsonStr)) {
+						continue
+					}
 				}
 				if sortBy == "Name" {
 					results = append(results, Result{binary.BigEndian.Uint64(iterator.Key()), string(cardobj.Place.CardName), 0})
