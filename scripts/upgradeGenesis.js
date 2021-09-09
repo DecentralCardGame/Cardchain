@@ -107,76 +107,15 @@ genesisnew.app_state.cardservice.card_records = R.map(x => {
   }
 
   if (content.Action) {
-    if (content.Action.Class.Mysticism && !content.Action.Class.Technology && !content.Action.Class.Culture) {
-        if (illegalArm(content.Action.Effects)) {
-          content.Action.Class.Technology = true
-          //console.log("Updated1:", util.inspect(content.Action, {showHidden: false, depth: null}))
-        }
-    }
-
-    if (illegalArmor(content.Action.Effects)) {
-      content.Action.Effects = []
-      content.Action.Keywords = []
-      content.Action.RulesTexts = []
-
-      console.log("Updated1:", util.inspect(content.Action, {showHidden: false, depth: null}))
-    }
-
-    content.Action.Tags = oldTags(content.Action.Tags)
+    
   }
-  else if (content.Place && content.Place.Abilities) {
-    if (content.Place.Class.Mysticism && !content.Place.Class.Technology && !content.Place.Class.Culture) {
-        if (illegalArm(content.Place.Abilities)) {
-          content.Place.Class.Technology = true
-          //console.log("Updated1:", util.inspect(content.Place, {showHidden: false, depth: null}))
-        }
-    }
+  else if (content.Place) {
 
-    if (illegalArmor(content.Place.Abilities)) {
-      content.Place.Abilities = []
-      content.Place.Keywords = []
-      content.Place.RulesTexts = []
-
-      console.log("Updated1:", util.inspect(content.Place, {showHidden: false, depth: null}))
-    }
-
-    content.Place.Tags = oldTags(content.Place.Tags)
   }
   else if (content.Headquarter) {
-    if (content.Headquarter.Class.Mysticism && !content.Headquarter.Class.Technology && !content.Headquarter.Class.Culture) {
-        if (illegalArm(content.Headquarter.Abilities)) {
-          content.Headquarter.Class.Technology = true
-          //console.log("Updated1:", util.inspect(content.Headquarter, {showHidden: false, depth: null}))
-        }
-    }
 
-    if (illegalArmor(content.Headquarter.Abilities)) {
-      content.Headquarter.Abilities = []
-      content.Headquarter.Keywords = []
-      content.Headquarter.RulesTexts = []
-
-      console.log("Updated1:", util.inspect(content.Headquarter, {showHidden: false, depth: null}))
-    }
-
-    content.Headquarter.Tags = oldTags(content.Headquarter.Tags)
   }
   else if (content.Entity) {
-    if (content.Entity.Class.Mysticism && !content.Entity.Class.Technology && !content.Entity.Class.Culture) {
-        if (illegalArm(content.Entity.Abilities)) {
-          content.Entity.Class.Technology = true
-        }
-    }
-    content.Entity.Abilities = filterFunction(content.Entity.Abilities)
-    if (illegalArmor(content.Entity.Abilities)) {
-      content.Entity.Abilities = []
-      content.Entity.Keywords = []
-      content.Entity.RulesTexts = []
-
-
-      console.log("Updated1:", util.inspect(content.Entity, {showHidden: false, depth: null}))
-    }
-
-    content.Entity.Tags = oldTags(content.Entity.Tags)
 
   }
 
