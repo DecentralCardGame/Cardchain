@@ -22,6 +22,7 @@ import (
 // query endpoints supported by the cardservice Querier
 const (
 	QueryCard      	 	 = "card"
+	QueryCardContent 	 = "card-content"
 	QueryUser          = "user"
 	QueryCards         = "cards"
 	QueryVotableCards  = "votable-cards"
@@ -35,6 +36,8 @@ func NewQuerier(keeper Keeper) sdk.Querier {
 		switch path[0] {
 		case QueryCard:
 			return queryCard(ctx, path[1:], req, keeper)
+		case QueryCardContent:
+			return queryCardContent(ctx, path[1:], req, keeper)
 		case QueryUser:
 			return queryUser(ctx, path[1:], req, keeper)
 		case QueryCards:
@@ -65,6 +68,27 @@ func queryCard(ctx sdk.Context, path []string, req abci.RequestQuery, keeper Kee
 	}
 
 	res, err := codec.MarshalJSONIndent(keeper.cdc, card)
+	if err != nil {
+		return nil, sdkerrors.Wrap(sdkerrors.ErrJSONMarshal, err.Error())
+	}
+
+	return res, nil
+}
+
+// nolint: unparam
+func queryCardContent(ctx sdk.Context, path []string, req abci.RequestQuery, keeper Keeper) ([]byte, error) {
+	cardId, error := strconv.ParseUint(path[0], 10, 64)
+	if error != nil {
+		return nil, sdkerrors.Wrap(sdkerrors.ErrUnknownRequest, "could not parse cardId")
+	}
+
+	card := types.CardNoB64FromCard(keeper.GetCard(ctx, cardId))
+
+	if &card == nil {
+		return nil, sdkerrors.Wrap(sdkerrors.ErrUnknownRequest, "cardId does not represent a card")
+	}
+
+	res, err := codec.MarshalJSONIndent(keeper.cdc, card.Content)
 	if err != nil {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrJSONMarshal, err.Error())
 	}

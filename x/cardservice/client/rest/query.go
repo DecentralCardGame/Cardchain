@@ -25,30 +25,19 @@ func getCardHandler(cliCtx context.CLIContext, storeName string) http.HandlerFun
 	}
 }
 
-// this was mainly built to get cards on untap.in but this might have no use at all... TODO
-func getCardSVGHandler(cliCtx context.CLIContext, storeName string) http.HandlerFunc {
+func getCardContentHandler(cliCtx context.CLIContext, storeName string) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		vars := mux.Vars(r)
 		paramType := vars[restName]
 
-		res, _, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/cardsvg/%s", storeName, paramType), nil)
+		res, _, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/card-content/%s", storeName, paramType), nil)
 		if err != nil {
 			rest.WriteErrorResponse(w, http.StatusNotFound, err.Error())
 			return
 		}
 
-		stringres := string("<?xml version=\"1.0\" encoding=\"ISO-8859-1\" standalone=\"no\"?> <!DOCTYPE svg PUBLIC \"-//W3C//DTD SVG 1.1//EN\" \"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd\"> <svg mtc:dpi=\"90\" xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\" width=\"29.0882in\" height=\"22in\" viewBox=\"0 0 2617.942383 1980\" xmlns:inkscape=\"http://www.inkscape.org/namespaces/inkscape\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" xmlns:mtc=\"http://www.make-the-cut.com/namespaces/make-the-cut\"> <circle cx=\"50\" cy=\"50\" r=\"40\" stroke=\"black\" stroke-width=\"3\" fill=\"red\" /> </svg> ")
-		res = []byte(stringres)
-
-		w.Header().Set("Content-Type", "image/svg+xml")
-		_, _ = w.Write(res)
+		rest.PostProcessResponse(w, cliCtx, res)
 	}
-}
-
-type getCardsReq struct {
-	BaseReq rest.BaseReq `json:"base_req"`
-	Amount  string       `json:"amount"`
-	Buyer   string       `json:"buyer"`
 }
 
 func getCardsHandler(cliCtx context.CLIContext, storeName string) http.HandlerFunc {
