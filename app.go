@@ -306,7 +306,7 @@ func (app *cardServiceApp) EndBlocker(ctx sdk.Context, req abci.RequestEndBlock)
 	newprice := price.Sub(sdk.NewCoin("credits", price.Amount.Quo(sdk.NewInt(100))))
 	app.csKeeper.SetCardAuctionPrice(ctx, newprice)
 
-	// automated nerf/buff happens here // TODO adjust the mod10 here
+	// automated nerf/buff happens here
 	if app.LastBlockHeight()%epochBlockTime == 0 {
 		cardservice.UpdateNerfLevels(ctx, app.csKeeper)
 		app.csKeeper.AddVoteRightsToAllUsers(ctx, ctx.BlockHeight()+votingRightsExpirationTime)

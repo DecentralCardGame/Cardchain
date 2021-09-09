@@ -4,10 +4,13 @@ import (
 	"fmt"
 	"sort"
 	"encoding/binary"
+	"encoding/json"
 
 	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/DecentralCardGame/Cardchain/x/cardservice/internal/types"
+
+	"github.com/DecentralCardGame/cardobject/keywords"
 )
 
 // Keeper maintains the link to storage and exposes getter/setter methods for the various parts of the state machine
@@ -320,7 +323,7 @@ func (k Keeper) GetOPandUPCards(ctx sdk.Context) ([]uint64, []uint64, []uint64, 
 				OverpoweredVotes:		gottenCard.OverpoweredVotes,
 				UnderpoweredVotes:	gottenCard.UnderpoweredVotes,
 				InappropriateVotes:	gottenCard.InappropriateVotes,
-				Result:							"fair enough",
+				Result:							"fair_enough",
 			})
 
 			// sort candidates into the specific arrays
@@ -397,18 +400,19 @@ func (k Keeper) GetOPandUPCards(ctx sdk.Context) ([]uint64, []uint64, []uint64, 
 	}
 
 	// add the result to the voting log
-	for i := 1; i < len(votingResults.CardResults); i++ {
-		for j := 1; j < len(buffbois); j++ {
+	for i := 0; i < len(votingResults.CardResults); i++ {
+		for j := 0; j < len(buffbois); j++ {
+			fmt.Println(buffbois[j], " == ", votingResults.CardResults[i].CardId )
 			if (votingResults.CardResults[i].CardId == buffbois[j] ) {
 				votingResults.CardResults[i].Result = "buff"
 			}
 		}
-		for j := 1; j < len(nerfbois); j++ {
+		for j := 0; j < len(nerfbois); j++ {
 			if (votingResults.CardResults[i].CardId == nerfbois[j] ) {
 				votingResults.CardResults[i].Result = "nerf"
 			}
 		}
-		for j := 1; j < len(banbois); j++ {
+		for j := 0; j < len(banbois); j++ {
 			if (votingResults.CardResults[i].CardId == banbois[j] ) {
 				votingResults.CardResults[i].Result = "ban"
 			}
@@ -428,6 +432,46 @@ func (k Keeper) NerfBuffCards(ctx sdk.Context, cardIds []uint64, buff bool) {
 		bz := store.Get(sdk.Uint64ToBigEndian(val))
 		var buffCard types.Card
 		k.cdc.MustUnmarshalBinaryBare(bz, &buffCard)
+
+		cardobj, _ := keywords.Unmarshal(buffCard.Content)
+
+		if cardobj.Action != nil {
+			if buff && cardobj.Action.CastingCost > 0 {
+				cardobj.Action.CastingCost -= 1
+			} else {
+				cardobj.Action.CastingCost += 1
+			}
+		}
+		if cardobj.Entity != nil {
+			if buff && cardobj.Entity.CastingCost > 0 {
+				cardobj.Entity.CastingCost -= 1
+			} else {
+				cardobj.Entity.CastingCost += 1
+			}
+		}
+		if cardobj.Place != nil {
+			if buff && cardobj.Place.CastingCost > 0 {
+				cardobj.Place.CastingCost -= 1
+			} else {
+				cardobj.Place.CastingCost += 1
+			}
+		}
+		if cardobj.Headquarter != nil {
+			if buff {
+				if cardobj.Headquarter.Delay > 0 {
+					cardobj.Headquarter.Delay -= 1
+				}
+				cardobj.Headquarter.Health += 1
+			} else {
+				cardobj.Headquarter.Delay += 1
+				if cardobj.Headquarter.Health > 1 {
+					cardobj.Headquarter.Health -= 1
+				}
+			}
+		}
+
+		cardJSON, _ := json.Marshal(cardobj)
+		buffCard.Content = cardJSON
 
 		if buff {
 			buffCard.Nerflevel -= 1
