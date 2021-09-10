@@ -282,6 +282,9 @@ func queryCards(ctx sdk.Context, owner string, status string, cardType string, c
 				if !checkName(cardobj.Place.CardName) {
 					continue
 				}
+				if classes != "" && !checkClasses(cardobj.Place.Class) {
+					continue
+				}
 				if keywordsContains != "" {
 					jsonStr, _ := json.Marshal(cardobj.Place.Abilities)
 					if !checkAbilities(string(jsonStr)) {
