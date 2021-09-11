@@ -270,7 +270,7 @@ func queryCards(ctx sdk.Context, owner string, status string, cardType string, c
 				if sortBy == "Name" {
 					results = append(results, Result{binary.BigEndian.Uint64(iterator.Key()), string(cardobj.Headquarter.CardName), 0})
 				} else if sortBy == "CastingCost" {
-					results = append(results, Result{binary.BigEndian.Uint64(iterator.Key()), "", 0})
+					results = append(results, Result{binary.BigEndian.Uint64(iterator.Key()), "", int(cardobj.Headquarter.Delay)})
 				} else if sortBy == "Id" {
 					cardsList = append(cardsList, binary.BigEndian.Uint64(iterator.Key()))
 				}
