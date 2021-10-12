@@ -232,7 +232,7 @@ func UpdateNerfLevels(ctx sdk.Context, keeper Keeper) sdk.Result {
 	*/
 	keeper.NerfBuffCards(ctx, buffbois, true)
 	keeper.NerfBuffCards(ctx, nerfbois, false)
-	keeper.RemoveCards(ctx, banbois)
+	keeper.UpdateBanStatus(ctx, banbois)
 
 	keeper.ResetAllVotes(ctx)
 

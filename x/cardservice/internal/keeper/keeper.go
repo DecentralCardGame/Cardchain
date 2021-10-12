@@ -513,6 +513,55 @@ func (k Keeper) RemoveCards(ctx sdk.Context, cardIds []uint64) {
 	}
 }
 
+func (k Keeper) UpdateBanStatus(ctx sdk.Context, newBannedIds []uint64) {
+	cardsStore := ctx.KVStore(k.CardsStoreKey)
+	usersStore := ctx.KVStore(k.UsersStoreKey)
+
+	// go through all cards and find already marked cards
+	iterator := k.GetCardsIterator(ctx)
+	for ; iterator.Valid(); iterator.Next() {
+		var gottenCard types.Card
+		k.cdc.MustUnmarshalBinaryBare(iterator.Value(), &gottenCard)
+
+		if gottenCard.Status == "bannedSoon" {
+			gottenCard.Status = "bannedVerySoon"
+			cardsStore.Set(iterator.Key(), k.cdc.MustMarshalBinaryBare(gottenCard))
+		}
+		if gottenCard.Status == "bannedVerySoon" {
+			address := gottenCard.Owner
+
+			// remove the card from the Cards store
+			var emptyCard types.Card
+			cardsStore.Set(iterator.Key(), k.cdc.MustMarshalBinaryBare(emptyCard))
+
+			// remove the card from the ownedCards of the owner
+			bz2 := usersStore.Get(address)
+			var gottenUser types.User
+			k.cdc.MustUnmarshalBinaryBare(bz2, &gottenUser)
+
+			idPosition := indexOfId(binary.BigEndian.Uint64(iterator.Key()), gottenUser.OwnedCardSchemes)
+			if idPosition >= 0 {
+					gottenUser.OwnedCards = append(gottenUser.OwnedCardSchemes[:idPosition], gottenUser.OwnedCardSchemes[idPosition+1:]...)
+					usersStore.Set(address, k.cdc.MustMarshalBinaryBare(gottenUser))
+			} else {
+				fmt.Println("trying to delete card id:",binary.BigEndian.Uint64(iterator.Key())," of owner",address," but does not exist");
+			}
+		}
+	}
+
+	// mark freshly banned cards
+	for _, id := range newBannedIds {
+		var removeCard types.Card
+		bz := cardsStore.Get(sdk.Uint64ToBigEndian(id))
+		k.cdc.MustUnmarshalBinaryBare(bz, &removeCard)
+
+		removeCard.Status = "bannedSoon"
+
+		// remove the card from the Cards store
+		cardsStore.Set(sdk.Uint64ToBigEndian(id), k.cdc.MustMarshalBinaryBare(removeCard))
+	}
+}
+
 func (k Keeper) ResetAllVotes(ctx sdk.Context) {
 	store := ctx.KVStore(k.CardsStoreKey)
 	iterator := sdk.KVStorePrefixIterator(store, nil)
