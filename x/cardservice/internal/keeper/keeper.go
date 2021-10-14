@@ -402,7 +402,6 @@ func (k Keeper) GetOPandUPCards(ctx sdk.Context) ([]uint64, []uint64, []uint64, 
 	// add the result to the voting log
 	for i := 0; i < len(votingResults.CardResults); i++ {
 		for j := 0; j < len(buffbois); j++ {
-			fmt.Println(buffbois[j], " == ", votingResults.CardResults[i].CardId )
 			if (votingResults.CardResults[i].CardId == buffbois[j] ) {
 				votingResults.CardResults[i].Result = "buff"
 			}
@@ -433,7 +432,10 @@ func (k Keeper) NerfBuffCards(ctx sdk.Context, cardIds []uint64, buff bool) {
 		var buffCard types.Card
 		k.cdc.MustUnmarshalBinaryBare(bz, &buffCard)
 
-		cardobj, _ := keywords.Unmarshal(buffCard.Content)
+		cardobj, err := keywords.Unmarshal(buffCard.Content)
+		if err != nil {
+			fmt.Println("error on card content:", err, "with card", buffCard.Content)
+		}
 
 		if cardobj.Action != nil {
 			if buff && cardobj.Action.CastingCost > 0 {
@@ -523,10 +525,6 @@ func (k Keeper) UpdateBanStatus(ctx sdk.Context, newBannedIds []uint64) {
 		var gottenCard types.Card
 		k.cdc.MustUnmarshalBinaryBare(iterator.Value(), &gottenCard)
 
-		if gottenCard.Status == "bannedSoon" {
-			gottenCard.Status = "bannedVerySoon"
-			cardsStore.Set(iterator.Key(), k.cdc.MustMarshalBinaryBare(gottenCard))
-		}
 		if gottenCard.Status == "bannedVerySoon" {
 			address := gottenCard.Owner
 
@@ -546,19 +544,20 @@ func (k Keeper) UpdateBanStatus(ctx sdk.Context, newBannedIds []uint64) {
 			} else {
 				fmt.Println("trying to delete card id:",binary.BigEndian.Uint64(iterator.Key())," of owner",address," but does not exist");
 			}
+		} else if gottenCard.Status == "bannedSoon" {
+			gottenCard.Status = "bannedVerySoon"
+			cardsStore.Set(iterator.Key(), k.cdc.MustMarshalBinaryBare(gottenCard))
 		}
 	}
 
 	// mark freshly banned cards
 	for _, id := range newBannedIds {
-		var removeCard types.Card
+		var banCard types.Card
 		bz := cardsStore.Get(sdk.Uint64ToBigEndian(id))
-		k.cdc.MustUnmarshalBinaryBare(bz, &removeCard)
+		k.cdc.MustUnmarshalBinaryBare(bz, &banCard)
 
-		removeCard.Status = "bannedSoon"
-
-		// remove the card from the Cards store
-		cardsStore.Set(sdk.Uint64ToBigEndian(id), k.cdc.MustMarshalBinaryBare(removeCard))
+		banCard.Status = "bannedSoon"
+		cardsStore.Set(sdk.Uint64ToBigEndian(id), k.cdc.MustMarshalBinaryBare(banCard))
 	}
 }
 
@@ -573,6 +572,7 @@ func (k Keeper) ResetAllVotes(ctx sdk.Context) {
 		resetCard.FairEnoughVotes = 0
 		resetCard.OverpoweredVotes = 0
 		resetCard.UnderpoweredVotes = 0
+		resetCard.InappropriateVotes = 0
 
 		store.Set(iterator.Key(), k.cdc.MustMarshalBinaryBare(resetCard))
 	}
