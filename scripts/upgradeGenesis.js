@@ -107,7 +107,7 @@ genesisnew.app_state.cardservice.card_records = R.map(x => {
   }
 
   if (content.Action) {
-    
+
   }
   else if (content.Place) {
 
@@ -120,6 +120,7 @@ genesisnew.app_state.cardservice.card_records = R.map(x => {
   }
 
   x.Content = btoa(JSON.stringify(content))
+  x.FullArt = true
   return x
 }, genesisnew.app_state.cardservice.card_records)
 
