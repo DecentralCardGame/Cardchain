@@ -1,7 +1,6 @@
 package rest
 
 import (
-	"fmt"
 	"strconv"
 	"net/http"
 	"encoding/json"
@@ -64,6 +63,7 @@ type saveCardContentReq struct {
 	CardId  string       `json:"cardid"`
 	Content string       `json:"content"`
 	Image		string			 `json:"image"`
+	FullArt bool				 `json:"fullart"`
 	Notes		string			 `json:"notes"`
 	Owner   string       `json:"owner"`
 }
@@ -108,8 +108,6 @@ func saveCardContentHandler(cliCtx context.CLIContext) http.HandlerFunc {
 			rest.WriteErrorResponse(w, http.StatusBadRequest, err.Error())
 			return
 		}
-
-		fmt.Println("fullart yeS?", req.FullArt)
 
 		// create the message
 		msg := types.NewMsgSaveCardContent(cardId, cardbytes, []byte(req.Image), req.FullArt, req.Notes, owner)
