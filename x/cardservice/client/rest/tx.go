@@ -1,7 +1,7 @@
 package rest
 
 import (
-	//"fmt"
+	"fmt"
 	"strconv"
 	"net/http"
 	"encoding/json"
@@ -73,6 +73,8 @@ func saveCardContentHandler(cliCtx context.CLIContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		var req saveCardContentReq
 
+		rest.WriteErrorResponse(w, http.StatusBadRequest, strconv.FormatBool(req.FullArt))
+
 		if !rest.ReadRESTReq(w, r, cliCtx.Codec, &req) {
 			rest.WriteErrorResponse(w, http.StatusBadRequest, "failed to parse request")
 			return
@@ -80,6 +82,7 @@ func saveCardContentHandler(cliCtx context.CLIContext) http.HandlerFunc {
 
 		baseReq := req.BaseReq.Sanitize()
 		if !baseReq.ValidateBasic(w) {
+			rest.WriteErrorResponse(w, http.StatusBadRequest, "Sanitize failed")
 			return
 		}
 
@@ -107,8 +110,10 @@ func saveCardContentHandler(cliCtx context.CLIContext) http.HandlerFunc {
 			return
 		}
 
+		fmt.Println("fullart yeS?", req.FullArt)
+
 		// create the message
-		msg := types.NewMsgSaveCardContent(cardId, cardbytes, []byte(req.Image), req.Notes, req.FullArt, owner)
+		msg := types.NewMsgSaveCardContent(cardId, cardbytes, []byte(req.Image), req.FullArt, req.Notes, owner)
 		err = msg.ValidateBasic()
 		if err != nil {
 			rest.WriteErrorResponse(w, http.StatusBadRequest, err.Error())
