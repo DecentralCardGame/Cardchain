@@ -72,7 +72,7 @@ func GetCmdBuyCardScheme(cdc *codec.Codec) *cobra.Command {
 // GetCmdSaveCardContent is the CLI command for saving the content of a card
 func GetCmdSaveCardContent(cdc *codec.Codec) *cobra.Command {
 	return &cobra.Command{
-		Use:   "save-card-content [card id] [content] [image] [notes] [fullart]",
+		Use:   "save-card-content [card id] [content] [image] [fullart] [notes]",
 		Short: "save the content of a card",
 		Args:  cobra.ExactArgs(4),
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -95,12 +95,7 @@ func GetCmdSaveCardContent(cdc *codec.Codec) *cobra.Command {
 				return err
 			}
 
-			fullArt, err := strconv.ParseBool(args[4])
-			if err != nil {
-				return err
-			}
-
-			msg := types.NewMsgSaveCardContent(cardId, cardbytes, []byte(args[2]), fullArt, args[3], cliCtx.GetFromAddress())
+			msg := types.NewMsgSaveCardContent(cardId, cardbytes, []byte(args[2]), args[3], args[4], cliCtx.GetFromAddress())
 			err = msg.ValidateBasic()
 			if err != nil {
 				return err
