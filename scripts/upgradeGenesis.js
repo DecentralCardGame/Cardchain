@@ -28,12 +28,16 @@ genesisnew.app_state.cardservice.users = R.map(function(x) { x.OwnedCards = x.Ow
 genesisnew.app_state.cardservice.users = R.map(function(x) { x.OwnedCardSchemes = x.OwnedCardSchemes ? R.uniq(x.OwnedCardSchemes) : []; return x }, genesisnew.app_state.cardservice.users)
 genesisnew.app_state.cardservice.users = R.map(function(x) { x.OwnedCardSchemes = x.OwnedCardSchemes && x.OwnedCards ? R.without(x.OwnedCards, x.OwnedCardSchemes) : x.OwnedCardSchemes; return x }, genesisnew.app_state.cardservice.users)
 
+R.map(function(x) { console.log(x.value.address) }, genesisnew.app_state.auth.accounts)
+console.log("------")
+R.map(function(x) { console.log(x) }, genesisnew.app_state.cardservice.addresses)
+
 // card model merger
 let id = 0
 
 genesisnew.app_state.cardservice.card_records = R.map(x => {
   //console.log('decoded:', atob(x.Content != null ? x.Content : btoa('{}')))
-  console.log(id)
+  //console.log(id)
   id++
 
   let content = JSON.parse(atob(x.Content != null ? x.Content : btoa('{}')))
@@ -121,6 +125,7 @@ genesisnew.app_state.cardservice.card_records = R.map(x => {
 
   x.Content = btoa(JSON.stringify(content))
   x.FullArt = "true"
+  //console.log(x.Owner)
   return x
 }, genesisnew.app_state.cardservice.card_records)
 
