@@ -28,9 +28,8 @@ genesisnew.app_state.cardservice.users = R.map(function(x) { x.OwnedCards = x.Ow
 genesisnew.app_state.cardservice.users = R.map(function(x) { x.OwnedCardSchemes = x.OwnedCardSchemes ? R.uniq(x.OwnedCardSchemes) : []; return x }, genesisnew.app_state.cardservice.users)
 genesisnew.app_state.cardservice.users = R.map(function(x) { x.OwnedCardSchemes = x.OwnedCardSchemes && x.OwnedCards ? R.without(x.OwnedCards, x.OwnedCardSchemes) : x.OwnedCardSchemes; return x }, genesisnew.app_state.cardservice.users)
 
-R.map(function(x) { console.log(x.value.address) }, genesisnew.app_state.auth.accounts)
-console.log("------")
-R.map(function(x) { console.log(x) }, genesisnew.app_state.cardservice.addresses)
+R.map(function(x) { console.log(x.Owner) }, genesisnew.app_state.cardservice.card_records)
+
 
 // card model merger
 let id = 0
