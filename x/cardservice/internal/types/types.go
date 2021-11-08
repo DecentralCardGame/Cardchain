@@ -27,6 +27,7 @@ type Card struct {
 	Owner              sdk.AccAddress
 	Content            []byte
 	Image							 []byte
+	FullArt						 string
 	Notes							 string
 	Status             string
 	VotePool           sdk.Coin
@@ -43,6 +44,7 @@ func NewCard(owner sdk.AccAddress) Card {
 		Content:            []byte{},
 		Image:							[]byte{},
 		Notes:							"",
+		FullArt:						"",
 		Status:             "scheme",
 		VotePool:           sdk.NewInt64Coin("credits", 0),
 		FairEnoughVotes:    0,
@@ -58,6 +60,7 @@ type CardNoB64 struct {
 	Content            string
 	Image							 string
 	Notes							 string
+	FullArt						 string
 	Status             string
 	VotePool           sdk.Coin
 	FairEnoughVotes    uint64
@@ -73,6 +76,7 @@ func CardNoB64FromCard(card Card) CardNoB64 {
 		Content:            string(card.Content),
 		Image:							string(card.Image),
 		Notes:							card.Notes,
+		FullArt:						card.FullArt,
 		Status:             card.Status,
 		VotePool:           card.VotePool,
 		FairEnoughVotes:    card.FairEnoughVotes,

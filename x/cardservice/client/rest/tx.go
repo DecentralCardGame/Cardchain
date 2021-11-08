@@ -64,6 +64,7 @@ type saveCardContentReq struct {
 	CardId  string       `json:"cardid"`
 	Content string       `json:"content"`
 	Image		string			 `json:"image"`
+	FullArt string 			 `json:"fullart"`
 	Notes		string			 `json:"notes"`
 	Owner   string       `json:"owner"`
 }
@@ -79,6 +80,7 @@ func saveCardContentHandler(cliCtx context.CLIContext) http.HandlerFunc {
 
 		baseReq := req.BaseReq.Sanitize()
 		if !baseReq.ValidateBasic(w) {
+			rest.WriteErrorResponse(w, http.StatusBadRequest, "baseReq Validation failed")
 			return
 		}
 
@@ -107,7 +109,8 @@ func saveCardContentHandler(cliCtx context.CLIContext) http.HandlerFunc {
 		}
 
 		// create the message
-		msg := types.NewMsgSaveCardContent(cardId, cardbytes, []byte(req.Image), req.Notes, owner)
+		msg := types.NewMsgSaveCardContent(cardId, cardbytes, []byte(req.Image), req.FullArt, req.Notes, owner)
+
 		err = msg.ValidateBasic()
 		if err != nil {
 			rest.WriteErrorResponse(w, http.StatusBadRequest, err.Error())
@@ -115,6 +118,7 @@ func saveCardContentHandler(cliCtx context.CLIContext) http.HandlerFunc {
 		}
 
 		utils.WriteGenerateStdTxResponse(w, cliCtx, baseReq, []sdk.Msg{msg})
+
 	}
 }
 
