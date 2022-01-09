@@ -15,7 +15,7 @@ If you want to join the testnet or get in contact (dev with us): Join us at http
 
 ## Building and running
 
-Prerequisites: Go 1.13, some scripts require jq
+Prerequisites: Go 1.13, some scripts require JS
 
 ```bash
 make intall  
