@@ -3,9 +3,9 @@ module github.com/DecentralCardGame/Cardchain
 go 1.13
 
 require (
-	github.com/DecentralCardGame/cardobject v0.4.5
+	github.com/DecentralCardGame/cardobject v0.4.6
 	github.com/cosmos/cosmos-sdk v0.38.0
-	github.com/fatih/structs v1.1.0
+	github.com/fatih/structs v1.1.0 // indirect
 	github.com/gopherjs/gopherjs v0.0.0-20191106031601-ce3c9ade29de // indirect
 	github.com/gorilla/mux v1.7.4
 	github.com/neelance/astrewrite v0.0.0-20160511093645-99348263ae86 // indirect
@@ -21,5 +21,4 @@ require (
 	github.com/xeipuuv/gojsonreference v0.0.0-20180127040603-bd5ef7bd5415 // indirect
 	github.com/xeipuuv/gojsonschema v1.1.0 // indirect
 	golang.org/x/tools v0.0.0-20191108193012-7d206e10da11 // indirect
-	honnef.co/go/tools v0.0.0-20190523083050-ea95bdfd59fc // indirect
 )

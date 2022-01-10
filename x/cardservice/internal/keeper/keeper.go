@@ -10,6 +10,7 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/DecentralCardGame/Cardchain/x/cardservice/internal/types"
 
+	"github.com/DecentralCardGame/cardobject/cardobject"
 	"github.com/DecentralCardGame/cardobject/keywords"
 )
 
@@ -437,38 +438,43 @@ func (k Keeper) NerfBuffCards(ctx sdk.Context, cardIds []uint64, buff bool) {
 			fmt.Println("error on card content:", err, "with card", buffCard.Content)
 		}
 
-		if cardobj.Action != nil {
-			if buff && cardobj.Action.CastingCost > 0 {
-				cardobj.Action.CastingCost -= 1
+		buffnerfCost := func (cost *cardobject.CastingCost) {
+			update := *cost
+			if buff {
+				update -= 1
 			} else {
-				cardobj.Action.CastingCost += 1
+				update += 1
 			}
+			// only apply the buffed/nerfed value if the new value validates without error
+			if update.ValidateType(nil) == nil {
+				*cost = update
+			}
+		}
+
+		if cardobj.Action != nil {
+			buffnerfCost(&cardobj.Action.CastingCost)
 		}
 		if cardobj.Entity != nil {
-			if buff && cardobj.Entity.CastingCost > 0 {
-				cardobj.Entity.CastingCost -= 1
-			} else {
-				cardobj.Entity.CastingCost += 1
-			}
+			buffnerfCost(&cardobj.Entity.CastingCost)
 		}
 		if cardobj.Place != nil {
-			if buff && cardobj.Place.CastingCost > 0 {
-				cardobj.Place.CastingCost -= 1
-			} else {
-				cardobj.Place.CastingCost += 1
-			}
+			buffnerfCost(&cardobj.Place.CastingCost)
 		}
 		if cardobj.Headquarter != nil {
+			updateHealth := cardobj.Headquarter.Health
+			updateDelay := cardobj.Headquarter.Delay
 			if buff {
-				if cardobj.Headquarter.Delay > 0 {
-					cardobj.Headquarter.Delay -= 1
-				}
-				cardobj.Headquarter.Health += 1
+				updateDelay -= 1
+				updateHealth += 1
 			} else {
-				cardobj.Headquarter.Delay += 1
-				if cardobj.Headquarter.Health > 1 {
-					cardobj.Headquarter.Health -= 1
-				}
+				updateDelay += 1
+				updateHealth -= 1
+			}
+			if updateDelay.ValidateType(nil) == nil {
+				cardobj.Headquarter.Delay = updateDelay
+			}
+			if updateHealth.ValidateType(nil) == nil {
+				cardobj.Headquarter.Health = updateHealth
 			}
 		}
 

@@ -36,6 +36,8 @@ github.com/DecentralCardGame/cardobject v0.4.3 h1:8SmhzuBWItpSIidI73ceLYgi91wd9x
 github.com/DecentralCardGame/cardobject v0.4.3/go.mod h1:waAoRvDCDVTBlPjEroIIfXpX2PQnJvgUssRN4Ji4VFM=
 github.com/DecentralCardGame/cardobject v0.4.5 h1:TamEIvsGXnpbnry4ORPxSXG1SJL8prs3sLG4EJbljKQ=
 github.com/DecentralCardGame/cardobject v0.4.5/go.mod h1:waAoRvDCDVTBlPjEroIIfXpX2PQnJvgUssRN4Ji4VFM=
+github.com/DecentralCardGame/cardobject v0.4.6 h1:zsQeE4yO28wbxowg2YdinsakjObSIsxsB/UAtB/tfyw=
+github.com/DecentralCardGame/cardobject v0.4.6/go.mod h1:waAoRvDCDVTBlPjEroIIfXpX2PQnJvgUssRN4Ji4VFM=
 github.com/DecentralCardGame/jsonschema v0.1.11 h1:34s/aiR5pg380tBgIoJswIrJ/Bae7hJ2UK5MCvnHVIo=
 github.com/DecentralCardGame/jsonschema v0.1.11/go.mod h1:tZq1ww7rFIsadDqqful0xv0wevCpXXQLPOE2AoMMs6U=
 github.com/DecentralCardGame/keywords v0.0.2 h1:emvVuxfcddHMeRH/PAxVOl89l0rkI/EDoHKtV6vDKXQ=
