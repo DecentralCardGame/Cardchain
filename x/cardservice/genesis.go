@@ -56,9 +56,10 @@ func InitGenesis(ctx sdk.Context, keeper Keeper, data GenesisState) {
 		lastId := keeper.GetLastCardSchemeId(ctx)
 		currId := lastId + 1
 
-		fmt.Println(currId)
+
 		_, err := keywords.Unmarshal(record.Content)
 		if err != nil {
+			fmt.Println(currId,":")
 			fmt.Println(err.Error())
 			fmt.Println(string(record.Content))
 			fmt.Println("-----")
