@@ -36,6 +36,7 @@ docker-compose up
 
 ## Upgrading with data
 ```bash
+df -h (no space on device = next step will fail)
 sh docker-stop-and-export.sh  
 mv blockchain-data/genesis.json scripts/genesis.old.json  
 git pull  
