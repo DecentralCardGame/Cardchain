@@ -2,8 +2,9 @@ import { txClient, queryClient, MissingWalletError, registry } from './module';
 // @ts-ignore
 import { SpVuexError } from '@starport/vuex';
 import { Params } from "./module/types/cardchain/params";
+import { User } from "./module/types/cardchain/user";
 import { VoteRight } from "./module/types/cardchain/vote_right";
-export { Params, VoteRight };
+export { Params, User, VoteRight };
 async function initTxClient(vuexGetters) {
     return await txClient(vuexGetters['common/wallet/signer'], {
         addr: vuexGetters['common/env/apiTendermint']
@@ -40,6 +41,7 @@ const getDefaultState = () => {
         Params: {},
         _Structure: {
             Params: getStructure(Params.fromPartial({})),
+            User: getStructure(User.fromPartial({})),
             VoteRight: getStructure(VoteRight.fromPartial({})),
         },
         _Registry: registry,

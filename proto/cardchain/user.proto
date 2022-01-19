@@ -1,0 +1,13 @@
+syntax = "proto3";
+package DecentralCardGame.cardchain.cardchain;
+
+option go_package = "github.com/DecentralCardGame/Cardchain/x/cardchain/types";
+import "cardchain/vote_right.proto";
+
+message User {
+
+  string alias = 1;
+  repeated uint64 ownedCardSchemes = 2;
+  repeated uint64 ownedCards = 3;
+  repeated VoteRight voteRights = 4; 
+}
