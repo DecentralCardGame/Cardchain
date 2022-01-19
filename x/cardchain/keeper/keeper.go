@@ -48,3 +48,14 @@ func NewKeeper(
 func (k Keeper) Logger(ctx sdk.Context) log.Logger {
 	return ctx.Logger().With("module", fmt.Sprintf("x/%s", types.ModuleName))
 }
+
+func (k Keeper) Createuser(ctx sdk.Context, newUser sdk.AccAddress, alias string) types.User {
+	// check if user already exists
+	store := ctx.KVStore(k.UsersStoreKey)
+	bz := store.Get(newUser)
+
+	if bz == nil {
+		k.InitUser(ctx, newUser, alias)
+	}
+	return k.GetUser(ctx, newUser)
+}
