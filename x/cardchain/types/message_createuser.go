@@ -9,10 +9,10 @@ const TypeMsgCreateuser = "createuser"
 
 var _ sdk.Msg = &MsgCreateuser{}
 
-func NewMsgCreateuser(creator string, newuser string, alias string) *MsgCreateuser {
+func NewMsgCreateuser(creator sdk.AccAddress, newuser sdk.AccAddress, alias string) *MsgCreateuser {
 	return &MsgCreateuser{
 		Creator: creator,
-		Newuser: newuser,
+		NewUser: newuser,
 		Alias:   alias,
 	}
 }
@@ -26,11 +26,7 @@ func (msg *MsgCreateuser) Type() string {
 }
 
 func (msg *MsgCreateuser) GetSigners() []sdk.AccAddress {
-	creator, err := sdk.AccAddressFromBech32(msg.Creator)
-	if err != nil {
-		panic(err)
-	}
-	return []sdk.AccAddress{creator}
+	return []sdk.AccAddress{msg.Creator}
 }
 
 func (msg *MsgCreateuser) GetSignBytes() []byte {
@@ -39,9 +35,8 @@ func (msg *MsgCreateuser) GetSignBytes() []byte {
 }
 
 func (msg *MsgCreateuser) ValidateBasic() error {
-	_, err := sdk.AccAddressFromBech32(msg.Creator)
-	if err != nil {
-		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid creator address (%s)", err)
+	if msg.NewUser.Empty() {
+		return sdkerrors.Wrap(sdkerrors.ErrInvalidAddress, msg.NewUser.String())
 	}
 	return nil
 }

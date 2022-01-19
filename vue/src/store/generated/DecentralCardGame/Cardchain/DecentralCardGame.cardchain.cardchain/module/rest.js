@@ -130,7 +130,7 @@ export class HttpClient {
     }
 }
 /**
- * @title cardchain/genesis.proto
+ * @title cardchain/card.proto
  * @version version not set
  */
 export class Api extends HttpClient {

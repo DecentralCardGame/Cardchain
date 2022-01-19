@@ -1,6 +1,7 @@
 package keeper
 
 import (
+	"encoding/binary"
 	"fmt"
 
 	"github.com/tendermint/tendermint/libs/log"
@@ -14,7 +15,7 @@ import (
 
 type (
 	Keeper struct {
-		cdc        amino.Codec  // The wire codec for binary encoding/decoding.
+		cdc        amino.Codec // The wire codec for binary encoding/decoding.
 		storeKey   sdk.StoreKey
 		memKey     sdk.StoreKey
 		paramstore paramtypes.Subspace
@@ -71,7 +72,7 @@ func (k Keeper) InitUser(ctx sdk.Context, address sdk.AccAddress, alias string) 
 	newUser.Alias = alias
 	k.bankKeeper.AddCoins(ctx, address, sdk.Coins{sdk.NewInt64Coin("credits", 10000)})
 	const votingRightsExpirationTime = 86000
-	newUser.VoteRights = k.GetVoteRightToAllCards(ctx, ctx.BlockHeight()+votingRightsExpirationTime)		// TODO this might be a good thing to remove later, so that sybil voting is not possible
+	newUser.VoteRights = k.GetVoteRightToAllCards(ctx, ctx.BlockHeight()+votingRightsExpirationTime) // TODO this might be a good thing to remove later, so that sybil voting is not possible
 
 	store.Set(address, k.cdc.MustMarshalBinaryBare(newUser))
 }
@@ -98,7 +99,7 @@ func (k Keeper) GetVoteRightToAllCards(ctx sdk.Context, expireBlock int64) []*ty
 
 		if gottenCard.Status == "permanent" || gottenCard.Status == "trial" || gottenCard.Status == "prototype" {
 			right := types.NewVoteRight(binary.BigEndian.Uint64(cardIterator.Key()), expireBlock)
-			votingRights = append(votingRights, right)
+			votingRights = append(votingRights, &right)
 		}
 	}
 	cardIterator.Close()

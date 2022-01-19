@@ -5,21 +5,21 @@ export const protobufPackage = "DecentralCardGame.cardchain.cardchain";
 
 export interface MsgCreateuser {
   creator: string;
-  newuser: string;
+  newUser: string;
   alias: string;
 }
 
 export interface MsgCreateuserResponse {}
 
-const baseMsgCreateuser: object = { creator: "", newuser: "", alias: "" };
+const baseMsgCreateuser: object = { creator: "", newUser: "", alias: "" };
 
 export const MsgCreateuser = {
   encode(message: MsgCreateuser, writer: Writer = Writer.create()): Writer {
     if (message.creator !== "") {
       writer.uint32(10).string(message.creator);
     }
-    if (message.newuser !== "") {
-      writer.uint32(18).string(message.newuser);
+    if (message.newUser !== "") {
+      writer.uint32(18).string(message.newUser);
     }
     if (message.alias !== "") {
       writer.uint32(26).string(message.alias);
@@ -38,7 +38,7 @@ export const MsgCreateuser = {
           message.creator = reader.string();
           break;
         case 2:
-          message.newuser = reader.string();
+          message.newUser = reader.string();
           break;
         case 3:
           message.alias = reader.string();
@@ -58,10 +58,10 @@ export const MsgCreateuser = {
     } else {
       message.creator = "";
     }
-    if (object.newuser !== undefined && object.newuser !== null) {
-      message.newuser = String(object.newuser);
+    if (object.newUser !== undefined && object.newUser !== null) {
+      message.newUser = String(object.newUser);
     } else {
-      message.newuser = "";
+      message.newUser = "";
     }
     if (object.alias !== undefined && object.alias !== null) {
       message.alias = String(object.alias);
@@ -74,7 +74,7 @@ export const MsgCreateuser = {
   toJSON(message: MsgCreateuser): unknown {
     const obj: any = {};
     message.creator !== undefined && (obj.creator = message.creator);
-    message.newuser !== undefined && (obj.newuser = message.newuser);
+    message.newUser !== undefined && (obj.newUser = message.newUser);
     message.alias !== undefined && (obj.alias = message.alias);
     return obj;
   },
@@ -86,10 +86,10 @@ export const MsgCreateuser = {
     } else {
       message.creator = "";
     }
-    if (object.newuser !== undefined && object.newuser !== null) {
-      message.newuser = object.newuser;
+    if (object.newUser !== undefined && object.newUser !== null) {
+      message.newUser = object.newUser;
     } else {
-      message.newuser = "";
+      message.newUser = "";
     }
     if (object.alias !== undefined && object.alias !== null) {
       message.alias = object.alias;

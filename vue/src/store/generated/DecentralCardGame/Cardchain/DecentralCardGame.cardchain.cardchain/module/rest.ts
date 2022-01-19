@@ -227,7 +227,7 @@ export class HttpClient<SecurityDataType = unknown> {
 }
 
 /**
- * @title cardchain/genesis.proto
+ * @title cardchain/card.proto
  * @version version not set
  */
 export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDataType> {

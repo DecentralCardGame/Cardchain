@@ -2,7 +2,7 @@ import { Reader, Writer } from "protobufjs/minimal";
 export declare const protobufPackage = "DecentralCardGame.cardchain.cardchain";
 export interface MsgCreateuser {
     creator: string;
-    newuser: string;
+    newUser: string;
     alias: string;
 }
 export interface MsgCreateuserResponse {

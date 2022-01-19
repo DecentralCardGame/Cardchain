@@ -4,7 +4,7 @@ package DecentralCardGame.cardchain.cardchain;
 option go_package = "github.com/DecentralCardGame/Cardchain/x/cardchain/types";
 
 message VoteRight {
-  
-  uint64 cardId = 1; 
-  int32 expireBlock = 2; 
+
+  uint64 cardId = 1;
+  int64 expireBlock = 2; 
 }

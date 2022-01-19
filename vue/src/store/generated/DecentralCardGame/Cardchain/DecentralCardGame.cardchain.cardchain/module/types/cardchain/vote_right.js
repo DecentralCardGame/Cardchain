@@ -9,7 +9,7 @@ export const VoteRight = {
             writer.uint32(8).uint64(message.cardId);
         }
         if (message.expireBlock !== 0) {
-            writer.uint32(16).int32(message.expireBlock);
+            writer.uint32(16).int64(message.expireBlock);
         }
         return writer;
     },
@@ -24,7 +24,7 @@ export const VoteRight = {
                     message.cardId = longToNumber(reader.uint64());
                     break;
                 case 2:
-                    message.expireBlock = reader.int32();
+                    message.expireBlock = longToNumber(reader.int64());
                     break;
                 default:
                     reader.skipType(tag & 7);
