@@ -3,9 +3,10 @@ import { txClient, queryClient, MissingWalletError , registry} from './module'
 import { SpVuexError } from '@starport/vuex'
 
 import { Params } from "./module/types/cardchain/params"
+import { VoteRight } from "./module/types/cardchain/vote_right"
 
 
-export { Params };
+export { Params, VoteRight };
 
 async function initTxClient(vuexGetters) {
 	return await txClient(vuexGetters['common/wallet/signer'], {
@@ -47,6 +48,7 @@ const getDefaultState = () => {
 				
 				_Structure: {
 						Params: getStructure(Params.fromPartial({})),
+						VoteRight: getStructure(VoteRight.fromPartial({})),
 						
 		},
 		_Registry: registry,

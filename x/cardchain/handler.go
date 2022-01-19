@@ -20,7 +20,7 @@ func NewHandler(k keeper.Keeper) sdk.Handler {
 		// case *types.MsgCreateuser:
 		// 	res, err := msgServer.Createuser(sdk.WrapSDKContext(ctx), msg)
 		// 	return sdk.WrapServiceResult(ctx, res, err)
-		// 	// this line is used by starport scaffolding # 1
+		// this line is used by starport scaffolding # 1
 		case *types.MsgCreateuser:
 			return handleMsgCreateUser(ctx, k, msg)
 		default:
@@ -29,7 +29,6 @@ func NewHandler(k keeper.Keeper) sdk.Handler {
 		}
 	}
 }
-
 
 func handleMsgCreateUser(ctx sdk.Context, keeper keeper.Keeper, msg *types.MsgCreateuser) (*sdk.Result, error) {
 	// check if user already exists
