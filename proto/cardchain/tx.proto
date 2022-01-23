@@ -1,8 +1,6 @@
 syntax = "proto3";
 package DecentralCardGame.cardchain.cardchain;
 
-import "gogoproto/gogo.proto";
-
 // this line is used by starport scaffolding # proto/tx/import
 
 option go_package = "github.com/DecentralCardGame/Cardchain/x/cardchain/types";
@@ -14,8 +12,8 @@ service Msg {
 }
 
 message MsgCreateuser {
-  string creator = 1 [(gogoproto.nullable) = false, (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.AccAddress"];;
-  string newUser = 2 [(gogoproto.nullable) = false, (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.AccAddress"];;
+  string creator = 1;
+  string newUser = 2;
   string alias = 3;
 }
 

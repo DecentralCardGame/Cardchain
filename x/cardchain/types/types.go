@@ -43,7 +43,7 @@ func NewVoteRight(cardId uint64, expireBlock int64) VoteRight {
 
 func NewCard(owner sdk.AccAddress) Card {
 	return Card{
-		Owner:              owner,
+		Owner:              owner.String(),
 		Content:            []byte{},
 		Image:              []byte{},
 		Notes:              "",
@@ -56,4 +56,12 @@ func NewCard(owner sdk.AccAddress) Card {
 		InappropriateVotes: 0,
 		Nerflevel:          0,
 	}
+}
+
+func (m *Card) GetOwnerAddr() sdk.AccAddress {
+	owner, err := sdk.AccAddressFromBech32(m.GetOwner())
+	if err != nil {
+		panic(err)
+	}
+	return owner
 }

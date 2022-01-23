@@ -32,7 +32,7 @@ func NewHandler(k keeper.Keeper) sdk.Handler {
 
 func handleMsgCreateUser(ctx sdk.Context, keeper keeper.Keeper, msg *types.MsgCreateuser) (*sdk.Result, error) {
 	// check if user already exists
-	keeper.Createuser(ctx, msg.NewUser, msg.Alias)
+	keeper.Createuser(ctx, msg.GetNewUserAddr(), msg.Alias)
 
 	// this has been moved to keeper.InitUser, but maybe will be back here some day?
 	// give starting credits

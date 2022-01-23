@@ -7,7 +7,7 @@ option go_package = "github.com/DecentralCardGame/Cardchain/x/cardchain/types";
 
 message Card {
 
-  string owner = 1 [(gogoproto.nullable) = false, (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.AccAddress"];;
+  string owner = 1;
   bytes content = 2;
   bytes image = 3;
   string fullArt = 4;
