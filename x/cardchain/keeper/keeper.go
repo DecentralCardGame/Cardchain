@@ -7,15 +7,14 @@ import (
 	"github.com/tendermint/tendermint/libs/log"
 
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
-	//"github.com/cosmos/cosmos-sdk/codec"
+	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	paramtypes "github.com/cosmos/cosmos-sdk/x/params/types"
-	amino "github.com/tendermint/go-amino"
 )
 
 type (
 	Keeper struct {
-		cdc        amino.Codec // The wire codec for binary encoding/decoding.
+		cdc        codec.BinaryCodec // The wire codec for binary encoding/decoding.
 		storeKey   sdk.StoreKey
 		memKey     sdk.StoreKey
 		paramstore paramtypes.Subspace
@@ -25,7 +24,7 @@ type (
 )
 
 func NewKeeper(
-	cdc amino.Codec,
+	cdc codec.BinaryCodec,
 	storeKey,
 	memKey sdk.StoreKey,
 	ps paramtypes.Subspace,
@@ -74,7 +73,7 @@ func (k Keeper) InitUser(ctx sdk.Context, address sdk.AccAddress, alias string) 
 	const votingRightsExpirationTime = 86000
 	newUser.VoteRights = k.GetVoteRightToAllCards(ctx, ctx.BlockHeight()+votingRightsExpirationTime) // TODO this might be a good thing to remove later, so that sybil voting is not possible
 
-	store.Set(address, k.cdc.MustMarshalBinaryBare(newUser))
+	store.Set(address, k.cdc.MustMarshal(&newUser))
 }
 
 func (k Keeper) GetUser(ctx sdk.Context, address sdk.AccAddress) types.User {
@@ -82,7 +81,7 @@ func (k Keeper) GetUser(ctx sdk.Context, address sdk.AccAddress) types.User {
 	bz := store.Get(address)
 
 	var gottenUser types.User
-	k.cdc.MustUnmarshalBinaryBare(bz, &gottenUser)
+	k.cdc.MustUnmarshal(bz, &gottenUser)
 	return gottenUser
 }
 
@@ -95,7 +94,7 @@ func (k Keeper) GetVoteRightToAllCards(ctx sdk.Context, expireBlock int64) []*ty
 	for ; cardIterator.Valid(); cardIterator.Next() {
 		// here only give right if card is not a scheme or banished
 		var gottenCard types.Card
-		k.cdc.MustUnmarshalBinaryBare(cardIterator.Value(), &gottenCard)
+		k.cdc.MustUnmarshal(cardIterator.Value(), &gottenCard)
 
 		if gottenCard.Status == "permanent" || gottenCard.Status == "trial" || gottenCard.Status == "prototype" {
 			right := types.NewVoteRight(binary.BigEndian.Uint64(cardIterator.Key()), expireBlock)
