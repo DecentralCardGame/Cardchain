@@ -1,5 +1,6 @@
 export declare type CardchainMsgBuyCardSchemeResponse = object;
 export declare type CardchainMsgCreateuserResponse = object;
+export declare type CardchainMsgDonateToCardResponse = object;
 export declare type CardchainMsgSaveCardContentResponse = object;
 export declare type CardchainMsgTransferCardResponse = object;
 export declare type CardchainMsgVoteCardResponse = object;

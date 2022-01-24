@@ -44,6 +44,10 @@ const (
 	// TODO: Determine the simulation weight value
 	defaultWeightMsgTransferCard int = 100
 
+	opWeightMsgDonateToCard = "op_weight_msg_create_chain"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgDonateToCard int = 100
+
 	// this line is used by starport scaffolding # simapp/module/const
 )
 
@@ -130,6 +134,17 @@ func (am AppModule) WeightedOperations(simState module.SimulationState) []simtyp
 	operations = append(operations, simulation.NewWeightedOperation(
 		weightMsgTransferCard,
 		cardchainsimulation.SimulateMsgTransferCard(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
+	var weightMsgDonateToCard int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgDonateToCard, &weightMsgDonateToCard, nil,
+		func(_ *rand.Rand) {
+			weightMsgDonateToCard = defaultWeightMsgDonateToCard
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgDonateToCard,
+		cardchainsimulation.SimulateMsgDonateToCard(am.accountKeeper, am.bankKeeper, am.keeper),
 	))
 
 	// this line is used by starport scaffolding # simapp/module/operation

@@ -28,6 +28,8 @@ func NewHandler(k keeper.Keeper) sdk.Handler {
 			return handleMsgSaveCardContent(ctx, k, msg)
 		case *types.MsgTransferCard:
 			return handleMsgTransferCard(ctx, k, msg)
+		case *types.MsgDonateToCard:
+			return handleMsgDonateToCard(ctx, k, msg)
 			// this line is used by starport scaffolding # 1
 		case *types.MsgCreateuser:
 			return handleMsgCreateUser(ctx, k, msg)
@@ -36,6 +38,21 @@ func NewHandler(k keeper.Keeper) sdk.Handler {
 			return nil, sdkerrors.Wrap(sdkerrors.ErrUnknownRequest, errMsg)
 		}
 	}
+}
+
+func handleMsgDonateToCard(ctx sdk.Context, keeper keeper.Keeper, msg *types.MsgDonateToCard) (*sdk.Result, error) {
+	donator, _ := sdk.AccAddressFromBech32(msg.Donator)
+
+	err := keeper.BurnCoinsFromAddr(ctx, donator, sdk.Coins{msg.Amount}) // If so, deduct the Bid amount from the sender
+	if err != nil {
+		return nil, sdkerrors.Wrap(sdkerrors.ErrInsufficientFunds, "Donator does not have enough coins")
+	}
+
+	card := keeper.GetCard(ctx, msg.CardId)
+	card.VotePool = card.VotePool.Add(msg.Amount)
+	keeper.SetCard(ctx, msg.CardId, card)
+
+	return &sdk.Result{}, nil
 }
 
 func handleMsgTransferCard(ctx sdk.Context, keeper keeper.Keeper, msg *types.MsgTransferCard) (*sdk.Result, error) {

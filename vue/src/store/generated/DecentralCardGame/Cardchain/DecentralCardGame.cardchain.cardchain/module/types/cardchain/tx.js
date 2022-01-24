@@ -751,6 +751,157 @@ export const MsgTransferCardResponse = {
         return message;
     },
 };
+const baseMsgDonateToCard = {
+    creator: "",
+    cardId: 0,
+    donator: "",
+    amount: "",
+};
+export const MsgDonateToCard = {
+    encode(message, writer = Writer.create()) {
+        if (message.creator !== "") {
+            writer.uint32(10).string(message.creator);
+        }
+        if (message.cardId !== 0) {
+            writer.uint32(16).uint64(message.cardId);
+        }
+        if (message.donator !== "") {
+            writer.uint32(26).string(message.donator);
+        }
+        if (message.amount !== "") {
+            writer.uint32(34).string(message.amount);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = { ...baseMsgDonateToCard };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.creator = reader.string();
+                    break;
+                case 2:
+                    message.cardId = longToNumber(reader.uint64());
+                    break;
+                case 3:
+                    message.donator = reader.string();
+                    break;
+                case 4:
+                    message.amount = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = { ...baseMsgDonateToCard };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = String(object.creator);
+        }
+        else {
+            message.creator = "";
+        }
+        if (object.cardId !== undefined && object.cardId !== null) {
+            message.cardId = Number(object.cardId);
+        }
+        else {
+            message.cardId = 0;
+        }
+        if (object.donator !== undefined && object.donator !== null) {
+            message.donator = String(object.donator);
+        }
+        else {
+            message.donator = "";
+        }
+        if (object.amount !== undefined && object.amount !== null) {
+            message.amount = String(object.amount);
+        }
+        else {
+            message.amount = "";
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.creator !== undefined && (obj.creator = message.creator);
+        message.cardId !== undefined && (obj.cardId = message.cardId);
+        message.donator !== undefined && (obj.donator = message.donator);
+        message.amount !== undefined && (obj.amount = message.amount);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = { ...baseMsgDonateToCard };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = object.creator;
+        }
+        else {
+            message.creator = "";
+        }
+        if (object.cardId !== undefined && object.cardId !== null) {
+            message.cardId = object.cardId;
+        }
+        else {
+            message.cardId = 0;
+        }
+        if (object.donator !== undefined && object.donator !== null) {
+            message.donator = object.donator;
+        }
+        else {
+            message.donator = "";
+        }
+        if (object.amount !== undefined && object.amount !== null) {
+            message.amount = object.amount;
+        }
+        else {
+            message.amount = "";
+        }
+        return message;
+    },
+};
+const baseMsgDonateToCardResponse = {};
+export const MsgDonateToCardResponse = {
+    encode(_, writer = Writer.create()) {
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = {
+            ...baseMsgDonateToCardResponse,
+        };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(_) {
+        const message = {
+            ...baseMsgDonateToCardResponse,
+        };
+        return message;
+    },
+    toJSON(_) {
+        const obj = {};
+        return obj;
+    },
+    fromPartial(_) {
+        const message = {
+            ...baseMsgDonateToCardResponse,
+        };
+        return message;
+    },
+};
 export class MsgClientImpl {
     constructor(rpc) {
         this.rpc = rpc;
@@ -779,6 +930,11 @@ export class MsgClientImpl {
         const data = MsgTransferCard.encode(request).finish();
         const promise = this.rpc.request("DecentralCardGame.cardchain.cardchain.Msg", "TransferCard", data);
         return promise.then((data) => MsgTransferCardResponse.decode(new Reader(data)));
+    }
+    DonateToCard(request) {
+        const data = MsgDonateToCard.encode(request).finish();
+        const promise = this.rpc.request("DecentralCardGame.cardchain.cardchain.Msg", "DonateToCard", data);
+        return promise.then((data) => MsgDonateToCardResponse.decode(new Reader(data)));
     }
 }
 var globalThis = (() => {
