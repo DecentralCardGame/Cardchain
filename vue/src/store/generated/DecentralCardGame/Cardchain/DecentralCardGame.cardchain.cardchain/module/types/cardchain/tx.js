@@ -395,6 +395,211 @@ export const MsgVoteCardResponse = {
         return message;
     },
 };
+const baseMsgSaveCardContent = {
+    creator: "",
+    cardId: 0,
+    fullArt: "",
+    notes: "",
+    owner: "",
+};
+export const MsgSaveCardContent = {
+    encode(message, writer = Writer.create()) {
+        if (message.creator !== "") {
+            writer.uint32(10).string(message.creator);
+        }
+        if (message.cardId !== 0) {
+            writer.uint32(16).uint64(message.cardId);
+        }
+        if (message.content.length !== 0) {
+            writer.uint32(26).bytes(message.content);
+        }
+        if (message.image.length !== 0) {
+            writer.uint32(34).bytes(message.image);
+        }
+        if (message.fullArt !== "") {
+            writer.uint32(42).string(message.fullArt);
+        }
+        if (message.notes !== "") {
+            writer.uint32(50).string(message.notes);
+        }
+        if (message.owner !== "") {
+            writer.uint32(58).string(message.owner);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = { ...baseMsgSaveCardContent };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.creator = reader.string();
+                    break;
+                case 2:
+                    message.cardId = longToNumber(reader.uint64());
+                    break;
+                case 3:
+                    message.content = reader.bytes();
+                    break;
+                case 4:
+                    message.image = reader.bytes();
+                    break;
+                case 5:
+                    message.fullArt = reader.string();
+                    break;
+                case 6:
+                    message.notes = reader.string();
+                    break;
+                case 7:
+                    message.owner = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = { ...baseMsgSaveCardContent };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = String(object.creator);
+        }
+        else {
+            message.creator = "";
+        }
+        if (object.cardId !== undefined && object.cardId !== null) {
+            message.cardId = Number(object.cardId);
+        }
+        else {
+            message.cardId = 0;
+        }
+        if (object.content !== undefined && object.content !== null) {
+            message.content = bytesFromBase64(object.content);
+        }
+        if (object.image !== undefined && object.image !== null) {
+            message.image = bytesFromBase64(object.image);
+        }
+        if (object.fullArt !== undefined && object.fullArt !== null) {
+            message.fullArt = String(object.fullArt);
+        }
+        else {
+            message.fullArt = "";
+        }
+        if (object.notes !== undefined && object.notes !== null) {
+            message.notes = String(object.notes);
+        }
+        else {
+            message.notes = "";
+        }
+        if (object.owner !== undefined && object.owner !== null) {
+            message.owner = String(object.owner);
+        }
+        else {
+            message.owner = "";
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.creator !== undefined && (obj.creator = message.creator);
+        message.cardId !== undefined && (obj.cardId = message.cardId);
+        message.content !== undefined &&
+            (obj.content = base64FromBytes(message.content !== undefined ? message.content : new Uint8Array()));
+        message.image !== undefined &&
+            (obj.image = base64FromBytes(message.image !== undefined ? message.image : new Uint8Array()));
+        message.fullArt !== undefined && (obj.fullArt = message.fullArt);
+        message.notes !== undefined && (obj.notes = message.notes);
+        message.owner !== undefined && (obj.owner = message.owner);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = { ...baseMsgSaveCardContent };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = object.creator;
+        }
+        else {
+            message.creator = "";
+        }
+        if (object.cardId !== undefined && object.cardId !== null) {
+            message.cardId = object.cardId;
+        }
+        else {
+            message.cardId = 0;
+        }
+        if (object.content !== undefined && object.content !== null) {
+            message.content = object.content;
+        }
+        else {
+            message.content = new Uint8Array();
+        }
+        if (object.image !== undefined && object.image !== null) {
+            message.image = object.image;
+        }
+        else {
+            message.image = new Uint8Array();
+        }
+        if (object.fullArt !== undefined && object.fullArt !== null) {
+            message.fullArt = object.fullArt;
+        }
+        else {
+            message.fullArt = "";
+        }
+        if (object.notes !== undefined && object.notes !== null) {
+            message.notes = object.notes;
+        }
+        else {
+            message.notes = "";
+        }
+        if (object.owner !== undefined && object.owner !== null) {
+            message.owner = object.owner;
+        }
+        else {
+            message.owner = "";
+        }
+        return message;
+    },
+};
+const baseMsgSaveCardContentResponse = {};
+export const MsgSaveCardContentResponse = {
+    encode(_, writer = Writer.create()) {
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = {
+            ...baseMsgSaveCardContentResponse,
+        };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(_) {
+        const message = {
+            ...baseMsgSaveCardContentResponse,
+        };
+        return message;
+    },
+    toJSON(_) {
+        const obj = {};
+        return obj;
+    },
+    fromPartial(_) {
+        const message = {
+            ...baseMsgSaveCardContentResponse,
+        };
+        return message;
+    },
+};
 export class MsgClientImpl {
     constructor(rpc) {
         this.rpc = rpc;
@@ -414,6 +619,11 @@ export class MsgClientImpl {
         const promise = this.rpc.request("DecentralCardGame.cardchain.cardchain.Msg", "VoteCard", data);
         return promise.then((data) => MsgVoteCardResponse.decode(new Reader(data)));
     }
+    SaveCardContent(request) {
+        const data = MsgSaveCardContent.encode(request).finish();
+        const promise = this.rpc.request("DecentralCardGame.cardchain.cardchain.Msg", "SaveCardContent", data);
+        return promise.then((data) => MsgSaveCardContentResponse.decode(new Reader(data)));
+    }
 }
 var globalThis = (() => {
     if (typeof globalThis !== "undefined")
@@ -426,6 +636,25 @@ var globalThis = (() => {
         return global;
     throw "Unable to locate global object";
 })();
+const atob = globalThis.atob ||
+    ((b64) => globalThis.Buffer.from(b64, "base64").toString("binary"));
+function bytesFromBase64(b64) {
+    const bin = atob(b64);
+    const arr = new Uint8Array(bin.length);
+    for (let i = 0; i < bin.length; ++i) {
+        arr[i] = bin.charCodeAt(i);
+    }
+    return arr;
+}
+const btoa = globalThis.btoa ||
+    ((bin) => globalThis.Buffer.from(bin, "binary").toString("base64"));
+function base64FromBytes(arr) {
+    const bin = [];
+    for (let i = 0; i < arr.byteLength; ++i) {
+        bin.push(String.fromCharCode(arr[i]));
+    }
+    return btoa(bin.join(""));
+}
 function longToNumber(long) {
     if (long.gt(Number.MAX_SAFE_INTEGER)) {
         throw new globalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");

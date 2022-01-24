@@ -24,6 +24,8 @@ func NewHandler(k keeper.Keeper) sdk.Handler {
 			return handleMsgBuyCardScheme(ctx, k, msg)
 		case *types.MsgVoteCard:
 			return handleMsgVoteCard(ctx, k, msg)
+		case *types.MsgSaveCardContent:
+			return handleMsgSaveCardContent(ctx, k, msg)
 			// this line is used by starport scaffolding # 1
 		case *types.MsgCreateuser:
 			return handleMsgCreateUser(ctx, k, msg)
@@ -32,6 +34,29 @@ func NewHandler(k keeper.Keeper) sdk.Handler {
 			return nil, sdkerrors.Wrap(sdkerrors.ErrUnknownRequest, errMsg)
 		}
 	}
+}
+
+func handleMsgSaveCardContent(ctx sdk.Context, keeper keeper.Keeper, msg *types.MsgSaveCardContent) (*sdk.Result, error) {
+	card := keeper.GetCard(ctx, msg.CardId)
+	msgOwner, _ := sdk.AccAddressFromBech32(msg.Owner)
+	cardOwner, _ := sdk.AccAddressFromBech32(card.Owner)
+
+	if !msgOwner.Equals(cardOwner) { // Checks if the the msg sender is the same as the current owner
+		return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "Incorrect Owner")
+	}
+
+	// TODO cards get a starting pool currently, this should be removed later and the starting pool should come after council decision
+	card.VotePool.Add(sdk.NewInt64Coin("credits", 10))
+
+	card.Content = []byte(msg.Content)
+	card.Image = []byte(msg.Image)
+	card.Status = "prototype"
+	card.Notes = msg.Notes
+	card.FullArt = msg.FullArt
+	keeper.SetCard(ctx, msg.CardId, card)
+	keeper.TransferSchemeToCard(ctx, msg.CardId, msgOwner)
+
+	return &sdk.Result{}, nil
 }
 
 // handle vote card message

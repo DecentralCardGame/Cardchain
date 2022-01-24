@@ -58,7 +58,36 @@ func (k Keeper) GetVoteRights(ctx sdk.Context, voter sdk.AccAddress) []*types.Vo
 	return user.VoteRights
 }
 
-func (k Keeper) GetCard(ctx sdk.Context, cardId uint64) types.Card{
+func (k Keeper) TransferSchemeToCard(ctx sdk.Context, cardId uint64, address sdk.AccAddress) {
+	store := ctx.KVStore(k.UsersStoreKey)
+	bz := store.Get(address)
+
+	var gottenUser types.User
+	k.cdc.MustUnmarshal(bz, &gottenUser)
+
+	idPosition := indexOfId(cardId, gottenUser.OwnedCardSchemes)
+
+	if idPosition >= 0 {
+			gottenUser.OwnedCards = append(gottenUser.OwnedCards, cardId)
+			gottenUser.OwnedCardSchemes = append(gottenUser.OwnedCardSchemes[:idPosition], gottenUser.OwnedCardSchemes[idPosition+1:]...)
+
+			store.Set(address, k.cdc.MustMarshal(&gottenUser))
+	}
+}
+
+func indexOfId(cardID uint64, cards []uint64) int {
+	if cards == nil {
+		return -1
+	}
+	for i, b := range cards {
+		if b == cardID {
+			return i
+		}
+	}
+	return -1
+}
+
+func (k Keeper) GetCard(ctx sdk.Context, cardId uint64) types.Card {
 	store := ctx.KVStore(k.CardsStoreKey)
 	bz := store.Get(sdk.Uint64ToBigEndian(cardId))
 

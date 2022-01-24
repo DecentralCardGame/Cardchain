@@ -22,6 +22,17 @@ export interface MsgVoteCard {
 }
 export interface MsgVoteCardResponse {
 }
+export interface MsgSaveCardContent {
+    creator: string;
+    cardId: number;
+    content: Uint8Array;
+    image: Uint8Array;
+    fullArt: string;
+    notes: string;
+    owner: string;
+}
+export interface MsgSaveCardContentResponse {
+}
 export declare const MsgCreateuser: {
     encode(message: MsgCreateuser, writer?: Writer): Writer;
     decode(input: Reader | Uint8Array, length?: number): MsgCreateuser;
@@ -64,12 +75,27 @@ export declare const MsgVoteCardResponse: {
     toJSON(_: MsgVoteCardResponse): unknown;
     fromPartial(_: DeepPartial<MsgVoteCardResponse>): MsgVoteCardResponse;
 };
+export declare const MsgSaveCardContent: {
+    encode(message: MsgSaveCardContent, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgSaveCardContent;
+    fromJSON(object: any): MsgSaveCardContent;
+    toJSON(message: MsgSaveCardContent): unknown;
+    fromPartial(object: DeepPartial<MsgSaveCardContent>): MsgSaveCardContent;
+};
+export declare const MsgSaveCardContentResponse: {
+    encode(_: MsgSaveCardContentResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgSaveCardContentResponse;
+    fromJSON(_: any): MsgSaveCardContentResponse;
+    toJSON(_: MsgSaveCardContentResponse): unknown;
+    fromPartial(_: DeepPartial<MsgSaveCardContentResponse>): MsgSaveCardContentResponse;
+};
 /** Msg defines the Msg service. */
 export interface Msg {
     Createuser(request: MsgCreateuser): Promise<MsgCreateuserResponse>;
     BuyCardScheme(request: MsgBuyCardScheme): Promise<MsgBuyCardSchemeResponse>;
-    /** this line is used by starport scaffolding # proto/tx/rpc */
     VoteCard(request: MsgVoteCard): Promise<MsgVoteCardResponse>;
+    /** this line is used by starport scaffolding # proto/tx/rpc */
+    SaveCardContent(request: MsgSaveCardContent): Promise<MsgSaveCardContentResponse>;
 }
 export declare class MsgClientImpl implements Msg {
     private readonly rpc;
@@ -77,6 +103,7 @@ export declare class MsgClientImpl implements Msg {
     Createuser(request: MsgCreateuser): Promise<MsgCreateuserResponse>;
     BuyCardScheme(request: MsgBuyCardScheme): Promise<MsgBuyCardSchemeResponse>;
     VoteCard(request: MsgVoteCard): Promise<MsgVoteCardResponse>;
+    SaveCardContent(request: MsgSaveCardContent): Promise<MsgSaveCardContentResponse>;
 }
 interface Rpc {
     request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;

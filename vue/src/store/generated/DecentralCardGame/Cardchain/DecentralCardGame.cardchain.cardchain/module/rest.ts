@@ -13,6 +13,8 @@ export type CardchainMsgBuyCardSchemeResponse = object;
 
 export type CardchainMsgCreateuserResponse = object;
 
+export type CardchainMsgSaveCardContentResponse = object;
+
 export type CardchainMsgVoteCardResponse = object;
 
 /**
