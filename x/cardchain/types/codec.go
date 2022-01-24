@@ -9,12 +9,16 @@ import (
 
 func RegisterCodec(cdc *codec.LegacyAmino) {
 	cdc.RegisterConcrete(&MsgCreateuser{}, "cardchain/Createuser", nil)
+	cdc.RegisterConcrete(&MsgBuyCardScheme{}, "cardchain/BuyCardScheme", nil)
 	// this line is used by starport scaffolding # 2
 }
 
 func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {
 	registry.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgCreateuser{},
+	)
+	registry.RegisterImplementations((*sdk.Msg)(nil),
+		&MsgBuyCardScheme{},
 	)
 	// this line is used by starport scaffolding # 3
 

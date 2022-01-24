@@ -1,6 +1,8 @@
 syntax = "proto3";
 package DecentralCardGame.cardchain.cardchain;
 
+import "gogoproto/gogo.proto";
+
 // this line is used by starport scaffolding # proto/tx/import
 
 option go_package = "github.com/DecentralCardGame/Cardchain/x/cardchain/types";
@@ -8,6 +10,7 @@ option go_package = "github.com/DecentralCardGame/Cardchain/x/cardchain/types";
 // Msg defines the Msg service.
 service Msg {
       rpc Createuser(MsgCreateuser) returns (MsgCreateuserResponse);
+  rpc BuyCardScheme(MsgBuyCardScheme) returns (MsgBuyCardSchemeResponse);
 // this line is used by starport scaffolding # proto/tx/rpc
 }
 
@@ -18,6 +21,15 @@ message MsgCreateuser {
 }
 
 message MsgCreateuserResponse {
+}
+
+message MsgBuyCardScheme {
+  string creator = 1;
+  string bid = 2 [(gogoproto.nullable) = false, (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Coin"];;
+  string buyer = 3;
+}
+
+message MsgBuyCardSchemeResponse {
 }
 
 // this line is used by starport scaffolding # proto/tx/message

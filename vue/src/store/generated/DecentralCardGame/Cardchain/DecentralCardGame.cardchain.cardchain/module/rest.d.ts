@@ -1,3 +1,4 @@
+export declare type CardchainMsgBuyCardSchemeResponse = object;
 export declare type CardchainMsgCreateuserResponse = object;
 /**
  * Params defines the parameters for the module.

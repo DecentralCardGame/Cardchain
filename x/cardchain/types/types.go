@@ -7,7 +7,6 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
-
 // Module name for minting coins
 var CoinsIssuerName = "cardchain"
 

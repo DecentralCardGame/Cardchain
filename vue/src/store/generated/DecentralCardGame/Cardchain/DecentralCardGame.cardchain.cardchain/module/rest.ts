@@ -9,6 +9,8 @@
  * ---------------------------------------------------------------
  */
 
+export type CardchainMsgBuyCardSchemeResponse = object;
+
 export type CardchainMsgCreateuserResponse = object;
 
 /**

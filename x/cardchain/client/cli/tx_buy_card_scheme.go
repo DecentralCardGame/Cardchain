@@ -1,0 +1,49 @@
+package cli
+
+import (
+	"strconv"
+
+	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
+	"github.com/cosmos/cosmos-sdk/client"
+	"github.com/cosmos/cosmos-sdk/client/flags"
+	"github.com/cosmos/cosmos-sdk/client/tx"
+	"github.com/spf13/cobra"
+	sdk "github.com/cosmos/cosmos-sdk/types"
+)
+
+var _ = strconv.Itoa(0)
+
+func CmdBuyCardScheme() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "buy-card-scheme [bid] [buyer]",
+		Short: "Broadcast message BuyCardScheme",
+		Args:  cobra.ExactArgs(2),
+		RunE: func(cmd *cobra.Command, args []string) (err error) {
+			argBid, err := sdk.ParseCoinNormalized(args[0])
+			if err != nil {
+				return err
+			}
+
+			argBuyer := args[1]
+
+			clientCtx, err := client.GetClientTxContext(cmd)
+			if err != nil {
+				return err
+			}
+
+			msg := types.NewMsgBuyCardScheme(
+				clientCtx.GetFromAddress().String(),
+				argBid,
+				argBuyer,
+			)
+			if err := msg.ValidateBasic(); err != nil {
+				return err
+			}
+			return tx.GenerateOrBroadcastTxCLI(clientCtx, cmd.Flags(), msg)
+		},
+	}
+
+	flags.AddTxFlagsToCmd(cmd)
+
+	return cmd
+}

@@ -6,6 +6,8 @@ package types
 import (
 	context "context"
 	fmt "fmt"
+	github_com_cosmos_cosmos_sdk_types "github.com/cosmos/cosmos-sdk/types"
+	_ "github.com/gogo/protobuf/gogoproto"
 	grpc1 "github.com/gogo/protobuf/grpc"
 	proto "github.com/gogo/protobuf/proto"
 	grpc "google.golang.org/grpc"
@@ -123,30 +125,129 @@ func (m *MsgCreateuserResponse) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_MsgCreateuserResponse proto.InternalMessageInfo
 
+type MsgBuyCardScheme struct {
+	Creator string                                  `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
+	Bid     github_com_cosmos_cosmos_sdk_types.Coin `protobuf:"bytes,2,opt,name=bid,proto3,customtype=github.com/cosmos/cosmos-sdk/types.Coin" json:"bid"`
+	Buyer   string                                  `protobuf:"bytes,3,opt,name=buyer,proto3" json:"buyer,omitempty"`
+}
+
+func (m *MsgBuyCardScheme) Reset()         { *m = MsgBuyCardScheme{} }
+func (m *MsgBuyCardScheme) String() string { return proto.CompactTextString(m) }
+func (*MsgBuyCardScheme) ProtoMessage()    {}
+func (*MsgBuyCardScheme) Descriptor() ([]byte, []int) {
+	return fileDescriptor_5cfa59c76aced81c, []int{2}
+}
+func (m *MsgBuyCardScheme) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *MsgBuyCardScheme) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_MsgBuyCardScheme.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *MsgBuyCardScheme) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgBuyCardScheme.Merge(m, src)
+}
+func (m *MsgBuyCardScheme) XXX_Size() int {
+	return m.Size()
+}
+func (m *MsgBuyCardScheme) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgBuyCardScheme.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_MsgBuyCardScheme proto.InternalMessageInfo
+
+func (m *MsgBuyCardScheme) GetCreator() string {
+	if m != nil {
+		return m.Creator
+	}
+	return ""
+}
+
+func (m *MsgBuyCardScheme) GetBuyer() string {
+	if m != nil {
+		return m.Buyer
+	}
+	return ""
+}
+
+type MsgBuyCardSchemeResponse struct {
+}
+
+func (m *MsgBuyCardSchemeResponse) Reset()         { *m = MsgBuyCardSchemeResponse{} }
+func (m *MsgBuyCardSchemeResponse) String() string { return proto.CompactTextString(m) }
+func (*MsgBuyCardSchemeResponse) ProtoMessage()    {}
+func (*MsgBuyCardSchemeResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_5cfa59c76aced81c, []int{3}
+}
+func (m *MsgBuyCardSchemeResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *MsgBuyCardSchemeResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_MsgBuyCardSchemeResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *MsgBuyCardSchemeResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgBuyCardSchemeResponse.Merge(m, src)
+}
+func (m *MsgBuyCardSchemeResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *MsgBuyCardSchemeResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgBuyCardSchemeResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_MsgBuyCardSchemeResponse proto.InternalMessageInfo
+
 func init() {
 	proto.RegisterType((*MsgCreateuser)(nil), "DecentralCardGame.cardchain.cardchain.MsgCreateuser")
 	proto.RegisterType((*MsgCreateuserResponse)(nil), "DecentralCardGame.cardchain.cardchain.MsgCreateuserResponse")
+	proto.RegisterType((*MsgBuyCardScheme)(nil), "DecentralCardGame.cardchain.cardchain.MsgBuyCardScheme")
+	proto.RegisterType((*MsgBuyCardSchemeResponse)(nil), "DecentralCardGame.cardchain.cardchain.MsgBuyCardSchemeResponse")
 }
 
 func init() { proto.RegisterFile("cardchain/tx.proto", fileDescriptor_5cfa59c76aced81c) }
 
 var fileDescriptor_5cfa59c76aced81c = []byte{
-	// 236 bytes of a gzipped FileDescriptorProto
+	// 357 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0x12, 0x4a, 0x4e, 0x2c, 0x4a,
 	0x49, 0xce, 0x48, 0xcc, 0xcc, 0xd3, 0x2f, 0xa9, 0xd0, 0x2b, 0x28, 0xca, 0x2f, 0xc9, 0x17, 0x52,
 	0x75, 0x49, 0x4d, 0x4e, 0xcd, 0x2b, 0x29, 0x4a, 0xcc, 0x71, 0x4e, 0x2c, 0x4a, 0x71, 0x4f, 0xcc,
-	0x4d, 0xd5, 0x83, 0xab, 0x42, 0xb0, 0x94, 0x22, 0xb9, 0x78, 0x7d, 0x8b, 0xd3, 0x9d, 0x8b, 0x52,
-	0x13, 0x4b, 0x52, 0x4b, 0x8b, 0x53, 0x8b, 0x84, 0x24, 0xb8, 0xd8, 0x93, 0x41, 0xbc, 0xfc, 0x22,
-	0x09, 0x46, 0x05, 0x46, 0x0d, 0xce, 0x20, 0x18, 0x17, 0x24, 0x93, 0x97, 0x5a, 0x1e, 0x5a, 0x9c,
-	0x5a, 0x24, 0xc1, 0x04, 0x91, 0x81, 0x72, 0x85, 0x44, 0xb8, 0x58, 0x13, 0x73, 0x32, 0x13, 0x8b,
-	0x25, 0x98, 0xc1, 0xe2, 0x10, 0x8e, 0x92, 0x38, 0x97, 0x28, 0x8a, 0xd1, 0x41, 0xa9, 0xc5, 0x05,
-	0xf9, 0x79, 0xc5, 0xa9, 0x46, 0x1d, 0x8c, 0x5c, 0xcc, 0xbe, 0xc5, 0xe9, 0x42, 0x0d, 0x8c, 0x5c,
-	0x5c, 0x48, 0x36, 0x9b, 0xe8, 0x11, 0xe5, 0x64, 0x3d, 0x14, 0x43, 0xa5, 0x6c, 0xc8, 0xd1, 0x05,
-	0x73, 0x8a, 0x53, 0xd0, 0x89, 0x47, 0x72, 0x8c, 0x17, 0x1e, 0xc9, 0x31, 0x3e, 0x78, 0x24, 0xc7,
-	0x38, 0xe1, 0xb1, 0x1c, 0xc3, 0x85, 0xc7, 0x72, 0x0c, 0x37, 0x1e, 0xcb, 0x31, 0x44, 0x59, 0xa4,
-	0x67, 0x96, 0x64, 0x94, 0x26, 0xe9, 0x25, 0xe7, 0xe7, 0xea, 0x63, 0xd8, 0xa0, 0xef, 0x0c, 0x0f,
-	0xf0, 0x0a, 0x7d, 0xa4, 0xc0, 0xaf, 0x2c, 0x48, 0x2d, 0x4e, 0x62, 0x03, 0x47, 0x80, 0x31, 0x20,
-	0x00, 0x00, 0xff, 0xff, 0xb7, 0x9e, 0xa6, 0x84, 0x96, 0x01, 0x00, 0x00,
+	0x4d, 0xd5, 0x83, 0xab, 0x42, 0xb0, 0xa4, 0x44, 0xd2, 0xf3, 0xd3, 0xf3, 0xc1, 0x3a, 0xf4, 0x41,
+	0x2c, 0x88, 0x66, 0xa5, 0x48, 0x2e, 0x5e, 0xdf, 0xe2, 0x74, 0xe7, 0xa2, 0xd4, 0xc4, 0x92, 0xd4,
+	0xd2, 0xe2, 0xd4, 0x22, 0x21, 0x09, 0x2e, 0xf6, 0x64, 0x10, 0x2f, 0xbf, 0x48, 0x82, 0x51, 0x81,
+	0x51, 0x83, 0x33, 0x08, 0xc6, 0x05, 0xc9, 0xe4, 0xa5, 0x96, 0x87, 0x16, 0xa7, 0x16, 0x49, 0x30,
+	0x41, 0x64, 0xa0, 0x5c, 0x21, 0x11, 0x2e, 0xd6, 0xc4, 0x9c, 0xcc, 0xc4, 0x62, 0x09, 0x66, 0xb0,
+	0x38, 0x84, 0xa3, 0x24, 0xce, 0x25, 0x8a, 0x62, 0x74, 0x50, 0x6a, 0x71, 0x41, 0x7e, 0x5e, 0x71,
+	0xaa, 0x52, 0x2b, 0x23, 0x97, 0x80, 0x6f, 0x71, 0xba, 0x53, 0x69, 0x25, 0xc8, 0xc1, 0xc1, 0xc9,
+	0x19, 0xa9, 0xb9, 0xa9, 0x78, 0xec, 0x75, 0xe4, 0x62, 0x4e, 0xca, 0x4c, 0x81, 0xd8, 0xe9, 0xa4,
+	0x7f, 0xe2, 0x9e, 0x3c, 0xc3, 0xad, 0x7b, 0xf2, 0xea, 0xe9, 0x99, 0x25, 0x19, 0xa5, 0x49, 0x7a,
+	0xc9, 0xf9, 0xb9, 0xfa, 0xc9, 0xf9, 0xc5, 0xb9, 0xf9, 0xc5, 0x50, 0x4a, 0xb7, 0x38, 0x25, 0x5b,
+	0xbf, 0xa4, 0xb2, 0x20, 0xb5, 0x58, 0xcf, 0x39, 0x3f, 0x33, 0x2f, 0x08, 0xa4, 0x17, 0xe4, 0xc0,
+	0xa4, 0xd2, 0xca, 0xd4, 0x22, 0x98, 0x03, 0xc1, 0x1c, 0x25, 0x29, 0x2e, 0x09, 0x74, 0x67, 0xc0,
+	0xdc, 0x68, 0x34, 0x85, 0x89, 0x8b, 0xd9, 0xb7, 0x38, 0x5d, 0xa8, 0x81, 0x91, 0x8b, 0x0b, 0x29,
+	0x74, 0x4c, 0xf4, 0x88, 0x0a, 0x6c, 0x3d, 0x14, 0x8f, 0x4b, 0xd9, 0x90, 0xa3, 0x0b, 0xe6, 0x14,
+	0xa1, 0x4e, 0x46, 0x2e, 0x5e, 0xd4, 0xb0, 0x32, 0x27, 0xde, 0x3c, 0x14, 0x8d, 0x52, 0xf6, 0x64,
+	0x6a, 0x84, 0xb9, 0xc5, 0x29, 0xe8, 0xc4, 0x23, 0x39, 0xc6, 0x0b, 0x8f, 0xe4, 0x18, 0x1f, 0x3c,
+	0x92, 0x63, 0x9c, 0xf0, 0x58, 0x8e, 0xe1, 0xc2, 0x63, 0x39, 0x86, 0x1b, 0x8f, 0xe5, 0x18, 0xa2,
+	0x2c, 0x90, 0x22, 0x04, 0xc3, 0x12, 0x7d, 0x67, 0x78, 0xb2, 0xad, 0xd0, 0x47, 0x4a, 0xc2, 0xa0,
+	0x68, 0x4a, 0x62, 0x03, 0xa7, 0x44, 0x63, 0x40, 0x00, 0x00, 0x00, 0xff, 0xff, 0x64, 0xa0, 0x2a,
+	0x0a, 0xdc, 0x02, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -162,6 +263,7 @@ const _ = grpc.SupportPackageIsVersion4
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type MsgClient interface {
 	Createuser(ctx context.Context, in *MsgCreateuser, opts ...grpc.CallOption) (*MsgCreateuserResponse, error)
+	BuyCardScheme(ctx context.Context, in *MsgBuyCardScheme, opts ...grpc.CallOption) (*MsgBuyCardSchemeResponse, error)
 }
 
 type msgClient struct {
@@ -181,9 +283,19 @@ func (c *msgClient) Createuser(ctx context.Context, in *MsgCreateuser, opts ...g
 	return out, nil
 }
 
+func (c *msgClient) BuyCardScheme(ctx context.Context, in *MsgBuyCardScheme, opts ...grpc.CallOption) (*MsgBuyCardSchemeResponse, error) {
+	out := new(MsgBuyCardSchemeResponse)
+	err := c.cc.Invoke(ctx, "/DecentralCardGame.cardchain.cardchain.Msg/BuyCardScheme", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // MsgServer is the server API for Msg service.
 type MsgServer interface {
 	Createuser(context.Context, *MsgCreateuser) (*MsgCreateuserResponse, error)
+	BuyCardScheme(context.Context, *MsgBuyCardScheme) (*MsgBuyCardSchemeResponse, error)
 }
 
 // UnimplementedMsgServer can be embedded to have forward compatible implementations.
@@ -192,6 +304,9 @@ type UnimplementedMsgServer struct {
 
 func (*UnimplementedMsgServer) Createuser(ctx context.Context, req *MsgCreateuser) (*MsgCreateuserResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Createuser not implemented")
+}
+func (*UnimplementedMsgServer) BuyCardScheme(ctx context.Context, req *MsgBuyCardScheme) (*MsgBuyCardSchemeResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method BuyCardScheme not implemented")
 }
 
 func RegisterMsgServer(s grpc1.Server, srv MsgServer) {
@@ -216,6 +331,24 @@ func _Msg_Createuser_Handler(srv interface{}, ctx context.Context, dec func(inte
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Msg_BuyCardScheme_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgBuyCardScheme)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).BuyCardScheme(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/DecentralCardGame.cardchain.cardchain.Msg/BuyCardScheme",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).BuyCardScheme(ctx, req.(*MsgBuyCardScheme))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _Msg_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "DecentralCardGame.cardchain.cardchain.Msg",
 	HandlerType: (*MsgServer)(nil),
@@ -223,6 +356,10 @@ var _Msg_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Createuser",
 			Handler:    _Msg_Createuser_Handler,
+		},
+		{
+			MethodName: "BuyCardScheme",
+			Handler:    _Msg_BuyCardScheme_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
@@ -296,6 +433,76 @@ func (m *MsgCreateuserResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	return len(dAtA) - i, nil
 }
 
+func (m *MsgBuyCardScheme) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *MsgBuyCardScheme) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *MsgBuyCardScheme) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.Buyer) > 0 {
+		i -= len(m.Buyer)
+		copy(dAtA[i:], m.Buyer)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.Buyer)))
+		i--
+		dAtA[i] = 0x1a
+	}
+	{
+		size := m.Bid.Size()
+		i -= size
+		if _, err := m.Bid.MarshalTo(dAtA[i:]); err != nil {
+			return 0, err
+		}
+		i = encodeVarintTx(dAtA, i, uint64(size))
+	}
+	i--
+	dAtA[i] = 0x12
+	if len(m.Creator) > 0 {
+		i -= len(m.Creator)
+		copy(dAtA[i:], m.Creator)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.Creator)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *MsgBuyCardSchemeResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *MsgBuyCardSchemeResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *MsgBuyCardSchemeResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	return len(dAtA) - i, nil
+}
+
 func encodeVarintTx(dAtA []byte, offset int, v uint64) int {
 	offset -= sovTx(v)
 	base := offset
@@ -329,6 +536,34 @@ func (m *MsgCreateuser) Size() (n int) {
 }
 
 func (m *MsgCreateuserResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	return n
+}
+
+func (m *MsgBuyCardScheme) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.Creator)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	l = m.Bid.Size()
+	n += 1 + l + sovTx(uint64(l))
+	l = len(m.Buyer)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	return n
+}
+
+func (m *MsgBuyCardSchemeResponse) Size() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -516,6 +751,204 @@ func (m *MsgCreateuserResponse) Unmarshal(dAtA []byte) error {
 		}
 		if fieldNum <= 0 {
 			return fmt.Errorf("proto: MsgCreateuserResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTx(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthTx
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *MsgBuyCardScheme) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTx
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: MsgBuyCardScheme: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: MsgBuyCardScheme: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Creator", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Creator = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Bid", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if err := m.Bid.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Buyer", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Buyer = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTx(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthTx
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *MsgBuyCardSchemeResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTx
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: MsgBuyCardSchemeResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: MsgBuyCardSchemeResponse: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		default:
