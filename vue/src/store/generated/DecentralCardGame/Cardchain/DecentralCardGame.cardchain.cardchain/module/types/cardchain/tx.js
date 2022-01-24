@@ -600,6 +600,157 @@ export const MsgSaveCardContentResponse = {
         return message;
     },
 };
+const baseMsgTransferCard = {
+    creator: "",
+    cardId: 0,
+    sender: "",
+    receiver: "",
+};
+export const MsgTransferCard = {
+    encode(message, writer = Writer.create()) {
+        if (message.creator !== "") {
+            writer.uint32(10).string(message.creator);
+        }
+        if (message.cardId !== 0) {
+            writer.uint32(16).uint64(message.cardId);
+        }
+        if (message.sender !== "") {
+            writer.uint32(26).string(message.sender);
+        }
+        if (message.receiver !== "") {
+            writer.uint32(34).string(message.receiver);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = { ...baseMsgTransferCard };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.creator = reader.string();
+                    break;
+                case 2:
+                    message.cardId = longToNumber(reader.uint64());
+                    break;
+                case 3:
+                    message.sender = reader.string();
+                    break;
+                case 4:
+                    message.receiver = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = { ...baseMsgTransferCard };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = String(object.creator);
+        }
+        else {
+            message.creator = "";
+        }
+        if (object.cardId !== undefined && object.cardId !== null) {
+            message.cardId = Number(object.cardId);
+        }
+        else {
+            message.cardId = 0;
+        }
+        if (object.sender !== undefined && object.sender !== null) {
+            message.sender = String(object.sender);
+        }
+        else {
+            message.sender = "";
+        }
+        if (object.receiver !== undefined && object.receiver !== null) {
+            message.receiver = String(object.receiver);
+        }
+        else {
+            message.receiver = "";
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.creator !== undefined && (obj.creator = message.creator);
+        message.cardId !== undefined && (obj.cardId = message.cardId);
+        message.sender !== undefined && (obj.sender = message.sender);
+        message.receiver !== undefined && (obj.receiver = message.receiver);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = { ...baseMsgTransferCard };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = object.creator;
+        }
+        else {
+            message.creator = "";
+        }
+        if (object.cardId !== undefined && object.cardId !== null) {
+            message.cardId = object.cardId;
+        }
+        else {
+            message.cardId = 0;
+        }
+        if (object.sender !== undefined && object.sender !== null) {
+            message.sender = object.sender;
+        }
+        else {
+            message.sender = "";
+        }
+        if (object.receiver !== undefined && object.receiver !== null) {
+            message.receiver = object.receiver;
+        }
+        else {
+            message.receiver = "";
+        }
+        return message;
+    },
+};
+const baseMsgTransferCardResponse = {};
+export const MsgTransferCardResponse = {
+    encode(_, writer = Writer.create()) {
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = {
+            ...baseMsgTransferCardResponse,
+        };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(_) {
+        const message = {
+            ...baseMsgTransferCardResponse,
+        };
+        return message;
+    },
+    toJSON(_) {
+        const obj = {};
+        return obj;
+    },
+    fromPartial(_) {
+        const message = {
+            ...baseMsgTransferCardResponse,
+        };
+        return message;
+    },
+};
 export class MsgClientImpl {
     constructor(rpc) {
         this.rpc = rpc;
@@ -623,6 +774,11 @@ export class MsgClientImpl {
         const data = MsgSaveCardContent.encode(request).finish();
         const promise = this.rpc.request("DecentralCardGame.cardchain.cardchain.Msg", "SaveCardContent", data);
         return promise.then((data) => MsgSaveCardContentResponse.decode(new Reader(data)));
+    }
+    TransferCard(request) {
+        const data = MsgTransferCard.encode(request).finish();
+        const promise = this.rpc.request("DecentralCardGame.cardchain.cardchain.Msg", "TransferCard", data);
+        return promise.then((data) => MsgTransferCardResponse.decode(new Reader(data)));
     }
 }
 var globalThis = (() => {

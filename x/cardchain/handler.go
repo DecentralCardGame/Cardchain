@@ -26,6 +26,8 @@ func NewHandler(k keeper.Keeper) sdk.Handler {
 			return handleMsgVoteCard(ctx, k, msg)
 		case *types.MsgSaveCardContent:
 			return handleMsgSaveCardContent(ctx, k, msg)
+		case *types.MsgTransferCard:
+			return handleMsgTransferCard(ctx, k, msg)
 			// this line is used by starport scaffolding # 1
 		case *types.MsgCreateuser:
 			return handleMsgCreateUser(ctx, k, msg)
@@ -34,6 +36,30 @@ func NewHandler(k keeper.Keeper) sdk.Handler {
 			return nil, sdkerrors.Wrap(sdkerrors.ErrUnknownRequest, errMsg)
 		}
 	}
+}
+
+func handleMsgTransferCard(ctx sdk.Context, keeper keeper.Keeper, msg *types.MsgTransferCard) (*sdk.Result, error) {
+
+	// if the vote right is valid, get the Card
+	card := keeper.GetCard(ctx, msg.CardId)
+
+	// check if card status is valid // TODO ponder if this is necessary for transfer card
+	/*
+		if(card.Status != "permanent" && card.Status != "trial") {
+			return sdk.ErrUnknownRequest("Transferring a card is only possible if it is in trial or a permanent card").Result()
+		}
+	*/
+	sender, _ := sdk.AccAddressFromBech32(msg.Sender)
+	owner, _ := sdk.AccAddressFromBech32(card.Owner)
+
+	if !sender.Equals(owner) { // Checks if the the msg sender is the same as the current owner
+		return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "Incorrect Owner") // If not, throw an error
+	}
+
+	card.Owner = msg.Receiver
+	keeper.SetCard(ctx, msg.CardId, card)
+
+	return &sdk.Result{}, nil
 }
 
 func handleMsgSaveCardContent(ctx sdk.Context, keeper keeper.Keeper, msg *types.MsgSaveCardContent) (*sdk.Result, error) {

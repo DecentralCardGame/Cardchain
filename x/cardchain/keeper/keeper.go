@@ -68,10 +68,10 @@ func (k Keeper) TransferSchemeToCard(ctx sdk.Context, cardId uint64, address sdk
 	idPosition := indexOfId(cardId, gottenUser.OwnedCardSchemes)
 
 	if idPosition >= 0 {
-			gottenUser.OwnedCards = append(gottenUser.OwnedCards, cardId)
-			gottenUser.OwnedCardSchemes = append(gottenUser.OwnedCardSchemes[:idPosition], gottenUser.OwnedCardSchemes[idPosition+1:]...)
+		gottenUser.OwnedCards = append(gottenUser.OwnedCards, cardId)
+		gottenUser.OwnedCardSchemes = append(gottenUser.OwnedCardSchemes[:idPosition], gottenUser.OwnedCardSchemes[idPosition+1:]...)
 
-			store.Set(address, k.cdc.MustMarshal(&gottenUser))
+		store.Set(address, k.cdc.MustMarshal(&gottenUser))
 	}
 }
 

@@ -15,6 +15,8 @@ export type CardchainMsgCreateuserResponse = object;
 
 export type CardchainMsgSaveCardContentResponse = object;
 
+export type CardchainMsgTransferCardResponse = object;
+
 export type CardchainMsgVoteCardResponse = object;
 
 /**

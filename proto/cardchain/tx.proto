@@ -13,6 +13,7 @@ service Msg {
   rpc BuyCardScheme(MsgBuyCardScheme) returns (MsgBuyCardSchemeResponse);
   rpc VoteCard(MsgVoteCard) returns (MsgVoteCardResponse);
   rpc SaveCardContent(MsgSaveCardContent) returns (MsgSaveCardContentResponse);
+  rpc TransferCard(MsgTransferCard) returns (MsgTransferCardResponse);
 // this line is used by starport scaffolding # proto/tx/rpc
 }
 
@@ -55,6 +56,16 @@ message MsgSaveCardContent {
 }
 
 message MsgSaveCardContentResponse {
+}
+
+message MsgTransferCard {
+  string creator = 1;
+  uint64 cardId = 2;
+  string sender = 3;
+  string receiver = 4;
+}
+
+message MsgTransferCardResponse {
 }
 
 // this line is used by starport scaffolding # proto/tx/message

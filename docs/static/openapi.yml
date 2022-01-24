@@ -19801,6 +19801,8 @@ definitions:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgSaveCardContentResponse:
     type: object
+  DecentralCardGame.cardchain.cardchain.MsgTransferCardResponse:
+    type: object
   DecentralCardGame.cardchain.cardchain.MsgVoteCardResponse:
     type: object
   DecentralCardGame.cardchain.cardchain.Params:
