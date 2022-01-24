@@ -50,6 +50,24 @@ func (k Keeper) Logger(ctx sdk.Context) log.Logger {
 	return ctx.Logger().With("module", fmt.Sprintf("x/%s", types.ModuleName))
 }
 
+func (k Keeper) MintCoinsToAddr(ctx sdk.Context, addr sdk.AccAddress, amounts sdk.Coins) error {
+    coinMint := types.CoinsIssuerName
+
+    // mint coins to minter module account
+    err := k.bankKeeper.MintCoins(ctx, coinMint, amounts)
+    if err != nil {
+        return err
+    }
+
+    // send coins to the address
+    err = k.bankKeeper.SendCoinsFromModuleToAccount(ctx, coinMint, addr, amounts)
+    if err != nil {
+        return err
+    }
+
+    return nil
+}
+
 func (k Keeper) Createuser(ctx sdk.Context, newUser sdk.AccAddress, alias string) types.User {
 	// check if user already exists
 	store := ctx.KVStore(k.storeKey)
@@ -69,7 +87,7 @@ func (k Keeper) InitUser(ctx sdk.Context, address sdk.AccAddress, alias string) 
 	}
 	newUser := types.NewUser()
 	newUser.Alias = alias
-	k.bankKeeper.AddCoins(ctx, address, sdk.Coins{sdk.NewInt64Coin("credits", 10000)})
+	k.MintCoinsToAddr(ctx, address, sdk.Coins{sdk.NewInt64Coin("credits", 10000)})
 	const votingRightsExpirationTime = 86000
 	newUser.VoteRights = k.GetVoteRightToAllCards(ctx, ctx.BlockHeight()+votingRightsExpirationTime) // TODO this might be a good thing to remove later, so that sybil voting is not possible
 
