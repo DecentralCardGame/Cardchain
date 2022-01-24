@@ -14,11 +14,11 @@ import (
 
 type (
 	Keeper struct {
-		cdc        codec.BinaryCodec // The wire codec for binary encoding/decoding.
-		UsersStoreKey   sdk.StoreKey // UsersStoreKey
-		CardsStoreKey     sdk.StoreKey // Cardstorekey
+		cdc              codec.BinaryCodec // The wire codec for binary encoding/decoding.
+		UsersStoreKey    sdk.StoreKey      // UsersStoreKey
+		CardsStoreKey    sdk.StoreKey      // Cardstorekey
 		InternalStoreKey sdk.StoreKey
-		paramstore paramtypes.Subspace
+		paramstore       paramtypes.Subspace
 
 		BankKeeper types.BankKeeper
 	}
@@ -51,6 +51,25 @@ func NewKeeper(
 
 func (k Keeper) Logger(ctx sdk.Context) log.Logger {
 	return ctx.Logger().With("module", fmt.Sprintf("x/%s", types.ModuleName))
+}
+
+func (k Keeper) GetVoteRights(ctx sdk.Context, voter sdk.AccAddress) []*types.VoteRight {
+	user := k.GetUser(ctx, voter)
+	return user.VoteRights
+}
+
+func (k Keeper) GetCard(ctx sdk.Context, cardId uint64) types.Card{
+	store := ctx.KVStore(k.CardsStoreKey)
+	bz := store.Get(sdk.Uint64ToBigEndian(cardId))
+
+	var gottenCard types.Card
+	k.cdc.MustUnmarshal(bz, &gottenCard)
+	return gottenCard
+}
+
+func (k Keeper) SetCard(ctx sdk.Context, cardId uint64, newCard types.Card) {
+	store := ctx.KVStore(k.CardsStoreKey)
+	store.Set(sdk.Uint64ToBigEndian(cardId), k.cdc.MustMarshal(&newCard))
 }
 
 // Adds coins to an Account
@@ -129,11 +148,6 @@ func (k Keeper) SetCardAuctionPrice(ctx sdk.Context, price sdk.Coin) {
 	store.Set([]byte("currentCardSchemeAuctionPrice"), k.cdc.MustMarshal(&price))
 }
 
-func (k Keeper) SetCard(ctx sdk.Context, cardId uint64, newCard types.Card) {
-	store := ctx.KVStore(k.CardsStoreKey)
-	store.Set(sdk.Uint64ToBigEndian(cardId), k.cdc.MustMarshal(&newCard))
-}
-
 func (k Keeper) AddOwnedCardScheme(ctx sdk.Context, cardId uint64, address sdk.AccAddress) {
 	store := ctx.KVStore(k.UsersStoreKey)
 	bz := store.Get(address)
@@ -200,4 +214,13 @@ func (k Keeper) GetVoteRightToAllCards(ctx sdk.Context, expireBlock int64) []*ty
 	cardIterator.Close()
 
 	return votingRights
+}
+
+func (k Keeper) RemoveVoteRight(ctx sdk.Context, userAddress sdk.AccAddress, rightsIndex int) {
+	user := k.GetUser(ctx, userAddress)
+	user.VoteRights[rightsIndex] = user.VoteRights[len(user.VoteRights)-1]
+	//user.VoteRights[len(user.VoteRights)-1] = null
+	user.VoteRights = user.VoteRights[:len(user.VoteRights)-1]
+	userStore := ctx.KVStore(k.UsersStoreKey)
+	userStore.Set(userAddress, k.cdc.MustMarshal(&user))
 }

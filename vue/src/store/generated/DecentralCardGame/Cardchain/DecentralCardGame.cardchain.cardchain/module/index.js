@@ -4,9 +4,11 @@ import { Registry } from "@cosmjs/proto-signing";
 import { Api } from "./rest";
 import { MsgBuyCardScheme } from "./types/cardchain/tx";
 import { MsgCreateuser } from "./types/cardchain/tx";
+import { MsgVoteCard } from "./types/cardchain/tx";
 const types = [
     ["/DecentralCardGame.cardchain.cardchain.MsgBuyCardScheme", MsgBuyCardScheme],
     ["/DecentralCardGame.cardchain.cardchain.MsgCreateuser", MsgCreateuser],
+    ["/DecentralCardGame.cardchain.cardchain.MsgVoteCard", MsgVoteCard],
 ];
 export const MissingWalletError = new Error("wallet is required");
 export const registry = new Registry(types);
@@ -29,6 +31,7 @@ const txClient = async (wallet, { addr: addr } = { addr: "http://localhost:26657
         signAndBroadcast: (msgs, { fee, memo } = { fee: defaultFee, memo: "" }) => client.signAndBroadcast(address, msgs, fee, memo),
         msgBuyCardScheme: (data) => ({ typeUrl: "/DecentralCardGame.cardchain.cardchain.MsgBuyCardScheme", value: MsgBuyCardScheme.fromPartial(data) }),
         msgCreateuser: (data) => ({ typeUrl: "/DecentralCardGame.cardchain.cardchain.MsgCreateuser", value: MsgCreateuser.fromPartial(data) }),
+        msgVoteCard: (data) => ({ typeUrl: "/DecentralCardGame.cardchain.cardchain.MsgVoteCard", value: MsgVoteCard.fromPartial(data) }),
     };
 };
 const queryClient = async ({ addr: addr } = { addr: "http://localhost:1317" }) => {

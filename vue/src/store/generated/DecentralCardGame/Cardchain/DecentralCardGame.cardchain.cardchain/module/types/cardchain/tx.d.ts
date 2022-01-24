@@ -14,6 +14,14 @@ export interface MsgBuyCardScheme {
 }
 export interface MsgBuyCardSchemeResponse {
 }
+export interface MsgVoteCard {
+    creator: string;
+    cardId: number;
+    voteType: string;
+    voter: string;
+}
+export interface MsgVoteCardResponse {
+}
 export declare const MsgCreateuser: {
     encode(message: MsgCreateuser, writer?: Writer): Writer;
     decode(input: Reader | Uint8Array, length?: number): MsgCreateuser;
@@ -42,17 +50,33 @@ export declare const MsgBuyCardSchemeResponse: {
     toJSON(_: MsgBuyCardSchemeResponse): unknown;
     fromPartial(_: DeepPartial<MsgBuyCardSchemeResponse>): MsgBuyCardSchemeResponse;
 };
+export declare const MsgVoteCard: {
+    encode(message: MsgVoteCard, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgVoteCard;
+    fromJSON(object: any): MsgVoteCard;
+    toJSON(message: MsgVoteCard): unknown;
+    fromPartial(object: DeepPartial<MsgVoteCard>): MsgVoteCard;
+};
+export declare const MsgVoteCardResponse: {
+    encode(_: MsgVoteCardResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgVoteCardResponse;
+    fromJSON(_: any): MsgVoteCardResponse;
+    toJSON(_: MsgVoteCardResponse): unknown;
+    fromPartial(_: DeepPartial<MsgVoteCardResponse>): MsgVoteCardResponse;
+};
 /** Msg defines the Msg service. */
 export interface Msg {
     Createuser(request: MsgCreateuser): Promise<MsgCreateuserResponse>;
-    /** this line is used by starport scaffolding # proto/tx/rpc */
     BuyCardScheme(request: MsgBuyCardScheme): Promise<MsgBuyCardSchemeResponse>;
+    /** this line is used by starport scaffolding # proto/tx/rpc */
+    VoteCard(request: MsgVoteCard): Promise<MsgVoteCardResponse>;
 }
 export declare class MsgClientImpl implements Msg {
     private readonly rpc;
     constructor(rpc: Rpc);
     Createuser(request: MsgCreateuser): Promise<MsgCreateuserResponse>;
     BuyCardScheme(request: MsgBuyCardScheme): Promise<MsgBuyCardSchemeResponse>;
+    VoteCard(request: MsgVoteCard): Promise<MsgVoteCardResponse>;
 }
 interface Rpc {
     request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;

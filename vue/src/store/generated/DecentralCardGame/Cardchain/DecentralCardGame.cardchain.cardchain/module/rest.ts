@@ -13,6 +13,8 @@ export type CardchainMsgBuyCardSchemeResponse = object;
 
 export type CardchainMsgCreateuserResponse = object;
 
+export type CardchainMsgVoteCardResponse = object;
+
 /**
  * Params defines the parameters for the module.
  */

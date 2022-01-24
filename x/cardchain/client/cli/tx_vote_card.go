@@ -7,34 +7,35 @@ import (
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/flags"
 	"github.com/cosmos/cosmos-sdk/client/tx"
-	sdk "github.com/cosmos/cosmos-sdk/types"
+	"github.com/spf13/cast"
 	"github.com/spf13/cobra"
 )
 
 var _ = strconv.Itoa(0)
 
-func CmdBuyCardScheme() *cobra.Command {
+func CmdVoteCard() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "buy-card-scheme [bid] [buyer]",
-		Short: "Broadcast message BuyCardScheme",
-		Args:  cobra.ExactArgs(2),
+		Use:   "vote-card [card-id] [vote-type] [voter]",
+		Short: "Broadcast message VoteCard",
+		Args:  cobra.ExactArgs(3),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
-			argBid, err := sdk.ParseCoinNormalized(args[0])
+			argCardId, err := cast.ToUint64E(args[0])
 			if err != nil {
 				return err
 			}
-
-			argBuyer := args[1]
+			argVoteType := args[1]
+			argVoter := args[2]
 
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
 				return err
 			}
 
-			msg := types.NewMsgBuyCardScheme(
+			msg := types.NewMsgVoteCard(
 				clientCtx.GetFromAddress().String(),
-				argBid,
-				argBuyer,
+				argCardId,
+				argVoteType,
+				argVoter,
 			)
 			if err := msg.ValidateBasic(); err != nil {
 				return err

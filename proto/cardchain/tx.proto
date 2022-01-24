@@ -11,6 +11,7 @@ option go_package = "github.com/DecentralCardGame/Cardchain/x/cardchain/types";
 service Msg {
       rpc Createuser(MsgCreateuser) returns (MsgCreateuserResponse);
   rpc BuyCardScheme(MsgBuyCardScheme) returns (MsgBuyCardSchemeResponse);
+  rpc VoteCard(MsgVoteCard) returns (MsgVoteCardResponse);
 // this line is used by starport scaffolding # proto/tx/rpc
 }
 
@@ -30,6 +31,16 @@ message MsgBuyCardScheme {
 }
 
 message MsgBuyCardSchemeResponse {
+}
+
+message MsgVoteCard {
+  string creator = 1;
+  uint64 cardId = 2;
+  string voteType = 3;
+  string voter = 4;
+}
+
+message MsgVoteCardResponse {
 }
 
 // this line is used by starport scaffolding # proto/tx/message

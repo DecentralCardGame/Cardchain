@@ -5,9 +5,9 @@ const (
 	ModuleName = "cardchain"
 
 	// StoreKey defines the primary module store key
-	StoreKey = ModuleName
-	CardsStoreKey = "Cards"
-	UsersStoreKey = "Users"
+	StoreKey         = ModuleName
+	CardsStoreKey    = "Cards"
+	UsersStoreKey    = "Users"
 	InternalStoreKey = "Internal"
 
 	// RouterKey is the message route for slashing
