@@ -269,6 +269,15 @@ func (k Keeper) SetLastVotingResults(ctx sdk.Context, results types.VotingResult
 	store.Set([]byte("lastVotingResults"), k.cdc.MustMarshal(&results))
 }
 
+// returns the current price of the card scheme auction
+func (k Keeper) GetLastVotingResults(ctx sdk.Context) types.VotingResults {
+	store := ctx.KVStore(k.InternalStoreKey)
+	bz := store.Get([]byte("lastVotingResults"))
+	var results types.VotingResults
+	k.cdc.MustUnmarshal(bz, &results)
+	return results
+}
+
 func (k Keeper) AddVoteRightsToAllUsers(ctx sdk.Context, expireBlock int64) {
 	votingRights := k.GetVoteRightToAllCards(ctx, expireBlock)
 
