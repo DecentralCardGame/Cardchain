@@ -17,9 +17,10 @@ func NewHandler(k keeper.Keeper) sdk.Handler {
 		ctx = ctx.WithEventManager(sdk.NewEventManager())
 
 		switch msg := msg.(type) {
-		// case *types.MsgCreateuser:
+		// case *types.MsgCreateuser:  // Default handeling
 		// 	res, err := msgServer.Createuser(sdk.WrapSDKContext(ctx), msg)
 		// 	return sdk.WrapServiceResult(ctx, res, err)
+		// this line is used by starport scaffolding # 1
 		case *types.MsgBuyCardScheme:
 			return handleMsgBuyCardScheme(ctx, k, msg)
 		case *types.MsgVoteCard:
@@ -30,7 +31,6 @@ func NewHandler(k keeper.Keeper) sdk.Handler {
 			return handleMsgTransferCard(ctx, k, msg)
 		case *types.MsgDonateToCard:
 			return handleMsgDonateToCard(ctx, k, msg)
-			// this line is used by starport scaffolding # 1
 		case *types.MsgCreateuser:
 			return handleMsgCreateUser(ctx, k, msg)
 		default:

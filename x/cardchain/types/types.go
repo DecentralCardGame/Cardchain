@@ -1,17 +1,14 @@
 package types
 
 import (
-	//"fmt"
-	//"strings"
-
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
-// Module name for minting coins
-var CoinsIssuerName = "cardchain"
-
 // Here can constructors for types be placed, sice the files containing those
 // types shall not be edited
+
+// Module name for minting coins
+const CoinsIssuerName = "cardchain"
 
 func NewUser() User {
 	return User{
@@ -28,21 +25,6 @@ func NewVoteRight(cardId uint64, expireBlock int64) VoteRight {
 		ExpireBlock: expireBlock,
 	}
 }
-
-// type Card struct {
-// 	Owner              sdk.AccAddress
-// 	Content            []byte
-// 	Image							 []byte
-// 	FullArt						 string
-// 	Notes							 string
-// 	Status             string
-// 	VotePool           sdk.Coin
-// 	FairEnoughVotes    uint64
-// 	OverpoweredVotes   uint64
-// 	UnderpoweredVotes  uint64
-// 	InappropriateVotes uint64
-// 	Nerflevel          int64
-// }
 
 func NewCard(owner sdk.AccAddress) Card {
 	return Card{

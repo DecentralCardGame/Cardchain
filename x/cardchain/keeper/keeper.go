@@ -19,8 +19,8 @@ import (
 type (
 	Keeper struct {
 		cdc              codec.BinaryCodec // The wire codec for binary encoding/decoding.
-		UsersStoreKey    sdk.StoreKey      // UsersStoreKey
-		CardsStoreKey    sdk.StoreKey      // Cardstorekey
+		UsersStoreKey    sdk.StoreKey
+		CardsStoreKey    sdk.StoreKey
 		InternalStoreKey sdk.StoreKey
 		paramstore       paramtypes.Subspace
 
@@ -43,7 +43,6 @@ func NewKeeper(
 	}
 
 	return &Keeper{
-
 		cdc:              cdc,
 		UsersStoreKey:    usersStoreKey,
 		CardsStoreKey:    cardsStoreKey,
@@ -91,6 +90,10 @@ func indexOfId(cardID uint64, cards []uint64) int {
 	return -1
 }
 
+///////////
+// Cards //
+///////////
+
 func (k Keeper) GetCard(ctx sdk.Context, cardId uint64) types.Card {
 	store := ctx.KVStore(k.CardsStoreKey)
 	bz := store.Get(sdk.Uint64ToBigEndian(cardId))
@@ -103,44 +106,6 @@ func (k Keeper) GetCard(ctx sdk.Context, cardId uint64) types.Card {
 func (k Keeper) SetCard(ctx sdk.Context, cardId uint64, newCard types.Card) {
 	store := ctx.KVStore(k.CardsStoreKey)
 	store.Set(sdk.Uint64ToBigEndian(cardId), k.cdc.MustMarshal(&newCard))
-}
-
-// Adds coins to an Account
-func (k Keeper) MintCoinsToAddr(ctx sdk.Context, addr sdk.AccAddress, amounts sdk.Coins) error {
-	coinMint := types.CoinsIssuerName
-
-	// mint coins to minter module account
-	err := k.BankKeeper.MintCoins(ctx, coinMint, amounts)
-	if err != nil {
-		return err
-	}
-
-	// send coins to the address
-	err = k.BankKeeper.SendCoinsFromModuleToAccount(ctx, coinMint, addr, amounts)
-	if err != nil {
-		return err
-	}
-
-	return nil
-}
-
-// Removes Coins from an Account
-func (k Keeper) BurnCoinsFromAddr(ctx sdk.Context, addr sdk.AccAddress, amounts sdk.Coins) error {
-	coinMint := types.CoinsIssuerName
-
-	// send coins to the module
-	err := k.BankKeeper.SendCoinsFromAccountToModule(ctx, addr, coinMint, amounts)
-	if err != nil {
-		return err
-	}
-
-	// burn coins from minter module account
-	err = k.BankKeeper.BurnCoins(ctx, coinMint, amounts)
-	if err != nil {
-		return err
-	}
-
-	return nil
 }
 
 // GetLastCardScheme - get the current id of the last bought card scheme
@@ -164,17 +129,6 @@ func (k Keeper) GetCardAuctionPrice(ctx sdk.Context) sdk.Coin {
 	k.cdc.MustUnmarshal(bz, &price)
 	return price
 }
-
-// adds or subtracts credits from the public pool
-func (k Keeper) AddPublicPoolCredits(ctx sdk.Context, delta sdk.Coin) {
-	store := ctx.KVStore(k.InternalStoreKey)
-	bz := store.Get([]byte("publicPoolCredits"))
-	var amount sdk.Coin
-	k.cdc.MustUnmarshal(bz, &amount)
-	newAmount := amount.Add(delta)
-	store.Set([]byte("publicPoolCredits"), k.cdc.MustMarshal(&newAmount))
-}
-
 // sets the current price of the card scheme auction
 func (k Keeper) SetCardAuctionPrice(ctx sdk.Context, price sdk.Coin) {
 	store := ctx.KVStore(k.InternalStoreKey)
@@ -192,6 +146,61 @@ func (k Keeper) AddOwnedCardScheme(ctx sdk.Context, cardId uint64, address sdk.A
 
 	store.Set(address, k.cdc.MustMarshal(&gottenUser))
 }
+
+func (k Keeper) GetCardsIterator(ctx sdk.Context) sdk.Iterator {
+	store := ctx.KVStore(k.CardsStoreKey)
+	return sdk.KVStorePrefixIterator(store, nil)
+}
+
+/////////////////////
+// Coin management //
+/////////////////////
+
+// Adds coins to an Account
+func (k Keeper) MintCoinsToAddr(ctx sdk.Context, addr sdk.AccAddress, amounts sdk.Coins) error {
+	coinMint := types.CoinsIssuerName
+	// mint coins to minter module account
+	err := k.BankKeeper.MintCoins(ctx, coinMint, amounts)
+	if err != nil {
+		return err
+	}
+	// send coins to the address
+	err = k.BankKeeper.SendCoinsFromModuleToAccount(ctx, coinMint, addr, amounts)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+// Removes Coins from an Account
+func (k Keeper) BurnCoinsFromAddr(ctx sdk.Context, addr sdk.AccAddress, amounts sdk.Coins) error {
+	coinMint := types.CoinsIssuerName
+	// send coins to the module
+	err := k.BankKeeper.SendCoinsFromAccountToModule(ctx, addr, coinMint, amounts)
+	if err != nil {
+		return err
+	}
+	// burn coins from minter module account
+	err = k.BankKeeper.BurnCoins(ctx, coinMint, amounts)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+// adds or subtracts credits from the public pool
+func (k Keeper) AddPublicPoolCredits(ctx sdk.Context, delta sdk.Coin) {
+	store := ctx.KVStore(k.InternalStoreKey)
+	bz := store.Get([]byte("publicPoolCredits"))
+	var amount sdk.Coin
+	k.cdc.MustUnmarshal(bz, &amount)
+	newAmount := amount.Add(delta)
+	store.Set([]byte("publicPoolCredits"), k.cdc.MustMarshal(&newAmount))
+}
+
+///////////
+// Users //
+///////////
 
 func (k Keeper) Createuser(ctx sdk.Context, newUser sdk.AccAddress, alias string) types.User {
 	// check if user already exists
@@ -228,6 +237,64 @@ func (k Keeper) GetUser(ctx sdk.Context, address sdk.AccAddress) types.User {
 	return gottenUser
 }
 
+////////////
+// Voting //
+////////////
+
+type candidate struct {
+	id    uint64
+	votes int64
+}
+
+func (k Keeper) ResetAllVotes(ctx sdk.Context) {
+	store := ctx.KVStore(k.CardsStoreKey)
+	iterator := sdk.KVStorePrefixIterator(store, nil)
+
+	for ; iterator.Valid(); iterator.Next() {
+		var resetCard types.Card
+		k.cdc.MustUnmarshal(iterator.Value(), &resetCard)
+
+		resetCard.FairEnoughVotes = 0
+		resetCard.OverpoweredVotes = 0
+		resetCard.UnderpoweredVotes = 0
+		resetCard.InappropriateVotes = 0
+
+		store.Set(iterator.Key(), k.cdc.MustMarshal(&resetCard))
+	}
+}
+
+// SetLastCardScheme - sets the current id of the last bought card scheme
+func (k Keeper) SetLastVotingResults(ctx sdk.Context, results types.VotingResults) {
+	store := ctx.KVStore(k.InternalStoreKey)
+	store.Set([]byte("lastVotingResults"), k.cdc.MustMarshal(&results))
+}
+
+func (k Keeper) AddVoteRightsToAllUsers(ctx sdk.Context, expireBlock int64) {
+	votingRights := k.GetVoteRightToAllCards(ctx, expireBlock)
+
+	userStore := ctx.KVStore(k.UsersStoreKey)
+
+	userIterator := sdk.KVStorePrefixIterator(userStore, nil)
+
+	for ; userIterator.Valid(); userIterator.Next() {
+		var user types.User
+		k.cdc.MustUnmarshal(userIterator.Value(), &user)
+		user.VoteRights = votingRights
+		userStore.Set(userIterator.Key(), k.cdc.MustMarshal(&user))
+	}
+
+	userIterator.Close()
+}
+
+func (k Keeper) RemoveVoteRight(ctx sdk.Context, userAddress sdk.AccAddress, rightsIndex int) {
+	user := k.GetUser(ctx, userAddress)
+	user.VoteRights[rightsIndex] = user.VoteRights[len(user.VoteRights)-1]
+	//user.VoteRights[len(user.VoteRights)-1] = null
+	user.VoteRights = user.VoteRights[:len(user.VoteRights)-1]
+	userStore := ctx.KVStore(k.UsersStoreKey)
+	userStore.Set(userAddress, k.cdc.MustMarshal(&user))
+}
+
 func (k Keeper) GetVoteRightToAllCards(ctx sdk.Context, expireBlock int64) []*types.VoteRight {
 	cardStore := ctx.KVStore(k.CardsStoreKey)
 	cardIterator := sdk.KVStorePrefixIterator(cardStore, nil)
@@ -247,15 +314,6 @@ func (k Keeper) GetVoteRightToAllCards(ctx sdk.Context, expireBlock int64) []*ty
 	cardIterator.Close()
 
 	return votingRights
-}
-
-func (k Keeper) RemoveVoteRight(ctx sdk.Context, userAddress sdk.AccAddress, rightsIndex int) {
-	user := k.GetUser(ctx, userAddress)
-	user.VoteRights[rightsIndex] = user.VoteRights[len(user.VoteRights)-1]
-	//user.VoteRights[len(user.VoteRights)-1] = null
-	user.VoteRights = user.VoteRights[:len(user.VoteRights)-1]
-	userStore := ctx.KVStore(k.UsersStoreKey)
-	userStore.Set(userAddress, k.cdc.MustMarshal(&user))
 }
 
 func (k Keeper) NerfBuffCards(ctx sdk.Context, cardIds []uint64, buff bool) {
@@ -358,11 +416,6 @@ func (k Keeper) UpdateBanStatus(ctx sdk.Context, newBannedIds []uint64) {
 			cardsStore.Set(iterator.Key(), k.cdc.MustMarshal(&gottenCard))
 		}
 	}
-}
-
-func (k Keeper) GetCardsIterator(ctx sdk.Context) sdk.Iterator {
-	store := ctx.KVStore(k.CardsStoreKey)
-	return sdk.KVStorePrefixIterator(store, nil)
 }
 
 func (k Keeper) GetOPandUPCards(ctx sdk.Context) ([]uint64, []uint64, []uint64, []uint64) {
@@ -509,49 +562,4 @@ func (k Keeper) GetOPandUPCards(ctx sdk.Context) ([]uint64, []uint64, []uint64, 
 	k.SetLastVotingResults(ctx, votingResults)
 
 	return buffbois, nerfbois, fairbois, banbois
-}
-
-type candidate struct {
-	id    uint64
-	votes int64
-}
-
-func (k Keeper) ResetAllVotes(ctx sdk.Context) {
-	store := ctx.KVStore(k.CardsStoreKey)
-	iterator := sdk.KVStorePrefixIterator(store, nil)
-
-	for ; iterator.Valid(); iterator.Next() {
-		var resetCard types.Card
-		k.cdc.MustUnmarshal(iterator.Value(), &resetCard)
-
-		resetCard.FairEnoughVotes = 0
-		resetCard.OverpoweredVotes = 0
-		resetCard.UnderpoweredVotes = 0
-		resetCard.InappropriateVotes = 0
-
-		store.Set(iterator.Key(), k.cdc.MustMarshal(&resetCard))
-	}
-}
-
-// SetLastCardScheme - sets the current id of the last bought card scheme
-func (k Keeper) SetLastVotingResults(ctx sdk.Context, results types.VotingResults) {
-	store := ctx.KVStore(k.InternalStoreKey)
-	store.Set([]byte("lastVotingResults"), k.cdc.MustMarshal(&results))
-}
-
-func (k Keeper) AddVoteRightsToAllUsers(ctx sdk.Context, expireBlock int64) {
-	votingRights := k.GetVoteRightToAllCards(ctx, expireBlock)
-
-	userStore := ctx.KVStore(k.UsersStoreKey)
-
-	userIterator := sdk.KVStorePrefixIterator(userStore, nil)
-
-	for ; userIterator.Valid(); userIterator.Next() {
-		var user types.User
-		k.cdc.MustUnmarshal(userIterator.Value(), &user)
-		user.VoteRights = votingRights
-		userStore.Set(userIterator.Key(), k.cdc.MustMarshal(&user))
-	}
-
-	userIterator.Close()
 }
