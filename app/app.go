@@ -100,6 +100,13 @@ const (
 	Name                 = "Cardchain"
 )
 
+// epochBlockTime defines how many blocks are one buffnerf epoch
+const epochBlockTime = 86000	// this is 1 week with 7s block time
+//const epochBlockTime = 5		// this is great for debugging
+
+// votingRightsExpirationTime defines after how many blocks a voting right expires by default
+const votingRightsExpirationTime = epochBlockTime	// we use the same as epoch time
+
 // this line is used by starport scaffolding # stargate/wasm/app/enabledProposals
 
 func getGovProposalHandlers() []govclient.ProposalHandler {
@@ -512,6 +519,16 @@ func (app *App) BeginBlocker(ctx sdk.Context, req abci.RequestBeginBlock) abci.R
 
 // EndBlocker application updates every end block
 func (app *App) EndBlocker(ctx sdk.Context, req abci.RequestEndBlock) abci.ResponseEndBlock {
+	// update the price of card auction (currently 1% decay per block)
+	price := app.CardchainKeeper.GetCardAuctionPrice(ctx)
+	newprice := price.Sub(sdk.NewCoin("credits", price.Amount.Quo(sdk.NewInt(100))))  // Somehow this line is evil
+	app.CardchainKeeper.SetCardAuctionPrice(ctx, newprice)
+
+	// automated nerf/buff happens here
+	if app.LastBlockHeight()%epochBlockTime == 0 {
+		cardchainmodule.UpdateNerfLevels(ctx, app.CardchainKeeper)
+		app.CardchainKeeper.AddVoteRightsToAllUsers(ctx, ctx.BlockHeight()+votingRightsExpirationTime)
+	}
 	return app.mm.EndBlock(ctx, req)
 }
 

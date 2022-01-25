@@ -41,9 +41,12 @@ func NewHandler(k keeper.Keeper) sdk.Handler {
 }
 
 func handleMsgDonateToCard(ctx sdk.Context, keeper keeper.Keeper, msg *types.MsgDonateToCard) (*sdk.Result, error) {
-	donator, _ := sdk.AccAddressFromBech32(msg.Donator)
+	donator, err := sdk.AccAddressFromBech32(msg.Donator)
+	if err != nil {
+		return nil, sdkerrors.Wrap(types.ErrInvalidAccAddress, "Unable to convert to AccAddress")
+	}
 
-	err := keeper.BurnCoinsFromAddr(ctx, donator, sdk.Coins{msg.Amount}) // If so, deduct the Bid amount from the sender
+	err = keeper.BurnCoinsFromAddr(ctx, donator, sdk.Coins{msg.Amount}) // If so, deduct the Bid amount from the sender
 	if err != nil {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrInsufficientFunds, "Donator does not have enough coins")
 	}
@@ -66,8 +69,15 @@ func handleMsgTransferCard(ctx sdk.Context, keeper keeper.Keeper, msg *types.Msg
 			return sdk.ErrUnknownRequest("Transferring a card is only possible if it is in trial or a permanent card").Result()
 		}
 	*/
-	sender, _ := sdk.AccAddressFromBech32(msg.Sender)
-	owner, _ := sdk.AccAddressFromBech32(card.Owner)
+	sender, err := sdk.AccAddressFromBech32(msg.Sender)
+	if err != nil {
+		return nil, sdkerrors.Wrap(types.ErrInvalidAccAddress, "Unable to convert to AccAddress")
+	}
+
+	owner, err := sdk.AccAddressFromBech32(card.Owner)
+	if err != nil {
+		return nil, sdkerrors.Wrap(types.ErrInvalidAccAddress, "Unable to convert to AccAddress")
+	}
 
 	if !sender.Equals(owner) { // Checks if the the msg sender is the same as the current owner
 		return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "Incorrect Owner") // If not, throw an error
@@ -81,8 +91,16 @@ func handleMsgTransferCard(ctx sdk.Context, keeper keeper.Keeper, msg *types.Msg
 
 func handleMsgSaveCardContent(ctx sdk.Context, keeper keeper.Keeper, msg *types.MsgSaveCardContent) (*sdk.Result, error) {
 	card := keeper.GetCard(ctx, msg.CardId)
-	msgOwner, _ := sdk.AccAddressFromBech32(msg.Owner)
-	cardOwner, _ := sdk.AccAddressFromBech32(card.Owner)
+
+	msgOwner, err := sdk.AccAddressFromBech32(msg.Owner)
+	if err != nil {
+		return nil, sdkerrors.Wrap(types.ErrInvalidAccAddress, "Unable to convert to AccAddress")
+	}
+
+	cardOwner, err := sdk.AccAddressFromBech32(card.Owner)
+	if err != nil {
+		return nil, sdkerrors.Wrap(types.ErrInvalidAccAddress, "Unable to convert to AccAddress")
+	}
 
 	if !msgOwner.Equals(cardOwner) { // Checks if the the msg sender is the same as the current owner
 		return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "Incorrect Owner")
@@ -104,7 +122,11 @@ func handleMsgSaveCardContent(ctx sdk.Context, keeper keeper.Keeper, msg *types.
 
 // handle vote card message
 func handleMsgVoteCard(ctx sdk.Context, keeper keeper.Keeper, msg *types.MsgVoteCard) (*sdk.Result, error) {
-	voter, _ := sdk.AccAddressFromBech32(msg.Voter)
+	voter, err := sdk.AccAddressFromBech32(msg.Voter)
+	if err != nil {
+		return nil, sdkerrors.Wrap(types.ErrInvalidAccAddress, "Unable to convert to AccAddress")
+	}
+
 	voteRights := keeper.GetVoteRights(ctx, voter)
 	rightsIndex := SearchVoteRights(msg.CardId, voteRights)
 
@@ -175,13 +197,16 @@ func handleMsgBuyCardScheme(ctx sdk.Context, keeper keeper.Keeper, msg *types.Ms
 
 	price := keeper.GetCardAuctionPrice(ctx)
 
-	buyer, _ := sdk.AccAddressFromBech32(msg.Buyer)
+	buyer, err := sdk.AccAddressFromBech32(msg.Buyer)
+	if err != nil {
+		return nil, sdkerrors.Wrap(types.ErrInvalidAccAddress, "Unable to convert to AccAddress")
+	}
 
 	if msg.Bid.IsLT(price) { // Checks if the bid is less than price
 		return nil, sdkerrors.Wrap(sdkerrors.ErrInsufficientFunds, "Bid not high enough")
 	}
 
-	err := keeper.BurnCoinsFromAddr(ctx, buyer, sdk.Coins{price}) // If so, deduct the Bid amount from the sender
+	err = keeper.BurnCoinsFromAddr(ctx, buyer, sdk.Coins{price}) // If so, deduct the Bid amount from the sender
 	if err != nil {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrInsufficientFunds, "Buyer does not have enough coins")
 	}
@@ -210,4 +235,27 @@ func handleMsgCreateUser(ctx sdk.Context, keeper keeper.Keeper, msg *types.MsgCr
 	//}
 
 	return &sdk.Result{}, nil
+}
+
+// apply nerf levels and remove inappropriate cards
+func UpdateNerfLevels(ctx sdk.Context, keeper keeper.Keeper) sdk.Result {
+
+	buffbois, nerfbois, _, banbois := keeper.GetOPandUPCards(ctx)
+	/*
+		fmt.Println("buff:")
+		fmt.Println(buffbois)
+		fmt.Println("nerf:")
+		fmt.Println(nerfbois)
+		fmt.Println("fair:")
+		fmt.Println(fairbois)
+		fmt.Println("ban:")
+		fmt.Println(banbois)
+	*/
+	keeper.NerfBuffCards(ctx, buffbois, true)
+	keeper.NerfBuffCards(ctx, nerfbois, false)
+	keeper.UpdateBanStatus(ctx, banbois)
+
+	keeper.ResetAllVotes(ctx)
+
+	return sdk.Result{}
 }

@@ -68,3 +68,15 @@ func (m *Card) GetOwnerAddr() sdk.AccAddress {
 	}
 	return owner
 }
+
+func NewVotingResults() VotingResults {
+	return VotingResults{
+		TotalVotes:							0,
+		TotalFairEnoughVotes:		0,
+		TotalOverpoweredVotes:	0,
+		TotalUnderpoweredVotes:	0,
+		TotalInappropriateVotes:0,
+		CardResults: []*VotingResult{},
+		Notes: "none",
+	}
+}
