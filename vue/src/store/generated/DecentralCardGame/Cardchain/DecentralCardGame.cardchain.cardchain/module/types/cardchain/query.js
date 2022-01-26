@@ -186,6 +186,118 @@ export const QueryQCardResponse = {
         return message;
     },
 };
+const baseQueryQCardContentRequest = { cardId: "" };
+export const QueryQCardContentRequest = {
+    encode(message, writer = Writer.create()) {
+        if (message.cardId !== "") {
+            writer.uint32(10).string(message.cardId);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = {
+            ...baseQueryQCardContentRequest,
+        };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.cardId = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = {
+            ...baseQueryQCardContentRequest,
+        };
+        if (object.cardId !== undefined && object.cardId !== null) {
+            message.cardId = String(object.cardId);
+        }
+        else {
+            message.cardId = "";
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.cardId !== undefined && (obj.cardId = message.cardId);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = {
+            ...baseQueryQCardContentRequest,
+        };
+        if (object.cardId !== undefined && object.cardId !== null) {
+            message.cardId = object.cardId;
+        }
+        else {
+            message.cardId = "";
+        }
+        return message;
+    },
+};
+const baseQueryQCardContentResponse = {};
+export const QueryQCardContentResponse = {
+    encode(message, writer = Writer.create()) {
+        if (message.content.length !== 0) {
+            writer.uint32(10).bytes(message.content);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = {
+            ...baseQueryQCardContentResponse,
+        };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.content = reader.bytes();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = {
+            ...baseQueryQCardContentResponse,
+        };
+        if (object.content !== undefined && object.content !== null) {
+            message.content = bytesFromBase64(object.content);
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.content !== undefined &&
+            (obj.content = base64FromBytes(message.content !== undefined ? message.content : new Uint8Array()));
+        return obj;
+    },
+    fromPartial(object) {
+        const message = {
+            ...baseQueryQCardContentResponse,
+        };
+        if (object.content !== undefined && object.content !== null) {
+            message.content = object.content;
+        }
+        else {
+            message.content = new Uint8Array();
+        }
+        return message;
+    },
+};
 export class QueryClientImpl {
     constructor(rpc) {
         this.rpc = rpc;
@@ -199,6 +311,11 @@ export class QueryClientImpl {
         const data = QueryQCardRequest.encode(request).finish();
         const promise = this.rpc.request("DecentralCardGame.cardchain.cardchain.Query", "QCard", data);
         return promise.then((data) => QueryQCardResponse.decode(new Reader(data)));
+    }
+    QCardContent(request) {
+        const data = QueryQCardContentRequest.encode(request).finish();
+        const promise = this.rpc.request("DecentralCardGame.cardchain.cardchain.Query", "QCardContent", data);
+        return promise.then((data) => QueryQCardContentResponse.decode(new Reader(data)));
     }
 }
 var globalThis = (() => {

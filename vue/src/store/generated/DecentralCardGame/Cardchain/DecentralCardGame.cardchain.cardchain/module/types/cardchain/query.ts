@@ -21,6 +21,14 @@ export interface QueryQCardResponse {
   card: Uint8Array;
 }
 
+export interface QueryQCardContentRequest {
+  cardId: string;
+}
+
+export interface QueryQCardContentResponse {
+  content: Uint8Array;
+}
+
 const baseQueryParamsRequest: object = {};
 
 export const QueryParamsRequest = {
@@ -232,12 +240,155 @@ export const QueryQCardResponse = {
   },
 };
 
+const baseQueryQCardContentRequest: object = { cardId: "" };
+
+export const QueryQCardContentRequest = {
+  encode(
+    message: QueryQCardContentRequest,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.cardId !== "") {
+      writer.uint32(10).string(message.cardId);
+    }
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): QueryQCardContentRequest {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseQueryQCardContentRequest,
+    } as QueryQCardContentRequest;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.cardId = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryQCardContentRequest {
+    const message = {
+      ...baseQueryQCardContentRequest,
+    } as QueryQCardContentRequest;
+    if (object.cardId !== undefined && object.cardId !== null) {
+      message.cardId = String(object.cardId);
+    } else {
+      message.cardId = "";
+    }
+    return message;
+  },
+
+  toJSON(message: QueryQCardContentRequest): unknown {
+    const obj: any = {};
+    message.cardId !== undefined && (obj.cardId = message.cardId);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<QueryQCardContentRequest>
+  ): QueryQCardContentRequest {
+    const message = {
+      ...baseQueryQCardContentRequest,
+    } as QueryQCardContentRequest;
+    if (object.cardId !== undefined && object.cardId !== null) {
+      message.cardId = object.cardId;
+    } else {
+      message.cardId = "";
+    }
+    return message;
+  },
+};
+
+const baseQueryQCardContentResponse: object = {};
+
+export const QueryQCardContentResponse = {
+  encode(
+    message: QueryQCardContentResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.content.length !== 0) {
+      writer.uint32(10).bytes(message.content);
+    }
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): QueryQCardContentResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseQueryQCardContentResponse,
+    } as QueryQCardContentResponse;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.content = reader.bytes();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryQCardContentResponse {
+    const message = {
+      ...baseQueryQCardContentResponse,
+    } as QueryQCardContentResponse;
+    if (object.content !== undefined && object.content !== null) {
+      message.content = bytesFromBase64(object.content);
+    }
+    return message;
+  },
+
+  toJSON(message: QueryQCardContentResponse): unknown {
+    const obj: any = {};
+    message.content !== undefined &&
+      (obj.content = base64FromBytes(
+        message.content !== undefined ? message.content : new Uint8Array()
+      ));
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<QueryQCardContentResponse>
+  ): QueryQCardContentResponse {
+    const message = {
+      ...baseQueryQCardContentResponse,
+    } as QueryQCardContentResponse;
+    if (object.content !== undefined && object.content !== null) {
+      message.content = object.content;
+    } else {
+      message.content = new Uint8Array();
+    }
+    return message;
+  },
+};
+
 /** Query defines the gRPC querier service. */
 export interface Query {
   /** Parameters queries the parameters of the module. */
   Params(request: QueryParamsRequest): Promise<QueryParamsResponse>;
   /** Queries a list of QCard items. */
   QCard(request: QueryQCardRequest): Promise<QueryQCardResponse>;
+  /** Queries a list of QCardContent items. */
+  QCardContent(
+    request: QueryQCardContentRequest
+  ): Promise<QueryQCardContentResponse>;
 }
 
 export class QueryClientImpl implements Query {
@@ -263,6 +414,20 @@ export class QueryClientImpl implements Query {
       data
     );
     return promise.then((data) => QueryQCardResponse.decode(new Reader(data)));
+  }
+
+  QCardContent(
+    request: QueryQCardContentRequest
+  ): Promise<QueryQCardContentResponse> {
+    const data = QueryQCardContentRequest.encode(request).finish();
+    const promise = this.rpc.request(
+      "DecentralCardGame.cardchain.cardchain.Query",
+      "QCardContent",
+      data
+    );
+    return promise.then((data) =>
+      QueryQCardContentResponse.decode(new Reader(data))
+    );
   }
 }
 

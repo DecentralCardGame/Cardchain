@@ -20,6 +20,11 @@ service Query {
 		option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/q_card/{cardId}";
 	}
 
+// Queries a list of QCardContent items.
+	rpc QCardContent(QueryQCardContentRequest) returns (QueryQCardContentResponse) {
+		option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/q_card_content/{cardId}";
+	}
+
 // this line is used by starport scaffolding # 2
 }
 
@@ -38,6 +43,14 @@ message QueryQCardRequest {
 
 message QueryQCardResponse {
   bytes card = 1;
+}
+
+message QueryQCardContentRequest {
+  string cardId = 1;
+}
+
+message QueryQCardContentResponse {
+  bytes content = 1;
 }
 
 // this line is used by starport scaffolding # 3

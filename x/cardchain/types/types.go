@@ -47,9 +47,9 @@ func CardNoB64FromCard(card Card) CardNoB64 {
 	return CardNoB64{
 		Owner:              card.Owner,
 		Content:            string(card.Content),
-		Image:							string(card.Image),
-		Notes:							card.Notes,
-		FullArt:						card.FullArt,
+		Image:              string(card.Image),
+		Notes:              card.Notes,
+		FullArt:            card.FullArt,
 		Status:             card.Status,
 		VotePool:           card.VotePool,
 		FairEnoughVotes:    card.FairEnoughVotes,

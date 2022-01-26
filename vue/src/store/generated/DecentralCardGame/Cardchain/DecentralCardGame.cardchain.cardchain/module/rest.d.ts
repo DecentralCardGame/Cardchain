@@ -15,6 +15,10 @@ export interface CardchainQueryParamsResponse {
     /** params holds all the parameters of this module. */
     params?: CardchainParams;
 }
+export interface CardchainQueryQCardContentResponse {
+    /** @format byte */
+    content?: string;
+}
 export interface CardchainQueryQCardResponse {
     /** @format byte */
     card?: string;
@@ -104,5 +108,14 @@ export declare class Api<SecurityDataType extends unknown> extends HttpClient<Se
      * @request GET:/DecentralCardGame/cardchain/cardchain/q_card/{cardId}
      */
     queryQCard: (cardId: string, params?: RequestParams) => Promise<HttpResponse<CardchainQueryQCardResponse, RpcStatus>>;
+    /**
+     * No description
+     *
+     * @tags Query
+     * @name QueryQCardContent
+     * @summary Queries a list of QCardContent items.
+     * @request GET:/DecentralCardGame/cardchain/cardchain/q_card_content/{cardId}
+     */
+    queryQCardContent: (cardId: string, params?: RequestParams) => Promise<HttpResponse<CardchainQueryQCardContentResponse, RpcStatus>>;
 }
 export {};
