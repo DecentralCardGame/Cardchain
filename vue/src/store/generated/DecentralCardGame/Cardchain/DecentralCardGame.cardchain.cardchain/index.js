@@ -171,6 +171,23 @@ export default {
                 throw new SpVuexError('QueryClient:QueryQCardContent', 'API Node Unavailable. Could not perform query: ' + e.message);
             }
         },
+        async sendMsgBuyCardScheme({ rootGetters }, { value, fee = [], memo = '' }) {
+            try {
+                const txClient = await initTxClient(rootGetters);
+                const msg = await txClient.msgBuyCardScheme(value);
+                const result = await txClient.signAndBroadcast([msg], { fee: { amount: fee,
+                        gas: "200000" }, memo });
+                return result;
+            }
+            catch (e) {
+                if (e == MissingWalletError) {
+                    throw new SpVuexError('TxClient:MsgBuyCardScheme:Init', 'Could not initialize signing client. Wallet is required.');
+                }
+                else {
+                    throw new SpVuexError('TxClient:MsgBuyCardScheme:Send', 'Could not broadcast Tx: ' + e.message);
+                }
+            }
+        },
         async sendMsgSaveCardContent({ rootGetters }, { value, fee = [], memo = '' }) {
             try {
                 const txClient = await initTxClient(rootGetters);
@@ -239,23 +256,6 @@ export default {
                 }
             }
         },
-        async sendMsgBuyCardScheme({ rootGetters }, { value, fee = [], memo = '' }) {
-            try {
-                const txClient = await initTxClient(rootGetters);
-                const msg = await txClient.msgBuyCardScheme(value);
-                const result = await txClient.signAndBroadcast([msg], { fee: { amount: fee,
-                        gas: "200000" }, memo });
-                return result;
-            }
-            catch (e) {
-                if (e == MissingWalletError) {
-                    throw new SpVuexError('TxClient:MsgBuyCardScheme:Init', 'Could not initialize signing client. Wallet is required.');
-                }
-                else {
-                    throw new SpVuexError('TxClient:MsgBuyCardScheme:Send', 'Could not broadcast Tx: ' + e.message);
-                }
-            }
-        },
         async sendMsgCreateuser({ rootGetters }, { value, fee = [], memo = '' }) {
             try {
                 const txClient = await initTxClient(rootGetters);
@@ -270,6 +270,21 @@ export default {
                 }
                 else {
                     throw new SpVuexError('TxClient:MsgCreateuser:Send', 'Could not broadcast Tx: ' + e.message);
+                }
+            }
+        },
+        async MsgBuyCardScheme({ rootGetters }, { value }) {
+            try {
+                const txClient = await initTxClient(rootGetters);
+                const msg = await txClient.msgBuyCardScheme(value);
+                return msg;
+            }
+            catch (e) {
+                if (e == MissingWalletError) {
+                    throw new SpVuexError('TxClient:MsgBuyCardScheme:Init', 'Could not initialize signing client. Wallet is required.');
+                }
+                else {
+                    throw new SpVuexError('TxClient:MsgBuyCardScheme:Create', 'Could not create message: ' + e.message);
                 }
             }
         },
@@ -330,21 +345,6 @@ export default {
                 }
                 else {
                     throw new SpVuexError('TxClient:MsgTransferCard:Create', 'Could not create message: ' + e.message);
-                }
-            }
-        },
-        async MsgBuyCardScheme({ rootGetters }, { value }) {
-            try {
-                const txClient = await initTxClient(rootGetters);
-                const msg = await txClient.msgBuyCardScheme(value);
-                return msg;
-            }
-            catch (e) {
-                if (e == MissingWalletError) {
-                    throw new SpVuexError('TxClient:MsgBuyCardScheme:Init', 'Could not initialize signing client. Wallet is required.');
-                }
-                else {
-                    throw new SpVuexError('TxClient:MsgBuyCardScheme:Create', 'Could not create message: ' + e.message);
                 }
             }
         },

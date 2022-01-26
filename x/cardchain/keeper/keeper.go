@@ -61,6 +61,12 @@ func (k Keeper) GetVoteRights(ctx sdk.Context, voter sdk.AccAddress) []*types.Vo
 	return user.VoteRights
 }
 
+// sets the credits in the public pool
+func (k Keeper) SetPublicPoolCredits(ctx sdk.Context, price sdk.Coin) {
+	store := ctx.KVStore(k.InternalStoreKey)
+	store.Set([]byte("publicPoolCredits"), k.cdc.MustMarshal(&price))
+}
+
 func (k Keeper) TransferSchemeToCard(ctx sdk.Context, cardId uint64, address sdk.AccAddress) {
 	store := ctx.KVStore(k.UsersStoreKey)
 	bz := store.Get(address)
@@ -112,6 +118,7 @@ func (k Keeper) SetCard(ctx sdk.Context, cardId uint64, newCard types.Card) {
 func (k Keeper) GetLastCardSchemeId(ctx sdk.Context) uint64 {
 	store := ctx.KVStore(k.InternalStoreKey)
 	bz := store.Get([]byte("lastCardScheme"))
+	fmt.Printf("Bz %s", bz)
 	return binary.BigEndian.Uint64(bz)
 }
 

@@ -536,6 +536,12 @@ func (app *App) InitChainer(ctx sdk.Context, req abci.RequestInitChain) abci.Res
 	if err := tmjson.Unmarshal(req.AppStateBytes, &genesisState); err != nil {
 		panic(err)
 	}
+
+	// initialize CardScheme Id, Auction price and public pool
+	app.CardchainKeeper.SetLastCardSchemeId(ctx, uint64(0))
+	app.CardchainKeeper.SetCardAuctionPrice(ctx, sdk.NewInt64Coin("credits", 10))
+	app.CardchainKeeper.SetPublicPoolCredits(ctx, sdk.NewInt64Coin("credits", 1000))
+
 	app.UpgradeKeeper.SetModuleVersionMap(ctx, app.mm.GetVersionMap())
 	return app.mm.InitGenesis(ctx, app.appCodec, genesisState)
 }

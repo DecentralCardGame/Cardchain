@@ -94,12 +94,14 @@ func handleMsgSaveCardContent(ctx sdk.Context, keeper keeper.Keeper, msg *types.
 
 	msgOwner, err := sdk.AccAddressFromBech32(msg.Owner)
 	if err != nil {
-		return nil, sdkerrors.Wrap(types.ErrInvalidAccAddress, "Unable to convert to AccAddress")
+		return nil, sdkerrors.Wrap(types.ErrInvalidAccAddress, err.Error())
 	}
+
+	// TODO Add error when writing to unowned card
 
 	cardOwner, err := sdk.AccAddressFromBech32(card.Owner)
 	if err != nil {
-		return nil, sdkerrors.Wrap(types.ErrInvalidAccAddress, "Unable to convert to AccAddress")
+		return nil, sdkerrors.Wrap(types.ErrInvalidAccAddress, err.Error())
 	}
 
 	if !msgOwner.Equals(cardOwner) { // Checks if the the msg sender is the same as the current owner
