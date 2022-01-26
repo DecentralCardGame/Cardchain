@@ -23,6 +23,10 @@ export interface CardchainQueryQCardResponse {
     /** @format byte */
     card?: string;
 }
+export interface CardchainQueryQUserResponse {
+    /** @format byte */
+    user?: string;
+}
 export interface ProtobufAny {
     "@type"?: string;
 }
@@ -117,5 +121,14 @@ export declare class Api<SecurityDataType extends unknown> extends HttpClient<Se
      * @request GET:/DecentralCardGame/cardchain/cardchain/q_card_content/{cardId}
      */
     queryQCardContent: (cardId: string, params?: RequestParams) => Promise<HttpResponse<CardchainQueryQCardContentResponse, RpcStatus>>;
+    /**
+     * No description
+     *
+     * @tags Query
+     * @name QueryQUser
+     * @summary Queries a list of QUser items.
+     * @request GET:/DecentralCardGame/cardchain/cardchain/q_user/{address}
+     */
+    queryQUser: (address: string, params?: RequestParams) => Promise<HttpResponse<CardchainQueryQUserResponse, RpcStatus>>;
 }
 export {};

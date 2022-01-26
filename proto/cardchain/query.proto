@@ -25,6 +25,11 @@ service Query {
 		option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/q_card_content/{cardId}";
 	}
 
+// Queries a list of QUser items.
+	rpc QUser(QueryQUserRequest) returns (QueryQUserResponse) {
+		option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/q_user/{address}";
+	}
+
 // this line is used by starport scaffolding # 2
 }
 
@@ -51,6 +56,14 @@ message QueryQCardContentRequest {
 
 message QueryQCardContentResponse {
   bytes content = 1;
+}
+
+message QueryQUserRequest {
+  string address = 1;
+}
+
+message QueryQUserResponse {
+  bytes user = 1;
 }
 
 // this line is used by starport scaffolding # 3

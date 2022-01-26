@@ -240,6 +240,9 @@ func (k Keeper) GetUser(ctx sdk.Context, address sdk.AccAddress) types.User {
 	store := ctx.KVStore(k.UsersStoreKey)
 	bz := store.Get(address)
 
+	// TDOO Add Error to avoid invalid users
+	fmt.Printf("Bz %s\n", bz)
+
 	var gottenUser types.User
 	k.cdc.MustUnmarshal(bz, &gottenUser)
 	return gottenUser

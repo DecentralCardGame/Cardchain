@@ -178,5 +178,19 @@ export class Api extends HttpClient {
             format: "json",
             ...params,
         });
+        /**
+         * No description
+         *
+         * @tags Query
+         * @name QueryQUser
+         * @summary Queries a list of QUser items.
+         * @request GET:/DecentralCardGame/cardchain/cardchain/q_user/{address}
+         */
+        this.queryQUser = (address, params = {}) => this.request({
+            path: `/DecentralCardGame/cardchain/cardchain/q_user/${address}`,
+            method: "GET",
+            format: "json",
+            ...params,
+        });
     }
 }

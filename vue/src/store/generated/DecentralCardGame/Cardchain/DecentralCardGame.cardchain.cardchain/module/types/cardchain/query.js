@@ -298,6 +298,106 @@ export const QueryQCardContentResponse = {
         return message;
     },
 };
+const baseQueryQUserRequest = { address: "" };
+export const QueryQUserRequest = {
+    encode(message, writer = Writer.create()) {
+        if (message.address !== "") {
+            writer.uint32(10).string(message.address);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = { ...baseQueryQUserRequest };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.address = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = { ...baseQueryQUserRequest };
+        if (object.address !== undefined && object.address !== null) {
+            message.address = String(object.address);
+        }
+        else {
+            message.address = "";
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.address !== undefined && (obj.address = message.address);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = { ...baseQueryQUserRequest };
+        if (object.address !== undefined && object.address !== null) {
+            message.address = object.address;
+        }
+        else {
+            message.address = "";
+        }
+        return message;
+    },
+};
+const baseQueryQUserResponse = {};
+export const QueryQUserResponse = {
+    encode(message, writer = Writer.create()) {
+        if (message.user.length !== 0) {
+            writer.uint32(10).bytes(message.user);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = { ...baseQueryQUserResponse };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.user = reader.bytes();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = { ...baseQueryQUserResponse };
+        if (object.user !== undefined && object.user !== null) {
+            message.user = bytesFromBase64(object.user);
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.user !== undefined &&
+            (obj.user = base64FromBytes(message.user !== undefined ? message.user : new Uint8Array()));
+        return obj;
+    },
+    fromPartial(object) {
+        const message = { ...baseQueryQUserResponse };
+        if (object.user !== undefined && object.user !== null) {
+            message.user = object.user;
+        }
+        else {
+            message.user = new Uint8Array();
+        }
+        return message;
+    },
+};
 export class QueryClientImpl {
     constructor(rpc) {
         this.rpc = rpc;
@@ -316,6 +416,11 @@ export class QueryClientImpl {
         const data = QueryQCardContentRequest.encode(request).finish();
         const promise = this.rpc.request("DecentralCardGame.cardchain.cardchain.Query", "QCardContent", data);
         return promise.then((data) => QueryQCardContentResponse.decode(new Reader(data)));
+    }
+    QUser(request) {
+        const data = QueryQUserRequest.encode(request).finish();
+        const promise = this.rpc.request("DecentralCardGame.cardchain.cardchain.Query", "QUser", data);
+        return promise.then((data) => QueryQUserResponse.decode(new Reader(data)));
     }
 }
 var globalThis = (() => {

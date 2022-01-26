@@ -29,6 +29,14 @@ export interface QueryQCardContentResponse {
   content: Uint8Array;
 }
 
+export interface QueryQUserRequest {
+  address: string;
+}
+
+export interface QueryQUserResponse {
+  user: Uint8Array;
+}
+
 const baseQueryParamsRequest: object = {};
 
 export const QueryParamsRequest = {
@@ -379,6 +387,120 @@ export const QueryQCardContentResponse = {
   },
 };
 
+const baseQueryQUserRequest: object = { address: "" };
+
+export const QueryQUserRequest = {
+  encode(message: QueryQUserRequest, writer: Writer = Writer.create()): Writer {
+    if (message.address !== "") {
+      writer.uint32(10).string(message.address);
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): QueryQUserRequest {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseQueryQUserRequest } as QueryQUserRequest;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.address = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryQUserRequest {
+    const message = { ...baseQueryQUserRequest } as QueryQUserRequest;
+    if (object.address !== undefined && object.address !== null) {
+      message.address = String(object.address);
+    } else {
+      message.address = "";
+    }
+    return message;
+  },
+
+  toJSON(message: QueryQUserRequest): unknown {
+    const obj: any = {};
+    message.address !== undefined && (obj.address = message.address);
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<QueryQUserRequest>): QueryQUserRequest {
+    const message = { ...baseQueryQUserRequest } as QueryQUserRequest;
+    if (object.address !== undefined && object.address !== null) {
+      message.address = object.address;
+    } else {
+      message.address = "";
+    }
+    return message;
+  },
+};
+
+const baseQueryQUserResponse: object = {};
+
+export const QueryQUserResponse = {
+  encode(
+    message: QueryQUserResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.user.length !== 0) {
+      writer.uint32(10).bytes(message.user);
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): QueryQUserResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseQueryQUserResponse } as QueryQUserResponse;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.user = reader.bytes();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryQUserResponse {
+    const message = { ...baseQueryQUserResponse } as QueryQUserResponse;
+    if (object.user !== undefined && object.user !== null) {
+      message.user = bytesFromBase64(object.user);
+    }
+    return message;
+  },
+
+  toJSON(message: QueryQUserResponse): unknown {
+    const obj: any = {};
+    message.user !== undefined &&
+      (obj.user = base64FromBytes(
+        message.user !== undefined ? message.user : new Uint8Array()
+      ));
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<QueryQUserResponse>): QueryQUserResponse {
+    const message = { ...baseQueryQUserResponse } as QueryQUserResponse;
+    if (object.user !== undefined && object.user !== null) {
+      message.user = object.user;
+    } else {
+      message.user = new Uint8Array();
+    }
+    return message;
+  },
+};
+
 /** Query defines the gRPC querier service. */
 export interface Query {
   /** Parameters queries the parameters of the module. */
@@ -389,6 +511,8 @@ export interface Query {
   QCardContent(
     request: QueryQCardContentRequest
   ): Promise<QueryQCardContentResponse>;
+  /** Queries a list of QUser items. */
+  QUser(request: QueryQUserRequest): Promise<QueryQUserResponse>;
 }
 
 export class QueryClientImpl implements Query {
@@ -428,6 +552,16 @@ export class QueryClientImpl implements Query {
     return promise.then((data) =>
       QueryQCardContentResponse.decode(new Reader(data))
     );
+  }
+
+  QUser(request: QueryQUserRequest): Promise<QueryQUserResponse> {
+    const data = QueryQUserRequest.encode(request).finish();
+    const promise = this.rpc.request(
+      "DecentralCardGame.cardchain.cardchain.Query",
+      "QUser",
+      data
+    );
+    return promise.then((data) => QueryQUserResponse.decode(new Reader(data)));
   }
 }
 
