@@ -15,7 +15,12 @@ service Query {
   rpc Params(QueryParamsRequest) returns (QueryParamsResponse) {
     option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/params";
   }
-  // this line is used by starport scaffolding # 2
+  // Queries a list of QCard items.
+	rpc QCard(QueryQCardRequest) returns (QueryQCardResponse) {
+		option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/q_card/{cardId}";
+	}
+
+// this line is used by starport scaffolding # 2
 }
 
 // QueryParamsRequest is request type for the Query/Params RPC method.
@@ -25,6 +30,14 @@ message QueryParamsRequest {}
 message QueryParamsResponse {
   // params holds all the parameters of this module.
   Params params = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryQCardRequest {
+  string cardId = 1;
+}
+
+message QueryQCardResponse {
+  bytes card = 1;
 }
 
 // this line is used by starport scaffolding # 3

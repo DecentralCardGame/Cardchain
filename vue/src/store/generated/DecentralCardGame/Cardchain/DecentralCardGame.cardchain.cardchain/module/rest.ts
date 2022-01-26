@@ -34,6 +34,11 @@ export interface CardchainQueryParamsResponse {
   params?: CardchainParams;
 }
 
+export interface CardchainQueryQCardResponse {
+  /** @format byte */
+  card?: string;
+}
+
 export interface ProtobufAny {
   "@type"?: string;
 }
@@ -252,6 +257,22 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
   queryParams = (params: RequestParams = {}) =>
     this.request<CardchainQueryParamsResponse, RpcStatus>({
       path: `/DecentralCardGame/cardchain/cardchain/params`,
+      method: "GET",
+      format: "json",
+      ...params,
+    });
+
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QueryQCard
+   * @summary Queries a list of QCard items.
+   * @request GET:/DecentralCardGame/cardchain/cardchain/q_card/{cardId}
+   */
+  queryQCard = (cardId: string, params: RequestParams = {}) =>
+    this.request<CardchainQueryQCardResponse, RpcStatus>({
+      path: `/DecentralCardGame/cardchain/cardchain/q_card/${cardId}`,
       method: "GET",
       format: "json",
       ...params,

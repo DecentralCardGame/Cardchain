@@ -1,0 +1,22 @@
+syntax = "proto3";
+package DecentralCardGame.cardchain.cardchain;
+
+import "gogoproto/gogo.proto";
+
+option go_package = "github.com/DecentralCardGame/Cardchain/x/cardchain/types";
+
+message CardNoB64 {
+
+  string owner = 1;
+  string content = 2;
+  string image = 3;
+  string notes = 4;
+  string fullArt = 5;
+  string status = 6;
+  string votePool = 7 [(gogoproto.nullable) = false, (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Coin"];;
+  uint64 fairEnoughVotes = 8;
+  uint64 overpoweredVotes = 9;
+  uint64 underpoweredVotes = 10;
+  uint64 inappropriateVotes = 11;
+  int64 nerflevel = 12;
+}

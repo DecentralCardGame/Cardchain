@@ -9,6 +9,12 @@ export interface QueryParamsResponse {
     /** params holds all the parameters of this module. */
     params: Params | undefined;
 }
+export interface QueryQCardRequest {
+    cardId: string;
+}
+export interface QueryQCardResponse {
+    card: Uint8Array;
+}
 export declare const QueryParamsRequest: {
     encode(_: QueryParamsRequest, writer?: Writer): Writer;
     decode(input: Reader | Uint8Array, length?: number): QueryParamsRequest;
@@ -23,15 +29,32 @@ export declare const QueryParamsResponse: {
     toJSON(message: QueryParamsResponse): unknown;
     fromPartial(object: DeepPartial<QueryParamsResponse>): QueryParamsResponse;
 };
+export declare const QueryQCardRequest: {
+    encode(message: QueryQCardRequest, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryQCardRequest;
+    fromJSON(object: any): QueryQCardRequest;
+    toJSON(message: QueryQCardRequest): unknown;
+    fromPartial(object: DeepPartial<QueryQCardRequest>): QueryQCardRequest;
+};
+export declare const QueryQCardResponse: {
+    encode(message: QueryQCardResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryQCardResponse;
+    fromJSON(object: any): QueryQCardResponse;
+    toJSON(message: QueryQCardResponse): unknown;
+    fromPartial(object: DeepPartial<QueryQCardResponse>): QueryQCardResponse;
+};
 /** Query defines the gRPC querier service. */
 export interface Query {
     /** Parameters queries the parameters of the module. */
     Params(request: QueryParamsRequest): Promise<QueryParamsResponse>;
+    /** Queries a list of QCard items. */
+    QCard(request: QueryQCardRequest): Promise<QueryQCardResponse>;
 }
 export declare class QueryClientImpl implements Query {
     private readonly rpc;
     constructor(rpc: Rpc);
     Params(request: QueryParamsRequest): Promise<QueryParamsResponse>;
+    QCard(request: QueryQCardRequest): Promise<QueryQCardResponse>;
 }
 interface Rpc {
     request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;
