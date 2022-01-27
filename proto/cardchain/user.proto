@@ -9,5 +9,5 @@ message User {
   string alias = 1;
   repeated uint64 ownedCardSchemes = 2;
   repeated uint64 ownedCards = 3;
-  repeated VoteRight voteRights = 4; 
+  repeated VoteRight voteRights = 4;
 }

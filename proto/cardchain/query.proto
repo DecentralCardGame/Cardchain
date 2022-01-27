@@ -5,6 +5,7 @@ import "gogoproto/gogo.proto";
 import "google/api/annotations.proto";
 import "cosmos/base/query/v1beta1/pagination.proto";
 import "cardchain/params.proto";
+import "cardchain/vote_right.proto";
 // this line is used by starport scaffolding # 1
 
 option go_package = "github.com/DecentralCardGame/Cardchain/x/cardchain/types";
@@ -63,7 +64,10 @@ message QueryQUserRequest {
 }
 
 message QueryQUserResponse {
-  bytes user = 1;
+  string alias = 1;
+  repeated uint64 ownedCardSchemes = 2;
+  repeated uint64 ownedCards = 3;
+  repeated VoteRight voteRights = 4;
 }
 
 // this line is used by starport scaffolding # 3

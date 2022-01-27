@@ -24,8 +24,16 @@ export interface CardchainQueryQCardResponse {
     card?: string;
 }
 export interface CardchainQueryQUserResponse {
-    /** @format byte */
-    user?: string;
+    alias?: string;
+    ownedCardSchemes?: string[];
+    ownedCards?: string[];
+    voteRights?: CardchainVoteRight[];
+}
+export interface CardchainVoteRight {
+    /** @format uint64 */
+    cardId?: string;
+    /** @format int64 */
+    expireBlock?: string;
 }
 export interface ProtobufAny {
     "@type"?: string;

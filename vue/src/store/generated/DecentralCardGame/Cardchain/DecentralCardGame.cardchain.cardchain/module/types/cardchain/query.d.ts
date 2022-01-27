@@ -1,5 +1,6 @@
 import { Reader, Writer } from "protobufjs/minimal";
 import { Params } from "../cardchain/params";
+import { VoteRight } from "../cardchain/vote_right";
 export declare const protobufPackage = "DecentralCardGame.cardchain.cardchain";
 /** QueryParamsRequest is request type for the Query/Params RPC method. */
 export interface QueryParamsRequest {
@@ -25,7 +26,10 @@ export interface QueryQUserRequest {
     address: string;
 }
 export interface QueryQUserResponse {
-    user: Uint8Array;
+    alias: string;
+    ownedCardSchemes: number[];
+    ownedCards: number[];
+    voteRights: VoteRight[];
 }
 export declare const QueryParamsRequest: {
     encode(_: QueryParamsRequest, writer?: Writer): Writer;

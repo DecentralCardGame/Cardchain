@@ -11964,9 +11964,29 @@ paths:
           schema:
             type: object
             properties:
-              user:
+              alias:
                 type: string
-                format: byte
+              ownedCardSchemes:
+                type: array
+                items:
+                  type: string
+                  format: uint64
+              ownedCards:
+                type: array
+                items:
+                  type: string
+                  format: uint64
+              voteRights:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    cardId:
+                      type: string
+                      format: uint64
+                    expireBlock:
+                      type: string
+                      format: int64
         default:
           description: An unexpected error response.
           schema:
@@ -19946,9 +19966,38 @@ definitions:
   DecentralCardGame.cardchain.cardchain.QueryQUserResponse:
     type: object
     properties:
-      user:
+      alias:
         type: string
-        format: byte
+      ownedCardSchemes:
+        type: array
+        items:
+          type: string
+          format: uint64
+      ownedCards:
+        type: array
+        items:
+          type: string
+          format: uint64
+      voteRights:
+        type: array
+        items:
+          type: object
+          properties:
+            cardId:
+              type: string
+              format: uint64
+            expireBlock:
+              type: string
+              format: int64
+  DecentralCardGame.cardchain.cardchain.VoteRight:
+    type: object
+    properties:
+      cardId:
+        type: string
+        format: uint64
+      expireBlock:
+        type: string
+        format: int64
   ibc.applications.transfer.v1.DenomTrace:
     type: object
     properties:

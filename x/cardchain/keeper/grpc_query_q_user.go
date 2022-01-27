@@ -2,10 +2,8 @@ package keeper
 
 import (
 	"context"
-	"fmt"
 
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
-	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	"google.golang.org/grpc/codes"
@@ -26,12 +24,10 @@ func (k Keeper) QUser(goCtx context.Context, req *types.QueryQUserRequest) (*typ
 
 	user := k.GetUser(ctx, address)
 
-	res, err := codec.MarshalJSONIndent(codec.NewLegacyAmino(), user)
-	if err != nil {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrJSONMarshal, err.Error())
-	}
-
-	fmt.Printf("User: %s\n", user)
-
-	return &types.QueryQUserResponse{res}, nil
+	return &types.QueryQUserResponse{
+		user.Alias,
+		user.OwnedCardSchemes,
+		user.OwnedCards,
+		user.VoteRights,
+	}, nil
 }
