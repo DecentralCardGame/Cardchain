@@ -11979,6 +11979,38 @@ paths:
           type: string
       tags:
         - Query
+  /DecentralCardGame/cardchain/cardchain/q_cardchain_info:
+    get:
+      summary: Queries a list of QCardchainInfo items.
+      operationId: DecentralCardGameCardchainCardchainQCardchainInfo
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              cardAuctionPrice:
+                type: string
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      tags:
+        - Query
   '/DecentralCardGame/cardchain/cardchain/q_user/{address}':
     get:
       summary: Queries a list of QUser items.
@@ -20013,6 +20045,11 @@ definitions:
       nerflevel:
         type: string
         format: int64
+  DecentralCardGame.cardchain.cardchain.QueryQCardchainInfoResponse:
+    type: object
+    properties:
+      cardAuctionPrice:
+        type: string
   DecentralCardGame.cardchain.cardchain.QueryQUserResponse:
     type: object
     properties:

@@ -42,6 +42,11 @@ export interface QueryQUserResponse {
     ownedCards: number[];
     voteRights: VoteRight[];
 }
+export interface QueryQCardchainInfoRequest {
+}
+export interface QueryQCardchainInfoResponse {
+    cardAuctionPrice: string;
+}
 export declare const QueryParamsRequest: {
     encode(_: QueryParamsRequest, writer?: Writer): Writer;
     decode(input: Reader | Uint8Array, length?: number): QueryParamsRequest;
@@ -98,6 +103,20 @@ export declare const QueryQUserResponse: {
     toJSON(message: QueryQUserResponse): unknown;
     fromPartial(object: DeepPartial<QueryQUserResponse>): QueryQUserResponse;
 };
+export declare const QueryQCardchainInfoRequest: {
+    encode(_: QueryQCardchainInfoRequest, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryQCardchainInfoRequest;
+    fromJSON(_: any): QueryQCardchainInfoRequest;
+    toJSON(_: QueryQCardchainInfoRequest): unknown;
+    fromPartial(_: DeepPartial<QueryQCardchainInfoRequest>): QueryQCardchainInfoRequest;
+};
+export declare const QueryQCardchainInfoResponse: {
+    encode(message: QueryQCardchainInfoResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryQCardchainInfoResponse;
+    fromJSON(object: any): QueryQCardchainInfoResponse;
+    toJSON(message: QueryQCardchainInfoResponse): unknown;
+    fromPartial(object: DeepPartial<QueryQCardchainInfoResponse>): QueryQCardchainInfoResponse;
+};
 /** Query defines the gRPC querier service. */
 export interface Query {
     /** Parameters queries the parameters of the module. */
@@ -108,6 +127,8 @@ export interface Query {
     QCardContent(request: QueryQCardContentRequest): Promise<QueryQCardContentResponse>;
     /** Queries a list of QUser items. */
     QUser(request: QueryQUserRequest): Promise<QueryQUserResponse>;
+    /** Queries a list of QCardchainInfo items. */
+    QCardchainInfo(request: QueryQCardchainInfoRequest): Promise<QueryQCardchainInfoResponse>;
 }
 export declare class QueryClientImpl implements Query {
     private readonly rpc;
@@ -116,6 +137,7 @@ export declare class QueryClientImpl implements Query {
     QCard(request: QueryQCardRequest): Promise<QueryQCardResponse>;
     QCardContent(request: QueryQCardContentRequest): Promise<QueryQCardContentResponse>;
     QUser(request: QueryQUserRequest): Promise<QueryQUserResponse>;
+    QCardchainInfo(request: QueryQCardchainInfoRequest): Promise<QueryQCardchainInfoResponse>;
 }
 interface Rpc {
     request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;

@@ -53,6 +53,12 @@ export interface QueryQUserResponse {
   voteRights: VoteRight[];
 }
 
+export interface QueryQCardchainInfoRequest {}
+
+export interface QueryQCardchainInfoResponse {
+  cardAuctionPrice: string;
+}
+
 const baseQueryParamsRequest: object = {};
 
 export const QueryParamsRequest = {
@@ -848,6 +854,134 @@ export const QueryQUserResponse = {
   },
 };
 
+const baseQueryQCardchainInfoRequest: object = {};
+
+export const QueryQCardchainInfoRequest = {
+  encode(
+    _: QueryQCardchainInfoRequest,
+    writer: Writer = Writer.create()
+  ): Writer {
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): QueryQCardchainInfoRequest {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseQueryQCardchainInfoRequest,
+    } as QueryQCardchainInfoRequest;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): QueryQCardchainInfoRequest {
+    const message = {
+      ...baseQueryQCardchainInfoRequest,
+    } as QueryQCardchainInfoRequest;
+    return message;
+  },
+
+  toJSON(_: QueryQCardchainInfoRequest): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial(
+    _: DeepPartial<QueryQCardchainInfoRequest>
+  ): QueryQCardchainInfoRequest {
+    const message = {
+      ...baseQueryQCardchainInfoRequest,
+    } as QueryQCardchainInfoRequest;
+    return message;
+  },
+};
+
+const baseQueryQCardchainInfoResponse: object = { cardAuctionPrice: "" };
+
+export const QueryQCardchainInfoResponse = {
+  encode(
+    message: QueryQCardchainInfoResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.cardAuctionPrice !== "") {
+      writer.uint32(10).string(message.cardAuctionPrice);
+    }
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): QueryQCardchainInfoResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseQueryQCardchainInfoResponse,
+    } as QueryQCardchainInfoResponse;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.cardAuctionPrice = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryQCardchainInfoResponse {
+    const message = {
+      ...baseQueryQCardchainInfoResponse,
+    } as QueryQCardchainInfoResponse;
+    if (
+      object.cardAuctionPrice !== undefined &&
+      object.cardAuctionPrice !== null
+    ) {
+      message.cardAuctionPrice = String(object.cardAuctionPrice);
+    } else {
+      message.cardAuctionPrice = "";
+    }
+    return message;
+  },
+
+  toJSON(message: QueryQCardchainInfoResponse): unknown {
+    const obj: any = {};
+    message.cardAuctionPrice !== undefined &&
+      (obj.cardAuctionPrice = message.cardAuctionPrice);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<QueryQCardchainInfoResponse>
+  ): QueryQCardchainInfoResponse {
+    const message = {
+      ...baseQueryQCardchainInfoResponse,
+    } as QueryQCardchainInfoResponse;
+    if (
+      object.cardAuctionPrice !== undefined &&
+      object.cardAuctionPrice !== null
+    ) {
+      message.cardAuctionPrice = object.cardAuctionPrice;
+    } else {
+      message.cardAuctionPrice = "";
+    }
+    return message;
+  },
+};
+
 /** Query defines the gRPC querier service. */
 export interface Query {
   /** Parameters queries the parameters of the module. */
@@ -860,6 +994,10 @@ export interface Query {
   ): Promise<QueryQCardContentResponse>;
   /** Queries a list of QUser items. */
   QUser(request: QueryQUserRequest): Promise<QueryQUserResponse>;
+  /** Queries a list of QCardchainInfo items. */
+  QCardchainInfo(
+    request: QueryQCardchainInfoRequest
+  ): Promise<QueryQCardchainInfoResponse>;
 }
 
 export class QueryClientImpl implements Query {
@@ -909,6 +1047,20 @@ export class QueryClientImpl implements Query {
       data
     );
     return promise.then((data) => QueryQUserResponse.decode(new Reader(data)));
+  }
+
+  QCardchainInfo(
+    request: QueryQCardchainInfoRequest
+  ): Promise<QueryQCardchainInfoResponse> {
+    const data = QueryQCardchainInfoRequest.encode(request).finish();
+    const promise = this.rpc.request(
+      "DecentralCardGame.cardchain.cardchain.Query",
+      "QCardchainInfo",
+      data
+    );
+    return promise.then((data) =>
+      QueryQCardchainInfoResponse.decode(new Reader(data))
+    );
   }
 }
 

@@ -63,6 +63,10 @@ export interface CardchainQueryQCardResponse {
   nerflevel?: string;
 }
 
+export interface CardchainQueryQCardchainInfoResponse {
+  cardAuctionPrice?: string;
+}
+
 export interface CardchainQueryQUserResponse {
   alias?: string;
   ownedCardSchemes?: string[];
@@ -328,6 +332,22 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
   queryQCardContent = (cardId: string, params: RequestParams = {}) =>
     this.request<CardchainQueryQCardContentResponse, RpcStatus>({
       path: `/DecentralCardGame/cardchain/cardchain/q_card_content/${cardId}`,
+      method: "GET",
+      format: "json",
+      ...params,
+    });
+
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QueryQCardchainInfo
+   * @summary Queries a list of QCardchainInfo items.
+   * @request GET:/DecentralCardGame/cardchain/cardchain/q_cardchain_info
+   */
+  queryQCardchainInfo = (params: RequestParams = {}) =>
+    this.request<CardchainQueryQCardchainInfoResponse, RpcStatus>({
+      path: `/DecentralCardGame/cardchain/cardchain/q_cardchain_info`,
       method: "GET",
       format: "json",
       ...params,

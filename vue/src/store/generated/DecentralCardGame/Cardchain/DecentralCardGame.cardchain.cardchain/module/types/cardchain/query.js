@@ -741,6 +741,104 @@ export const QueryQUserResponse = {
         return message;
     },
 };
+const baseQueryQCardchainInfoRequest = {};
+export const QueryQCardchainInfoRequest = {
+    encode(_, writer = Writer.create()) {
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = {
+            ...baseQueryQCardchainInfoRequest,
+        };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(_) {
+        const message = {
+            ...baseQueryQCardchainInfoRequest,
+        };
+        return message;
+    },
+    toJSON(_) {
+        const obj = {};
+        return obj;
+    },
+    fromPartial(_) {
+        const message = {
+            ...baseQueryQCardchainInfoRequest,
+        };
+        return message;
+    },
+};
+const baseQueryQCardchainInfoResponse = { cardAuctionPrice: "" };
+export const QueryQCardchainInfoResponse = {
+    encode(message, writer = Writer.create()) {
+        if (message.cardAuctionPrice !== "") {
+            writer.uint32(10).string(message.cardAuctionPrice);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = {
+            ...baseQueryQCardchainInfoResponse,
+        };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.cardAuctionPrice = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = {
+            ...baseQueryQCardchainInfoResponse,
+        };
+        if (object.cardAuctionPrice !== undefined &&
+            object.cardAuctionPrice !== null) {
+            message.cardAuctionPrice = String(object.cardAuctionPrice);
+        }
+        else {
+            message.cardAuctionPrice = "";
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.cardAuctionPrice !== undefined &&
+            (obj.cardAuctionPrice = message.cardAuctionPrice);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = {
+            ...baseQueryQCardchainInfoResponse,
+        };
+        if (object.cardAuctionPrice !== undefined &&
+            object.cardAuctionPrice !== null) {
+            message.cardAuctionPrice = object.cardAuctionPrice;
+        }
+        else {
+            message.cardAuctionPrice = "";
+        }
+        return message;
+    },
+};
 export class QueryClientImpl {
     constructor(rpc) {
         this.rpc = rpc;
@@ -764,6 +862,11 @@ export class QueryClientImpl {
         const data = QueryQUserRequest.encode(request).finish();
         const promise = this.rpc.request("DecentralCardGame.cardchain.cardchain.Query", "QUser", data);
         return promise.then((data) => QueryQUserResponse.decode(new Reader(data)));
+    }
+    QCardchainInfo(request) {
+        const data = QueryQCardchainInfoRequest.encode(request).finish();
+        const promise = this.rpc.request("DecentralCardGame.cardchain.cardchain.Query", "QCardchainInfo", data);
+        return promise.then((data) => QueryQCardchainInfoResponse.decode(new Reader(data)));
     }
 }
 var globalThis = (() => {

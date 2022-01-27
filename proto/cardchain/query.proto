@@ -31,6 +31,11 @@ service Query {
 		option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/q_user/{address}";
 	}
 
+// Queries a list of QCardchainInfo items.
+	rpc QCardchainInfo(QueryQCardchainInfoRequest) returns (QueryQCardchainInfoResponse) {
+		option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/q_cardchain_info";
+	}
+
 // this line is used by starport scaffolding # 2
 }
 
@@ -79,6 +84,13 @@ message QueryQUserResponse {
   repeated uint64 ownedCardSchemes = 2;
   repeated uint64 ownedCards = 3;
   repeated VoteRight voteRights = 4;
+}
+
+message QueryQCardchainInfoRequest {
+}
+
+message QueryQCardchainInfoResponse {
+  string cardAuctionPrice = 1 [(gogoproto.nullable) = false, (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Coin"];;
 }
 
 // this line is used by starport scaffolding # 3
