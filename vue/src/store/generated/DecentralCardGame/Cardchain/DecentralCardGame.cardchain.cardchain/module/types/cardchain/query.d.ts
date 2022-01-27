@@ -31,7 +31,7 @@ export interface QueryQCardContentRequest {
     cardId: string;
 }
 export interface QueryQCardContentResponse {
-    content: Uint8Array;
+    content: string;
 }
 export interface QueryQUserRequest {
     address: string;

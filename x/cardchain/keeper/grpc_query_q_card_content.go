@@ -5,7 +5,6 @@ import (
 	"strconv"
 
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
-	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	"google.golang.org/grpc/codes"
@@ -30,9 +29,5 @@ func (k Keeper) QCardContent(goCtx context.Context, req *types.QueryQCardContent
 		return nil, sdkerrors.Wrap(sdkerrors.ErrUnknownRequest, "cardId does not represent a card")
 	}
 
-	res, err := codec.MarshalJSONIndent(codec.NewLegacyAmino(), card.Content)
-	if err != nil {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrJSONMarshal, err.Error())
-	}
-	return &types.QueryQCardContentResponse{res}, nil
+	return &types.QueryQCardContentResponse{card.Content}, nil
 }

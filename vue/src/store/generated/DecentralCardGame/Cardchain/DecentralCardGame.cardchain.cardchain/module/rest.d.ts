@@ -16,7 +16,6 @@ export interface CardchainQueryParamsResponse {
     params?: CardchainParams;
 }
 export interface CardchainQueryQCardContentResponse {
-    /** @format byte */
     content?: string;
 }
 export interface CardchainQueryQCardResponse {

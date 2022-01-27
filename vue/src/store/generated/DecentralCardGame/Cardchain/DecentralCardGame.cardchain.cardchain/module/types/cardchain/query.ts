@@ -39,7 +39,7 @@ export interface QueryQCardContentRequest {
 }
 
 export interface QueryQCardContentResponse {
-  content: Uint8Array;
+  content: string;
 }
 
 export interface QueryQUserRequest {
@@ -560,15 +560,15 @@ export const QueryQCardContentRequest = {
   },
 };
 
-const baseQueryQCardContentResponse: object = {};
+const baseQueryQCardContentResponse: object = { content: "" };
 
 export const QueryQCardContentResponse = {
   encode(
     message: QueryQCardContentResponse,
     writer: Writer = Writer.create()
   ): Writer {
-    if (message.content.length !== 0) {
-      writer.uint32(10).bytes(message.content);
+    if (message.content !== "") {
+      writer.uint32(10).string(message.content);
     }
     return writer;
   },
@@ -586,7 +586,7 @@ export const QueryQCardContentResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.content = reader.bytes();
+          message.content = reader.string();
           break;
         default:
           reader.skipType(tag & 7);
@@ -601,17 +601,16 @@ export const QueryQCardContentResponse = {
       ...baseQueryQCardContentResponse,
     } as QueryQCardContentResponse;
     if (object.content !== undefined && object.content !== null) {
-      message.content = bytesFromBase64(object.content);
+      message.content = String(object.content);
+    } else {
+      message.content = "";
     }
     return message;
   },
 
   toJSON(message: QueryQCardContentResponse): unknown {
     const obj: any = {};
-    message.content !== undefined &&
-      (obj.content = base64FromBytes(
-        message.content !== undefined ? message.content : new Uint8Array()
-      ));
+    message.content !== undefined && (obj.content = message.content);
     return obj;
   },
 
@@ -624,7 +623,7 @@ export const QueryQCardContentResponse = {
     if (object.content !== undefined && object.content !== null) {
       message.content = object.content;
     } else {
-      message.content = new Uint8Array();
+      message.content = "";
     }
     return message;
   },
@@ -930,29 +929,6 @@ var globalThis: any = (() => {
   if (typeof global !== "undefined") return global;
   throw "Unable to locate global object";
 })();
-
-const atob: (b64: string) => string =
-  globalThis.atob ||
-  ((b64) => globalThis.Buffer.from(b64, "base64").toString("binary"));
-function bytesFromBase64(b64: string): Uint8Array {
-  const bin = atob(b64);
-  const arr = new Uint8Array(bin.length);
-  for (let i = 0; i < bin.length; ++i) {
-    arr[i] = bin.charCodeAt(i);
-  }
-  return arr;
-}
-
-const btoa: (bin: string) => string =
-  globalThis.btoa ||
-  ((bin) => globalThis.Buffer.from(bin, "binary").toString("base64"));
-function base64FromBytes(arr: Uint8Array): string {
-  const bin: string[] = [];
-  for (let i = 0; i < arr.byteLength; ++i) {
-    bin.push(String.fromCharCode(arr[i]));
-  }
-  return btoa(bin.join(""));
-}
 
 type Builtin = Date | Function | Uint8Array | string | number | undefined;
 export type DeepPartial<T> = T extends Builtin

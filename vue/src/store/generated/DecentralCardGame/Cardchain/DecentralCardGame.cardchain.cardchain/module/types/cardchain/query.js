@@ -481,11 +481,11 @@ export const QueryQCardContentRequest = {
         return message;
     },
 };
-const baseQueryQCardContentResponse = {};
+const baseQueryQCardContentResponse = { content: "" };
 export const QueryQCardContentResponse = {
     encode(message, writer = Writer.create()) {
-        if (message.content.length !== 0) {
-            writer.uint32(10).bytes(message.content);
+        if (message.content !== "") {
+            writer.uint32(10).string(message.content);
         }
         return writer;
     },
@@ -499,7 +499,7 @@ export const QueryQCardContentResponse = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.content = reader.bytes();
+                    message.content = reader.string();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -513,14 +513,16 @@ export const QueryQCardContentResponse = {
             ...baseQueryQCardContentResponse,
         };
         if (object.content !== undefined && object.content !== null) {
-            message.content = bytesFromBase64(object.content);
+            message.content = String(object.content);
+        }
+        else {
+            message.content = "";
         }
         return message;
     },
     toJSON(message) {
         const obj = {};
-        message.content !== undefined &&
-            (obj.content = base64FromBytes(message.content !== undefined ? message.content : new Uint8Array()));
+        message.content !== undefined && (obj.content = message.content);
         return obj;
     },
     fromPartial(object) {
@@ -531,7 +533,7 @@ export const QueryQCardContentResponse = {
             message.content = object.content;
         }
         else {
-            message.content = new Uint8Array();
+            message.content = "";
         }
         return message;
     },
@@ -775,25 +777,6 @@ var globalThis = (() => {
         return global;
     throw "Unable to locate global object";
 })();
-const atob = globalThis.atob ||
-    ((b64) => globalThis.Buffer.from(b64, "base64").toString("binary"));
-function bytesFromBase64(b64) {
-    const bin = atob(b64);
-    const arr = new Uint8Array(bin.length);
-    for (let i = 0; i < bin.length; ++i) {
-        arr[i] = bin.charCodeAt(i);
-    }
-    return arr;
-}
-const btoa = globalThis.btoa ||
-    ((bin) => globalThis.Buffer.from(bin, "binary").toString("base64"));
-function base64FromBytes(arr) {
-    const bin = [];
-    for (let i = 0; i < arr.byteLength; ++i) {
-        bin.push(String.fromCharCode(arr[i]));
-    }
-    return btoa(bin.join(""));
-}
 function longToNumber(long) {
     if (long.gt(Number.MAX_SAFE_INTEGER)) {
         throw new globalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");

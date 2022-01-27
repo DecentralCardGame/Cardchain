@@ -67,7 +67,7 @@ message QueryQCardContentRequest {
 }
 
 message QueryQCardContentResponse {
-  bytes content = 1;
+  string content = 1;
 }
 
 message QueryQUserRequest {
