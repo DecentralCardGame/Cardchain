@@ -11888,9 +11888,35 @@ paths:
           schema:
             type: object
             properties:
-              card:
+              owner:
                 type: string
-                format: byte
+              content:
+                type: string
+              image:
+                type: string
+              fullArt:
+                type: string
+              notes:
+                type: string
+              status:
+                type: string
+              votePool:
+                type: string
+              fairEnoughVotes:
+                type: string
+                format: uint64
+              overpoweredVotes:
+                type: string
+                format: uint64
+              underpoweredVotes:
+                type: string
+                format: uint64
+              inappropriateVotes:
+                type: string
+                format: uint64
+              nerflevel:
+                type: string
+                format: int64
         default:
           description: An unexpected error response.
           schema:
@@ -19960,9 +19986,35 @@ definitions:
   DecentralCardGame.cardchain.cardchain.QueryQCardResponse:
     type: object
     properties:
-      card:
+      owner:
         type: string
-        format: byte
+      content:
+        type: string
+      image:
+        type: string
+      fullArt:
+        type: string
+      notes:
+        type: string
+      status:
+        type: string
+      votePool:
+        type: string
+      fairEnoughVotes:
+        type: string
+        format: uint64
+      overpoweredVotes:
+        type: string
+        format: uint64
+      underpoweredVotes:
+        type: string
+        format: uint64
+      inappropriateVotes:
+        type: string
+        format: uint64
+      nerflevel:
+        type: string
+        format: int64
   DecentralCardGame.cardchain.cardchain.QueryQUserResponse:
     type: object
     properties:

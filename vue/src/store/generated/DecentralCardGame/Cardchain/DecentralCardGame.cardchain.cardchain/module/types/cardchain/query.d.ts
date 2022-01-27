@@ -14,7 +14,18 @@ export interface QueryQCardRequest {
     cardId: string;
 }
 export interface QueryQCardResponse {
-    card: Uint8Array;
+    owner: string;
+    content: string;
+    image: string;
+    fullArt: string;
+    notes: string;
+    status: string;
+    votePool: string;
+    fairEnoughVotes: number;
+    overpoweredVotes: number;
+    underpoweredVotes: number;
+    inappropriateVotes: number;
+    nerflevel: number;
 }
 export interface QueryQCardContentRequest {
     cardId: string;

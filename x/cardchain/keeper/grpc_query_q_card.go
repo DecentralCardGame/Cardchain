@@ -30,9 +30,23 @@ func (k Keeper) QCard(goCtx context.Context, req *types.QueryQCardRequest) (*typ
 		return nil, sdkerrors.Wrap(sdkerrors.ErrUnknownRequest, "cardId does not represent a card")
 	}
 
-	res, err := codec.MarshalJSONIndent(codec.NewLegacyAmino(), card)
+	_, err := codec.MarshalJSONIndent(codec.NewLegacyAmino(), card)
 	if err != nil {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrJSONMarshal, err.Error())
 	}
-	return &types.QueryQCardResponse{res}, nil
+	
+	return &types.QueryQCardResponse{
+		Owner:              card.Owner,
+		Content:            card.Content,
+		Image:              card.Image,
+		Notes:              card.Notes,
+		FullArt:            card.FullArt,
+		Status:             card.Status,
+		VotePool:           card.VotePool,
+		FairEnoughVotes:    card.FairEnoughVotes,
+		OverpoweredVotes:   card.OverpoweredVotes,
+		UnderpoweredVotes:  card.UnderpoweredVotes,
+		InappropriateVotes: card.InappropriateVotes,
+		Nerflevel:          card.Nerflevel,
+	}, nil
 }

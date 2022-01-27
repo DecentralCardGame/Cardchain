@@ -20,8 +20,23 @@ export interface CardchainQueryQCardContentResponse {
     content?: string;
 }
 export interface CardchainQueryQCardResponse {
-    /** @format byte */
-    card?: string;
+    owner?: string;
+    content?: string;
+    image?: string;
+    fullArt?: string;
+    notes?: string;
+    status?: string;
+    votePool?: string;
+    /** @format uint64 */
+    fairEnoughVotes?: string;
+    /** @format uint64 */
+    overpoweredVotes?: string;
+    /** @format uint64 */
+    underpoweredVotes?: string;
+    /** @format uint64 */
+    inappropriateVotes?: string;
+    /** @format int64 */
+    nerflevel?: string;
 }
 export interface CardchainQueryQUserResponse {
     alias?: string;
