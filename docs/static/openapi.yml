@@ -12011,6 +12011,74 @@ paths:
                   additionalProperties: {}
       tags:
         - Query
+  '/DecentralCardGame/cardchain/cardchain/q_cards/{owner}/{status}/{cardType}/{classes}/{sortBy}/{nameContains}/{keywordsContains}/{notesContains}':
+    get:
+      summary: Queries a list of QCards items.
+      operationId: DecentralCardGameCardchainCardchainQCards
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              cardsList:
+                type: array
+                items:
+                  type: string
+                  format: uint64
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: owner
+          in: path
+          required: true
+          type: string
+        - name: status
+          in: path
+          required: true
+          type: string
+        - name: cardType
+          in: path
+          required: true
+          type: string
+        - name: classes
+          in: path
+          required: true
+          type: string
+        - name: sortBy
+          in: path
+          required: true
+          type: string
+        - name: nameContains
+          in: path
+          required: true
+          type: string
+        - name: keywordsContains
+          in: path
+          required: true
+          type: string
+        - name: notesContains
+          in: path
+          required: true
+          type: string
+      tags:
+        - Query
   '/DecentralCardGame/cardchain/cardchain/q_user/{address}':
     get:
       summary: Queries a list of QUser items.
@@ -20172,6 +20240,14 @@ definitions:
     properties:
       cardAuctionPrice:
         type: string
+  DecentralCardGame.cardchain.cardchain.QueryQCardsResponse:
+    type: object
+    properties:
+      cardsList:
+        type: array
+        items:
+          type: string
+          format: uint64
   DecentralCardGame.cardchain.cardchain.QueryQUserResponse:
     type: object
     properties:

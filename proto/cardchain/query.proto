@@ -47,6 +47,11 @@ service Query {
 		option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/q_votable_cards/{address}";
 	}
 
+// Queries a list of QCards items.
+	rpc QCards(QueryQCardsRequest) returns (QueryQCardsResponse) {
+		option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/q_cards/{owner}/{status}/{cardType}/{classes}/{sortBy}/{nameContains}/{keywordsContains}/{notesContains}";
+	}
+
 // this line is used by starport scaffolding # 2
 }
 
@@ -119,6 +124,21 @@ message QueryQVotableCardsResponse {
   bool unregistered = 1;
   bool noVoteRights = 2;
   repeated VoteRight voteRights = 3;
+}
+
+message QueryQCardsRequest {
+  string owner = 1;
+  string status = 2;
+  string cardType = 3;
+  string classes = 4;
+  string sortBy = 5;
+  string nameContains = 6;
+  string keywordsContains = 7;
+  string notesContains = 8;
+}
+
+message QueryQCardsResponse {
+  repeated uint64 cardsList = 1;
 }
 
 // this line is used by starport scaffolding # 3

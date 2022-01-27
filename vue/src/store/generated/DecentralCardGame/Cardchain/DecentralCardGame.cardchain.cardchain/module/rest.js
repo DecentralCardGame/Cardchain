@@ -196,6 +196,20 @@ export class Api extends HttpClient {
          * No description
          *
          * @tags Query
+         * @name QueryQCards
+         * @summary Queries a list of QCards items.
+         * @request GET:/DecentralCardGame/cardchain/cardchain/q_cards/{owner}/{status}/{cardType}/{classes}/{sortBy}/{nameContains}/{keywordsContains}/{notesContains}
+         */
+        this.queryQCards = (owner, status, cardType, classes, sortBy, nameContains, keywordsContains, notesContains, params = {}) => this.request({
+            path: `/DecentralCardGame/cardchain/cardchain/q_cards/${owner}/${status}/${cardType}/${classes}/${sortBy}/${nameContains}/${keywordsContains}/${notesContains}`,
+            method: "GET",
+            format: "json",
+            ...params,
+        });
+        /**
+         * No description
+         *
+         * @tags Query
          * @name QueryQUser
          * @summary Queries a list of QUser items.
          * @request GET:/DecentralCardGame/cardchain/cardchain/q_user/{address}

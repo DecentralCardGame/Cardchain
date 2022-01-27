@@ -40,6 +40,9 @@ export interface CardchainQueryQCardResponse {
 export interface CardchainQueryQCardchainInfoResponse {
     cardAuctionPrice?: string;
 }
+export interface CardchainQueryQCardsResponse {
+    cardsList?: string[];
+}
 export interface CardchainQueryQUserResponse {
     alias?: string;
     ownedCardSchemes?: string[];
@@ -190,6 +193,15 @@ export declare class Api<SecurityDataType extends unknown> extends HttpClient<Se
      * @request GET:/DecentralCardGame/cardchain/cardchain/q_cardchain_info
      */
     queryQCardchainInfo: (params?: RequestParams) => Promise<HttpResponse<CardchainQueryQCardchainInfoResponse, RpcStatus>>;
+    /**
+     * No description
+     *
+     * @tags Query
+     * @name QueryQCards
+     * @summary Queries a list of QCards items.
+     * @request GET:/DecentralCardGame/cardchain/cardchain/q_cards/{owner}/{status}/{cardType}/{classes}/{sortBy}/{nameContains}/{keywordsContains}/{notesContains}
+     */
+    queryQCards: (owner: string, status: string, cardType: string, classes: string, sortBy: string, nameContains: string, keywordsContains: string, notesContains: string, params?: RequestParams) => Promise<HttpResponse<CardchainQueryQCardsResponse, RpcStatus>>;
     /**
      * No description
      *

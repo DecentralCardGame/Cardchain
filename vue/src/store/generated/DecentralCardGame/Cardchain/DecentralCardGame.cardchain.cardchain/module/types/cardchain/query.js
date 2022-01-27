@@ -1103,6 +1103,271 @@ export const QueryQVotableCardsResponse = {
         return message;
     },
 };
+const baseQueryQCardsRequest = {
+    owner: "",
+    status: "",
+    cardType: "",
+    classes: "",
+    sortBy: "",
+    nameContains: "",
+    keywordsContains: "",
+    notesContains: "",
+};
+export const QueryQCardsRequest = {
+    encode(message, writer = Writer.create()) {
+        if (message.owner !== "") {
+            writer.uint32(10).string(message.owner);
+        }
+        if (message.status !== "") {
+            writer.uint32(18).string(message.status);
+        }
+        if (message.cardType !== "") {
+            writer.uint32(26).string(message.cardType);
+        }
+        if (message.classes !== "") {
+            writer.uint32(34).string(message.classes);
+        }
+        if (message.sortBy !== "") {
+            writer.uint32(42).string(message.sortBy);
+        }
+        if (message.nameContains !== "") {
+            writer.uint32(50).string(message.nameContains);
+        }
+        if (message.keywordsContains !== "") {
+            writer.uint32(58).string(message.keywordsContains);
+        }
+        if (message.notesContains !== "") {
+            writer.uint32(66).string(message.notesContains);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = { ...baseQueryQCardsRequest };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.owner = reader.string();
+                    break;
+                case 2:
+                    message.status = reader.string();
+                    break;
+                case 3:
+                    message.cardType = reader.string();
+                    break;
+                case 4:
+                    message.classes = reader.string();
+                    break;
+                case 5:
+                    message.sortBy = reader.string();
+                    break;
+                case 6:
+                    message.nameContains = reader.string();
+                    break;
+                case 7:
+                    message.keywordsContains = reader.string();
+                    break;
+                case 8:
+                    message.notesContains = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = { ...baseQueryQCardsRequest };
+        if (object.owner !== undefined && object.owner !== null) {
+            message.owner = String(object.owner);
+        }
+        else {
+            message.owner = "";
+        }
+        if (object.status !== undefined && object.status !== null) {
+            message.status = String(object.status);
+        }
+        else {
+            message.status = "";
+        }
+        if (object.cardType !== undefined && object.cardType !== null) {
+            message.cardType = String(object.cardType);
+        }
+        else {
+            message.cardType = "";
+        }
+        if (object.classes !== undefined && object.classes !== null) {
+            message.classes = String(object.classes);
+        }
+        else {
+            message.classes = "";
+        }
+        if (object.sortBy !== undefined && object.sortBy !== null) {
+            message.sortBy = String(object.sortBy);
+        }
+        else {
+            message.sortBy = "";
+        }
+        if (object.nameContains !== undefined && object.nameContains !== null) {
+            message.nameContains = String(object.nameContains);
+        }
+        else {
+            message.nameContains = "";
+        }
+        if (object.keywordsContains !== undefined &&
+            object.keywordsContains !== null) {
+            message.keywordsContains = String(object.keywordsContains);
+        }
+        else {
+            message.keywordsContains = "";
+        }
+        if (object.notesContains !== undefined && object.notesContains !== null) {
+            message.notesContains = String(object.notesContains);
+        }
+        else {
+            message.notesContains = "";
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.owner !== undefined && (obj.owner = message.owner);
+        message.status !== undefined && (obj.status = message.status);
+        message.cardType !== undefined && (obj.cardType = message.cardType);
+        message.classes !== undefined && (obj.classes = message.classes);
+        message.sortBy !== undefined && (obj.sortBy = message.sortBy);
+        message.nameContains !== undefined &&
+            (obj.nameContains = message.nameContains);
+        message.keywordsContains !== undefined &&
+            (obj.keywordsContains = message.keywordsContains);
+        message.notesContains !== undefined &&
+            (obj.notesContains = message.notesContains);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = { ...baseQueryQCardsRequest };
+        if (object.owner !== undefined && object.owner !== null) {
+            message.owner = object.owner;
+        }
+        else {
+            message.owner = "";
+        }
+        if (object.status !== undefined && object.status !== null) {
+            message.status = object.status;
+        }
+        else {
+            message.status = "";
+        }
+        if (object.cardType !== undefined && object.cardType !== null) {
+            message.cardType = object.cardType;
+        }
+        else {
+            message.cardType = "";
+        }
+        if (object.classes !== undefined && object.classes !== null) {
+            message.classes = object.classes;
+        }
+        else {
+            message.classes = "";
+        }
+        if (object.sortBy !== undefined && object.sortBy !== null) {
+            message.sortBy = object.sortBy;
+        }
+        else {
+            message.sortBy = "";
+        }
+        if (object.nameContains !== undefined && object.nameContains !== null) {
+            message.nameContains = object.nameContains;
+        }
+        else {
+            message.nameContains = "";
+        }
+        if (object.keywordsContains !== undefined &&
+            object.keywordsContains !== null) {
+            message.keywordsContains = object.keywordsContains;
+        }
+        else {
+            message.keywordsContains = "";
+        }
+        if (object.notesContains !== undefined && object.notesContains !== null) {
+            message.notesContains = object.notesContains;
+        }
+        else {
+            message.notesContains = "";
+        }
+        return message;
+    },
+};
+const baseQueryQCardsResponse = { cardsList: 0 };
+export const QueryQCardsResponse = {
+    encode(message, writer = Writer.create()) {
+        writer.uint32(10).fork();
+        for (const v of message.cardsList) {
+            writer.uint64(v);
+        }
+        writer.ldelim();
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = { ...baseQueryQCardsResponse };
+        message.cardsList = [];
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    if ((tag & 7) === 2) {
+                        const end2 = reader.uint32() + reader.pos;
+                        while (reader.pos < end2) {
+                            message.cardsList.push(longToNumber(reader.uint64()));
+                        }
+                    }
+                    else {
+                        message.cardsList.push(longToNumber(reader.uint64()));
+                    }
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = { ...baseQueryQCardsResponse };
+        message.cardsList = [];
+        if (object.cardsList !== undefined && object.cardsList !== null) {
+            for (const e of object.cardsList) {
+                message.cardsList.push(Number(e));
+            }
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        if (message.cardsList) {
+            obj.cardsList = message.cardsList.map((e) => e);
+        }
+        else {
+            obj.cardsList = [];
+        }
+        return obj;
+    },
+    fromPartial(object) {
+        const message = { ...baseQueryQCardsResponse };
+        message.cardsList = [];
+        if (object.cardsList !== undefined && object.cardsList !== null) {
+            for (const e of object.cardsList) {
+                message.cardsList.push(e);
+            }
+        }
+        return message;
+    },
+};
 export class QueryClientImpl {
     constructor(rpc) {
         this.rpc = rpc;
@@ -1141,6 +1406,11 @@ export class QueryClientImpl {
         const data = QueryQVotableCardsRequest.encode(request).finish();
         const promise = this.rpc.request("DecentralCardGame.cardchain.cardchain.Query", "QVotableCards", data);
         return promise.then((data) => QueryQVotableCardsResponse.decode(new Reader(data)));
+    }
+    QCards(request) {
+        const data = QueryQCardsRequest.encode(request).finish();
+        const promise = this.rpc.request("DecentralCardGame.cardchain.cardchain.Query", "QCards", data);
+        return promise.then((data) => QueryQCardsResponse.decode(new Reader(data)));
     }
 }
 var globalThis = (() => {
