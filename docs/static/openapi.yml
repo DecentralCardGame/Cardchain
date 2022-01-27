@@ -12069,6 +12069,128 @@ paths:
           type: string
       tags:
         - Query
+  '/DecentralCardGame/cardchain/cardchain/q_votable_cards/{address}':
+    get:
+      summary: Queries a list of QVotableCards items.
+      operationId: DecentralCardGameCardchainCardchainQVotableCards
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              unregistered:
+                type: boolean
+              noVoteRights:
+                type: boolean
+              voteRights:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    cardId:
+                      type: string
+                      format: uint64
+                    expireBlock:
+                      type: string
+                      format: int64
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: address
+          in: path
+          required: true
+          type: string
+      tags:
+        - Query
+  /DecentralCardGame/cardchain/cardchain/q_voting_results:
+    get:
+      summary: Queries a list of QVotingResults items.
+      operationId: DecentralCardGameCardchainCardchainQVotingResults
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              lastVotingResults:
+                type: object
+                properties:
+                  totalVotes:
+                    type: string
+                    format: uint64
+                  totalFairEnoughVotes:
+                    type: string
+                    format: uint64
+                  totalOverpoweredVotes:
+                    type: string
+                    format: uint64
+                  totalUnderpoweredVotes:
+                    type: string
+                    format: uint64
+                  totalInappropriateVotes:
+                    type: string
+                    format: uint64
+                  cardResults:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        cardId:
+                          type: string
+                          format: uint64
+                        fairEnoughVotes:
+                          type: string
+                          format: uint64
+                        overpoweredVotes:
+                          type: string
+                          format: uint64
+                        underpoweredVotes:
+                          type: string
+                          format: uint64
+                        inappropriateVotes:
+                          type: string
+                          format: uint64
+                        result:
+                          type: string
+                  notes:
+                    type: string
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      tags:
+        - Query
   /ibc/apps/transfer/v1/denom_traces:
     get:
       summary: DenomTraces queries all denomination traces.
@@ -20076,6 +20198,69 @@ definitions:
             expireBlock:
               type: string
               format: int64
+  DecentralCardGame.cardchain.cardchain.QueryQVotableCardsResponse:
+    type: object
+    properties:
+      unregistered:
+        type: boolean
+      noVoteRights:
+        type: boolean
+      voteRights:
+        type: array
+        items:
+          type: object
+          properties:
+            cardId:
+              type: string
+              format: uint64
+            expireBlock:
+              type: string
+              format: int64
+  DecentralCardGame.cardchain.cardchain.QueryQVotingResultsResponse:
+    type: object
+    properties:
+      lastVotingResults:
+        type: object
+        properties:
+          totalVotes:
+            type: string
+            format: uint64
+          totalFairEnoughVotes:
+            type: string
+            format: uint64
+          totalOverpoweredVotes:
+            type: string
+            format: uint64
+          totalUnderpoweredVotes:
+            type: string
+            format: uint64
+          totalInappropriateVotes:
+            type: string
+            format: uint64
+          cardResults:
+            type: array
+            items:
+              type: object
+              properties:
+                cardId:
+                  type: string
+                  format: uint64
+                fairEnoughVotes:
+                  type: string
+                  format: uint64
+                overpoweredVotes:
+                  type: string
+                  format: uint64
+                underpoweredVotes:
+                  type: string
+                  format: uint64
+                inappropriateVotes:
+                  type: string
+                  format: uint64
+                result:
+                  type: string
+          notes:
+            type: string
   DecentralCardGame.cardchain.cardchain.VoteRight:
     type: object
     properties:
@@ -20085,6 +20270,68 @@ definitions:
       expireBlock:
         type: string
         format: int64
+  DecentralCardGame.cardchain.cardchain.VotingResult:
+    type: object
+    properties:
+      cardId:
+        type: string
+        format: uint64
+      fairEnoughVotes:
+        type: string
+        format: uint64
+      overpoweredVotes:
+        type: string
+        format: uint64
+      underpoweredVotes:
+        type: string
+        format: uint64
+      inappropriateVotes:
+        type: string
+        format: uint64
+      result:
+        type: string
+  DecentralCardGame.cardchain.cardchain.VotingResults:
+    type: object
+    properties:
+      totalVotes:
+        type: string
+        format: uint64
+      totalFairEnoughVotes:
+        type: string
+        format: uint64
+      totalOverpoweredVotes:
+        type: string
+        format: uint64
+      totalUnderpoweredVotes:
+        type: string
+        format: uint64
+      totalInappropriateVotes:
+        type: string
+        format: uint64
+      cardResults:
+        type: array
+        items:
+          type: object
+          properties:
+            cardId:
+              type: string
+              format: uint64
+            fairEnoughVotes:
+              type: string
+              format: uint64
+            overpoweredVotes:
+              type: string
+              format: uint64
+            underpoweredVotes:
+              type: string
+              format: uint64
+            inappropriateVotes:
+              type: string
+              format: uint64
+            result:
+              type: string
+      notes:
+        type: string
   ibc.applications.transfer.v1.DenomTrace:
     type: object
     properties:

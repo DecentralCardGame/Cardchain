@@ -3,6 +3,7 @@ import { Reader, util, configure, Writer } from "protobufjs/minimal";
 import * as Long from "long";
 import { Params } from "../cardchain/params";
 import { VoteRight } from "../cardchain/vote_right";
+import { VotingResults } from "../cardchain/voting_results";
 
 export const protobufPackage = "DecentralCardGame.cardchain.cardchain";
 
@@ -57,6 +58,22 @@ export interface QueryQCardchainInfoRequest {}
 
 export interface QueryQCardchainInfoResponse {
   cardAuctionPrice: string;
+}
+
+export interface QueryQVotingResultsRequest {}
+
+export interface QueryQVotingResultsResponse {
+  lastVotingResults: VotingResults | undefined;
+}
+
+export interface QueryQVotableCardsRequest {
+  address: string;
+}
+
+export interface QueryQVotableCardsResponse {
+  unregistered: boolean;
+  noVoteRights: boolean;
+  voteRights: VoteRight[];
 }
 
 const baseQueryParamsRequest: object = {};
@@ -982,6 +999,332 @@ export const QueryQCardchainInfoResponse = {
   },
 };
 
+const baseQueryQVotingResultsRequest: object = {};
+
+export const QueryQVotingResultsRequest = {
+  encode(
+    _: QueryQVotingResultsRequest,
+    writer: Writer = Writer.create()
+  ): Writer {
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): QueryQVotingResultsRequest {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseQueryQVotingResultsRequest,
+    } as QueryQVotingResultsRequest;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): QueryQVotingResultsRequest {
+    const message = {
+      ...baseQueryQVotingResultsRequest,
+    } as QueryQVotingResultsRequest;
+    return message;
+  },
+
+  toJSON(_: QueryQVotingResultsRequest): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial(
+    _: DeepPartial<QueryQVotingResultsRequest>
+  ): QueryQVotingResultsRequest {
+    const message = {
+      ...baseQueryQVotingResultsRequest,
+    } as QueryQVotingResultsRequest;
+    return message;
+  },
+};
+
+const baseQueryQVotingResultsResponse: object = {};
+
+export const QueryQVotingResultsResponse = {
+  encode(
+    message: QueryQVotingResultsResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.lastVotingResults !== undefined) {
+      VotingResults.encode(
+        message.lastVotingResults,
+        writer.uint32(10).fork()
+      ).ldelim();
+    }
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): QueryQVotingResultsResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseQueryQVotingResultsResponse,
+    } as QueryQVotingResultsResponse;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.lastVotingResults = VotingResults.decode(
+            reader,
+            reader.uint32()
+          );
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryQVotingResultsResponse {
+    const message = {
+      ...baseQueryQVotingResultsResponse,
+    } as QueryQVotingResultsResponse;
+    if (
+      object.lastVotingResults !== undefined &&
+      object.lastVotingResults !== null
+    ) {
+      message.lastVotingResults = VotingResults.fromJSON(
+        object.lastVotingResults
+      );
+    } else {
+      message.lastVotingResults = undefined;
+    }
+    return message;
+  },
+
+  toJSON(message: QueryQVotingResultsResponse): unknown {
+    const obj: any = {};
+    message.lastVotingResults !== undefined &&
+      (obj.lastVotingResults = message.lastVotingResults
+        ? VotingResults.toJSON(message.lastVotingResults)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<QueryQVotingResultsResponse>
+  ): QueryQVotingResultsResponse {
+    const message = {
+      ...baseQueryQVotingResultsResponse,
+    } as QueryQVotingResultsResponse;
+    if (
+      object.lastVotingResults !== undefined &&
+      object.lastVotingResults !== null
+    ) {
+      message.lastVotingResults = VotingResults.fromPartial(
+        object.lastVotingResults
+      );
+    } else {
+      message.lastVotingResults = undefined;
+    }
+    return message;
+  },
+};
+
+const baseQueryQVotableCardsRequest: object = { address: "" };
+
+export const QueryQVotableCardsRequest = {
+  encode(
+    message: QueryQVotableCardsRequest,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.address !== "") {
+      writer.uint32(10).string(message.address);
+    }
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): QueryQVotableCardsRequest {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseQueryQVotableCardsRequest,
+    } as QueryQVotableCardsRequest;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.address = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryQVotableCardsRequest {
+    const message = {
+      ...baseQueryQVotableCardsRequest,
+    } as QueryQVotableCardsRequest;
+    if (object.address !== undefined && object.address !== null) {
+      message.address = String(object.address);
+    } else {
+      message.address = "";
+    }
+    return message;
+  },
+
+  toJSON(message: QueryQVotableCardsRequest): unknown {
+    const obj: any = {};
+    message.address !== undefined && (obj.address = message.address);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<QueryQVotableCardsRequest>
+  ): QueryQVotableCardsRequest {
+    const message = {
+      ...baseQueryQVotableCardsRequest,
+    } as QueryQVotableCardsRequest;
+    if (object.address !== undefined && object.address !== null) {
+      message.address = object.address;
+    } else {
+      message.address = "";
+    }
+    return message;
+  },
+};
+
+const baseQueryQVotableCardsResponse: object = {
+  unregistered: false,
+  noVoteRights: false,
+};
+
+export const QueryQVotableCardsResponse = {
+  encode(
+    message: QueryQVotableCardsResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.unregistered === true) {
+      writer.uint32(8).bool(message.unregistered);
+    }
+    if (message.noVoteRights === true) {
+      writer.uint32(16).bool(message.noVoteRights);
+    }
+    for (const v of message.voteRights) {
+      VoteRight.encode(v!, writer.uint32(26).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): QueryQVotableCardsResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseQueryQVotableCardsResponse,
+    } as QueryQVotableCardsResponse;
+    message.voteRights = [];
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.unregistered = reader.bool();
+          break;
+        case 2:
+          message.noVoteRights = reader.bool();
+          break;
+        case 3:
+          message.voteRights.push(VoteRight.decode(reader, reader.uint32()));
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryQVotableCardsResponse {
+    const message = {
+      ...baseQueryQVotableCardsResponse,
+    } as QueryQVotableCardsResponse;
+    message.voteRights = [];
+    if (object.unregistered !== undefined && object.unregistered !== null) {
+      message.unregistered = Boolean(object.unregistered);
+    } else {
+      message.unregistered = false;
+    }
+    if (object.noVoteRights !== undefined && object.noVoteRights !== null) {
+      message.noVoteRights = Boolean(object.noVoteRights);
+    } else {
+      message.noVoteRights = false;
+    }
+    if (object.voteRights !== undefined && object.voteRights !== null) {
+      for (const e of object.voteRights) {
+        message.voteRights.push(VoteRight.fromJSON(e));
+      }
+    }
+    return message;
+  },
+
+  toJSON(message: QueryQVotableCardsResponse): unknown {
+    const obj: any = {};
+    message.unregistered !== undefined &&
+      (obj.unregistered = message.unregistered);
+    message.noVoteRights !== undefined &&
+      (obj.noVoteRights = message.noVoteRights);
+    if (message.voteRights) {
+      obj.voteRights = message.voteRights.map((e) =>
+        e ? VoteRight.toJSON(e) : undefined
+      );
+    } else {
+      obj.voteRights = [];
+    }
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<QueryQVotableCardsResponse>
+  ): QueryQVotableCardsResponse {
+    const message = {
+      ...baseQueryQVotableCardsResponse,
+    } as QueryQVotableCardsResponse;
+    message.voteRights = [];
+    if (object.unregistered !== undefined && object.unregistered !== null) {
+      message.unregistered = object.unregistered;
+    } else {
+      message.unregistered = false;
+    }
+    if (object.noVoteRights !== undefined && object.noVoteRights !== null) {
+      message.noVoteRights = object.noVoteRights;
+    } else {
+      message.noVoteRights = false;
+    }
+    if (object.voteRights !== undefined && object.voteRights !== null) {
+      for (const e of object.voteRights) {
+        message.voteRights.push(VoteRight.fromPartial(e));
+      }
+    }
+    return message;
+  },
+};
+
 /** Query defines the gRPC querier service. */
 export interface Query {
   /** Parameters queries the parameters of the module. */
@@ -998,6 +1341,14 @@ export interface Query {
   QCardchainInfo(
     request: QueryQCardchainInfoRequest
   ): Promise<QueryQCardchainInfoResponse>;
+  /** Queries a list of QVotingResults items. */
+  QVotingResults(
+    request: QueryQVotingResultsRequest
+  ): Promise<QueryQVotingResultsResponse>;
+  /** Queries a list of QVotableCards items. */
+  QVotableCards(
+    request: QueryQVotableCardsRequest
+  ): Promise<QueryQVotableCardsResponse>;
 }
 
 export class QueryClientImpl implements Query {
@@ -1060,6 +1411,34 @@ export class QueryClientImpl implements Query {
     );
     return promise.then((data) =>
       QueryQCardchainInfoResponse.decode(new Reader(data))
+    );
+  }
+
+  QVotingResults(
+    request: QueryQVotingResultsRequest
+  ): Promise<QueryQVotingResultsResponse> {
+    const data = QueryQVotingResultsRequest.encode(request).finish();
+    const promise = this.rpc.request(
+      "DecentralCardGame.cardchain.cardchain.Query",
+      "QVotingResults",
+      data
+    );
+    return promise.then((data) =>
+      QueryQVotingResultsResponse.decode(new Reader(data))
+    );
+  }
+
+  QVotableCards(
+    request: QueryQVotableCardsRequest
+  ): Promise<QueryQVotableCardsResponse> {
+    const data = QueryQVotableCardsRequest.encode(request).finish();
+    const promise = this.rpc.request(
+      "DecentralCardGame.cardchain.cardchain.Query",
+      "QVotableCards",
+      data
+    );
+    return promise.then((data) =>
+      QueryQVotableCardsResponse.decode(new Reader(data))
     );
   }
 }

@@ -47,6 +47,8 @@ const getDefaultState = () => {
         QCardContent: {},
         QUser: {},
         QCardchainInfo: {},
+        QVotingResults: {},
+        QVotableCards: {},
         _Structure: {
             Card: getStructure(Card.fromPartial({})),
             CardNoB64: getStructure(CardNoB64.fromPartial({})),
@@ -109,6 +111,18 @@ export default {
                 params.query = null;
             }
             return state.QCardchainInfo[JSON.stringify(params)] ?? {};
+        },
+        getQVotingResults: (state) => (params = { params: {} }) => {
+            if (!params.query) {
+                params.query = null;
+            }
+            return state.QVotingResults[JSON.stringify(params)] ?? {};
+        },
+        getQVotableCards: (state) => (params = { params: {} }) => {
+            if (!params.query) {
+                params.query = null;
+            }
+            return state.QVotableCards[JSON.stringify(params)] ?? {};
         },
         getTypeStructure: (state) => (type) => {
             return state._Structure[type].fields;
@@ -213,38 +227,32 @@ export default {
                 throw new SpVuexError('QueryClient:QueryQCardchainInfo', 'API Node Unavailable. Could not perform query: ' + e.message);
             }
         },
-        async sendMsgCreateuser({ rootGetters }, { value, fee = [], memo = '' }) {
+        async QueryQVotingResults({ commit, rootGetters, getters }, { options: { subscribe, all } = { subscribe: false, all: false }, params, query = null }) {
             try {
-                const txClient = await initTxClient(rootGetters);
-                const msg = await txClient.msgCreateuser(value);
-                const result = await txClient.signAndBroadcast([msg], { fee: { amount: fee,
-                        gas: "200000" }, memo });
-                return result;
+                const key = params ?? {};
+                const queryClient = await initQueryClient(rootGetters);
+                let value = (await queryClient.queryQVotingResults()).data;
+                commit('QUERY', { query: 'QVotingResults', key: { params: { ...key }, query }, value });
+                if (subscribe)
+                    commit('SUBSCRIBE', { action: 'QueryQVotingResults', payload: { options: { all }, params: { ...key }, query } });
+                return getters['getQVotingResults']({ params: { ...key }, query }) ?? {};
             }
             catch (e) {
-                if (e == MissingWalletError) {
-                    throw new SpVuexError('TxClient:MsgCreateuser:Init', 'Could not initialize signing client. Wallet is required.');
-                }
-                else {
-                    throw new SpVuexError('TxClient:MsgCreateuser:Send', 'Could not broadcast Tx: ' + e.message);
-                }
+                throw new SpVuexError('QueryClient:QueryQVotingResults', 'API Node Unavailable. Could not perform query: ' + e.message);
             }
         },
-        async sendMsgBuyCardScheme({ rootGetters }, { value, fee = [], memo = '' }) {
+        async QueryQVotableCards({ commit, rootGetters, getters }, { options: { subscribe, all } = { subscribe: false, all: false }, params, query = null }) {
             try {
-                const txClient = await initTxClient(rootGetters);
-                const msg = await txClient.msgBuyCardScheme(value);
-                const result = await txClient.signAndBroadcast([msg], { fee: { amount: fee,
-                        gas: "200000" }, memo });
-                return result;
+                const key = params ?? {};
+                const queryClient = await initQueryClient(rootGetters);
+                let value = (await queryClient.queryQVotableCards(key.address)).data;
+                commit('QUERY', { query: 'QVotableCards', key: { params: { ...key }, query }, value });
+                if (subscribe)
+                    commit('SUBSCRIBE', { action: 'QueryQVotableCards', payload: { options: { all }, params: { ...key }, query } });
+                return getters['getQVotableCards']({ params: { ...key }, query }) ?? {};
             }
             catch (e) {
-                if (e == MissingWalletError) {
-                    throw new SpVuexError('TxClient:MsgBuyCardScheme:Init', 'Could not initialize signing client. Wallet is required.');
-                }
-                else {
-                    throw new SpVuexError('TxClient:MsgBuyCardScheme:Send', 'Could not broadcast Tx: ' + e.message);
-                }
+                throw new SpVuexError('QueryClient:QueryQVotableCards', 'API Node Unavailable. Could not perform query: ' + e.message);
             }
         },
         async sendMsgVoteCard({ rootGetters }, { value, fee = [], memo = '' }) {
@@ -261,23 +269,6 @@ export default {
                 }
                 else {
                     throw new SpVuexError('TxClient:MsgVoteCard:Send', 'Could not broadcast Tx: ' + e.message);
-                }
-            }
-        },
-        async sendMsgDonateToCard({ rootGetters }, { value, fee = [], memo = '' }) {
-            try {
-                const txClient = await initTxClient(rootGetters);
-                const msg = await txClient.msgDonateToCard(value);
-                const result = await txClient.signAndBroadcast([msg], { fee: { amount: fee,
-                        gas: "200000" }, memo });
-                return result;
-            }
-            catch (e) {
-                if (e == MissingWalletError) {
-                    throw new SpVuexError('TxClient:MsgDonateToCard:Init', 'Could not initialize signing client. Wallet is required.');
-                }
-                else {
-                    throw new SpVuexError('TxClient:MsgDonateToCard:Send', 'Could not broadcast Tx: ' + e.message);
                 }
             }
         },
@@ -315,33 +306,54 @@ export default {
                 }
             }
         },
-        async MsgCreateuser({ rootGetters }, { value }) {
+        async sendMsgCreateuser({ rootGetters }, { value, fee = [], memo = '' }) {
             try {
                 const txClient = await initTxClient(rootGetters);
                 const msg = await txClient.msgCreateuser(value);
-                return msg;
+                const result = await txClient.signAndBroadcast([msg], { fee: { amount: fee,
+                        gas: "200000" }, memo });
+                return result;
             }
             catch (e) {
                 if (e == MissingWalletError) {
                     throw new SpVuexError('TxClient:MsgCreateuser:Init', 'Could not initialize signing client. Wallet is required.');
                 }
                 else {
-                    throw new SpVuexError('TxClient:MsgCreateuser:Create', 'Could not create message: ' + e.message);
+                    throw new SpVuexError('TxClient:MsgCreateuser:Send', 'Could not broadcast Tx: ' + e.message);
                 }
             }
         },
-        async MsgBuyCardScheme({ rootGetters }, { value }) {
+        async sendMsgBuyCardScheme({ rootGetters }, { value, fee = [], memo = '' }) {
             try {
                 const txClient = await initTxClient(rootGetters);
                 const msg = await txClient.msgBuyCardScheme(value);
-                return msg;
+                const result = await txClient.signAndBroadcast([msg], { fee: { amount: fee,
+                        gas: "200000" }, memo });
+                return result;
             }
             catch (e) {
                 if (e == MissingWalletError) {
                     throw new SpVuexError('TxClient:MsgBuyCardScheme:Init', 'Could not initialize signing client. Wallet is required.');
                 }
                 else {
-                    throw new SpVuexError('TxClient:MsgBuyCardScheme:Create', 'Could not create message: ' + e.message);
+                    throw new SpVuexError('TxClient:MsgBuyCardScheme:Send', 'Could not broadcast Tx: ' + e.message);
+                }
+            }
+        },
+        async sendMsgDonateToCard({ rootGetters }, { value, fee = [], memo = '' }) {
+            try {
+                const txClient = await initTxClient(rootGetters);
+                const msg = await txClient.msgDonateToCard(value);
+                const result = await txClient.signAndBroadcast([msg], { fee: { amount: fee,
+                        gas: "200000" }, memo });
+                return result;
+            }
+            catch (e) {
+                if (e == MissingWalletError) {
+                    throw new SpVuexError('TxClient:MsgDonateToCard:Init', 'Could not initialize signing client. Wallet is required.');
+                }
+                else {
+                    throw new SpVuexError('TxClient:MsgDonateToCard:Send', 'Could not broadcast Tx: ' + e.message);
                 }
             }
         },
@@ -357,21 +369,6 @@ export default {
                 }
                 else {
                     throw new SpVuexError('TxClient:MsgVoteCard:Create', 'Could not create message: ' + e.message);
-                }
-            }
-        },
-        async MsgDonateToCard({ rootGetters }, { value }) {
-            try {
-                const txClient = await initTxClient(rootGetters);
-                const msg = await txClient.msgDonateToCard(value);
-                return msg;
-            }
-            catch (e) {
-                if (e == MissingWalletError) {
-                    throw new SpVuexError('TxClient:MsgDonateToCard:Init', 'Could not initialize signing client. Wallet is required.');
-                }
-                else {
-                    throw new SpVuexError('TxClient:MsgDonateToCard:Create', 'Could not create message: ' + e.message);
                 }
             }
         },
@@ -402,6 +399,51 @@ export default {
                 }
                 else {
                     throw new SpVuexError('TxClient:MsgTransferCard:Create', 'Could not create message: ' + e.message);
+                }
+            }
+        },
+        async MsgCreateuser({ rootGetters }, { value }) {
+            try {
+                const txClient = await initTxClient(rootGetters);
+                const msg = await txClient.msgCreateuser(value);
+                return msg;
+            }
+            catch (e) {
+                if (e == MissingWalletError) {
+                    throw new SpVuexError('TxClient:MsgCreateuser:Init', 'Could not initialize signing client. Wallet is required.');
+                }
+                else {
+                    throw new SpVuexError('TxClient:MsgCreateuser:Create', 'Could not create message: ' + e.message);
+                }
+            }
+        },
+        async MsgBuyCardScheme({ rootGetters }, { value }) {
+            try {
+                const txClient = await initTxClient(rootGetters);
+                const msg = await txClient.msgBuyCardScheme(value);
+                return msg;
+            }
+            catch (e) {
+                if (e == MissingWalletError) {
+                    throw new SpVuexError('TxClient:MsgBuyCardScheme:Init', 'Could not initialize signing client. Wallet is required.');
+                }
+                else {
+                    throw new SpVuexError('TxClient:MsgBuyCardScheme:Create', 'Could not create message: ' + e.message);
+                }
+            }
+        },
+        async MsgDonateToCard({ rootGetters }, { value }) {
+            try {
+                const txClient = await initTxClient(rootGetters);
+                const msg = await txClient.msgDonateToCard(value);
+                return msg;
+            }
+            catch (e) {
+                if (e == MissingWalletError) {
+                    throw new SpVuexError('TxClient:MsgDonateToCard:Init', 'Could not initialize signing client. Wallet is required.');
+                }
+                else {
+                    throw new SpVuexError('TxClient:MsgDonateToCard:Create', 'Could not create message: ' + e.message);
                 }
             }
         },

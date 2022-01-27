@@ -6,6 +6,7 @@ import "google/api/annotations.proto";
 import "cosmos/base/query/v1beta1/pagination.proto";
 import "cardchain/params.proto";
 import "cardchain/vote_right.proto";
+import "cardchain/voting_results.proto";
 // this line is used by starport scaffolding # 1
 
 option go_package = "github.com/DecentralCardGame/Cardchain/x/cardchain/types";
@@ -34,6 +35,16 @@ service Query {
 // Queries a list of QCardchainInfo items.
 	rpc QCardchainInfo(QueryQCardchainInfoRequest) returns (QueryQCardchainInfoResponse) {
 		option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/q_cardchain_info";
+	}
+
+// Queries a list of QVotingResults items.
+	rpc QVotingResults(QueryQVotingResultsRequest) returns (QueryQVotingResultsResponse) {
+		option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/q_voting_results";
+	}
+
+// Queries a list of QVotableCards items.
+	rpc QVotableCards(QueryQVotableCardsRequest) returns (QueryQVotableCardsResponse) {
+		option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/q_votable_cards/{address}";
 	}
 
 // this line is used by starport scaffolding # 2
@@ -91,6 +102,23 @@ message QueryQCardchainInfoRequest {
 
 message QueryQCardchainInfoResponse {
   string cardAuctionPrice = 1 [(gogoproto.nullable) = false, (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Coin"];;
+}
+
+message QueryQVotingResultsRequest {
+}
+
+message QueryQVotingResultsResponse {
+  VotingResults lastVotingResults = 1;
+}
+
+message QueryQVotableCardsRequest {
+  string address = 1;
+}
+
+message QueryQVotableCardsResponse {
+  bool unregistered = 1;
+  bool noVoteRights = 2;
+  repeated VoteRight voteRights = 3;
 }
 
 // this line is used by starport scaffolding # 3

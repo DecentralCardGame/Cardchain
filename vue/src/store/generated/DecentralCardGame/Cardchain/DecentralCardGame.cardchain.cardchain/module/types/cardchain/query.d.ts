@@ -1,6 +1,7 @@
 import { Reader, Writer } from "protobufjs/minimal";
 import { Params } from "../cardchain/params";
 import { VoteRight } from "../cardchain/vote_right";
+import { VotingResults } from "../cardchain/voting_results";
 export declare const protobufPackage = "DecentralCardGame.cardchain.cardchain";
 /** QueryParamsRequest is request type for the Query/Params RPC method. */
 export interface QueryParamsRequest {
@@ -46,6 +47,19 @@ export interface QueryQCardchainInfoRequest {
 }
 export interface QueryQCardchainInfoResponse {
     cardAuctionPrice: string;
+}
+export interface QueryQVotingResultsRequest {
+}
+export interface QueryQVotingResultsResponse {
+    lastVotingResults: VotingResults | undefined;
+}
+export interface QueryQVotableCardsRequest {
+    address: string;
+}
+export interface QueryQVotableCardsResponse {
+    unregistered: boolean;
+    noVoteRights: boolean;
+    voteRights: VoteRight[];
 }
 export declare const QueryParamsRequest: {
     encode(_: QueryParamsRequest, writer?: Writer): Writer;
@@ -117,6 +131,34 @@ export declare const QueryQCardchainInfoResponse: {
     toJSON(message: QueryQCardchainInfoResponse): unknown;
     fromPartial(object: DeepPartial<QueryQCardchainInfoResponse>): QueryQCardchainInfoResponse;
 };
+export declare const QueryQVotingResultsRequest: {
+    encode(_: QueryQVotingResultsRequest, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryQVotingResultsRequest;
+    fromJSON(_: any): QueryQVotingResultsRequest;
+    toJSON(_: QueryQVotingResultsRequest): unknown;
+    fromPartial(_: DeepPartial<QueryQVotingResultsRequest>): QueryQVotingResultsRequest;
+};
+export declare const QueryQVotingResultsResponse: {
+    encode(message: QueryQVotingResultsResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryQVotingResultsResponse;
+    fromJSON(object: any): QueryQVotingResultsResponse;
+    toJSON(message: QueryQVotingResultsResponse): unknown;
+    fromPartial(object: DeepPartial<QueryQVotingResultsResponse>): QueryQVotingResultsResponse;
+};
+export declare const QueryQVotableCardsRequest: {
+    encode(message: QueryQVotableCardsRequest, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryQVotableCardsRequest;
+    fromJSON(object: any): QueryQVotableCardsRequest;
+    toJSON(message: QueryQVotableCardsRequest): unknown;
+    fromPartial(object: DeepPartial<QueryQVotableCardsRequest>): QueryQVotableCardsRequest;
+};
+export declare const QueryQVotableCardsResponse: {
+    encode(message: QueryQVotableCardsResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryQVotableCardsResponse;
+    fromJSON(object: any): QueryQVotableCardsResponse;
+    toJSON(message: QueryQVotableCardsResponse): unknown;
+    fromPartial(object: DeepPartial<QueryQVotableCardsResponse>): QueryQVotableCardsResponse;
+};
 /** Query defines the gRPC querier service. */
 export interface Query {
     /** Parameters queries the parameters of the module. */
@@ -129,6 +171,10 @@ export interface Query {
     QUser(request: QueryQUserRequest): Promise<QueryQUserResponse>;
     /** Queries a list of QCardchainInfo items. */
     QCardchainInfo(request: QueryQCardchainInfoRequest): Promise<QueryQCardchainInfoResponse>;
+    /** Queries a list of QVotingResults items. */
+    QVotingResults(request: QueryQVotingResultsRequest): Promise<QueryQVotingResultsResponse>;
+    /** Queries a list of QVotableCards items. */
+    QVotableCards(request: QueryQVotableCardsRequest): Promise<QueryQVotableCardsResponse>;
 }
 export declare class QueryClientImpl implements Query {
     private readonly rpc;
@@ -138,6 +184,8 @@ export declare class QueryClientImpl implements Query {
     QCardContent(request: QueryQCardContentRequest): Promise<QueryQCardContentResponse>;
     QUser(request: QueryQUserRequest): Promise<QueryQUserResponse>;
     QCardchainInfo(request: QueryQCardchainInfoRequest): Promise<QueryQCardchainInfoResponse>;
+    QVotingResults(request: QueryQVotingResultsRequest): Promise<QueryQVotingResultsResponse>;
+    QVotableCards(request: QueryQVotableCardsRequest): Promise<QueryQVotableCardsResponse>;
 }
 interface Rpc {
     request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;

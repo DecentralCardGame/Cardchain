@@ -206,5 +206,33 @@ export class Api extends HttpClient {
             format: "json",
             ...params,
         });
+        /**
+         * No description
+         *
+         * @tags Query
+         * @name QueryQVotableCards
+         * @summary Queries a list of QVotableCards items.
+         * @request GET:/DecentralCardGame/cardchain/cardchain/q_votable_cards/{address}
+         */
+        this.queryQVotableCards = (address, params = {}) => this.request({
+            path: `/DecentralCardGame/cardchain/cardchain/q_votable_cards/${address}`,
+            method: "GET",
+            format: "json",
+            ...params,
+        });
+        /**
+         * No description
+         *
+         * @tags Query
+         * @name QueryQVotingResults
+         * @summary Queries a list of QVotingResults items.
+         * @request GET:/DecentralCardGame/cardchain/cardchain/q_voting_results
+         */
+        this.queryQVotingResults = (params = {}) => this.request({
+            path: `/DecentralCardGame/cardchain/cardchain/q_voting_results`,
+            method: "GET",
+            format: "json",
+            ...params,
+        });
     }
 }

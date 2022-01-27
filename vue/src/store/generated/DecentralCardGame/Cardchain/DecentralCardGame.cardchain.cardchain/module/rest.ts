@@ -74,12 +74,59 @@ export interface CardchainQueryQUserResponse {
   voteRights?: CardchainVoteRight[];
 }
 
+export interface CardchainQueryQVotableCardsResponse {
+  unregistered?: boolean;
+  noVoteRights?: boolean;
+  voteRights?: CardchainVoteRight[];
+}
+
+export interface CardchainQueryQVotingResultsResponse {
+  lastVotingResults?: CardchainVotingResults;
+}
+
 export interface CardchainVoteRight {
   /** @format uint64 */
   cardId?: string;
 
   /** @format int64 */
   expireBlock?: string;
+}
+
+export interface CardchainVotingResult {
+  /** @format uint64 */
+  cardId?: string;
+
+  /** @format uint64 */
+  fairEnoughVotes?: string;
+
+  /** @format uint64 */
+  overpoweredVotes?: string;
+
+  /** @format uint64 */
+  underpoweredVotes?: string;
+
+  /** @format uint64 */
+  inappropriateVotes?: string;
+  result?: string;
+}
+
+export interface CardchainVotingResults {
+  /** @format uint64 */
+  totalVotes?: string;
+
+  /** @format uint64 */
+  totalFairEnoughVotes?: string;
+
+  /** @format uint64 */
+  totalOverpoweredVotes?: string;
+
+  /** @format uint64 */
+  totalUnderpoweredVotes?: string;
+
+  /** @format uint64 */
+  totalInappropriateVotes?: string;
+  cardResults?: CardchainVotingResult[];
+  notes?: string;
 }
 
 export interface ProtobufAny {
@@ -364,6 +411,38 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
   queryQUser = (address: string, params: RequestParams = {}) =>
     this.request<CardchainQueryQUserResponse, RpcStatus>({
       path: `/DecentralCardGame/cardchain/cardchain/q_user/${address}`,
+      method: "GET",
+      format: "json",
+      ...params,
+    });
+
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QueryQVotableCards
+   * @summary Queries a list of QVotableCards items.
+   * @request GET:/DecentralCardGame/cardchain/cardchain/q_votable_cards/{address}
+   */
+  queryQVotableCards = (address: string, params: RequestParams = {}) =>
+    this.request<CardchainQueryQVotableCardsResponse, RpcStatus>({
+      path: `/DecentralCardGame/cardchain/cardchain/q_votable_cards/${address}`,
+      method: "GET",
+      format: "json",
+      ...params,
+    });
+
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QueryQVotingResults
+   * @summary Queries a list of QVotingResults items.
+   * @request GET:/DecentralCardGame/cardchain/cardchain/q_voting_results
+   */
+  queryQVotingResults = (params: RequestParams = {}) =>
+    this.request<CardchainQueryQVotingResultsResponse, RpcStatus>({
+      path: `/DecentralCardGame/cardchain/cardchain/q_voting_results`,
       method: "GET",
       format: "json",
       ...params,
