@@ -22,11 +22,16 @@ func (k Keeper) QVotableCards(goCtx context.Context, req *types.QueryQVotableCar
 		return nil, sdkerrors.Wrap(sdkerrors.ErrUnknownRequest, "could not parse user address")
 	}
 
-	user := k.GetUser(ctx, address)
+	unreg := true
+	noRights := true
+	voteRights := []*types.VoteRight{}
 
-	unreg := user.Alias == ""
-	noRights := len(user.VoteRights) == 0
-	voteRights := user.VoteRights
+	user, err := k.GetUser(ctx, address)
+	if err == nil {
+		unreg = false
+		noRights = len(user.VoteRights) == 0
+		voteRights = user.VoteRights
+	}
 
 	return &types.QueryQVotableCardsResponse{unreg, noRights, voteRights}, nil
 }

@@ -175,7 +175,10 @@ func handleMsgVoteCard(ctx sdk.Context, keeper keeper.Keeper, msg *types.MsgVote
 
 	keeper.SetCard(ctx, msg.CardId, card)
 
-	keeper.RemoveVoteRight(ctx, voter, rightsIndex)
+	err = keeper.RemoveVoteRight(ctx, voter, rightsIndex)
+	if err != nil {
+		return nil, err
+	}
 
 	return &sdk.Result{}, nil
 }

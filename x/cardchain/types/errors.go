@@ -13,4 +13,5 @@ var (
 	ErrVoterHasNoVotingRights = sdkerrors.Register(ModuleName, 2, "The voter doesn't have any voting rights")
 	ErrVoteRightIsExpired     = sdkerrors.Register(ModuleName, 3, "The right to vote on the card has expired")
 	ErrInvalidAccAddress      = sdkerrors.Register(ModuleName, 4, "Not able to convert Address to AccAddress")
+	ErrUserDoesNotExist      = sdkerrors.Register(ModuleName, 5, "User does not exist")
 )

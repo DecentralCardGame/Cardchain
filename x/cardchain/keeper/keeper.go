@@ -13,6 +13,7 @@ import (
 	"github.com/DecentralCardGame/cardobject/keywords"
 	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	paramtypes "github.com/cosmos/cosmos-sdk/x/params/types"
 )
 
@@ -57,7 +58,7 @@ func (k Keeper) Logger(ctx sdk.Context) log.Logger {
 }
 
 func (k Keeper) GetVoteRights(ctx sdk.Context, voter sdk.AccAddress) []*types.VoteRight {
-	user := k.GetUser(ctx, voter)
+	user, _ := k.GetUser(ctx, voter)
 	return user.VoteRights
 }
 
@@ -218,7 +219,9 @@ func (k Keeper) Createuser(ctx sdk.Context, newUser sdk.AccAddress, alias string
 	if bz == nil {
 		k.InitUser(ctx, newUser, alias)
 	}
-	return k.GetUser(ctx, newUser)
+
+	user, _ := k.GetUser(ctx, newUser)
+	return user
 }
 
 func (k Keeper) InitUser(ctx sdk.Context, address sdk.AccAddress, alias string) {
@@ -236,16 +239,17 @@ func (k Keeper) InitUser(ctx sdk.Context, address sdk.AccAddress, alias string) 
 	store.Set(address, k.cdc.MustMarshal(&newUser))
 }
 
-func (k Keeper) GetUser(ctx sdk.Context, address sdk.AccAddress) types.User {
+func (k Keeper) GetUser(ctx sdk.Context, address sdk.AccAddress) (types.User, error) {
 	store := ctx.KVStore(k.UsersStoreKey)
 	bz := store.Get(address)
-
-	// TDOO Add Error to avoid invalid users
-	fmt.Printf("Bz %s\n", bz)
-
 	var gottenUser types.User
+
+	if bz == nil {
+		return gottenUser, sdkerrors.Wrap(types.ErrUserDoesNotExist, "Address not in store")
+	}
+
 	k.cdc.MustUnmarshal(bz, &gottenUser)
-	return gottenUser
+	return gottenUser, nil
 }
 
 ////////////
@@ -306,13 +310,17 @@ func (k Keeper) AddVoteRightsToAllUsers(ctx sdk.Context, expireBlock int64) {
 	userIterator.Close()
 }
 
-func (k Keeper) RemoveVoteRight(ctx sdk.Context, userAddress sdk.AccAddress, rightsIndex int) {
-	user := k.GetUser(ctx, userAddress)
+func (k Keeper) RemoveVoteRight(ctx sdk.Context, userAddress sdk.AccAddress, rightsIndex int) error {
+	user, err := k.GetUser(ctx, userAddress)
+	if err != nil {
+		return err
+	}
 	user.VoteRights[rightsIndex] = user.VoteRights[len(user.VoteRights)-1]
 	//user.VoteRights[len(user.VoteRights)-1] = null
 	user.VoteRights = user.VoteRights[:len(user.VoteRights)-1]
 	userStore := ctx.KVStore(k.UsersStoreKey)
 	userStore.Set(userAddress, k.cdc.MustMarshal(&user))
+	return nil
 }
 
 func (k Keeper) GetVoteRightToAllCards(ctx sdk.Context, expireBlock int64) []*types.VoteRight {

@@ -22,7 +22,10 @@ func (k Keeper) QUser(goCtx context.Context, req *types.QueryQUserRequest) (*typ
 		return nil, sdkerrors.Wrap(sdkerrors.ErrUnknownRequest, "could not parse user address")
 	}
 
-	user := k.GetUser(ctx, address)
+	user, err := k.GetUser(ctx, address)
+	if err != nil {
+		return nil, err
+	}
 
 	return &types.QueryQUserResponse{
 		user.Alias,
