@@ -3,6 +3,8 @@ package DecentralCardGame.cardchain.cardchain;
 
 import "gogoproto/gogo.proto";
 import "cardchain/params.proto";
+import "cardchain/card.proto";
+import "cardchain/user.proto";
 // this line is used by starport scaffolding # genesis/proto/import
 
 option go_package = "github.com/DecentralCardGame/Cardchain/x/cardchain/types";
@@ -10,5 +12,9 @@ option go_package = "github.com/DecentralCardGame/Cardchain/x/cardchain/types";
 // GenesisState defines the cardchain module's genesis state.
 message GenesisState {
   Params params = 1 [(gogoproto.nullable) = false];
+  repeated Card cardRecords = 2;
+  repeated User users = 3;
+  repeated string addresses = 4;
+  uint64 lastCardSchemeId = 5;
   // this line is used by starport scaffolding # genesis/proto/state
 }

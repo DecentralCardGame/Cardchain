@@ -119,7 +119,6 @@ func (k Keeper) SetCard(ctx sdk.Context, cardId uint64, newCard types.Card) {
 func (k Keeper) GetLastCardSchemeId(ctx sdk.Context) uint64 {
 	store := ctx.KVStore(k.InternalStoreKey)
 	bz := store.Get([]byte("lastCardScheme"))
-	fmt.Printf("Bz %s", bz)
 	return binary.BigEndian.Uint64(bz)
 }
 
@@ -159,6 +158,20 @@ func (k Keeper) AddOwnedCardScheme(ctx sdk.Context, cardId uint64, address sdk.A
 func (k Keeper) GetCardsIterator(ctx sdk.Context) sdk.Iterator {
 	store := ctx.KVStore(k.CardsStoreKey)
 	return sdk.KVStorePrefixIterator(store, nil)
+}
+
+
+func (k Keeper) GetAllCards(ctx sdk.Context) []*types.Card {
+	var allCards []*types.Card
+	iterator := k.GetCardsIterator(ctx)
+	for ; iterator.Valid(); iterator.Next() {
+
+		var gottenCard types.Card
+		k.cdc.MustUnmarshal(iterator.Value(), &gottenCard)
+
+		allCards = append(allCards, &gottenCard)
+	}
+	return allCards
 }
 
 /////////////////////
@@ -250,6 +263,32 @@ func (k Keeper) GetUser(ctx sdk.Context, address sdk.AccAddress) (types.User, er
 
 	k.cdc.MustUnmarshal(bz, &gottenUser)
 	return gottenUser, nil
+}
+
+func (k Keeper) SetUser(ctx sdk.Context, address sdk.AccAddress, userData types.User) {
+	store := ctx.KVStore(k.UsersStoreKey)
+	store.Set(address, k.cdc.MustMarshal(&userData))
+}
+
+func (k Keeper) GetUsersIterator(ctx sdk.Context) sdk.Iterator {
+	store := ctx.KVStore(k.UsersStoreKey)
+	return sdk.KVStorePrefixIterator(store, nil)
+}
+
+func (k Keeper) GetAllUsers(ctx sdk.Context) ([]*types.User, []string) {
+	var allUsers []*types.User
+	var allAddresses []string
+
+	iterator := k.GetUsersIterator(ctx)
+	for ; iterator.Valid(); iterator.Next() {
+
+		var gottenUser types.User
+		k.cdc.MustUnmarshal(iterator.Value(), &gottenUser)
+
+		allUsers = append(allUsers, &gottenUser)
+		allAddresses = append(allAddresses, sdk.AccAddress(iterator.Key()).String())
+	}
+	return allUsers, allAddresses
 }
 
 ////////////
