@@ -71,16 +71,17 @@ message QueryQCardRequest {
 message QueryQCardResponse {
   string owner = 1;
   string content = 2;
-  string image = 3;
-  string fullArt = 4;
-  string notes = 5;
-  string status = 6;
-  string votePool = 7 [(gogoproto.nullable) = false, (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Coin"];;
-  uint64 fairEnoughVotes = 8;
-  uint64 overpoweredVotes = 9;
-  uint64 underpoweredVotes = 10;
-  uint64 inappropriateVotes = 11;
-  int64 nerflevel = 12;
+  string artist = 3;
+  string image = 4;
+  string fullArt = 5;
+  string notes = 6;
+  string status = 7;
+  string votePool = 8 [(gogoproto.nullable) = false, (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Coin"];;
+  uint64 fairEnoughVotes = 9;
+  uint64 overpoweredVotes = 10;
+  uint64 underpoweredVotes = 11;
+  uint64 inappropriateVotes = 12;
+  int64 nerflevel = 13;
 }
 
 message QueryQCardContentRequest {

@@ -50,10 +50,11 @@ message MsgSaveCardContent {
   string creator = 1;
   uint64 cardId = 2;
   bytes content = 3;
-  bytes image = 4;
-  string fullArt = 5;
-  string notes = 6;
-  string owner = 7;
+//  bytes image = 4;
+//  string fullArt = 5;
+  string notes = 4;
+  string owner = 5;
+  string artist = 6;
 }
 
 message MsgSaveCardContentResponse {

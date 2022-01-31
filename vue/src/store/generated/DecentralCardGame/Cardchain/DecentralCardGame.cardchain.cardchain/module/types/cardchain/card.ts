@@ -6,6 +6,7 @@ export const protobufPackage = "DecentralCardGame.cardchain.cardchain";
 
 export interface Card {
   owner: string;
+  artist: string;
   content: Uint8Array;
   image: Uint8Array;
   fullArt: string;
@@ -21,6 +22,7 @@ export interface Card {
 
 const baseCard: object = {
   owner: "",
+  artist: "",
   fullArt: "",
   notes: "",
   status: "",
@@ -37,38 +39,41 @@ export const Card = {
     if (message.owner !== "") {
       writer.uint32(10).string(message.owner);
     }
+    if (message.artist !== "") {
+      writer.uint32(18).string(message.artist);
+    }
     if (message.content.length !== 0) {
-      writer.uint32(18).bytes(message.content);
+      writer.uint32(26).bytes(message.content);
     }
     if (message.image.length !== 0) {
-      writer.uint32(26).bytes(message.image);
+      writer.uint32(34).bytes(message.image);
     }
     if (message.fullArt !== "") {
-      writer.uint32(34).string(message.fullArt);
+      writer.uint32(42).string(message.fullArt);
     }
     if (message.notes !== "") {
-      writer.uint32(42).string(message.notes);
+      writer.uint32(50).string(message.notes);
     }
     if (message.status !== "") {
-      writer.uint32(50).string(message.status);
+      writer.uint32(58).string(message.status);
     }
     if (message.votePool !== "") {
-      writer.uint32(58).string(message.votePool);
+      writer.uint32(66).string(message.votePool);
     }
     if (message.fairEnoughVotes !== 0) {
-      writer.uint32(64).uint64(message.fairEnoughVotes);
+      writer.uint32(72).uint64(message.fairEnoughVotes);
     }
     if (message.overpoweredVotes !== 0) {
-      writer.uint32(72).uint64(message.overpoweredVotes);
+      writer.uint32(80).uint64(message.overpoweredVotes);
     }
     if (message.underpoweredVotes !== 0) {
-      writer.uint32(80).uint64(message.underpoweredVotes);
+      writer.uint32(88).uint64(message.underpoweredVotes);
     }
     if (message.inappropriateVotes !== 0) {
-      writer.uint32(88).uint64(message.inappropriateVotes);
+      writer.uint32(96).uint64(message.inappropriateVotes);
     }
     if (message.nerflevel !== 0) {
-      writer.uint32(96).int64(message.nerflevel);
+      writer.uint32(104).int64(message.nerflevel);
     }
     return writer;
   },
@@ -84,36 +89,39 @@ export const Card = {
           message.owner = reader.string();
           break;
         case 2:
-          message.content = reader.bytes();
+          message.artist = reader.string();
           break;
         case 3:
-          message.image = reader.bytes();
+          message.content = reader.bytes();
           break;
         case 4:
-          message.fullArt = reader.string();
+          message.image = reader.bytes();
           break;
         case 5:
-          message.notes = reader.string();
+          message.fullArt = reader.string();
           break;
         case 6:
-          message.status = reader.string();
+          message.notes = reader.string();
           break;
         case 7:
-          message.votePool = reader.string();
+          message.status = reader.string();
           break;
         case 8:
-          message.fairEnoughVotes = longToNumber(reader.uint64() as Long);
+          message.votePool = reader.string();
           break;
         case 9:
-          message.overpoweredVotes = longToNumber(reader.uint64() as Long);
+          message.fairEnoughVotes = longToNumber(reader.uint64() as Long);
           break;
         case 10:
-          message.underpoweredVotes = longToNumber(reader.uint64() as Long);
+          message.overpoweredVotes = longToNumber(reader.uint64() as Long);
           break;
         case 11:
-          message.inappropriateVotes = longToNumber(reader.uint64() as Long);
+          message.underpoweredVotes = longToNumber(reader.uint64() as Long);
           break;
         case 12:
+          message.inappropriateVotes = longToNumber(reader.uint64() as Long);
+          break;
+        case 13:
           message.nerflevel = longToNumber(reader.int64() as Long);
           break;
         default:
@@ -130,6 +138,11 @@ export const Card = {
       message.owner = String(object.owner);
     } else {
       message.owner = "";
+    }
+    if (object.artist !== undefined && object.artist !== null) {
+      message.artist = String(object.artist);
+    } else {
+      message.artist = "";
     }
     if (object.content !== undefined && object.content !== null) {
       message.content = bytesFromBase64(object.content);
@@ -200,6 +213,7 @@ export const Card = {
   toJSON(message: Card): unknown {
     const obj: any = {};
     message.owner !== undefined && (obj.owner = message.owner);
+    message.artist !== undefined && (obj.artist = message.artist);
     message.content !== undefined &&
       (obj.content = base64FromBytes(
         message.content !== undefined ? message.content : new Uint8Array()
@@ -230,6 +244,11 @@ export const Card = {
       message.owner = object.owner;
     } else {
       message.owner = "";
+    }
+    if (object.artist !== undefined && object.artist !== null) {
+      message.artist = object.artist;
+    } else {
+      message.artist = "";
     }
     if (object.content !== undefined && object.content !== null) {
       message.content = object.content;

@@ -9,15 +9,16 @@ const TypeMsgSaveCardContent = "save_card_content"
 
 var _ sdk.Msg = &MsgSaveCardContent{}
 
-func NewMsgSaveCardContent(creator string, cardId uint64, content []byte, image []byte, fullArt string, notes string, owner string) *MsgSaveCardContent {
+func NewMsgSaveCardContent(creator string, cardId uint64, content []byte, notes string, owner string, artist string) *MsgSaveCardContent {
 	return &MsgSaveCardContent{
 		Creator: creator,
 		CardId:  cardId,
 		Content: content,
-		Image:   image,
-		FullArt: fullArt,
+		//Image:   image,
+		//FullArt: fullArt,
 		Notes:   notes,
 		Owner:   owner,
+		Artist: artist,
 	}
 }
 

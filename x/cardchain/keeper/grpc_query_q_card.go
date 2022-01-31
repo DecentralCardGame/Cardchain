@@ -24,15 +24,16 @@ func (k Keeper) QCard(goCtx context.Context, req *types.QueryQCardRequest) (*typ
 		return nil, sdkerrors.Wrap(sdkerrors.ErrUnknownRequest, "could not parse cardId")
 	}
 
-	card := types.CardNoB64FromCard(k.GetCard(ctx, cardId))
+	card := k.GetCard(ctx, cardId)
 	if &card == nil {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrUnknownRequest, "cardId does not represent a card")
 	}
 
 	return &types.QueryQCardResponse{
 		Owner:              card.Owner,
-		Content:            card.Content,
-		Image:              card.Image,
+		Artist:							card.Artist,
+		Content:            string(card.Content),
+		Image:              string(card.Image),
 		Notes:              card.Notes,
 		FullArt:            card.FullArt,
 		Status:             card.Status,

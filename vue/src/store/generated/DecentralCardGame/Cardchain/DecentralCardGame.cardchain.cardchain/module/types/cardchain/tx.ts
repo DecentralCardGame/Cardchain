@@ -33,10 +33,13 @@ export interface MsgSaveCardContent {
   creator: string;
   cardId: number;
   content: Uint8Array;
-  image: Uint8Array;
-  fullArt: string;
+  /**
+   * bytes image = 4;
+   *  string fullArt = 5;
+   */
   notes: string;
   owner: string;
+  artist: string;
 }
 
 export interface MsgSaveCardContentResponse {}
@@ -479,9 +482,9 @@ export const MsgVoteCardResponse = {
 const baseMsgSaveCardContent: object = {
   creator: "",
   cardId: 0,
-  fullArt: "",
   notes: "",
   owner: "",
+  artist: "",
 };
 
 export const MsgSaveCardContent = {
@@ -498,17 +501,14 @@ export const MsgSaveCardContent = {
     if (message.content.length !== 0) {
       writer.uint32(26).bytes(message.content);
     }
-    if (message.image.length !== 0) {
-      writer.uint32(34).bytes(message.image);
-    }
-    if (message.fullArt !== "") {
-      writer.uint32(42).string(message.fullArt);
-    }
     if (message.notes !== "") {
-      writer.uint32(50).string(message.notes);
+      writer.uint32(34).string(message.notes);
     }
     if (message.owner !== "") {
-      writer.uint32(58).string(message.owner);
+      writer.uint32(42).string(message.owner);
+    }
+    if (message.artist !== "") {
+      writer.uint32(50).string(message.artist);
     }
     return writer;
   },
@@ -530,16 +530,13 @@ export const MsgSaveCardContent = {
           message.content = reader.bytes();
           break;
         case 4:
-          message.image = reader.bytes();
-          break;
-        case 5:
-          message.fullArt = reader.string();
-          break;
-        case 6:
           message.notes = reader.string();
           break;
-        case 7:
+        case 5:
           message.owner = reader.string();
+          break;
+        case 6:
+          message.artist = reader.string();
           break;
         default:
           reader.skipType(tag & 7);
@@ -564,14 +561,6 @@ export const MsgSaveCardContent = {
     if (object.content !== undefined && object.content !== null) {
       message.content = bytesFromBase64(object.content);
     }
-    if (object.image !== undefined && object.image !== null) {
-      message.image = bytesFromBase64(object.image);
-    }
-    if (object.fullArt !== undefined && object.fullArt !== null) {
-      message.fullArt = String(object.fullArt);
-    } else {
-      message.fullArt = "";
-    }
     if (object.notes !== undefined && object.notes !== null) {
       message.notes = String(object.notes);
     } else {
@@ -581,6 +570,11 @@ export const MsgSaveCardContent = {
       message.owner = String(object.owner);
     } else {
       message.owner = "";
+    }
+    if (object.artist !== undefined && object.artist !== null) {
+      message.artist = String(object.artist);
+    } else {
+      message.artist = "";
     }
     return message;
   },
@@ -593,13 +587,9 @@ export const MsgSaveCardContent = {
       (obj.content = base64FromBytes(
         message.content !== undefined ? message.content : new Uint8Array()
       ));
-    message.image !== undefined &&
-      (obj.image = base64FromBytes(
-        message.image !== undefined ? message.image : new Uint8Array()
-      ));
-    message.fullArt !== undefined && (obj.fullArt = message.fullArt);
     message.notes !== undefined && (obj.notes = message.notes);
     message.owner !== undefined && (obj.owner = message.owner);
+    message.artist !== undefined && (obj.artist = message.artist);
     return obj;
   },
 
@@ -620,16 +610,6 @@ export const MsgSaveCardContent = {
     } else {
       message.content = new Uint8Array();
     }
-    if (object.image !== undefined && object.image !== null) {
-      message.image = object.image;
-    } else {
-      message.image = new Uint8Array();
-    }
-    if (object.fullArt !== undefined && object.fullArt !== null) {
-      message.fullArt = object.fullArt;
-    } else {
-      message.fullArt = "";
-    }
     if (object.notes !== undefined && object.notes !== null) {
       message.notes = object.notes;
     } else {
@@ -639,6 +619,11 @@ export const MsgSaveCardContent = {
       message.owner = object.owner;
     } else {
       message.owner = "";
+    }
+    if (object.artist !== undefined && object.artist !== null) {
+      message.artist = object.artist;
+    } else {
+      message.artist = "";
     }
     return message;
   },

@@ -11892,6 +11892,8 @@ paths:
                 type: string
               content:
                 type: string
+              artist:
+                type: string
               image:
                 type: string
               fullArt:
@@ -20209,6 +20211,8 @@ definitions:
       owner:
         type: string
       content:
+        type: string
+      artist:
         type: string
       image:
         type: string

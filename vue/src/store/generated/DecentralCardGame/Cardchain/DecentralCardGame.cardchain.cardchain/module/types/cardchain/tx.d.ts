@@ -26,10 +26,13 @@ export interface MsgSaveCardContent {
     creator: string;
     cardId: number;
     content: Uint8Array;
-    image: Uint8Array;
-    fullArt: string;
+    /**
+     * bytes image = 4;
+     *  string fullArt = 5;
+     */
     notes: string;
     owner: string;
+    artist: string;
 }
 export interface MsgSaveCardContentResponse {
 }

@@ -21,6 +21,7 @@ export interface CardchainQueryQCardContentResponse {
 export interface CardchainQueryQCardResponse {
     owner?: string;
     content?: string;
+    artist?: string;
     image?: string;
     fullArt?: string;
     notes?: string;

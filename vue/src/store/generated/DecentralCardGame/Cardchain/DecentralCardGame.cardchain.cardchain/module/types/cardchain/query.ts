@@ -23,6 +23,7 @@ export interface QueryQCardRequest {
 export interface QueryQCardResponse {
   owner: string;
   content: string;
+  artist: string;
   image: string;
   fullArt: string;
   notes: string;
@@ -246,6 +247,7 @@ export const QueryQCardRequest = {
 const baseQueryQCardResponse: object = {
   owner: "",
   content: "",
+  artist: "",
   image: "",
   fullArt: "",
   notes: "",
@@ -269,35 +271,38 @@ export const QueryQCardResponse = {
     if (message.content !== "") {
       writer.uint32(18).string(message.content);
     }
+    if (message.artist !== "") {
+      writer.uint32(26).string(message.artist);
+    }
     if (message.image !== "") {
-      writer.uint32(26).string(message.image);
+      writer.uint32(34).string(message.image);
     }
     if (message.fullArt !== "") {
-      writer.uint32(34).string(message.fullArt);
+      writer.uint32(42).string(message.fullArt);
     }
     if (message.notes !== "") {
-      writer.uint32(42).string(message.notes);
+      writer.uint32(50).string(message.notes);
     }
     if (message.status !== "") {
-      writer.uint32(50).string(message.status);
+      writer.uint32(58).string(message.status);
     }
     if (message.votePool !== "") {
-      writer.uint32(58).string(message.votePool);
+      writer.uint32(66).string(message.votePool);
     }
     if (message.fairEnoughVotes !== 0) {
-      writer.uint32(64).uint64(message.fairEnoughVotes);
+      writer.uint32(72).uint64(message.fairEnoughVotes);
     }
     if (message.overpoweredVotes !== 0) {
-      writer.uint32(72).uint64(message.overpoweredVotes);
+      writer.uint32(80).uint64(message.overpoweredVotes);
     }
     if (message.underpoweredVotes !== 0) {
-      writer.uint32(80).uint64(message.underpoweredVotes);
+      writer.uint32(88).uint64(message.underpoweredVotes);
     }
     if (message.inappropriateVotes !== 0) {
-      writer.uint32(88).uint64(message.inappropriateVotes);
+      writer.uint32(96).uint64(message.inappropriateVotes);
     }
     if (message.nerflevel !== 0) {
-      writer.uint32(96).int64(message.nerflevel);
+      writer.uint32(104).int64(message.nerflevel);
     }
     return writer;
   },
@@ -316,33 +321,36 @@ export const QueryQCardResponse = {
           message.content = reader.string();
           break;
         case 3:
-          message.image = reader.string();
+          message.artist = reader.string();
           break;
         case 4:
-          message.fullArt = reader.string();
+          message.image = reader.string();
           break;
         case 5:
-          message.notes = reader.string();
+          message.fullArt = reader.string();
           break;
         case 6:
-          message.status = reader.string();
+          message.notes = reader.string();
           break;
         case 7:
-          message.votePool = reader.string();
+          message.status = reader.string();
           break;
         case 8:
-          message.fairEnoughVotes = longToNumber(reader.uint64() as Long);
+          message.votePool = reader.string();
           break;
         case 9:
-          message.overpoweredVotes = longToNumber(reader.uint64() as Long);
+          message.fairEnoughVotes = longToNumber(reader.uint64() as Long);
           break;
         case 10:
-          message.underpoweredVotes = longToNumber(reader.uint64() as Long);
+          message.overpoweredVotes = longToNumber(reader.uint64() as Long);
           break;
         case 11:
-          message.inappropriateVotes = longToNumber(reader.uint64() as Long);
+          message.underpoweredVotes = longToNumber(reader.uint64() as Long);
           break;
         case 12:
+          message.inappropriateVotes = longToNumber(reader.uint64() as Long);
+          break;
+        case 13:
           message.nerflevel = longToNumber(reader.int64() as Long);
           break;
         default:
@@ -364,6 +372,11 @@ export const QueryQCardResponse = {
       message.content = String(object.content);
     } else {
       message.content = "";
+    }
+    if (object.artist !== undefined && object.artist !== null) {
+      message.artist = String(object.artist);
+    } else {
+      message.artist = "";
     }
     if (object.image !== undefined && object.image !== null) {
       message.image = String(object.image);
@@ -434,6 +447,7 @@ export const QueryQCardResponse = {
     const obj: any = {};
     message.owner !== undefined && (obj.owner = message.owner);
     message.content !== undefined && (obj.content = message.content);
+    message.artist !== undefined && (obj.artist = message.artist);
     message.image !== undefined && (obj.image = message.image);
     message.fullArt !== undefined && (obj.fullArt = message.fullArt);
     message.notes !== undefined && (obj.notes = message.notes);
@@ -462,6 +476,11 @@ export const QueryQCardResponse = {
       message.content = object.content;
     } else {
       message.content = "";
+    }
+    if (object.artist !== undefined && object.artist !== null) {
+      message.artist = object.artist;
+    } else {
+      message.artist = "";
     }
     if (object.image !== undefined && object.image !== null) {
       message.image = object.image;
