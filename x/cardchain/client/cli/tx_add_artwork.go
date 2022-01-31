@@ -1,11 +1,9 @@
 package cli
 
 import (
-	"encoding/json"
 	"strconv"
 
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
-	"github.com/DecentralCardGame/cardobject/keywords"
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/flags"
 	"github.com/cosmos/cosmos-sdk/client/tx"
@@ -15,45 +13,32 @@ import (
 
 var _ = strconv.Itoa(0)
 
-func CmdSaveCardContent() *cobra.Command {
+func CmdAddArtwork() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "save-card-content [card-id] [content] [notes] [owner] [artist]",
-		Short: "Broadcast message SaveCardContent",
-		Args:  cobra.ExactArgs(5),
+		Use:   "add-artwork [card-id] [image] [full-art]",
+		Short: "Broadcast message AddArtwork",
+		Args:  cobra.ExactArgs(3),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
 			argCardId, err := cast.ToUint64E(args[0])
 			if err != nil {
 				return err
 			}
-
-			cardobj, err := keywords.Unmarshal([]byte(args[1]))
+			argImage := []byte(args[1])
+			argFullArt, err := cast.ToBoolE(args[2])
 			if err != nil {
 				return err
 			}
-
-			cardbytes, err := json.Marshal(cardobj)
-			if err != nil {
-				return err
-			}
-
-			argNotes := args[2]
-			argOwner := args[3]
-			argArtist := args[4]
 
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
 				return err
 			}
 
-			msg := types.NewMsgSaveCardContent(
+			msg := types.NewMsgAddArtwork(
 				clientCtx.GetFromAddress().String(),
 				argCardId,
-				cardbytes,
-				// argImage,
-				// argFullArt,
-				argNotes,
-				argOwner,
-				argArtist,
+				argImage,
+				argFullArt,
 			)
 			if err := msg.ValidateBasic(); err != nil {
 				return err

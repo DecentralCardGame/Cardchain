@@ -398,9 +398,9 @@ export const MsgVoteCardResponse = {
 const baseMsgSaveCardContent = {
     creator: "",
     cardId: 0,
-    fullArt: "",
     notes: "",
     owner: "",
+    artist: "",
 };
 export const MsgSaveCardContent = {
     encode(message, writer = Writer.create()) {
@@ -413,17 +413,14 @@ export const MsgSaveCardContent = {
         if (message.content.length !== 0) {
             writer.uint32(26).bytes(message.content);
         }
-        if (message.image.length !== 0) {
-            writer.uint32(34).bytes(message.image);
-        }
-        if (message.fullArt !== "") {
-            writer.uint32(42).string(message.fullArt);
-        }
         if (message.notes !== "") {
-            writer.uint32(50).string(message.notes);
+            writer.uint32(34).string(message.notes);
         }
         if (message.owner !== "") {
-            writer.uint32(58).string(message.owner);
+            writer.uint32(42).string(message.owner);
+        }
+        if (message.artist !== "") {
+            writer.uint32(50).string(message.artist);
         }
         return writer;
     },
@@ -444,16 +441,13 @@ export const MsgSaveCardContent = {
                     message.content = reader.bytes();
                     break;
                 case 4:
-                    message.image = reader.bytes();
-                    break;
-                case 5:
-                    message.fullArt = reader.string();
-                    break;
-                case 6:
                     message.notes = reader.string();
                     break;
-                case 7:
+                case 5:
                     message.owner = reader.string();
+                    break;
+                case 6:
+                    message.artist = reader.string();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -479,15 +473,6 @@ export const MsgSaveCardContent = {
         if (object.content !== undefined && object.content !== null) {
             message.content = bytesFromBase64(object.content);
         }
-        if (object.image !== undefined && object.image !== null) {
-            message.image = bytesFromBase64(object.image);
-        }
-        if (object.fullArt !== undefined && object.fullArt !== null) {
-            message.fullArt = String(object.fullArt);
-        }
-        else {
-            message.fullArt = "";
-        }
         if (object.notes !== undefined && object.notes !== null) {
             message.notes = String(object.notes);
         }
@@ -500,6 +485,12 @@ export const MsgSaveCardContent = {
         else {
             message.owner = "";
         }
+        if (object.artist !== undefined && object.artist !== null) {
+            message.artist = String(object.artist);
+        }
+        else {
+            message.artist = "";
+        }
         return message;
     },
     toJSON(message) {
@@ -508,11 +499,9 @@ export const MsgSaveCardContent = {
         message.cardId !== undefined && (obj.cardId = message.cardId);
         message.content !== undefined &&
             (obj.content = base64FromBytes(message.content !== undefined ? message.content : new Uint8Array()));
-        message.image !== undefined &&
-            (obj.image = base64FromBytes(message.image !== undefined ? message.image : new Uint8Array()));
-        message.fullArt !== undefined && (obj.fullArt = message.fullArt);
         message.notes !== undefined && (obj.notes = message.notes);
         message.owner !== undefined && (obj.owner = message.owner);
+        message.artist !== undefined && (obj.artist = message.artist);
         return obj;
     },
     fromPartial(object) {
@@ -535,18 +524,6 @@ export const MsgSaveCardContent = {
         else {
             message.content = new Uint8Array();
         }
-        if (object.image !== undefined && object.image !== null) {
-            message.image = object.image;
-        }
-        else {
-            message.image = new Uint8Array();
-        }
-        if (object.fullArt !== undefined && object.fullArt !== null) {
-            message.fullArt = object.fullArt;
-        }
-        else {
-            message.fullArt = "";
-        }
         if (object.notes !== undefined && object.notes !== null) {
             message.notes = object.notes;
         }
@@ -558,6 +535,12 @@ export const MsgSaveCardContent = {
         }
         else {
             message.owner = "";
+        }
+        if (object.artist !== undefined && object.artist !== null) {
+            message.artist = object.artist;
+        }
+        else {
+            message.artist = "";
         }
         return message;
     },
@@ -902,6 +885,144 @@ export const MsgDonateToCardResponse = {
         return message;
     },
 };
+const baseMsgAddArtwork = { creator: "", cardId: 0, fullArt: false };
+export const MsgAddArtwork = {
+    encode(message, writer = Writer.create()) {
+        if (message.creator !== "") {
+            writer.uint32(10).string(message.creator);
+        }
+        if (message.cardId !== 0) {
+            writer.uint32(16).uint64(message.cardId);
+        }
+        if (message.image.length !== 0) {
+            writer.uint32(26).bytes(message.image);
+        }
+        if (message.fullArt === true) {
+            writer.uint32(32).bool(message.fullArt);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = { ...baseMsgAddArtwork };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.creator = reader.string();
+                    break;
+                case 2:
+                    message.cardId = longToNumber(reader.uint64());
+                    break;
+                case 3:
+                    message.image = reader.bytes();
+                    break;
+                case 4:
+                    message.fullArt = reader.bool();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = { ...baseMsgAddArtwork };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = String(object.creator);
+        }
+        else {
+            message.creator = "";
+        }
+        if (object.cardId !== undefined && object.cardId !== null) {
+            message.cardId = Number(object.cardId);
+        }
+        else {
+            message.cardId = 0;
+        }
+        if (object.image !== undefined && object.image !== null) {
+            message.image = bytesFromBase64(object.image);
+        }
+        if (object.fullArt !== undefined && object.fullArt !== null) {
+            message.fullArt = Boolean(object.fullArt);
+        }
+        else {
+            message.fullArt = false;
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.creator !== undefined && (obj.creator = message.creator);
+        message.cardId !== undefined && (obj.cardId = message.cardId);
+        message.image !== undefined &&
+            (obj.image = base64FromBytes(message.image !== undefined ? message.image : new Uint8Array()));
+        message.fullArt !== undefined && (obj.fullArt = message.fullArt);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = { ...baseMsgAddArtwork };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = object.creator;
+        }
+        else {
+            message.creator = "";
+        }
+        if (object.cardId !== undefined && object.cardId !== null) {
+            message.cardId = object.cardId;
+        }
+        else {
+            message.cardId = 0;
+        }
+        if (object.image !== undefined && object.image !== null) {
+            message.image = object.image;
+        }
+        else {
+            message.image = new Uint8Array();
+        }
+        if (object.fullArt !== undefined && object.fullArt !== null) {
+            message.fullArt = object.fullArt;
+        }
+        else {
+            message.fullArt = false;
+        }
+        return message;
+    },
+};
+const baseMsgAddArtworkResponse = {};
+export const MsgAddArtworkResponse = {
+    encode(_, writer = Writer.create()) {
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = { ...baseMsgAddArtworkResponse };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(_) {
+        const message = { ...baseMsgAddArtworkResponse };
+        return message;
+    },
+    toJSON(_) {
+        const obj = {};
+        return obj;
+    },
+    fromPartial(_) {
+        const message = { ...baseMsgAddArtworkResponse };
+        return message;
+    },
+};
 export class MsgClientImpl {
     constructor(rpc) {
         this.rpc = rpc;
@@ -935,6 +1056,11 @@ export class MsgClientImpl {
         const data = MsgDonateToCard.encode(request).finish();
         const promise = this.rpc.request("DecentralCardGame.cardchain.cardchain.Msg", "DonateToCard", data);
         return promise.then((data) => MsgDonateToCardResponse.decode(new Reader(data)));
+    }
+    AddArtwork(request) {
+        const data = MsgAddArtwork.encode(request).finish();
+        const promise = this.rpc.request("DecentralCardGame.cardchain.cardchain.Msg", "AddArtwork", data);
+        return promise.then((data) => MsgAddArtworkResponse.decode(new Reader(data)));
     }
 }
 var globalThis = (() => {

@@ -5,7 +5,7 @@ export interface CardNoB64 {
     content: string;
     image: string;
     notes: string;
-    fullArt: string;
+    fullArt: boolean;
     status: string;
     votePool: string;
     fairEnoughVotes: number;

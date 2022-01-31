@@ -2,9 +2,10 @@ import { Writer, Reader } from "protobufjs/minimal";
 export declare const protobufPackage = "DecentralCardGame.cardchain.cardchain";
 export interface Card {
     owner: string;
+    artist: string;
     content: Uint8Array;
     image: Uint8Array;
-    fullArt: string;
+    fullArt: boolean;
     notes: string;
     status: string;
     votePool: string;

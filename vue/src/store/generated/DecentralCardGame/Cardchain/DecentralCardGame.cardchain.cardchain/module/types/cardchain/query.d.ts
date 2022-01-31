@@ -17,8 +17,9 @@ export interface QueryQCardRequest {
 export interface QueryQCardResponse {
     owner: string;
     content: string;
+    artist: string;
     image: string;
-    fullArt: string;
+    fullArt: boolean;
     notes: string;
     status: string;
     votePool: string;

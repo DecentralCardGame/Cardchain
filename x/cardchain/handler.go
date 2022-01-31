@@ -20,7 +20,8 @@ func NewHandler(k keeper.Keeper) sdk.Handler {
 		// case *types.MsgCreateuser:  // Default handeling
 		// 	res, err := msgServer.Createuser(sdk.WrapSDKContext(ctx), msg)
 		// 	return sdk.WrapServiceResult(ctx, res, err)
-		// this line is used by starport scaffolding # 1
+		case *types.MsgAddArtwork:
+			return handleMsgAddArtwork(ctx, k, msg)
 		case *types.MsgBuyCardScheme:
 			return handleMsgBuyCardScheme(ctx, k, msg)
 		case *types.MsgVoteCard:
@@ -33,11 +34,27 @@ func NewHandler(k keeper.Keeper) sdk.Handler {
 			return handleMsgDonateToCard(ctx, k, msg)
 		case *types.MsgCreateuser:
 			return handleMsgCreateUser(ctx, k, msg)
+			// this line is used by starport scaffolding # 1
 		default:
 			errMsg := fmt.Sprintf("unrecognized %s message type: %T", types.ModuleName, msg)
 			return nil, sdkerrors.Wrap(sdkerrors.ErrUnknownRequest, errMsg)
 		}
 	}
+}
+
+func handleMsgAddArtwork(ctx sdk.Context, keeper keeper.Keeper, msg *types.MsgAddArtwork) (*sdk.Result, error) {
+	card := keeper.GetCard(ctx, msg.CardId)
+
+	if card.Artist != msg.Creator {
+		return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "Incorrect Artist")
+	}
+
+	card.FullArt = msg.FullArt
+	card.Image = msg.Image
+
+	keeper.SetCard(ctx, msg.CardId, card)
+
+	return &sdk.Result{}, nil
 }
 
 func handleMsgDonateToCard(ctx sdk.Context, keeper keeper.Keeper, msg *types.MsgDonateToCard) (*sdk.Result, error) {
@@ -112,10 +129,11 @@ func handleMsgSaveCardContent(ctx sdk.Context, keeper keeper.Keeper, msg *types.
 	card.VotePool.Add(sdk.NewInt64Coin("credits", 10))
 
 	card.Content = []byte(msg.Content)
-	card.Image = []byte(msg.Image)
+	// card.Image = []byte(msg.Image)
 	card.Status = "prototype"
 	card.Notes = msg.Notes
-	card.FullArt = msg.FullArt
+	card.Artist = msg.Artist
+	// card.FullArt = msg.FullArt
 	keeper.SetCard(ctx, msg.CardId, card)
 	keeper.TransferSchemeToCard(ctx, msg.CardId, msgOwner)
 

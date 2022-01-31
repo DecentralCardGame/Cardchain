@@ -9,6 +9,8 @@
  * ---------------------------------------------------------------
  */
 
+export type CardchainMsgAddArtworkResponse = object;
+
 export type CardchainMsgBuyCardSchemeResponse = object;
 
 export type CardchainMsgCreateuserResponse = object;
@@ -41,8 +43,9 @@ export interface CardchainQueryQCardContentResponse {
 export interface CardchainQueryQCardResponse {
   owner?: string;
   content?: string;
+  artist?: string;
   image?: string;
-  fullArt?: string;
+  fullArt?: boolean;
   notes?: string;
   status?: string;
   votePool?: string;
