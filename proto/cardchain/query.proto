@@ -73,7 +73,7 @@ message QueryQCardResponse {
   string content = 2;
   string artist = 3;
   string image = 4;
-  string fullArt = 5;
+  bool fullArt = 5;
   string notes = 6;
   string status = 7;
   string votePool = 8 [(gogoproto.nullable) = false, (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Coin"];;

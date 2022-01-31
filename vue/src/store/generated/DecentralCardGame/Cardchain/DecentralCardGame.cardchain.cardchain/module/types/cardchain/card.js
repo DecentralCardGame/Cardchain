@@ -5,7 +5,7 @@ export const protobufPackage = "DecentralCardGame.cardchain.cardchain";
 const baseCard = {
     owner: "",
     artist: "",
-    fullArt: "",
+    fullArt: false,
     notes: "",
     status: "",
     votePool: "",
@@ -29,8 +29,8 @@ export const Card = {
         if (message.image.length !== 0) {
             writer.uint32(34).bytes(message.image);
         }
-        if (message.fullArt !== "") {
-            writer.uint32(42).string(message.fullArt);
+        if (message.fullArt === true) {
+            writer.uint32(40).bool(message.fullArt);
         }
         if (message.notes !== "") {
             writer.uint32(50).string(message.notes);
@@ -78,7 +78,7 @@ export const Card = {
                     message.image = reader.bytes();
                     break;
                 case 5:
-                    message.fullArt = reader.string();
+                    message.fullArt = reader.bool();
                     break;
                 case 6:
                     message.notes = reader.string();
@@ -132,10 +132,10 @@ export const Card = {
             message.image = bytesFromBase64(object.image);
         }
         if (object.fullArt !== undefined && object.fullArt !== null) {
-            message.fullArt = String(object.fullArt);
+            message.fullArt = Boolean(object.fullArt);
         }
         else {
-            message.fullArt = "";
+            message.fullArt = false;
         }
         if (object.notes !== undefined && object.notes !== null) {
             message.notes = String(object.notes);
@@ -244,7 +244,7 @@ export const Card = {
             message.fullArt = object.fullArt;
         }
         else {
-            message.fullArt = "";
+            message.fullArt = false;
         }
         if (object.notes !== undefined && object.notes !== null) {
             message.notes = object.notes;

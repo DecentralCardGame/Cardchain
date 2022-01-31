@@ -43,7 +43,7 @@ export interface CardchainQueryQCardResponse {
   content?: string;
   artist?: string;
   image?: string;
-  fullArt?: string;
+  fullArt?: boolean;
   notes?: string;
   status?: string;
   votePool?: string;

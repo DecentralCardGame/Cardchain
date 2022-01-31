@@ -11897,7 +11897,7 @@ paths:
               image:
                 type: string
               fullArt:
-                type: string
+                type: boolean
               notes:
                 type: string
               status:
@@ -20217,7 +20217,7 @@ definitions:
       image:
         type: string
       fullArt:
-        type: string
+        type: boolean
       notes:
         type: string
       status:

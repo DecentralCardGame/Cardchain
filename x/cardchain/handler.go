@@ -115,6 +115,7 @@ func handleMsgSaveCardContent(ctx sdk.Context, keeper keeper.Keeper, msg *types.
 	// card.Image = []byte(msg.Image)
 	card.Status = "prototype"
 	card.Notes = msg.Notes
+	card.Artist = msg.Artist
 	// card.FullArt = msg.FullArt
 	keeper.SetCard(ctx, msg.CardId, card)
 	keeper.TransferSchemeToCard(ctx, msg.CardId, msgOwner)

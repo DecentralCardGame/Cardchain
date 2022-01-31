@@ -5,7 +5,7 @@ export interface Card {
     artist: string;
     content: Uint8Array;
     image: Uint8Array;
-    fullArt: string;
+    fullArt: boolean;
     notes: string;
     status: string;
     votePool: string;

@@ -14,8 +14,6 @@ func NewMsgSaveCardContent(creator string, cardId uint64, content []byte, notes 
 		Creator: creator,
 		CardId:  cardId,
 		Content: content,
-		//Image:   image,
-		//FullArt: fullArt,
 		Notes:   notes,
 		Owner:   owner,
 		Artist: artist,

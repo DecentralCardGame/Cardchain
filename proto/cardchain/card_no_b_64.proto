@@ -11,7 +11,7 @@ message CardNoB64 {
   string content = 2;
   string image = 3;
   string notes = 4;
-  string fullArt = 5;
+  bool fullArt = 5;
   string status = 6;
   string votePool = 7 [(gogoproto.nullable) = false, (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Coin"];;
   uint64 fairEnoughVotes = 8;

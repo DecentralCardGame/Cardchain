@@ -9,7 +9,7 @@ export interface CardNoB64 {
   content: string;
   image: string;
   notes: string;
-  fullArt: string;
+  fullArt: boolean;
   status: string;
   votePool: string;
   fairEnoughVotes: number;
@@ -24,7 +24,7 @@ const baseCardNoB64: object = {
   content: "",
   image: "",
   notes: "",
-  fullArt: "",
+  fullArt: false,
   status: "",
   votePool: "",
   fairEnoughVotes: 0,
@@ -48,8 +48,8 @@ export const CardNoB64 = {
     if (message.notes !== "") {
       writer.uint32(34).string(message.notes);
     }
-    if (message.fullArt !== "") {
-      writer.uint32(42).string(message.fullArt);
+    if (message.fullArt === true) {
+      writer.uint32(40).bool(message.fullArt);
     }
     if (message.status !== "") {
       writer.uint32(50).string(message.status);
@@ -95,7 +95,7 @@ export const CardNoB64 = {
           message.notes = reader.string();
           break;
         case 5:
-          message.fullArt = reader.string();
+          message.fullArt = reader.bool();
           break;
         case 6:
           message.status = reader.string();
@@ -149,9 +149,9 @@ export const CardNoB64 = {
       message.notes = "";
     }
     if (object.fullArt !== undefined && object.fullArt !== null) {
-      message.fullArt = String(object.fullArt);
+      message.fullArt = Boolean(object.fullArt);
     } else {
-      message.fullArt = "";
+      message.fullArt = false;
     }
     if (object.status !== undefined && object.status !== null) {
       message.status = String(object.status);
@@ -249,7 +249,7 @@ export const CardNoB64 = {
     if (object.fullArt !== undefined && object.fullArt !== null) {
       message.fullArt = object.fullArt;
     } else {
-      message.fullArt = "";
+      message.fullArt = false;
     }
     if (object.status !== undefined && object.status !== null) {
       message.status = object.status;
