@@ -32,7 +32,7 @@ func NewCard(owner sdk.AccAddress) Card {
 		Content:            []byte{},
 		Image:              []byte{},
 		Notes:              "",
-		FullArt:            false,
+		FullArt:            true,
 		Status:             "scheme",
 		VotePool:           sdk.NewInt64Coin("credits", 0),
 		FairEnoughVotes:    0,

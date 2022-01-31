@@ -52,6 +52,14 @@ export interface MsgDonateToCard {
 }
 export interface MsgDonateToCardResponse {
 }
+export interface MsgAddArtwork {
+    creator: string;
+    cardId: number;
+    image: Uint8Array;
+    fullArt: boolean;
+}
+export interface MsgAddArtworkResponse {
+}
 export declare const MsgCreateuser: {
     encode(message: MsgCreateuser, writer?: Writer): Writer;
     decode(input: Reader | Uint8Array, length?: number): MsgCreateuser;
@@ -136,6 +144,20 @@ export declare const MsgDonateToCardResponse: {
     toJSON(_: MsgDonateToCardResponse): unknown;
     fromPartial(_: DeepPartial<MsgDonateToCardResponse>): MsgDonateToCardResponse;
 };
+export declare const MsgAddArtwork: {
+    encode(message: MsgAddArtwork, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgAddArtwork;
+    fromJSON(object: any): MsgAddArtwork;
+    toJSON(message: MsgAddArtwork): unknown;
+    fromPartial(object: DeepPartial<MsgAddArtwork>): MsgAddArtwork;
+};
+export declare const MsgAddArtworkResponse: {
+    encode(_: MsgAddArtworkResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgAddArtworkResponse;
+    fromJSON(_: any): MsgAddArtworkResponse;
+    toJSON(_: MsgAddArtworkResponse): unknown;
+    fromPartial(_: DeepPartial<MsgAddArtworkResponse>): MsgAddArtworkResponse;
+};
 /** Msg defines the Msg service. */
 export interface Msg {
     Createuser(request: MsgCreateuser): Promise<MsgCreateuserResponse>;
@@ -143,8 +165,9 @@ export interface Msg {
     VoteCard(request: MsgVoteCard): Promise<MsgVoteCardResponse>;
     SaveCardContent(request: MsgSaveCardContent): Promise<MsgSaveCardContentResponse>;
     TransferCard(request: MsgTransferCard): Promise<MsgTransferCardResponse>;
-    /** this line is used by starport scaffolding # proto/tx/rpc */
     DonateToCard(request: MsgDonateToCard): Promise<MsgDonateToCardResponse>;
+    /** this line is used by starport scaffolding # proto/tx/rpc */
+    AddArtwork(request: MsgAddArtwork): Promise<MsgAddArtworkResponse>;
 }
 export declare class MsgClientImpl implements Msg {
     private readonly rpc;
@@ -155,6 +178,7 @@ export declare class MsgClientImpl implements Msg {
     SaveCardContent(request: MsgSaveCardContent): Promise<MsgSaveCardContentResponse>;
     TransferCard(request: MsgTransferCard): Promise<MsgTransferCardResponse>;
     DonateToCard(request: MsgDonateToCard): Promise<MsgDonateToCardResponse>;
+    AddArtwork(request: MsgAddArtwork): Promise<MsgAddArtworkResponse>;
 }
 interface Rpc {
     request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;

@@ -5,8 +5,8 @@ import (
 
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/keeper"
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
-	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/DecentralCardGame/cardobject/keywords"
+	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
 // InitGenesis initializes the capability module's state from a provided genesis
@@ -24,7 +24,7 @@ func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) 
 
 		_, err := keywords.Unmarshal(record.Content)
 		if err != nil {
-			fmt.Println(currId,":")
+			fmt.Println(currId, ":")
 			fmt.Println(err.Error())
 			fmt.Println(string(record.Content))
 			fmt.Println("-----")
@@ -43,10 +43,10 @@ func ExportGenesis(ctx sdk.Context, k keeper.Keeper) *types.GenesisState {
 	records := k.GetAllCards(ctx)
 	users, addresses := k.GetAllUsers(ctx)
 	return &types.GenesisState{
-		Params:						params,
-		CardRecords: 			records,
-		Users: 						users,
-		Addresses: 		    addresses,
-		LastCardSchemeId:	k.GetLastCardSchemeId(ctx),
+		Params:           params,
+		CardRecords:      records,
+		Users:            users,
+		Addresses:        addresses,
+		LastCardSchemeId: k.GetLastCardSchemeId(ctx),
 	}
 }

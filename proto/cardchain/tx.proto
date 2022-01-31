@@ -15,6 +15,7 @@ service Msg {
   rpc SaveCardContent(MsgSaveCardContent) returns (MsgSaveCardContentResponse);
   rpc TransferCard(MsgTransferCard) returns (MsgTransferCardResponse);
   rpc DonateToCard(MsgDonateToCard) returns (MsgDonateToCardResponse);
+  rpc AddArtwork(MsgAddArtwork) returns (MsgAddArtworkResponse);
 // this line is used by starport scaffolding # proto/tx/rpc
 }
 
@@ -78,6 +79,16 @@ message MsgDonateToCard {
 }
 
 message MsgDonateToCardResponse {
+}
+
+message MsgAddArtwork {
+  string creator = 1;
+  uint64 cardId = 2;
+  bytes image = 3;
+  bool fullArt = 4;
+}
+
+message MsgAddArtworkResponse {
 }
 
 // this line is used by starport scaffolding # proto/tx/message

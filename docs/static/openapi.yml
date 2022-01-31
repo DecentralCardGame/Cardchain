@@ -20178,6 +20178,8 @@ definitions:
     description: >-
       MsgCreateVestingAccountResponse defines the Msg/CreateVestingAccount
       response type.
+  DecentralCardGame.cardchain.cardchain.MsgAddArtworkResponse:
+    type: object
   DecentralCardGame.cardchain.cardchain.MsgBuyCardSchemeResponse:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgCreateuserResponse:

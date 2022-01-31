@@ -1,19 +1,19 @@
 package keeper
 
 import (
+	"context"
 	"encoding/binary"
 	"encoding/json"
-	"context"
 	"sort"
 	"strings"
 
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
+	"github.com/DecentralCardGame/cardobject/cardobject"
+	"github.com/DecentralCardGame/cardobject/keywords"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
-	"github.com/DecentralCardGame/cardobject/keywords"
-	"github.com/DecentralCardGame/cardobject/cardobject"
 )
 
 func (k Keeper) QCards(goCtx context.Context, req *types.QueryQCardsRequest) (*types.QueryQCardsResponse, error) {
@@ -26,25 +26,25 @@ func (k Keeper) QCards(goCtx context.Context, req *types.QueryQCardsRequest) (*t
 	var cardsList []uint64
 
 	type Result struct {
-		Id uint64
+		Id    uint64
 		Value string
-		Num int
+		Num   int
 	}
 	var results []Result
 
-	checkName := func (cardName cardobject.CardName) bool {
+	checkName := func(cardName cardobject.CardName) bool {
 		if req.NameContains != "" && !strings.Contains(strings.ToLower(string(cardName)), strings.ToLower(req.NameContains)) {
 			return false
 		}
 		return true
 	}
-	checkAbilities := func (cardAbilities string) bool {
+	checkAbilities := func(cardAbilities string) bool {
 		if strings.Contains(strings.ToLower(cardAbilities), strings.ToLower(req.KeywordsContains)) {
 			return true
 		}
 		return false
 	}
-	checkClasses := func (cardobjClass cardobject.Class) bool {
+	checkClasses := func(cardobjClass cardobject.Class) bool {
 		if strings.Contains(req.Classes, "OR") {
 			if bool(cardobjClass.Mysticism) && strings.Contains(req.Classes, "Mysticism") {
 				return true
@@ -215,19 +215,19 @@ func (k Keeper) QCards(goCtx context.Context, req *types.QueryQCardsRequest) (*t
 		}
 	}
 
-	if req.SortBy	== "Name" {
+	if req.SortBy == "Name" {
 		sort.Slice(results[:], func(i, j int) bool {
 			return results[i].Value < results[j].Value
 		})
-		for _,val := range results {
+		for _, val := range results {
 			cardsList = append(cardsList, val.Id)
 		}
 	}
-	if req.SortBy	== "CastingCost" {
+	if req.SortBy == "CastingCost" {
 		sort.Slice(results[:], func(i, j int) bool {
 			return results[i].Num < results[j].Num
 		})
-		for _,val := range results {
+		for _, val := range results {
 			cardsList = append(cardsList, val.Id)
 		}
 	}

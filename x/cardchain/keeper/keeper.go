@@ -160,7 +160,6 @@ func (k Keeper) GetCardsIterator(ctx sdk.Context) sdk.Iterator {
 	return sdk.KVStorePrefixIterator(store, nil)
 }
 
-
 func (k Keeper) GetAllCards(ctx sdk.Context) []*types.Card {
 	var allCards []*types.Card
 	iterator := k.GetCardsIterator(ctx)

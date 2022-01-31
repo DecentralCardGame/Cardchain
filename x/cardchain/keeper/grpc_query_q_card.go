@@ -31,7 +31,7 @@ func (k Keeper) QCard(goCtx context.Context, req *types.QueryQCardRequest) (*typ
 
 	return &types.QueryQCardResponse{
 		Owner:              card.Owner,
-		Artist:							card.Artist,
+		Artist:             card.Artist,
 		Content:            string(card.Content),
 		Image:              string(card.Image),
 		Notes:              card.Notes,
