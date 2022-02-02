@@ -60,6 +60,14 @@ export interface MsgAddArtwork {
 }
 export interface MsgAddArtworkResponse {
 }
+export interface MsgSubmitCopyrightProposal {
+    creator: string;
+    cardId: number;
+    description: string;
+    link: string;
+}
+export interface MsgSubmitCopyrightProposalResponse {
+}
 export declare const MsgCreateuser: {
     encode(message: MsgCreateuser, writer?: Writer): Writer;
     decode(input: Reader | Uint8Array, length?: number): MsgCreateuser;
@@ -158,6 +166,20 @@ export declare const MsgAddArtworkResponse: {
     toJSON(_: MsgAddArtworkResponse): unknown;
     fromPartial(_: DeepPartial<MsgAddArtworkResponse>): MsgAddArtworkResponse;
 };
+export declare const MsgSubmitCopyrightProposal: {
+    encode(message: MsgSubmitCopyrightProposal, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgSubmitCopyrightProposal;
+    fromJSON(object: any): MsgSubmitCopyrightProposal;
+    toJSON(message: MsgSubmitCopyrightProposal): unknown;
+    fromPartial(object: DeepPartial<MsgSubmitCopyrightProposal>): MsgSubmitCopyrightProposal;
+};
+export declare const MsgSubmitCopyrightProposalResponse: {
+    encode(_: MsgSubmitCopyrightProposalResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgSubmitCopyrightProposalResponse;
+    fromJSON(_: any): MsgSubmitCopyrightProposalResponse;
+    toJSON(_: MsgSubmitCopyrightProposalResponse): unknown;
+    fromPartial(_: DeepPartial<MsgSubmitCopyrightProposalResponse>): MsgSubmitCopyrightProposalResponse;
+};
 /** Msg defines the Msg service. */
 export interface Msg {
     Createuser(request: MsgCreateuser): Promise<MsgCreateuserResponse>;
@@ -166,8 +188,9 @@ export interface Msg {
     SaveCardContent(request: MsgSaveCardContent): Promise<MsgSaveCardContentResponse>;
     TransferCard(request: MsgTransferCard): Promise<MsgTransferCardResponse>;
     DonateToCard(request: MsgDonateToCard): Promise<MsgDonateToCardResponse>;
-    /** this line is used by starport scaffolding # proto/tx/rpc */
     AddArtwork(request: MsgAddArtwork): Promise<MsgAddArtworkResponse>;
+    /** this line is used by starport scaffolding # proto/tx/rpc */
+    SubmitCopyrightProposal(request: MsgSubmitCopyrightProposal): Promise<MsgSubmitCopyrightProposalResponse>;
 }
 export declare class MsgClientImpl implements Msg {
     private readonly rpc;
@@ -179,6 +202,7 @@ export declare class MsgClientImpl implements Msg {
     TransferCard(request: MsgTransferCard): Promise<MsgTransferCardResponse>;
     DonateToCard(request: MsgDonateToCard): Promise<MsgDonateToCardResponse>;
     AddArtwork(request: MsgAddArtwork): Promise<MsgAddArtworkResponse>;
+    SubmitCopyrightProposal(request: MsgSubmitCopyrightProposal): Promise<MsgSubmitCopyrightProposalResponse>;
 }
 interface Rpc {
     request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;

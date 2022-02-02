@@ -20188,6 +20188,8 @@ definitions:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgSaveCardContentResponse:
     type: object
+  DecentralCardGame.cardchain.cardchain.MsgSubmitCopyrightProposalResponse:
+    type: object
   DecentralCardGame.cardchain.cardchain.MsgTransferCardResponse:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgVoteCardResponse:

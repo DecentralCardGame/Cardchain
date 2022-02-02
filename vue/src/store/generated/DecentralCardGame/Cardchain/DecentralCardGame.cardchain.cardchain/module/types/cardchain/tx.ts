@@ -71,6 +71,15 @@ export interface MsgAddArtwork {
 
 export interface MsgAddArtworkResponse {}
 
+export interface MsgSubmitCopyrightProposal {
+  creator: string;
+  cardId: number;
+  description: string;
+  link: string;
+}
+
+export interface MsgSubmitCopyrightProposalResponse {}
+
 const baseMsgCreateuser: object = { creator: "", newUser: "", alias: "" };
 
 export const MsgCreateuser = {
@@ -1149,6 +1158,184 @@ export const MsgAddArtworkResponse = {
   },
 };
 
+const baseMsgSubmitCopyrightProposal: object = {
+  creator: "",
+  cardId: 0,
+  description: "",
+  link: "",
+};
+
+export const MsgSubmitCopyrightProposal = {
+  encode(
+    message: MsgSubmitCopyrightProposal,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.creator !== "") {
+      writer.uint32(10).string(message.creator);
+    }
+    if (message.cardId !== 0) {
+      writer.uint32(16).uint64(message.cardId);
+    }
+    if (message.description !== "") {
+      writer.uint32(26).string(message.description);
+    }
+    if (message.link !== "") {
+      writer.uint32(34).string(message.link);
+    }
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): MsgSubmitCopyrightProposal {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseMsgSubmitCopyrightProposal,
+    } as MsgSubmitCopyrightProposal;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string();
+          break;
+        case 2:
+          message.cardId = longToNumber(reader.uint64() as Long);
+          break;
+        case 3:
+          message.description = reader.string();
+          break;
+        case 4:
+          message.link = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgSubmitCopyrightProposal {
+    const message = {
+      ...baseMsgSubmitCopyrightProposal,
+    } as MsgSubmitCopyrightProposal;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = String(object.creator);
+    } else {
+      message.creator = "";
+    }
+    if (object.cardId !== undefined && object.cardId !== null) {
+      message.cardId = Number(object.cardId);
+    } else {
+      message.cardId = 0;
+    }
+    if (object.description !== undefined && object.description !== null) {
+      message.description = String(object.description);
+    } else {
+      message.description = "";
+    }
+    if (object.link !== undefined && object.link !== null) {
+      message.link = String(object.link);
+    } else {
+      message.link = "";
+    }
+    return message;
+  },
+
+  toJSON(message: MsgSubmitCopyrightProposal): unknown {
+    const obj: any = {};
+    message.creator !== undefined && (obj.creator = message.creator);
+    message.cardId !== undefined && (obj.cardId = message.cardId);
+    message.description !== undefined &&
+      (obj.description = message.description);
+    message.link !== undefined && (obj.link = message.link);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<MsgSubmitCopyrightProposal>
+  ): MsgSubmitCopyrightProposal {
+    const message = {
+      ...baseMsgSubmitCopyrightProposal,
+    } as MsgSubmitCopyrightProposal;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    } else {
+      message.creator = "";
+    }
+    if (object.cardId !== undefined && object.cardId !== null) {
+      message.cardId = object.cardId;
+    } else {
+      message.cardId = 0;
+    }
+    if (object.description !== undefined && object.description !== null) {
+      message.description = object.description;
+    } else {
+      message.description = "";
+    }
+    if (object.link !== undefined && object.link !== null) {
+      message.link = object.link;
+    } else {
+      message.link = "";
+    }
+    return message;
+  },
+};
+
+const baseMsgSubmitCopyrightProposalResponse: object = {};
+
+export const MsgSubmitCopyrightProposalResponse = {
+  encode(
+    _: MsgSubmitCopyrightProposalResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): MsgSubmitCopyrightProposalResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseMsgSubmitCopyrightProposalResponse,
+    } as MsgSubmitCopyrightProposalResponse;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): MsgSubmitCopyrightProposalResponse {
+    const message = {
+      ...baseMsgSubmitCopyrightProposalResponse,
+    } as MsgSubmitCopyrightProposalResponse;
+    return message;
+  },
+
+  toJSON(_: MsgSubmitCopyrightProposalResponse): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial(
+    _: DeepPartial<MsgSubmitCopyrightProposalResponse>
+  ): MsgSubmitCopyrightProposalResponse {
+    const message = {
+      ...baseMsgSubmitCopyrightProposalResponse,
+    } as MsgSubmitCopyrightProposalResponse;
+    return message;
+  },
+};
+
 /** Msg defines the Msg service. */
 export interface Msg {
   Createuser(request: MsgCreateuser): Promise<MsgCreateuserResponse>;
@@ -1159,8 +1346,11 @@ export interface Msg {
   ): Promise<MsgSaveCardContentResponse>;
   TransferCard(request: MsgTransferCard): Promise<MsgTransferCardResponse>;
   DonateToCard(request: MsgDonateToCard): Promise<MsgDonateToCardResponse>;
-  /** this line is used by starport scaffolding # proto/tx/rpc */
   AddArtwork(request: MsgAddArtwork): Promise<MsgAddArtworkResponse>;
+  /** this line is used by starport scaffolding # proto/tx/rpc */
+  SubmitCopyrightProposal(
+    request: MsgSubmitCopyrightProposal
+  ): Promise<MsgSubmitCopyrightProposalResponse>;
 }
 
 export class MsgClientImpl implements Msg {
@@ -1249,6 +1439,20 @@ export class MsgClientImpl implements Msg {
     );
     return promise.then((data) =>
       MsgAddArtworkResponse.decode(new Reader(data))
+    );
+  }
+
+  SubmitCopyrightProposal(
+    request: MsgSubmitCopyrightProposal
+  ): Promise<MsgSubmitCopyrightProposalResponse> {
+    const data = MsgSubmitCopyrightProposal.encode(request).finish();
+    const promise = this.rpc.request(
+      "DecentralCardGame.cardchain.cardchain.Msg",
+      "SubmitCopyrightProposal",
+      data
+    );
+    return promise.then((data) =>
+      MsgSubmitCopyrightProposalResponse.decode(new Reader(data))
     );
   }
 }
