@@ -12,7 +12,7 @@ var _ sdk.Msg = &MsgAddArtwork{}
 func NewMsgAddArtwork(creator string, cardId uint64, image []byte, fullArt bool) *MsgAddArtwork {
 	return &MsgAddArtwork{
 		Creator: creator,
-		CardId: cardId,
+		CardId:  cardId,
 		Image:   image,
 		FullArt: fullArt,
 	}

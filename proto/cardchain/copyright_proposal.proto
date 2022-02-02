@@ -1,0 +1,13 @@
+syntax = "proto3";
+package DecentralCardGame.cardchain.cardchain;
+
+import "gogoproto/gogo.proto";
+
+option go_package = "github.com/DecentralCardGame/Cardchain/x/cardchain/types";
+
+message CopyrightProposal {
+  string title = 1;
+  string description = 2;
+  string link = 3;
+  uint64 cardId = 4;
+}
