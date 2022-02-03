@@ -29,6 +29,10 @@ func (c *CopyrightProposal) ValidateBasic() error {
 	return nil
 }
 
+func init() {
+	govtypes.RegisterProposalType(ProposalTypeCopyright)
+	// govtypes.RegisterProposalTypeCodec(&CopyrightProposal{}, "cosmos-sdk/CopyrightProposal")
+}
 
 func NewUser() User {
 	return User{

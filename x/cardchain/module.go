@@ -55,6 +55,7 @@ func (AppModuleBasic) RegisterLegacyAminoCodec(cdc *codec.LegacyAmino) {
 
 // RegisterInterfaces registers the module's interface types
 func (a AppModuleBasic) RegisterInterfaces(reg cdctypes.InterfaceRegistry) {
+	// reg.RegisterCustomTypeURL(types.CopyrightProposal{}, "DecentralCardGame.cardchain.cardchain.CopyrightProposal", "cardchain/copyright_proposal.proto")
 	types.RegisterInterfaces(reg)
 }
 
