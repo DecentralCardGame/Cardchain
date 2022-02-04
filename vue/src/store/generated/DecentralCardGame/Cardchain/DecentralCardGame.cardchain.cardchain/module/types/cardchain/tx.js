@@ -1181,6 +1181,133 @@ export const MsgSubmitCopyrightProposalResponse = {
         return message;
     },
 };
+const baseMsgChangeArtist = { creator: "", cardID: 0, artist: "" };
+export const MsgChangeArtist = {
+    encode(message, writer = Writer.create()) {
+        if (message.creator !== "") {
+            writer.uint32(10).string(message.creator);
+        }
+        if (message.cardID !== 0) {
+            writer.uint32(16).uint64(message.cardID);
+        }
+        if (message.artist !== "") {
+            writer.uint32(26).string(message.artist);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = { ...baseMsgChangeArtist };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.creator = reader.string();
+                    break;
+                case 2:
+                    message.cardID = longToNumber(reader.uint64());
+                    break;
+                case 3:
+                    message.artist = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = { ...baseMsgChangeArtist };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = String(object.creator);
+        }
+        else {
+            message.creator = "";
+        }
+        if (object.cardID !== undefined && object.cardID !== null) {
+            message.cardID = Number(object.cardID);
+        }
+        else {
+            message.cardID = 0;
+        }
+        if (object.artist !== undefined && object.artist !== null) {
+            message.artist = String(object.artist);
+        }
+        else {
+            message.artist = "";
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.creator !== undefined && (obj.creator = message.creator);
+        message.cardID !== undefined && (obj.cardID = message.cardID);
+        message.artist !== undefined && (obj.artist = message.artist);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = { ...baseMsgChangeArtist };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = object.creator;
+        }
+        else {
+            message.creator = "";
+        }
+        if (object.cardID !== undefined && object.cardID !== null) {
+            message.cardID = object.cardID;
+        }
+        else {
+            message.cardID = 0;
+        }
+        if (object.artist !== undefined && object.artist !== null) {
+            message.artist = object.artist;
+        }
+        else {
+            message.artist = "";
+        }
+        return message;
+    },
+};
+const baseMsgChangeArtistResponse = {};
+export const MsgChangeArtistResponse = {
+    encode(_, writer = Writer.create()) {
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = {
+            ...baseMsgChangeArtistResponse,
+        };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(_) {
+        const message = {
+            ...baseMsgChangeArtistResponse,
+        };
+        return message;
+    },
+    toJSON(_) {
+        const obj = {};
+        return obj;
+    },
+    fromPartial(_) {
+        const message = {
+            ...baseMsgChangeArtistResponse,
+        };
+        return message;
+    },
+};
 export class MsgClientImpl {
     constructor(rpc) {
         this.rpc = rpc;
@@ -1224,6 +1351,11 @@ export class MsgClientImpl {
         const data = MsgSubmitCopyrightProposal.encode(request).finish();
         const promise = this.rpc.request("DecentralCardGame.cardchain.cardchain.Msg", "SubmitCopyrightProposal", data);
         return promise.then((data) => MsgSubmitCopyrightProposalResponse.decode(new Reader(data)));
+    }
+    ChangeArtist(request) {
+        const data = MsgChangeArtist.encode(request).finish();
+        const promise = this.rpc.request("DecentralCardGame.cardchain.cardchain.Msg", "ChangeArtist", data);
+        return promise.then((data) => MsgChangeArtistResponse.decode(new Reader(data)));
     }
 }
 var globalThis = (() => {

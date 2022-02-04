@@ -80,6 +80,14 @@ export interface MsgSubmitCopyrightProposal {
 
 export interface MsgSubmitCopyrightProposalResponse {}
 
+export interface MsgChangeArtist {
+  creator: string;
+  cardID: number;
+  artist: string;
+}
+
+export interface MsgChangeArtistResponse {}
+
 const baseMsgCreateuser: object = { creator: "", newUser: "", alias: "" };
 
 export const MsgCreateuser = {
@@ -1336,6 +1344,141 @@ export const MsgSubmitCopyrightProposalResponse = {
   },
 };
 
+const baseMsgChangeArtist: object = { creator: "", cardID: 0, artist: "" };
+
+export const MsgChangeArtist = {
+  encode(message: MsgChangeArtist, writer: Writer = Writer.create()): Writer {
+    if (message.creator !== "") {
+      writer.uint32(10).string(message.creator);
+    }
+    if (message.cardID !== 0) {
+      writer.uint32(16).uint64(message.cardID);
+    }
+    if (message.artist !== "") {
+      writer.uint32(26).string(message.artist);
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgChangeArtist {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseMsgChangeArtist } as MsgChangeArtist;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string();
+          break;
+        case 2:
+          message.cardID = longToNumber(reader.uint64() as Long);
+          break;
+        case 3:
+          message.artist = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgChangeArtist {
+    const message = { ...baseMsgChangeArtist } as MsgChangeArtist;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = String(object.creator);
+    } else {
+      message.creator = "";
+    }
+    if (object.cardID !== undefined && object.cardID !== null) {
+      message.cardID = Number(object.cardID);
+    } else {
+      message.cardID = 0;
+    }
+    if (object.artist !== undefined && object.artist !== null) {
+      message.artist = String(object.artist);
+    } else {
+      message.artist = "";
+    }
+    return message;
+  },
+
+  toJSON(message: MsgChangeArtist): unknown {
+    const obj: any = {};
+    message.creator !== undefined && (obj.creator = message.creator);
+    message.cardID !== undefined && (obj.cardID = message.cardID);
+    message.artist !== undefined && (obj.artist = message.artist);
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<MsgChangeArtist>): MsgChangeArtist {
+    const message = { ...baseMsgChangeArtist } as MsgChangeArtist;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    } else {
+      message.creator = "";
+    }
+    if (object.cardID !== undefined && object.cardID !== null) {
+      message.cardID = object.cardID;
+    } else {
+      message.cardID = 0;
+    }
+    if (object.artist !== undefined && object.artist !== null) {
+      message.artist = object.artist;
+    } else {
+      message.artist = "";
+    }
+    return message;
+  },
+};
+
+const baseMsgChangeArtistResponse: object = {};
+
+export const MsgChangeArtistResponse = {
+  encode(_: MsgChangeArtistResponse, writer: Writer = Writer.create()): Writer {
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgChangeArtistResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseMsgChangeArtistResponse,
+    } as MsgChangeArtistResponse;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): MsgChangeArtistResponse {
+    const message = {
+      ...baseMsgChangeArtistResponse,
+    } as MsgChangeArtistResponse;
+    return message;
+  },
+
+  toJSON(_: MsgChangeArtistResponse): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial(
+    _: DeepPartial<MsgChangeArtistResponse>
+  ): MsgChangeArtistResponse {
+    const message = {
+      ...baseMsgChangeArtistResponse,
+    } as MsgChangeArtistResponse;
+    return message;
+  },
+};
+
 /** Msg defines the Msg service. */
 export interface Msg {
   Createuser(request: MsgCreateuser): Promise<MsgCreateuserResponse>;
@@ -1347,10 +1490,11 @@ export interface Msg {
   TransferCard(request: MsgTransferCard): Promise<MsgTransferCardResponse>;
   DonateToCard(request: MsgDonateToCard): Promise<MsgDonateToCardResponse>;
   AddArtwork(request: MsgAddArtwork): Promise<MsgAddArtworkResponse>;
-  /** this line is used by starport scaffolding # proto/tx/rpc */
   SubmitCopyrightProposal(
     request: MsgSubmitCopyrightProposal
   ): Promise<MsgSubmitCopyrightProposalResponse>;
+  /** this line is used by starport scaffolding # proto/tx/rpc */
+  ChangeArtist(request: MsgChangeArtist): Promise<MsgChangeArtistResponse>;
 }
 
 export class MsgClientImpl implements Msg {
@@ -1453,6 +1597,18 @@ export class MsgClientImpl implements Msg {
     );
     return promise.then((data) =>
       MsgSubmitCopyrightProposalResponse.decode(new Reader(data))
+    );
+  }
+
+  ChangeArtist(request: MsgChangeArtist): Promise<MsgChangeArtistResponse> {
+    const data = MsgChangeArtist.encode(request).finish();
+    const promise = this.rpc.request(
+      "DecentralCardGame.cardchain.cardchain.Msg",
+      "ChangeArtist",
+      data
+    );
+    return promise.then((data) =>
+      MsgChangeArtistResponse.decode(new Reader(data))
     );
   }
 }

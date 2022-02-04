@@ -7,8 +7,8 @@ import (
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/flags"
 	"github.com/cosmos/cosmos-sdk/client/tx"
-	govtypes "github.com/cosmos/cosmos-sdk/x/gov/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	govtypes "github.com/cosmos/cosmos-sdk/x/gov/types"
 	"github.com/spf13/cast"
 	"github.com/spf13/cobra"
 )
@@ -36,10 +36,10 @@ func CmdSubmitCopyrightProposal() *cobra.Command {
 
 			from := clientCtx.GetFromAddress()
 			proposal := types.CopyrightProposal{
-				Title: "Copyright violation `" + args[0] + "`",
+				Title:       "Copyright violation `" + args[0] + "`",
 				Description: argDescription,
-				Link: argLink,
-				CardId: argCardId,
+				Link:        argLink,
+				CardId:      argCardId,
 			}
 
 			deposit, err := sdk.ParseCoinsNormalized(argDeposit)

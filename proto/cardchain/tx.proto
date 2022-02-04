@@ -17,6 +17,7 @@ service Msg {
   rpc DonateToCard(MsgDonateToCard) returns (MsgDonateToCardResponse);
   rpc AddArtwork(MsgAddArtwork) returns (MsgAddArtworkResponse);
   rpc SubmitCopyrightProposal(MsgSubmitCopyrightProposal) returns (MsgSubmitCopyrightProposalResponse);
+  rpc ChangeArtist(MsgChangeArtist) returns (MsgChangeArtistResponse);
 // this line is used by starport scaffolding # proto/tx/rpc
 }
 
@@ -100,6 +101,15 @@ message MsgSubmitCopyrightProposal {
 }
 
 message MsgSubmitCopyrightProposalResponse {
+}
+
+message MsgChangeArtist {
+  string creator = 1;
+  uint64 cardID = 2;
+  string artist = 3;
+}
+
+message MsgChangeArtistResponse {
 }
 
 // this line is used by starport scaffolding # proto/tx/message

@@ -1,7 +1,7 @@
 package types
 
 import (
-  govtypes "github.com/cosmos/cosmos-sdk/x/gov/types"
+	govtypes "github.com/cosmos/cosmos-sdk/x/gov/types"
 )
 
 // Module name for minting coins

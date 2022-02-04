@@ -1,8 +1,8 @@
 package client
 
 import (
-	govclient "github.com/cosmos/cosmos-sdk/x/gov/client"
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/client/cli"
+	govclient "github.com/cosmos/cosmos-sdk/x/gov/client"
 	//"github.com/cosmos/cosmos-sdk/x/params/client/rest"
 )
 
