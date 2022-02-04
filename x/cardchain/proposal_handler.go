@@ -24,20 +24,13 @@ func NewCopyrightProposalHandler(k keeper.Keeper) govtypes.Handler {
 }
 
 func handleCopyrightProposal(ctx sdk.Context, k keeper.Keeper, p *types.CopyrightProposal) error {
-	// for _, c := range p.Changes {
-	// 	ss, ok := k.GetSubspace(c.Subspace)
-	// 	if !ok {
-	// 		return sdkerrors.Wrap(proposal.ErrUnknownSubspace, c.Subspace)
-	// 	}
-	//
-	// 	k.Logger(ctx).Info(
-	// 		fmt.Sprintf("attempt to set new parameter value; key: %s, value: %s", c.Key, c.Value),
-	// 	)
-	//
-	// 	if err := ss.Update(ctx, []byte(c.Key), []byte(c.Value)); err != nil {
-	// 		return sdkerrors.Wrapf(proposal.ErrSettingParameter, "key: %s, value: %s, err: %s", c.Key, c.Value, err.Error())
-	// 	}
-	// }
+
+	card := k.GetCard(ctx, p.CardId)
+
+	card.Image = []byte{}
+	card.Artist = card.Owner
+
+	k.SetCard(ctx, p.CardId, card)
 
 	return nil
 }
