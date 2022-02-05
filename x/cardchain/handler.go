@@ -73,6 +73,10 @@ func handleMsgAddArtwork(ctx sdk.Context, keeper keeper.Keeper, msg *types.MsgAd
 	card.FullArt = msg.FullArt
 	card.Image = msg.Image
 
+	if card.Status == types.Status_suspended {
+		card.Status = types.Status_permanent
+	}
+
 	keeper.SetCard(ctx, msg.CardId, card)
 
 	return &sdk.Result{}, nil

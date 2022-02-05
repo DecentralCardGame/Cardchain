@@ -29,6 +29,7 @@ func handleCopyrightProposal(ctx sdk.Context, k keeper.Keeper, p *types.Copyrigh
 
 	card.Image = []byte{}
 	card.Artist = card.Owner
+	card.Status = types.Status_suspended
 
 	k.SetCard(ctx, p.CardId, card)
 
