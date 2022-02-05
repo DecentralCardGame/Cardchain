@@ -51,7 +51,7 @@ export interface CardchainQueryQCardResponse {
   image?: string;
   fullArt?: boolean;
   notes?: string;
-  status?: string;
+  status?: CardchaincardchainStatus;
   votePool?: string;
 
   /** @format uint64 */
@@ -140,15 +140,27 @@ export interface CardchainVotingResults {
   notes?: string;
 }
 
-export interface ProtobufAny {
-  "@type"?: string;
+export enum CardchaincardchainStatus {
+  Scheme = "scheme",
+  Prototype = "prototype",
+  Trial = "trial",
+  Permanent = "permanent",
+  Suspended = "suspended",
+  Banned = "banned",
+  BannedSoon = "bannedSoon",
+  BannedVerySoon = "bannedVerySoon",
+  None = "none",
 }
 
-export interface RpcStatus {
+export interface GooglerpcStatus {
   /** @format int32 */
   code?: number;
   message?: string;
   details?: ProtobufAny[];
+}
+
+export interface ProtobufAny {
+  "@type"?: string;
 }
 
 export type QueryParamsType = Record<string | number, any>;
@@ -356,7 +368,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
    * @request GET:/DecentralCardGame/cardchain/cardchain/params
    */
   queryParams = (params: RequestParams = {}) =>
-    this.request<CardchainQueryParamsResponse, RpcStatus>({
+    this.request<CardchainQueryParamsResponse, GooglerpcStatus>({
       path: `/DecentralCardGame/cardchain/cardchain/params`,
       method: "GET",
       format: "json",
@@ -372,7 +384,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
    * @request GET:/DecentralCardGame/cardchain/cardchain/q_card/{cardId}
    */
   queryQCard = (cardId: string, params: RequestParams = {}) =>
-    this.request<CardchainQueryQCardResponse, RpcStatus>({
+    this.request<CardchainQueryQCardResponse, GooglerpcStatus>({
       path: `/DecentralCardGame/cardchain/cardchain/q_card/${cardId}`,
       method: "GET",
       format: "json",
@@ -388,7 +400,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
    * @request GET:/DecentralCardGame/cardchain/cardchain/q_card_content/{cardId}
    */
   queryQCardContent = (cardId: string, params: RequestParams = {}) =>
-    this.request<CardchainQueryQCardContentResponse, RpcStatus>({
+    this.request<CardchainQueryQCardContentResponse, GooglerpcStatus>({
       path: `/DecentralCardGame/cardchain/cardchain/q_card_content/${cardId}`,
       method: "GET",
       format: "json",
@@ -404,7 +416,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
    * @request GET:/DecentralCardGame/cardchain/cardchain/q_cardchain_info
    */
   queryQCardchainInfo = (params: RequestParams = {}) =>
-    this.request<CardchainQueryQCardchainInfoResponse, RpcStatus>({
+    this.request<CardchainQueryQCardchainInfoResponse, GooglerpcStatus>({
       path: `/DecentralCardGame/cardchain/cardchain/q_cardchain_info`,
       method: "GET",
       format: "json",
@@ -421,7 +433,16 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
    */
   queryQCards = (
     owner: string,
-    status: string,
+    status:
+      | "scheme"
+      | "prototype"
+      | "trial"
+      | "permanent"
+      | "suspended"
+      | "banned"
+      | "bannedSoon"
+      | "bannedVerySoon"
+      | "none",
     cardType: string,
     classes: string,
     sortBy: string,
@@ -430,7 +451,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     notesContains: string,
     params: RequestParams = {},
   ) =>
-    this.request<CardchainQueryQCardsResponse, RpcStatus>({
+    this.request<CardchainQueryQCardsResponse, GooglerpcStatus>({
       path: `/DecentralCardGame/cardchain/cardchain/q_cards/${owner}/${status}/${cardType}/${classes}/${sortBy}/${nameContains}/${keywordsContains}/${notesContains}`,
       method: "GET",
       format: "json",
@@ -446,7 +467,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
    * @request GET:/DecentralCardGame/cardchain/cardchain/q_user/{address}
    */
   queryQUser = (address: string, params: RequestParams = {}) =>
-    this.request<CardchainQueryQUserResponse, RpcStatus>({
+    this.request<CardchainQueryQUserResponse, GooglerpcStatus>({
       path: `/DecentralCardGame/cardchain/cardchain/q_user/${address}`,
       method: "GET",
       format: "json",
@@ -462,7 +483,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
    * @request GET:/DecentralCardGame/cardchain/cardchain/q_votable_cards/{address}
    */
   queryQVotableCards = (address: string, params: RequestParams = {}) =>
-    this.request<CardchainQueryQVotableCardsResponse, RpcStatus>({
+    this.request<CardchainQueryQVotableCardsResponse, GooglerpcStatus>({
       path: `/DecentralCardGame/cardchain/cardchain/q_votable_cards/${address}`,
       method: "GET",
       format: "json",
@@ -478,7 +499,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
    * @request GET:/DecentralCardGame/cardchain/cardchain/q_voting_results
    */
   queryQVotingResults = (params: RequestParams = {}) =>
-    this.request<CardchainQueryQVotingResultsResponse, RpcStatus>({
+    this.request<CardchainQueryQVotingResultsResponse, GooglerpcStatus>({
       path: `/DecentralCardGame/cardchain/cardchain/q_voting_results`,
       method: "GET",
       format: "json",

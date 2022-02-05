@@ -30,7 +30,7 @@ func NewCard(owner sdk.AccAddress) Card {
 		Image:              []byte{},
 		Notes:              "",
 		FullArt:            true,
-		Status:             "scheme",
+		Status:             Status_scheme,
 		VotePool:           sdk.NewInt64Coin("credits", 0),
 		FairEnoughVotes:    0,
 		OverpoweredVotes:   0,
@@ -40,22 +40,22 @@ func NewCard(owner sdk.AccAddress) Card {
 	}
 }
 
-func CardNoB64FromCard(card Card) CardNoB64 {
-	return CardNoB64{
-		Owner:              card.Owner,
-		Content:            string(card.Content),
-		Image:              string(card.Image),
-		Notes:              card.Notes,
-		FullArt:            card.FullArt,
-		Status:             card.Status,
-		VotePool:           card.VotePool,
-		FairEnoughVotes:    card.FairEnoughVotes,
-		OverpoweredVotes:   card.OverpoweredVotes,
-		UnderpoweredVotes:  card.UnderpoweredVotes,
-		InappropriateVotes: card.InappropriateVotes,
-		Nerflevel:          card.Nerflevel,
-	}
-}
+// func CardNoB64FromCard(card Card) CardNoB64 {
+// 	return CardNoB64{
+// 		Owner:              card.Owner,
+// 		Content:            string(card.Content),
+// 		Image:              string(card.Image),
+// 		Notes:              card.Notes,
+// 		FullArt:            card.FullArt,
+// 		Status:             card.Status,
+// 		VotePool:           card.VotePool,
+// 		FairEnoughVotes:    card.FairEnoughVotes,
+// 		OverpoweredVotes:   card.OverpoweredVotes,
+// 		UnderpoweredVotes:  card.UnderpoweredVotes,
+// 		InappropriateVotes: card.InappropriateVotes,
+// 		Nerflevel:          card.Nerflevel,
+// 	}
+// }
 
 func (m *Card) GetOwnerAddr() sdk.AccAddress {
 	owner, err := sdk.AccAddressFromBech32(m.GetOwner())

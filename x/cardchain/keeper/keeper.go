@@ -372,7 +372,7 @@ func (k Keeper) GetVoteRightToAllCards(ctx sdk.Context, expireBlock int64) []*ty
 		var gottenCard types.Card
 		k.cdc.MustUnmarshal(cardIterator.Value(), &gottenCard)
 
-		if gottenCard.Status == "permanent" || gottenCard.Status == "trial" || gottenCard.Status == "prototype" {
+		if gottenCard.Status == types.Status_permanent || gottenCard.Status == types.Status_trial || gottenCard.Status == types.Status_prototype {
 			right := types.NewVoteRight(binary.BigEndian.Uint64(cardIterator.Key()), expireBlock)
 			votingRights = append(votingRights, &right)
 		}
@@ -458,7 +458,7 @@ func (k Keeper) UpdateBanStatus(ctx sdk.Context, newBannedIds []uint64) {
 		var gottenCard types.Card
 		k.cdc.MustUnmarshal(iterator.Value(), &gottenCard)
 
-		if gottenCard.Status == "bannedVerySoon" {
+		if gottenCard.Status == types.Status_bannedVerySoon {
 			address, _ := sdk.AccAddressFromBech32(gottenCard.Owner)
 
 			// remove the card from the Cards store
@@ -477,8 +477,8 @@ func (k Keeper) UpdateBanStatus(ctx sdk.Context, newBannedIds []uint64) {
 			} else {
 				fmt.Println("trying to delete card id:", binary.BigEndian.Uint64(iterator.Key()), " of owner", address, " but does not exist")
 			}
-		} else if gottenCard.Status == "bannedSoon" {
-			gottenCard.Status = "bannedVerySoon"
+		} else if gottenCard.Status == types.Status_bannedSoon {
+			gottenCard.Status = types.Status_bannedVerySoon
 			cardsStore.Set(iterator.Key(), k.cdc.MustMarshal(&gottenCard))
 		}
 	}

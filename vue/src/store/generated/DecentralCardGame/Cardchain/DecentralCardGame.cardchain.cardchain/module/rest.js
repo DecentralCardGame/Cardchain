@@ -8,6 +8,18 @@
  * ## SOURCE: https://github.com/acacode/swagger-typescript-api ##
  * ---------------------------------------------------------------
  */
+export var CardchaincardchainStatus;
+(function (CardchaincardchainStatus) {
+    CardchaincardchainStatus["Scheme"] = "scheme";
+    CardchaincardchainStatus["Prototype"] = "prototype";
+    CardchaincardchainStatus["Trial"] = "trial";
+    CardchaincardchainStatus["Permanent"] = "permanent";
+    CardchaincardchainStatus["Suspended"] = "suspended";
+    CardchaincardchainStatus["Banned"] = "banned";
+    CardchaincardchainStatus["BannedSoon"] = "bannedSoon";
+    CardchaincardchainStatus["BannedVerySoon"] = "bannedVerySoon";
+    CardchaincardchainStatus["None"] = "none";
+})(CardchaincardchainStatus || (CardchaincardchainStatus = {}));
 export var ContentType;
 (function (ContentType) {
     ContentType["Json"] = "application/json";

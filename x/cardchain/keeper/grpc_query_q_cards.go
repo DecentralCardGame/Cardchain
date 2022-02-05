@@ -83,11 +83,11 @@ func (k Keeper) QCards(goCtx context.Context, req *types.QueryQCardsRequest) (*t
 		k.cdc.MustUnmarshal(iterator.Value(), &gottenCard)
 
 		// first skip all cards with irrelevant status
-		if gottenCard.Status == "" || gottenCard.Status == "scheme" {
+		if gottenCard.Status == types.Status_none || gottenCard.Status == types.Status_scheme {
 			continue
 		}
 		// then check if a status constrain was given and skip the card if it has the wrong status
-		if req.Status != "" {
+		if req.Status != types.Status_none {
 			if gottenCard.Status != req.Status {
 				continue
 			}

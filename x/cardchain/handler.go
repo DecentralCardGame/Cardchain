@@ -151,7 +151,7 @@ func handleMsgSaveCardContent(ctx sdk.Context, keeper keeper.Keeper, msg *types.
 
 	card.Content = []byte(msg.Content)
 	// card.Image = []byte(msg.Image)
-	card.Status = "prototype"
+	card.Status = types.Status_prototype
 	card.Notes = msg.Notes
 	card.Artist = msg.Artist
 	// card.FullArt = msg.FullArt
@@ -185,7 +185,7 @@ func handleMsgVoteCard(ctx sdk.Context, keeper keeper.Keeper, msg *types.MsgVote
 	card := keeper.GetCard(ctx, msg.CardId)
 
 	// check if card status is valid // TODO remove prototype as soon as the council exists
-	if card.Status != "permanent" && card.Status != "trial" && card.Status != "prototype" {
+	if card.Status != types.Status_permanent && card.Status != types.Status_trial && card.Status != types.Status_prototype {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrUnknownRequest, "Voting on a card is only possible if it is in trial or a permanent card")
 	}
 

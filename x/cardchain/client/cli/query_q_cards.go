@@ -18,7 +18,12 @@ func CmdQCards() *cobra.Command {
 		Args:  cobra.ExactArgs(8),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
 			reqOwner := args[0]
-			reqStatus := args[1]
+			var reqStatus types.Status
+			if args[1] == "" {
+				reqStatus = types.Status_none
+			} else {
+				reqStatus = types.Status(types.Status_value[args[1]])
+		 	}
 			reqCardType := args[2]
 			reqClasses := args[3]
 			reqSortBy := args[4]
