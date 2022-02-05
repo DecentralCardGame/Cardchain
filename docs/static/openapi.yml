@@ -20182,11 +20182,15 @@ definitions:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgBuyCardSchemeResponse:
     type: object
+  DecentralCardGame.cardchain.cardchain.MsgChangeArtistResponse:
+    type: object
   DecentralCardGame.cardchain.cardchain.MsgCreateuserResponse:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgDonateToCardResponse:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgSaveCardContentResponse:
+    type: object
+  DecentralCardGame.cardchain.cardchain.MsgSubmitCopyrightProposalResponse:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgTransferCardResponse:
     type: object

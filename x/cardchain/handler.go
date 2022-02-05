@@ -34,12 +34,33 @@ func NewHandler(k keeper.Keeper) sdk.Handler {
 			return handleMsgDonateToCard(ctx, k, msg)
 		case *types.MsgCreateuser:
 			return handleMsgCreateUser(ctx, k, msg)
+		case *types.MsgChangeArtist:
+			return handleMsgChangeArtist(ctx, k, msg)
 			// this line is used by starport scaffolding # 1
 		default:
 			errMsg := fmt.Sprintf("unrecognized %s message type: %T", types.ModuleName, msg)
 			return nil, sdkerrors.Wrap(sdkerrors.ErrUnknownRequest, errMsg)
 		}
 	}
+}
+
+func handleMsgChangeArtist(ctx sdk.Context, keeper keeper.Keeper, msg *types.MsgChangeArtist) (*sdk.Result, error) {
+	card := keeper.GetCard(ctx, msg.CardID)
+
+	if card.Owner != msg.Creator {
+		return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "Incorrect Owner")
+	}
+
+	newArtist, err := sdk.AccAddressFromBech32(msg.Artist)
+	if err != nil {
+		return nil, sdkerrors.Wrap(types.ErrInvalidAccAddress, "Invalid Artist address")
+	}
+
+	card.Artist = newArtist.String()
+
+	keeper.SetCard(ctx, msg.CardID, card)
+
+	return &sdk.Result{}, nil
 }
 
 func handleMsgAddArtwork(ctx sdk.Context, keeper keeper.Keeper, msg *types.MsgAddArtwork) (*sdk.Result, error) {

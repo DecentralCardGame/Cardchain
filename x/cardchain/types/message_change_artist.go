@@ -5,28 +5,27 @@ import (
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 )
 
-const TypeMsgAddArtwork = "add_artwork"
+const TypeMsgChangeArtist = "change_artist"
 
-var _ sdk.Msg = &MsgAddArtwork{}
+var _ sdk.Msg = &MsgChangeArtist{}
 
-func NewMsgAddArtwork(creator string, cardId uint64, image []byte, fullArt bool) *MsgAddArtwork {
-	return &MsgAddArtwork{
+func NewMsgChangeArtist(creator string, cardID uint64, artist string) *MsgChangeArtist {
+	return &MsgChangeArtist{
 		Creator: creator,
-		CardId:  cardId,
-		Image:   image,
-		FullArt: fullArt,
+		CardID:  cardID,
+		Artist:  artist,
 	}
 }
 
-func (msg *MsgAddArtwork) Route() string {
+func (msg *MsgChangeArtist) Route() string {
 	return RouterKey
 }
 
-func (msg *MsgAddArtwork) Type() string {
-	return TypeMsgAddArtwork
+func (msg *MsgChangeArtist) Type() string {
+	return TypeMsgChangeArtist
 }
 
-func (msg *MsgAddArtwork) GetSigners() []sdk.AccAddress {
+func (msg *MsgChangeArtist) GetSigners() []sdk.AccAddress {
 	creator, err := sdk.AccAddressFromBech32(msg.Creator)
 	if err != nil {
 		panic(err)
@@ -34,12 +33,12 @@ func (msg *MsgAddArtwork) GetSigners() []sdk.AccAddress {
 	return []sdk.AccAddress{creator}
 }
 
-func (msg *MsgAddArtwork) GetSignBytes() []byte {
+func (msg *MsgChangeArtist) GetSignBytes() []byte {
 	bz := ModuleCdc.MustMarshalJSON(msg)
 	return sdk.MustSortJSON(bz)
 }
 
-func (msg *MsgAddArtwork) ValidateBasic() error {
+func (msg *MsgChangeArtist) ValidateBasic() error {
 	_, err := sdk.AccAddressFromBech32(msg.Creator)
 	if err != nil {
 		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid creator address (%s)", err)

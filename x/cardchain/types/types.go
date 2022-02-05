@@ -7,9 +7,6 @@ import (
 // Here can constructors for types be placed, sice the files containing those
 // types shall not be edited
 
-// Module name for minting coins
-const CoinsIssuerName = "cardchain"
-
 func NewUser() User {
 	return User{
 		Alias:            "newPlayer",

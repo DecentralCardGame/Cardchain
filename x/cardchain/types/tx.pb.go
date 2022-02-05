@@ -745,6 +745,206 @@ func (m *MsgAddArtworkResponse) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_MsgAddArtworkResponse proto.InternalMessageInfo
 
+type MsgSubmitCopyrightProposal struct {
+	Creator     string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
+	CardId      uint64 `protobuf:"varint,2,opt,name=cardId,proto3" json:"cardId,omitempty"`
+	Description string `protobuf:"bytes,3,opt,name=description,proto3" json:"description,omitempty"`
+	Link        string `protobuf:"bytes,4,opt,name=link,proto3" json:"link,omitempty"`
+}
+
+func (m *MsgSubmitCopyrightProposal) Reset()         { *m = MsgSubmitCopyrightProposal{} }
+func (m *MsgSubmitCopyrightProposal) String() string { return proto.CompactTextString(m) }
+func (*MsgSubmitCopyrightProposal) ProtoMessage()    {}
+func (*MsgSubmitCopyrightProposal) Descriptor() ([]byte, []int) {
+	return fileDescriptor_5cfa59c76aced81c, []int{14}
+}
+func (m *MsgSubmitCopyrightProposal) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *MsgSubmitCopyrightProposal) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_MsgSubmitCopyrightProposal.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *MsgSubmitCopyrightProposal) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgSubmitCopyrightProposal.Merge(m, src)
+}
+func (m *MsgSubmitCopyrightProposal) XXX_Size() int {
+	return m.Size()
+}
+func (m *MsgSubmitCopyrightProposal) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgSubmitCopyrightProposal.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_MsgSubmitCopyrightProposal proto.InternalMessageInfo
+
+func (m *MsgSubmitCopyrightProposal) GetCreator() string {
+	if m != nil {
+		return m.Creator
+	}
+	return ""
+}
+
+func (m *MsgSubmitCopyrightProposal) GetCardId() uint64 {
+	if m != nil {
+		return m.CardId
+	}
+	return 0
+}
+
+func (m *MsgSubmitCopyrightProposal) GetDescription() string {
+	if m != nil {
+		return m.Description
+	}
+	return ""
+}
+
+func (m *MsgSubmitCopyrightProposal) GetLink() string {
+	if m != nil {
+		return m.Link
+	}
+	return ""
+}
+
+type MsgSubmitCopyrightProposalResponse struct {
+}
+
+func (m *MsgSubmitCopyrightProposalResponse) Reset()         { *m = MsgSubmitCopyrightProposalResponse{} }
+func (m *MsgSubmitCopyrightProposalResponse) String() string { return proto.CompactTextString(m) }
+func (*MsgSubmitCopyrightProposalResponse) ProtoMessage()    {}
+func (*MsgSubmitCopyrightProposalResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_5cfa59c76aced81c, []int{15}
+}
+func (m *MsgSubmitCopyrightProposalResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *MsgSubmitCopyrightProposalResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_MsgSubmitCopyrightProposalResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *MsgSubmitCopyrightProposalResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgSubmitCopyrightProposalResponse.Merge(m, src)
+}
+func (m *MsgSubmitCopyrightProposalResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *MsgSubmitCopyrightProposalResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgSubmitCopyrightProposalResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_MsgSubmitCopyrightProposalResponse proto.InternalMessageInfo
+
+type MsgChangeArtist struct {
+	Creator string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
+	CardID  uint64 `protobuf:"varint,2,opt,name=cardID,proto3" json:"cardID,omitempty"`
+	Artist  string `protobuf:"bytes,3,opt,name=artist,proto3" json:"artist,omitempty"`
+}
+
+func (m *MsgChangeArtist) Reset()         { *m = MsgChangeArtist{} }
+func (m *MsgChangeArtist) String() string { return proto.CompactTextString(m) }
+func (*MsgChangeArtist) ProtoMessage()    {}
+func (*MsgChangeArtist) Descriptor() ([]byte, []int) {
+	return fileDescriptor_5cfa59c76aced81c, []int{16}
+}
+func (m *MsgChangeArtist) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *MsgChangeArtist) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_MsgChangeArtist.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *MsgChangeArtist) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgChangeArtist.Merge(m, src)
+}
+func (m *MsgChangeArtist) XXX_Size() int {
+	return m.Size()
+}
+func (m *MsgChangeArtist) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgChangeArtist.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_MsgChangeArtist proto.InternalMessageInfo
+
+func (m *MsgChangeArtist) GetCreator() string {
+	if m != nil {
+		return m.Creator
+	}
+	return ""
+}
+
+func (m *MsgChangeArtist) GetCardID() uint64 {
+	if m != nil {
+		return m.CardID
+	}
+	return 0
+}
+
+func (m *MsgChangeArtist) GetArtist() string {
+	if m != nil {
+		return m.Artist
+	}
+	return ""
+}
+
+type MsgChangeArtistResponse struct {
+}
+
+func (m *MsgChangeArtistResponse) Reset()         { *m = MsgChangeArtistResponse{} }
+func (m *MsgChangeArtistResponse) String() string { return proto.CompactTextString(m) }
+func (*MsgChangeArtistResponse) ProtoMessage()    {}
+func (*MsgChangeArtistResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_5cfa59c76aced81c, []int{17}
+}
+func (m *MsgChangeArtistResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *MsgChangeArtistResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_MsgChangeArtistResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *MsgChangeArtistResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgChangeArtistResponse.Merge(m, src)
+}
+func (m *MsgChangeArtistResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *MsgChangeArtistResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgChangeArtistResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_MsgChangeArtistResponse proto.InternalMessageInfo
+
 func init() {
 	proto.RegisterType((*MsgCreateuser)(nil), "DecentralCardGame.cardchain.cardchain.MsgCreateuser")
 	proto.RegisterType((*MsgCreateuserResponse)(nil), "DecentralCardGame.cardchain.cardchain.MsgCreateuserResponse")
@@ -760,55 +960,67 @@ func init() {
 	proto.RegisterType((*MsgDonateToCardResponse)(nil), "DecentralCardGame.cardchain.cardchain.MsgDonateToCardResponse")
 	proto.RegisterType((*MsgAddArtwork)(nil), "DecentralCardGame.cardchain.cardchain.MsgAddArtwork")
 	proto.RegisterType((*MsgAddArtworkResponse)(nil), "DecentralCardGame.cardchain.cardchain.MsgAddArtworkResponse")
+	proto.RegisterType((*MsgSubmitCopyrightProposal)(nil), "DecentralCardGame.cardchain.cardchain.MsgSubmitCopyrightProposal")
+	proto.RegisterType((*MsgSubmitCopyrightProposalResponse)(nil), "DecentralCardGame.cardchain.cardchain.MsgSubmitCopyrightProposalResponse")
+	proto.RegisterType((*MsgChangeArtist)(nil), "DecentralCardGame.cardchain.cardchain.MsgChangeArtist")
+	proto.RegisterType((*MsgChangeArtistResponse)(nil), "DecentralCardGame.cardchain.cardchain.MsgChangeArtistResponse")
 }
 
 func init() { proto.RegisterFile("cardchain/tx.proto", fileDescriptor_5cfa59c76aced81c) }
 
 var fileDescriptor_5cfa59c76aced81c = []byte{
-	// 685 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x9c, 0x96, 0xcb, 0x6e, 0xd3, 0x4c,
-	0x14, 0xc7, 0xe3, 0xaf, 0x6d, 0xda, 0xef, 0xd0, 0xaa, 0xc8, 0xf4, 0x62, 0x2c, 0x94, 0x22, 0x4b,
-	0x08, 0x36, 0xc4, 0x52, 0x41, 0xdc, 0x84, 0x40, 0x69, 0x2a, 0x55, 0x2c, 0xb2, 0x71, 0x0b, 0x12,
-	0xec, 0x26, 0xf6, 0xa9, 0x6b, 0x35, 0x99, 0x09, 0x33, 0x93, 0xa6, 0x61, 0xc5, 0x06, 0x24, 0x56,
-	0xf0, 0x10, 0x88, 0x57, 0xe0, 0x15, 0xba, 0xec, 0x12, 0xb1, 0xa8, 0x50, 0xfb, 0x22, 0x68, 0x7c,
-	0x99, 0xda, 0x09, 0xaa, 0x12, 0xaf, 0x32, 0xff, 0x99, 0xfc, 0xcf, 0xf9, 0xcd, 0x78, 0xce, 0xd1,
-	0x80, 0xe9, 0x13, 0x1e, 0xf8, 0x07, 0x24, 0xa2, 0xae, 0x3c, 0xae, 0xf7, 0x38, 0x93, 0xcc, 0xbc,
-	0xb3, 0x8d, 0x3e, 0x52, 0xc9, 0x49, 0xa7, 0x49, 0x78, 0xb0, 0x43, 0xba, 0x58, 0xd7, 0xff, 0xba,
-	0x1c, 0xd9, 0x2b, 0x21, 0x0b, 0x59, 0xec, 0x70, 0xd5, 0x28, 0x31, 0x3b, 0x6f, 0x61, 0xa9, 0x25,
-	0xc2, 0x26, 0x47, 0x22, 0xb1, 0x2f, 0x90, 0x9b, 0x16, 0xcc, 0xfb, 0x4a, 0x31, 0x6e, 0x19, 0xb7,
-	0x8d, 0x7b, 0xff, 0x7b, 0x99, 0x54, 0x2b, 0x14, 0x07, 0xaf, 0x05, 0x72, 0xeb, 0xbf, 0x64, 0x25,
-	0x95, 0xe6, 0x0a, 0xcc, 0x91, 0x4e, 0x44, 0x84, 0x35, 0x13, 0xcf, 0x27, 0xc2, 0x59, 0x87, 0xd5,
-	0x42, 0x68, 0x0f, 0x45, 0x8f, 0x51, 0x81, 0xce, 0x27, 0x03, 0xae, 0xb7, 0x44, 0xb8, 0xd5, 0x1f,
-	0x2a, 0xe0, 0x5d, 0xff, 0x00, 0xbb, 0x78, 0x45, 0xde, 0x06, 0xcc, 0xb4, 0xa3, 0x20, 0xc9, 0xb9,
-	0xe5, 0x9e, 0x9c, 0x6d, 0x54, 0x7e, 0x9f, 0x6d, 0xdc, 0x0d, 0x23, 0x79, 0xd0, 0x6f, 0xd7, 0x7d,
-	0xd6, 0x75, 0x7d, 0x26, 0xba, 0x4c, 0xa4, 0x3f, 0xf7, 0x45, 0x70, 0xe8, 0xca, 0x61, 0x0f, 0x45,
-	0xbd, 0xc9, 0x22, 0xea, 0x29, 0xaf, 0x02, 0x6c, 0xf7, 0x87, 0xc8, 0x33, 0xc0, 0x58, 0x38, 0x36,
-	0x58, 0xa3, 0x18, 0x9a, 0xf1, 0x3d, 0x5c, 0x6b, 0x89, 0xf0, 0x0d, 0x93, 0xa8, 0x16, 0xaf, 0xa0,
-	0x5b, 0x83, 0xaa, 0x3a, 0xe3, 0x57, 0x09, 0xe0, 0xac, 0x97, 0x2a, 0xd3, 0x86, 0x85, 0x23, 0x26,
-	0x71, 0x6f, 0xd8, 0xc3, 0x34, 0xab, 0xd6, 0x0a, 0x47, 0x8d, 0xb9, 0x35, 0x9b, 0xe0, 0xc4, 0xc2,
-	0x59, 0x85, 0x1b, 0xb9, 0x94, 0x9a, 0xe4, 0xbb, 0x01, 0x66, 0x4b, 0x84, 0xbb, 0xe4, 0x28, 0x9e,
-	0x6f, 0x32, 0x2a, 0x91, 0xca, 0x12, 0x44, 0xca, 0x91, 0x98, 0x63, 0xa0, 0x45, 0x2f, 0x93, 0x8a,
-	0x87, 0x32, 0x89, 0x22, 0xe3, 0x89, 0x85, 0x9a, 0x65, 0x03, 0x8a, 0xdc, 0x9a, 0x4b, 0x66, 0x63,
-	0xa1, 0xa2, 0x13, 0x2e, 0x23, 0x21, 0xad, 0x6a, 0x3c, 0x9d, 0x2a, 0xe7, 0x16, 0xd8, 0xe3, 0x94,
-	0x7a, 0x13, 0x03, 0x58, 0x6e, 0x89, 0x70, 0x8f, 0x13, 0x2a, 0xf6, 0x91, 0x97, 0x3c, 0xd2, 0x35,
-	0xa8, 0x0a, 0xa4, 0x81, 0xfe, 0x8c, 0xa9, 0x52, 0x47, 0xcd, 0xd1, 0xc7, 0xe8, 0x48, 0x9f, 0xa8,
-	0xd6, 0xce, 0x4d, 0x58, 0x1f, 0x49, 0xac, 0x99, 0x7e, 0x18, 0x31, 0xd4, 0x36, 0xa3, 0x44, 0xe2,
-	0x1e, 0x2b, 0x09, 0x65, 0xc1, 0x7c, 0xa0, 0x22, 0xb0, 0x8c, 0x2a, 0x93, 0xe6, 0x0e, 0x54, 0x49,
-	0x97, 0xf5, 0xa9, 0x4c, 0xa0, 0xa6, 0xbf, 0xba, 0xa9, 0x3d, 0xdd, 0x43, 0x9e, 0x33, 0x77, 0x4d,
-	0x55, 0xf9, 0x36, 0x82, 0xa0, 0xc1, 0xe5, 0x80, 0xf1, 0xc3, 0x12, 0x1b, 0x58, 0x81, 0xb9, 0xa8,
-	0x4b, 0x42, 0x4c, 0x2f, 0x45, 0x22, 0x54, 0x9c, 0xfd, 0x7e, 0xa7, 0xd3, 0xe0, 0x09, 0xfd, 0x82,
-	0x97, 0xc9, 0xb4, 0xac, 0x2f, 0x53, 0x66, 0x2c, 0x9b, 0x3f, 0xe7, 0x61, 0xa6, 0x25, 0x42, 0xf3,
-	0xa3, 0x01, 0x90, 0x6b, 0x28, 0x0f, 0xeb, 0x13, 0xf5, 0xa7, 0x7a, 0xa1, 0x57, 0xd8, 0xcf, 0xcb,
-	0xb8, 0x32, 0x14, 0xf3, 0x8b, 0x01, 0x4b, 0xc5, 0xf6, 0xf2, 0x78, 0xf2, 0x78, 0x05, 0xa3, 0xfd,
-	0xb2, 0xa4, 0x51, 0xb3, 0x7c, 0x80, 0x05, 0xdd, 0x46, 0x36, 0x27, 0x0f, 0x96, 0x79, 0xec, 0x67,
-	0xd3, 0x7b, 0x74, 0xee, 0xaf, 0x06, 0x2c, 0x8f, 0x36, 0x8e, 0xa7, 0x93, 0xc7, 0x1b, 0xb1, 0xda,
-	0x8d, 0xd2, 0x56, 0x4d, 0xf4, 0xd9, 0x80, 0xc5, 0x42, 0x1b, 0x78, 0x34, 0x79, 0xcc, 0xbc, 0xcf,
-	0x7e, 0x51, 0xce, 0x57, 0x00, 0x29, 0x94, 0xfe, 0x14, 0x20, 0x79, 0xdf, 0x34, 0x20, 0xff, 0x2a,
-	0xe1, 0xb8, 0x5c, 0x72, 0x05, 0x3c, 0x45, 0xb9, 0x5c, 0xba, 0xa6, 0x29, 0x97, 0xf1, 0xca, 0xdd,
-	0xf2, 0x4e, 0xce, 0x6b, 0xc6, 0xe9, 0x79, 0xcd, 0xf8, 0x73, 0x5e, 0x33, 0xbe, 0x5d, 0xd4, 0x2a,
-	0xa7, 0x17, 0xb5, 0xca, 0xaf, 0x8b, 0x5a, 0xe5, 0xdd, 0x93, 0x5c, 0xaf, 0x1a, 0xcb, 0xe0, 0x36,
-	0xf5, 0x63, 0xe4, 0xd8, 0xcd, 0x3d, 0x4c, 0x54, 0x07, 0x6b, 0x57, 0xe3, 0xf7, 0xc5, 0x83, 0xbf,
-	0x01, 0x00, 0x00, 0xff, 0xff, 0xee, 0x8c, 0x1b, 0xb8, 0xb2, 0x08, 0x00, 0x00,
+	// 807 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xa4, 0x96, 0xcf, 0x4f, 0xdb, 0x48,
+	0x14, 0xc7, 0xe3, 0x0d, 0x04, 0x78, 0x80, 0x58, 0x79, 0xf9, 0xe1, 0xb5, 0x56, 0x01, 0x59, 0xbb,
+	0xda, 0xbd, 0x6c, 0x22, 0xb1, 0xab, 0xfe, 0x52, 0xd5, 0x2a, 0x24, 0x12, 0xe2, 0x10, 0xa9, 0x0a,
+	0xb4, 0x52, 0xdb, 0xd3, 0xc4, 0x1e, 0x1c, 0x8b, 0x64, 0x26, 0x9d, 0x99, 0x10, 0xd2, 0x53, 0x0f,
+	0x6d, 0xa5, 0x9e, 0xda, 0x3f, 0xa2, 0x6a, 0xff, 0x15, 0x8e, 0x1c, 0xab, 0x1e, 0x50, 0x05, 0xb7,
+	0xfe, 0x15, 0xd5, 0x8c, 0xed, 0xc1, 0x0e, 0x3f, 0x14, 0xbb, 0x27, 0xe6, 0x3b, 0xe6, 0xfb, 0xde,
+	0xc7, 0xf3, 0xe6, 0xbd, 0x18, 0x4c, 0x17, 0x31, 0xcf, 0xed, 0xa0, 0x80, 0x54, 0xc5, 0x51, 0xa5,
+	0xcf, 0xa8, 0xa0, 0xe6, 0x5f, 0x0d, 0xec, 0x62, 0x22, 0x18, 0xea, 0xd6, 0x11, 0xf3, 0xb6, 0x51,
+	0x0f, 0x57, 0xf4, 0x7f, 0x5d, 0xac, 0xec, 0x65, 0x9f, 0xfa, 0x54, 0x39, 0xaa, 0x72, 0x15, 0x9a,
+	0x9d, 0xa7, 0xb0, 0xd8, 0xe4, 0x7e, 0x9d, 0x61, 0x24, 0xf0, 0x80, 0x63, 0x66, 0x5a, 0x30, 0xe3,
+	0x4a, 0x45, 0x99, 0x65, 0x6c, 0x18, 0xff, 0xcc, 0xb5, 0x62, 0x29, 0x9f, 0x10, 0x3c, 0x7c, 0xcc,
+	0x31, 0xb3, 0x7e, 0x09, 0x9f, 0x44, 0xd2, 0x5c, 0x86, 0x69, 0xd4, 0x0d, 0x10, 0xb7, 0x8a, 0x6a,
+	0x3f, 0x14, 0xce, 0x1a, 0xac, 0xa4, 0x42, 0xb7, 0x30, 0xef, 0x53, 0xc2, 0xb1, 0xf3, 0xc6, 0x80,
+	0x5f, 0x9b, 0xdc, 0xdf, 0x1a, 0x8c, 0x24, 0xf0, 0xae, 0xdb, 0xc1, 0x3d, 0x7c, 0x43, 0xde, 0x1a,
+	0x14, 0xdb, 0x81, 0x17, 0xe6, 0xdc, 0xaa, 0x1e, 0x9f, 0xae, 0x17, 0xbe, 0x9e, 0xae, 0xff, 0xed,
+	0x07, 0xa2, 0x33, 0x68, 0x57, 0x5c, 0xda, 0xab, 0xba, 0x94, 0xf7, 0x28, 0x8f, 0xfe, 0xfc, 0xcb,
+	0xbd, 0x83, 0xaa, 0x18, 0xf5, 0x31, 0xaf, 0xd4, 0x69, 0x40, 0x5a, 0xd2, 0x2b, 0x01, 0xdb, 0x83,
+	0x11, 0x66, 0x31, 0xa0, 0x12, 0x8e, 0x0d, 0xd6, 0x38, 0x86, 0x66, 0x7c, 0x01, 0xf3, 0x4d, 0xee,
+	0x3f, 0xa1, 0x02, 0xcb, 0x87, 0x37, 0xd0, 0xad, 0x42, 0x49, 0x9e, 0xf1, 0x4e, 0x08, 0x38, 0xd5,
+	0x8a, 0x94, 0x69, 0xc3, 0xec, 0x21, 0x15, 0x78, 0x6f, 0xd4, 0xc7, 0x51, 0x56, 0xad, 0x25, 0x8e,
+	0x5c, 0x33, 0x6b, 0x2a, 0xc4, 0x51, 0xc2, 0x59, 0x81, 0xdf, 0x12, 0x29, 0x35, 0xc9, 0x47, 0x03,
+	0xcc, 0x26, 0xf7, 0x77, 0xd1, 0xa1, 0xda, 0xaf, 0x53, 0x22, 0x30, 0x11, 0x39, 0x88, 0xa4, 0x23,
+	0x34, 0x2b, 0xa0, 0x85, 0x56, 0x2c, 0x25, 0x0f, 0xa1, 0x02, 0xf3, 0x98, 0x47, 0x09, 0xb9, 0x4b,
+	0x87, 0x04, 0x33, 0x6b, 0x3a, 0xdc, 0x55, 0x42, 0x46, 0x47, 0x4c, 0x04, 0x5c, 0x58, 0x25, 0xb5,
+	0x1d, 0x29, 0xe7, 0x0f, 0xb0, 0x2f, 0x53, 0xea, 0x97, 0x18, 0xc2, 0x52, 0x93, 0xfb, 0x7b, 0x0c,
+	0x11, 0xbe, 0x8f, 0x59, 0xce, 0x23, 0x5d, 0x85, 0x12, 0xc7, 0xc4, 0xd3, 0x65, 0x8c, 0x94, 0x3c,
+	0x6a, 0x86, 0x5d, 0x1c, 0x1c, 0xea, 0x13, 0xd5, 0xda, 0xf9, 0x1d, 0xd6, 0xc6, 0x12, 0x6b, 0xa6,
+	0x4f, 0x86, 0x82, 0x6a, 0x50, 0x82, 0x04, 0xde, 0xa3, 0x39, 0xa1, 0x2c, 0x98, 0xf1, 0x64, 0x04,
+	0x1a, 0x53, 0xc5, 0xd2, 0xdc, 0x86, 0x12, 0xea, 0xd1, 0x01, 0x11, 0x21, 0x54, 0xf6, 0xab, 0x1b,
+	0xd9, 0xa3, 0x77, 0x48, 0x72, 0x26, 0xae, 0xa9, 0x6c, 0xdf, 0x9a, 0xe7, 0xd5, 0x98, 0x18, 0x52,
+	0x76, 0x90, 0xe3, 0x05, 0x96, 0x61, 0x3a, 0xe8, 0x21, 0x1f, 0x47, 0x97, 0x22, 0x14, 0x32, 0xce,
+	0xfe, 0xa0, 0xdb, 0xad, 0xb1, 0x90, 0x7e, 0xb6, 0x15, 0xcb, 0xa8, 0xad, 0x2f, 0x52, 0x6a, 0x96,
+	0xd7, 0x46, 0x78, 0x05, 0x06, 0xed, 0x5e, 0x20, 0xea, 0xb4, 0x3f, 0x62, 0x81, 0xdf, 0x11, 0x8f,
+	0x18, 0xed, 0x53, 0x8e, 0xba, 0x39, 0xc8, 0x36, 0x60, 0xde, 0xc3, 0xdc, 0x65, 0x41, 0x5f, 0x04,
+	0x94, 0x44, 0xc7, 0x9b, 0xdc, 0x32, 0x4d, 0x98, 0xea, 0x06, 0xe4, 0x20, 0xaa, 0xba, 0x5a, 0x3b,
+	0x7f, 0x82, 0x73, 0x3d, 0x85, 0x86, 0x7d, 0xae, 0x6a, 0x5f, 0xef, 0x20, 0xe2, 0xe3, 0x9a, 0xba,
+	0xc1, 0x13, 0x00, 0x36, 0x52, 0x80, 0x8d, 0x44, 0x2f, 0x14, 0x53, 0xbd, 0x10, 0x16, 0x2c, 0x19,
+	0x3c, 0xce, 0xbb, 0xf9, 0x7d, 0x0e, 0x8a, 0x4d, 0xee, 0x9b, 0xaf, 0x0c, 0x80, 0xc4, 0xd4, 0xfd,
+	0xbf, 0x32, 0xd1, 0x10, 0xaf, 0xa4, 0x06, 0xaa, 0x7d, 0x3f, 0x8f, 0x2b, 0x46, 0x31, 0xdf, 0x19,
+	0xb0, 0x98, 0x9e, 0xc1, 0xb7, 0x27, 0x8f, 0x97, 0x32, 0xda, 0x0f, 0x73, 0x1a, 0x35, 0xcb, 0x4b,
+	0x98, 0xd5, 0xb3, 0x76, 0x73, 0xf2, 0x60, 0xb1, 0xc7, 0xbe, 0x97, 0xdd, 0xa3, 0x73, 0xbf, 0x37,
+	0x60, 0x69, 0x7c, 0xba, 0xde, 0x9d, 0x3c, 0xde, 0x98, 0xd5, 0xae, 0xe5, 0xb6, 0x6a, 0xa2, 0xb7,
+	0x06, 0x2c, 0xa4, 0x66, 0xe5, 0xad, 0xc9, 0x63, 0x26, 0x7d, 0xf6, 0x83, 0x7c, 0xbe, 0x14, 0x48,
+	0x6a, 0x3e, 0x66, 0x00, 0x49, 0xfa, 0xb2, 0x80, 0x5c, 0x35, 0xe7, 0x54, 0xbb, 0x24, 0xa6, 0x5c,
+	0x86, 0x76, 0xb9, 0x70, 0x65, 0x69, 0x97, 0xcb, 0xe3, 0xcd, 0xfc, 0x6c, 0xc0, 0xda, 0x75, 0xb3,
+	0x2d, 0x4b, 0xcd, 0xaf, 0x0e, 0x61, 0xef, 0xfc, 0x74, 0x88, 0x54, 0xd5, 0x52, 0x93, 0x2d, 0x43,
+	0xd5, 0x92, 0xbe, 0x2c, 0x55, 0xbb, 0x6a, 0xd8, 0x6d, 0xb5, 0x8e, 0xcf, 0xca, 0xc6, 0xc9, 0x59,
+	0xd9, 0xf8, 0x76, 0x56, 0x36, 0x3e, 0x9c, 0x97, 0x0b, 0x27, 0xe7, 0xe5, 0xc2, 0x97, 0xf3, 0x72,
+	0xe1, 0xd9, 0x9d, 0xc4, 0x6f, 0xe0, 0xa5, 0x1c, 0xd5, 0xba, 0xfe, 0xc8, 0x3d, 0xaa, 0x26, 0x3e,
+	0x78, 0xe5, 0x2f, 0x63, 0xbb, 0xa4, 0xbe, 0x5b, 0xff, 0xfb, 0x11, 0x00, 0x00, 0xff, 0xff, 0x1f,
+	0xa2, 0x88, 0xc1, 0x0a, 0x0b, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -830,6 +1042,8 @@ type MsgClient interface {
 	TransferCard(ctx context.Context, in *MsgTransferCard, opts ...grpc.CallOption) (*MsgTransferCardResponse, error)
 	DonateToCard(ctx context.Context, in *MsgDonateToCard, opts ...grpc.CallOption) (*MsgDonateToCardResponse, error)
 	AddArtwork(ctx context.Context, in *MsgAddArtwork, opts ...grpc.CallOption) (*MsgAddArtworkResponse, error)
+	SubmitCopyrightProposal(ctx context.Context, in *MsgSubmitCopyrightProposal, opts ...grpc.CallOption) (*MsgSubmitCopyrightProposalResponse, error)
+	ChangeArtist(ctx context.Context, in *MsgChangeArtist, opts ...grpc.CallOption) (*MsgChangeArtistResponse, error)
 }
 
 type msgClient struct {
@@ -903,6 +1117,24 @@ func (c *msgClient) AddArtwork(ctx context.Context, in *MsgAddArtwork, opts ...g
 	return out, nil
 }
 
+func (c *msgClient) SubmitCopyrightProposal(ctx context.Context, in *MsgSubmitCopyrightProposal, opts ...grpc.CallOption) (*MsgSubmitCopyrightProposalResponse, error) {
+	out := new(MsgSubmitCopyrightProposalResponse)
+	err := c.cc.Invoke(ctx, "/DecentralCardGame.cardchain.cardchain.Msg/SubmitCopyrightProposal", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *msgClient) ChangeArtist(ctx context.Context, in *MsgChangeArtist, opts ...grpc.CallOption) (*MsgChangeArtistResponse, error) {
+	out := new(MsgChangeArtistResponse)
+	err := c.cc.Invoke(ctx, "/DecentralCardGame.cardchain.cardchain.Msg/ChangeArtist", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // MsgServer is the server API for Msg service.
 type MsgServer interface {
 	Createuser(context.Context, *MsgCreateuser) (*MsgCreateuserResponse, error)
@@ -912,6 +1144,8 @@ type MsgServer interface {
 	TransferCard(context.Context, *MsgTransferCard) (*MsgTransferCardResponse, error)
 	DonateToCard(context.Context, *MsgDonateToCard) (*MsgDonateToCardResponse, error)
 	AddArtwork(context.Context, *MsgAddArtwork) (*MsgAddArtworkResponse, error)
+	SubmitCopyrightProposal(context.Context, *MsgSubmitCopyrightProposal) (*MsgSubmitCopyrightProposalResponse, error)
+	ChangeArtist(context.Context, *MsgChangeArtist) (*MsgChangeArtistResponse, error)
 }
 
 // UnimplementedMsgServer can be embedded to have forward compatible implementations.
@@ -938,6 +1172,12 @@ func (*UnimplementedMsgServer) DonateToCard(ctx context.Context, req *MsgDonateT
 }
 func (*UnimplementedMsgServer) AddArtwork(ctx context.Context, req *MsgAddArtwork) (*MsgAddArtworkResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AddArtwork not implemented")
+}
+func (*UnimplementedMsgServer) SubmitCopyrightProposal(ctx context.Context, req *MsgSubmitCopyrightProposal) (*MsgSubmitCopyrightProposalResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SubmitCopyrightProposal not implemented")
+}
+func (*UnimplementedMsgServer) ChangeArtist(ctx context.Context, req *MsgChangeArtist) (*MsgChangeArtistResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ChangeArtist not implemented")
 }
 
 func RegisterMsgServer(s grpc1.Server, srv MsgServer) {
@@ -1070,6 +1310,42 @@ func _Msg_AddArtwork_Handler(srv interface{}, ctx context.Context, dec func(inte
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Msg_SubmitCopyrightProposal_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgSubmitCopyrightProposal)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).SubmitCopyrightProposal(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/DecentralCardGame.cardchain.cardchain.Msg/SubmitCopyrightProposal",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).SubmitCopyrightProposal(ctx, req.(*MsgSubmitCopyrightProposal))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Msg_ChangeArtist_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgChangeArtist)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).ChangeArtist(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/DecentralCardGame.cardchain.cardchain.Msg/ChangeArtist",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).ChangeArtist(ctx, req.(*MsgChangeArtist))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _Msg_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "DecentralCardGame.cardchain.cardchain.Msg",
 	HandlerType: (*MsgServer)(nil),
@@ -1101,6 +1377,14 @@ var _Msg_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "AddArtwork",
 			Handler:    _Msg_AddArtwork_Handler,
+		},
+		{
+			MethodName: "SubmitCopyrightProposal",
+			Handler:    _Msg_SubmitCopyrightProposal_Handler,
+		},
+		{
+			MethodName: "ChangeArtist",
+			Handler:    _Msg_ChangeArtist_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
@@ -1624,6 +1908,143 @@ func (m *MsgAddArtworkResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	return len(dAtA) - i, nil
 }
 
+func (m *MsgSubmitCopyrightProposal) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *MsgSubmitCopyrightProposal) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *MsgSubmitCopyrightProposal) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.Link) > 0 {
+		i -= len(m.Link)
+		copy(dAtA[i:], m.Link)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.Link)))
+		i--
+		dAtA[i] = 0x22
+	}
+	if len(m.Description) > 0 {
+		i -= len(m.Description)
+		copy(dAtA[i:], m.Description)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.Description)))
+		i--
+		dAtA[i] = 0x1a
+	}
+	if m.CardId != 0 {
+		i = encodeVarintTx(dAtA, i, uint64(m.CardId))
+		i--
+		dAtA[i] = 0x10
+	}
+	if len(m.Creator) > 0 {
+		i -= len(m.Creator)
+		copy(dAtA[i:], m.Creator)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.Creator)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *MsgSubmitCopyrightProposalResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *MsgSubmitCopyrightProposalResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *MsgSubmitCopyrightProposalResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	return len(dAtA) - i, nil
+}
+
+func (m *MsgChangeArtist) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *MsgChangeArtist) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *MsgChangeArtist) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.Artist) > 0 {
+		i -= len(m.Artist)
+		copy(dAtA[i:], m.Artist)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.Artist)))
+		i--
+		dAtA[i] = 0x1a
+	}
+	if m.CardID != 0 {
+		i = encodeVarintTx(dAtA, i, uint64(m.CardID))
+		i--
+		dAtA[i] = 0x10
+	}
+	if len(m.Creator) > 0 {
+		i -= len(m.Creator)
+		copy(dAtA[i:], m.Creator)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.Creator)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *MsgChangeArtistResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *MsgChangeArtistResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *MsgChangeArtistResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	return len(dAtA) - i, nil
+}
+
 func encodeVarintTx(dAtA []byte, offset int, v uint64) int {
 	offset -= sovTx(v)
 	base := offset
@@ -1855,6 +2276,68 @@ func (m *MsgAddArtwork) Size() (n int) {
 }
 
 func (m *MsgAddArtworkResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	return n
+}
+
+func (m *MsgSubmitCopyrightProposal) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.Creator)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	if m.CardId != 0 {
+		n += 1 + sovTx(uint64(m.CardId))
+	}
+	l = len(m.Description)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	l = len(m.Link)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	return n
+}
+
+func (m *MsgSubmitCopyrightProposalResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	return n
+}
+
+func (m *MsgChangeArtist) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.Creator)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	if m.CardID != 0 {
+		n += 1 + sovTx(uint64(m.CardID))
+	}
+	l = len(m.Artist)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	return n
+}
+
+func (m *MsgChangeArtistResponse) Size() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -3373,6 +3856,404 @@ func (m *MsgAddArtworkResponse) Unmarshal(dAtA []byte) error {
 		}
 		if fieldNum <= 0 {
 			return fmt.Errorf("proto: MsgAddArtworkResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTx(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthTx
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *MsgSubmitCopyrightProposal) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTx
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: MsgSubmitCopyrightProposal: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: MsgSubmitCopyrightProposal: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Creator", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Creator = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field CardId", wireType)
+			}
+			m.CardId = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.CardId |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Description", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Description = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 4:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Link", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Link = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTx(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthTx
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *MsgSubmitCopyrightProposalResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTx
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: MsgSubmitCopyrightProposalResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: MsgSubmitCopyrightProposalResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTx(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthTx
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *MsgChangeArtist) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTx
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: MsgChangeArtist: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: MsgChangeArtist: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Creator", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Creator = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field CardID", wireType)
+			}
+			m.CardID = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.CardID |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Artist", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Artist = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTx(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthTx
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *MsgChangeArtistResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTx
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: MsgChangeArtistResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: MsgChangeArtistResponse: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		default:
