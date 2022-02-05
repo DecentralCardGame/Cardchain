@@ -1,3 +1,4 @@
+import { Status } from "../cardchain/card";
 import { Reader, Writer } from "protobufjs/minimal";
 import { Params } from "../cardchain/params";
 import { VoteRight } from "../cardchain/vote_right";
@@ -21,7 +22,7 @@ export interface QueryQCardResponse {
     image: string;
     fullArt: boolean;
     notes: string;
-    status: string;
+    status: Status;
     votePool: string;
     fairEnoughVotes: number;
     overpoweredVotes: number;
@@ -64,7 +65,7 @@ export interface QueryQVotableCardsResponse {
 }
 export interface QueryQCardsRequest {
     owner: string;
-    status: string;
+    status: Status;
     cardType: string;
     classes: string;
     sortBy: string;

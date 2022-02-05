@@ -1,4 +1,5 @@
 /* eslint-disable */
+import { statusFromJSON, statusToJSON } from "../cardchain/card";
 import { Reader, util, configure, Writer } from "protobufjs/minimal";
 import * as Long from "long";
 import { Params } from "../cardchain/params";
@@ -147,7 +148,7 @@ const baseQueryQCardResponse = {
     image: "",
     fullArt: false,
     notes: "",
-    status: "",
+    status: 0,
     votePool: "",
     fairEnoughVotes: 0,
     overpoweredVotes: 0,
@@ -175,8 +176,8 @@ export const QueryQCardResponse = {
         if (message.notes !== "") {
             writer.uint32(50).string(message.notes);
         }
-        if (message.status !== "") {
-            writer.uint32(58).string(message.status);
+        if (message.status !== 0) {
+            writer.uint32(56).int32(message.status);
         }
         if (message.votePool !== "") {
             writer.uint32(66).string(message.votePool);
@@ -224,7 +225,7 @@ export const QueryQCardResponse = {
                     message.notes = reader.string();
                     break;
                 case 7:
-                    message.status = reader.string();
+                    message.status = reader.int32();
                     break;
                 case 8:
                     message.votePool = reader.string();
@@ -290,10 +291,10 @@ export const QueryQCardResponse = {
             message.notes = "";
         }
         if (object.status !== undefined && object.status !== null) {
-            message.status = String(object.status);
+            message.status = statusFromJSON(object.status);
         }
         else {
-            message.status = "";
+            message.status = 0;
         }
         if (object.votePool !== undefined && object.votePool !== null) {
             message.votePool = String(object.votePool);
@@ -345,7 +346,7 @@ export const QueryQCardResponse = {
         message.image !== undefined && (obj.image = message.image);
         message.fullArt !== undefined && (obj.fullArt = message.fullArt);
         message.notes !== undefined && (obj.notes = message.notes);
-        message.status !== undefined && (obj.status = message.status);
+        message.status !== undefined && (obj.status = statusToJSON(message.status));
         message.votePool !== undefined && (obj.votePool = message.votePool);
         message.fairEnoughVotes !== undefined &&
             (obj.fairEnoughVotes = message.fairEnoughVotes);
@@ -400,7 +401,7 @@ export const QueryQCardResponse = {
             message.status = object.status;
         }
         else {
-            message.status = "";
+            message.status = 0;
         }
         if (object.votePool !== undefined && object.votePool !== null) {
             message.votePool = object.votePool;
@@ -1125,7 +1126,7 @@ export const QueryQVotableCardsResponse = {
 };
 const baseQueryQCardsRequest = {
     owner: "",
-    status: "",
+    status: 0,
     cardType: "",
     classes: "",
     sortBy: "",
@@ -1138,8 +1139,8 @@ export const QueryQCardsRequest = {
         if (message.owner !== "") {
             writer.uint32(10).string(message.owner);
         }
-        if (message.status !== "") {
-            writer.uint32(18).string(message.status);
+        if (message.status !== 0) {
+            writer.uint32(16).int32(message.status);
         }
         if (message.cardType !== "") {
             writer.uint32(26).string(message.cardType);
@@ -1172,7 +1173,7 @@ export const QueryQCardsRequest = {
                     message.owner = reader.string();
                     break;
                 case 2:
-                    message.status = reader.string();
+                    message.status = reader.int32();
                     break;
                 case 3:
                     message.cardType = reader.string();
@@ -1208,10 +1209,10 @@ export const QueryQCardsRequest = {
             message.owner = "";
         }
         if (object.status !== undefined && object.status !== null) {
-            message.status = String(object.status);
+            message.status = statusFromJSON(object.status);
         }
         else {
-            message.status = "";
+            message.status = 0;
         }
         if (object.cardType !== undefined && object.cardType !== null) {
             message.cardType = String(object.cardType);
@@ -1255,7 +1256,7 @@ export const QueryQCardsRequest = {
     toJSON(message) {
         const obj = {};
         message.owner !== undefined && (obj.owner = message.owner);
-        message.status !== undefined && (obj.status = message.status);
+        message.status !== undefined && (obj.status = statusToJSON(message.status));
         message.cardType !== undefined && (obj.cardType = message.cardType);
         message.classes !== undefined && (obj.classes = message.classes);
         message.sortBy !== undefined && (obj.sortBy = message.sortBy);
@@ -1279,7 +1280,7 @@ export const QueryQCardsRequest = {
             message.status = object.status;
         }
         else {
-            message.status = "";
+            message.status = 0;
         }
         if (object.cardType !== undefined && object.cardType !== null) {
             message.cardType = object.cardType;

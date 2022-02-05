@@ -309,6 +309,7 @@ func request_Query_QCards_0(ctx context.Context, marshaler runtime.Marshaler, cl
 
 	var (
 		val string
+		e   int32
 		ok  bool
 		err error
 		_   = err
@@ -330,11 +331,13 @@ func request_Query_QCards_0(ctx context.Context, marshaler runtime.Marshaler, cl
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "status")
 	}
 
-	protoReq.Status, err = runtime.String(val)
+	e, err = runtime.Enum(val, Status_value)
 
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "status", err)
 	}
+
+	protoReq.Status = Status(e)
 
 	val, ok = pathParams["cardType"]
 	if !ok {
@@ -413,6 +416,7 @@ func local_request_Query_QCards_0(ctx context.Context, marshaler runtime.Marshal
 
 	var (
 		val string
+		e   int32
 		ok  bool
 		err error
 		_   = err
@@ -434,11 +438,13 @@ func local_request_Query_QCards_0(ctx context.Context, marshaler runtime.Marshal
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "status")
 	}
 
-	protoReq.Status, err = runtime.String(val)
+	e, err = runtime.Enum(val, Status_value)
 
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "status", err)
 	}
+
+	protoReq.Status = Status(e)
 
 	val, ok = pathParams["cardType"]
 	if !ok {

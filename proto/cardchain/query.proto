@@ -7,6 +7,7 @@ import "cosmos/base/query/v1beta1/pagination.proto";
 import "cardchain/params.proto";
 import "cardchain/vote_right.proto";
 import "cardchain/voting_results.proto";
+import "cardchain/card.proto";
 // this line is used by starport scaffolding # 1
 
 option go_package = "github.com/DecentralCardGame/Cardchain/x/cardchain/types";
@@ -75,7 +76,7 @@ message QueryQCardResponse {
   string image = 4;
   bool fullArt = 5;
   string notes = 6;
-  string status = 7;
+  Status status = 7;
   string votePool = 8 [(gogoproto.nullable) = false, (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Coin"];;
   uint64 fairEnoughVotes = 9;
   uint64 overpoweredVotes = 10;
@@ -129,7 +130,7 @@ message QueryQVotableCardsResponse {
 
 message QueryQCardsRequest {
   string owner = 1;
-  string status = 2;
+  Status status = 2;
   string cardType = 3;
   string classes = 4;
   string sortBy = 5;

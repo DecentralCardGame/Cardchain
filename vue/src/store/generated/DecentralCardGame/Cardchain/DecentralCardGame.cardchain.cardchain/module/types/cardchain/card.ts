@@ -4,6 +4,80 @@ import { util, configure, Writer, Reader } from "protobufjs/minimal";
 
 export const protobufPackage = "DecentralCardGame.cardchain.cardchain";
 
+export enum Status {
+  scheme = 0,
+  prototype = 1,
+  trial = 2,
+  permanent = 3,
+  suspended = 4,
+  banned = 5,
+  bannedSoon = 6,
+  bannedVerySoon = 7,
+  none = 8,
+  UNRECOGNIZED = -1,
+}
+
+export function statusFromJSON(object: any): Status {
+  switch (object) {
+    case 0:
+    case "scheme":
+      return Status.scheme;
+    case 1:
+    case "prototype":
+      return Status.prototype;
+    case 2:
+    case "trial":
+      return Status.trial;
+    case 3:
+    case "permanent":
+      return Status.permanent;
+    case 4:
+    case "suspended":
+      return Status.suspended;
+    case 5:
+    case "banned":
+      return Status.banned;
+    case 6:
+    case "bannedSoon":
+      return Status.bannedSoon;
+    case 7:
+    case "bannedVerySoon":
+      return Status.bannedVerySoon;
+    case 8:
+    case "none":
+      return Status.none;
+    case -1:
+    case "UNRECOGNIZED":
+    default:
+      return Status.UNRECOGNIZED;
+  }
+}
+
+export function statusToJSON(object: Status): string {
+  switch (object) {
+    case Status.scheme:
+      return "scheme";
+    case Status.prototype:
+      return "prototype";
+    case Status.trial:
+      return "trial";
+    case Status.permanent:
+      return "permanent";
+    case Status.suspended:
+      return "suspended";
+    case Status.banned:
+      return "banned";
+    case Status.bannedSoon:
+      return "bannedSoon";
+    case Status.bannedVerySoon:
+      return "bannedVerySoon";
+    case Status.none:
+      return "none";
+    default:
+      return "UNKNOWN";
+  }
+}
+
 export interface Card {
   owner: string;
   artist: string;
@@ -11,7 +85,7 @@ export interface Card {
   image: Uint8Array;
   fullArt: boolean;
   notes: string;
-  status: string;
+  status: Status;
   votePool: string;
   fairEnoughVotes: number;
   overpoweredVotes: number;
@@ -25,7 +99,7 @@ const baseCard: object = {
   artist: "",
   fullArt: false,
   notes: "",
-  status: "",
+  status: 0,
   votePool: "",
   fairEnoughVotes: 0,
   overpoweredVotes: 0,
@@ -54,8 +128,8 @@ export const Card = {
     if (message.notes !== "") {
       writer.uint32(50).string(message.notes);
     }
-    if (message.status !== "") {
-      writer.uint32(58).string(message.status);
+    if (message.status !== 0) {
+      writer.uint32(56).int32(message.status);
     }
     if (message.votePool !== "") {
       writer.uint32(66).string(message.votePool);
@@ -104,7 +178,7 @@ export const Card = {
           message.notes = reader.string();
           break;
         case 7:
-          message.status = reader.string();
+          message.status = reader.int32() as any;
           break;
         case 8:
           message.votePool = reader.string();
@@ -161,9 +235,9 @@ export const Card = {
       message.notes = "";
     }
     if (object.status !== undefined && object.status !== null) {
-      message.status = String(object.status);
+      message.status = statusFromJSON(object.status);
     } else {
-      message.status = "";
+      message.status = 0;
     }
     if (object.votePool !== undefined && object.votePool !== null) {
       message.votePool = String(object.votePool);
@@ -224,7 +298,7 @@ export const Card = {
       ));
     message.fullArt !== undefined && (obj.fullArt = message.fullArt);
     message.notes !== undefined && (obj.notes = message.notes);
-    message.status !== undefined && (obj.status = message.status);
+    message.status !== undefined && (obj.status = statusToJSON(message.status));
     message.votePool !== undefined && (obj.votePool = message.votePool);
     message.fairEnoughVotes !== undefined &&
       (obj.fairEnoughVotes = message.fairEnoughVotes);
@@ -273,7 +347,7 @@ export const Card = {
     if (object.status !== undefined && object.status !== null) {
       message.status = object.status;
     } else {
-      message.status = "";
+      message.status = 0;
     }
     if (object.votePool !== undefined && object.votePool !== null) {
       message.votePool = object.votePool;

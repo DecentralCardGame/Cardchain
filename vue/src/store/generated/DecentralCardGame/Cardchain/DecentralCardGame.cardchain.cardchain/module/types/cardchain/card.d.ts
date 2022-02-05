@@ -1,5 +1,19 @@
 import { Writer, Reader } from "protobufjs/minimal";
 export declare const protobufPackage = "DecentralCardGame.cardchain.cardchain";
+export declare enum Status {
+    scheme = 0,
+    prototype = 1,
+    trial = 2,
+    permanent = 3,
+    suspended = 4,
+    banned = 5,
+    bannedSoon = 6,
+    bannedVerySoon = 7,
+    none = 8,
+    UNRECOGNIZED = -1
+}
+export declare function statusFromJSON(object: any): Status;
+export declare function statusToJSON(object: Status): string;
 export interface Card {
     owner: string;
     artist: string;
@@ -7,7 +21,7 @@ export interface Card {
     image: Uint8Array;
     fullArt: boolean;
     notes: string;
-    status: string;
+    status: Status;
     votePool: string;
     fairEnoughVotes: number;
     overpoweredVotes: number;

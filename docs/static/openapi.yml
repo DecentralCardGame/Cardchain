@@ -11902,6 +11902,17 @@ paths:
                 type: string
               status:
                 type: string
+                enum:
+                  - scheme
+                  - prototype
+                  - trial
+                  - permanent
+                  - suspended
+                  - banned
+                  - bannedSoon
+                  - bannedVerySoon
+                  - none
+                default: scheme
               votePool:
                 type: string
               fairEnoughVotes:
@@ -12055,6 +12066,16 @@ paths:
           in: path
           required: true
           type: string
+          enum:
+            - scheme
+            - prototype
+            - trial
+            - permanent
+            - suspended
+            - banned
+            - bannedSoon
+            - bannedVerySoon
+            - none
         - name: cardType
           in: path
           required: true
@@ -20228,6 +20249,17 @@ definitions:
         type: string
       status:
         type: string
+        enum:
+          - scheme
+          - prototype
+          - trial
+          - permanent
+          - suspended
+          - banned
+          - bannedSoon
+          - bannedVerySoon
+          - none
+        default: scheme
       votePool:
         type: string
       fairEnoughVotes:
@@ -20347,6 +20379,19 @@ definitions:
                   type: string
           notes:
             type: string
+  DecentralCardGame.cardchain.cardchain.Status:
+    type: string
+    enum:
+      - scheme
+      - prototype
+      - trial
+      - permanent
+      - suspended
+      - banned
+      - bannedSoon
+      - bannedVerySoon
+      - none
+    default: scheme
   DecentralCardGame.cardchain.cardchain.VoteRight:
     type: object
     properties:

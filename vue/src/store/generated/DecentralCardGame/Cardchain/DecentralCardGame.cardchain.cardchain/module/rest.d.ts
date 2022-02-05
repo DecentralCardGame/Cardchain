@@ -28,7 +28,7 @@ export interface CardchainQueryQCardResponse {
     image?: string;
     fullArt?: boolean;
     notes?: string;
-    status?: string;
+    status?: CardchaincardchainStatus;
     votePool?: string;
     /** @format uint64 */
     fairEnoughVotes?: string;
@@ -94,14 +94,25 @@ export interface CardchainVotingResults {
     cardResults?: CardchainVotingResult[];
     notes?: string;
 }
-export interface ProtobufAny {
-    "@type"?: string;
+export declare enum CardchaincardchainStatus {
+    Scheme = "scheme",
+    Prototype = "prototype",
+    Trial = "trial",
+    Permanent = "permanent",
+    Suspended = "suspended",
+    Banned = "banned",
+    BannedSoon = "bannedSoon",
+    BannedVerySoon = "bannedVerySoon",
+    None = "none"
 }
-export interface RpcStatus {
+export interface GooglerpcStatus {
     /** @format int32 */
     code?: number;
     message?: string;
     details?: ProtobufAny[];
+}
+export interface ProtobufAny {
+    "@type"?: string;
 }
 export declare type QueryParamsType = Record<string | number, any>;
 export declare type ResponseFormat = keyof Omit<Body, "body" | "bodyUsed">;
@@ -169,7 +180,7 @@ export declare class Api<SecurityDataType extends unknown> extends HttpClient<Se
      * @summary Parameters queries the parameters of the module.
      * @request GET:/DecentralCardGame/cardchain/cardchain/params
      */
-    queryParams: (params?: RequestParams) => Promise<HttpResponse<CardchainQueryParamsResponse, RpcStatus>>;
+    queryParams: (params?: RequestParams) => Promise<HttpResponse<CardchainQueryParamsResponse, GooglerpcStatus>>;
     /**
      * No description
      *
@@ -178,7 +189,7 @@ export declare class Api<SecurityDataType extends unknown> extends HttpClient<Se
      * @summary Queries a list of QCard items.
      * @request GET:/DecentralCardGame/cardchain/cardchain/q_card/{cardId}
      */
-    queryQCard: (cardId: string, params?: RequestParams) => Promise<HttpResponse<CardchainQueryQCardResponse, RpcStatus>>;
+    queryQCard: (cardId: string, params?: RequestParams) => Promise<HttpResponse<CardchainQueryQCardResponse, GooglerpcStatus>>;
     /**
      * No description
      *
@@ -187,7 +198,7 @@ export declare class Api<SecurityDataType extends unknown> extends HttpClient<Se
      * @summary Queries a list of QCardContent items.
      * @request GET:/DecentralCardGame/cardchain/cardchain/q_card_content/{cardId}
      */
-    queryQCardContent: (cardId: string, params?: RequestParams) => Promise<HttpResponse<CardchainQueryQCardContentResponse, RpcStatus>>;
+    queryQCardContent: (cardId: string, params?: RequestParams) => Promise<HttpResponse<CardchainQueryQCardContentResponse, GooglerpcStatus>>;
     /**
      * No description
      *
@@ -196,7 +207,7 @@ export declare class Api<SecurityDataType extends unknown> extends HttpClient<Se
      * @summary Queries a list of QCardchainInfo items.
      * @request GET:/DecentralCardGame/cardchain/cardchain/q_cardchain_info
      */
-    queryQCardchainInfo: (params?: RequestParams) => Promise<HttpResponse<CardchainQueryQCardchainInfoResponse, RpcStatus>>;
+    queryQCardchainInfo: (params?: RequestParams) => Promise<HttpResponse<CardchainQueryQCardchainInfoResponse, GooglerpcStatus>>;
     /**
      * No description
      *
@@ -205,7 +216,7 @@ export declare class Api<SecurityDataType extends unknown> extends HttpClient<Se
      * @summary Queries a list of QCards items.
      * @request GET:/DecentralCardGame/cardchain/cardchain/q_cards/{owner}/{status}/{cardType}/{classes}/{sortBy}/{nameContains}/{keywordsContains}/{notesContains}
      */
-    queryQCards: (owner: string, status: string, cardType: string, classes: string, sortBy: string, nameContains: string, keywordsContains: string, notesContains: string, params?: RequestParams) => Promise<HttpResponse<CardchainQueryQCardsResponse, RpcStatus>>;
+    queryQCards: (owner: string, status: "scheme" | "prototype" | "trial" | "permanent" | "suspended" | "banned" | "bannedSoon" | "bannedVerySoon" | "none", cardType: string, classes: string, sortBy: string, nameContains: string, keywordsContains: string, notesContains: string, params?: RequestParams) => Promise<HttpResponse<CardchainQueryQCardsResponse, GooglerpcStatus>>;
     /**
      * No description
      *
@@ -214,7 +225,7 @@ export declare class Api<SecurityDataType extends unknown> extends HttpClient<Se
      * @summary Queries a list of QUser items.
      * @request GET:/DecentralCardGame/cardchain/cardchain/q_user/{address}
      */
-    queryQUser: (address: string, params?: RequestParams) => Promise<HttpResponse<CardchainQueryQUserResponse, RpcStatus>>;
+    queryQUser: (address: string, params?: RequestParams) => Promise<HttpResponse<CardchainQueryQUserResponse, GooglerpcStatus>>;
     /**
      * No description
      *
@@ -223,7 +234,7 @@ export declare class Api<SecurityDataType extends unknown> extends HttpClient<Se
      * @summary Queries a list of QVotableCards items.
      * @request GET:/DecentralCardGame/cardchain/cardchain/q_votable_cards/{address}
      */
-    queryQVotableCards: (address: string, params?: RequestParams) => Promise<HttpResponse<CardchainQueryQVotableCardsResponse, RpcStatus>>;
+    queryQVotableCards: (address: string, params?: RequestParams) => Promise<HttpResponse<CardchainQueryQVotableCardsResponse, GooglerpcStatus>>;
     /**
      * No description
      *
@@ -232,6 +243,6 @@ export declare class Api<SecurityDataType extends unknown> extends HttpClient<Se
      * @summary Queries a list of QVotingResults items.
      * @request GET:/DecentralCardGame/cardchain/cardchain/q_voting_results
      */
-    queryQVotingResults: (params?: RequestParams) => Promise<HttpResponse<CardchainQueryQVotingResultsResponse, RpcStatus>>;
+    queryQVotingResults: (params?: RequestParams) => Promise<HttpResponse<CardchainQueryQVotingResultsResponse, GooglerpcStatus>>;
 }
 export {};

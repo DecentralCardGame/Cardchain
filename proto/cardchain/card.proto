@@ -13,11 +13,23 @@ message Card {
   bytes image = 4;
   bool fullArt = 5;
   string notes = 6;
-  string status = 7;
+  Status status = 7;
   string votePool = 8 [(gogoproto.nullable) = false, (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Coin"];;
   uint64 fairEnoughVotes = 9;
   uint64 overpoweredVotes = 10;
   uint64 underpoweredVotes = 11;
   uint64 inappropriateVotes = 12;
   int64 nerflevel = 13;
+}
+
+enum Status {
+  scheme = 0;
+  prototype = 1;
+  trial = 2;
+  permanent = 3;
+  suspended = 4;
+  banned = 5;
+  bannedSoon = 6;
+  bannedVerySoon = 7;
+  none = 8;
 }
