@@ -9,11 +9,10 @@ const TypeMsgTransferCard = "transfer_card"
 
 var _ sdk.Msg = &MsgTransferCard{}
 
-func NewMsgTransferCard(creator string, cardId uint64, sender string, receiver string) *MsgTransferCard {
+func NewMsgTransferCard(creator string, cardId uint64, receiver string) *MsgTransferCard {
 	return &MsgTransferCard{
 		Creator:  creator,
 		CardId:   cardId,
-		Sender:   sender,
 		Receiver: receiver,
 	}
 }

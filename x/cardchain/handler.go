@@ -111,7 +111,7 @@ func handleMsgTransferCard(ctx sdk.Context, keeper keeper.Keeper, msg *types.Msg
 			return sdk.ErrUnknownRequest("Transferring a card is only possible if it is in trial or a permanent card").Result()
 		}
 	*/
-	sender, err := sdk.AccAddressFromBech32(msg.Sender)
+	sender, err := sdk.AccAddressFromBech32(msg.Creator)
 	if err != nil {
 		return nil, sdkerrors.Wrap(types.ErrInvalidAccAddress, "Unable to convert to AccAddress")
 	}

@@ -39,7 +39,6 @@ export interface MsgSaveCardContentResponse {
 export interface MsgTransferCard {
     creator: string;
     cardId: number;
-    sender: string;
     receiver: string;
 }
 export interface MsgTransferCardResponse {
