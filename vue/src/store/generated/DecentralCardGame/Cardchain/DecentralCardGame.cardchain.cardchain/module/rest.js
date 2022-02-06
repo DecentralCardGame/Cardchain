@@ -8,6 +8,13 @@
  * ## SOURCE: https://github.com/acacode/swagger-typescript-api ##
  * ---------------------------------------------------------------
  */
+export var CardchainCouncilStatus;
+(function (CardchainCouncilStatus) {
+    CardchainCouncilStatus["Available"] = "available";
+    CardchainCouncilStatus["Unavailable"] = "unavailable";
+    CardchainCouncilStatus["OpenCouncil"] = "openCouncil";
+    CardchainCouncilStatus["StartedCouncil"] = "startedCouncil";
+})(CardchainCouncilStatus || (CardchainCouncilStatus = {}));
 export var CardchaincardchainStatus;
 (function (CardchaincardchainStatus) {
     CardchaincardchainStatus["Scheme"] = "scheme";

@@ -1,3 +1,9 @@
+export declare enum CardchainCouncilStatus {
+    Available = "available",
+    Unavailable = "unavailable",
+    OpenCouncil = "openCouncil",
+    StartedCouncil = "startedCouncil"
+}
 export declare type CardchainMsgAddArtworkResponse = object;
 export declare type CardchainMsgBuyCardSchemeResponse = object;
 export declare type CardchainMsgChangeArtistResponse = object;
@@ -52,6 +58,7 @@ export interface CardchainQueryQUserResponse {
     ownedCardSchemes?: string[];
     ownedCards?: string[];
     voteRights?: CardchainVoteRight[];
+    councilStatus?: CardchainCouncilStatus;
 }
 export interface CardchainQueryQVotableCardsResponse {
     unregistered?: boolean;

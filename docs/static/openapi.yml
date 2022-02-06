@@ -12135,6 +12135,14 @@ paths:
                     expireBlock:
                       type: string
                       format: int64
+              councilStatus:
+                type: string
+                enum:
+                  - available
+                  - unavailable
+                  - openCouncil
+                  - startedCouncil
+                default: available
         default:
           description: An unexpected error response.
           schema:
@@ -20199,6 +20207,14 @@ definitions:
     description: >-
       MsgCreateVestingAccountResponse defines the Msg/CreateVestingAccount
       response type.
+  DecentralCardGame.cardchain.cardchain.CouncilStatus:
+    type: string
+    enum:
+      - available
+      - unavailable
+      - openCouncil
+      - startedCouncil
+    default: available
   DecentralCardGame.cardchain.cardchain.MsgAddArtworkResponse:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgBuyCardSchemeResponse:
@@ -20316,6 +20332,14 @@ definitions:
             expireBlock:
               type: string
               format: int64
+      councilStatus:
+        type: string
+        enum:
+          - available
+          - unavailable
+          - openCouncil
+          - startedCouncil
+        default: available
   DecentralCardGame.cardchain.cardchain.QueryQVotableCardsResponse:
     type: object
     properties:

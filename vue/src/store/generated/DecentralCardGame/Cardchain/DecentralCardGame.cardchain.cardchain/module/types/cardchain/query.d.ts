@@ -1,4 +1,5 @@
 import { Status } from "../cardchain/card";
+import { CouncilStatus } from "../cardchain/user";
 import { Reader, Writer } from "protobufjs/minimal";
 import { Params } from "../cardchain/params";
 import { VoteRight } from "../cardchain/vote_right";
@@ -44,6 +45,7 @@ export interface QueryQUserResponse {
     ownedCardSchemes: number[];
     ownedCards: number[];
     voteRights: VoteRight[];
+    councilStatus: CouncilStatus;
 }
 export interface QueryQCardchainInfoRequest {
 }

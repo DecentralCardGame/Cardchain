@@ -13,6 +13,7 @@ func NewUser() User {
 		OwnedCardSchemes: []uint64{},
 		OwnedCards:       []uint64{},
 		VoteRights:       []*VoteRight{},
+		CouncilStatus: 		CouncilStatus_unavailable,
 	}
 }
 

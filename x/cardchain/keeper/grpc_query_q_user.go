@@ -32,5 +32,6 @@ func (k Keeper) QUser(goCtx context.Context, req *types.QueryQUserRequest) (*typ
 		user.OwnedCardSchemes,
 		user.OwnedCards,
 		user.VoteRights,
+		user.CouncilStatus,
 	}, nil
 }

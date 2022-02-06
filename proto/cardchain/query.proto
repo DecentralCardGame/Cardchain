@@ -8,6 +8,7 @@ import "cardchain/params.proto";
 import "cardchain/vote_right.proto";
 import "cardchain/voting_results.proto";
 import "cardchain/card.proto";
+import "cardchain/user.proto";
 // this line is used by starport scaffolding # 1
 
 option go_package = "github.com/DecentralCardGame/Cardchain/x/cardchain/types";
@@ -102,6 +103,7 @@ message QueryQUserResponse {
   repeated uint64 ownedCardSchemes = 2;
   repeated uint64 ownedCards = 3;
   repeated VoteRight voteRights = 4;
+  CouncilStatus councilStatus = 5;
 }
 
 message QueryQCardchainInfoRequest {
