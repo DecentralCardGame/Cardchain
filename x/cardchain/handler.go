@@ -38,6 +38,8 @@ func NewHandler(k keeper.Keeper) sdk.Handler {
 			return handleMsgChangeArtist(ctx, k, msg)
 		case *types.MsgRegisterForCouncil:
 			return handleMsgRegisterForCouncil(ctx, k, msg)
+		case *types.MsgReportMatch:
+			return handleMsgReportMatch(ctx, k, msg)
 		// case *types.MsgReportMatch:
 		// 	res, err := msgServer.ReportMatch(sdk.WrapSDKContext(ctx), msg)
 		// 	return sdk.WrapServiceResult(ctx, res, err)
@@ -47,6 +49,40 @@ func NewHandler(k keeper.Keeper) sdk.Handler {
 			return nil, sdkerrors.Wrap(sdkerrors.ErrUnknownRequest, errMsg)
 		}
 	}
+}
+
+func handleMsgReportMatch(ctx sdk.Context, keeper keeper.Keeper, msg *types.MsgReportMatch) (*sdk.Result, error) {
+	address, err := sdk.AccAddressFromBech32(msg.Creator)
+	if err != nil {
+		return nil, sdkerrors.Wrap(types.ErrInvalidAccAddress, "Invalid creator")
+	}
+
+	creator, err := keeper.GetUser(ctx, address)
+	if err != nil {
+		return nil, err
+	}
+	if creator.ReportMatches == false {
+		return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "Incorrect Reporter")
+	}
+
+	var matchId uint64
+	if mLen := len(keeper.GetAllMatches(ctx)); mLen == 0 {
+		matchId = 0
+	} else {
+		matchId = uint64(mLen - 1)
+	}
+
+	match := types.Match{
+		matchId,
+		msg.Creator,
+		msg.PlayerA,
+		msg.PlayerB,
+		msg.Outcome,
+	}
+
+	keeper.SetMatch(ctx, matchId, match)
+
+	return sdk.WrapServiceResult(ctx, &types.MsgReportMatchResponse{matchId}, nil)
 }
 
 func handleMsgRegisterForCouncil(ctx sdk.Context, keeper keeper.Keeper, msg *types.MsgRegisterForCouncil) (*sdk.Result, error) {
