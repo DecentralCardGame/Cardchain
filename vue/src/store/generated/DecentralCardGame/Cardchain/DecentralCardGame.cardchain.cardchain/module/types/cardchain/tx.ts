@@ -4,6 +4,50 @@ import * as Long from "long";
 
 export const protobufPackage = "DecentralCardGame.cardchain.cardchain";
 
+export enum Outcome {
+  AWon = 0,
+  BWon = 1,
+  Draw = 2,
+  Aborted = 3,
+  UNRECOGNIZED = -1,
+}
+
+export function outcomeFromJSON(object: any): Outcome {
+  switch (object) {
+    case 0:
+    case "AWon":
+      return Outcome.AWon;
+    case 1:
+    case "BWon":
+      return Outcome.BWon;
+    case 2:
+    case "Draw":
+      return Outcome.Draw;
+    case 3:
+    case "Aborted":
+      return Outcome.Aborted;
+    case -1:
+    case "UNRECOGNIZED":
+    default:
+      return Outcome.UNRECOGNIZED;
+  }
+}
+
+export function outcomeToJSON(object: Outcome): string {
+  switch (object) {
+    case Outcome.AWon:
+      return "AWon";
+    case Outcome.BWon:
+      return "BWon";
+    case Outcome.Draw:
+      return "Draw";
+    case Outcome.Aborted:
+      return "Aborted";
+    default:
+      return "UNKNOWN";
+  }
+}
+
 export interface MsgCreateuser {
   creator: string;
   newUser: string;
@@ -92,6 +136,17 @@ export interface MsgRegisterForCouncil {
 }
 
 export interface MsgRegisterForCouncilResponse {}
+
+export interface MsgReportMatch {
+  creator: string;
+  playerA: string;
+  playerB: string;
+  outcome: Outcome;
+}
+
+export interface MsgReportMatchResponse {
+  matchId: number;
+}
 
 const baseMsgCreateuser: object = { creator: "", newUser: "", alias: "" };
 
@@ -1574,6 +1629,178 @@ export const MsgRegisterForCouncilResponse = {
   },
 };
 
+const baseMsgReportMatch: object = {
+  creator: "",
+  playerA: "",
+  playerB: "",
+  outcome: 0,
+};
+
+export const MsgReportMatch = {
+  encode(message: MsgReportMatch, writer: Writer = Writer.create()): Writer {
+    if (message.creator !== "") {
+      writer.uint32(10).string(message.creator);
+    }
+    if (message.playerA !== "") {
+      writer.uint32(18).string(message.playerA);
+    }
+    if (message.playerB !== "") {
+      writer.uint32(26).string(message.playerB);
+    }
+    if (message.outcome !== 0) {
+      writer.uint32(32).int32(message.outcome);
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgReportMatch {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseMsgReportMatch } as MsgReportMatch;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string();
+          break;
+        case 2:
+          message.playerA = reader.string();
+          break;
+        case 3:
+          message.playerB = reader.string();
+          break;
+        case 4:
+          message.outcome = reader.int32() as any;
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgReportMatch {
+    const message = { ...baseMsgReportMatch } as MsgReportMatch;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = String(object.creator);
+    } else {
+      message.creator = "";
+    }
+    if (object.playerA !== undefined && object.playerA !== null) {
+      message.playerA = String(object.playerA);
+    } else {
+      message.playerA = "";
+    }
+    if (object.playerB !== undefined && object.playerB !== null) {
+      message.playerB = String(object.playerB);
+    } else {
+      message.playerB = "";
+    }
+    if (object.outcome !== undefined && object.outcome !== null) {
+      message.outcome = outcomeFromJSON(object.outcome);
+    } else {
+      message.outcome = 0;
+    }
+    return message;
+  },
+
+  toJSON(message: MsgReportMatch): unknown {
+    const obj: any = {};
+    message.creator !== undefined && (obj.creator = message.creator);
+    message.playerA !== undefined && (obj.playerA = message.playerA);
+    message.playerB !== undefined && (obj.playerB = message.playerB);
+    message.outcome !== undefined &&
+      (obj.outcome = outcomeToJSON(message.outcome));
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<MsgReportMatch>): MsgReportMatch {
+    const message = { ...baseMsgReportMatch } as MsgReportMatch;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    } else {
+      message.creator = "";
+    }
+    if (object.playerA !== undefined && object.playerA !== null) {
+      message.playerA = object.playerA;
+    } else {
+      message.playerA = "";
+    }
+    if (object.playerB !== undefined && object.playerB !== null) {
+      message.playerB = object.playerB;
+    } else {
+      message.playerB = "";
+    }
+    if (object.outcome !== undefined && object.outcome !== null) {
+      message.outcome = object.outcome;
+    } else {
+      message.outcome = 0;
+    }
+    return message;
+  },
+};
+
+const baseMsgReportMatchResponse: object = { matchId: 0 };
+
+export const MsgReportMatchResponse = {
+  encode(
+    message: MsgReportMatchResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.matchId !== 0) {
+      writer.uint32(8).uint64(message.matchId);
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgReportMatchResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseMsgReportMatchResponse } as MsgReportMatchResponse;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.matchId = longToNumber(reader.uint64() as Long);
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgReportMatchResponse {
+    const message = { ...baseMsgReportMatchResponse } as MsgReportMatchResponse;
+    if (object.matchId !== undefined && object.matchId !== null) {
+      message.matchId = Number(object.matchId);
+    } else {
+      message.matchId = 0;
+    }
+    return message;
+  },
+
+  toJSON(message: MsgReportMatchResponse): unknown {
+    const obj: any = {};
+    message.matchId !== undefined && (obj.matchId = message.matchId);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<MsgReportMatchResponse>
+  ): MsgReportMatchResponse {
+    const message = { ...baseMsgReportMatchResponse } as MsgReportMatchResponse;
+    if (object.matchId !== undefined && object.matchId !== null) {
+      message.matchId = object.matchId;
+    } else {
+      message.matchId = 0;
+    }
+    return message;
+  },
+};
+
 /** Msg defines the Msg service. */
 export interface Msg {
   Createuser(request: MsgCreateuser): Promise<MsgCreateuserResponse>;
@@ -1589,10 +1816,11 @@ export interface Msg {
     request: MsgSubmitCopyrightProposal
   ): Promise<MsgSubmitCopyrightProposalResponse>;
   ChangeArtist(request: MsgChangeArtist): Promise<MsgChangeArtistResponse>;
-  /** this line is used by starport scaffolding # proto/tx/rpc */
   RegisterForCouncil(
     request: MsgRegisterForCouncil
   ): Promise<MsgRegisterForCouncilResponse>;
+  /** this line is used by starport scaffolding # proto/tx/rpc */
+  ReportMatch(request: MsgReportMatch): Promise<MsgReportMatchResponse>;
 }
 
 export class MsgClientImpl implements Msg {
@@ -1721,6 +1949,18 @@ export class MsgClientImpl implements Msg {
     );
     return promise.then((data) =>
       MsgRegisterForCouncilResponse.decode(new Reader(data))
+    );
+  }
+
+  ReportMatch(request: MsgReportMatch): Promise<MsgReportMatchResponse> {
+    const data = MsgReportMatch.encode(request).finish();
+    const promise = this.rpc.request(
+      "DecentralCardGame.cardchain.cardchain.Msg",
+      "ReportMatch",
+      data
+    );
+    return promise.then((data) =>
+      MsgReportMatchResponse.decode(new Reader(data))
     );
   }
 }

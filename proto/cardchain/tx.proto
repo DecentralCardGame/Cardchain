@@ -9,7 +9,7 @@ option go_package = "github.com/DecentralCardGame/Cardchain/x/cardchain/types";
 
 // Msg defines the Msg service.
 service Msg {
-      rpc Createuser(MsgCreateuser) returns (MsgCreateuserResponse);
+  rpc Createuser(MsgCreateuser) returns (MsgCreateuserResponse);
   rpc BuyCardScheme(MsgBuyCardScheme) returns (MsgBuyCardSchemeResponse);
   rpc VoteCard(MsgVoteCard) returns (MsgVoteCardResponse);
   rpc SaveCardContent(MsgSaveCardContent) returns (MsgSaveCardContentResponse);
@@ -19,6 +19,7 @@ service Msg {
   rpc SubmitCopyrightProposal(MsgSubmitCopyrightProposal) returns (MsgSubmitCopyrightProposalResponse);
   rpc ChangeArtist(MsgChangeArtist) returns (MsgChangeArtistResponse);
   rpc RegisterForCouncil(MsgRegisterForCouncil) returns (MsgRegisterForCouncilResponse);
+  rpc ReportMatch(MsgReportMatch) returns (MsgReportMatchResponse);
 // this line is used by starport scaffolding # proto/tx/rpc
 }
 
@@ -117,6 +118,24 @@ message MsgRegisterForCouncil {
 }
 
 message MsgRegisterForCouncilResponse {
+}
+
+message MsgReportMatch {
+  string creator = 1;
+  string playerA = 2;
+  string playerB = 3;
+  Outcome outcome = 4;
+}
+
+enum Outcome {
+  AWon = 0;
+  BWon = 1;
+  Draw = 2;
+  Aborted = 3;
+}
+
+message MsgReportMatchResponse {
+  uint64 matchId = 1;
 }
 
 // this line is used by starport scaffolding # proto/tx/message

@@ -28,6 +28,11 @@ export type CardchainMsgDonateToCardResponse = object;
 
 export type CardchainMsgRegisterForCouncilResponse = object;
 
+export interface CardchainMsgReportMatchResponse {
+  /** @format uint64 */
+  matchId?: string;
+}
+
 export type CardchainMsgSaveCardContentResponse = object;
 
 export type CardchainMsgSubmitCopyrightProposalResponse = object;
@@ -35,6 +40,13 @@ export type CardchainMsgSubmitCopyrightProposalResponse = object;
 export type CardchainMsgTransferCardResponse = object;
 
 export type CardchainMsgVoteCardResponse = object;
+
+export enum CardchainOutcome {
+  AWon = "AWon",
+  BWon = "BWon",
+  Draw = "Draw",
+  Aborted = "Aborted",
+}
 
 /**
  * Params defines the parameters for the module.
@@ -93,6 +105,7 @@ export interface CardchainQueryQUserResponse {
   ownedCards?: string[];
   voteRights?: CardchainVoteRight[];
   councilStatus?: CardchainCouncilStatus;
+  reportMatches?: boolean;
 }
 
 export interface CardchainQueryQVotableCardsResponse {

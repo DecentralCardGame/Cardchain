@@ -60,6 +60,7 @@ export interface QueryQUserResponse {
   ownedCards: number[];
   voteRights: VoteRight[];
   councilStatus: CouncilStatus;
+  reportMatches: boolean;
 }
 
 export interface QueryQCardchainInfoRequest {}
@@ -753,6 +754,7 @@ const baseQueryQUserResponse: object = {
   ownedCardSchemes: 0,
   ownedCards: 0,
   councilStatus: 0,
+  reportMatches: false,
 };
 
 export const QueryQUserResponse = {
@@ -778,6 +780,9 @@ export const QueryQUserResponse = {
     }
     if (message.councilStatus !== 0) {
       writer.uint32(40).int32(message.councilStatus);
+    }
+    if (message.reportMatches === true) {
+      writer.uint32(48).bool(message.reportMatches);
     }
     return writer;
   },
@@ -825,6 +830,9 @@ export const QueryQUserResponse = {
         case 5:
           message.councilStatus = reader.int32() as any;
           break;
+        case 6:
+          message.reportMatches = reader.bool();
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -866,6 +874,11 @@ export const QueryQUserResponse = {
     } else {
       message.councilStatus = 0;
     }
+    if (object.reportMatches !== undefined && object.reportMatches !== null) {
+      message.reportMatches = Boolean(object.reportMatches);
+    } else {
+      message.reportMatches = false;
+    }
     return message;
   },
 
@@ -891,6 +904,8 @@ export const QueryQUserResponse = {
     }
     message.councilStatus !== undefined &&
       (obj.councilStatus = councilStatusToJSON(message.councilStatus));
+    message.reportMatches !== undefined &&
+      (obj.reportMatches = message.reportMatches);
     return obj;
   },
 
@@ -926,6 +941,11 @@ export const QueryQUserResponse = {
       message.councilStatus = object.councilStatus;
     } else {
       message.councilStatus = 0;
+    }
+    if (object.reportMatches !== undefined && object.reportMatches !== null) {
+      message.reportMatches = object.reportMatches;
+    } else {
+      message.reportMatches = false;
     }
     return message;
   },

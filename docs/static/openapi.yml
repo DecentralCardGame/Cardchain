@@ -12143,6 +12143,8 @@ paths:
                   - openCouncil
                   - startedCouncil
                 default: available
+              reportMatches:
+                type: boolean
         default:
           description: An unexpected error response.
           schema:
@@ -20227,6 +20229,12 @@ definitions:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgRegisterForCouncilResponse:
     type: object
+  DecentralCardGame.cardchain.cardchain.MsgReportMatchResponse:
+    type: object
+    properties:
+      matchId:
+        type: string
+        format: uint64
   DecentralCardGame.cardchain.cardchain.MsgSaveCardContentResponse:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgSubmitCopyrightProposalResponse:
@@ -20235,6 +20243,14 @@ definitions:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgVoteCardResponse:
     type: object
+  DecentralCardGame.cardchain.cardchain.Outcome:
+    type: string
+    enum:
+      - AWon
+      - BWon
+      - Draw
+      - Aborted
+    default: AWon
   DecentralCardGame.cardchain.cardchain.Params:
     type: object
     description: Params defines the parameters for the module.
@@ -20342,6 +20358,8 @@ definitions:
           - openCouncil
           - startedCouncil
         default: available
+      reportMatches:
+        type: boolean
   DecentralCardGame.cardchain.cardchain.QueryQVotableCardsResponse:
     type: object
     properties:

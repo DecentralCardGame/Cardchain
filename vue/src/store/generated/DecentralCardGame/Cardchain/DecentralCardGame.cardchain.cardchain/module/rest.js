@@ -15,6 +15,13 @@ export var CardchainCouncilStatus;
     CardchainCouncilStatus["OpenCouncil"] = "openCouncil";
     CardchainCouncilStatus["StartedCouncil"] = "startedCouncil";
 })(CardchainCouncilStatus || (CardchainCouncilStatus = {}));
+export var CardchainOutcome;
+(function (CardchainOutcome) {
+    CardchainOutcome["AWon"] = "AWon";
+    CardchainOutcome["BWon"] = "BWon";
+    CardchainOutcome["Draw"] = "Draw";
+    CardchainOutcome["Aborted"] = "Aborted";
+})(CardchainOutcome || (CardchainOutcome = {}));
 export var CardchaincardchainStatus;
 (function (CardchaincardchainStatus) {
     CardchaincardchainStatus["Scheme"] = "scheme";

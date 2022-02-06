@@ -617,6 +617,7 @@ const baseQueryQUserResponse = {
     ownedCardSchemes: 0,
     ownedCards: 0,
     councilStatus: 0,
+    reportMatches: false,
 };
 export const QueryQUserResponse = {
     encode(message, writer = Writer.create()) {
@@ -638,6 +639,9 @@ export const QueryQUserResponse = {
         }
         if (message.councilStatus !== 0) {
             writer.uint32(40).int32(message.councilStatus);
+        }
+        if (message.reportMatches === true) {
+            writer.uint32(48).bool(message.reportMatches);
         }
         return writer;
     },
@@ -682,6 +686,9 @@ export const QueryQUserResponse = {
                 case 5:
                     message.councilStatus = reader.int32();
                     break;
+                case 6:
+                    message.reportMatches = reader.bool();
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -722,6 +729,12 @@ export const QueryQUserResponse = {
         else {
             message.councilStatus = 0;
         }
+        if (object.reportMatches !== undefined && object.reportMatches !== null) {
+            message.reportMatches = Boolean(object.reportMatches);
+        }
+        else {
+            message.reportMatches = false;
+        }
         return message;
     },
     toJSON(message) {
@@ -747,6 +760,8 @@ export const QueryQUserResponse = {
         }
         message.councilStatus !== undefined &&
             (obj.councilStatus = councilStatusToJSON(message.councilStatus));
+        message.reportMatches !== undefined &&
+            (obj.reportMatches = message.reportMatches);
         return obj;
     },
     fromPartial(object) {
@@ -781,6 +796,12 @@ export const QueryQUserResponse = {
         }
         else {
             message.councilStatus = 0;
+        }
+        if (object.reportMatches !== undefined && object.reportMatches !== null) {
+            message.reportMatches = object.reportMatches;
+        }
+        else {
+            message.reportMatches = false;
         }
         return message;
     },

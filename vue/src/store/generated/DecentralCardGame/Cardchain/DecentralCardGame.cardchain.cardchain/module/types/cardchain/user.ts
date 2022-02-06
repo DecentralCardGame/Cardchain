@@ -55,6 +55,7 @@ export interface User {
   ownedCards: number[];
   voteRights: VoteRight[];
   CouncilStatus: CouncilStatus;
+  ReportMatches: boolean;
 }
 
 const baseUser: object = {
@@ -62,6 +63,7 @@ const baseUser: object = {
   ownedCardSchemes: 0,
   ownedCards: 0,
   CouncilStatus: 0,
+  ReportMatches: false,
 };
 
 export const User = {
@@ -84,6 +86,9 @@ export const User = {
     }
     if (message.CouncilStatus !== 0) {
       writer.uint32(40).int32(message.CouncilStatus);
+    }
+    if (message.ReportMatches === true) {
+      writer.uint32(48).bool(message.ReportMatches);
     }
     return writer;
   },
@@ -131,6 +136,9 @@ export const User = {
         case 5:
           message.CouncilStatus = reader.int32() as any;
           break;
+        case 6:
+          message.ReportMatches = reader.bool();
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -172,6 +180,11 @@ export const User = {
     } else {
       message.CouncilStatus = 0;
     }
+    if (object.ReportMatches !== undefined && object.ReportMatches !== null) {
+      message.ReportMatches = Boolean(object.ReportMatches);
+    } else {
+      message.ReportMatches = false;
+    }
     return message;
   },
 
@@ -197,6 +210,8 @@ export const User = {
     }
     message.CouncilStatus !== undefined &&
       (obj.CouncilStatus = councilStatusToJSON(message.CouncilStatus));
+    message.ReportMatches !== undefined &&
+      (obj.ReportMatches = message.ReportMatches);
     return obj;
   },
 
@@ -232,6 +247,11 @@ export const User = {
       message.CouncilStatus = object.CouncilStatus;
     } else {
       message.CouncilStatus = 0;
+    }
+    if (object.ReportMatches !== undefined && object.ReportMatches !== null) {
+      message.ReportMatches = object.ReportMatches;
+    } else {
+      message.ReportMatches = false;
     }
     return message;
   },

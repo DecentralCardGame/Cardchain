@@ -38,7 +38,10 @@ func NewHandler(k keeper.Keeper) sdk.Handler {
 			return handleMsgChangeArtist(ctx, k, msg)
 		case *types.MsgRegisterForCouncil:
 			return handleMsgRegisterForCouncil(ctx, k, msg)
-			// this line is used by starport scaffolding # 1
+		// case *types.MsgReportMatch:
+		// 	res, err := msgServer.ReportMatch(sdk.WrapSDKContext(ctx), msg)
+		// 	return sdk.WrapServiceResult(ctx, res, err)
+		// this line is used by starport scaffolding # 1
 		default:
 			errMsg := fmt.Sprintf("unrecognized %s message type: %T", types.ModuleName, msg)
 			return nil, sdkerrors.Wrap(sdkerrors.ErrUnknownRequest, errMsg)

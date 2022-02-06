@@ -104,6 +104,7 @@ message QueryQUserResponse {
   repeated uint64 ownedCards = 3;
   repeated VoteRight voteRights = 4;
   CouncilStatus councilStatus = 5;
+  bool reportMatches = 6;
 }
 
 message QueryQCardchainInfoRequest {

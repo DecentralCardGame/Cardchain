@@ -1,5 +1,14 @@
 import { Reader, Writer } from "protobufjs/minimal";
 export declare const protobufPackage = "DecentralCardGame.cardchain.cardchain";
+export declare enum Outcome {
+    AWon = 0,
+    BWon = 1,
+    Draw = 2,
+    Aborted = 3,
+    UNRECOGNIZED = -1
+}
+export declare function outcomeFromJSON(object: any): Outcome;
+export declare function outcomeToJSON(object: Outcome): string;
 export interface MsgCreateuser {
     creator: string;
     newUser: string;
@@ -78,6 +87,15 @@ export interface MsgRegisterForCouncil {
     creator: string;
 }
 export interface MsgRegisterForCouncilResponse {
+}
+export interface MsgReportMatch {
+    creator: string;
+    playerA: string;
+    playerB: string;
+    outcome: Outcome;
+}
+export interface MsgReportMatchResponse {
+    matchId: number;
 }
 export declare const MsgCreateuser: {
     encode(message: MsgCreateuser, writer?: Writer): Writer;
@@ -219,6 +237,20 @@ export declare const MsgRegisterForCouncilResponse: {
     toJSON(_: MsgRegisterForCouncilResponse): unknown;
     fromPartial(_: DeepPartial<MsgRegisterForCouncilResponse>): MsgRegisterForCouncilResponse;
 };
+export declare const MsgReportMatch: {
+    encode(message: MsgReportMatch, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgReportMatch;
+    fromJSON(object: any): MsgReportMatch;
+    toJSON(message: MsgReportMatch): unknown;
+    fromPartial(object: DeepPartial<MsgReportMatch>): MsgReportMatch;
+};
+export declare const MsgReportMatchResponse: {
+    encode(message: MsgReportMatchResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgReportMatchResponse;
+    fromJSON(object: any): MsgReportMatchResponse;
+    toJSON(message: MsgReportMatchResponse): unknown;
+    fromPartial(object: DeepPartial<MsgReportMatchResponse>): MsgReportMatchResponse;
+};
 /** Msg defines the Msg service. */
 export interface Msg {
     Createuser(request: MsgCreateuser): Promise<MsgCreateuserResponse>;
@@ -230,8 +262,9 @@ export interface Msg {
     AddArtwork(request: MsgAddArtwork): Promise<MsgAddArtworkResponse>;
     SubmitCopyrightProposal(request: MsgSubmitCopyrightProposal): Promise<MsgSubmitCopyrightProposalResponse>;
     ChangeArtist(request: MsgChangeArtist): Promise<MsgChangeArtistResponse>;
-    /** this line is used by starport scaffolding # proto/tx/rpc */
     RegisterForCouncil(request: MsgRegisterForCouncil): Promise<MsgRegisterForCouncilResponse>;
+    /** this line is used by starport scaffolding # proto/tx/rpc */
+    ReportMatch(request: MsgReportMatch): Promise<MsgReportMatchResponse>;
 }
 export declare class MsgClientImpl implements Msg {
     private readonly rpc;
@@ -246,6 +279,7 @@ export declare class MsgClientImpl implements Msg {
     SubmitCopyrightProposal(request: MsgSubmitCopyrightProposal): Promise<MsgSubmitCopyrightProposalResponse>;
     ChangeArtist(request: MsgChangeArtist): Promise<MsgChangeArtistResponse>;
     RegisterForCouncil(request: MsgRegisterForCouncil): Promise<MsgRegisterForCouncilResponse>;
+    ReportMatch(request: MsgReportMatch): Promise<MsgReportMatchResponse>;
 }
 interface Rpc {
     request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;

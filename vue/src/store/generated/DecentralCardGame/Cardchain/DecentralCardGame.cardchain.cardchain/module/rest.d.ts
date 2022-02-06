@@ -10,10 +10,20 @@ export declare type CardchainMsgChangeArtistResponse = object;
 export declare type CardchainMsgCreateuserResponse = object;
 export declare type CardchainMsgDonateToCardResponse = object;
 export declare type CardchainMsgRegisterForCouncilResponse = object;
+export interface CardchainMsgReportMatchResponse {
+    /** @format uint64 */
+    matchId?: string;
+}
 export declare type CardchainMsgSaveCardContentResponse = object;
 export declare type CardchainMsgSubmitCopyrightProposalResponse = object;
 export declare type CardchainMsgTransferCardResponse = object;
 export declare type CardchainMsgVoteCardResponse = object;
+export declare enum CardchainOutcome {
+    AWon = "AWon",
+    BWon = "BWon",
+    Draw = "Draw",
+    Aborted = "Aborted"
+}
 /**
  * Params defines the parameters for the module.
  */
@@ -60,6 +70,7 @@ export interface CardchainQueryQUserResponse {
     ownedCards?: string[];
     voteRights?: CardchainVoteRight[];
     councilStatus?: CardchainCouncilStatus;
+    reportMatches?: boolean;
 }
 export interface CardchainQueryQVotableCardsResponse {
     unregistered?: boolean;

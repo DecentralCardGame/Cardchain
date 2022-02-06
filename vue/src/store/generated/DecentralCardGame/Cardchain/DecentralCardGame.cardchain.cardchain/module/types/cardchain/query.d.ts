@@ -46,6 +46,7 @@ export interface QueryQUserResponse {
     ownedCards: number[];
     voteRights: VoteRight[];
     councilStatus: CouncilStatus;
+    reportMatches: boolean;
 }
 export interface QueryQCardchainInfoRequest {
 }
