@@ -57,7 +57,7 @@ const getDefaultState = () => {
 				QVotingResults: {},
 				QVotableCards: {},
 				QCards: {},
-				
+
 				_Structure: {
 						Card: getStructure(Card.fromPartial({})),
 						CopyrightProposal: getStructure(CopyrightProposal.fromPartial({})),
@@ -66,7 +66,7 @@ const getDefaultState = () => {
 						VoteRight: getStructure(VoteRight.fromPartial({})),
 						VotingResult: getStructure(VotingResult.fromPartial({})),
 						VotingResults: getStructure(VotingResults.fromPartial({})),
-						
+
 		},
 		_Registry: registry,
 		_Subscriptions: new Set(),
@@ -142,7 +142,7 @@ export default {
 					}
 			return state.QCards[JSON.stringify(params)] ?? {}
 		},
-				
+
 		getTypeStructure: (state) => (type) => {
 			return state._Structure[type].fields
 		},
@@ -175,188 +175,188 @@ export default {
 				}
 			})
 		},
-		
-		
-		
-		 		
-		
-		
+
+
+
+
+
+
 		async QueryParams({ commit, rootGetters, getters }, { options: { subscribe, all} = { subscribe:false, all:false}, params, query=null }) {
 			try {
 				const key = params ?? {};
 				const queryClient=await initQueryClient(rootGetters)
 				let value= (await queryClient.queryParams()).data
-				
-					
+
+
 				commit('QUERY', { query: 'Params', key: { params: {...key}, query}, value })
 				if (subscribe) commit('SUBSCRIBE', { action: 'QueryParams', payload: { options: { all }, params: {...key},query }})
 				return getters['getParams']( { params: {...key}, query}) ?? {}
 			} catch (e) {
 				throw new SpVuexError('QueryClient:QueryParams', 'API Node Unavailable. Could not perform query: ' + e.message)
-				
+
 			}
 		},
-		
-		
-		
-		
-		 		
-		
-		
+
+
+
+
+
+
+
 		async QueryQCard({ commit, rootGetters, getters }, { options: { subscribe, all} = { subscribe:false, all:false}, params, query=null }) {
 			try {
 				const key = params ?? {};
 				const queryClient=await initQueryClient(rootGetters)
 				let value= (await queryClient.queryQCard( key.cardId)).data
-				
-					
+
+
 				commit('QUERY', { query: 'QCard', key: { params: {...key}, query}, value })
 				if (subscribe) commit('SUBSCRIBE', { action: 'QueryQCard', payload: { options: { all }, params: {...key},query }})
 				return getters['getQCard']( { params: {...key}, query}) ?? {}
 			} catch (e) {
 				throw new SpVuexError('QueryClient:QueryQCard', 'API Node Unavailable. Could not perform query: ' + e.message)
-				
+
 			}
 		},
-		
-		
-		
-		
-		 		
-		
-		
+
+
+
+
+
+
+
 		async QueryQCardContent({ commit, rootGetters, getters }, { options: { subscribe, all} = { subscribe:false, all:false}, params, query=null }) {
 			try {
 				const key = params ?? {};
 				const queryClient=await initQueryClient(rootGetters)
 				let value= (await queryClient.queryQCardContent( key.cardId)).data
-				
-					
+
+
 				commit('QUERY', { query: 'QCardContent', key: { params: {...key}, query}, value })
 				if (subscribe) commit('SUBSCRIBE', { action: 'QueryQCardContent', payload: { options: { all }, params: {...key},query }})
 				return getters['getQCardContent']( { params: {...key}, query}) ?? {}
 			} catch (e) {
 				throw new SpVuexError('QueryClient:QueryQCardContent', 'API Node Unavailable. Could not perform query: ' + e.message)
-				
+
 			}
 		},
-		
-		
-		
-		
-		 		
-		
-		
+
+
+
+
+
+
+
 		async QueryQUser({ commit, rootGetters, getters }, { options: { subscribe, all} = { subscribe:false, all:false}, params, query=null }) {
 			try {
 				const key = params ?? {};
 				const queryClient=await initQueryClient(rootGetters)
 				let value= (await queryClient.queryQUser( key.address)).data
-				
-					
+
+
 				commit('QUERY', { query: 'QUser', key: { params: {...key}, query}, value })
 				if (subscribe) commit('SUBSCRIBE', { action: 'QueryQUser', payload: { options: { all }, params: {...key},query }})
 				return getters['getQUser']( { params: {...key}, query}) ?? {}
 			} catch (e) {
 				throw new SpVuexError('QueryClient:QueryQUser', 'API Node Unavailable. Could not perform query: ' + e.message)
-				
+
 			}
 		},
-		
-		
-		
-		
-		 		
-		
-		
+
+
+
+
+
+
+
 		async QueryQCardchainInfo({ commit, rootGetters, getters }, { options: { subscribe, all} = { subscribe:false, all:false}, params, query=null }) {
 			try {
 				const key = params ?? {};
 				const queryClient=await initQueryClient(rootGetters)
 				let value= (await queryClient.queryQCardchainInfo()).data
-				
-					
+
+
 				commit('QUERY', { query: 'QCardchainInfo', key: { params: {...key}, query}, value })
 				if (subscribe) commit('SUBSCRIBE', { action: 'QueryQCardchainInfo', payload: { options: { all }, params: {...key},query }})
 				return getters['getQCardchainInfo']( { params: {...key}, query}) ?? {}
 			} catch (e) {
 				throw new SpVuexError('QueryClient:QueryQCardchainInfo', 'API Node Unavailable. Could not perform query: ' + e.message)
-				
+
 			}
 		},
-		
-		
-		
-		
-		 		
-		
-		
+
+
+
+
+
+
+
 		async QueryQVotingResults({ commit, rootGetters, getters }, { options: { subscribe, all} = { subscribe:false, all:false}, params, query=null }) {
 			try {
 				const key = params ?? {};
 				const queryClient=await initQueryClient(rootGetters)
 				let value= (await queryClient.queryQVotingResults()).data
-				
-					
+
+
 				commit('QUERY', { query: 'QVotingResults', key: { params: {...key}, query}, value })
 				if (subscribe) commit('SUBSCRIBE', { action: 'QueryQVotingResults', payload: { options: { all }, params: {...key},query }})
 				return getters['getQVotingResults']( { params: {...key}, query}) ?? {}
 			} catch (e) {
 				throw new SpVuexError('QueryClient:QueryQVotingResults', 'API Node Unavailable. Could not perform query: ' + e.message)
-				
+
 			}
 		},
-		
-		
-		
-		
-		 		
-		
-		
+
+
+
+
+
+
+
 		async QueryQVotableCards({ commit, rootGetters, getters }, { options: { subscribe, all} = { subscribe:false, all:false}, params, query=null }) {
 			try {
 				const key = params ?? {};
 				const queryClient=await initQueryClient(rootGetters)
 				let value= (await queryClient.queryQVotableCards( key.address)).data
-				
-					
+
+
 				commit('QUERY', { query: 'QVotableCards', key: { params: {...key}, query}, value })
 				if (subscribe) commit('SUBSCRIBE', { action: 'QueryQVotableCards', payload: { options: { all }, params: {...key},query }})
 				return getters['getQVotableCards']( { params: {...key}, query}) ?? {}
 			} catch (e) {
 				throw new SpVuexError('QueryClient:QueryQVotableCards', 'API Node Unavailable. Could not perform query: ' + e.message)
-				
+
 			}
 		},
-		
-		
-		
-		
-		 		
-		
-		
+
+
+
+
+
+
+
 		async QueryQCards({ commit, rootGetters, getters }, { options: { subscribe, all} = { subscribe:false, all:false}, params, query=null }) {
 			try {
 				const key = params ?? {};
 				const queryClient=await initQueryClient(rootGetters)
 				let value= (await queryClient.queryQCards( key.owner,  key.status,  key.cardType,  key.classes,  key.sortBy,  key.nameContains,  key.keywordsContains,  key.notesContains)).data
-				
-					
+
+
 				commit('QUERY', { query: 'QCards', key: { params: {...key}, query}, value })
 				if (subscribe) commit('SUBSCRIBE', { action: 'QueryQCards', payload: { options: { all }, params: {...key},query }})
 				return getters['getQCards']( { params: {...key}, query}) ?? {}
 			} catch (e) {
 				throw new SpVuexError('QueryClient:QueryQCards', 'API Node Unavailable. Could not perform query: ' + e.message)
-				
+
 			}
 		},
-		
-		
+
+
 		async sendMsgChangeArtist({ rootGetters }, { value, fee = [], memo = '' }) {
 			try {
 				const txClient=await initTxClient(rootGetters)
 				const msg = await txClient.msgChangeArtist(value)
-				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee, 
+				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee,
 	gas: "200000" }, memo})
 				return result
 			} catch (e) {
@@ -371,7 +371,7 @@ export default {
 			try {
 				const txClient=await initTxClient(rootGetters)
 				const msg = await txClient.msgSubmitCopyrightProposal(value)
-				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee, 
+				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee,
 	gas: "200000" }, memo})
 				return result
 			} catch (e) {
@@ -386,7 +386,7 @@ export default {
 			try {
 				const txClient=await initTxClient(rootGetters)
 				const msg = await txClient.msgBuyCardScheme(value)
-				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee, 
+				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee,
 	gas: "200000" }, memo})
 				return result
 			} catch (e) {
@@ -401,7 +401,7 @@ export default {
 			try {
 				const txClient=await initTxClient(rootGetters)
 				const msg = await txClient.msgCreateuser(value)
-				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee, 
+				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee,
 	gas: "200000" }, memo})
 				return result
 			} catch (e) {
@@ -416,7 +416,7 @@ export default {
 			try {
 				const txClient=await initTxClient(rootGetters)
 				const msg = await txClient.msgTransferCard(value)
-				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee, 
+				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee,
 	gas: "200000" }, memo})
 				return result
 			} catch (e) {
@@ -431,7 +431,7 @@ export default {
 			try {
 				const txClient=await initTxClient(rootGetters)
 				const msg = await txClient.msgAddArtwork(value)
-				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee, 
+				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee,
 	gas: "200000" }, memo})
 				return result
 			} catch (e) {
@@ -446,7 +446,7 @@ export default {
 			try {
 				const txClient=await initTxClient(rootGetters)
 				const msg = await txClient.msgVoteCard(value)
-				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee, 
+				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee,
 	gas: "200000" }, memo})
 				return result
 			} catch (e) {
@@ -461,7 +461,7 @@ export default {
 			try {
 				const txClient=await initTxClient(rootGetters)
 				const msg = await txClient.msgDonateToCard(value)
-				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee, 
+				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee,
 	gas: "200000" }, memo})
 				return result
 			} catch (e) {
@@ -476,7 +476,7 @@ export default {
 			try {
 				const txClient=await initTxClient(rootGetters)
 				const msg = await txClient.msgSaveCardContent(value)
-				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee, 
+				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee,
 	gas: "200000" }, memo})
 				return result
 			} catch (e) {
@@ -487,7 +487,7 @@ export default {
 				}
 			}
 		},
-		
+
 		async MsgChangeArtist({ rootGetters }, { value }) {
 			try {
 				const txClient=await initTxClient(rootGetters)
@@ -498,7 +498,7 @@ export default {
 					throw new SpVuexError('TxClient:MsgChangeArtist:Init', 'Could not initialize signing client. Wallet is required.')
 				}else{
 					throw new SpVuexError('TxClient:MsgChangeArtist:Create', 'Could not create message: ' + e.message)
-					
+
 				}
 			}
 		},
@@ -512,7 +512,7 @@ export default {
 					throw new SpVuexError('TxClient:MsgSubmitCopyrightProposal:Init', 'Could not initialize signing client. Wallet is required.')
 				}else{
 					throw new SpVuexError('TxClient:MsgSubmitCopyrightProposal:Create', 'Could not create message: ' + e.message)
-					
+
 				}
 			}
 		},
@@ -526,7 +526,7 @@ export default {
 					throw new SpVuexError('TxClient:MsgBuyCardScheme:Init', 'Could not initialize signing client. Wallet is required.')
 				}else{
 					throw new SpVuexError('TxClient:MsgBuyCardScheme:Create', 'Could not create message: ' + e.message)
-					
+
 				}
 			}
 		},
@@ -540,7 +540,7 @@ export default {
 					throw new SpVuexError('TxClient:MsgCreateuser:Init', 'Could not initialize signing client. Wallet is required.')
 				}else{
 					throw new SpVuexError('TxClient:MsgCreateuser:Create', 'Could not create message: ' + e.message)
-					
+
 				}
 			}
 		},
@@ -554,7 +554,7 @@ export default {
 					throw new SpVuexError('TxClient:MsgTransferCard:Init', 'Could not initialize signing client. Wallet is required.')
 				}else{
 					throw new SpVuexError('TxClient:MsgTransferCard:Create', 'Could not create message: ' + e.message)
-					
+
 				}
 			}
 		},
@@ -568,7 +568,7 @@ export default {
 					throw new SpVuexError('TxClient:MsgAddArtwork:Init', 'Could not initialize signing client. Wallet is required.')
 				}else{
 					throw new SpVuexError('TxClient:MsgAddArtwork:Create', 'Could not create message: ' + e.message)
-					
+
 				}
 			}
 		},
@@ -582,7 +582,7 @@ export default {
 					throw new SpVuexError('TxClient:MsgVoteCard:Init', 'Could not initialize signing client. Wallet is required.')
 				}else{
 					throw new SpVuexError('TxClient:MsgVoteCard:Create', 'Could not create message: ' + e.message)
-					
+
 				}
 			}
 		},
@@ -596,7 +596,7 @@ export default {
 					throw new SpVuexError('TxClient:MsgDonateToCard:Init', 'Could not initialize signing client. Wallet is required.')
 				}else{
 					throw new SpVuexError('TxClient:MsgDonateToCard:Create', 'Could not create message: ' + e.message)
-					
+
 				}
 			}
 		},
@@ -610,10 +610,10 @@ export default {
 					throw new SpVuexError('TxClient:MsgSaveCardContent:Init', 'Could not initialize signing client. Wallet is required.')
 				}else{
 					throw new SpVuexError('TxClient:MsgSaveCardContent:Create', 'Could not create message: ' + e.message)
-					
+
 				}
 			}
 		},
-		
+
 	}
 }

@@ -25,7 +25,7 @@ const types = [
   ["/DecentralCardGame.cardchain.cardchain.MsgVoteCard", MsgVoteCard],
   ["/DecentralCardGame.cardchain.cardchain.MsgDonateToCard", MsgDonateToCard],
   ["/DecentralCardGame.cardchain.cardchain.MsgSaveCardContent", MsgSaveCardContent],
-  
+
 ];
 export const MissingWalletError = new Error("wallet is required");
 
@@ -66,7 +66,7 @@ const txClient = async (wallet: OfflineSigner, { addr: addr }: TxClientOptions =
     msgVoteCard: (data: MsgVoteCard): EncodeObject => ({ typeUrl: "/DecentralCardGame.cardchain.cardchain.MsgVoteCard", value: MsgVoteCard.fromPartial( data ) }),
     msgDonateToCard: (data: MsgDonateToCard): EncodeObject => ({ typeUrl: "/DecentralCardGame.cardchain.cardchain.MsgDonateToCard", value: MsgDonateToCard.fromPartial( data ) }),
     msgSaveCardContent: (data: MsgSaveCardContent): EncodeObject => ({ typeUrl: "/DecentralCardGame.cardchain.cardchain.MsgSaveCardContent", value: MsgSaveCardContent.fromPartial( data ) }),
-    
+
   };
 };
 

@@ -583,12 +583,7 @@ export const MsgSaveCardContentResponse = {
         return message;
     },
 };
-const baseMsgTransferCard = {
-    creator: "",
-    cardId: 0,
-    sender: "",
-    receiver: "",
-};
+const baseMsgTransferCard = { creator: "", cardId: 0, receiver: "" };
 export const MsgTransferCard = {
     encode(message, writer = Writer.create()) {
         if (message.creator !== "") {
@@ -596,9 +591,6 @@ export const MsgTransferCard = {
         }
         if (message.cardId !== 0) {
             writer.uint32(16).uint64(message.cardId);
-        }
-        if (message.sender !== "") {
-            writer.uint32(26).string(message.sender);
         }
         if (message.receiver !== "") {
             writer.uint32(34).string(message.receiver);
@@ -617,9 +609,6 @@ export const MsgTransferCard = {
                     break;
                 case 2:
                     message.cardId = longToNumber(reader.uint64());
-                    break;
-                case 3:
-                    message.sender = reader.string();
                     break;
                 case 4:
                     message.receiver = reader.string();
@@ -645,12 +634,6 @@ export const MsgTransferCard = {
         else {
             message.cardId = 0;
         }
-        if (object.sender !== undefined && object.sender !== null) {
-            message.sender = String(object.sender);
-        }
-        else {
-            message.sender = "";
-        }
         if (object.receiver !== undefined && object.receiver !== null) {
             message.receiver = String(object.receiver);
         }
@@ -663,7 +646,6 @@ export const MsgTransferCard = {
         const obj = {};
         message.creator !== undefined && (obj.creator = message.creator);
         message.cardId !== undefined && (obj.cardId = message.cardId);
-        message.sender !== undefined && (obj.sender = message.sender);
         message.receiver !== undefined && (obj.receiver = message.receiver);
         return obj;
     },
@@ -680,12 +662,6 @@ export const MsgTransferCard = {
         }
         else {
             message.cardId = 0;
-        }
-        if (object.sender !== undefined && object.sender !== null) {
-            message.sender = object.sender;
-        }
-        else {
-            message.sender = "";
         }
         if (object.receiver !== undefined && object.receiver !== null) {
             message.receiver = object.receiver;
