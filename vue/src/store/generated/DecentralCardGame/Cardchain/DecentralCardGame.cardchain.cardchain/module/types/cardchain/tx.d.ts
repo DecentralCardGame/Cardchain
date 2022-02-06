@@ -75,6 +75,11 @@ export interface MsgChangeArtist {
 }
 export interface MsgChangeArtistResponse {
 }
+export interface MsgRegisterForCouncil {
+    creator: string;
+}
+export interface MsgRegisterForCouncilResponse {
+}
 export declare const MsgCreateuser: {
     encode(message: MsgCreateuser, writer?: Writer): Writer;
     decode(input: Reader | Uint8Array, length?: number): MsgCreateuser;
@@ -201,6 +206,20 @@ export declare const MsgChangeArtistResponse: {
     toJSON(_: MsgChangeArtistResponse): unknown;
     fromPartial(_: DeepPartial<MsgChangeArtistResponse>): MsgChangeArtistResponse;
 };
+export declare const MsgRegisterForCouncil: {
+    encode(message: MsgRegisterForCouncil, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgRegisterForCouncil;
+    fromJSON(object: any): MsgRegisterForCouncil;
+    toJSON(message: MsgRegisterForCouncil): unknown;
+    fromPartial(object: DeepPartial<MsgRegisterForCouncil>): MsgRegisterForCouncil;
+};
+export declare const MsgRegisterForCouncilResponse: {
+    encode(_: MsgRegisterForCouncilResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgRegisterForCouncilResponse;
+    fromJSON(_: any): MsgRegisterForCouncilResponse;
+    toJSON(_: MsgRegisterForCouncilResponse): unknown;
+    fromPartial(_: DeepPartial<MsgRegisterForCouncilResponse>): MsgRegisterForCouncilResponse;
+};
 /** Msg defines the Msg service. */
 export interface Msg {
     Createuser(request: MsgCreateuser): Promise<MsgCreateuserResponse>;
@@ -211,8 +230,9 @@ export interface Msg {
     DonateToCard(request: MsgDonateToCard): Promise<MsgDonateToCardResponse>;
     AddArtwork(request: MsgAddArtwork): Promise<MsgAddArtworkResponse>;
     SubmitCopyrightProposal(request: MsgSubmitCopyrightProposal): Promise<MsgSubmitCopyrightProposalResponse>;
-    /** this line is used by starport scaffolding # proto/tx/rpc */
     ChangeArtist(request: MsgChangeArtist): Promise<MsgChangeArtistResponse>;
+    /** this line is used by starport scaffolding # proto/tx/rpc */
+    RegisterForCouncil(request: MsgRegisterForCouncil): Promise<MsgRegisterForCouncilResponse>;
 }
 export declare class MsgClientImpl implements Msg {
     private readonly rpc;
@@ -226,6 +246,7 @@ export declare class MsgClientImpl implements Msg {
     AddArtwork(request: MsgAddArtwork): Promise<MsgAddArtworkResponse>;
     SubmitCopyrightProposal(request: MsgSubmitCopyrightProposal): Promise<MsgSubmitCopyrightProposalResponse>;
     ChangeArtist(request: MsgChangeArtist): Promise<MsgChangeArtistResponse>;
+    RegisterForCouncil(request: MsgRegisterForCouncil): Promise<MsgRegisterForCouncilResponse>;
 }
 interface Rpc {
     request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;

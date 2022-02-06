@@ -23,7 +23,7 @@ func CmdQCards() *cobra.Command {
 				reqStatus = types.Status_none
 			} else {
 				reqStatus = types.Status(types.Status_value[args[1]])
-		 	}
+			}
 			reqCardType := args[2]
 			reqClasses := args[3]
 			reqSortBy := args[4]

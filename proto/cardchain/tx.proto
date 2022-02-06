@@ -18,6 +18,7 @@ service Msg {
   rpc AddArtwork(MsgAddArtwork) returns (MsgAddArtworkResponse);
   rpc SubmitCopyrightProposal(MsgSubmitCopyrightProposal) returns (MsgSubmitCopyrightProposalResponse);
   rpc ChangeArtist(MsgChangeArtist) returns (MsgChangeArtistResponse);
+  rpc RegisterForCouncil(MsgRegisterForCouncil) returns (MsgRegisterForCouncilResponse);
 // this line is used by starport scaffolding # proto/tx/rpc
 }
 
@@ -110,6 +111,13 @@ message MsgChangeArtist {
 }
 
 message MsgChangeArtistResponse {
+}
+
+message MsgRegisterForCouncil {
+  string creator = 1;
+}
+
+message MsgRegisterForCouncilResponse {
 }
 
 // this line is used by starport scaffolding # proto/tx/message
