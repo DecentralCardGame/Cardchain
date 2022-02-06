@@ -1,5 +1,10 @@
 /* eslint-disable */
 import { Status, statusFromJSON, statusToJSON } from "../cardchain/card";
+import {
+  CouncilStatus,
+  councilStatusFromJSON,
+  councilStatusToJSON,
+} from "../cardchain/user";
 import { Reader, util, configure, Writer } from "protobufjs/minimal";
 import * as Long from "long";
 import { Params } from "../cardchain/params";
@@ -54,6 +59,7 @@ export interface QueryQUserResponse {
   ownedCardSchemes: number[];
   ownedCards: number[];
   voteRights: VoteRight[];
+  councilStatus: CouncilStatus;
 }
 
 export interface QueryQCardchainInfoRequest {}
@@ -746,6 +752,7 @@ const baseQueryQUserResponse: object = {
   alias: "",
   ownedCardSchemes: 0,
   ownedCards: 0,
+  councilStatus: 0,
 };
 
 export const QueryQUserResponse = {
@@ -768,6 +775,9 @@ export const QueryQUserResponse = {
     writer.ldelim();
     for (const v of message.voteRights) {
       VoteRight.encode(v!, writer.uint32(34).fork()).ldelim();
+    }
+    if (message.councilStatus !== 0) {
+      writer.uint32(40).int32(message.councilStatus);
     }
     return writer;
   },
@@ -812,6 +822,9 @@ export const QueryQUserResponse = {
         case 4:
           message.voteRights.push(VoteRight.decode(reader, reader.uint32()));
           break;
+        case 5:
+          message.councilStatus = reader.int32() as any;
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -848,6 +861,11 @@ export const QueryQUserResponse = {
         message.voteRights.push(VoteRight.fromJSON(e));
       }
     }
+    if (object.councilStatus !== undefined && object.councilStatus !== null) {
+      message.councilStatus = councilStatusFromJSON(object.councilStatus);
+    } else {
+      message.councilStatus = 0;
+    }
     return message;
   },
 
@@ -871,6 +889,8 @@ export const QueryQUserResponse = {
     } else {
       obj.voteRights = [];
     }
+    message.councilStatus !== undefined &&
+      (obj.councilStatus = councilStatusToJSON(message.councilStatus));
     return obj;
   },
 
@@ -901,6 +921,11 @@ export const QueryQUserResponse = {
       for (const e of object.voteRights) {
         message.voteRights.push(VoteRight.fromPartial(e));
       }
+    }
+    if (object.councilStatus !== undefined && object.councilStatus !== null) {
+      message.councilStatus = object.councilStatus;
+    } else {
+      message.councilStatus = 0;
     }
     return message;
   },

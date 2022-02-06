@@ -36,12 +36,33 @@ func NewHandler(k keeper.Keeper) sdk.Handler {
 			return handleMsgCreateUser(ctx, k, msg)
 		case *types.MsgChangeArtist:
 			return handleMsgChangeArtist(ctx, k, msg)
+		case *types.MsgRegisterForCouncil:
+			return handleMsgRegisterForCouncil(ctx, k, msg)
 			// this line is used by starport scaffolding # 1
 		default:
 			errMsg := fmt.Sprintf("unrecognized %s message type: %T", types.ModuleName, msg)
 			return nil, sdkerrors.Wrap(sdkerrors.ErrUnknownRequest, errMsg)
 		}
 	}
+}
+
+func handleMsgRegisterForCouncil(ctx sdk.Context, keeper keeper.Keeper, msg *types.MsgRegisterForCouncil) (*sdk.Result, error) {
+	address, err := sdk.AccAddressFromBech32(msg.Creator)
+	if err != nil {
+		return nil, sdkerrors.Wrap(types.ErrInvalidAccAddress, "Invalid address")
+	}
+
+	user, err := keeper.GetUser(ctx, address)
+	if err != nil {
+		return nil, err
+	}
+
+	if user.CouncilStatus == types.CouncilStatus_unavailable {
+		user.CouncilStatus = types.CouncilStatus_available
+	}
+
+	keeper.SetUser(ctx, address, user)
+	return &sdk.Result{}, nil
 }
 
 func handleMsgChangeArtist(ctx sdk.Context, keeper keeper.Keeper, msg *types.MsgChangeArtist) (*sdk.Result, error) {

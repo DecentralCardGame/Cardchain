@@ -3,7 +3,54 @@ import * as Long from "long";
 import { util, configure, Writer, Reader } from "protobufjs/minimal";
 import { VoteRight } from "../cardchain/vote_right";
 export const protobufPackage = "DecentralCardGame.cardchain.cardchain";
-const baseUser = { alias: "", ownedCardSchemes: 0, ownedCards: 0 };
+export var CouncilStatus;
+(function (CouncilStatus) {
+    CouncilStatus[CouncilStatus["available"] = 0] = "available";
+    CouncilStatus[CouncilStatus["unavailable"] = 1] = "unavailable";
+    CouncilStatus[CouncilStatus["openCouncil"] = 2] = "openCouncil";
+    CouncilStatus[CouncilStatus["startedCouncil"] = 3] = "startedCouncil";
+    CouncilStatus[CouncilStatus["UNRECOGNIZED"] = -1] = "UNRECOGNIZED";
+})(CouncilStatus || (CouncilStatus = {}));
+export function councilStatusFromJSON(object) {
+    switch (object) {
+        case 0:
+        case "available":
+            return CouncilStatus.available;
+        case 1:
+        case "unavailable":
+            return CouncilStatus.unavailable;
+        case 2:
+        case "openCouncil":
+            return CouncilStatus.openCouncil;
+        case 3:
+        case "startedCouncil":
+            return CouncilStatus.startedCouncil;
+        case -1:
+        case "UNRECOGNIZED":
+        default:
+            return CouncilStatus.UNRECOGNIZED;
+    }
+}
+export function councilStatusToJSON(object) {
+    switch (object) {
+        case CouncilStatus.available:
+            return "available";
+        case CouncilStatus.unavailable:
+            return "unavailable";
+        case CouncilStatus.openCouncil:
+            return "openCouncil";
+        case CouncilStatus.startedCouncil:
+            return "startedCouncil";
+        default:
+            return "UNKNOWN";
+    }
+}
+const baseUser = {
+    alias: "",
+    ownedCardSchemes: 0,
+    ownedCards: 0,
+    CouncilStatus: 0,
+};
 export const User = {
     encode(message, writer = Writer.create()) {
         if (message.alias !== "") {
@@ -21,6 +68,9 @@ export const User = {
         writer.ldelim();
         for (const v of message.voteRights) {
             VoteRight.encode(v, writer.uint32(34).fork()).ldelim();
+        }
+        if (message.CouncilStatus !== 0) {
+            writer.uint32(40).int32(message.CouncilStatus);
         }
         return writer;
     },
@@ -62,6 +112,9 @@ export const User = {
                 case 4:
                     message.voteRights.push(VoteRight.decode(reader, reader.uint32()));
                     break;
+                case 5:
+                    message.CouncilStatus = reader.int32();
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -96,6 +149,12 @@ export const User = {
                 message.voteRights.push(VoteRight.fromJSON(e));
             }
         }
+        if (object.CouncilStatus !== undefined && object.CouncilStatus !== null) {
+            message.CouncilStatus = councilStatusFromJSON(object.CouncilStatus);
+        }
+        else {
+            message.CouncilStatus = 0;
+        }
         return message;
     },
     toJSON(message) {
@@ -119,6 +178,8 @@ export const User = {
         else {
             obj.voteRights = [];
         }
+        message.CouncilStatus !== undefined &&
+            (obj.CouncilStatus = councilStatusToJSON(message.CouncilStatus));
         return obj;
     },
     fromPartial(object) {
@@ -147,6 +208,12 @@ export const User = {
             for (const e of object.voteRights) {
                 message.voteRights.push(VoteRight.fromPartial(e));
             }
+        }
+        if (object.CouncilStatus !== undefined && object.CouncilStatus !== null) {
+            message.CouncilStatus = object.CouncilStatus;
+        }
+        else {
+            message.CouncilStatus = 0;
         }
         return message;
     },

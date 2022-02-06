@@ -60,6 +60,10 @@ const (
 	// TODO: Determine the simulation weight value
 	defaultWeightMsgChangeArtist int = 100
 
+	opWeightMsgRegisterForCouncil = "op_weight_msg_create_chain"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgRegisterForCouncil int = 100
+
 	// this line is used by starport scaffolding # simapp/module/const
 )
 
@@ -190,6 +194,17 @@ func (am AppModule) WeightedOperations(simState module.SimulationState) []simtyp
 	operations = append(operations, simulation.NewWeightedOperation(
 		weightMsgChangeArtist,
 		cardchainsimulation.SimulateMsgChangeArtist(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
+	var weightMsgRegisterForCouncil int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgRegisterForCouncil, &weightMsgRegisterForCouncil, nil,
+		func(_ *rand.Rand) {
+			weightMsgRegisterForCouncil = defaultWeightMsgRegisterForCouncil
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgRegisterForCouncil,
+		cardchainsimulation.SimulateMsgRegisterForCouncil(am.accountKeeper, am.bankKeeper, am.keeper),
 	))
 
 	// this line is used by starport scaffolding # simapp/module/operation

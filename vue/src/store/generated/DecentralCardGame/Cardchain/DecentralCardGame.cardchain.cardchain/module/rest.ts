@@ -9,6 +9,13 @@
  * ---------------------------------------------------------------
  */
 
+export enum CardchainCouncilStatus {
+  Available = "available",
+  Unavailable = "unavailable",
+  OpenCouncil = "openCouncil",
+  StartedCouncil = "startedCouncil",
+}
+
 export type CardchainMsgAddArtworkResponse = object;
 
 export type CardchainMsgBuyCardSchemeResponse = object;
@@ -18,6 +25,8 @@ export type CardchainMsgChangeArtistResponse = object;
 export type CardchainMsgCreateuserResponse = object;
 
 export type CardchainMsgDonateToCardResponse = object;
+
+export type CardchainMsgRegisterForCouncilResponse = object;
 
 export type CardchainMsgSaveCardContentResponse = object;
 
@@ -83,6 +92,7 @@ export interface CardchainQueryQUserResponse {
   ownedCardSchemes?: string[];
   ownedCards?: string[];
   voteRights?: CardchainVoteRight[];
+  councilStatus?: CardchainCouncilStatus;
 }
 
 export interface CardchainQueryQVotableCardsResponse {

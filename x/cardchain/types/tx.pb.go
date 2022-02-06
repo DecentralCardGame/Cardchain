@@ -937,6 +937,86 @@ func (m *MsgChangeArtistResponse) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_MsgChangeArtistResponse proto.InternalMessageInfo
 
+type MsgRegisterForCouncil struct {
+	Creator string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
+}
+
+func (m *MsgRegisterForCouncil) Reset()         { *m = MsgRegisterForCouncil{} }
+func (m *MsgRegisterForCouncil) String() string { return proto.CompactTextString(m) }
+func (*MsgRegisterForCouncil) ProtoMessage()    {}
+func (*MsgRegisterForCouncil) Descriptor() ([]byte, []int) {
+	return fileDescriptor_5cfa59c76aced81c, []int{18}
+}
+func (m *MsgRegisterForCouncil) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *MsgRegisterForCouncil) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_MsgRegisterForCouncil.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *MsgRegisterForCouncil) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgRegisterForCouncil.Merge(m, src)
+}
+func (m *MsgRegisterForCouncil) XXX_Size() int {
+	return m.Size()
+}
+func (m *MsgRegisterForCouncil) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgRegisterForCouncil.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_MsgRegisterForCouncil proto.InternalMessageInfo
+
+func (m *MsgRegisterForCouncil) GetCreator() string {
+	if m != nil {
+		return m.Creator
+	}
+	return ""
+}
+
+type MsgRegisterForCouncilResponse struct {
+}
+
+func (m *MsgRegisterForCouncilResponse) Reset()         { *m = MsgRegisterForCouncilResponse{} }
+func (m *MsgRegisterForCouncilResponse) String() string { return proto.CompactTextString(m) }
+func (*MsgRegisterForCouncilResponse) ProtoMessage()    {}
+func (*MsgRegisterForCouncilResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_5cfa59c76aced81c, []int{19}
+}
+func (m *MsgRegisterForCouncilResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *MsgRegisterForCouncilResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_MsgRegisterForCouncilResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *MsgRegisterForCouncilResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgRegisterForCouncilResponse.Merge(m, src)
+}
+func (m *MsgRegisterForCouncilResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *MsgRegisterForCouncilResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgRegisterForCouncilResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_MsgRegisterForCouncilResponse proto.InternalMessageInfo
+
 func init() {
 	proto.RegisterType((*MsgCreateuser)(nil), "DecentralCardGame.cardchain.cardchain.MsgCreateuser")
 	proto.RegisterType((*MsgCreateuserResponse)(nil), "DecentralCardGame.cardchain.cardchain.MsgCreateuserResponse")
@@ -956,6 +1036,8 @@ func init() {
 	proto.RegisterType((*MsgSubmitCopyrightProposalResponse)(nil), "DecentralCardGame.cardchain.cardchain.MsgSubmitCopyrightProposalResponse")
 	proto.RegisterType((*MsgChangeArtist)(nil), "DecentralCardGame.cardchain.cardchain.MsgChangeArtist")
 	proto.RegisterType((*MsgChangeArtistResponse)(nil), "DecentralCardGame.cardchain.cardchain.MsgChangeArtistResponse")
+	proto.RegisterType((*MsgRegisterForCouncil)(nil), "DecentralCardGame.cardchain.cardchain.MsgRegisterForCouncil")
+	proto.RegisterType((*MsgRegisterForCouncilResponse)(nil), "DecentralCardGame.cardchain.cardchain.MsgRegisterForCouncilResponse")
 }
 
 func init() { proto.RegisterFile("cardchain/tx.proto", fileDescriptor_5cfa59c76aced81c) }
@@ -1035,6 +1117,7 @@ type MsgClient interface {
 	AddArtwork(ctx context.Context, in *MsgAddArtwork, opts ...grpc.CallOption) (*MsgAddArtworkResponse, error)
 	SubmitCopyrightProposal(ctx context.Context, in *MsgSubmitCopyrightProposal, opts ...grpc.CallOption) (*MsgSubmitCopyrightProposalResponse, error)
 	ChangeArtist(ctx context.Context, in *MsgChangeArtist, opts ...grpc.CallOption) (*MsgChangeArtistResponse, error)
+	RegisterForCouncil(ctx context.Context, in *MsgRegisterForCouncil, opts ...grpc.CallOption) (*MsgRegisterForCouncilResponse, error)
 }
 
 type msgClient struct {
@@ -1126,6 +1209,15 @@ func (c *msgClient) ChangeArtist(ctx context.Context, in *MsgChangeArtist, opts 
 	return out, nil
 }
 
+func (c *msgClient) RegisterForCouncil(ctx context.Context, in *MsgRegisterForCouncil, opts ...grpc.CallOption) (*MsgRegisterForCouncilResponse, error) {
+	out := new(MsgRegisterForCouncilResponse)
+	err := c.cc.Invoke(ctx, "/DecentralCardGame.cardchain.cardchain.Msg/RegisterForCouncil", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // MsgServer is the server API for Msg service.
 type MsgServer interface {
 	Createuser(context.Context, *MsgCreateuser) (*MsgCreateuserResponse, error)
@@ -1137,6 +1229,7 @@ type MsgServer interface {
 	AddArtwork(context.Context, *MsgAddArtwork) (*MsgAddArtworkResponse, error)
 	SubmitCopyrightProposal(context.Context, *MsgSubmitCopyrightProposal) (*MsgSubmitCopyrightProposalResponse, error)
 	ChangeArtist(context.Context, *MsgChangeArtist) (*MsgChangeArtistResponse, error)
+	RegisterForCouncil(context.Context, *MsgRegisterForCouncil) (*MsgRegisterForCouncilResponse, error)
 }
 
 // UnimplementedMsgServer can be embedded to have forward compatible implementations.
@@ -1169,6 +1262,9 @@ func (*UnimplementedMsgServer) SubmitCopyrightProposal(ctx context.Context, req 
 }
 func (*UnimplementedMsgServer) ChangeArtist(ctx context.Context, req *MsgChangeArtist) (*MsgChangeArtistResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ChangeArtist not implemented")
+}
+func (*UnimplementedMsgServer) RegisterForCouncil(ctx context.Context, req *MsgRegisterForCouncil) (*MsgRegisterForCouncilResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RegisterForCouncil not implemented")
 }
 
 func RegisterMsgServer(s grpc1.Server, srv MsgServer) {
@@ -1337,6 +1433,24 @@ func _Msg_ChangeArtist_Handler(srv interface{}, ctx context.Context, dec func(in
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Msg_RegisterForCouncil_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgRegisterForCouncil)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).RegisterForCouncil(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/DecentralCardGame.cardchain.cardchain.Msg/RegisterForCouncil",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).RegisterForCouncil(ctx, req.(*MsgRegisterForCouncil))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _Msg_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "DecentralCardGame.cardchain.cardchain.Msg",
 	HandlerType: (*MsgServer)(nil),
@@ -1376,6 +1490,10 @@ var _Msg_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ChangeArtist",
 			Handler:    _Msg_ChangeArtist_Handler,
+		},
+		{
+			MethodName: "RegisterForCouncil",
+			Handler:    _Msg_RegisterForCouncil_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
@@ -2029,6 +2147,59 @@ func (m *MsgChangeArtistResponse) MarshalToSizedBuffer(dAtA []byte) (int, error)
 	return len(dAtA) - i, nil
 }
 
+func (m *MsgRegisterForCouncil) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *MsgRegisterForCouncil) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *MsgRegisterForCouncil) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.Creator) > 0 {
+		i -= len(m.Creator)
+		copy(dAtA[i:], m.Creator)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.Creator)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *MsgRegisterForCouncilResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *MsgRegisterForCouncilResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *MsgRegisterForCouncilResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	return len(dAtA) - i, nil
+}
+
 func encodeVarintTx(dAtA []byte, offset int, v uint64) int {
 	offset -= sovTx(v)
 	base := offset
@@ -2318,6 +2489,28 @@ func (m *MsgChangeArtist) Size() (n int) {
 }
 
 func (m *MsgChangeArtistResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	return n
+}
+
+func (m *MsgRegisterForCouncil) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.Creator)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	return n
+}
+
+func (m *MsgRegisterForCouncilResponse) Size() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -4202,6 +4395,138 @@ func (m *MsgChangeArtistResponse) Unmarshal(dAtA []byte) error {
 		}
 		if fieldNum <= 0 {
 			return fmt.Errorf("proto: MsgChangeArtistResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTx(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthTx
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *MsgRegisterForCouncil) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTx
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: MsgRegisterForCouncil: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: MsgRegisterForCouncil: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Creator", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Creator = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTx(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthTx
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *MsgRegisterForCouncilResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTx
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: MsgRegisterForCouncilResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: MsgRegisterForCouncilResponse: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		default:

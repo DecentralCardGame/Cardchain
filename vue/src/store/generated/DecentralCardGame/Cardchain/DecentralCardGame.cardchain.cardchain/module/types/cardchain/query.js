@@ -1,5 +1,6 @@
 /* eslint-disable */
 import { statusFromJSON, statusToJSON } from "../cardchain/card";
+import { councilStatusFromJSON, councilStatusToJSON, } from "../cardchain/user";
 import { Reader, util, configure, Writer } from "protobufjs/minimal";
 import * as Long from "long";
 import { Params } from "../cardchain/params";
@@ -615,6 +616,7 @@ const baseQueryQUserResponse = {
     alias: "",
     ownedCardSchemes: 0,
     ownedCards: 0,
+    councilStatus: 0,
 };
 export const QueryQUserResponse = {
     encode(message, writer = Writer.create()) {
@@ -633,6 +635,9 @@ export const QueryQUserResponse = {
         writer.ldelim();
         for (const v of message.voteRights) {
             VoteRight.encode(v, writer.uint32(34).fork()).ldelim();
+        }
+        if (message.councilStatus !== 0) {
+            writer.uint32(40).int32(message.councilStatus);
         }
         return writer;
     },
@@ -674,6 +679,9 @@ export const QueryQUserResponse = {
                 case 4:
                     message.voteRights.push(VoteRight.decode(reader, reader.uint32()));
                     break;
+                case 5:
+                    message.councilStatus = reader.int32();
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -708,6 +716,12 @@ export const QueryQUserResponse = {
                 message.voteRights.push(VoteRight.fromJSON(e));
             }
         }
+        if (object.councilStatus !== undefined && object.councilStatus !== null) {
+            message.councilStatus = councilStatusFromJSON(object.councilStatus);
+        }
+        else {
+            message.councilStatus = 0;
+        }
         return message;
     },
     toJSON(message) {
@@ -731,6 +745,8 @@ export const QueryQUserResponse = {
         else {
             obj.voteRights = [];
         }
+        message.councilStatus !== undefined &&
+            (obj.councilStatus = councilStatusToJSON(message.councilStatus));
         return obj;
     },
     fromPartial(object) {
@@ -759,6 +775,12 @@ export const QueryQUserResponse = {
             for (const e of object.voteRights) {
                 message.voteRights.push(VoteRight.fromPartial(e));
             }
+        }
+        if (object.councilStatus !== undefined && object.councilStatus !== null) {
+            message.councilStatus = object.councilStatus;
+        }
+        else {
+            message.councilStatus = 0;
         }
         return message;
     },

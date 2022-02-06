@@ -87,6 +87,12 @@ export interface MsgChangeArtist {
 
 export interface MsgChangeArtistResponse {}
 
+export interface MsgRegisterForCouncil {
+  creator: string;
+}
+
+export interface MsgRegisterForCouncilResponse {}
+
 const baseMsgCreateuser: object = { creator: "", newUser: "", alias: "" };
 
 export const MsgCreateuser = {
@@ -1456,6 +1462,118 @@ export const MsgChangeArtistResponse = {
   },
 };
 
+const baseMsgRegisterForCouncil: object = { creator: "" };
+
+export const MsgRegisterForCouncil = {
+  encode(
+    message: MsgRegisterForCouncil,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.creator !== "") {
+      writer.uint32(10).string(message.creator);
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgRegisterForCouncil {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseMsgRegisterForCouncil } as MsgRegisterForCouncil;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgRegisterForCouncil {
+    const message = { ...baseMsgRegisterForCouncil } as MsgRegisterForCouncil;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = String(object.creator);
+    } else {
+      message.creator = "";
+    }
+    return message;
+  },
+
+  toJSON(message: MsgRegisterForCouncil): unknown {
+    const obj: any = {};
+    message.creator !== undefined && (obj.creator = message.creator);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<MsgRegisterForCouncil>
+  ): MsgRegisterForCouncil {
+    const message = { ...baseMsgRegisterForCouncil } as MsgRegisterForCouncil;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    } else {
+      message.creator = "";
+    }
+    return message;
+  },
+};
+
+const baseMsgRegisterForCouncilResponse: object = {};
+
+export const MsgRegisterForCouncilResponse = {
+  encode(
+    _: MsgRegisterForCouncilResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): MsgRegisterForCouncilResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseMsgRegisterForCouncilResponse,
+    } as MsgRegisterForCouncilResponse;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): MsgRegisterForCouncilResponse {
+    const message = {
+      ...baseMsgRegisterForCouncilResponse,
+    } as MsgRegisterForCouncilResponse;
+    return message;
+  },
+
+  toJSON(_: MsgRegisterForCouncilResponse): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial(
+    _: DeepPartial<MsgRegisterForCouncilResponse>
+  ): MsgRegisterForCouncilResponse {
+    const message = {
+      ...baseMsgRegisterForCouncilResponse,
+    } as MsgRegisterForCouncilResponse;
+    return message;
+  },
+};
+
 /** Msg defines the Msg service. */
 export interface Msg {
   Createuser(request: MsgCreateuser): Promise<MsgCreateuserResponse>;
@@ -1470,8 +1588,11 @@ export interface Msg {
   SubmitCopyrightProposal(
     request: MsgSubmitCopyrightProposal
   ): Promise<MsgSubmitCopyrightProposalResponse>;
-  /** this line is used by starport scaffolding # proto/tx/rpc */
   ChangeArtist(request: MsgChangeArtist): Promise<MsgChangeArtistResponse>;
+  /** this line is used by starport scaffolding # proto/tx/rpc */
+  RegisterForCouncil(
+    request: MsgRegisterForCouncil
+  ): Promise<MsgRegisterForCouncilResponse>;
 }
 
 export class MsgClientImpl implements Msg {
@@ -1586,6 +1707,20 @@ export class MsgClientImpl implements Msg {
     );
     return promise.then((data) =>
       MsgChangeArtistResponse.decode(new Reader(data))
+    );
+  }
+
+  RegisterForCouncil(
+    request: MsgRegisterForCouncil
+  ): Promise<MsgRegisterForCouncilResponse> {
+    const data = MsgRegisterForCouncil.encode(request).finish();
+    const promise = this.rpc.request(
+      "DecentralCardGame.cardchain.cardchain.Msg",
+      "RegisterForCouncil",
+      data
+    );
+    return promise.then((data) =>
+      MsgRegisterForCouncilResponse.decode(new Reader(data))
     );
   }
 }
