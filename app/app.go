@@ -96,7 +96,7 @@ import (
 )
 
 const (
-	AccountAddressPrefix = "cosmos"
+	AccountAddressPrefix = "cc"
 	Name                 = "Cardchain"
 	// epochBlockTime defines how many blocks are one buffnerf epoch
 	epochBlockTime = 86000 // this is 1 week with 7s block time

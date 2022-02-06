@@ -15,16 +15,15 @@ var _ = strconv.Itoa(0)
 
 func CmdTransferCard() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "transfer-card [card-id] [sender] [receiver]",
+		Use:   "transfer-card [card-id] [receiver]",
 		Short: "Broadcast message TransferCard",
-		Args:  cobra.ExactArgs(3),
+		Args:  cobra.ExactArgs(2),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
 			argCardId, err := cast.ToUint64E(args[0])
 			if err != nil {
 				return err
 			}
-			argSender := args[1]
-			argReceiver := args[2]
+			argReceiver := args[1]
 
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
@@ -34,7 +33,6 @@ func CmdTransferCard() *cobra.Command {
 			msg := types.NewMsgTransferCard(
 				clientCtx.GetFromAddress().String(),
 				argCardId,
-				argSender,
 				argReceiver,
 			)
 			if err := msg.ValidateBasic(); err != nil {

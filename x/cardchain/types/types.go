@@ -41,23 +41,6 @@ func NewCard(owner sdk.AccAddress) Card {
 	}
 }
 
-// func CardNoB64FromCard(card Card) CardNoB64 {
-// 	return CardNoB64{
-// 		Owner:              card.Owner,
-// 		Content:            string(card.Content),
-// 		Image:              string(card.Image),
-// 		Notes:              card.Notes,
-// 		FullArt:            card.FullArt,
-// 		Status:             card.Status,
-// 		VotePool:           card.VotePool,
-// 		FairEnoughVotes:    card.FairEnoughVotes,
-// 		OverpoweredVotes:   card.OverpoweredVotes,
-// 		UnderpoweredVotes:  card.UnderpoweredVotes,
-// 		InappropriateVotes: card.InappropriateVotes,
-// 		Nerflevel:          card.Nerflevel,
-// 	}
-// }
-
 func (m *Card) GetOwnerAddr() sdk.AccAddress {
 	owner, err := sdk.AccAddressFromBech32(m.GetOwner())
 	if err != nil {
