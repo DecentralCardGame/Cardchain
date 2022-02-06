@@ -1,0 +1,14 @@
+syntax = "proto3";
+package DecentralCardGame.cardchain.cardchain;
+
+option go_package = "github.com/DecentralCardGame/Cardchain/x/cardchain/types";
+import "cardchain/tx.proto";
+
+message Match {
+
+  uint64 matchId = 1;
+  string reporter = 2;
+  string playerA = 3;
+  string playerB = 4;
+  Outcome outcome = 5;
+}

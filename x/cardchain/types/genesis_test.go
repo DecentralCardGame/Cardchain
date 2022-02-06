@@ -19,58 +19,58 @@ func TestGenesisState_Validate(t *testing.T) {
 			valid:    true,
 		},
 		{
-			desc:     "valid genesis state",
+			desc: "valid genesis state",
 			genState: &types.GenesisState{
 
 				MatchList: []types.Match{
-	{
-		Index: "0",
-},
-	{
-		Index: "1",
-},
-},
-MatchList: []types.Match{
-	{
-		Index: "0",
-},
-	{
-		Index: "1",
-},
-},
-// this line is used by starport scaffolding # types/genesis/validField
+					{
+						Index: "0",
+					},
+					{
+						Index: "1",
+					},
+				},
+				MatchList: []types.Match{
+					{
+						Index: "0",
+					},
+					{
+						Index: "1",
+					},
+				},
+				// this line is used by starport scaffolding # types/genesis/validField
 			},
 			valid: true,
 		},
 		{
-	desc:     "duplicated match",
-	genState: &types.GenesisState{
-		MatchList: []types.Match{
-			{
-				Index: "0",
-},
-			{
-				Index: "0",
-},
+			desc: "duplicated match",
+			genState: &types.GenesisState{
+				MatchList: []types.Match{
+					{
+						Index: "0",
+					},
+					{
+						Index: "0",
+					},
+				},
+			},
+			valid: false,
 		},
-	},
-	valid:    false,
-},
-{
-	desc:     "duplicated match",
-	genState: &types.GenesisState{
-		MatchList: []types.Match{
-			{
-				Index: "0",
-},
-			{
-				Index: "0",
-},
+		{
+			desc: "duplicated match",
+			genState: &types.GenesisState{
+				MatchList: []types.Match{
+					{
+						Index: "0",
+					},
+					{
+						Index: "0",
+					},
+				},
+			},
+			valid: false,
 		},
-	},
-	valid:    false,
-},
-// this line is used by starport scaffolding # types/genesis/testcase
+		// this line is used by starport scaffolding # types/genesis/testcase
 	} {
 		t.Run(tc.desc, func(t *testing.T) {
 			err := tc.genState.Validate()

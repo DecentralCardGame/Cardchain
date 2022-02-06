@@ -5,6 +5,7 @@ import "gogoproto/gogo.proto";
 import "cardchain/params.proto";
 import "cardchain/card.proto";
 import "cardchain/user.proto";
+import "cardchain/match.proto";
 // this line is used by starport scaffolding # genesis/proto/import
 
 option go_package = "github.com/DecentralCardGame/Cardchain/x/cardchain/types";
@@ -16,5 +17,6 @@ message GenesisState {
   repeated User users = 3;
   repeated string addresses = 4;
   uint64 lastCardSchemeId = 5;
+  repeated Match matches = 6;
   // this line is used by starport scaffolding # genesis/proto/state
 }
