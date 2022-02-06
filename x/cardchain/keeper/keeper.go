@@ -22,6 +22,7 @@ type (
 		cdc              codec.BinaryCodec // The wire codec for binary encoding/decoding.
 		UsersStoreKey    sdk.StoreKey
 		CardsStoreKey    sdk.StoreKey
+		MatchesStoreKey		 sdk.StoreKey
 		InternalStoreKey sdk.StoreKey
 		paramstore       paramtypes.Subspace
 
@@ -33,6 +34,7 @@ func NewKeeper(
 	cdc codec.BinaryCodec,
 	usersStoreKey,
 	cardsStoreKey sdk.StoreKey,
+	matchesStorekey sdk.StoreKey,
 	internalStoreKey sdk.StoreKey,
 	ps paramtypes.Subspace,
 
@@ -47,6 +49,7 @@ func NewKeeper(
 		cdc:              cdc,
 		UsersStoreKey:    usersStoreKey,
 		CardsStoreKey:    cardsStoreKey,
+		MatchesStoreKey: 	matchesStorekey,
 		InternalStoreKey: internalStoreKey,
 		paramstore:       ps,
 		BankKeeper:       bankKeeper,
@@ -95,6 +98,42 @@ func indexOfId(cardID uint64, cards []uint64) int {
 		}
 	}
 	return -1
+}
+
+/////////////
+// Matches //
+/////////////
+
+func (k Keeper) GetMatch(ctx sdk.Context, matchId uint64) types.Match {
+	store := ctx.KVStore(k.MatchesStoreKey)
+	bz := store.Get(sdk.Uint64ToBigEndian(matchId))
+
+	var gottenMatch types.Match
+	k.cdc.MustUnmarshal(bz, &gottenMatch)
+	return gottenMatch
+}
+
+func (k Keeper) SetMatch(ctx sdk.Context, matchId uint64, newMatch types.Match) {
+	store := ctx.KVStore(k.MatchesStoreKey)
+	store.Set(sdk.Uint64ToBigEndian(matchId), k.cdc.MustMarshal(&newMatch))
+}
+
+func (k Keeper) GetMatchesIterator(ctx sdk.Context) sdk.Iterator {
+	store := ctx.KVStore(k.MatchesStoreKey)
+	return sdk.KVStorePrefixIterator(store, nil)
+}
+
+func (k Keeper) GetAllMatches(ctx sdk.Context) []*types.Match {
+	var allMatches []*types.Match
+	iterator := k.GetMatchesIterator(ctx)
+	for ; iterator.Valid(); iterator.Next() {
+
+		var gottenMatch types.Match
+		k.cdc.MustUnmarshal(iterator.Value(), &gottenMatch)
+
+		allMatches = append(allMatches, &gottenMatch)
+	}
+	return allMatches
 }
 
 ///////////
