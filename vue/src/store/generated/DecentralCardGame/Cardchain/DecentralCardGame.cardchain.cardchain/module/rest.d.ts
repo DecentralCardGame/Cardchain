@@ -16,6 +16,7 @@ export interface CardchainMsgReportMatchResponse {
 }
 export declare type CardchainMsgSaveCardContentResponse = object;
 export declare type CardchainMsgSubmitCopyrightProposalResponse = object;
+export declare type CardchainMsgSubmitMatchReporterProposalResponse = object;
 export declare type CardchainMsgTransferCardResponse = object;
 export declare type CardchainMsgVoteCardResponse = object;
 export declare enum CardchainOutcome {

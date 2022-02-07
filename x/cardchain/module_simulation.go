@@ -68,6 +68,10 @@ const (
 	// TODO: Determine the simulation weight value
 	defaultWeightMsgReportMatch int = 100
 
+	opWeightMsgSubmitMatchReporterProposal = "op_weight_msg_create_chain"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgSubmitMatchReporterProposal int = 100
+
 	// this line is used by starport scaffolding # simapp/module/const
 )
 
@@ -220,6 +224,17 @@ func (am AppModule) WeightedOperations(simState module.SimulationState) []simtyp
 	operations = append(operations, simulation.NewWeightedOperation(
 		weightMsgReportMatch,
 		cardchainsimulation.SimulateMsgReportMatch(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
+	var weightMsgSubmitMatchReporterProposal int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgSubmitMatchReporterProposal, &weightMsgSubmitMatchReporterProposal, nil,
+		func(_ *rand.Rand) {
+			weightMsgSubmitMatchReporterProposal = defaultWeightMsgSubmitMatchReporterProposal
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgSubmitMatchReporterProposal,
+		cardchainsimulation.SimulateMsgSubmitMatchReporterProposal(am.accountKeeper, am.bankKeeper, am.keeper),
 	))
 
 	// this line is used by starport scaffolding # simapp/module/operation

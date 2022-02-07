@@ -20,6 +20,7 @@ service Msg {
   rpc ChangeArtist(MsgChangeArtist) returns (MsgChangeArtistResponse);
   rpc RegisterForCouncil(MsgRegisterForCouncil) returns (MsgRegisterForCouncilResponse);
   rpc ReportMatch(MsgReportMatch) returns (MsgReportMatchResponse);
+  rpc SubmitMatchReporterProposal(MsgSubmitMatchReporterProposal) returns (MsgSubmitMatchReporterProposalResponse);
 // this line is used by starport scaffolding # proto/tx/rpc
 }
 
@@ -136,6 +137,16 @@ enum Outcome {
 
 message MsgReportMatchResponse {
   uint64 matchId = 1;
+}
+
+message MsgSubmitMatchReporterProposal {
+  string creator = 1;
+  string reporter = 2;
+  string deposit = 3;
+  string description = 4;
+}
+
+message MsgSubmitMatchReporterProposalResponse {
 }
 
 // this line is used by starport scaffolding # proto/tx/message

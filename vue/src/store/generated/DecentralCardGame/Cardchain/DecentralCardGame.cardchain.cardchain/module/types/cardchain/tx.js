@@ -1580,6 +1580,164 @@ export const MsgReportMatchResponse = {
         return message;
     },
 };
+const baseMsgSubmitMatchReporterProposal = {
+    creator: "",
+    reporter: "",
+    deposit: "",
+    description: "",
+};
+export const MsgSubmitMatchReporterProposal = {
+    encode(message, writer = Writer.create()) {
+        if (message.creator !== "") {
+            writer.uint32(10).string(message.creator);
+        }
+        if (message.reporter !== "") {
+            writer.uint32(18).string(message.reporter);
+        }
+        if (message.deposit !== "") {
+            writer.uint32(26).string(message.deposit);
+        }
+        if (message.description !== "") {
+            writer.uint32(34).string(message.description);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = {
+            ...baseMsgSubmitMatchReporterProposal,
+        };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.creator = reader.string();
+                    break;
+                case 2:
+                    message.reporter = reader.string();
+                    break;
+                case 3:
+                    message.deposit = reader.string();
+                    break;
+                case 4:
+                    message.description = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = {
+            ...baseMsgSubmitMatchReporterProposal,
+        };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = String(object.creator);
+        }
+        else {
+            message.creator = "";
+        }
+        if (object.reporter !== undefined && object.reporter !== null) {
+            message.reporter = String(object.reporter);
+        }
+        else {
+            message.reporter = "";
+        }
+        if (object.deposit !== undefined && object.deposit !== null) {
+            message.deposit = String(object.deposit);
+        }
+        else {
+            message.deposit = "";
+        }
+        if (object.description !== undefined && object.description !== null) {
+            message.description = String(object.description);
+        }
+        else {
+            message.description = "";
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.creator !== undefined && (obj.creator = message.creator);
+        message.reporter !== undefined && (obj.reporter = message.reporter);
+        message.deposit !== undefined && (obj.deposit = message.deposit);
+        message.description !== undefined &&
+            (obj.description = message.description);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = {
+            ...baseMsgSubmitMatchReporterProposal,
+        };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = object.creator;
+        }
+        else {
+            message.creator = "";
+        }
+        if (object.reporter !== undefined && object.reporter !== null) {
+            message.reporter = object.reporter;
+        }
+        else {
+            message.reporter = "";
+        }
+        if (object.deposit !== undefined && object.deposit !== null) {
+            message.deposit = object.deposit;
+        }
+        else {
+            message.deposit = "";
+        }
+        if (object.description !== undefined && object.description !== null) {
+            message.description = object.description;
+        }
+        else {
+            message.description = "";
+        }
+        return message;
+    },
+};
+const baseMsgSubmitMatchReporterProposalResponse = {};
+export const MsgSubmitMatchReporterProposalResponse = {
+    encode(_, writer = Writer.create()) {
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = {
+            ...baseMsgSubmitMatchReporterProposalResponse,
+        };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(_) {
+        const message = {
+            ...baseMsgSubmitMatchReporterProposalResponse,
+        };
+        return message;
+    },
+    toJSON(_) {
+        const obj = {};
+        return obj;
+    },
+    fromPartial(_) {
+        const message = {
+            ...baseMsgSubmitMatchReporterProposalResponse,
+        };
+        return message;
+    },
+};
 export class MsgClientImpl {
     constructor(rpc) {
         this.rpc = rpc;
@@ -1638,6 +1796,11 @@ export class MsgClientImpl {
         const data = MsgReportMatch.encode(request).finish();
         const promise = this.rpc.request("DecentralCardGame.cardchain.cardchain.Msg", "ReportMatch", data);
         return promise.then((data) => MsgReportMatchResponse.decode(new Reader(data)));
+    }
+    SubmitMatchReporterProposal(request) {
+        const data = MsgSubmitMatchReporterProposal.encode(request).finish();
+        const promise = this.rpc.request("DecentralCardGame.cardchain.cardchain.Msg", "SubmitMatchReporterProposal", data);
+        return promise.then((data) => MsgSubmitMatchReporterProposalResponse.decode(new Reader(data)));
     }
 }
 var globalThis = (() => {

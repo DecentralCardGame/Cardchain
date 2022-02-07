@@ -1,0 +1,11 @@
+syntax = "proto3";
+package DecentralCardGame.cardchain.cardchain;
+
+option go_package = "github.com/DecentralCardGame/Cardchain/x/cardchain/types";
+
+message MatchReporterProposal {
+  
+  string title = 1; 
+  string description = 2; 
+  string reporter = 3; 
+}

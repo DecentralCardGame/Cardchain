@@ -97,6 +97,14 @@ export interface MsgReportMatch {
 export interface MsgReportMatchResponse {
     matchId: number;
 }
+export interface MsgSubmitMatchReporterProposal {
+    creator: string;
+    reporter: string;
+    deposit: string;
+    description: string;
+}
+export interface MsgSubmitMatchReporterProposalResponse {
+}
 export declare const MsgCreateuser: {
     encode(message: MsgCreateuser, writer?: Writer): Writer;
     decode(input: Reader | Uint8Array, length?: number): MsgCreateuser;
@@ -251,6 +259,20 @@ export declare const MsgReportMatchResponse: {
     toJSON(message: MsgReportMatchResponse): unknown;
     fromPartial(object: DeepPartial<MsgReportMatchResponse>): MsgReportMatchResponse;
 };
+export declare const MsgSubmitMatchReporterProposal: {
+    encode(message: MsgSubmitMatchReporterProposal, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgSubmitMatchReporterProposal;
+    fromJSON(object: any): MsgSubmitMatchReporterProposal;
+    toJSON(message: MsgSubmitMatchReporterProposal): unknown;
+    fromPartial(object: DeepPartial<MsgSubmitMatchReporterProposal>): MsgSubmitMatchReporterProposal;
+};
+export declare const MsgSubmitMatchReporterProposalResponse: {
+    encode(_: MsgSubmitMatchReporterProposalResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgSubmitMatchReporterProposalResponse;
+    fromJSON(_: any): MsgSubmitMatchReporterProposalResponse;
+    toJSON(_: MsgSubmitMatchReporterProposalResponse): unknown;
+    fromPartial(_: DeepPartial<MsgSubmitMatchReporterProposalResponse>): MsgSubmitMatchReporterProposalResponse;
+};
 /** Msg defines the Msg service. */
 export interface Msg {
     Createuser(request: MsgCreateuser): Promise<MsgCreateuserResponse>;
@@ -263,8 +285,9 @@ export interface Msg {
     SubmitCopyrightProposal(request: MsgSubmitCopyrightProposal): Promise<MsgSubmitCopyrightProposalResponse>;
     ChangeArtist(request: MsgChangeArtist): Promise<MsgChangeArtistResponse>;
     RegisterForCouncil(request: MsgRegisterForCouncil): Promise<MsgRegisterForCouncilResponse>;
-    /** this line is used by starport scaffolding # proto/tx/rpc */
     ReportMatch(request: MsgReportMatch): Promise<MsgReportMatchResponse>;
+    /** this line is used by starport scaffolding # proto/tx/rpc */
+    SubmitMatchReporterProposal(request: MsgSubmitMatchReporterProposal): Promise<MsgSubmitMatchReporterProposalResponse>;
 }
 export declare class MsgClientImpl implements Msg {
     private readonly rpc;
@@ -280,6 +303,7 @@ export declare class MsgClientImpl implements Msg {
     ChangeArtist(request: MsgChangeArtist): Promise<MsgChangeArtistResponse>;
     RegisterForCouncil(request: MsgRegisterForCouncil): Promise<MsgRegisterForCouncilResponse>;
     ReportMatch(request: MsgReportMatch): Promise<MsgReportMatchResponse>;
+    SubmitMatchReporterProposal(request: MsgSubmitMatchReporterProposal): Promise<MsgSubmitMatchReporterProposalResponse>;
 }
 interface Rpc {
     request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;

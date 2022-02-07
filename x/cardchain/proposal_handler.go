@@ -1,7 +1,6 @@
 package cardchain
 
 import (
-	// "fmt"
 
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/keeper"
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
@@ -11,11 +10,13 @@ import (
 )
 
 // NewParamChangeProposalHandler creates a new governance Handler for a ParamChangeProposal
-func NewCopyrightProposalHandler(k keeper.Keeper) govtypes.Handler {
+func NewProposalHandler(k keeper.Keeper) govtypes.Handler {
 	return func(ctx sdk.Context, content govtypes.Content) error {
 		switch c := content.(type) {
 		case *types.CopyrightProposal:
 			return handleCopyrightProposal(ctx, k, c)
+		case *types.MatchReporterProposal:
+			return handleMatchReporterProposal(ctx, k, c)
 
 		default:
 			return sdkerrors.Wrapf(sdkerrors.ErrUnknownRequest, "unrecognized proposal content type: %T", c)
@@ -23,8 +24,25 @@ func NewCopyrightProposalHandler(k keeper.Keeper) govtypes.Handler {
 	}
 }
 
-func handleCopyrightProposal(ctx sdk.Context, k keeper.Keeper, p *types.CopyrightProposal) error {
+func handleMatchReporterProposal(ctx sdk.Context, k keeper.Keeper, p *types.MatchReporterProposal) error {
+	address, err := sdk.AccAddressFromBech32(p.Reporter)
+	if err != nil {
+		return sdkerrors.Wrap(types.ErrInvalidAccAddress, "Invalid address")
+	}
 
+	reporter, err := k.GetUser(ctx, address)
+	if err != nil {
+		return err
+	}
+
+	reporter.ReportMatches = true
+
+	k.SetUser(ctx, address, reporter)
+
+	return nil
+}
+
+func handleCopyrightProposal(ctx sdk.Context, k keeper.Keeper, p *types.CopyrightProposal) error {
 	card := k.GetCard(ctx, p.CardId)
 
 	card.Image = []byte{}
