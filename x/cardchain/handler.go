@@ -91,14 +91,9 @@ func handleMsgReportMatch(ctx sdk.Context, keeper keeper.Keeper, msg *types.MsgR
 
 	keeper.SetMatch(ctx, matchId, match)
 
-	if msg.Outcome == types.Outcome_AWon {
-		keeper.MintCoinsToAddr(ctx, addressA, sdk.Coins{sdk.NewInt64Coin("credits", 2)})
-	} else if msg.Outcome == types.Outcome_BWon {
-		keeper.MintCoinsToAddr(ctx, addressB, sdk.Coins{sdk.NewInt64Coin("credits", 2)})
-	} else if msg.Outcome == types.Outcome_Draw {
-		keeper.MintCoinsToAddr(ctx, addressA, sdk.Coins{sdk.NewInt64Coin("credits", 1)})
-		keeper.MintCoinsToAddr(ctx, addressB, sdk.Coins{sdk.NewInt64Coin("credits", 1)})
-	}
+	amA, amB := keeper.CalculateMatchReward(msg.Outcome)
+	keeper.MintCoinsToAddr(ctx, addressA, sdk.Coins{sdk.NewInt64Coin("credits", amA)})
+	keeper.MintCoinsToAddr(ctx, addressB, sdk.Coins{sdk.NewInt64Coin("credits", amB)})
 
 	return sdk.WrapServiceResult(ctx, &types.MsgReportMatchResponse{matchId}, nil)
 }

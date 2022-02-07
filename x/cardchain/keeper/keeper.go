@@ -121,6 +121,23 @@ func (k Keeper) ApointMatchReporter(ctx sdk.Context, reporter string) error {
 	return nil
 }
 
+func (k Keeper) CalculateMatchReward(outcome types.Outcome) (int64, int64) {
+	var (
+		amA int64
+		amB int64
+	)
+	// TODO More logic
+	if outcome == types.Outcome_AWon {
+		amA = 2
+	} else if outcome == types.Outcome_BWon {
+		amB = 2
+	} else if outcome == types.Outcome_Draw {
+		amA = 1
+		amB = 1
+	}
+	return amA, amB
+}
+
 /////////////
 // Matches //
 /////////////
