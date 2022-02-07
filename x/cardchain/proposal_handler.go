@@ -1,7 +1,6 @@
 package cardchain
 
 import (
-
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/keeper"
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -25,21 +24,7 @@ func NewProposalHandler(k keeper.Keeper) govtypes.Handler {
 }
 
 func handleMatchReporterProposal(ctx sdk.Context, k keeper.Keeper, p *types.MatchReporterProposal) error {
-	address, err := sdk.AccAddressFromBech32(p.Reporter)
-	if err != nil {
-		return sdkerrors.Wrap(types.ErrInvalidAccAddress, "Invalid address")
-	}
-
-	reporter, err := k.GetUser(ctx, address)
-	if err != nil {
-		return err
-	}
-
-	reporter.ReportMatches = true
-
-	k.SetUser(ctx, address, reporter)
-
-	return nil
+	return k.ApointMatchReporter(ctx, p.Reporter)
 }
 
 func handleCopyrightProposal(ctx sdk.Context, k keeper.Keeper, p *types.CopyrightProposal) error {

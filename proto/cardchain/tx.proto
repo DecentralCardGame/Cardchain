@@ -21,6 +21,7 @@ service Msg {
   rpc RegisterForCouncil(MsgRegisterForCouncil) returns (MsgRegisterForCouncilResponse);
   rpc ReportMatch(MsgReportMatch) returns (MsgReportMatchResponse);
   rpc SubmitMatchReporterProposal(MsgSubmitMatchReporterProposal) returns (MsgSubmitMatchReporterProposalResponse);
+  rpc ApointMatchReporter(MsgApointMatchReporter) returns (MsgApointMatchReporterResponse);
 // this line is used by starport scaffolding # proto/tx/rpc
 }
 
@@ -147,6 +148,14 @@ message MsgSubmitMatchReporterProposal {
 }
 
 message MsgSubmitMatchReporterProposalResponse {
+}
+
+message MsgApointMatchReporter {
+  string creator = 1;
+  string reporter = 2;
+}
+
+message MsgApointMatchReporterResponse {
 }
 
 // this line is used by starport scaffolding # proto/tx/message

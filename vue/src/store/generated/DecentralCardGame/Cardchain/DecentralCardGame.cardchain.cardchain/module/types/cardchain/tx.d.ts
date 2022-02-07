@@ -105,6 +105,12 @@ export interface MsgSubmitMatchReporterProposal {
 }
 export interface MsgSubmitMatchReporterProposalResponse {
 }
+export interface MsgApointMatchReporter {
+    creator: string;
+    reporter: string;
+}
+export interface MsgApointMatchReporterResponse {
+}
 export declare const MsgCreateuser: {
     encode(message: MsgCreateuser, writer?: Writer): Writer;
     decode(input: Reader | Uint8Array, length?: number): MsgCreateuser;
@@ -273,6 +279,20 @@ export declare const MsgSubmitMatchReporterProposalResponse: {
     toJSON(_: MsgSubmitMatchReporterProposalResponse): unknown;
     fromPartial(_: DeepPartial<MsgSubmitMatchReporterProposalResponse>): MsgSubmitMatchReporterProposalResponse;
 };
+export declare const MsgApointMatchReporter: {
+    encode(message: MsgApointMatchReporter, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgApointMatchReporter;
+    fromJSON(object: any): MsgApointMatchReporter;
+    toJSON(message: MsgApointMatchReporter): unknown;
+    fromPartial(object: DeepPartial<MsgApointMatchReporter>): MsgApointMatchReporter;
+};
+export declare const MsgApointMatchReporterResponse: {
+    encode(_: MsgApointMatchReporterResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgApointMatchReporterResponse;
+    fromJSON(_: any): MsgApointMatchReporterResponse;
+    toJSON(_: MsgApointMatchReporterResponse): unknown;
+    fromPartial(_: DeepPartial<MsgApointMatchReporterResponse>): MsgApointMatchReporterResponse;
+};
 /** Msg defines the Msg service. */
 export interface Msg {
     Createuser(request: MsgCreateuser): Promise<MsgCreateuserResponse>;
@@ -286,8 +306,9 @@ export interface Msg {
     ChangeArtist(request: MsgChangeArtist): Promise<MsgChangeArtistResponse>;
     RegisterForCouncil(request: MsgRegisterForCouncil): Promise<MsgRegisterForCouncilResponse>;
     ReportMatch(request: MsgReportMatch): Promise<MsgReportMatchResponse>;
-    /** this line is used by starport scaffolding # proto/tx/rpc */
     SubmitMatchReporterProposal(request: MsgSubmitMatchReporterProposal): Promise<MsgSubmitMatchReporterProposalResponse>;
+    /** this line is used by starport scaffolding # proto/tx/rpc */
+    ApointMatchReporter(request: MsgApointMatchReporter): Promise<MsgApointMatchReporterResponse>;
 }
 export declare class MsgClientImpl implements Msg {
     private readonly rpc;
@@ -304,6 +325,7 @@ export declare class MsgClientImpl implements Msg {
     RegisterForCouncil(request: MsgRegisterForCouncil): Promise<MsgRegisterForCouncilResponse>;
     ReportMatch(request: MsgReportMatch): Promise<MsgReportMatchResponse>;
     SubmitMatchReporterProposal(request: MsgSubmitMatchReporterProposal): Promise<MsgSubmitMatchReporterProposalResponse>;
+    ApointMatchReporter(request: MsgApointMatchReporter): Promise<MsgApointMatchReporterResponse>;
 }
 interface Rpc {
     request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;

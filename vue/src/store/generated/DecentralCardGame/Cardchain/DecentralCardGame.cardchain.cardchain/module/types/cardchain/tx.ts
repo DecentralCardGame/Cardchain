@@ -157,6 +157,13 @@ export interface MsgSubmitMatchReporterProposal {
 
 export interface MsgSubmitMatchReporterProposalResponse {}
 
+export interface MsgApointMatchReporter {
+  creator: string;
+  reporter: string;
+}
+
+export interface MsgApointMatchReporterResponse {}
+
 const baseMsgCreateuser: object = { creator: "", newUser: "", alias: "" };
 
 export const MsgCreateuser = {
@@ -1988,6 +1995,135 @@ export const MsgSubmitMatchReporterProposalResponse = {
   },
 };
 
+const baseMsgApointMatchReporter: object = { creator: "", reporter: "" };
+
+export const MsgApointMatchReporter = {
+  encode(
+    message: MsgApointMatchReporter,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.creator !== "") {
+      writer.uint32(10).string(message.creator);
+    }
+    if (message.reporter !== "") {
+      writer.uint32(18).string(message.reporter);
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgApointMatchReporter {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseMsgApointMatchReporter } as MsgApointMatchReporter;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string();
+          break;
+        case 2:
+          message.reporter = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgApointMatchReporter {
+    const message = { ...baseMsgApointMatchReporter } as MsgApointMatchReporter;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = String(object.creator);
+    } else {
+      message.creator = "";
+    }
+    if (object.reporter !== undefined && object.reporter !== null) {
+      message.reporter = String(object.reporter);
+    } else {
+      message.reporter = "";
+    }
+    return message;
+  },
+
+  toJSON(message: MsgApointMatchReporter): unknown {
+    const obj: any = {};
+    message.creator !== undefined && (obj.creator = message.creator);
+    message.reporter !== undefined && (obj.reporter = message.reporter);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<MsgApointMatchReporter>
+  ): MsgApointMatchReporter {
+    const message = { ...baseMsgApointMatchReporter } as MsgApointMatchReporter;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    } else {
+      message.creator = "";
+    }
+    if (object.reporter !== undefined && object.reporter !== null) {
+      message.reporter = object.reporter;
+    } else {
+      message.reporter = "";
+    }
+    return message;
+  },
+};
+
+const baseMsgApointMatchReporterResponse: object = {};
+
+export const MsgApointMatchReporterResponse = {
+  encode(
+    _: MsgApointMatchReporterResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): MsgApointMatchReporterResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseMsgApointMatchReporterResponse,
+    } as MsgApointMatchReporterResponse;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): MsgApointMatchReporterResponse {
+    const message = {
+      ...baseMsgApointMatchReporterResponse,
+    } as MsgApointMatchReporterResponse;
+    return message;
+  },
+
+  toJSON(_: MsgApointMatchReporterResponse): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial(
+    _: DeepPartial<MsgApointMatchReporterResponse>
+  ): MsgApointMatchReporterResponse {
+    const message = {
+      ...baseMsgApointMatchReporterResponse,
+    } as MsgApointMatchReporterResponse;
+    return message;
+  },
+};
+
 /** Msg defines the Msg service. */
 export interface Msg {
   Createuser(request: MsgCreateuser): Promise<MsgCreateuserResponse>;
@@ -2007,10 +2143,13 @@ export interface Msg {
     request: MsgRegisterForCouncil
   ): Promise<MsgRegisterForCouncilResponse>;
   ReportMatch(request: MsgReportMatch): Promise<MsgReportMatchResponse>;
-  /** this line is used by starport scaffolding # proto/tx/rpc */
   SubmitMatchReporterProposal(
     request: MsgSubmitMatchReporterProposal
   ): Promise<MsgSubmitMatchReporterProposalResponse>;
+  /** this line is used by starport scaffolding # proto/tx/rpc */
+  ApointMatchReporter(
+    request: MsgApointMatchReporter
+  ): Promise<MsgApointMatchReporterResponse>;
 }
 
 export class MsgClientImpl implements Msg {
@@ -2165,6 +2304,20 @@ export class MsgClientImpl implements Msg {
     );
     return promise.then((data) =>
       MsgSubmitMatchReporterProposalResponse.decode(new Reader(data))
+    );
+  }
+
+  ApointMatchReporter(
+    request: MsgApointMatchReporter
+  ): Promise<MsgApointMatchReporterResponse> {
+    const data = MsgApointMatchReporter.encode(request).finish();
+    const promise = this.rpc.request(
+      "DecentralCardGame.cardchain.cardchain.Msg",
+      "ApointMatchReporter",
+      data
+    );
+    return promise.then((data) =>
+      MsgApointMatchReporterResponse.decode(new Reader(data))
     );
   }
 }

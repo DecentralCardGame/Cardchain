@@ -5,6 +5,7 @@ export declare enum CardchainCouncilStatus {
     StartedCouncil = "startedCouncil"
 }
 export declare type CardchainMsgAddArtworkResponse = object;
+export declare type CardchainMsgApointMatchReporterResponse = object;
 export declare type CardchainMsgBuyCardSchemeResponse = object;
 export declare type CardchainMsgChangeArtistResponse = object;
 export declare type CardchainMsgCreateuserResponse = object;

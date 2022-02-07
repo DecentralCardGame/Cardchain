@@ -18,6 +18,8 @@ export enum CardchainCouncilStatus {
 
 export type CardchainMsgAddArtworkResponse = object;
 
+export type CardchainMsgApointMatchReporterResponse = object;
+
 export type CardchainMsgBuyCardSchemeResponse = object;
 
 export type CardchainMsgChangeArtistResponse = object;

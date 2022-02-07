@@ -41,18 +41,18 @@ func NewHandler(k keeper.Keeper) sdk.Handler {
 			return handleMsgRegisterForCouncil(ctx, k, msg)
 		case *types.MsgReportMatch:
 			return handleMsgReportMatch(ctx, k, msg)
-		// case *types.MsgReportMatch:
-		// 	res, err := msgServer.ReportMatch(sdk.WrapSDKContext(ctx), msg)
-		// 	return sdk.WrapServiceResult(ctx, res, err)
-		// case *types.MsgSubmitMatchReporterProposal:
-		// 	res, err := msgServer.SubmitMatchReporterProposal(sdk.WrapSDKContext(ctx), msg)
-		// 	return sdk.WrapServiceResult(ctx, res, err)
-		// this line is used by starport scaffolding # 1
+		// case *types.MsgApointMatchReporter:  // Will be uncommented later when I know how to check for module account
+		// 	return handleMsgApointMatchReporter(ctx, k, msg)
+			// this line is used by starport scaffolding # 1
 		default:
 			errMsg := fmt.Sprintf("unrecognized %s message type: %T", types.ModuleName, msg)
 			return nil, sdkerrors.Wrap(sdkerrors.ErrUnknownRequest, errMsg)
 		}
 	}
+}
+
+func handleMsgApointMatchReporter(ctx sdk.Context, keeper keeper.Keeper, msg *types.MsgApointMatchReporter) (*sdk.Result, error) {
+	return &sdk.Result{}, keeper.ApointMatchReporter(ctx, msg.Reporter)
 }
 
 func handleMsgReportMatch(ctx sdk.Context, keeper keeper.Keeper, msg *types.MsgReportMatch) (*sdk.Result, error) {
@@ -79,7 +79,26 @@ func handleMsgReportMatch(ctx sdk.Context, keeper keeper.Keeper, msg *types.MsgR
 		msg.Outcome,
 	}
 
+	addressA, err := sdk.AccAddressFromBech32(msg.PlayerA)
+	if err != nil {
+		return nil, sdkerrors.Wrap(types.ErrInvalidAccAddress, "Invalid player")
+	}
+
+	addressB, err := sdk.AccAddressFromBech32(msg.PlayerB)
+	if err != nil {
+		return nil, sdkerrors.Wrap(types.ErrInvalidAccAddress, "Invalid player")
+	}
+
 	keeper.SetMatch(ctx, matchId, match)
+
+	if msg.Outcome == types.Outcome_AWon {
+		keeper.MintCoinsToAddr(ctx, addressA, sdk.Coins{sdk.NewInt64Coin("credits", 2)})
+	} else if msg.Outcome == types.Outcome_BWon {
+		keeper.MintCoinsToAddr(ctx, addressB, sdk.Coins{sdk.NewInt64Coin("credits", 2)})
+	} else if msg.Outcome == types.Outcome_Draw {
+		keeper.MintCoinsToAddr(ctx, addressA, sdk.Coins{sdk.NewInt64Coin("credits", 1)})
+		keeper.MintCoinsToAddr(ctx, addressB, sdk.Coins{sdk.NewInt64Coin("credits", 1)})
+	}
 
 	return sdk.WrapServiceResult(ctx, &types.MsgReportMatchResponse{matchId}, nil)
 }

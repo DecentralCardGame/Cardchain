@@ -100,6 +100,27 @@ func indexOfId(cardID uint64, cards []uint64) int {
 	return -1
 }
 
+//////////////
+// Reporter //
+//////////////
+
+func (k Keeper) ApointMatchReporter(ctx sdk.Context, reporter string) error {
+	address, err := sdk.AccAddressFromBech32(reporter)
+	if err != nil {
+		return sdkerrors.Wrap(types.ErrInvalidAccAddress, "Invalid address")
+	}
+
+	reporterOb, err := k.GetUser(ctx, address)
+	if err != nil {
+		return err
+	}
+
+	reporterOb.ReportMatches = true
+
+	k.SetUser(ctx, address, reporterOb)
+	return nil
+}
+
 /////////////
 // Matches //
 /////////////

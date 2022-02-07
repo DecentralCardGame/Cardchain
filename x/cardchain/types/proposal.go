@@ -9,7 +9,7 @@ const CoinsIssuerName = "cardchain"
 
 const (
 	// ProposalTypeChange defines the type for a ParameterChangeProposal
-	ProposalTypeCopyright = "Copyright"
+	ProposalTypeCopyright     = "Copyright"
 	ProposalTypeMatchReporter = "MatchReporter"
 )
 

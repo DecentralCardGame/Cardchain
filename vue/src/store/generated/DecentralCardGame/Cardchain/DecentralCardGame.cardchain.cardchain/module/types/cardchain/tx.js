@@ -1738,6 +1738,114 @@ export const MsgSubmitMatchReporterProposalResponse = {
         return message;
     },
 };
+const baseMsgApointMatchReporter = { creator: "", reporter: "" };
+export const MsgApointMatchReporter = {
+    encode(message, writer = Writer.create()) {
+        if (message.creator !== "") {
+            writer.uint32(10).string(message.creator);
+        }
+        if (message.reporter !== "") {
+            writer.uint32(18).string(message.reporter);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = { ...baseMsgApointMatchReporter };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.creator = reader.string();
+                    break;
+                case 2:
+                    message.reporter = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = { ...baseMsgApointMatchReporter };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = String(object.creator);
+        }
+        else {
+            message.creator = "";
+        }
+        if (object.reporter !== undefined && object.reporter !== null) {
+            message.reporter = String(object.reporter);
+        }
+        else {
+            message.reporter = "";
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.creator !== undefined && (obj.creator = message.creator);
+        message.reporter !== undefined && (obj.reporter = message.reporter);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = { ...baseMsgApointMatchReporter };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = object.creator;
+        }
+        else {
+            message.creator = "";
+        }
+        if (object.reporter !== undefined && object.reporter !== null) {
+            message.reporter = object.reporter;
+        }
+        else {
+            message.reporter = "";
+        }
+        return message;
+    },
+};
+const baseMsgApointMatchReporterResponse = {};
+export const MsgApointMatchReporterResponse = {
+    encode(_, writer = Writer.create()) {
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = {
+            ...baseMsgApointMatchReporterResponse,
+        };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(_) {
+        const message = {
+            ...baseMsgApointMatchReporterResponse,
+        };
+        return message;
+    },
+    toJSON(_) {
+        const obj = {};
+        return obj;
+    },
+    fromPartial(_) {
+        const message = {
+            ...baseMsgApointMatchReporterResponse,
+        };
+        return message;
+    },
+};
 export class MsgClientImpl {
     constructor(rpc) {
         this.rpc = rpc;
@@ -1801,6 +1909,11 @@ export class MsgClientImpl {
         const data = MsgSubmitMatchReporterProposal.encode(request).finish();
         const promise = this.rpc.request("DecentralCardGame.cardchain.cardchain.Msg", "SubmitMatchReporterProposal", data);
         return promise.then((data) => MsgSubmitMatchReporterProposalResponse.decode(new Reader(data)));
+    }
+    ApointMatchReporter(request) {
+        const data = MsgApointMatchReporter.encode(request).finish();
+        const promise = this.rpc.request("DecentralCardGame.cardchain.cardchain.Msg", "ApointMatchReporter", data);
+        return promise.then((data) => MsgApointMatchReporterResponse.decode(new Reader(data)));
     }
 }
 var globalThis = (() => {
