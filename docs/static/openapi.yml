@@ -12102,6 +12102,59 @@ paths:
           type: string
       tags:
         - Query
+  '/DecentralCardGame/cardchain/cardchain/q_match/{matchId}':
+    get:
+      summary: Queries a list of QMatch items.
+      operationId: DecentralCardGameCardchainCardchainQMatch
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              timestamp:
+                type: string
+                format: uint64
+              reporter:
+                type: string
+              playerA:
+                type: string
+              playerB:
+                type: string
+              outcome:
+                type: string
+                enum:
+                  - AWon
+                  - BWon
+                  - Draw
+                  - Aborted
+                default: AWon
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: matchId
+          in: path
+          required: true
+          type: string
+          format: uint64
+      tags:
+        - Query
   '/DecentralCardGame/cardchain/cardchain/q_user/{address}':
     get:
       summary: Queries a list of QUser items.
@@ -20324,6 +20377,26 @@ definitions:
         items:
           type: string
           format: uint64
+  DecentralCardGame.cardchain.cardchain.QueryQMatchResponse:
+    type: object
+    properties:
+      timestamp:
+        type: string
+        format: uint64
+      reporter:
+        type: string
+      playerA:
+        type: string
+      playerB:
+        type: string
+      outcome:
+        type: string
+        enum:
+          - AWon
+          - BWon
+          - Draw
+          - Aborted
+        default: AWon
   DecentralCardGame.cardchain.cardchain.QueryQUserResponse:
     type: object
     properties:

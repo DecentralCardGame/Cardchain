@@ -2,6 +2,7 @@ package cardchain
 
 import (
 	"fmt"
+	"time"
 
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/keeper"
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
@@ -65,15 +66,10 @@ func handleMsgReportMatch(ctx sdk.Context, keeper keeper.Keeper, msg *types.MsgR
 		return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "Incorrect Reporter")
 	}
 
-	var matchId uint64
-	if mLen := len(keeper.GetAllMatches(ctx)); mLen == 0 {
-		matchId = 0
-	} else {
-		matchId = uint64(mLen - 1)
-	}
+	matchId := uint64(len(keeper.GetAllMatches(ctx)))
 
 	match := types.Match{
-		matchId,
+		uint64(time.Now().Unix()),
 		msg.Creator,
 		msg.PlayerA,
 		msg.PlayerB,

@@ -99,6 +99,15 @@ export interface CardchainQueryQCardsResponse {
   cardsList?: string[];
 }
 
+export interface CardchainQueryQMatchResponse {
+  /** @format uint64 */
+  timestamp?: string;
+  reporter?: string;
+  playerA?: string;
+  playerB?: string;
+  outcome?: CardchainOutcome;
+}
+
 export interface CardchainQueryQUserResponse {
   alias?: string;
   ownedCardSchemes?: string[];
@@ -476,6 +485,22 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
   ) =>
     this.request<CardchainQueryQCardsResponse, GooglerpcStatus>({
       path: `/DecentralCardGame/cardchain/cardchain/q_cards/${owner}/${status}/${cardType}/${classes}/${sortBy}/${nameContains}/${keywordsContains}/${notesContains}`,
+      method: "GET",
+      format: "json",
+      ...params,
+    });
+
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QueryQMatch
+   * @summary Queries a list of QMatch items.
+   * @request GET:/DecentralCardGame/cardchain/cardchain/q_match/{matchId}
+   */
+  queryQMatch = (matchId: string, params: RequestParams = {}) =>
+    this.request<CardchainQueryQMatchResponse, GooglerpcStatus>({
+      path: `/DecentralCardGame/cardchain/cardchain/q_match/${matchId}`,
       method: "GET",
       format: "json",
       ...params,

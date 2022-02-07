@@ -50,7 +50,7 @@ func ExportGenesis(ctx sdk.Context, k keeper.Keeper) *types.GenesisState {
 		Params:           params,
 		CardRecords:      records,
 		Users:            users,
-		Matches:					matches,
+		Matches:          matches,
 		Addresses:        addresses,
 		LastCardSchemeId: k.GetLastCardSchemeId(ctx),
 	}

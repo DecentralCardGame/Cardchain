@@ -6,7 +6,7 @@ import "cardchain/tx.proto";
 
 message Match {
 
-  uint64 matchId = 1;
+  uint64 timestamp = 1;
   string reporter = 2;
   string playerA = 3;
   string playerB = 4;

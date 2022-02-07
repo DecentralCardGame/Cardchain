@@ -22,7 +22,7 @@ type (
 		cdc              codec.BinaryCodec // The wire codec for binary encoding/decoding.
 		UsersStoreKey    sdk.StoreKey
 		CardsStoreKey    sdk.StoreKey
-		MatchesStoreKey		 sdk.StoreKey
+		MatchesStoreKey  sdk.StoreKey
 		InternalStoreKey sdk.StoreKey
 		paramstore       paramtypes.Subspace
 
@@ -49,7 +49,7 @@ func NewKeeper(
 		cdc:              cdc,
 		UsersStoreKey:    usersStoreKey,
 		CardsStoreKey:    cardsStoreKey,
-		MatchesStoreKey: 	matchesStorekey,
+		MatchesStoreKey:  matchesStorekey,
 		InternalStoreKey: internalStoreKey,
 		paramstore:       ps,
 		BankKeeper:       bankKeeper,

@@ -1,5 +1,6 @@
 import { Status } from "../cardchain/card";
 import { CouncilStatus } from "../cardchain/user";
+import { Outcome } from "../cardchain/tx";
 import { Reader, Writer } from "protobufjs/minimal";
 import { Params } from "../cardchain/params";
 import { VoteRight } from "../cardchain/vote_right";
@@ -78,6 +79,16 @@ export interface QueryQCardsRequest {
 }
 export interface QueryQCardsResponse {
     cardsList: number[];
+}
+export interface QueryQMatchRequest {
+    matchId: number;
+}
+export interface QueryQMatchResponse {
+    timestamp: number;
+    reporter: string;
+    playerA: string;
+    playerB: string;
+    outcome: Outcome;
 }
 export declare const QueryParamsRequest: {
     encode(_: QueryParamsRequest, writer?: Writer): Writer;
@@ -191,6 +202,20 @@ export declare const QueryQCardsResponse: {
     toJSON(message: QueryQCardsResponse): unknown;
     fromPartial(object: DeepPartial<QueryQCardsResponse>): QueryQCardsResponse;
 };
+export declare const QueryQMatchRequest: {
+    encode(message: QueryQMatchRequest, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryQMatchRequest;
+    fromJSON(object: any): QueryQMatchRequest;
+    toJSON(message: QueryQMatchRequest): unknown;
+    fromPartial(object: DeepPartial<QueryQMatchRequest>): QueryQMatchRequest;
+};
+export declare const QueryQMatchResponse: {
+    encode(message: QueryQMatchResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryQMatchResponse;
+    fromJSON(object: any): QueryQMatchResponse;
+    toJSON(message: QueryQMatchResponse): unknown;
+    fromPartial(object: DeepPartial<QueryQMatchResponse>): QueryQMatchResponse;
+};
 /** Query defines the gRPC querier service. */
 export interface Query {
     /** Parameters queries the parameters of the module. */
@@ -209,6 +234,8 @@ export interface Query {
     QVotableCards(request: QueryQVotableCardsRequest): Promise<QueryQVotableCardsResponse>;
     /** Queries a list of QCards items. */
     QCards(request: QueryQCardsRequest): Promise<QueryQCardsResponse>;
+    /** Queries a list of QMatch items. */
+    QMatch(request: QueryQMatchRequest): Promise<QueryQMatchResponse>;
 }
 export declare class QueryClientImpl implements Query {
     private readonly rpc;
@@ -221,6 +248,7 @@ export declare class QueryClientImpl implements Query {
     QVotingResults(request: QueryQVotingResultsRequest): Promise<QueryQVotingResultsResponse>;
     QVotableCards(request: QueryQVotableCardsRequest): Promise<QueryQVotableCardsResponse>;
     QCards(request: QueryQCardsRequest): Promise<QueryQCardsResponse>;
+    QMatch(request: QueryQMatchRequest): Promise<QueryQMatchResponse>;
 }
 interface Rpc {
     request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;

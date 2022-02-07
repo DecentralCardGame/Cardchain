@@ -236,6 +236,20 @@ export class Api extends HttpClient {
          * No description
          *
          * @tags Query
+         * @name QueryQMatch
+         * @summary Queries a list of QMatch items.
+         * @request GET:/DecentralCardGame/cardchain/cardchain/q_match/{matchId}
+         */
+        this.queryQMatch = (matchId, params = {}) => this.request({
+            path: `/DecentralCardGame/cardchain/cardchain/q_match/${matchId}`,
+            method: "GET",
+            format: "json",
+            ...params,
+        });
+        /**
+         * No description
+         *
+         * @tags Query
          * @name QueryQUser
          * @summary Queries a list of QUser items.
          * @request GET:/DecentralCardGame/cardchain/cardchain/q_user/{address}

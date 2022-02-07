@@ -6,7 +6,7 @@ import { util, configure, Writer, Reader } from "protobufjs/minimal";
 export const protobufPackage = "DecentralCardGame.cardchain.cardchain";
 
 export interface Match {
-  matchId: number;
+  timestamp: number;
   reporter: string;
   playerA: string;
   playerB: string;
@@ -14,7 +14,7 @@ export interface Match {
 }
 
 const baseMatch: object = {
-  matchId: 0,
+  timestamp: 0,
   reporter: "",
   playerA: "",
   playerB: "",
@@ -23,8 +23,8 @@ const baseMatch: object = {
 
 export const Match = {
   encode(message: Match, writer: Writer = Writer.create()): Writer {
-    if (message.matchId !== 0) {
-      writer.uint32(8).uint64(message.matchId);
+    if (message.timestamp !== 0) {
+      writer.uint32(8).uint64(message.timestamp);
     }
     if (message.reporter !== "") {
       writer.uint32(18).string(message.reporter);
@@ -49,7 +49,7 @@ export const Match = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.matchId = longToNumber(reader.uint64() as Long);
+          message.timestamp = longToNumber(reader.uint64() as Long);
           break;
         case 2:
           message.reporter = reader.string();
@@ -73,10 +73,10 @@ export const Match = {
 
   fromJSON(object: any): Match {
     const message = { ...baseMatch } as Match;
-    if (object.matchId !== undefined && object.matchId !== null) {
-      message.matchId = Number(object.matchId);
+    if (object.timestamp !== undefined && object.timestamp !== null) {
+      message.timestamp = Number(object.timestamp);
     } else {
-      message.matchId = 0;
+      message.timestamp = 0;
     }
     if (object.reporter !== undefined && object.reporter !== null) {
       message.reporter = String(object.reporter);
@@ -103,7 +103,7 @@ export const Match = {
 
   toJSON(message: Match): unknown {
     const obj: any = {};
-    message.matchId !== undefined && (obj.matchId = message.matchId);
+    message.timestamp !== undefined && (obj.timestamp = message.timestamp);
     message.reporter !== undefined && (obj.reporter = message.reporter);
     message.playerA !== undefined && (obj.playerA = message.playerA);
     message.playerB !== undefined && (obj.playerB = message.playerB);
@@ -114,10 +114,10 @@ export const Match = {
 
   fromPartial(object: DeepPartial<Match>): Match {
     const message = { ...baseMatch } as Match;
-    if (object.matchId !== undefined && object.matchId !== null) {
-      message.matchId = object.matchId;
+    if (object.timestamp !== undefined && object.timestamp !== null) {
+      message.timestamp = object.timestamp;
     } else {
-      message.matchId = 0;
+      message.timestamp = 0;
     }
     if (object.reporter !== undefined && object.reporter !== null) {
       message.reporter = object.reporter;

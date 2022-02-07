@@ -2,7 +2,7 @@ import { Outcome } from "../cardchain/tx";
 import { Writer, Reader } from "protobufjs/minimal";
 export declare const protobufPackage = "DecentralCardGame.cardchain.cardchain";
 export interface Match {
-    matchId: number;
+    timestamp: number;
     reporter: string;
     playerA: string;
     playerB: string;

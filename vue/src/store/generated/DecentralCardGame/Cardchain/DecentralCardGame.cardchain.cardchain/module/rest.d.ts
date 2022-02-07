@@ -64,6 +64,14 @@ export interface CardchainQueryQCardchainInfoResponse {
 export interface CardchainQueryQCardsResponse {
     cardsList?: string[];
 }
+export interface CardchainQueryQMatchResponse {
+    /** @format uint64 */
+    timestamp?: string;
+    reporter?: string;
+    playerA?: string;
+    playerB?: string;
+    outcome?: CardchainOutcome;
+}
 export interface CardchainQueryQUserResponse {
     alias?: string;
     ownedCardSchemes?: string[];
@@ -236,6 +244,15 @@ export declare class Api<SecurityDataType extends unknown> extends HttpClient<Se
      * @request GET:/DecentralCardGame/cardchain/cardchain/q_cards/{owner}/{status}/{cardType}/{classes}/{sortBy}/{nameContains}/{keywordsContains}/{notesContains}
      */
     queryQCards: (owner: string, status: "scheme" | "prototype" | "trial" | "permanent" | "suspended" | "banned" | "bannedSoon" | "bannedVerySoon" | "none", cardType: string, classes: string, sortBy: string, nameContains: string, keywordsContains: string, notesContains: string, params?: RequestParams) => Promise<HttpResponse<CardchainQueryQCardsResponse, GooglerpcStatus>>;
+    /**
+     * No description
+     *
+     * @tags Query
+     * @name QueryQMatch
+     * @summary Queries a list of QMatch items.
+     * @request GET:/DecentralCardGame/cardchain/cardchain/q_match/{matchId}
+     */
+    queryQMatch: (matchId: string, params?: RequestParams) => Promise<HttpResponse<CardchainQueryQMatchResponse, GooglerpcStatus>>;
     /**
      * No description
      *
