@@ -126,7 +126,9 @@ message MsgReportMatch {
   string creator = 1;
   string playerA = 2;
   string playerB = 3;
-  Outcome outcome = 4;
+  repeated uint64 cardsA = 5;
+  repeated uint64 cardsB = 6;
+  Outcome outcome = 7;
 }
 
 enum Outcome {

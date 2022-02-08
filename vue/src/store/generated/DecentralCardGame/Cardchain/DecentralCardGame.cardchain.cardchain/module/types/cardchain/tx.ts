@@ -141,6 +141,8 @@ export interface MsgReportMatch {
   creator: string;
   playerA: string;
   playerB: string;
+  cardsA: number[];
+  cardsB: number[];
   outcome: Outcome;
 }
 
@@ -1649,6 +1651,8 @@ const baseMsgReportMatch: object = {
   creator: "",
   playerA: "",
   playerB: "",
+  cardsA: 0,
+  cardsB: 0,
   outcome: 0,
 };
 
@@ -1663,8 +1667,18 @@ export const MsgReportMatch = {
     if (message.playerB !== "") {
       writer.uint32(26).string(message.playerB);
     }
+    writer.uint32(42).fork();
+    for (const v of message.cardsA) {
+      writer.uint64(v);
+    }
+    writer.ldelim();
+    writer.uint32(50).fork();
+    for (const v of message.cardsB) {
+      writer.uint64(v);
+    }
+    writer.ldelim();
     if (message.outcome !== 0) {
-      writer.uint32(32).int32(message.outcome);
+      writer.uint32(56).int32(message.outcome);
     }
     return writer;
   },
@@ -1673,6 +1687,8 @@ export const MsgReportMatch = {
     const reader = input instanceof Uint8Array ? new Reader(input) : input;
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = { ...baseMsgReportMatch } as MsgReportMatch;
+    message.cardsA = [];
+    message.cardsB = [];
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -1685,7 +1701,27 @@ export const MsgReportMatch = {
         case 3:
           message.playerB = reader.string();
           break;
-        case 4:
+        case 5:
+          if ((tag & 7) === 2) {
+            const end2 = reader.uint32() + reader.pos;
+            while (reader.pos < end2) {
+              message.cardsA.push(longToNumber(reader.uint64() as Long));
+            }
+          } else {
+            message.cardsA.push(longToNumber(reader.uint64() as Long));
+          }
+          break;
+        case 6:
+          if ((tag & 7) === 2) {
+            const end2 = reader.uint32() + reader.pos;
+            while (reader.pos < end2) {
+              message.cardsB.push(longToNumber(reader.uint64() as Long));
+            }
+          } else {
+            message.cardsB.push(longToNumber(reader.uint64() as Long));
+          }
+          break;
+        case 7:
           message.outcome = reader.int32() as any;
           break;
         default:
@@ -1698,6 +1734,8 @@ export const MsgReportMatch = {
 
   fromJSON(object: any): MsgReportMatch {
     const message = { ...baseMsgReportMatch } as MsgReportMatch;
+    message.cardsA = [];
+    message.cardsB = [];
     if (object.creator !== undefined && object.creator !== null) {
       message.creator = String(object.creator);
     } else {
@@ -1713,6 +1751,16 @@ export const MsgReportMatch = {
     } else {
       message.playerB = "";
     }
+    if (object.cardsA !== undefined && object.cardsA !== null) {
+      for (const e of object.cardsA) {
+        message.cardsA.push(Number(e));
+      }
+    }
+    if (object.cardsB !== undefined && object.cardsB !== null) {
+      for (const e of object.cardsB) {
+        message.cardsB.push(Number(e));
+      }
+    }
     if (object.outcome !== undefined && object.outcome !== null) {
       message.outcome = outcomeFromJSON(object.outcome);
     } else {
@@ -1726,6 +1774,16 @@ export const MsgReportMatch = {
     message.creator !== undefined && (obj.creator = message.creator);
     message.playerA !== undefined && (obj.playerA = message.playerA);
     message.playerB !== undefined && (obj.playerB = message.playerB);
+    if (message.cardsA) {
+      obj.cardsA = message.cardsA.map((e) => e);
+    } else {
+      obj.cardsA = [];
+    }
+    if (message.cardsB) {
+      obj.cardsB = message.cardsB.map((e) => e);
+    } else {
+      obj.cardsB = [];
+    }
     message.outcome !== undefined &&
       (obj.outcome = outcomeToJSON(message.outcome));
     return obj;
@@ -1733,6 +1791,8 @@ export const MsgReportMatch = {
 
   fromPartial(object: DeepPartial<MsgReportMatch>): MsgReportMatch {
     const message = { ...baseMsgReportMatch } as MsgReportMatch;
+    message.cardsA = [];
+    message.cardsB = [];
     if (object.creator !== undefined && object.creator !== null) {
       message.creator = object.creator;
     } else {
@@ -1747,6 +1807,16 @@ export const MsgReportMatch = {
       message.playerB = object.playerB;
     } else {
       message.playerB = "";
+    }
+    if (object.cardsA !== undefined && object.cardsA !== null) {
+      for (const e of object.cardsA) {
+        message.cardsA.push(e);
+      }
+    }
+    if (object.cardsB !== undefined && object.cardsB !== null) {
+      for (const e of object.cardsB) {
+        message.cardsB.push(e);
+      }
     }
     if (object.outcome !== undefined && object.outcome !== null) {
       message.outcome = object.outcome;

@@ -17,6 +17,8 @@ import (
 	paramtypes "github.com/cosmos/cosmos-sdk/x/params/types"
 )
 
+const votingRightsExpirationTime = 86000
+
 type (
 	Keeper struct {
 		cdc              codec.BinaryCodec // The wire codec for binary encoding/decoding.
@@ -331,7 +333,6 @@ func (k Keeper) InitUser(ctx sdk.Context, address sdk.AccAddress, alias string) 
 	newUser := types.NewUser()
 	newUser.Alias = alias
 	k.MintCoinsToAddr(ctx, address, sdk.Coins{sdk.NewInt64Coin("credits", 10000)})
-	const votingRightsExpirationTime = 86000
 	newUser.VoteRights = k.GetVoteRightToAllCards(ctx, ctx.BlockHeight()+votingRightsExpirationTime) // TODO this might be a good thing to remove later, so that sybil voting is not possible
 
 	store.Set(address, k.cdc.MustMarshal(&newUser))
@@ -417,6 +418,17 @@ func (k Keeper) GetLastVotingResults(ctx sdk.Context) types.VotingResults {
 	return results
 }
 
+func (k Keeper) AddVoteRight(ctx sdk.Context, userAddress sdk.AccAddress, cardId uint64) error {
+	user, err := k.GetUser(ctx, userAddress)
+	if err != nil {
+		return err
+	}
+	right := types.NewVoteRight(cardId, ctx.BlockHeight()+votingRightsExpirationTime)
+	user.VoteRights = append(user.VoteRights, &right)
+	k.SetUser(ctx, userAddress, user)
+	return nil
+}
+
 func (k Keeper) AddVoteRightsToAllUsers(ctx sdk.Context, expireBlock int64) {
 	votingRights := k.GetVoteRightToAllCards(ctx, expireBlock)
 
@@ -442,8 +454,7 @@ func (k Keeper) RemoveVoteRight(ctx sdk.Context, userAddress sdk.AccAddress, rig
 	user.VoteRights[rightsIndex] = user.VoteRights[len(user.VoteRights)-1]
 	//user.VoteRights[len(user.VoteRights)-1] = null
 	user.VoteRights = user.VoteRights[:len(user.VoteRights)-1]
-	userStore := ctx.KVStore(k.UsersStoreKey)
-	userStore.Set(userAddress, k.cdc.MustMarshal(&user))
+	k.SetUser(ctx, userAddress, user)
 	return nil
 }
 

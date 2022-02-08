@@ -92,6 +92,8 @@ export interface MsgReportMatch {
     creator: string;
     playerA: string;
     playerB: string;
+    cardsA: number[];
+    cardsB: number[];
     outcome: Outcome;
 }
 export interface MsgReportMatchResponse {

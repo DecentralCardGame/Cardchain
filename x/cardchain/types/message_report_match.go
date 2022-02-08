@@ -9,11 +9,13 @@ const TypeMsgReportMatch = "report_match"
 
 var _ sdk.Msg = &MsgReportMatch{}
 
-func NewMsgReportMatch(creator string, playerA string, playerB string, outcome Outcome) *MsgReportMatch {
+func NewMsgReportMatch(creator string, playerA string, playerB string, cardsA []uint64, cardsB []uint64, outcome Outcome) *MsgReportMatch {
 	return &MsgReportMatch{
 		Creator: creator,
 		PlayerA: playerA,
 		PlayerB: playerB,
+		CardsA: cardsA,
+		CardsB: cardsB,
 		Outcome: outcome,
 	}
 }

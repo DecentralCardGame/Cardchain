@@ -79,21 +79,37 @@ func handleMsgReportMatch(ctx sdk.Context, keeper keeper.Keeper, msg *types.MsgR
 		msg.Outcome,
 	}
 
-	addressA, err := sdk.AccAddressFromBech32(msg.PlayerA)
-	if err != nil {
-		return nil, sdkerrors.Wrap(types.ErrInvalidAccAddress, "Invalid player")
+	addresses := []sdk.AccAddress{}
+
+	for _, player := range []string{msg.PlayerA, msg.PlayerB} {
+		var address sdk.AccAddress
+		address, err = sdk.AccAddressFromBech32(player)
+		if err != nil {
+			return nil, sdkerrors.Wrap(types.ErrInvalidAccAddress, "Invalid player")
+		}
+		addresses = append(addresses, address)
 	}
 
-	addressB, err := sdk.AccAddressFromBech32(msg.PlayerB)
-	if err != nil {
-		return nil, sdkerrors.Wrap(types.ErrInvalidAccAddress, "Invalid player")
+	cards := [][]uint64{msg.CardsB, msg.CardsA}
+
+	if msg.Outcome != types.Outcome_Aborted {
+		for idx, _ := range addresses {
+			for _, cardId := range cards[idx] {
+				err = keeper.AddVoteRight(ctx, addresses[idx], cardId)
+				if err != nil {
+					return nil, err
+				}
+			}
+		}
 	}
 
 	keeper.SetMatch(ctx, matchId, match)
 
 	amA, amB := keeper.CalculateMatchReward(msg.Outcome)
-	keeper.MintCoinsToAddr(ctx, addressA, sdk.Coins{sdk.NewInt64Coin("credits", amA)})
-	keeper.MintCoinsToAddr(ctx, addressB, sdk.Coins{sdk.NewInt64Coin("credits", amB)})
+	amounts := []int64{amA, amB}
+	for idx, _ := range addresses {
+		keeper.MintCoinsToAddr(ctx, addresses[idx], sdk.Coins{sdk.NewInt64Coin("credits", amounts[idx])})
+	}
 
 	return sdk.WrapServiceResult(ctx, &types.MsgReportMatchResponse{matchId}, nil)
 }
