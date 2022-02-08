@@ -69,7 +69,7 @@ func handleMsgReportMatch(ctx sdk.Context, keeper keeper.Keeper, msg *types.MsgR
 		return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "Incorrect Reporter")
 	}
 
-	matchId := uint64(len(keeper.GetAllMatches(ctx)))
+	matchId := keeper.GetMatchesNumber(ctx)
 
 	match := types.Match{
 		uint64(time.Now().Unix()),

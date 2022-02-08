@@ -174,6 +174,15 @@ func (k Keeper) GetAllMatches(ctx sdk.Context) []*types.Match {
 	return allMatches
 }
 
+func (k Keeper) GetMatchesNumber(ctx sdk.Context) uint64 {
+	var matchId uint64
+	iterator := k.GetMatchesIterator(ctx)
+	for ; iterator.Valid(); iterator.Next() {
+		matchId++
+	}
+	return matchId
+}
+
 ///////////
 // Cards //
 ///////////
