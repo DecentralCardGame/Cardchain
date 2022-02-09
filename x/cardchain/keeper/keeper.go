@@ -25,6 +25,7 @@ type (
 		UsersStoreKey    sdk.StoreKey
 		CardsStoreKey    sdk.StoreKey
 		MatchesStoreKey  sdk.StoreKey
+		CollectionsStoreKey sdk.StoreKey
 		InternalStoreKey sdk.StoreKey
 		paramstore       paramtypes.Subspace
 
@@ -37,6 +38,7 @@ func NewKeeper(
 	usersStoreKey,
 	cardsStoreKey sdk.StoreKey,
 	matchesStorekey sdk.StoreKey,
+	collectionsStoreKey sdk.StoreKey,
 	internalStoreKey sdk.StoreKey,
 	ps paramtypes.Subspace,
 
@@ -52,6 +54,7 @@ func NewKeeper(
 		UsersStoreKey:    usersStoreKey,
 		CardsStoreKey:    cardsStoreKey,
 		MatchesStoreKey:  matchesStorekey,
+		CollectionsStoreKey: collectionsStoreKey,
 		InternalStoreKey: internalStoreKey,
 		paramstore:       ps,
 		BankKeeper:       bankKeeper,
@@ -138,6 +141,51 @@ func (k Keeper) CalculateMatchReward(outcome types.Outcome) (int64, int64) {
 		amB = 1
 	}
 	return amA, amB
+}
+
+/////////////////
+// Collections //
+/////////////////
+
+func (k Keeper) GetCollection(ctx sdk.Context, cId uint64) types.Collection {
+	store := ctx.KVStore(k.CollectionsStoreKey)
+	bz := store.Get(sdk.Uint64ToBigEndian(cId))
+
+	var gottenC types.Collection
+	k.cdc.MustUnmarshal(bz, &gottenC)
+	return gottenC
+}
+
+func (k Keeper) SetCollection(ctx sdk.Context, CollectionId uint64, newCollection types.Collection) {
+	store := ctx.KVStore(k.CollectionsStoreKey)
+	store.Set(sdk.Uint64ToBigEndian(CollectionId), k.cdc.MustMarshal(&newCollection))
+}
+
+func (k Keeper) GetCollectionsIterator(ctx sdk.Context) sdk.Iterator {
+	store := ctx.KVStore(k.CollectionsStoreKey)
+	return sdk.KVStorePrefixIterator(store, nil)
+}
+
+func (k Keeper) GetAllCollections(ctx sdk.Context) []*types.Collection {
+	var allCollections []*types.Collection
+	iterator := k.GetCollectionsIterator(ctx)
+	for ; iterator.Valid(); iterator.Next() {
+
+		var gottenCollection types.Collection
+		k.cdc.MustUnmarshal(iterator.Value(), &gottenCollection)
+
+		allCollections = append(allCollections, &gottenCollection)
+	}
+	return allCollections
+}
+
+func (k Keeper) GetCollectionsNumber(ctx sdk.Context) uint64 {
+	var CollectionId uint64
+	iterator := k.GetCollectionsIterator(ctx)
+	for ; iterator.Valid(); iterator.Next() {
+		CollectionId++
+	}
+	return CollectionId
 }
 
 /////////////

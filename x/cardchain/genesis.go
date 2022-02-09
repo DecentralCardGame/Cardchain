@@ -20,6 +20,9 @@ func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) 
 	for id, match := range genState.Matches {
 		k.SetMatch(ctx, uint64(id), *match)
 	}
+	for id, collection := range genState.Collections {
+		k.SetCollection(ctx, uint64(id), *collection)
+	}
 	fmt.Println("reading cards with id:")
 	for _, record := range genState.CardRecords {
 		lastId := k.GetLastCardSchemeId(ctx)
@@ -45,12 +48,14 @@ func ExportGenesis(ctx sdk.Context, k keeper.Keeper) *types.GenesisState {
 	params := k.GetParams(ctx)
 	records := k.GetAllCards(ctx)
 	matches := k.GetAllMatches(ctx)
+	collections := k.GetAllCollections(ctx)
 	users, addresses := k.GetAllUsers(ctx)
 	return &types.GenesisState{
 		Params:           params,
 		CardRecords:      records,
 		Users:            users,
 		Matches:          matches,
+		Collections:			collections,
 		Addresses:        addresses,
 		LastCardSchemeId: k.GetLastCardSchemeId(ctx),
 	}
