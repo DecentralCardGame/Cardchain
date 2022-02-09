@@ -43,6 +43,7 @@ func GetTxCmd() *cobra.Command {
 	cmd.AddCommand(CmdReportMatch())
 	cmd.AddCommand(CmdSubmitMatchReporterProposal())
 	cmd.AddCommand(CmdApointMatchReporter())
+	cmd.AddCommand(CmdCreateCollection())
 	// this line is used by starport scaffolding # 1
 
 	return cmd

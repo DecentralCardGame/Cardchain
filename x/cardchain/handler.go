@@ -41,14 +41,32 @@ func NewHandler(k keeper.Keeper) sdk.Handler {
 			return handleMsgRegisterForCouncil(ctx, k, msg)
 		case *types.MsgReportMatch:
 			return handleMsgReportMatch(ctx, k, msg)
-		// case *types.MsgApointMatchReporter:  // Will be uncommented later when I know how to check for module account
-		// 	return handleMsgApointMatchReporter(ctx, k, msg)
+			// case *types.MsgApointMatchReporter:  // Will be uncommented later when I know how to check for module account
+			// 	return handleMsgApointMatchReporter(ctx, k, msg)
+		case *types.MsgCreateCollection:
+			return handleMsgCreateCollection(ctx, k, msg)
 			// this line is used by starport scaffolding # 1
 		default:
 			errMsg := fmt.Sprintf("unrecognized %s message type: %T", types.ModuleName, msg)
 			return nil, sdkerrors.Wrap(sdkerrors.ErrUnknownRequest, errMsg)
 		}
 	}
+}
+
+func handleMsgCreateCollection(ctx sdk.Context, keeper keeper.Keeper, msg *types.MsgCreateCollection) (*sdk.Result, error) {
+	collectionId := keeper.GetCollectionsNumber(ctx)
+
+	collection := types.Collection{
+		Name: msg.Name,
+		Cards: []uint64{},
+		Contributors: append([]string{msg.Creator}, msg.Contributors...),
+		Story: msg.Story,
+		Artwork: msg.Artwork,
+		Status: types.CStatus_design,
+	}
+
+	keeper.SetCollection(ctx, collectionId, collection)
+	return &sdk.Result{}, nil
 }
 
 func handleMsgApointMatchReporter(ctx sdk.Context, keeper keeper.Keeper, msg *types.MsgApointMatchReporter) (*sdk.Result, error) {

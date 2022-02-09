@@ -21,13 +21,13 @@ const votingRightsExpirationTime = 86000
 
 type (
 	Keeper struct {
-		cdc              codec.BinaryCodec // The wire codec for binary encoding/decoding.
-		UsersStoreKey    sdk.StoreKey
-		CardsStoreKey    sdk.StoreKey
-		MatchesStoreKey  sdk.StoreKey
+		cdc                 codec.BinaryCodec // The wire codec for binary encoding/decoding.
+		UsersStoreKey       sdk.StoreKey
+		CardsStoreKey       sdk.StoreKey
+		MatchesStoreKey     sdk.StoreKey
 		CollectionsStoreKey sdk.StoreKey
-		InternalStoreKey sdk.StoreKey
-		paramstore       paramtypes.Subspace
+		InternalStoreKey    sdk.StoreKey
+		paramstore          paramtypes.Subspace
 
 		BankKeeper types.BankKeeper
 	}
@@ -50,14 +50,14 @@ func NewKeeper(
 	}
 
 	return &Keeper{
-		cdc:              cdc,
-		UsersStoreKey:    usersStoreKey,
-		CardsStoreKey:    cardsStoreKey,
-		MatchesStoreKey:  matchesStorekey,
+		cdc:                 cdc,
+		UsersStoreKey:       usersStoreKey,
+		CardsStoreKey:       cardsStoreKey,
+		MatchesStoreKey:     matchesStorekey,
 		CollectionsStoreKey: collectionsStoreKey,
-		InternalStoreKey: internalStoreKey,
-		paramstore:       ps,
-		BankKeeper:       bankKeeper,
+		InternalStoreKey:    internalStoreKey,
+		paramstore:          ps,
+		BankKeeper:          bankKeeper,
 	}
 }
 

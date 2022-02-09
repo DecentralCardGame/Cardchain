@@ -1,8 +1,8 @@
 package cli
 
 import (
-	"encoding/json"
 	"strconv"
+	"encoding/json"
 
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
 	"github.com/cosmos/cosmos-sdk/client"
@@ -13,40 +13,33 @@ import (
 
 var _ = strconv.Itoa(0)
 
-func CmdReportMatch() *cobra.Command {
+func CmdCreateCollection() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "report-match [player-a] [player-b] [cards-a] [cards-b] [outcome]",
-		Short: "Broadcast message ReportMatch",
-		Args:  cobra.ExactArgs(5),
+		Use:   "create-collection [name] [contributors] [story] [artwork]",
+		Short: "Broadcast message createCollection",
+		Args:  cobra.ExactArgs(4),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
-			argPlayerA := args[0]
-			argPlayerB := args[1]
-			var argCardsA []uint64
-			var argCardsB []uint64
+			argName := args[0]
+			var argContributors []string
+			argStory := args[2]
+			argArtwork := []byte(args[3])
 
-			err = json.Unmarshal([]byte(args[2]), &argCardsA)
+			err = json.Unmarshal([]byte(args[1]), &argContributors)
 			if err != nil {
 				return err
 			}
-			err = json.Unmarshal([]byte(args[3]), &argCardsB)
-			if err != nil {
-				return err
-			}
-
-			argOutcome := types.Outcome(types.Outcome_value[args[4]])
 
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
 				return err
 			}
 
-			msg := types.NewMsgReportMatch(
+			msg := types.NewMsgCreateCollection(
 				clientCtx.GetFromAddress().String(),
-				argPlayerA,
-				argPlayerB,
-				argCardsA,
-				argCardsB,
-				argOutcome,
+				argName,
+				argContributors,
+				argStory,
+				argArtwork,
 			)
 			if err := msg.ValidateBasic(); err != nil {
 				return err

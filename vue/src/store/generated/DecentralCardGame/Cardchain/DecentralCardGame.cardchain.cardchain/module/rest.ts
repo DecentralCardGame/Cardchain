@@ -24,6 +24,8 @@ export type CardchainMsgBuyCardSchemeResponse = object;
 
 export type CardchainMsgChangeArtistResponse = object;
 
+export type CardchainMsgCreateCollectionResponse = object;
+
 export type CardchainMsgCreateuserResponse = object;
 
 export type CardchainMsgDonateToCardResponse = object;

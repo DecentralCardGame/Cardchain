@@ -1918,6 +1918,180 @@ export const MsgApointMatchReporterResponse = {
         return message;
     },
 };
+const baseMsgCreateCollection = {
+    creator: "",
+    name: "",
+    contributors: "",
+    story: "",
+};
+export const MsgCreateCollection = {
+    encode(message, writer = Writer.create()) {
+        if (message.creator !== "") {
+            writer.uint32(10).string(message.creator);
+        }
+        if (message.name !== "") {
+            writer.uint32(18).string(message.name);
+        }
+        for (const v of message.contributors) {
+            writer.uint32(26).string(v);
+        }
+        if (message.story !== "") {
+            writer.uint32(34).string(message.story);
+        }
+        if (message.artwork.length !== 0) {
+            writer.uint32(42).bytes(message.artwork);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = { ...baseMsgCreateCollection };
+        message.contributors = [];
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.creator = reader.string();
+                    break;
+                case 2:
+                    message.name = reader.string();
+                    break;
+                case 3:
+                    message.contributors.push(reader.string());
+                    break;
+                case 4:
+                    message.story = reader.string();
+                    break;
+                case 5:
+                    message.artwork = reader.bytes();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = { ...baseMsgCreateCollection };
+        message.contributors = [];
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = String(object.creator);
+        }
+        else {
+            message.creator = "";
+        }
+        if (object.name !== undefined && object.name !== null) {
+            message.name = String(object.name);
+        }
+        else {
+            message.name = "";
+        }
+        if (object.contributors !== undefined && object.contributors !== null) {
+            for (const e of object.contributors) {
+                message.contributors.push(String(e));
+            }
+        }
+        if (object.story !== undefined && object.story !== null) {
+            message.story = String(object.story);
+        }
+        else {
+            message.story = "";
+        }
+        if (object.artwork !== undefined && object.artwork !== null) {
+            message.artwork = bytesFromBase64(object.artwork);
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.creator !== undefined && (obj.creator = message.creator);
+        message.name !== undefined && (obj.name = message.name);
+        if (message.contributors) {
+            obj.contributors = message.contributors.map((e) => e);
+        }
+        else {
+            obj.contributors = [];
+        }
+        message.story !== undefined && (obj.story = message.story);
+        message.artwork !== undefined &&
+            (obj.artwork = base64FromBytes(message.artwork !== undefined ? message.artwork : new Uint8Array()));
+        return obj;
+    },
+    fromPartial(object) {
+        const message = { ...baseMsgCreateCollection };
+        message.contributors = [];
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = object.creator;
+        }
+        else {
+            message.creator = "";
+        }
+        if (object.name !== undefined && object.name !== null) {
+            message.name = object.name;
+        }
+        else {
+            message.name = "";
+        }
+        if (object.contributors !== undefined && object.contributors !== null) {
+            for (const e of object.contributors) {
+                message.contributors.push(e);
+            }
+        }
+        if (object.story !== undefined && object.story !== null) {
+            message.story = object.story;
+        }
+        else {
+            message.story = "";
+        }
+        if (object.artwork !== undefined && object.artwork !== null) {
+            message.artwork = object.artwork;
+        }
+        else {
+            message.artwork = new Uint8Array();
+        }
+        return message;
+    },
+};
+const baseMsgCreateCollectionResponse = {};
+export const MsgCreateCollectionResponse = {
+    encode(_, writer = Writer.create()) {
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = {
+            ...baseMsgCreateCollectionResponse,
+        };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(_) {
+        const message = {
+            ...baseMsgCreateCollectionResponse,
+        };
+        return message;
+    },
+    toJSON(_) {
+        const obj = {};
+        return obj;
+    },
+    fromPartial(_) {
+        const message = {
+            ...baseMsgCreateCollectionResponse,
+        };
+        return message;
+    },
+};
 export class MsgClientImpl {
     constructor(rpc) {
         this.rpc = rpc;
@@ -1986,6 +2160,11 @@ export class MsgClientImpl {
         const data = MsgApointMatchReporter.encode(request).finish();
         const promise = this.rpc.request("DecentralCardGame.cardchain.cardchain.Msg", "ApointMatchReporter", data);
         return promise.then((data) => MsgApointMatchReporterResponse.decode(new Reader(data)));
+    }
+    CreateCollection(request) {
+        const data = MsgCreateCollection.encode(request).finish();
+        const promise = this.rpc.request("DecentralCardGame.cardchain.cardchain.Msg", "CreateCollection", data);
+        return promise.then((data) => MsgCreateCollectionResponse.decode(new Reader(data)));
     }
 }
 var globalThis = (() => {

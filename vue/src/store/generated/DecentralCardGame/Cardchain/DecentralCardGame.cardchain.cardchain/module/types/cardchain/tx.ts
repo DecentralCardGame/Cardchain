@@ -166,6 +166,16 @@ export interface MsgApointMatchReporter {
 
 export interface MsgApointMatchReporterResponse {}
 
+export interface MsgCreateCollection {
+  creator: string;
+  name: string;
+  contributors: string[];
+  story: string;
+  artwork: Uint8Array;
+}
+
+export interface MsgCreateCollectionResponse {}
+
 const baseMsgCreateuser: object = { creator: "", newUser: "", alias: "" };
 
 export const MsgCreateuser = {
@@ -2194,6 +2204,197 @@ export const MsgApointMatchReporterResponse = {
   },
 };
 
+const baseMsgCreateCollection: object = {
+  creator: "",
+  name: "",
+  contributors: "",
+  story: "",
+};
+
+export const MsgCreateCollection = {
+  encode(
+    message: MsgCreateCollection,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.creator !== "") {
+      writer.uint32(10).string(message.creator);
+    }
+    if (message.name !== "") {
+      writer.uint32(18).string(message.name);
+    }
+    for (const v of message.contributors) {
+      writer.uint32(26).string(v!);
+    }
+    if (message.story !== "") {
+      writer.uint32(34).string(message.story);
+    }
+    if (message.artwork.length !== 0) {
+      writer.uint32(42).bytes(message.artwork);
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgCreateCollection {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseMsgCreateCollection } as MsgCreateCollection;
+    message.contributors = [];
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string();
+          break;
+        case 2:
+          message.name = reader.string();
+          break;
+        case 3:
+          message.contributors.push(reader.string());
+          break;
+        case 4:
+          message.story = reader.string();
+          break;
+        case 5:
+          message.artwork = reader.bytes();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgCreateCollection {
+    const message = { ...baseMsgCreateCollection } as MsgCreateCollection;
+    message.contributors = [];
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = String(object.creator);
+    } else {
+      message.creator = "";
+    }
+    if (object.name !== undefined && object.name !== null) {
+      message.name = String(object.name);
+    } else {
+      message.name = "";
+    }
+    if (object.contributors !== undefined && object.contributors !== null) {
+      for (const e of object.contributors) {
+        message.contributors.push(String(e));
+      }
+    }
+    if (object.story !== undefined && object.story !== null) {
+      message.story = String(object.story);
+    } else {
+      message.story = "";
+    }
+    if (object.artwork !== undefined && object.artwork !== null) {
+      message.artwork = bytesFromBase64(object.artwork);
+    }
+    return message;
+  },
+
+  toJSON(message: MsgCreateCollection): unknown {
+    const obj: any = {};
+    message.creator !== undefined && (obj.creator = message.creator);
+    message.name !== undefined && (obj.name = message.name);
+    if (message.contributors) {
+      obj.contributors = message.contributors.map((e) => e);
+    } else {
+      obj.contributors = [];
+    }
+    message.story !== undefined && (obj.story = message.story);
+    message.artwork !== undefined &&
+      (obj.artwork = base64FromBytes(
+        message.artwork !== undefined ? message.artwork : new Uint8Array()
+      ));
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<MsgCreateCollection>): MsgCreateCollection {
+    const message = { ...baseMsgCreateCollection } as MsgCreateCollection;
+    message.contributors = [];
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    } else {
+      message.creator = "";
+    }
+    if (object.name !== undefined && object.name !== null) {
+      message.name = object.name;
+    } else {
+      message.name = "";
+    }
+    if (object.contributors !== undefined && object.contributors !== null) {
+      for (const e of object.contributors) {
+        message.contributors.push(e);
+      }
+    }
+    if (object.story !== undefined && object.story !== null) {
+      message.story = object.story;
+    } else {
+      message.story = "";
+    }
+    if (object.artwork !== undefined && object.artwork !== null) {
+      message.artwork = object.artwork;
+    } else {
+      message.artwork = new Uint8Array();
+    }
+    return message;
+  },
+};
+
+const baseMsgCreateCollectionResponse: object = {};
+
+export const MsgCreateCollectionResponse = {
+  encode(
+    _: MsgCreateCollectionResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): MsgCreateCollectionResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseMsgCreateCollectionResponse,
+    } as MsgCreateCollectionResponse;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): MsgCreateCollectionResponse {
+    const message = {
+      ...baseMsgCreateCollectionResponse,
+    } as MsgCreateCollectionResponse;
+    return message;
+  },
+
+  toJSON(_: MsgCreateCollectionResponse): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial(
+    _: DeepPartial<MsgCreateCollectionResponse>
+  ): MsgCreateCollectionResponse {
+    const message = {
+      ...baseMsgCreateCollectionResponse,
+    } as MsgCreateCollectionResponse;
+    return message;
+  },
+};
+
 /** Msg defines the Msg service. */
 export interface Msg {
   Createuser(request: MsgCreateuser): Promise<MsgCreateuserResponse>;
@@ -2216,10 +2417,13 @@ export interface Msg {
   SubmitMatchReporterProposal(
     request: MsgSubmitMatchReporterProposal
   ): Promise<MsgSubmitMatchReporterProposalResponse>;
-  /** this line is used by starport scaffolding # proto/tx/rpc */
   ApointMatchReporter(
     request: MsgApointMatchReporter
   ): Promise<MsgApointMatchReporterResponse>;
+  /** this line is used by starport scaffolding # proto/tx/rpc */
+  CreateCollection(
+    request: MsgCreateCollection
+  ): Promise<MsgCreateCollectionResponse>;
 }
 
 export class MsgClientImpl implements Msg {
@@ -2388,6 +2592,20 @@ export class MsgClientImpl implements Msg {
     );
     return promise.then((data) =>
       MsgApointMatchReporterResponse.decode(new Reader(data))
+    );
+  }
+
+  CreateCollection(
+    request: MsgCreateCollection
+  ): Promise<MsgCreateCollectionResponse> {
+    const data = MsgCreateCollection.encode(request).finish();
+    const promise = this.rpc.request(
+      "DecentralCardGame.cardchain.cardchain.Msg",
+      "CreateCollection",
+      data
+    );
+    return promise.then((data) =>
+      MsgCreateCollectionResponse.decode(new Reader(data))
     );
   }
 }
