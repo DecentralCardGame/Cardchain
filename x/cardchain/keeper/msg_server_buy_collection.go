@@ -21,9 +21,10 @@ func (k msgServer) BuyCollection(goCtx context.Context, msg *types.MsgBuyCollect
 		return nil, err
 	}
 
-	collection, err := k.GetCurrentCollection(ctx)
-	if err != nil {
-		return nil, err
+	collection := k.GetCollection(ctx, msg.CollectionId)
+
+	if collection.Status != types.CStatus_active {
+		return nil, types.ErrNoActiveCollection
 	}
 
 	k.BurnCoinsFromAddr(ctx, creatorAddr, sdk.Coins{sdk.NewInt64Coin("credits", collectionPrice)})

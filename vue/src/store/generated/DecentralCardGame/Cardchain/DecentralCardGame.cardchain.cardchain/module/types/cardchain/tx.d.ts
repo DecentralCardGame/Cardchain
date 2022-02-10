@@ -137,6 +137,7 @@ export interface MsgFinalizeCollectionResponse {
 }
 export interface MsgBuyCollection {
     creator: string;
+    collectionId: number;
 }
 export interface MsgBuyCollectionResponse {
 }

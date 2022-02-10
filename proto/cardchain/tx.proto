@@ -194,6 +194,7 @@ message MsgFinalizeCollectionResponse {
 
 message MsgBuyCollection {
   string creator = 1;
+  uint64 collectionId = 2;
 }
 
 message MsgBuyCollectionResponse {

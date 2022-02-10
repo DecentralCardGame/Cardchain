@@ -2,41 +2,41 @@
 import { SigningStargateClient } from "@cosmjs/stargate";
 import { Registry } from "@cosmjs/proto-signing";
 import { Api } from "./rest";
-import { MsgAddArtwork } from "./types/cardchain/tx";
-import { MsgBuyCollection } from "./types/cardchain/tx";
-import { MsgSubmitMatchReporterProposal } from "./types/cardchain/tx";
+import { MsgDonateToCard } from "./types/cardchain/tx";
+import { MsgSubmitCopyrightProposal } from "./types/cardchain/tx";
 import { MsgChangeArtist } from "./types/cardchain/tx";
+import { MsgCreateuser } from "./types/cardchain/tx";
+import { MsgSubmitMatchReporterProposal } from "./types/cardchain/tx";
 import { MsgTransferCard } from "./types/cardchain/tx";
+import { MsgAddArtwork } from "./types/cardchain/tx";
 import { MsgVoteCard } from "./types/cardchain/tx";
 import { MsgReportMatch } from "./types/cardchain/tx";
 import { MsgFinalizeCollection } from "./types/cardchain/tx";
-import { MsgSaveCardContent } from "./types/cardchain/tx";
-import { MsgDonateToCard } from "./types/cardchain/tx";
-import { MsgAddCardToCollection } from "./types/cardchain/tx";
+import { MsgRegisterForCouncil } from "./types/cardchain/tx";
 import { MsgCreateCollection } from "./types/cardchain/tx";
-import { MsgCreateuser } from "./types/cardchain/tx";
-import { MsgSubmitCopyrightProposal } from "./types/cardchain/tx";
 import { MsgBuyCardScheme } from "./types/cardchain/tx";
 import { MsgApointMatchReporter } from "./types/cardchain/tx";
-import { MsgRegisterForCouncil } from "./types/cardchain/tx";
+import { MsgSaveCardContent } from "./types/cardchain/tx";
+import { MsgAddCardToCollection } from "./types/cardchain/tx";
+import { MsgBuyCollection } from "./types/cardchain/tx";
 const types = [
-    ["/DecentralCardGame.cardchain.cardchain.MsgAddArtwork", MsgAddArtwork],
-    ["/DecentralCardGame.cardchain.cardchain.MsgBuyCollection", MsgBuyCollection],
-    ["/DecentralCardGame.cardchain.cardchain.MsgSubmitMatchReporterProposal", MsgSubmitMatchReporterProposal],
+    ["/DecentralCardGame.cardchain.cardchain.MsgDonateToCard", MsgDonateToCard],
+    ["/DecentralCardGame.cardchain.cardchain.MsgSubmitCopyrightProposal", MsgSubmitCopyrightProposal],
     ["/DecentralCardGame.cardchain.cardchain.MsgChangeArtist", MsgChangeArtist],
+    ["/DecentralCardGame.cardchain.cardchain.MsgCreateuser", MsgCreateuser],
+    ["/DecentralCardGame.cardchain.cardchain.MsgSubmitMatchReporterProposal", MsgSubmitMatchReporterProposal],
     ["/DecentralCardGame.cardchain.cardchain.MsgTransferCard", MsgTransferCard],
+    ["/DecentralCardGame.cardchain.cardchain.MsgAddArtwork", MsgAddArtwork],
     ["/DecentralCardGame.cardchain.cardchain.MsgVoteCard", MsgVoteCard],
     ["/DecentralCardGame.cardchain.cardchain.MsgReportMatch", MsgReportMatch],
     ["/DecentralCardGame.cardchain.cardchain.MsgFinalizeCollection", MsgFinalizeCollection],
-    ["/DecentralCardGame.cardchain.cardchain.MsgSaveCardContent", MsgSaveCardContent],
-    ["/DecentralCardGame.cardchain.cardchain.MsgDonateToCard", MsgDonateToCard],
-    ["/DecentralCardGame.cardchain.cardchain.MsgAddCardToCollection", MsgAddCardToCollection],
+    ["/DecentralCardGame.cardchain.cardchain.MsgRegisterForCouncil", MsgRegisterForCouncil],
     ["/DecentralCardGame.cardchain.cardchain.MsgCreateCollection", MsgCreateCollection],
-    ["/DecentralCardGame.cardchain.cardchain.MsgCreateuser", MsgCreateuser],
-    ["/DecentralCardGame.cardchain.cardchain.MsgSubmitCopyrightProposal", MsgSubmitCopyrightProposal],
     ["/DecentralCardGame.cardchain.cardchain.MsgBuyCardScheme", MsgBuyCardScheme],
     ["/DecentralCardGame.cardchain.cardchain.MsgApointMatchReporter", MsgApointMatchReporter],
-    ["/DecentralCardGame.cardchain.cardchain.MsgRegisterForCouncil", MsgRegisterForCouncil],
+    ["/DecentralCardGame.cardchain.cardchain.MsgSaveCardContent", MsgSaveCardContent],
+    ["/DecentralCardGame.cardchain.cardchain.MsgAddCardToCollection", MsgAddCardToCollection],
+    ["/DecentralCardGame.cardchain.cardchain.MsgBuyCollection", MsgBuyCollection],
 ];
 export const MissingWalletError = new Error("wallet is required");
 export const registry = new Registry(types);
@@ -57,23 +57,23 @@ const txClient = async (wallet, { addr: addr } = { addr: "http://localhost:26657
     const { address } = (await wallet.getAccounts())[0];
     return {
         signAndBroadcast: (msgs, { fee, memo } = { fee: defaultFee, memo: "" }) => client.signAndBroadcast(address, msgs, fee, memo),
-        msgAddArtwork: (data) => ({ typeUrl: "/DecentralCardGame.cardchain.cardchain.MsgAddArtwork", value: MsgAddArtwork.fromPartial(data) }),
-        msgBuyCollection: (data) => ({ typeUrl: "/DecentralCardGame.cardchain.cardchain.MsgBuyCollection", value: MsgBuyCollection.fromPartial(data) }),
-        msgSubmitMatchReporterProposal: (data) => ({ typeUrl: "/DecentralCardGame.cardchain.cardchain.MsgSubmitMatchReporterProposal", value: MsgSubmitMatchReporterProposal.fromPartial(data) }),
+        msgDonateToCard: (data) => ({ typeUrl: "/DecentralCardGame.cardchain.cardchain.MsgDonateToCard", value: MsgDonateToCard.fromPartial(data) }),
+        msgSubmitCopyrightProposal: (data) => ({ typeUrl: "/DecentralCardGame.cardchain.cardchain.MsgSubmitCopyrightProposal", value: MsgSubmitCopyrightProposal.fromPartial(data) }),
         msgChangeArtist: (data) => ({ typeUrl: "/DecentralCardGame.cardchain.cardchain.MsgChangeArtist", value: MsgChangeArtist.fromPartial(data) }),
+        msgCreateuser: (data) => ({ typeUrl: "/DecentralCardGame.cardchain.cardchain.MsgCreateuser", value: MsgCreateuser.fromPartial(data) }),
+        msgSubmitMatchReporterProposal: (data) => ({ typeUrl: "/DecentralCardGame.cardchain.cardchain.MsgSubmitMatchReporterProposal", value: MsgSubmitMatchReporterProposal.fromPartial(data) }),
         msgTransferCard: (data) => ({ typeUrl: "/DecentralCardGame.cardchain.cardchain.MsgTransferCard", value: MsgTransferCard.fromPartial(data) }),
+        msgAddArtwork: (data) => ({ typeUrl: "/DecentralCardGame.cardchain.cardchain.MsgAddArtwork", value: MsgAddArtwork.fromPartial(data) }),
         msgVoteCard: (data) => ({ typeUrl: "/DecentralCardGame.cardchain.cardchain.MsgVoteCard", value: MsgVoteCard.fromPartial(data) }),
         msgReportMatch: (data) => ({ typeUrl: "/DecentralCardGame.cardchain.cardchain.MsgReportMatch", value: MsgReportMatch.fromPartial(data) }),
         msgFinalizeCollection: (data) => ({ typeUrl: "/DecentralCardGame.cardchain.cardchain.MsgFinalizeCollection", value: MsgFinalizeCollection.fromPartial(data) }),
-        msgSaveCardContent: (data) => ({ typeUrl: "/DecentralCardGame.cardchain.cardchain.MsgSaveCardContent", value: MsgSaveCardContent.fromPartial(data) }),
-        msgDonateToCard: (data) => ({ typeUrl: "/DecentralCardGame.cardchain.cardchain.MsgDonateToCard", value: MsgDonateToCard.fromPartial(data) }),
-        msgAddCardToCollection: (data) => ({ typeUrl: "/DecentralCardGame.cardchain.cardchain.MsgAddCardToCollection", value: MsgAddCardToCollection.fromPartial(data) }),
+        msgRegisterForCouncil: (data) => ({ typeUrl: "/DecentralCardGame.cardchain.cardchain.MsgRegisterForCouncil", value: MsgRegisterForCouncil.fromPartial(data) }),
         msgCreateCollection: (data) => ({ typeUrl: "/DecentralCardGame.cardchain.cardchain.MsgCreateCollection", value: MsgCreateCollection.fromPartial(data) }),
-        msgCreateuser: (data) => ({ typeUrl: "/DecentralCardGame.cardchain.cardchain.MsgCreateuser", value: MsgCreateuser.fromPartial(data) }),
-        msgSubmitCopyrightProposal: (data) => ({ typeUrl: "/DecentralCardGame.cardchain.cardchain.MsgSubmitCopyrightProposal", value: MsgSubmitCopyrightProposal.fromPartial(data) }),
         msgBuyCardScheme: (data) => ({ typeUrl: "/DecentralCardGame.cardchain.cardchain.MsgBuyCardScheme", value: MsgBuyCardScheme.fromPartial(data) }),
         msgApointMatchReporter: (data) => ({ typeUrl: "/DecentralCardGame.cardchain.cardchain.MsgApointMatchReporter", value: MsgApointMatchReporter.fromPartial(data) }),
-        msgRegisterForCouncil: (data) => ({ typeUrl: "/DecentralCardGame.cardchain.cardchain.MsgRegisterForCouncil", value: MsgRegisterForCouncil.fromPartial(data) }),
+        msgSaveCardContent: (data) => ({ typeUrl: "/DecentralCardGame.cardchain.cardchain.MsgSaveCardContent", value: MsgSaveCardContent.fromPartial(data) }),
+        msgAddCardToCollection: (data) => ({ typeUrl: "/DecentralCardGame.cardchain.cardchain.MsgAddCardToCollection", value: MsgAddCardToCollection.fromPartial(data) }),
+        msgBuyCollection: (data) => ({ typeUrl: "/DecentralCardGame.cardchain.cardchain.MsgBuyCollection", value: MsgBuyCollection.fromPartial(data) }),
     };
 };
 const queryClient = async ({ addr: addr } = { addr: "http://localhost:1317" }) => {

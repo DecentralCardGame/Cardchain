@@ -9,9 +9,10 @@ const TypeMsgBuyCollection = "buy_collection"
 
 var _ sdk.Msg = &MsgBuyCollection{}
 
-func NewMsgBuyCollection(creator string) *MsgBuyCollection {
+func NewMsgBuyCollection(creator string, collectionId uint64) *MsgBuyCollection {
 	return &MsgBuyCollection{
 		Creator: creator,
+		CollectionId: collectionId,
 	}
 }
 

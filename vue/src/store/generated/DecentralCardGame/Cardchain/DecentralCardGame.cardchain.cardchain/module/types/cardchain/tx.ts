@@ -193,6 +193,7 @@ export interface MsgFinalizeCollectionResponse {}
 
 export interface MsgBuyCollection {
   creator: string;
+  collectionId: number;
 }
 
 export interface MsgBuyCollectionResponse {}
@@ -2697,12 +2698,15 @@ export const MsgFinalizeCollectionResponse = {
   },
 };
 
-const baseMsgBuyCollection: object = { creator: "" };
+const baseMsgBuyCollection: object = { creator: "", collectionId: 0 };
 
 export const MsgBuyCollection = {
   encode(message: MsgBuyCollection, writer: Writer = Writer.create()): Writer {
     if (message.creator !== "") {
       writer.uint32(10).string(message.creator);
+    }
+    if (message.collectionId !== 0) {
+      writer.uint32(16).uint64(message.collectionId);
     }
     return writer;
   },
@@ -2716,6 +2720,9 @@ export const MsgBuyCollection = {
       switch (tag >>> 3) {
         case 1:
           message.creator = reader.string();
+          break;
+        case 2:
+          message.collectionId = longToNumber(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -2732,12 +2739,19 @@ export const MsgBuyCollection = {
     } else {
       message.creator = "";
     }
+    if (object.collectionId !== undefined && object.collectionId !== null) {
+      message.collectionId = Number(object.collectionId);
+    } else {
+      message.collectionId = 0;
+    }
     return message;
   },
 
   toJSON(message: MsgBuyCollection): unknown {
     const obj: any = {};
     message.creator !== undefined && (obj.creator = message.creator);
+    message.collectionId !== undefined &&
+      (obj.collectionId = message.collectionId);
     return obj;
   },
 
@@ -2747,6 +2761,11 @@ export const MsgBuyCollection = {
       message.creator = object.creator;
     } else {
       message.creator = "";
+    }
+    if (object.collectionId !== undefined && object.collectionId !== null) {
+      message.collectionId = object.collectionId;
+    } else {
+      message.collectionId = 0;
     }
     return message;
   },

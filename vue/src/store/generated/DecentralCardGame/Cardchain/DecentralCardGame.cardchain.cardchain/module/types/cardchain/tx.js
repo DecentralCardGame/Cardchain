@@ -2333,11 +2333,14 @@ export const MsgFinalizeCollectionResponse = {
         return message;
     },
 };
-const baseMsgBuyCollection = { creator: "" };
+const baseMsgBuyCollection = { creator: "", collectionId: 0 };
 export const MsgBuyCollection = {
     encode(message, writer = Writer.create()) {
         if (message.creator !== "") {
             writer.uint32(10).string(message.creator);
+        }
+        if (message.collectionId !== 0) {
+            writer.uint32(16).uint64(message.collectionId);
         }
         return writer;
     },
@@ -2350,6 +2353,9 @@ export const MsgBuyCollection = {
             switch (tag >>> 3) {
                 case 1:
                     message.creator = reader.string();
+                    break;
+                case 2:
+                    message.collectionId = longToNumber(reader.uint64());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -2366,11 +2372,19 @@ export const MsgBuyCollection = {
         else {
             message.creator = "";
         }
+        if (object.collectionId !== undefined && object.collectionId !== null) {
+            message.collectionId = Number(object.collectionId);
+        }
+        else {
+            message.collectionId = 0;
+        }
         return message;
     },
     toJSON(message) {
         const obj = {};
         message.creator !== undefined && (obj.creator = message.creator);
+        message.collectionId !== undefined &&
+            (obj.collectionId = message.collectionId);
         return obj;
     },
     fromPartial(object) {
@@ -2380,6 +2394,12 @@ export const MsgBuyCollection = {
         }
         else {
             message.creator = "";
+        }
+        if (object.collectionId !== undefined && object.collectionId !== null) {
+            message.collectionId = object.collectionId;
+        }
+        else {
+            message.collectionId = 0;
         }
         return message;
     },
