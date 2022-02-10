@@ -74,6 +74,7 @@ export interface QueryQCardchainInfoRequest {}
 
 export interface QueryQCardchainInfoResponse {
   cardAuctionPrice: string;
+  activeCollections: number[];
 }
 
 export interface QueryQVotingResultsRequest {}
@@ -1077,7 +1078,10 @@ export const QueryQCardchainInfoRequest = {
   },
 };
 
-const baseQueryQCardchainInfoResponse: object = { cardAuctionPrice: "" };
+const baseQueryQCardchainInfoResponse: object = {
+  cardAuctionPrice: "",
+  activeCollections: 0,
+};
 
 export const QueryQCardchainInfoResponse = {
   encode(
@@ -1087,6 +1091,11 @@ export const QueryQCardchainInfoResponse = {
     if (message.cardAuctionPrice !== "") {
       writer.uint32(10).string(message.cardAuctionPrice);
     }
+    writer.uint32(18).fork();
+    for (const v of message.activeCollections) {
+      writer.uint64(v);
+    }
+    writer.ldelim();
     return writer;
   },
 
@@ -1099,11 +1108,26 @@ export const QueryQCardchainInfoResponse = {
     const message = {
       ...baseQueryQCardchainInfoResponse,
     } as QueryQCardchainInfoResponse;
+    message.activeCollections = [];
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
           message.cardAuctionPrice = reader.string();
+          break;
+        case 2:
+          if ((tag & 7) === 2) {
+            const end2 = reader.uint32() + reader.pos;
+            while (reader.pos < end2) {
+              message.activeCollections.push(
+                longToNumber(reader.uint64() as Long)
+              );
+            }
+          } else {
+            message.activeCollections.push(
+              longToNumber(reader.uint64() as Long)
+            );
+          }
           break;
         default:
           reader.skipType(tag & 7);
@@ -1117,6 +1141,7 @@ export const QueryQCardchainInfoResponse = {
     const message = {
       ...baseQueryQCardchainInfoResponse,
     } as QueryQCardchainInfoResponse;
+    message.activeCollections = [];
     if (
       object.cardAuctionPrice !== undefined &&
       object.cardAuctionPrice !== null
@@ -1125,6 +1150,14 @@ export const QueryQCardchainInfoResponse = {
     } else {
       message.cardAuctionPrice = "";
     }
+    if (
+      object.activeCollections !== undefined &&
+      object.activeCollections !== null
+    ) {
+      for (const e of object.activeCollections) {
+        message.activeCollections.push(Number(e));
+      }
+    }
     return message;
   },
 
@@ -1132,6 +1165,11 @@ export const QueryQCardchainInfoResponse = {
     const obj: any = {};
     message.cardAuctionPrice !== undefined &&
       (obj.cardAuctionPrice = message.cardAuctionPrice);
+    if (message.activeCollections) {
+      obj.activeCollections = message.activeCollections.map((e) => e);
+    } else {
+      obj.activeCollections = [];
+    }
     return obj;
   },
 
@@ -1141,6 +1179,7 @@ export const QueryQCardchainInfoResponse = {
     const message = {
       ...baseQueryQCardchainInfoResponse,
     } as QueryQCardchainInfoResponse;
+    message.activeCollections = [];
     if (
       object.cardAuctionPrice !== undefined &&
       object.cardAuctionPrice !== null
@@ -1148,6 +1187,14 @@ export const QueryQCardchainInfoResponse = {
       message.cardAuctionPrice = object.cardAuctionPrice;
     } else {
       message.cardAuctionPrice = "";
+    }
+    if (
+      object.activeCollections !== undefined &&
+      object.activeCollections !== null
+    ) {
+      for (const e of object.activeCollections) {
+        message.activeCollections.push(e);
+      }
     }
     return message;
   },

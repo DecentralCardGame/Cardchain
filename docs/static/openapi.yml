@@ -12004,6 +12004,11 @@ paths:
             properties:
               cardAuctionPrice:
                 type: string
+              activeCollections:
+                type: array
+                items:
+                  type: string
+                  format: uint64
         default:
           description: An unexpected error response.
           schema:
@@ -20454,6 +20459,11 @@ definitions:
     properties:
       cardAuctionPrice:
         type: string
+      activeCollections:
+        type: array
+        items:
+          type: string
+          format: uint64
   DecentralCardGame.cardchain.cardchain.QueryQCardsResponse:
     type: object
     properties:

@@ -72,6 +72,7 @@ export interface CardchainQueryQCardResponse {
 }
 export interface CardchainQueryQCardchainInfoResponse {
     cardAuctionPrice?: string;
+    activeCollections?: string[];
 }
 export interface CardchainQueryQCardsResponse {
     cardsList?: string[];

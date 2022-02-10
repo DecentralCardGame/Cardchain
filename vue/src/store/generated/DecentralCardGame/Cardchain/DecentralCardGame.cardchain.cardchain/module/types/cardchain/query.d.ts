@@ -55,6 +55,7 @@ export interface QueryQCardchainInfoRequest {
 }
 export interface QueryQCardchainInfoResponse {
     cardAuctionPrice: string;
+    activeCollections: number[];
 }
 export interface QueryQVotingResultsRequest {
 }

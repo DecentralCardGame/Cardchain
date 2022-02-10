@@ -126,6 +126,7 @@ message QueryQCardchainInfoRequest {
 
 message QueryQCardchainInfoResponse {
   string cardAuctionPrice = 1 [(gogoproto.nullable) = false, (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Coin"];;
+  repeated uint64 activeCollections = 2;
 }
 
 message QueryQVotingResultsRequest {

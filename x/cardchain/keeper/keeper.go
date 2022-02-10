@@ -169,16 +169,14 @@ func (k Keeper) CalculateMatchReward(outcome types.Outcome) (int64, int64) {
 // Collections //
 /////////////////
 
-func (k Keeper) GetCurrentCollection(ctx sdk.Context) (types.Collection, error) {
-	iterator := k.GetCollectionsIterator(ctx)
-	var gottenCollection types.Collection
-	for ; iterator.Valid(); iterator.Next() {
-		k.cdc.MustUnmarshal(iterator.Value(), &gottenCollection)
-		if gottenCollection.Status == types.CStatus_active {
-			return gottenCollection, nil
+func (k Keeper) GetActiveCollections(ctx sdk.Context) []uint64 {
+	var activeCollections []uint64
+	for idx, collection := range k.GetAllCollections(ctx) {
+		if collection.Status == types.CStatus_active {
+			activeCollections = append(activeCollections, uint64(idx))
 		}
 	}
-	return types.Collection{}, types.ErrNoActiveCollection
+	return activeCollections
 }
 
 func (k Keeper) GetCollection(ctx sdk.Context, cId uint64) types.Collection {
