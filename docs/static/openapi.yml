@@ -12102,6 +12102,59 @@ paths:
           type: string
       tags:
         - Query
+  '/DecentralCardGame/cardchain/cardchain/q_match/{matchId}':
+    get:
+      summary: Queries a list of QMatch items.
+      operationId: DecentralCardGameCardchainCardchainQMatch
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              timestamp:
+                type: string
+                format: uint64
+              reporter:
+                type: string
+              playerA:
+                type: string
+              playerB:
+                type: string
+              outcome:
+                type: string
+                enum:
+                  - AWon
+                  - BWon
+                  - Draw
+                  - Aborted
+                default: AWon
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: matchId
+          in: path
+          required: true
+          type: string
+          format: uint64
+      tags:
+        - Query
   '/DecentralCardGame/cardchain/cardchain/q_user/{address}':
     get:
       summary: Queries a list of QUser items.
@@ -12143,6 +12196,8 @@ paths:
                   - openCouncil
                   - startedCouncil
                 default: available
+              reportMatches:
+                type: boolean
         default:
           description: An unexpected error response.
           schema:
@@ -20217,6 +20272,8 @@ definitions:
     default: available
   DecentralCardGame.cardchain.cardchain.MsgAddArtworkResponse:
     type: object
+  DecentralCardGame.cardchain.cardchain.MsgApointMatchReporterResponse:
+    type: object
   DecentralCardGame.cardchain.cardchain.MsgBuyCardSchemeResponse:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgChangeArtistResponse:
@@ -20227,14 +20284,30 @@ definitions:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgRegisterForCouncilResponse:
     type: object
+  DecentralCardGame.cardchain.cardchain.MsgReportMatchResponse:
+    type: object
+    properties:
+      matchId:
+        type: string
+        format: uint64
   DecentralCardGame.cardchain.cardchain.MsgSaveCardContentResponse:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgSubmitCopyrightProposalResponse:
+    type: object
+  DecentralCardGame.cardchain.cardchain.MsgSubmitMatchReporterProposalResponse:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgTransferCardResponse:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgVoteCardResponse:
     type: object
+  DecentralCardGame.cardchain.cardchain.Outcome:
+    type: string
+    enum:
+      - AWon
+      - BWon
+      - Draw
+      - Aborted
+    default: AWon
   DecentralCardGame.cardchain.cardchain.Params:
     type: object
     description: Params defines the parameters for the module.
@@ -20308,6 +20381,26 @@ definitions:
         items:
           type: string
           format: uint64
+  DecentralCardGame.cardchain.cardchain.QueryQMatchResponse:
+    type: object
+    properties:
+      timestamp:
+        type: string
+        format: uint64
+      reporter:
+        type: string
+      playerA:
+        type: string
+      playerB:
+        type: string
+      outcome:
+        type: string
+        enum:
+          - AWon
+          - BWon
+          - Draw
+          - Aborted
+        default: AWon
   DecentralCardGame.cardchain.cardchain.QueryQUserResponse:
     type: object
     properties:
@@ -20342,6 +20435,8 @@ definitions:
           - openCouncil
           - startedCouncil
         default: available
+      reportMatches:
+        type: boolean
   DecentralCardGame.cardchain.cardchain.QueryQVotableCardsResponse:
     type: object
     properties:

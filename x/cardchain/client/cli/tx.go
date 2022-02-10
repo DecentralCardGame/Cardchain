@@ -40,6 +40,9 @@ func GetTxCmd() *cobra.Command {
 	cmd.AddCommand(CmdSubmitCopyrightProposal())
 	cmd.AddCommand(CmdChangeArtist())
 	cmd.AddCommand(CmdRegisterForCouncil())
+	cmd.AddCommand(CmdReportMatch())
+	cmd.AddCommand(CmdSubmitMatchReporterProposal())
+	cmd.AddCommand(CmdApointMatchReporter())
 	// this line is used by starport scaffolding # 1
 
 	return cmd

@@ -1,6 +1,7 @@
 /* eslint-disable */
 import { statusFromJSON, statusToJSON } from "../cardchain/card";
 import { councilStatusFromJSON, councilStatusToJSON, } from "../cardchain/user";
+import { outcomeFromJSON, outcomeToJSON } from "../cardchain/tx";
 import { Reader, util, configure, Writer } from "protobufjs/minimal";
 import * as Long from "long";
 import { Params } from "../cardchain/params";
@@ -617,6 +618,7 @@ const baseQueryQUserResponse = {
     ownedCardSchemes: 0,
     ownedCards: 0,
     councilStatus: 0,
+    reportMatches: false,
 };
 export const QueryQUserResponse = {
     encode(message, writer = Writer.create()) {
@@ -638,6 +640,9 @@ export const QueryQUserResponse = {
         }
         if (message.councilStatus !== 0) {
             writer.uint32(40).int32(message.councilStatus);
+        }
+        if (message.reportMatches === true) {
+            writer.uint32(48).bool(message.reportMatches);
         }
         return writer;
     },
@@ -682,6 +687,9 @@ export const QueryQUserResponse = {
                 case 5:
                     message.councilStatus = reader.int32();
                     break;
+                case 6:
+                    message.reportMatches = reader.bool();
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -722,6 +730,12 @@ export const QueryQUserResponse = {
         else {
             message.councilStatus = 0;
         }
+        if (object.reportMatches !== undefined && object.reportMatches !== null) {
+            message.reportMatches = Boolean(object.reportMatches);
+        }
+        else {
+            message.reportMatches = false;
+        }
         return message;
     },
     toJSON(message) {
@@ -747,6 +761,8 @@ export const QueryQUserResponse = {
         }
         message.councilStatus !== undefined &&
             (obj.councilStatus = councilStatusToJSON(message.councilStatus));
+        message.reportMatches !== undefined &&
+            (obj.reportMatches = message.reportMatches);
         return obj;
     },
     fromPartial(object) {
@@ -781,6 +797,12 @@ export const QueryQUserResponse = {
         }
         else {
             message.councilStatus = 0;
+        }
+        if (object.reportMatches !== undefined && object.reportMatches !== null) {
+            message.reportMatches = object.reportMatches;
+        }
+        else {
+            message.reportMatches = false;
         }
         return message;
     },
@@ -1411,6 +1433,191 @@ export const QueryQCardsResponse = {
         return message;
     },
 };
+const baseQueryQMatchRequest = { matchId: 0 };
+export const QueryQMatchRequest = {
+    encode(message, writer = Writer.create()) {
+        if (message.matchId !== 0) {
+            writer.uint32(8).uint64(message.matchId);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = { ...baseQueryQMatchRequest };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.matchId = longToNumber(reader.uint64());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = { ...baseQueryQMatchRequest };
+        if (object.matchId !== undefined && object.matchId !== null) {
+            message.matchId = Number(object.matchId);
+        }
+        else {
+            message.matchId = 0;
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.matchId !== undefined && (obj.matchId = message.matchId);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = { ...baseQueryQMatchRequest };
+        if (object.matchId !== undefined && object.matchId !== null) {
+            message.matchId = object.matchId;
+        }
+        else {
+            message.matchId = 0;
+        }
+        return message;
+    },
+};
+const baseQueryQMatchResponse = {
+    timestamp: 0,
+    reporter: "",
+    playerA: "",
+    playerB: "",
+    outcome: 0,
+};
+export const QueryQMatchResponse = {
+    encode(message, writer = Writer.create()) {
+        if (message.timestamp !== 0) {
+            writer.uint32(8).uint64(message.timestamp);
+        }
+        if (message.reporter !== "") {
+            writer.uint32(18).string(message.reporter);
+        }
+        if (message.playerA !== "") {
+            writer.uint32(26).string(message.playerA);
+        }
+        if (message.playerB !== "") {
+            writer.uint32(34).string(message.playerB);
+        }
+        if (message.outcome !== 0) {
+            writer.uint32(40).int32(message.outcome);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = { ...baseQueryQMatchResponse };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.timestamp = longToNumber(reader.uint64());
+                    break;
+                case 2:
+                    message.reporter = reader.string();
+                    break;
+                case 3:
+                    message.playerA = reader.string();
+                    break;
+                case 4:
+                    message.playerB = reader.string();
+                    break;
+                case 5:
+                    message.outcome = reader.int32();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = { ...baseQueryQMatchResponse };
+        if (object.timestamp !== undefined && object.timestamp !== null) {
+            message.timestamp = Number(object.timestamp);
+        }
+        else {
+            message.timestamp = 0;
+        }
+        if (object.reporter !== undefined && object.reporter !== null) {
+            message.reporter = String(object.reporter);
+        }
+        else {
+            message.reporter = "";
+        }
+        if (object.playerA !== undefined && object.playerA !== null) {
+            message.playerA = String(object.playerA);
+        }
+        else {
+            message.playerA = "";
+        }
+        if (object.playerB !== undefined && object.playerB !== null) {
+            message.playerB = String(object.playerB);
+        }
+        else {
+            message.playerB = "";
+        }
+        if (object.outcome !== undefined && object.outcome !== null) {
+            message.outcome = outcomeFromJSON(object.outcome);
+        }
+        else {
+            message.outcome = 0;
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.timestamp !== undefined && (obj.timestamp = message.timestamp);
+        message.reporter !== undefined && (obj.reporter = message.reporter);
+        message.playerA !== undefined && (obj.playerA = message.playerA);
+        message.playerB !== undefined && (obj.playerB = message.playerB);
+        message.outcome !== undefined &&
+            (obj.outcome = outcomeToJSON(message.outcome));
+        return obj;
+    },
+    fromPartial(object) {
+        const message = { ...baseQueryQMatchResponse };
+        if (object.timestamp !== undefined && object.timestamp !== null) {
+            message.timestamp = object.timestamp;
+        }
+        else {
+            message.timestamp = 0;
+        }
+        if (object.reporter !== undefined && object.reporter !== null) {
+            message.reporter = object.reporter;
+        }
+        else {
+            message.reporter = "";
+        }
+        if (object.playerA !== undefined && object.playerA !== null) {
+            message.playerA = object.playerA;
+        }
+        else {
+            message.playerA = "";
+        }
+        if (object.playerB !== undefined && object.playerB !== null) {
+            message.playerB = object.playerB;
+        }
+        else {
+            message.playerB = "";
+        }
+        if (object.outcome !== undefined && object.outcome !== null) {
+            message.outcome = object.outcome;
+        }
+        else {
+            message.outcome = 0;
+        }
+        return message;
+    },
+};
 export class QueryClientImpl {
     constructor(rpc) {
         this.rpc = rpc;
@@ -1454,6 +1661,11 @@ export class QueryClientImpl {
         const data = QueryQCardsRequest.encode(request).finish();
         const promise = this.rpc.request("DecentralCardGame.cardchain.cardchain.Query", "QCards", data);
         return promise.then((data) => QueryQCardsResponse.decode(new Reader(data)));
+    }
+    QMatch(request) {
+        const data = QueryQMatchRequest.encode(request).finish();
+        const promise = this.rpc.request("DecentralCardGame.cardchain.cardchain.Query", "QMatch", data);
+        return promise.then((data) => QueryQMatchResponse.decode(new Reader(data)));
     }
 }
 var globalThis = (() => {

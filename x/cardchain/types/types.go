@@ -14,6 +14,7 @@ func NewUser() User {
 		OwnedCards:       []uint64{},
 		VoteRights:       []*VoteRight{},
 		CouncilStatus:    CouncilStatus_unavailable,
+		ReportMatches:    false,
 	}
 }
 

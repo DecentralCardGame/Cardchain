@@ -5,15 +5,27 @@ export declare enum CardchainCouncilStatus {
     StartedCouncil = "startedCouncil"
 }
 export declare type CardchainMsgAddArtworkResponse = object;
+export declare type CardchainMsgApointMatchReporterResponse = object;
 export declare type CardchainMsgBuyCardSchemeResponse = object;
 export declare type CardchainMsgChangeArtistResponse = object;
 export declare type CardchainMsgCreateuserResponse = object;
 export declare type CardchainMsgDonateToCardResponse = object;
 export declare type CardchainMsgRegisterForCouncilResponse = object;
+export interface CardchainMsgReportMatchResponse {
+    /** @format uint64 */
+    matchId?: string;
+}
 export declare type CardchainMsgSaveCardContentResponse = object;
 export declare type CardchainMsgSubmitCopyrightProposalResponse = object;
+export declare type CardchainMsgSubmitMatchReporterProposalResponse = object;
 export declare type CardchainMsgTransferCardResponse = object;
 export declare type CardchainMsgVoteCardResponse = object;
+export declare enum CardchainOutcome {
+    AWon = "AWon",
+    BWon = "BWon",
+    Draw = "Draw",
+    Aborted = "Aborted"
+}
 /**
  * Params defines the parameters for the module.
  */
@@ -54,12 +66,21 @@ export interface CardchainQueryQCardchainInfoResponse {
 export interface CardchainQueryQCardsResponse {
     cardsList?: string[];
 }
+export interface CardchainQueryQMatchResponse {
+    /** @format uint64 */
+    timestamp?: string;
+    reporter?: string;
+    playerA?: string;
+    playerB?: string;
+    outcome?: CardchainOutcome;
+}
 export interface CardchainQueryQUserResponse {
     alias?: string;
     ownedCardSchemes?: string[];
     ownedCards?: string[];
     voteRights?: CardchainVoteRight[];
     councilStatus?: CardchainCouncilStatus;
+    reportMatches?: boolean;
 }
 export interface CardchainQueryQVotableCardsResponse {
     unregistered?: boolean;
@@ -225,6 +246,15 @@ export declare class Api<SecurityDataType extends unknown> extends HttpClient<Se
      * @request GET:/DecentralCardGame/cardchain/cardchain/q_cards/{owner}/{status}/{cardType}/{classes}/{sortBy}/{nameContains}/{keywordsContains}/{notesContains}
      */
     queryQCards: (owner: string, status: "scheme" | "prototype" | "trial" | "permanent" | "suspended" | "banned" | "bannedSoon" | "bannedVerySoon" | "none", cardType: string, classes: string, sortBy: string, nameContains: string, keywordsContains: string, notesContains: string, params?: RequestParams) => Promise<HttpResponse<CardchainQueryQCardsResponse, GooglerpcStatus>>;
+    /**
+     * No description
+     *
+     * @tags Query
+     * @name QueryQMatch
+     * @summary Queries a list of QMatch items.
+     * @request GET:/DecentralCardGame/cardchain/cardchain/q_match/{matchId}
+     */
+    queryQMatch: (matchId: string, params?: RequestParams) => Promise<HttpResponse<CardchainQueryQMatchResponse, GooglerpcStatus>>;
     /**
      * No description
      *

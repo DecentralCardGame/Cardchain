@@ -2,6 +2,48 @@
 import { Reader, util, configure, Writer } from "protobufjs/minimal";
 import * as Long from "long";
 export const protobufPackage = "DecentralCardGame.cardchain.cardchain";
+export var Outcome;
+(function (Outcome) {
+    Outcome[Outcome["AWon"] = 0] = "AWon";
+    Outcome[Outcome["BWon"] = 1] = "BWon";
+    Outcome[Outcome["Draw"] = 2] = "Draw";
+    Outcome[Outcome["Aborted"] = 3] = "Aborted";
+    Outcome[Outcome["UNRECOGNIZED"] = -1] = "UNRECOGNIZED";
+})(Outcome || (Outcome = {}));
+export function outcomeFromJSON(object) {
+    switch (object) {
+        case 0:
+        case "AWon":
+            return Outcome.AWon;
+        case 1:
+        case "BWon":
+            return Outcome.BWon;
+        case 2:
+        case "Draw":
+            return Outcome.Draw;
+        case 3:
+        case "Aborted":
+            return Outcome.Aborted;
+        case -1:
+        case "UNRECOGNIZED":
+        default:
+            return Outcome.UNRECOGNIZED;
+    }
+}
+export function outcomeToJSON(object) {
+    switch (object) {
+        case Outcome.AWon:
+            return "AWon";
+        case Outcome.BWon:
+            return "BWon";
+        case Outcome.Draw:
+            return "Draw";
+        case Outcome.Aborted:
+            return "Aborted";
+        default:
+            return "UNKNOWN";
+    }
+}
 const baseMsgCreateuser = { creator: "", newUser: "", alias: "" };
 export const MsgCreateuser = {
     encode(message, writer = Writer.create()) {
@@ -1373,6 +1415,509 @@ export const MsgRegisterForCouncilResponse = {
         return message;
     },
 };
+const baseMsgReportMatch = {
+    creator: "",
+    playerA: "",
+    playerB: "",
+    cardsA: 0,
+    cardsB: 0,
+    outcome: 0,
+};
+export const MsgReportMatch = {
+    encode(message, writer = Writer.create()) {
+        if (message.creator !== "") {
+            writer.uint32(10).string(message.creator);
+        }
+        if (message.playerA !== "") {
+            writer.uint32(18).string(message.playerA);
+        }
+        if (message.playerB !== "") {
+            writer.uint32(26).string(message.playerB);
+        }
+        writer.uint32(42).fork();
+        for (const v of message.cardsA) {
+            writer.uint64(v);
+        }
+        writer.ldelim();
+        writer.uint32(50).fork();
+        for (const v of message.cardsB) {
+            writer.uint64(v);
+        }
+        writer.ldelim();
+        if (message.outcome !== 0) {
+            writer.uint32(56).int32(message.outcome);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = { ...baseMsgReportMatch };
+        message.cardsA = [];
+        message.cardsB = [];
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.creator = reader.string();
+                    break;
+                case 2:
+                    message.playerA = reader.string();
+                    break;
+                case 3:
+                    message.playerB = reader.string();
+                    break;
+                case 5:
+                    if ((tag & 7) === 2) {
+                        const end2 = reader.uint32() + reader.pos;
+                        while (reader.pos < end2) {
+                            message.cardsA.push(longToNumber(reader.uint64()));
+                        }
+                    }
+                    else {
+                        message.cardsA.push(longToNumber(reader.uint64()));
+                    }
+                    break;
+                case 6:
+                    if ((tag & 7) === 2) {
+                        const end2 = reader.uint32() + reader.pos;
+                        while (reader.pos < end2) {
+                            message.cardsB.push(longToNumber(reader.uint64()));
+                        }
+                    }
+                    else {
+                        message.cardsB.push(longToNumber(reader.uint64()));
+                    }
+                    break;
+                case 7:
+                    message.outcome = reader.int32();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = { ...baseMsgReportMatch };
+        message.cardsA = [];
+        message.cardsB = [];
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = String(object.creator);
+        }
+        else {
+            message.creator = "";
+        }
+        if (object.playerA !== undefined && object.playerA !== null) {
+            message.playerA = String(object.playerA);
+        }
+        else {
+            message.playerA = "";
+        }
+        if (object.playerB !== undefined && object.playerB !== null) {
+            message.playerB = String(object.playerB);
+        }
+        else {
+            message.playerB = "";
+        }
+        if (object.cardsA !== undefined && object.cardsA !== null) {
+            for (const e of object.cardsA) {
+                message.cardsA.push(Number(e));
+            }
+        }
+        if (object.cardsB !== undefined && object.cardsB !== null) {
+            for (const e of object.cardsB) {
+                message.cardsB.push(Number(e));
+            }
+        }
+        if (object.outcome !== undefined && object.outcome !== null) {
+            message.outcome = outcomeFromJSON(object.outcome);
+        }
+        else {
+            message.outcome = 0;
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.creator !== undefined && (obj.creator = message.creator);
+        message.playerA !== undefined && (obj.playerA = message.playerA);
+        message.playerB !== undefined && (obj.playerB = message.playerB);
+        if (message.cardsA) {
+            obj.cardsA = message.cardsA.map((e) => e);
+        }
+        else {
+            obj.cardsA = [];
+        }
+        if (message.cardsB) {
+            obj.cardsB = message.cardsB.map((e) => e);
+        }
+        else {
+            obj.cardsB = [];
+        }
+        message.outcome !== undefined &&
+            (obj.outcome = outcomeToJSON(message.outcome));
+        return obj;
+    },
+    fromPartial(object) {
+        const message = { ...baseMsgReportMatch };
+        message.cardsA = [];
+        message.cardsB = [];
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = object.creator;
+        }
+        else {
+            message.creator = "";
+        }
+        if (object.playerA !== undefined && object.playerA !== null) {
+            message.playerA = object.playerA;
+        }
+        else {
+            message.playerA = "";
+        }
+        if (object.playerB !== undefined && object.playerB !== null) {
+            message.playerB = object.playerB;
+        }
+        else {
+            message.playerB = "";
+        }
+        if (object.cardsA !== undefined && object.cardsA !== null) {
+            for (const e of object.cardsA) {
+                message.cardsA.push(e);
+            }
+        }
+        if (object.cardsB !== undefined && object.cardsB !== null) {
+            for (const e of object.cardsB) {
+                message.cardsB.push(e);
+            }
+        }
+        if (object.outcome !== undefined && object.outcome !== null) {
+            message.outcome = object.outcome;
+        }
+        else {
+            message.outcome = 0;
+        }
+        return message;
+    },
+};
+const baseMsgReportMatchResponse = { matchId: 0 };
+export const MsgReportMatchResponse = {
+    encode(message, writer = Writer.create()) {
+        if (message.matchId !== 0) {
+            writer.uint32(8).uint64(message.matchId);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = { ...baseMsgReportMatchResponse };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.matchId = longToNumber(reader.uint64());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = { ...baseMsgReportMatchResponse };
+        if (object.matchId !== undefined && object.matchId !== null) {
+            message.matchId = Number(object.matchId);
+        }
+        else {
+            message.matchId = 0;
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.matchId !== undefined && (obj.matchId = message.matchId);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = { ...baseMsgReportMatchResponse };
+        if (object.matchId !== undefined && object.matchId !== null) {
+            message.matchId = object.matchId;
+        }
+        else {
+            message.matchId = 0;
+        }
+        return message;
+    },
+};
+const baseMsgSubmitMatchReporterProposal = {
+    creator: "",
+    reporter: "",
+    deposit: "",
+    description: "",
+};
+export const MsgSubmitMatchReporterProposal = {
+    encode(message, writer = Writer.create()) {
+        if (message.creator !== "") {
+            writer.uint32(10).string(message.creator);
+        }
+        if (message.reporter !== "") {
+            writer.uint32(18).string(message.reporter);
+        }
+        if (message.deposit !== "") {
+            writer.uint32(26).string(message.deposit);
+        }
+        if (message.description !== "") {
+            writer.uint32(34).string(message.description);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = {
+            ...baseMsgSubmitMatchReporterProposal,
+        };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.creator = reader.string();
+                    break;
+                case 2:
+                    message.reporter = reader.string();
+                    break;
+                case 3:
+                    message.deposit = reader.string();
+                    break;
+                case 4:
+                    message.description = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = {
+            ...baseMsgSubmitMatchReporterProposal,
+        };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = String(object.creator);
+        }
+        else {
+            message.creator = "";
+        }
+        if (object.reporter !== undefined && object.reporter !== null) {
+            message.reporter = String(object.reporter);
+        }
+        else {
+            message.reporter = "";
+        }
+        if (object.deposit !== undefined && object.deposit !== null) {
+            message.deposit = String(object.deposit);
+        }
+        else {
+            message.deposit = "";
+        }
+        if (object.description !== undefined && object.description !== null) {
+            message.description = String(object.description);
+        }
+        else {
+            message.description = "";
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.creator !== undefined && (obj.creator = message.creator);
+        message.reporter !== undefined && (obj.reporter = message.reporter);
+        message.deposit !== undefined && (obj.deposit = message.deposit);
+        message.description !== undefined &&
+            (obj.description = message.description);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = {
+            ...baseMsgSubmitMatchReporterProposal,
+        };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = object.creator;
+        }
+        else {
+            message.creator = "";
+        }
+        if (object.reporter !== undefined && object.reporter !== null) {
+            message.reporter = object.reporter;
+        }
+        else {
+            message.reporter = "";
+        }
+        if (object.deposit !== undefined && object.deposit !== null) {
+            message.deposit = object.deposit;
+        }
+        else {
+            message.deposit = "";
+        }
+        if (object.description !== undefined && object.description !== null) {
+            message.description = object.description;
+        }
+        else {
+            message.description = "";
+        }
+        return message;
+    },
+};
+const baseMsgSubmitMatchReporterProposalResponse = {};
+export const MsgSubmitMatchReporterProposalResponse = {
+    encode(_, writer = Writer.create()) {
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = {
+            ...baseMsgSubmitMatchReporterProposalResponse,
+        };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(_) {
+        const message = {
+            ...baseMsgSubmitMatchReporterProposalResponse,
+        };
+        return message;
+    },
+    toJSON(_) {
+        const obj = {};
+        return obj;
+    },
+    fromPartial(_) {
+        const message = {
+            ...baseMsgSubmitMatchReporterProposalResponse,
+        };
+        return message;
+    },
+};
+const baseMsgApointMatchReporter = { creator: "", reporter: "" };
+export const MsgApointMatchReporter = {
+    encode(message, writer = Writer.create()) {
+        if (message.creator !== "") {
+            writer.uint32(10).string(message.creator);
+        }
+        if (message.reporter !== "") {
+            writer.uint32(18).string(message.reporter);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = { ...baseMsgApointMatchReporter };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.creator = reader.string();
+                    break;
+                case 2:
+                    message.reporter = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = { ...baseMsgApointMatchReporter };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = String(object.creator);
+        }
+        else {
+            message.creator = "";
+        }
+        if (object.reporter !== undefined && object.reporter !== null) {
+            message.reporter = String(object.reporter);
+        }
+        else {
+            message.reporter = "";
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.creator !== undefined && (obj.creator = message.creator);
+        message.reporter !== undefined && (obj.reporter = message.reporter);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = { ...baseMsgApointMatchReporter };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = object.creator;
+        }
+        else {
+            message.creator = "";
+        }
+        if (object.reporter !== undefined && object.reporter !== null) {
+            message.reporter = object.reporter;
+        }
+        else {
+            message.reporter = "";
+        }
+        return message;
+    },
+};
+const baseMsgApointMatchReporterResponse = {};
+export const MsgApointMatchReporterResponse = {
+    encode(_, writer = Writer.create()) {
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = {
+            ...baseMsgApointMatchReporterResponse,
+        };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(_) {
+        const message = {
+            ...baseMsgApointMatchReporterResponse,
+        };
+        return message;
+    },
+    toJSON(_) {
+        const obj = {};
+        return obj;
+    },
+    fromPartial(_) {
+        const message = {
+            ...baseMsgApointMatchReporterResponse,
+        };
+        return message;
+    },
+};
 export class MsgClientImpl {
     constructor(rpc) {
         this.rpc = rpc;
@@ -1426,6 +1971,21 @@ export class MsgClientImpl {
         const data = MsgRegisterForCouncil.encode(request).finish();
         const promise = this.rpc.request("DecentralCardGame.cardchain.cardchain.Msg", "RegisterForCouncil", data);
         return promise.then((data) => MsgRegisterForCouncilResponse.decode(new Reader(data)));
+    }
+    ReportMatch(request) {
+        const data = MsgReportMatch.encode(request).finish();
+        const promise = this.rpc.request("DecentralCardGame.cardchain.cardchain.Msg", "ReportMatch", data);
+        return promise.then((data) => MsgReportMatchResponse.decode(new Reader(data)));
+    }
+    SubmitMatchReporterProposal(request) {
+        const data = MsgSubmitMatchReporterProposal.encode(request).finish();
+        const promise = this.rpc.request("DecentralCardGame.cardchain.cardchain.Msg", "SubmitMatchReporterProposal", data);
+        return promise.then((data) => MsgSubmitMatchReporterProposalResponse.decode(new Reader(data)));
+    }
+    ApointMatchReporter(request) {
+        const data = MsgApointMatchReporter.encode(request).finish();
+        const promise = this.rpc.request("DecentralCardGame.cardchain.cardchain.Msg", "ApointMatchReporter", data);
+        return promise.then((data) => MsgApointMatchReporterResponse.decode(new Reader(data)));
     }
 }
 var globalThis = (() => {

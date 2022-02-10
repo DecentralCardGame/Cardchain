@@ -9,6 +9,8 @@ import "cardchain/vote_right.proto";
 import "cardchain/voting_results.proto";
 import "cardchain/card.proto";
 import "cardchain/user.proto";
+import "cardchain/tx.proto";
+
 // this line is used by starport scaffolding # 1
 
 option go_package = "github.com/DecentralCardGame/Cardchain/x/cardchain/types";
@@ -52,6 +54,11 @@ service Query {
 // Queries a list of QCards items.
 	rpc QCards(QueryQCardsRequest) returns (QueryQCardsResponse) {
 		option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/q_cards/{owner}/{status}/{cardType}/{classes}/{sortBy}/{nameContains}/{keywordsContains}/{notesContains}";
+	}
+
+// Queries a list of QMatch items.
+	rpc QMatch(QueryQMatchRequest) returns (QueryQMatchResponse) {
+		option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/q_match/{matchId}";
 	}
 
 // this line is used by starport scaffolding # 2
@@ -104,6 +111,7 @@ message QueryQUserResponse {
   repeated uint64 ownedCards = 3;
   repeated VoteRight voteRights = 4;
   CouncilStatus councilStatus = 5;
+  bool reportMatches = 6;
 }
 
 message QueryQCardchainInfoRequest {
@@ -143,6 +151,18 @@ message QueryQCardsRequest {
 
 message QueryQCardsResponse {
   repeated uint64 cardsList = 1;
+}
+
+message QueryQMatchRequest {
+  uint64 matchId = 1;
+}
+
+message QueryQMatchResponse {
+  uint64 timestamp = 1;
+  string reporter = 2;
+  string playerA = 3;
+  string playerB = 4;
+  Outcome outcome = 5;
 }
 
 // this line is used by starport scaffolding # 3

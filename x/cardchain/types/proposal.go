@@ -9,7 +9,8 @@ const CoinsIssuerName = "cardchain"
 
 const (
 	// ProposalTypeChange defines the type for a ParameterChangeProposal
-	ProposalTypeCopyright = "Copyright"
+	ProposalTypeCopyright     = "Copyright"
+	ProposalTypeMatchReporter = "MatchReporter"
 )
 
 func (c *CopyrightProposal) ProposalRoute() string { return RouterKey }
@@ -25,6 +26,20 @@ func (c *CopyrightProposal) ValidateBasic() error {
 	return nil
 }
 
+func (c *MatchReporterProposal) ProposalRoute() string { return RouterKey }
+
+func (c *MatchReporterProposal) ProposalType() string { return ProposalTypeMatchReporter }
+
+func (c *MatchReporterProposal) ValidateBasic() error {
+	err := govtypes.ValidateAbstract(c)
+	if err != nil {
+		return err
+	}
+	// TODO More validation
+	return nil
+}
+
 func init() {
 	govtypes.RegisterProposalType(ProposalTypeCopyright)
+	govtypes.RegisterProposalType(ProposalTypeMatchReporter)
 }

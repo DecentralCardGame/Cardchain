@@ -18,6 +18,8 @@ export enum CardchainCouncilStatus {
 
 export type CardchainMsgAddArtworkResponse = object;
 
+export type CardchainMsgApointMatchReporterResponse = object;
+
 export type CardchainMsgBuyCardSchemeResponse = object;
 
 export type CardchainMsgChangeArtistResponse = object;
@@ -28,13 +30,27 @@ export type CardchainMsgDonateToCardResponse = object;
 
 export type CardchainMsgRegisterForCouncilResponse = object;
 
+export interface CardchainMsgReportMatchResponse {
+  /** @format uint64 */
+  matchId?: string;
+}
+
 export type CardchainMsgSaveCardContentResponse = object;
 
 export type CardchainMsgSubmitCopyrightProposalResponse = object;
 
+export type CardchainMsgSubmitMatchReporterProposalResponse = object;
+
 export type CardchainMsgTransferCardResponse = object;
 
 export type CardchainMsgVoteCardResponse = object;
+
+export enum CardchainOutcome {
+  AWon = "AWon",
+  BWon = "BWon",
+  Draw = "Draw",
+  Aborted = "Aborted",
+}
 
 /**
  * Params defines the parameters for the module.
@@ -87,12 +103,22 @@ export interface CardchainQueryQCardsResponse {
   cardsList?: string[];
 }
 
+export interface CardchainQueryQMatchResponse {
+  /** @format uint64 */
+  timestamp?: string;
+  reporter?: string;
+  playerA?: string;
+  playerB?: string;
+  outcome?: CardchainOutcome;
+}
+
 export interface CardchainQueryQUserResponse {
   alias?: string;
   ownedCardSchemes?: string[];
   ownedCards?: string[];
   voteRights?: CardchainVoteRight[];
   councilStatus?: CardchainCouncilStatus;
+  reportMatches?: boolean;
 }
 
 export interface CardchainQueryQVotableCardsResponse {
@@ -463,6 +489,22 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
   ) =>
     this.request<CardchainQueryQCardsResponse, GooglerpcStatus>({
       path: `/DecentralCardGame/cardchain/cardchain/q_cards/${owner}/${status}/${cardType}/${classes}/${sortBy}/${nameContains}/${keywordsContains}/${notesContains}`,
+      method: "GET",
+      format: "json",
+      ...params,
+    });
+
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QueryQMatch
+   * @summary Queries a list of QMatch items.
+   * @request GET:/DecentralCardGame/cardchain/cardchain/q_match/{matchId}
+   */
+  queryQMatch = (matchId: string, params: RequestParams = {}) =>
+    this.request<CardchainQueryQMatchResponse, GooglerpcStatus>({
+      path: `/DecentralCardGame/cardchain/cardchain/q_match/${matchId}`,
       method: "GET",
       format: "json",
       ...params,

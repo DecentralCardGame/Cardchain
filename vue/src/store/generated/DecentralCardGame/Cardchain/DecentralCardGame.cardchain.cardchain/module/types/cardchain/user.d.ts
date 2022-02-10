@@ -16,6 +16,7 @@ export interface User {
     ownedCards: number[];
     voteRights: VoteRight[];
     CouncilStatus: CouncilStatus;
+    ReportMatches: boolean;
 }
 export declare const User: {
     encode(message: User, writer?: Writer): Writer;

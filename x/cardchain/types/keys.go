@@ -8,6 +8,7 @@ const (
 	StoreKey         = ModuleName
 	CardsStoreKey    = "Cards"
 	UsersStoreKey    = "Users"
+	MatchesStoreKey  = "Matches"
 	InternalStoreKey = "Internal"
 
 	// RouterKey is the message route for slashing

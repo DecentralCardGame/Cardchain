@@ -11,6 +11,7 @@ message User {
   repeated uint64 ownedCards = 3;
   repeated VoteRight voteRights = 4;
   CouncilStatus CouncilStatus = 5;
+  bool ReportMatches = 6;
 }
 
 enum CouncilStatus {

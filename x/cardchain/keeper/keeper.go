@@ -17,11 +17,14 @@ import (
 	paramtypes "github.com/cosmos/cosmos-sdk/x/params/types"
 )
 
+const votingRightsExpirationTime = 86000
+
 type (
 	Keeper struct {
 		cdc              codec.BinaryCodec // The wire codec for binary encoding/decoding.
 		UsersStoreKey    sdk.StoreKey
 		CardsStoreKey    sdk.StoreKey
+		MatchesStoreKey  sdk.StoreKey
 		InternalStoreKey sdk.StoreKey
 		paramstore       paramtypes.Subspace
 
@@ -33,6 +36,7 @@ func NewKeeper(
 	cdc codec.BinaryCodec,
 	usersStoreKey,
 	cardsStoreKey sdk.StoreKey,
+	matchesStorekey sdk.StoreKey,
 	internalStoreKey sdk.StoreKey,
 	ps paramtypes.Subspace,
 
@@ -47,6 +51,7 @@ func NewKeeper(
 		cdc:              cdc,
 		UsersStoreKey:    usersStoreKey,
 		CardsStoreKey:    cardsStoreKey,
+		MatchesStoreKey:  matchesStorekey,
 		InternalStoreKey: internalStoreKey,
 		paramstore:       ps,
 		BankKeeper:       bankKeeper,
@@ -95,6 +100,89 @@ func indexOfId(cardID uint64, cards []uint64) int {
 		}
 	}
 	return -1
+}
+
+//////////////
+// Reporter //
+//////////////
+
+func (k Keeper) ApointMatchReporter(ctx sdk.Context, reporter string) error {
+	address, err := sdk.AccAddressFromBech32(reporter)
+	if err != nil {
+		return sdkerrors.Wrap(types.ErrInvalidAccAddress, "Invalid address")
+	}
+
+	reporterOb, err := k.GetUser(ctx, address)
+	if err != nil {
+		return err
+	}
+
+	reporterOb.ReportMatches = true
+
+	k.SetUser(ctx, address, reporterOb)
+	return nil
+}
+
+func (k Keeper) CalculateMatchReward(outcome types.Outcome) (int64, int64) {
+	var (
+		amA int64
+		amB int64
+	)
+	// TODO More logic
+	if outcome == types.Outcome_AWon {
+		amA = 2
+	} else if outcome == types.Outcome_BWon {
+		amB = 2
+	} else if outcome == types.Outcome_Draw {
+		amA = 1
+		amB = 1
+	}
+	return amA, amB
+}
+
+/////////////
+// Matches //
+/////////////
+
+func (k Keeper) GetMatch(ctx sdk.Context, matchId uint64) types.Match {
+	store := ctx.KVStore(k.MatchesStoreKey)
+	bz := store.Get(sdk.Uint64ToBigEndian(matchId))
+
+	var gottenMatch types.Match
+	k.cdc.MustUnmarshal(bz, &gottenMatch)
+	return gottenMatch
+}
+
+func (k Keeper) SetMatch(ctx sdk.Context, matchId uint64, newMatch types.Match) {
+	store := ctx.KVStore(k.MatchesStoreKey)
+	store.Set(sdk.Uint64ToBigEndian(matchId), k.cdc.MustMarshal(&newMatch))
+}
+
+func (k Keeper) GetMatchesIterator(ctx sdk.Context) sdk.Iterator {
+	store := ctx.KVStore(k.MatchesStoreKey)
+	return sdk.KVStorePrefixIterator(store, nil)
+}
+
+func (k Keeper) GetAllMatches(ctx sdk.Context) []*types.Match {
+	var allMatches []*types.Match
+	iterator := k.GetMatchesIterator(ctx)
+	for ; iterator.Valid(); iterator.Next() {
+
+		var gottenMatch types.Match
+		k.cdc.MustUnmarshal(iterator.Value(), &gottenMatch)
+
+		allMatches = append(allMatches, &gottenMatch)
+	}
+	return allMatches
+}
+
+func (k Keeper) GetMatchesNumber(ctx sdk.Context) uint64 {
+	var matchId uint64
+	iterator := k.GetMatchesIterator(ctx)
+	for ; iterator.Valid(); iterator.Next() {
+		matchId++
+	}
+	return matchId
 }
 
 ///////////
@@ -245,7 +333,6 @@ func (k Keeper) InitUser(ctx sdk.Context, address sdk.AccAddress, alias string) 
 	newUser := types.NewUser()
 	newUser.Alias = alias
 	k.MintCoinsToAddr(ctx, address, sdk.Coins{sdk.NewInt64Coin("credits", 10000)})
-	const votingRightsExpirationTime = 86000
 	newUser.VoteRights = k.GetVoteRightToAllCards(ctx, ctx.BlockHeight()+votingRightsExpirationTime) // TODO this might be a good thing to remove later, so that sybil voting is not possible
 
 	store.Set(address, k.cdc.MustMarshal(&newUser))
@@ -331,6 +418,17 @@ func (k Keeper) GetLastVotingResults(ctx sdk.Context) types.VotingResults {
 	return results
 }
 
+func (k Keeper) AddVoteRight(ctx sdk.Context, userAddress sdk.AccAddress, cardId uint64) error {
+	user, err := k.GetUser(ctx, userAddress)
+	if err != nil {
+		return err
+	}
+	right := types.NewVoteRight(cardId, ctx.BlockHeight()+votingRightsExpirationTime)
+	user.VoteRights = append(user.VoteRights, &right)
+	k.SetUser(ctx, userAddress, user)
+	return nil
+}
+
 func (k Keeper) AddVoteRightsToAllUsers(ctx sdk.Context, expireBlock int64) {
 	votingRights := k.GetVoteRightToAllCards(ctx, expireBlock)
 
@@ -356,8 +454,7 @@ func (k Keeper) RemoveVoteRight(ctx sdk.Context, userAddress sdk.AccAddress, rig
 	user.VoteRights[rightsIndex] = user.VoteRights[len(user.VoteRights)-1]
 	//user.VoteRights[len(user.VoteRights)-1] = null
 	user.VoteRights = user.VoteRights[:len(user.VoteRights)-1]
-	userStore := ctx.KVStore(k.UsersStoreKey)
-	userStore.Set(userAddress, k.cdc.MustMarshal(&user))
+	k.SetUser(ctx, userAddress, user)
 	return nil
 }
 

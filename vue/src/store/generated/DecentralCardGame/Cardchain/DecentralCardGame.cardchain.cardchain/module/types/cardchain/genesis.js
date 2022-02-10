@@ -4,6 +4,7 @@ import { util, configure, Writer, Reader } from "protobufjs/minimal";
 import { Params } from "../cardchain/params";
 import { Card } from "../cardchain/card";
 import { User } from "../cardchain/user";
+import { Match } from "../cardchain/match";
 export const protobufPackage = "DecentralCardGame.cardchain.cardchain";
 const baseGenesisState = { addresses: "", lastCardSchemeId: 0 };
 export const GenesisState = {
@@ -23,6 +24,9 @@ export const GenesisState = {
         if (message.lastCardSchemeId !== 0) {
             writer.uint32(40).uint64(message.lastCardSchemeId);
         }
+        for (const v of message.matches) {
+            Match.encode(v, writer.uint32(50).fork()).ldelim();
+        }
         return writer;
     },
     decode(input, length) {
@@ -32,6 +36,7 @@ export const GenesisState = {
         message.cardRecords = [];
         message.users = [];
         message.addresses = [];
+        message.matches = [];
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -50,6 +55,9 @@ export const GenesisState = {
                 case 5:
                     message.lastCardSchemeId = longToNumber(reader.uint64());
                     break;
+                case 6:
+                    message.matches.push(Match.decode(reader, reader.uint32()));
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -62,6 +70,7 @@ export const GenesisState = {
         message.cardRecords = [];
         message.users = [];
         message.addresses = [];
+        message.matches = [];
         if (object.params !== undefined && object.params !== null) {
             message.params = Params.fromJSON(object.params);
         }
@@ -90,6 +99,11 @@ export const GenesisState = {
         else {
             message.lastCardSchemeId = 0;
         }
+        if (object.matches !== undefined && object.matches !== null) {
+            for (const e of object.matches) {
+                message.matches.push(Match.fromJSON(e));
+            }
+        }
         return message;
     },
     toJSON(message) {
@@ -116,6 +130,12 @@ export const GenesisState = {
         }
         message.lastCardSchemeId !== undefined &&
             (obj.lastCardSchemeId = message.lastCardSchemeId);
+        if (message.matches) {
+            obj.matches = message.matches.map((e) => e ? Match.toJSON(e) : undefined);
+        }
+        else {
+            obj.matches = [];
+        }
         return obj;
     },
     fromPartial(object) {
@@ -123,6 +143,7 @@ export const GenesisState = {
         message.cardRecords = [];
         message.users = [];
         message.addresses = [];
+        message.matches = [];
         if (object.params !== undefined && object.params !== null) {
             message.params = Params.fromPartial(object.params);
         }
@@ -150,6 +171,11 @@ export const GenesisState = {
         }
         else {
             message.lastCardSchemeId = 0;
+        }
+        if (object.matches !== undefined && object.matches !== null) {
+            for (const e of object.matches) {
+                message.matches.push(Match.fromPartial(e));
+            }
         }
         return message;
     },

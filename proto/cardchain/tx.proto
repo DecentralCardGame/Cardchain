@@ -9,7 +9,7 @@ option go_package = "github.com/DecentralCardGame/Cardchain/x/cardchain/types";
 
 // Msg defines the Msg service.
 service Msg {
-      rpc Createuser(MsgCreateuser) returns (MsgCreateuserResponse);
+  rpc Createuser(MsgCreateuser) returns (MsgCreateuserResponse);
   rpc BuyCardScheme(MsgBuyCardScheme) returns (MsgBuyCardSchemeResponse);
   rpc VoteCard(MsgVoteCard) returns (MsgVoteCardResponse);
   rpc SaveCardContent(MsgSaveCardContent) returns (MsgSaveCardContentResponse);
@@ -19,6 +19,9 @@ service Msg {
   rpc SubmitCopyrightProposal(MsgSubmitCopyrightProposal) returns (MsgSubmitCopyrightProposalResponse);
   rpc ChangeArtist(MsgChangeArtist) returns (MsgChangeArtistResponse);
   rpc RegisterForCouncil(MsgRegisterForCouncil) returns (MsgRegisterForCouncilResponse);
+  rpc ReportMatch(MsgReportMatch) returns (MsgReportMatchResponse);
+  rpc SubmitMatchReporterProposal(MsgSubmitMatchReporterProposal) returns (MsgSubmitMatchReporterProposalResponse);
+  rpc ApointMatchReporter(MsgApointMatchReporter) returns (MsgApointMatchReporterResponse);
 // this line is used by starport scaffolding # proto/tx/rpc
 }
 
@@ -117,6 +120,44 @@ message MsgRegisterForCouncil {
 }
 
 message MsgRegisterForCouncilResponse {
+}
+
+message MsgReportMatch {
+  string creator = 1;
+  string playerA = 2;
+  string playerB = 3;
+  repeated uint64 cardsA = 5;
+  repeated uint64 cardsB = 6;
+  Outcome outcome = 7;
+}
+
+enum Outcome {
+  AWon = 0;
+  BWon = 1;
+  Draw = 2;
+  Aborted = 3;
+}
+
+message MsgReportMatchResponse {
+  uint64 matchId = 1;
+}
+
+message MsgSubmitMatchReporterProposal {
+  string creator = 1;
+  string reporter = 2;
+  string deposit = 3;
+  string description = 4;
+}
+
+message MsgSubmitMatchReporterProposalResponse {
+}
+
+message MsgApointMatchReporter {
+  string creator = 1;
+  string reporter = 2;
+}
+
+message MsgApointMatchReporterResponse {
 }
 
 // this line is used by starport scaffolding # proto/tx/message

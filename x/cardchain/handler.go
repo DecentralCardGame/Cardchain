@@ -2,6 +2,7 @@ package cardchain
 
 import (
 	"fmt"
+	"time"
 
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/keeper"
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
@@ -38,12 +39,79 @@ func NewHandler(k keeper.Keeper) sdk.Handler {
 			return handleMsgChangeArtist(ctx, k, msg)
 		case *types.MsgRegisterForCouncil:
 			return handleMsgRegisterForCouncil(ctx, k, msg)
+		case *types.MsgReportMatch:
+			return handleMsgReportMatch(ctx, k, msg)
+		// case *types.MsgApointMatchReporter:  // Will be uncommented later when I know how to check for module account
+		// 	return handleMsgApointMatchReporter(ctx, k, msg)
 			// this line is used by starport scaffolding # 1
 		default:
 			errMsg := fmt.Sprintf("unrecognized %s message type: %T", types.ModuleName, msg)
 			return nil, sdkerrors.Wrap(sdkerrors.ErrUnknownRequest, errMsg)
 		}
 	}
+}
+
+func handleMsgApointMatchReporter(ctx sdk.Context, keeper keeper.Keeper, msg *types.MsgApointMatchReporter) (*sdk.Result, error) {
+	return &sdk.Result{}, keeper.ApointMatchReporter(ctx, msg.Reporter)
+}
+
+func handleMsgReportMatch(ctx sdk.Context, keeper keeper.Keeper, msg *types.MsgReportMatch) (*sdk.Result, error) {
+	address, err := sdk.AccAddressFromBech32(msg.Creator)
+	if err != nil {
+		return nil, sdkerrors.Wrap(types.ErrInvalidAccAddress, "Invalid creator")
+	}
+
+	creator, err := keeper.GetUser(ctx, address)
+	if err != nil {
+		return nil, err
+	}
+	if creator.ReportMatches == false {
+		return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "Incorrect Reporter")
+	}
+
+	matchId := keeper.GetMatchesNumber(ctx)
+
+	match := types.Match{
+		uint64(time.Now().Unix()),
+		msg.Creator,
+		msg.PlayerA,
+		msg.PlayerB,
+		msg.Outcome,
+	}
+
+	addresses := []sdk.AccAddress{}
+
+	for _, player := range []string{msg.PlayerA, msg.PlayerB} {
+		var address sdk.AccAddress
+		address, err = sdk.AccAddressFromBech32(player)
+		if err != nil {
+			return nil, sdkerrors.Wrap(types.ErrInvalidAccAddress, "Invalid player")
+		}
+		addresses = append(addresses, address)
+	}
+
+	cards := [][]uint64{msg.CardsB, msg.CardsA}
+
+	if msg.Outcome != types.Outcome_Aborted {
+		for idx, _ := range addresses {
+			for _, cardId := range cards[idx] {
+				err = keeper.AddVoteRight(ctx, addresses[idx], cardId)
+				if err != nil {
+					return nil, err
+				}
+			}
+		}
+	}
+
+	keeper.SetMatch(ctx, matchId, match)
+
+	amA, amB := keeper.CalculateMatchReward(msg.Outcome)
+	amounts := []int64{amA, amB}
+	for idx, _ := range addresses {
+		keeper.MintCoinsToAddr(ctx, addresses[idx], sdk.Coins{sdk.NewInt64Coin("credits", amounts[idx])})
+	}
+
+	return sdk.WrapServiceResult(ctx, &types.MsgReportMatchResponse{matchId}, nil)
 }
 
 func handleMsgRegisterForCouncil(ctx sdk.Context, keeper keeper.Keeper, msg *types.MsgRegisterForCouncil) (*sdk.Result, error) {
