@@ -16,8 +16,10 @@ import (
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	paramtypes "github.com/cosmos/cosmos-sdk/x/params/types"
 )
+
 const (
-	collectionSize = 5
+	collectionSize             = 5
+	collectionPrice						 = 10
 	votingRightsExpirationTime = 86000
 )
 
@@ -106,7 +108,7 @@ func (k Keeper) TransferSchemeToCard(ctx sdk.Context, cardId uint64, address sdk
 	idPosition := indexOfId(cardId, gottenUser.OwnedCardSchemes)
 
 	if idPosition >= 0 {
-		gottenUser.OwnedCards = append(gottenUser.OwnedCards, cardId)
+		gottenUser.OwnedPrototypes = append(gottenUser.OwnedPrototypes, cardId)
 		gottenUser.OwnedCardSchemes = append(gottenUser.OwnedCardSchemes[:idPosition], gottenUser.OwnedCardSchemes[idPosition+1:]...)
 
 		store.Set(address, k.cdc.MustMarshal(&gottenUser))
@@ -166,6 +168,18 @@ func (k Keeper) CalculateMatchReward(outcome types.Outcome) (int64, int64) {
 /////////////////
 // Collections //
 /////////////////
+
+func (k Keeper) GetCurrentCollection(ctx sdk.Context) (types.Collection, error) {
+	iterator := k.GetCollectionsIterator(ctx)
+	var gottenCollection types.Collection
+	for ; iterator.Valid(); iterator.Next() {
+		k.cdc.MustUnmarshal(iterator.Value(), &gottenCollection)
+		if gottenCollection.Status == types.CStatus_active {
+			return gottenCollection, nil
+		}
+	}
+	return types.Collection{}, types.ErrNoActiveCollection
+}
 
 func (k Keeper) GetCollection(ctx sdk.Context, cId uint64) types.Collection {
 	store := ctx.KVStore(k.CollectionsStoreKey)
@@ -637,7 +651,7 @@ func (k Keeper) UpdateBanStatus(ctx sdk.Context, newBannedIds []uint64) {
 
 			idPosition := indexOfId(binary.BigEndian.Uint64(iterator.Key()), gottenUser.OwnedCardSchemes)
 			if idPosition >= 0 {
-				gottenUser.OwnedCards = append(gottenUser.OwnedCardSchemes[:idPosition], gottenUser.OwnedCardSchemes[idPosition+1:]...)
+				gottenUser.OwnedPrototypes = append(gottenUser.OwnedCardSchemes[:idPosition], gottenUser.OwnedCardSchemes[idPosition+1:]...)
 				usersStore.Set(address, k.cdc.MustMarshal(&gottenUser))
 			} else {
 				fmt.Println("trying to delete card id:", binary.BigEndian.Uint64(iterator.Key()), " of owner", address, " but does not exist")

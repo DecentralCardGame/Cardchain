@@ -31,6 +31,8 @@ export type CardchainMsgApointMatchReporterResponse = object;
 
 export type CardchainMsgBuyCardSchemeResponse = object;
 
+export type CardchainMsgBuyCollectionResponse = object;
+
 export type CardchainMsgChangeArtistResponse = object;
 
 export type CardchainMsgCreateCollectionResponse = object;
@@ -139,7 +141,8 @@ export interface CardchainQueryQMatchResponse {
 export interface CardchainQueryQUserResponse {
   alias?: string;
   ownedCardSchemes?: string[];
-  ownedCards?: string[];
+  ownedPrototypes?: string[];
+  cards?: string[];
   voteRights?: CardchainVoteRight[];
   councilStatus?: CardchainCouncilStatus;
   reportMatches?: boolean;

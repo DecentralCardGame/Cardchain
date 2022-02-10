@@ -17,4 +17,5 @@ var (
 	ErrCollectionNotInDesign   = sdkerrors.Register(ModuleName, 6, "Collection not in design")
 	ErrCollectionSize          = sdkerrors.Register(ModuleName, 7, "Collection size is bad")
 	ErrCardAlreadyInCollection = sdkerrors.Register(ModuleName, 8, "Card already in collection")
+	ErrNoActiveCollection      = sdkerrors.Register(ModuleName, 9, "No active collection")
 )

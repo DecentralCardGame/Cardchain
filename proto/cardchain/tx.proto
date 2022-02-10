@@ -25,6 +25,7 @@ service Msg {
   rpc CreateCollection(MsgCreateCollection) returns (MsgCreateCollectionResponse);
   rpc AddCardToCollection(MsgAddCardToCollection) returns (MsgAddCardToCollectionResponse);
   rpc FinalizeCollection(MsgFinalizeCollection) returns (MsgFinalizeCollectionResponse);
+  rpc BuyCollection(MsgBuyCollection) returns (MsgBuyCollectionResponse);
 // this line is used by starport scaffolding # proto/tx/rpc
 }
 
@@ -189,6 +190,13 @@ message MsgFinalizeCollection {
 }
 
 message MsgFinalizeCollectionResponse {
+}
+
+message MsgBuyCollection {
+  string creator = 1;
+}
+
+message MsgBuyCollectionResponse {
 }
 
 // this line is used by starport scaffolding # proto/tx/message

@@ -191,6 +191,12 @@ export interface MsgFinalizeCollection {
 
 export interface MsgFinalizeCollectionResponse {}
 
+export interface MsgBuyCollection {
+  creator: string;
+}
+
+export interface MsgBuyCollectionResponse {}
+
 const baseMsgCreateuser: object = { creator: "", newUser: "", alias: "" };
 
 export const MsgCreateuser = {
@@ -2691,6 +2697,113 @@ export const MsgFinalizeCollectionResponse = {
   },
 };
 
+const baseMsgBuyCollection: object = { creator: "" };
+
+export const MsgBuyCollection = {
+  encode(message: MsgBuyCollection, writer: Writer = Writer.create()): Writer {
+    if (message.creator !== "") {
+      writer.uint32(10).string(message.creator);
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgBuyCollection {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseMsgBuyCollection } as MsgBuyCollection;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgBuyCollection {
+    const message = { ...baseMsgBuyCollection } as MsgBuyCollection;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = String(object.creator);
+    } else {
+      message.creator = "";
+    }
+    return message;
+  },
+
+  toJSON(message: MsgBuyCollection): unknown {
+    const obj: any = {};
+    message.creator !== undefined && (obj.creator = message.creator);
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<MsgBuyCollection>): MsgBuyCollection {
+    const message = { ...baseMsgBuyCollection } as MsgBuyCollection;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    } else {
+      message.creator = "";
+    }
+    return message;
+  },
+};
+
+const baseMsgBuyCollectionResponse: object = {};
+
+export const MsgBuyCollectionResponse = {
+  encode(
+    _: MsgBuyCollectionResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): MsgBuyCollectionResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseMsgBuyCollectionResponse,
+    } as MsgBuyCollectionResponse;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): MsgBuyCollectionResponse {
+    const message = {
+      ...baseMsgBuyCollectionResponse,
+    } as MsgBuyCollectionResponse;
+    return message;
+  },
+
+  toJSON(_: MsgBuyCollectionResponse): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial(
+    _: DeepPartial<MsgBuyCollectionResponse>
+  ): MsgBuyCollectionResponse {
+    const message = {
+      ...baseMsgBuyCollectionResponse,
+    } as MsgBuyCollectionResponse;
+    return message;
+  },
+};
+
 /** Msg defines the Msg service. */
 export interface Msg {
   Createuser(request: MsgCreateuser): Promise<MsgCreateuserResponse>;
@@ -2722,10 +2835,11 @@ export interface Msg {
   AddCardToCollection(
     request: MsgAddCardToCollection
   ): Promise<MsgAddCardToCollectionResponse>;
-  /** this line is used by starport scaffolding # proto/tx/rpc */
   FinalizeCollection(
     request: MsgFinalizeCollection
   ): Promise<MsgFinalizeCollectionResponse>;
+  /** this line is used by starport scaffolding # proto/tx/rpc */
+  BuyCollection(request: MsgBuyCollection): Promise<MsgBuyCollectionResponse>;
 }
 
 export class MsgClientImpl implements Msg {
@@ -2936,6 +3050,18 @@ export class MsgClientImpl implements Msg {
     );
     return promise.then((data) =>
       MsgFinalizeCollectionResponse.decode(new Reader(data))
+    );
+  }
+
+  BuyCollection(request: MsgBuyCollection): Promise<MsgBuyCollectionResponse> {
+    const data = MsgBuyCollection.encode(request).finish();
+    const promise = this.rpc.request(
+      "DecentralCardGame.cardchain.cardchain.Msg",
+      "BuyCollection",
+      data
+    );
+    return promise.then((data) =>
+      MsgBuyCollectionResponse.decode(new Reader(data))
     );
   }
 }

@@ -13,7 +13,8 @@ export declare function councilStatusToJSON(object: CouncilStatus): string;
 export interface User {
     alias: string;
     ownedCardSchemes: number[];
-    ownedCards: number[];
+    ownedPrototypes: number[];
+    cards: number[];
     voteRights: VoteRight[];
     CouncilStatus: CouncilStatus;
     ReportMatches: boolean;

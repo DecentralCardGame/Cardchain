@@ -52,7 +52,8 @@ export function councilStatusToJSON(object: CouncilStatus): string {
 export interface User {
   alias: string;
   ownedCardSchemes: number[];
-  ownedCards: number[];
+  ownedPrototypes: number[];
+  cards: number[];
   voteRights: VoteRight[];
   CouncilStatus: CouncilStatus;
   ReportMatches: boolean;
@@ -61,7 +62,8 @@ export interface User {
 const baseUser: object = {
   alias: "",
   ownedCardSchemes: 0,
-  ownedCards: 0,
+  ownedPrototypes: 0,
+  cards: 0,
   CouncilStatus: 0,
   ReportMatches: false,
 };
@@ -77,18 +79,23 @@ export const User = {
     }
     writer.ldelim();
     writer.uint32(26).fork();
-    for (const v of message.ownedCards) {
+    for (const v of message.ownedPrototypes) {
+      writer.uint64(v);
+    }
+    writer.ldelim();
+    writer.uint32(34).fork();
+    for (const v of message.cards) {
       writer.uint64(v);
     }
     writer.ldelim();
     for (const v of message.voteRights) {
-      VoteRight.encode(v!, writer.uint32(34).fork()).ldelim();
+      VoteRight.encode(v!, writer.uint32(42).fork()).ldelim();
     }
     if (message.CouncilStatus !== 0) {
-      writer.uint32(40).int32(message.CouncilStatus);
+      writer.uint32(48).int32(message.CouncilStatus);
     }
     if (message.ReportMatches === true) {
-      writer.uint32(48).bool(message.ReportMatches);
+      writer.uint32(56).bool(message.ReportMatches);
     }
     return writer;
   },
@@ -98,7 +105,8 @@ export const User = {
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = { ...baseUser } as User;
     message.ownedCardSchemes = [];
-    message.ownedCards = [];
+    message.ownedPrototypes = [];
+    message.cards = [];
     message.voteRights = [];
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -124,19 +132,31 @@ export const User = {
           if ((tag & 7) === 2) {
             const end2 = reader.uint32() + reader.pos;
             while (reader.pos < end2) {
-              message.ownedCards.push(longToNumber(reader.uint64() as Long));
+              message.ownedPrototypes.push(
+                longToNumber(reader.uint64() as Long)
+              );
             }
           } else {
-            message.ownedCards.push(longToNumber(reader.uint64() as Long));
+            message.ownedPrototypes.push(longToNumber(reader.uint64() as Long));
           }
           break;
         case 4:
-          message.voteRights.push(VoteRight.decode(reader, reader.uint32()));
+          if ((tag & 7) === 2) {
+            const end2 = reader.uint32() + reader.pos;
+            while (reader.pos < end2) {
+              message.cards.push(longToNumber(reader.uint64() as Long));
+            }
+          } else {
+            message.cards.push(longToNumber(reader.uint64() as Long));
+          }
           break;
         case 5:
-          message.CouncilStatus = reader.int32() as any;
+          message.voteRights.push(VoteRight.decode(reader, reader.uint32()));
           break;
         case 6:
+          message.CouncilStatus = reader.int32() as any;
+          break;
+        case 7:
           message.ReportMatches = reader.bool();
           break;
         default:
@@ -150,7 +170,8 @@ export const User = {
   fromJSON(object: any): User {
     const message = { ...baseUser } as User;
     message.ownedCardSchemes = [];
-    message.ownedCards = [];
+    message.ownedPrototypes = [];
+    message.cards = [];
     message.voteRights = [];
     if (object.alias !== undefined && object.alias !== null) {
       message.alias = String(object.alias);
@@ -165,9 +186,17 @@ export const User = {
         message.ownedCardSchemes.push(Number(e));
       }
     }
-    if (object.ownedCards !== undefined && object.ownedCards !== null) {
-      for (const e of object.ownedCards) {
-        message.ownedCards.push(Number(e));
+    if (
+      object.ownedPrototypes !== undefined &&
+      object.ownedPrototypes !== null
+    ) {
+      for (const e of object.ownedPrototypes) {
+        message.ownedPrototypes.push(Number(e));
+      }
+    }
+    if (object.cards !== undefined && object.cards !== null) {
+      for (const e of object.cards) {
+        message.cards.push(Number(e));
       }
     }
     if (object.voteRights !== undefined && object.voteRights !== null) {
@@ -196,10 +225,15 @@ export const User = {
     } else {
       obj.ownedCardSchemes = [];
     }
-    if (message.ownedCards) {
-      obj.ownedCards = message.ownedCards.map((e) => e);
+    if (message.ownedPrototypes) {
+      obj.ownedPrototypes = message.ownedPrototypes.map((e) => e);
     } else {
-      obj.ownedCards = [];
+      obj.ownedPrototypes = [];
+    }
+    if (message.cards) {
+      obj.cards = message.cards.map((e) => e);
+    } else {
+      obj.cards = [];
     }
     if (message.voteRights) {
       obj.voteRights = message.voteRights.map((e) =>
@@ -218,7 +252,8 @@ export const User = {
   fromPartial(object: DeepPartial<User>): User {
     const message = { ...baseUser } as User;
     message.ownedCardSchemes = [];
-    message.ownedCards = [];
+    message.ownedPrototypes = [];
+    message.cards = [];
     message.voteRights = [];
     if (object.alias !== undefined && object.alias !== null) {
       message.alias = object.alias;
@@ -233,9 +268,17 @@ export const User = {
         message.ownedCardSchemes.push(e);
       }
     }
-    if (object.ownedCards !== undefined && object.ownedCards !== null) {
-      for (const e of object.ownedCards) {
-        message.ownedCards.push(e);
+    if (
+      object.ownedPrototypes !== undefined &&
+      object.ownedPrototypes !== null
+    ) {
+      for (const e of object.ownedPrototypes) {
+        message.ownedPrototypes.push(e);
+      }
+    }
+    if (object.cards !== undefined && object.cards !== null) {
+      for (const e of object.cards) {
+        message.cards.push(e);
       }
     }
     if (object.voteRights !== undefined && object.voteRights !== null) {

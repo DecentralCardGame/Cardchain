@@ -12232,7 +12232,12 @@ paths:
                 items:
                   type: string
                   format: uint64
-              ownedCards:
+              ownedPrototypes:
+                type: array
+                items:
+                  type: string
+                  format: uint64
+              cards:
                 type: array
                 items:
                   type: string
@@ -20346,6 +20351,8 @@ definitions:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgBuyCardSchemeResponse:
     type: object
+  DecentralCardGame.cardchain.cardchain.MsgBuyCollectionResponse:
+    type: object
   DecentralCardGame.cardchain.cardchain.MsgChangeArtistResponse:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgCreateCollectionResponse:
@@ -20512,7 +20519,12 @@ definitions:
         items:
           type: string
           format: uint64
-      ownedCards:
+      ownedPrototypes:
+        type: array
+        items:
+          type: string
+          format: uint64
+      cards:
         type: array
         items:
           type: string

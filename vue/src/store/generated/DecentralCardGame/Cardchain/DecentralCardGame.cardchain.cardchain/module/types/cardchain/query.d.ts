@@ -45,7 +45,8 @@ export interface QueryQUserRequest {
 export interface QueryQUserResponse {
     alias: string;
     ownedCardSchemes: number[];
-    ownedCards: number[];
+    ownedPrototypes: number[];
+    cards: number[];
     voteRights: VoteRight[];
     councilStatus: CouncilStatus;
     reportMatches: boolean;
