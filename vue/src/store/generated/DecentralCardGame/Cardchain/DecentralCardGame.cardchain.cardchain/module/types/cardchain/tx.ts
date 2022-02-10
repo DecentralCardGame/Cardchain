@@ -176,6 +176,14 @@ export interface MsgCreateCollection {
 
 export interface MsgCreateCollectionResponse {}
 
+export interface MsgAddCardToCollection {
+  creator: string;
+  collectionId: number;
+  cardId: number;
+}
+
+export interface MsgAddCardToCollectionResponse {}
+
 const baseMsgCreateuser: object = { creator: "", newUser: "", alias: "" };
 
 export const MsgCreateuser = {
@@ -2395,6 +2403,157 @@ export const MsgCreateCollectionResponse = {
   },
 };
 
+const baseMsgAddCardToCollection: object = {
+  creator: "",
+  collectionId: 0,
+  cardId: 0,
+};
+
+export const MsgAddCardToCollection = {
+  encode(
+    message: MsgAddCardToCollection,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.creator !== "") {
+      writer.uint32(10).string(message.creator);
+    }
+    if (message.collectionId !== 0) {
+      writer.uint32(16).uint64(message.collectionId);
+    }
+    if (message.cardId !== 0) {
+      writer.uint32(24).uint64(message.cardId);
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgAddCardToCollection {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseMsgAddCardToCollection } as MsgAddCardToCollection;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string();
+          break;
+        case 2:
+          message.collectionId = longToNumber(reader.uint64() as Long);
+          break;
+        case 3:
+          message.cardId = longToNumber(reader.uint64() as Long);
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgAddCardToCollection {
+    const message = { ...baseMsgAddCardToCollection } as MsgAddCardToCollection;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = String(object.creator);
+    } else {
+      message.creator = "";
+    }
+    if (object.collectionId !== undefined && object.collectionId !== null) {
+      message.collectionId = Number(object.collectionId);
+    } else {
+      message.collectionId = 0;
+    }
+    if (object.cardId !== undefined && object.cardId !== null) {
+      message.cardId = Number(object.cardId);
+    } else {
+      message.cardId = 0;
+    }
+    return message;
+  },
+
+  toJSON(message: MsgAddCardToCollection): unknown {
+    const obj: any = {};
+    message.creator !== undefined && (obj.creator = message.creator);
+    message.collectionId !== undefined &&
+      (obj.collectionId = message.collectionId);
+    message.cardId !== undefined && (obj.cardId = message.cardId);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<MsgAddCardToCollection>
+  ): MsgAddCardToCollection {
+    const message = { ...baseMsgAddCardToCollection } as MsgAddCardToCollection;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    } else {
+      message.creator = "";
+    }
+    if (object.collectionId !== undefined && object.collectionId !== null) {
+      message.collectionId = object.collectionId;
+    } else {
+      message.collectionId = 0;
+    }
+    if (object.cardId !== undefined && object.cardId !== null) {
+      message.cardId = object.cardId;
+    } else {
+      message.cardId = 0;
+    }
+    return message;
+  },
+};
+
+const baseMsgAddCardToCollectionResponse: object = {};
+
+export const MsgAddCardToCollectionResponse = {
+  encode(
+    _: MsgAddCardToCollectionResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): MsgAddCardToCollectionResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseMsgAddCardToCollectionResponse,
+    } as MsgAddCardToCollectionResponse;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): MsgAddCardToCollectionResponse {
+    const message = {
+      ...baseMsgAddCardToCollectionResponse,
+    } as MsgAddCardToCollectionResponse;
+    return message;
+  },
+
+  toJSON(_: MsgAddCardToCollectionResponse): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial(
+    _: DeepPartial<MsgAddCardToCollectionResponse>
+  ): MsgAddCardToCollectionResponse {
+    const message = {
+      ...baseMsgAddCardToCollectionResponse,
+    } as MsgAddCardToCollectionResponse;
+    return message;
+  },
+};
+
 /** Msg defines the Msg service. */
 export interface Msg {
   Createuser(request: MsgCreateuser): Promise<MsgCreateuserResponse>;
@@ -2420,10 +2579,13 @@ export interface Msg {
   ApointMatchReporter(
     request: MsgApointMatchReporter
   ): Promise<MsgApointMatchReporterResponse>;
-  /** this line is used by starport scaffolding # proto/tx/rpc */
   CreateCollection(
     request: MsgCreateCollection
   ): Promise<MsgCreateCollectionResponse>;
+  /** this line is used by starport scaffolding # proto/tx/rpc */
+  AddCardToCollection(
+    request: MsgAddCardToCollection
+  ): Promise<MsgAddCardToCollectionResponse>;
 }
 
 export class MsgClientImpl implements Msg {
@@ -2606,6 +2768,20 @@ export class MsgClientImpl implements Msg {
     );
     return promise.then((data) =>
       MsgCreateCollectionResponse.decode(new Reader(data))
+    );
+  }
+
+  AddCardToCollection(
+    request: MsgAddCardToCollection
+  ): Promise<MsgAddCardToCollectionResponse> {
+    const data = MsgAddCardToCollection.encode(request).finish();
+    const promise = this.rpc.request(
+      "DecentralCardGame.cardchain.cardchain.Msg",
+      "AddCardToCollection",
+      data
+    );
+    return promise.then((data) =>
+      MsgAddCardToCollectionResponse.decode(new Reader(data))
     );
   }
 }

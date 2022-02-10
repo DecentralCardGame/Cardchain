@@ -20338,6 +20338,8 @@ definitions:
     default: available
   DecentralCardGame.cardchain.cardchain.MsgAddArtworkResponse:
     type: object
+  DecentralCardGame.cardchain.cardchain.MsgAddCardToCollectionResponse:
+    type: object
   DecentralCardGame.cardchain.cardchain.MsgApointMatchReporterResponse:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgBuyCardSchemeResponse:

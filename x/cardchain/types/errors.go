@@ -14,4 +14,7 @@ var (
 	ErrVoteRightIsExpired     = sdkerrors.Register(ModuleName, 3, "The right to vote on the card has expired")
 	ErrInvalidAccAddress      = sdkerrors.Register(ModuleName, 4, "Not able to convert Address to AccAddress")
 	ErrUserDoesNotExist       = sdkerrors.Register(ModuleName, 5, "User does not exist")
+	ErrCollectionNotInDesign  = sdkerrors.Register(ModuleName, 6, "Collection not in design")
+	ErrCollectionSizeTooBig		= sdkerrors.Register(ModuleName, 7, "Collection size is too big")
+	ErrCardAlreadyInCollection= sdkerrors.Register(ModuleName, 8, "Card already in collection")
 )

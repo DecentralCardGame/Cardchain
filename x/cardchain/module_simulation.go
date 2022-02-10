@@ -80,6 +80,10 @@ const (
 	// TODO: Determine the simulation weight value
 	defaultWeightMsgCreateCollection int = 100
 
+	opWeightMsgAddCardToCollection = "op_weight_msg_create_chain"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgAddCardToCollection int = 100
+
 	// this line is used by starport scaffolding # simapp/module/const
 )
 
@@ -265,6 +269,17 @@ func (am AppModule) WeightedOperations(simState module.SimulationState) []simtyp
 	operations = append(operations, simulation.NewWeightedOperation(
 		weightMsgCreateCollection,
 		cardchainsimulation.SimulateMsgCreateCollection(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
+	var weightMsgAddCardToCollection int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgAddCardToCollection, &weightMsgAddCardToCollection, nil,
+		func(_ *rand.Rand) {
+			weightMsgAddCardToCollection = defaultWeightMsgAddCardToCollection
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgAddCardToCollection,
+		cardchainsimulation.SimulateMsgAddCardToCollection(am.accountKeeper, am.bankKeeper, am.keeper),
 	))
 
 	// this line is used by starport scaffolding # simapp/module/operation

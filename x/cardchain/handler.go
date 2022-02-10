@@ -3,12 +3,15 @@ package cardchain
 import (
 	"fmt"
 	"time"
+	"strconv"
 
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/keeper"
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 )
+
+const collectionSize = 5;
 
 // NewHandler ...
 func NewHandler(k keeper.Keeper) sdk.Handler {
@@ -45,12 +48,60 @@ func NewHandler(k keeper.Keeper) sdk.Handler {
 			// 	return handleMsgApointMatchReporter(ctx, k, msg)
 		case *types.MsgCreateCollection:
 			return handleMsgCreateCollection(ctx, k, msg)
+		case *types.MsgAddCardToCollection:
+			return handleMsgAddCardToCollection(ctx, k, msg)
 			// this line is used by starport scaffolding # 1
 		default:
 			errMsg := fmt.Sprintf("unrecognized %s message type: %T", types.ModuleName, msg)
 			return nil, sdkerrors.Wrap(sdkerrors.ErrUnknownRequest, errMsg)
 		}
 	}
+}
+
+func handleMsgAddCardToCollection(ctx sdk.Context, keeper keeper.Keeper, msg *types.MsgAddCardToCollection) (*sdk.Result, error) {
+	collection := keeper.GetCollection(ctx, msg.CollectionId)
+	if !stringItemInList(msg.Creator, collection.Contributors) {
+		return nil, sdkerrors.Wrap(types.ErrInvalidAccAddress, "Invalid contributor")
+	}
+	if collection.Status != types.CStatus_design {
+		return nil, types.ErrCollectionNotInDesign
+	}
+
+	card := keeper.GetCard(ctx, msg.CardId)
+	if card.Status != types.Status_permanent {
+		return nil, sdkerrors.Wrap(types.ErrCardDoesNotExist, "Card is not permanent or does not exist")
+	}
+
+	if len(collection.Cards) >= collectionSize {
+		return nil, sdkerrors.Wrap(types.ErrCollectionSizeTooBig, "Max is " + strconv.Itoa(int(collectionSize)))
+	}
+
+	if uintItemInList(msg.CardId, collection.Cards) {
+		return nil, sdkerrors.Wrap(types.ErrCardAlreadyInCollection, "Card: " + strconv.Itoa(int(msg.CardId)))
+	}
+
+	collection.Cards = append(collection.Cards, msg.CardId)
+
+	keeper.SetCollection(ctx, msg.CollectionId, collection)
+	return &sdk.Result{}, nil
+}
+
+func uintItemInList(item uint64, list []uint64) bool {
+	for _, i := range list {
+		if i == item {
+			return true
+		}
+	}
+	return false
+}
+
+func stringItemInList(item string, list []string) bool {
+	for _, i := range list {
+		if i == item {
+			return true
+		}
+	}
+	return false
 }
 
 func handleMsgCreateCollection(ctx sdk.Context, keeper keeper.Keeper, msg *types.MsgCreateCollection) (*sdk.Result, error) {

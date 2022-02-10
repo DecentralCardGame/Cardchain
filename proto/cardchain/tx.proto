@@ -23,6 +23,7 @@ service Msg {
   rpc SubmitMatchReporterProposal(MsgSubmitMatchReporterProposal) returns (MsgSubmitMatchReporterProposalResponse);
   rpc ApointMatchReporter(MsgApointMatchReporter) returns (MsgApointMatchReporterResponse);
   rpc CreateCollection(MsgCreateCollection) returns (MsgCreateCollectionResponse);
+  rpc AddCardToCollection(MsgAddCardToCollection) returns (MsgAddCardToCollectionResponse);
 // this line is used by starport scaffolding # proto/tx/rpc
 }
 
@@ -170,6 +171,15 @@ message MsgCreateCollection {
 }
 
 message MsgCreateCollectionResponse {
+}
+
+message MsgAddCardToCollection {
+  string creator = 1;
+  uint64 collectionId = 2;
+  uint64 cardId = 3;
+}
+
+message MsgAddCardToCollectionResponse {
 }
 
 // this line is used by starport scaffolding # proto/tx/message
