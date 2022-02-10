@@ -9,6 +9,7 @@ import "cardchain/vote_right.proto";
 import "cardchain/voting_results.proto";
 import "cardchain/card.proto";
 import "cardchain/user.proto";
+import "cardchain/collection.proto";
 import "cardchain/tx.proto";
 
 // this line is used by starport scaffolding # 1
@@ -59,6 +60,11 @@ service Query {
 // Queries a list of QMatch items.
 	rpc QMatch(QueryQMatchRequest) returns (QueryQMatchResponse) {
 		option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/q_match/{matchId}";
+	}
+
+// Queries a list of QCollection items.
+	rpc QCollection(QueryQCollectionRequest) returns (QueryQCollectionResponse) {
+		option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/q_collection/{collectionId}";
 	}
 
 // this line is used by starport scaffolding # 2
@@ -163,6 +169,19 @@ message QueryQMatchResponse {
   string playerA = 3;
   string playerB = 4;
   Outcome outcome = 5;
+}
+
+message QueryQCollectionRequest {
+  uint64 collectionId = 1;
+}
+
+message QueryQCollectionResponse {
+  string name = 1;
+  repeated uint64 cards = 2;
+  repeated string contributors = 3;
+  string story = 4;
+  bytes artwork = 5;
+  CStatus status = 6;
 }
 
 // this line is used by starport scaffolding # 3

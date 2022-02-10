@@ -9,6 +9,12 @@
  * ---------------------------------------------------------------
  */
 
+export enum CardchainCStatus {
+  Design = "design",
+  Active = "active",
+  Archived = "archived",
+}
+
 export enum CardchainCouncilStatus {
   Available = "available",
   Unavailable = "unavailable",
@@ -103,6 +109,17 @@ export interface CardchainQueryQCardchainInfoResponse {
 
 export interface CardchainQueryQCardsResponse {
   cardsList?: string[];
+}
+
+export interface CardchainQueryQCollectionResponse {
+  name?: string;
+  cards?: string[];
+  contributors?: string[];
+  story?: string;
+
+  /** @format byte */
+  artwork?: string;
+  status?: CardchainCStatus;
 }
 
 export interface CardchainQueryQMatchResponse {
@@ -491,6 +508,22 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
   ) =>
     this.request<CardchainQueryQCardsResponse, GooglerpcStatus>({
       path: `/DecentralCardGame/cardchain/cardchain/q_cards/${owner}/${status}/${cardType}/${classes}/${sortBy}/${nameContains}/${keywordsContains}/${notesContains}`,
+      method: "GET",
+      format: "json",
+      ...params,
+    });
+
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QueryQCollection
+   * @summary Queries a list of QCollection items.
+   * @request GET:/DecentralCardGame/cardchain/cardchain/q_collection/{collectionId}
+   */
+  queryQCollection = (collectionId: string, params: RequestParams = {}) =>
+    this.request<CardchainQueryQCollectionResponse, GooglerpcStatus>({
+      path: `/DecentralCardGame/cardchain/cardchain/q_collection/${collectionId}`,
       method: "GET",
       format: "json",
       ...params,

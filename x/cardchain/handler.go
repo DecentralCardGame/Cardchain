@@ -57,12 +57,12 @@ func handleMsgCreateCollection(ctx sdk.Context, keeper keeper.Keeper, msg *types
 	collectionId := keeper.GetCollectionsNumber(ctx)
 
 	collection := types.Collection{
-		Name: msg.Name,
-		Cards: []uint64{},
+		Name:         msg.Name,
+		Cards:        []uint64{},
 		Contributors: append([]string{msg.Creator}, msg.Contributors...),
-		Story: msg.Story,
-		Artwork: msg.Artwork,
-		Status: types.CStatus_design,
+		Story:        msg.Story,
+		Artwork:      msg.Artwork,
+		Status:       types.CStatus_design,
 	}
 
 	keeper.SetCollection(ctx, collectionId, collection)

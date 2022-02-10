@@ -12102,6 +12102,65 @@ paths:
           type: string
       tags:
         - Query
+  '/DecentralCardGame/cardchain/cardchain/q_collection/{collectionId}':
+    get:
+      summary: Queries a list of QCollection items.
+      operationId: DecentralCardGameCardchainCardchainQCollection
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+              cards:
+                type: array
+                items:
+                  type: string
+                  format: uint64
+              contributors:
+                type: array
+                items:
+                  type: string
+              story:
+                type: string
+              artwork:
+                type: string
+                format: byte
+              status:
+                type: string
+                enum:
+                  - design
+                  - active
+                  - archived
+                default: design
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: collectionId
+          in: path
+          required: true
+          type: string
+          format: uint64
+      tags:
+        - Query
   '/DecentralCardGame/cardchain/cardchain/q_match/{matchId}':
     get:
       summary: Queries a list of QMatch items.
@@ -20262,6 +20321,13 @@ definitions:
     description: >-
       MsgCreateVestingAccountResponse defines the Msg/CreateVestingAccount
       response type.
+  DecentralCardGame.cardchain.cardchain.CStatus:
+    type: string
+    enum:
+      - design
+      - active
+      - archived
+    default: design
   DecentralCardGame.cardchain.cardchain.CouncilStatus:
     type: string
     enum:
@@ -20383,6 +20449,32 @@ definitions:
         items:
           type: string
           format: uint64
+  DecentralCardGame.cardchain.cardchain.QueryQCollectionResponse:
+    type: object
+    properties:
+      name:
+        type: string
+      cards:
+        type: array
+        items:
+          type: string
+          format: uint64
+      contributors:
+        type: array
+        items:
+          type: string
+      story:
+        type: string
+      artwork:
+        type: string
+        format: byte
+      status:
+        type: string
+        enum:
+          - design
+          - active
+          - archived
+        default: design
   DecentralCardGame.cardchain.cardchain.QueryQMatchResponse:
     type: object
     properties:
