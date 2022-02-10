@@ -11,6 +11,7 @@
 
 export enum CardchainCStatus {
   Design = "design",
+  Finalized = "finalized",
   Active = "active",
   Archived = "archived",
 }
@@ -37,6 +38,8 @@ export type CardchainMsgCreateCollectionResponse = object;
 export type CardchainMsgCreateuserResponse = object;
 
 export type CardchainMsgDonateToCardResponse = object;
+
+export type CardchainMsgFinalizeCollectionResponse = object;
 
 export type CardchainMsgRegisterForCouncilResponse = object;
 

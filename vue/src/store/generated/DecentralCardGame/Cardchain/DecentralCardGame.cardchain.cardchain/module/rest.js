@@ -11,6 +11,7 @@
 export var CardchainCStatus;
 (function (CardchainCStatus) {
     CardchainCStatus["Design"] = "design";
+    CardchainCStatus["Finalized"] = "finalized";
     CardchainCStatus["Active"] = "active";
     CardchainCStatus["Archived"] = "archived";
 })(CardchainCStatus || (CardchainCStatus = {}));

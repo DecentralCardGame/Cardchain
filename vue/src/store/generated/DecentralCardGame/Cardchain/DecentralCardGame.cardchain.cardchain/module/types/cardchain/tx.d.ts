@@ -129,6 +129,12 @@ export interface MsgAddCardToCollection {
 }
 export interface MsgAddCardToCollectionResponse {
 }
+export interface MsgFinalizeCollection {
+    creator: string;
+    collectionId: number;
+}
+export interface MsgFinalizeCollectionResponse {
+}
 export declare const MsgCreateuser: {
     encode(message: MsgCreateuser, writer?: Writer): Writer;
     decode(input: Reader | Uint8Array, length?: number): MsgCreateuser;
@@ -339,6 +345,20 @@ export declare const MsgAddCardToCollectionResponse: {
     toJSON(_: MsgAddCardToCollectionResponse): unknown;
     fromPartial(_: DeepPartial<MsgAddCardToCollectionResponse>): MsgAddCardToCollectionResponse;
 };
+export declare const MsgFinalizeCollection: {
+    encode(message: MsgFinalizeCollection, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgFinalizeCollection;
+    fromJSON(object: any): MsgFinalizeCollection;
+    toJSON(message: MsgFinalizeCollection): unknown;
+    fromPartial(object: DeepPartial<MsgFinalizeCollection>): MsgFinalizeCollection;
+};
+export declare const MsgFinalizeCollectionResponse: {
+    encode(_: MsgFinalizeCollectionResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgFinalizeCollectionResponse;
+    fromJSON(_: any): MsgFinalizeCollectionResponse;
+    toJSON(_: MsgFinalizeCollectionResponse): unknown;
+    fromPartial(_: DeepPartial<MsgFinalizeCollectionResponse>): MsgFinalizeCollectionResponse;
+};
 /** Msg defines the Msg service. */
 export interface Msg {
     Createuser(request: MsgCreateuser): Promise<MsgCreateuserResponse>;
@@ -355,8 +375,9 @@ export interface Msg {
     SubmitMatchReporterProposal(request: MsgSubmitMatchReporterProposal): Promise<MsgSubmitMatchReporterProposalResponse>;
     ApointMatchReporter(request: MsgApointMatchReporter): Promise<MsgApointMatchReporterResponse>;
     CreateCollection(request: MsgCreateCollection): Promise<MsgCreateCollectionResponse>;
-    /** this line is used by starport scaffolding # proto/tx/rpc */
     AddCardToCollection(request: MsgAddCardToCollection): Promise<MsgAddCardToCollectionResponse>;
+    /** this line is used by starport scaffolding # proto/tx/rpc */
+    FinalizeCollection(request: MsgFinalizeCollection): Promise<MsgFinalizeCollectionResponse>;
 }
 export declare class MsgClientImpl implements Msg {
     private readonly rpc;
@@ -376,6 +397,7 @@ export declare class MsgClientImpl implements Msg {
     ApointMatchReporter(request: MsgApointMatchReporter): Promise<MsgApointMatchReporterResponse>;
     CreateCollection(request: MsgCreateCollection): Promise<MsgCreateCollectionResponse>;
     AddCardToCollection(request: MsgAddCardToCollection): Promise<MsgAddCardToCollectionResponse>;
+    FinalizeCollection(request: MsgFinalizeCollection): Promise<MsgFinalizeCollectionResponse>;
 }
 interface Rpc {
     request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;

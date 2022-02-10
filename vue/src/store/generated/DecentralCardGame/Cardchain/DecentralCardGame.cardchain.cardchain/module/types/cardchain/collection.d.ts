@@ -2,8 +2,9 @@ import { Writer, Reader } from "protobufjs/minimal";
 export declare const protobufPackage = "DecentralCardGame.cardchain.cardchain";
 export declare enum CStatus {
     design = 0,
-    active = 1,
-    archived = 2,
+    finalized = 1,
+    active = 2,
+    archived = 3,
     UNRECOGNIZED = -1
 }
 export declare function cStatusFromJSON(object: any): CStatus;

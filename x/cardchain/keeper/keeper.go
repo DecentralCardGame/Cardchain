@@ -16,8 +16,10 @@ import (
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	paramtypes "github.com/cosmos/cosmos-sdk/x/params/types"
 )
-
-const votingRightsExpirationTime = 86000
+const (
+	collectionSize = 5
+	votingRightsExpirationTime = 86000
+)
 
 type (
 	Keeper struct {
@@ -59,6 +61,24 @@ func NewKeeper(
 		paramstore:          ps,
 		BankKeeper:          bankKeeper,
 	}
+}
+
+func uintItemInList(item uint64, list []uint64) bool {
+	for _, i := range list {
+		if i == item {
+			return true
+		}
+	}
+	return false
+}
+
+func stringItemInList(item string, list []string) bool {
+	for _, i := range list {
+		if i == item {
+			return true
+		}
+	}
+	return false
 }
 
 func (k Keeper) Logger(ctx sdk.Context) log.Logger {

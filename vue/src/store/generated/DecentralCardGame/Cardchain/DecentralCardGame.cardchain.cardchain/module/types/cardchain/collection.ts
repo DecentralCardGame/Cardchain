@@ -6,8 +6,9 @@ export const protobufPackage = "DecentralCardGame.cardchain.cardchain";
 
 export enum CStatus {
   design = 0,
-  active = 1,
-  archived = 2,
+  finalized = 1,
+  active = 2,
+  archived = 3,
   UNRECOGNIZED = -1,
 }
 
@@ -17,9 +18,12 @@ export function cStatusFromJSON(object: any): CStatus {
     case "design":
       return CStatus.design;
     case 1:
+    case "finalized":
+      return CStatus.finalized;
+    case 2:
     case "active":
       return CStatus.active;
-    case 2:
+    case 3:
     case "archived":
       return CStatus.archived;
     case -1:
@@ -33,6 +37,8 @@ export function cStatusToJSON(object: CStatus): string {
   switch (object) {
     case CStatus.design:
       return "design";
+    case CStatus.finalized:
+      return "finalized";
     case CStatus.active:
       return "active";
     case CStatus.archived:

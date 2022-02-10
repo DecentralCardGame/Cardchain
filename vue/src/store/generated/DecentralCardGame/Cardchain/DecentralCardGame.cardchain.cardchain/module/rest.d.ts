@@ -1,5 +1,6 @@
 export declare enum CardchainCStatus {
     Design = "design",
+    Finalized = "finalized",
     Active = "active",
     Archived = "archived"
 }
@@ -17,6 +18,7 @@ export declare type CardchainMsgChangeArtistResponse = object;
 export declare type CardchainMsgCreateCollectionResponse = object;
 export declare type CardchainMsgCreateuserResponse = object;
 export declare type CardchainMsgDonateToCardResponse = object;
+export declare type CardchainMsgFinalizeCollectionResponse = object;
 export declare type CardchainMsgRegisterForCouncilResponse = object;
 export interface CardchainMsgReportMatchResponse {
     /** @format uint64 */

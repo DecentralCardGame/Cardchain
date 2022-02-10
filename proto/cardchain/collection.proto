@@ -14,6 +14,7 @@ message Collection {
 
 enum CStatus {
   design = 0;
-  active = 1;
-  archived = 2;
+  finalized = 1;
+  active = 2;
+  archived = 3;
 }

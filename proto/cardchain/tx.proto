@@ -24,6 +24,7 @@ service Msg {
   rpc ApointMatchReporter(MsgApointMatchReporter) returns (MsgApointMatchReporterResponse);
   rpc CreateCollection(MsgCreateCollection) returns (MsgCreateCollectionResponse);
   rpc AddCardToCollection(MsgAddCardToCollection) returns (MsgAddCardToCollectionResponse);
+  rpc FinalizeCollection(MsgFinalizeCollection) returns (MsgFinalizeCollectionResponse);
 // this line is used by starport scaffolding # proto/tx/rpc
 }
 
@@ -180,6 +181,14 @@ message MsgAddCardToCollection {
 }
 
 message MsgAddCardToCollectionResponse {
+}
+
+message MsgFinalizeCollection {
+  string creator = 1;
+  uint64 collectionId = 2;
+}
+
+message MsgFinalizeCollectionResponse {
 }
 
 // this line is used by starport scaffolding # proto/tx/message

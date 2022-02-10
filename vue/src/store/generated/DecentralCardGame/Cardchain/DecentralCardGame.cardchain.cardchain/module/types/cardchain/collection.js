@@ -5,8 +5,9 @@ export const protobufPackage = "DecentralCardGame.cardchain.cardchain";
 export var CStatus;
 (function (CStatus) {
     CStatus[CStatus["design"] = 0] = "design";
-    CStatus[CStatus["active"] = 1] = "active";
-    CStatus[CStatus["archived"] = 2] = "archived";
+    CStatus[CStatus["finalized"] = 1] = "finalized";
+    CStatus[CStatus["active"] = 2] = "active";
+    CStatus[CStatus["archived"] = 3] = "archived";
     CStatus[CStatus["UNRECOGNIZED"] = -1] = "UNRECOGNIZED";
 })(CStatus || (CStatus = {}));
 export function cStatusFromJSON(object) {
@@ -15,9 +16,12 @@ export function cStatusFromJSON(object) {
         case "design":
             return CStatus.design;
         case 1:
+        case "finalized":
+            return CStatus.finalized;
+        case 2:
         case "active":
             return CStatus.active;
-        case 2:
+        case 3:
         case "archived":
             return CStatus.archived;
         case -1:
@@ -30,6 +34,8 @@ export function cStatusToJSON(object) {
     switch (object) {
         case CStatus.design:
             return "design";
+        case CStatus.finalized:
+            return "finalized";
         case CStatus.active:
             return "active";
         case CStatus.archived:

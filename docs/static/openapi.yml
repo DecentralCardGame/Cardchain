@@ -12132,6 +12132,7 @@ paths:
                 type: string
                 enum:
                   - design
+                  - finalized
                   - active
                   - archived
                 default: design
@@ -20325,6 +20326,7 @@ definitions:
     type: string
     enum:
       - design
+      - finalized
       - active
       - archived
     default: design
@@ -20351,6 +20353,8 @@ definitions:
   DecentralCardGame.cardchain.cardchain.MsgCreateuserResponse:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgDonateToCardResponse:
+    type: object
+  DecentralCardGame.cardchain.cardchain.MsgFinalizeCollectionResponse:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgRegisterForCouncilResponse:
     type: object
@@ -20474,6 +20478,7 @@ definitions:
         type: string
         enum:
           - design
+          - finalized
           - active
           - archived
         default: design
