@@ -12,6 +12,7 @@ export declare enum CardchainCouncilStatus {
 }
 export declare type CardchainMsgAddArtworkResponse = object;
 export declare type CardchainMsgAddCardToCollectionResponse = object;
+export declare type CardchainMsgAddContributorToCollectionResponse = object;
 export declare type CardchainMsgApointMatchReporterResponse = object;
 export declare type CardchainMsgBuyCardSchemeResponse = object;
 export declare type CardchainMsgBuyCollectionResponse = object;
@@ -22,6 +23,7 @@ export declare type CardchainMsgDonateToCardResponse = object;
 export declare type CardchainMsgFinalizeCollectionResponse = object;
 export declare type CardchainMsgRegisterForCouncilResponse = object;
 export declare type CardchainMsgRemoveCardFromCollectionResponse = object;
+export declare type CardchainMsgRemoveContributorFromCollectionResponse = object;
 export interface CardchainMsgReportMatchResponse {
     /** @format uint64 */
     matchId?: string;

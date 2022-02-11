@@ -27,6 +27,8 @@ export type CardchainMsgAddArtworkResponse = object;
 
 export type CardchainMsgAddCardToCollectionResponse = object;
 
+export type CardchainMsgAddContributorToCollectionResponse = object;
+
 export type CardchainMsgApointMatchReporterResponse = object;
 
 export type CardchainMsgBuyCardSchemeResponse = object;
@@ -46,6 +48,8 @@ export type CardchainMsgFinalizeCollectionResponse = object;
 export type CardchainMsgRegisterForCouncilResponse = object;
 
 export type CardchainMsgRemoveCardFromCollectionResponse = object;
+
+export type CardchainMsgRemoveContributorFromCollectionResponse = object;
 
 export interface CardchainMsgReportMatchResponse {
   /** @format uint64 */

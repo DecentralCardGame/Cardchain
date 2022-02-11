@@ -20,7 +20,7 @@ func (k msgServer) RemoveCardFromCollection(goCtx context.Context, msg *types.Ms
 		return nil, types.ErrCollectionNotInDesign
 	}
 
-	newCards, err := popElementFromArr(msg.CardId, collection.Cards)
+	newCards, err := uintPopElementFromArr(msg.CardId, collection.Cards)
 	if err != nil {
 		return nil, sdkerrors.Wrap(err, "Card: "+strconv.Itoa(int(msg.CardId)))
 	}
@@ -32,7 +32,7 @@ func (k msgServer) RemoveCardFromCollection(goCtx context.Context, msg *types.Ms
 	return &types.MsgRemoveCardFromCollectionResponse{}, nil
 }
 
-func popElementFromArr(element uint64, arr []uint64) ([]uint64, error) {
+func uintPopElementFromArr(element uint64, arr []uint64) ([]uint64, error) {
 	for idx, val := range arr {
 		if element == val {
 			return append(arr[:idx], arr[idx+1:]...), nil

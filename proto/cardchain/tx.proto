@@ -27,6 +27,8 @@ service Msg {
   rpc FinalizeCollection(MsgFinalizeCollection) returns (MsgFinalizeCollectionResponse);
   rpc BuyCollection(MsgBuyCollection) returns (MsgBuyCollectionResponse);
   rpc RemoveCardFromCollection(MsgRemoveCardFromCollection) returns (MsgRemoveCardFromCollectionResponse);
+  rpc RemoveContributorFromCollection(MsgRemoveContributorFromCollection) returns (MsgRemoveContributorFromCollectionResponse);
+  rpc AddContributorToCollection(MsgAddContributorToCollection) returns (MsgAddContributorToCollectionResponse);
 // this line is used by starport scaffolding # proto/tx/rpc
 }
 
@@ -208,6 +210,24 @@ message MsgRemoveCardFromCollection {
 }
 
 message MsgRemoveCardFromCollectionResponse {
+}
+
+message MsgRemoveContributorFromCollection {
+  string creator = 1;
+  uint64 collectionId = 2;
+  string user = 3;
+}
+
+message MsgRemoveContributorFromCollectionResponse {
+}
+
+message MsgAddContributorToCollection {
+  string creator = 1;
+  uint64 collectionId = 2;
+  string user = 3;
+}
+
+message MsgAddContributorToCollectionResponse {
 }
 
 // this line is used by starport scaffolding # proto/tx/message
