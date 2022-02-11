@@ -198,6 +198,14 @@ export interface MsgBuyCollection {
 
 export interface MsgBuyCollectionResponse {}
 
+export interface MsgRemoveCardFromCollection {
+  creator: string;
+  collectionId: number;
+  cardId: number;
+}
+
+export interface MsgRemoveCardFromCollectionResponse {}
+
 const baseMsgCreateuser: object = { creator: "", newUser: "", alias: "" };
 
 export const MsgCreateuser = {
@@ -2823,6 +2831,166 @@ export const MsgBuyCollectionResponse = {
   },
 };
 
+const baseMsgRemoveCardFromCollection: object = {
+  creator: "",
+  collectionId: 0,
+  cardId: 0,
+};
+
+export const MsgRemoveCardFromCollection = {
+  encode(
+    message: MsgRemoveCardFromCollection,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.creator !== "") {
+      writer.uint32(10).string(message.creator);
+    }
+    if (message.collectionId !== 0) {
+      writer.uint32(16).uint64(message.collectionId);
+    }
+    if (message.cardId !== 0) {
+      writer.uint32(24).uint64(message.cardId);
+    }
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): MsgRemoveCardFromCollection {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseMsgRemoveCardFromCollection,
+    } as MsgRemoveCardFromCollection;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string();
+          break;
+        case 2:
+          message.collectionId = longToNumber(reader.uint64() as Long);
+          break;
+        case 3:
+          message.cardId = longToNumber(reader.uint64() as Long);
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgRemoveCardFromCollection {
+    const message = {
+      ...baseMsgRemoveCardFromCollection,
+    } as MsgRemoveCardFromCollection;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = String(object.creator);
+    } else {
+      message.creator = "";
+    }
+    if (object.collectionId !== undefined && object.collectionId !== null) {
+      message.collectionId = Number(object.collectionId);
+    } else {
+      message.collectionId = 0;
+    }
+    if (object.cardId !== undefined && object.cardId !== null) {
+      message.cardId = Number(object.cardId);
+    } else {
+      message.cardId = 0;
+    }
+    return message;
+  },
+
+  toJSON(message: MsgRemoveCardFromCollection): unknown {
+    const obj: any = {};
+    message.creator !== undefined && (obj.creator = message.creator);
+    message.collectionId !== undefined &&
+      (obj.collectionId = message.collectionId);
+    message.cardId !== undefined && (obj.cardId = message.cardId);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<MsgRemoveCardFromCollection>
+  ): MsgRemoveCardFromCollection {
+    const message = {
+      ...baseMsgRemoveCardFromCollection,
+    } as MsgRemoveCardFromCollection;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    } else {
+      message.creator = "";
+    }
+    if (object.collectionId !== undefined && object.collectionId !== null) {
+      message.collectionId = object.collectionId;
+    } else {
+      message.collectionId = 0;
+    }
+    if (object.cardId !== undefined && object.cardId !== null) {
+      message.cardId = object.cardId;
+    } else {
+      message.cardId = 0;
+    }
+    return message;
+  },
+};
+
+const baseMsgRemoveCardFromCollectionResponse: object = {};
+
+export const MsgRemoveCardFromCollectionResponse = {
+  encode(
+    _: MsgRemoveCardFromCollectionResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): MsgRemoveCardFromCollectionResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseMsgRemoveCardFromCollectionResponse,
+    } as MsgRemoveCardFromCollectionResponse;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): MsgRemoveCardFromCollectionResponse {
+    const message = {
+      ...baseMsgRemoveCardFromCollectionResponse,
+    } as MsgRemoveCardFromCollectionResponse;
+    return message;
+  },
+
+  toJSON(_: MsgRemoveCardFromCollectionResponse): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial(
+    _: DeepPartial<MsgRemoveCardFromCollectionResponse>
+  ): MsgRemoveCardFromCollectionResponse {
+    const message = {
+      ...baseMsgRemoveCardFromCollectionResponse,
+    } as MsgRemoveCardFromCollectionResponse;
+    return message;
+  },
+};
+
 /** Msg defines the Msg service. */
 export interface Msg {
   Createuser(request: MsgCreateuser): Promise<MsgCreateuserResponse>;
@@ -2857,8 +3025,11 @@ export interface Msg {
   FinalizeCollection(
     request: MsgFinalizeCollection
   ): Promise<MsgFinalizeCollectionResponse>;
-  /** this line is used by starport scaffolding # proto/tx/rpc */
   BuyCollection(request: MsgBuyCollection): Promise<MsgBuyCollectionResponse>;
+  /** this line is used by starport scaffolding # proto/tx/rpc */
+  RemoveCardFromCollection(
+    request: MsgRemoveCardFromCollection
+  ): Promise<MsgRemoveCardFromCollectionResponse>;
 }
 
 export class MsgClientImpl implements Msg {
@@ -3081,6 +3252,20 @@ export class MsgClientImpl implements Msg {
     );
     return promise.then((data) =>
       MsgBuyCollectionResponse.decode(new Reader(data))
+    );
+  }
+
+  RemoveCardFromCollection(
+    request: MsgRemoveCardFromCollection
+  ): Promise<MsgRemoveCardFromCollectionResponse> {
+    const data = MsgRemoveCardFromCollection.encode(request).finish();
+    const promise = this.rpc.request(
+      "DecentralCardGame.cardchain.cardchain.Msg",
+      "RemoveCardFromCollection",
+      data
+    );
+    return promise.then((data) =>
+      MsgRemoveCardFromCollectionResponse.decode(new Reader(data))
     );
   }
 }

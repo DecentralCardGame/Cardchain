@@ -19,7 +19,7 @@ import (
 
 const (
 	collectionSize             = 5
-	collectionPrice						 = 10
+	collectionPrice            = 10
 	votingRightsExpirationTime = 86000
 )
 

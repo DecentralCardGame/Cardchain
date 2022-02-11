@@ -45,6 +45,8 @@ export type CardchainMsgFinalizeCollectionResponse = object;
 
 export type CardchainMsgRegisterForCouncilResponse = object;
 
+export type CardchainMsgRemoveCardFromCollectionResponse = object;
+
 export interface CardchainMsgReportMatchResponse {
   /** @format uint64 */
   matchId?: string;

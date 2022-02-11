@@ -28,6 +28,7 @@ func RegisterCodec(cdc *codec.LegacyAmino) {
 	cdc.RegisterConcrete(&MsgAddCardToCollection{}, "cardchain/AddCardToCollection", nil)
 	cdc.RegisterConcrete(&MsgFinalizeCollection{}, "cardchain/FinalizeCollection", nil)
 	cdc.RegisterConcrete(&MsgBuyCollection{}, "cardchain/BuyCollection", nil)
+	cdc.RegisterConcrete(&MsgRemoveCardFromCollection{}, "cardchain/RemoveCardFromCollection", nil)
 	// this line is used by starport scaffolding # 2
 }
 
@@ -88,6 +89,9 @@ func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {
 	)
 	registry.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgBuyCollection{},
+	)
+	registry.RegisterImplementations((*sdk.Msg)(nil),
+		&MsgRemoveCardFromCollection{},
 	)
 	// this line is used by starport scaffolding # 3
 

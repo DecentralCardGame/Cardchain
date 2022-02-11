@@ -11,7 +11,7 @@ var _ sdk.Msg = &MsgBuyCollection{}
 
 func NewMsgBuyCollection(creator string, collectionId uint64) *MsgBuyCollection {
 	return &MsgBuyCollection{
-		Creator: creator,
+		Creator:      creator,
 		CollectionId: collectionId,
 	}
 }

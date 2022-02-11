@@ -20370,6 +20370,8 @@ definitions:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgRegisterForCouncilResponse:
     type: object
+  DecentralCardGame.cardchain.cardchain.MsgRemoveCardFromCollectionResponse:
+    type: object
   DecentralCardGame.cardchain.cardchain.MsgReportMatchResponse:
     type: object
     properties:

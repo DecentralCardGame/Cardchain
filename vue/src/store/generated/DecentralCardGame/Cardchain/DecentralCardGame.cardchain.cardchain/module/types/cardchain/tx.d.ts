@@ -141,6 +141,13 @@ export interface MsgBuyCollection {
 }
 export interface MsgBuyCollectionResponse {
 }
+export interface MsgRemoveCardFromCollection {
+    creator: string;
+    collectionId: number;
+    cardId: number;
+}
+export interface MsgRemoveCardFromCollectionResponse {
+}
 export declare const MsgCreateuser: {
     encode(message: MsgCreateuser, writer?: Writer): Writer;
     decode(input: Reader | Uint8Array, length?: number): MsgCreateuser;
@@ -379,6 +386,20 @@ export declare const MsgBuyCollectionResponse: {
     toJSON(_: MsgBuyCollectionResponse): unknown;
     fromPartial(_: DeepPartial<MsgBuyCollectionResponse>): MsgBuyCollectionResponse;
 };
+export declare const MsgRemoveCardFromCollection: {
+    encode(message: MsgRemoveCardFromCollection, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgRemoveCardFromCollection;
+    fromJSON(object: any): MsgRemoveCardFromCollection;
+    toJSON(message: MsgRemoveCardFromCollection): unknown;
+    fromPartial(object: DeepPartial<MsgRemoveCardFromCollection>): MsgRemoveCardFromCollection;
+};
+export declare const MsgRemoveCardFromCollectionResponse: {
+    encode(_: MsgRemoveCardFromCollectionResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgRemoveCardFromCollectionResponse;
+    fromJSON(_: any): MsgRemoveCardFromCollectionResponse;
+    toJSON(_: MsgRemoveCardFromCollectionResponse): unknown;
+    fromPartial(_: DeepPartial<MsgRemoveCardFromCollectionResponse>): MsgRemoveCardFromCollectionResponse;
+};
 /** Msg defines the Msg service. */
 export interface Msg {
     Createuser(request: MsgCreateuser): Promise<MsgCreateuserResponse>;
@@ -397,8 +418,9 @@ export interface Msg {
     CreateCollection(request: MsgCreateCollection): Promise<MsgCreateCollectionResponse>;
     AddCardToCollection(request: MsgAddCardToCollection): Promise<MsgAddCardToCollectionResponse>;
     FinalizeCollection(request: MsgFinalizeCollection): Promise<MsgFinalizeCollectionResponse>;
-    /** this line is used by starport scaffolding # proto/tx/rpc */
     BuyCollection(request: MsgBuyCollection): Promise<MsgBuyCollectionResponse>;
+    /** this line is used by starport scaffolding # proto/tx/rpc */
+    RemoveCardFromCollection(request: MsgRemoveCardFromCollection): Promise<MsgRemoveCardFromCollectionResponse>;
 }
 export declare class MsgClientImpl implements Msg {
     private readonly rpc;
@@ -420,6 +442,7 @@ export declare class MsgClientImpl implements Msg {
     AddCardToCollection(request: MsgAddCardToCollection): Promise<MsgAddCardToCollectionResponse>;
     FinalizeCollection(request: MsgFinalizeCollection): Promise<MsgFinalizeCollectionResponse>;
     BuyCollection(request: MsgBuyCollection): Promise<MsgBuyCollectionResponse>;
+    RemoveCardFromCollection(request: MsgRemoveCardFromCollection): Promise<MsgRemoveCardFromCollectionResponse>;
 }
 interface Rpc {
     request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;
