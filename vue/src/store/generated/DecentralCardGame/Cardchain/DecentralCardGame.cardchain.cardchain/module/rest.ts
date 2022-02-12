@@ -58,6 +58,8 @@ export interface CardchainMsgReportMatchResponse {
 
 export type CardchainMsgSaveCardContentResponse = object;
 
+export type CardchainMsgSubmitCollectionProposalResponse = object;
+
 export type CardchainMsgSubmitCopyrightProposalResponse = object;
 
 export type CardchainMsgSubmitMatchReporterProposalResponse = object;

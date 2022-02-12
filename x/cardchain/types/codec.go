@@ -19,6 +19,7 @@ func RegisterCodec(cdc *codec.LegacyAmino) {
 	cdc.RegisterConcrete(&MsgSubmitCopyrightProposal{}, "cardchain/SubmitCopyrightProposal", nil)
 	cdc.RegisterConcrete(&CopyrightProposal{}, "cardchain/CopyrightProposal", nil)
 	cdc.RegisterConcrete(&MatchReporterProposal{}, "cardchain/MatchReporterProposal", nil)
+	cdc.RegisterConcrete(&CollectionProposal{}, "cardchain/CollectionProposal", nil)
 	cdc.RegisterConcrete(&MsgChangeArtist{}, "cardchain/ChangeArtist", nil)
 	cdc.RegisterConcrete(&MsgRegisterForCouncil{}, "cardchain/RegisterForCouncil", nil)
 	cdc.RegisterConcrete(&MsgReportMatch{}, "cardchain/ReportMatch", nil)
@@ -31,6 +32,7 @@ func RegisterCodec(cdc *codec.LegacyAmino) {
 	cdc.RegisterConcrete(&MsgRemoveCardFromCollection{}, "cardchain/RemoveCardFromCollection", nil)
 	cdc.RegisterConcrete(&MsgRemoveContributorFromCollection{}, "cardchain/RemoveContributorFromCollection", nil)
 	cdc.RegisterConcrete(&MsgAddContributorToCollection{}, "cardchain/AddContributorToCollection", nil)
+	cdc.RegisterConcrete(&MsgSubmitCollectionProposal{}, "cardchain/SubmitCollectionProposal", nil)
 	// this line is used by starport scaffolding # 2
 }
 
@@ -64,6 +66,9 @@ func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {
 	)
 	registry.RegisterImplementations((*govtypes.Content)(nil),
 		&MatchReporterProposal{},
+	)
+	registry.RegisterImplementations((*govtypes.Content)(nil),
+		&CollectionProposal{},
 	)
 	registry.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgChangeArtist{},
@@ -100,6 +105,9 @@ func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {
 	)
 	registry.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgAddContributorToCollection{},
+	)
+	registry.RegisterImplementations((*sdk.Msg)(nil),
+		&MsgSubmitCollectionProposal{},
 	)
 	// this line is used by starport scaffolding # 3
 

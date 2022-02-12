@@ -222,6 +222,13 @@ export interface MsgAddContributorToCollection {
 
 export interface MsgAddContributorToCollectionResponse {}
 
+export interface MsgSubmitCollectionProposal {
+  creator: string;
+  collectionId: number;
+}
+
+export interface MsgSubmitCollectionProposalResponse {}
+
 const baseMsgCreateuser: object = { creator: "", newUser: "", alias: "" };
 
 export const MsgCreateuser = {
@@ -3327,6 +3334,148 @@ export const MsgAddContributorToCollectionResponse = {
   },
 };
 
+const baseMsgSubmitCollectionProposal: object = {
+  creator: "",
+  collectionId: 0,
+};
+
+export const MsgSubmitCollectionProposal = {
+  encode(
+    message: MsgSubmitCollectionProposal,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.creator !== "") {
+      writer.uint32(10).string(message.creator);
+    }
+    if (message.collectionId !== 0) {
+      writer.uint32(16).uint64(message.collectionId);
+    }
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): MsgSubmitCollectionProposal {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseMsgSubmitCollectionProposal,
+    } as MsgSubmitCollectionProposal;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string();
+          break;
+        case 2:
+          message.collectionId = longToNumber(reader.uint64() as Long);
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgSubmitCollectionProposal {
+    const message = {
+      ...baseMsgSubmitCollectionProposal,
+    } as MsgSubmitCollectionProposal;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = String(object.creator);
+    } else {
+      message.creator = "";
+    }
+    if (object.collectionId !== undefined && object.collectionId !== null) {
+      message.collectionId = Number(object.collectionId);
+    } else {
+      message.collectionId = 0;
+    }
+    return message;
+  },
+
+  toJSON(message: MsgSubmitCollectionProposal): unknown {
+    const obj: any = {};
+    message.creator !== undefined && (obj.creator = message.creator);
+    message.collectionId !== undefined &&
+      (obj.collectionId = message.collectionId);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<MsgSubmitCollectionProposal>
+  ): MsgSubmitCollectionProposal {
+    const message = {
+      ...baseMsgSubmitCollectionProposal,
+    } as MsgSubmitCollectionProposal;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    } else {
+      message.creator = "";
+    }
+    if (object.collectionId !== undefined && object.collectionId !== null) {
+      message.collectionId = object.collectionId;
+    } else {
+      message.collectionId = 0;
+    }
+    return message;
+  },
+};
+
+const baseMsgSubmitCollectionProposalResponse: object = {};
+
+export const MsgSubmitCollectionProposalResponse = {
+  encode(
+    _: MsgSubmitCollectionProposalResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): MsgSubmitCollectionProposalResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseMsgSubmitCollectionProposalResponse,
+    } as MsgSubmitCollectionProposalResponse;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): MsgSubmitCollectionProposalResponse {
+    const message = {
+      ...baseMsgSubmitCollectionProposalResponse,
+    } as MsgSubmitCollectionProposalResponse;
+    return message;
+  },
+
+  toJSON(_: MsgSubmitCollectionProposalResponse): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial(
+    _: DeepPartial<MsgSubmitCollectionProposalResponse>
+  ): MsgSubmitCollectionProposalResponse {
+    const message = {
+      ...baseMsgSubmitCollectionProposalResponse,
+    } as MsgSubmitCollectionProposalResponse;
+    return message;
+  },
+};
+
 /** Msg defines the Msg service. */
 export interface Msg {
   Createuser(request: MsgCreateuser): Promise<MsgCreateuserResponse>;
@@ -3368,10 +3517,13 @@ export interface Msg {
   RemoveContributorFromCollection(
     request: MsgRemoveContributorFromCollection
   ): Promise<MsgRemoveContributorFromCollectionResponse>;
-  /** this line is used by starport scaffolding # proto/tx/rpc */
   AddContributorToCollection(
     request: MsgAddContributorToCollection
   ): Promise<MsgAddContributorToCollectionResponse>;
+  /** this line is used by starport scaffolding # proto/tx/rpc */
+  SubmitCollectionProposal(
+    request: MsgSubmitCollectionProposal
+  ): Promise<MsgSubmitCollectionProposalResponse>;
 }
 
 export class MsgClientImpl implements Msg {
@@ -3636,6 +3788,20 @@ export class MsgClientImpl implements Msg {
     );
     return promise.then((data) =>
       MsgAddContributorToCollectionResponse.decode(new Reader(data))
+    );
+  }
+
+  SubmitCollectionProposal(
+    request: MsgSubmitCollectionProposal
+  ): Promise<MsgSubmitCollectionProposalResponse> {
+    const data = MsgSubmitCollectionProposal.encode(request).finish();
+    const promise = this.rpc.request(
+      "DecentralCardGame.cardchain.cardchain.Msg",
+      "SubmitCollectionProposal",
+      data
+    );
+    return promise.then((data) =>
+      MsgSubmitCollectionProposalResponse.decode(new Reader(data))
     );
   }
 }

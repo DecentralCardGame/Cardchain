@@ -29,6 +29,7 @@ service Msg {
   rpc RemoveCardFromCollection(MsgRemoveCardFromCollection) returns (MsgRemoveCardFromCollectionResponse);
   rpc RemoveContributorFromCollection(MsgRemoveContributorFromCollection) returns (MsgRemoveContributorFromCollectionResponse);
   rpc AddContributorToCollection(MsgAddContributorToCollection) returns (MsgAddContributorToCollectionResponse);
+  rpc SubmitCollectionProposal(MsgSubmitCollectionProposal) returns (MsgSubmitCollectionProposalResponse);
 // this line is used by starport scaffolding # proto/tx/rpc
 }
 
@@ -228,6 +229,14 @@ message MsgAddContributorToCollection {
 }
 
 message MsgAddContributorToCollectionResponse {
+}
+
+message MsgSubmitCollectionProposal {
+  string creator = 1;
+  uint64 collectionId = 2;
+}
+
+message MsgSubmitCollectionProposalResponse {
 }
 
 // this line is used by starport scaffolding # proto/tx/message

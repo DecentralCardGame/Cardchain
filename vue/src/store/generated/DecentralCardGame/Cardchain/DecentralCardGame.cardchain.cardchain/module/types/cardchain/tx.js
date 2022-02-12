@@ -2856,6 +2856,124 @@ export const MsgAddContributorToCollectionResponse = {
         return message;
     },
 };
+const baseMsgSubmitCollectionProposal = {
+    creator: "",
+    collectionId: 0,
+};
+export const MsgSubmitCollectionProposal = {
+    encode(message, writer = Writer.create()) {
+        if (message.creator !== "") {
+            writer.uint32(10).string(message.creator);
+        }
+        if (message.collectionId !== 0) {
+            writer.uint32(16).uint64(message.collectionId);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = {
+            ...baseMsgSubmitCollectionProposal,
+        };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.creator = reader.string();
+                    break;
+                case 2:
+                    message.collectionId = longToNumber(reader.uint64());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = {
+            ...baseMsgSubmitCollectionProposal,
+        };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = String(object.creator);
+        }
+        else {
+            message.creator = "";
+        }
+        if (object.collectionId !== undefined && object.collectionId !== null) {
+            message.collectionId = Number(object.collectionId);
+        }
+        else {
+            message.collectionId = 0;
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.creator !== undefined && (obj.creator = message.creator);
+        message.collectionId !== undefined &&
+            (obj.collectionId = message.collectionId);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = {
+            ...baseMsgSubmitCollectionProposal,
+        };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = object.creator;
+        }
+        else {
+            message.creator = "";
+        }
+        if (object.collectionId !== undefined && object.collectionId !== null) {
+            message.collectionId = object.collectionId;
+        }
+        else {
+            message.collectionId = 0;
+        }
+        return message;
+    },
+};
+const baseMsgSubmitCollectionProposalResponse = {};
+export const MsgSubmitCollectionProposalResponse = {
+    encode(_, writer = Writer.create()) {
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = {
+            ...baseMsgSubmitCollectionProposalResponse,
+        };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(_) {
+        const message = {
+            ...baseMsgSubmitCollectionProposalResponse,
+        };
+        return message;
+    },
+    toJSON(_) {
+        const obj = {};
+        return obj;
+    },
+    fromPartial(_) {
+        const message = {
+            ...baseMsgSubmitCollectionProposalResponse,
+        };
+        return message;
+    },
+};
 export class MsgClientImpl {
     constructor(rpc) {
         this.rpc = rpc;
@@ -2959,6 +3077,11 @@ export class MsgClientImpl {
         const data = MsgAddContributorToCollection.encode(request).finish();
         const promise = this.rpc.request("DecentralCardGame.cardchain.cardchain.Msg", "AddContributorToCollection", data);
         return promise.then((data) => MsgAddContributorToCollectionResponse.decode(new Reader(data)));
+    }
+    SubmitCollectionProposal(request) {
+        const data = MsgSubmitCollectionProposal.encode(request).finish();
+        const promise = this.rpc.request("DecentralCardGame.cardchain.cardchain.Msg", "SubmitCollectionProposal", data);
+        return promise.then((data) => MsgSubmitCollectionProposalResponse.decode(new Reader(data)));
     }
 }
 var globalThis = (() => {

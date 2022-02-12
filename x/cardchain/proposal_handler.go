@@ -16,6 +16,8 @@ func NewProposalHandler(k keeper.Keeper) govtypes.Handler {
 			return handleCopyrightProposal(ctx, k, c)
 		case *types.MatchReporterProposal:
 			return handleMatchReporterProposal(ctx, k, c)
+		case *types.CollectionProposal:
+			return handleCollectionProposal(ctx, k, c)
 
 		default:
 			return sdkerrors.Wrapf(sdkerrors.ErrUnknownRequest, "unrecognized proposal content type: %T", c)
@@ -35,6 +37,20 @@ func handleCopyrightProposal(ctx sdk.Context, k keeper.Keeper, p *types.Copyrigh
 	card.Status = types.Status_suspended
 
 	k.SetCard(ctx, p.CardId, card)
+
+	return nil
+}
+
+func handleCollectionProposal(ctx sdk.Context, k keeper.Keeper, p *types.CollectionProposal) error {
+	collection := k.GetCollection(ctx, p.CollectionId)
+
+	if collection.Status != types.CStatus_finalized {
+		return sdkerrors.Wrapf(types.ErrCollectionNotInDesign, "Collection status is %s but should be finalized", collection.Status)
+	}
+
+	collection.Status = types.CStatus_active
+
+	k.SetCollection(ctx, p.CollectionId, collection)
 
 	return nil
 }

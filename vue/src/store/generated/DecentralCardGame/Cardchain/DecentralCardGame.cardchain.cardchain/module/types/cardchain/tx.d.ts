@@ -162,6 +162,12 @@ export interface MsgAddContributorToCollection {
 }
 export interface MsgAddContributorToCollectionResponse {
 }
+export interface MsgSubmitCollectionProposal {
+    creator: string;
+    collectionId: number;
+}
+export interface MsgSubmitCollectionProposalResponse {
+}
 export declare const MsgCreateuser: {
     encode(message: MsgCreateuser, writer?: Writer): Writer;
     decode(input: Reader | Uint8Array, length?: number): MsgCreateuser;
@@ -442,6 +448,20 @@ export declare const MsgAddContributorToCollectionResponse: {
     toJSON(_: MsgAddContributorToCollectionResponse): unknown;
     fromPartial(_: DeepPartial<MsgAddContributorToCollectionResponse>): MsgAddContributorToCollectionResponse;
 };
+export declare const MsgSubmitCollectionProposal: {
+    encode(message: MsgSubmitCollectionProposal, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgSubmitCollectionProposal;
+    fromJSON(object: any): MsgSubmitCollectionProposal;
+    toJSON(message: MsgSubmitCollectionProposal): unknown;
+    fromPartial(object: DeepPartial<MsgSubmitCollectionProposal>): MsgSubmitCollectionProposal;
+};
+export declare const MsgSubmitCollectionProposalResponse: {
+    encode(_: MsgSubmitCollectionProposalResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgSubmitCollectionProposalResponse;
+    fromJSON(_: any): MsgSubmitCollectionProposalResponse;
+    toJSON(_: MsgSubmitCollectionProposalResponse): unknown;
+    fromPartial(_: DeepPartial<MsgSubmitCollectionProposalResponse>): MsgSubmitCollectionProposalResponse;
+};
 /** Msg defines the Msg service. */
 export interface Msg {
     Createuser(request: MsgCreateuser): Promise<MsgCreateuserResponse>;
@@ -463,8 +483,9 @@ export interface Msg {
     BuyCollection(request: MsgBuyCollection): Promise<MsgBuyCollectionResponse>;
     RemoveCardFromCollection(request: MsgRemoveCardFromCollection): Promise<MsgRemoveCardFromCollectionResponse>;
     RemoveContributorFromCollection(request: MsgRemoveContributorFromCollection): Promise<MsgRemoveContributorFromCollectionResponse>;
-    /** this line is used by starport scaffolding # proto/tx/rpc */
     AddContributorToCollection(request: MsgAddContributorToCollection): Promise<MsgAddContributorToCollectionResponse>;
+    /** this line is used by starport scaffolding # proto/tx/rpc */
+    SubmitCollectionProposal(request: MsgSubmitCollectionProposal): Promise<MsgSubmitCollectionProposalResponse>;
 }
 export declare class MsgClientImpl implements Msg {
     private readonly rpc;
@@ -489,6 +510,7 @@ export declare class MsgClientImpl implements Msg {
     RemoveCardFromCollection(request: MsgRemoveCardFromCollection): Promise<MsgRemoveCardFromCollectionResponse>;
     RemoveContributorFromCollection(request: MsgRemoveContributorFromCollection): Promise<MsgRemoveContributorFromCollectionResponse>;
     AddContributorToCollection(request: MsgAddContributorToCollection): Promise<MsgAddContributorToCollectionResponse>;
+    SubmitCollectionProposal(request: MsgSubmitCollectionProposal): Promise<MsgSubmitCollectionProposalResponse>;
 }
 interface Rpc {
     request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;

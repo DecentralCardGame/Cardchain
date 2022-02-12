@@ -21,7 +21,7 @@ func (k msgServer) RemoveContributorFromCollection(goCtx context.Context, msg *t
 
 	newContributors, err := stringPopElementFromArr(msg.User, collection.Contributors)
 	if err != nil {
-		return nil, sdkerrors.Wrap(err, "Contributor is not a contributor: " + msg.User)
+		return nil, sdkerrors.Wrap(err, "Contributor is not a contributor: "+msg.User)
 	}
 
 	collection.Contributors = newContributors
