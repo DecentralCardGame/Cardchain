@@ -90,7 +90,7 @@ export interface CardchainQueryQCollectionResponse {
     artwork?: string;
     status?: CardchainCStatus;
     /** @format int64 */
-    expireBlock?: string;
+    timeStamp?: string;
 }
 export interface CardchainQueryQMatchResponse {
     /** @format uint64 */

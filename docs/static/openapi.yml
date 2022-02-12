@@ -12141,7 +12141,7 @@ paths:
                   - active
                   - archived
                 default: design
-              expireBlock:
+              timeStamp:
                 type: string
                 format: int64
         default:
@@ -20510,7 +20510,7 @@ definitions:
           - active
           - archived
         default: design
-      expireBlock:
+      timeStamp:
         type: string
         format: int64
   DecentralCardGame.cardchain.cardchain.QueryQMatchResponse:

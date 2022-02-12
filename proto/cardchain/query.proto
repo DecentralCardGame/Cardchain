@@ -184,7 +184,7 @@ message QueryQCollectionResponse {
   string story = 4;
   bytes artwork = 5;
   CStatus status = 6;
-  int64 expireBlock = 7;
+  int64 timeStamp = 7;
 }
 
 // this line is used by starport scaffolding # 3

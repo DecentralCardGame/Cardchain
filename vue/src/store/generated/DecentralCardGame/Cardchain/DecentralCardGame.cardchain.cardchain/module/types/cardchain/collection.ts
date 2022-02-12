@@ -55,7 +55,7 @@ export interface Collection {
   story: string;
   artwork: Uint8Array;
   status: CStatus;
-  expireBlock: number;
+  timeStamp: number;
 }
 
 const baseCollection: object = {
@@ -64,7 +64,7 @@ const baseCollection: object = {
   contributors: "",
   story: "",
   status: 0,
-  expireBlock: 0,
+  timeStamp: 0,
 };
 
 export const Collection = {
@@ -89,8 +89,8 @@ export const Collection = {
     if (message.status !== 0) {
       writer.uint32(48).int32(message.status);
     }
-    if (message.expireBlock !== 0) {
-      writer.uint32(56).int64(message.expireBlock);
+    if (message.timeStamp !== 0) {
+      writer.uint32(56).int64(message.timeStamp);
     }
     return writer;
   },
@@ -130,7 +130,7 @@ export const Collection = {
           message.status = reader.int32() as any;
           break;
         case 7:
-          message.expireBlock = longToNumber(reader.int64() as Long);
+          message.timeStamp = longToNumber(reader.int64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -172,10 +172,10 @@ export const Collection = {
     } else {
       message.status = 0;
     }
-    if (object.expireBlock !== undefined && object.expireBlock !== null) {
-      message.expireBlock = Number(object.expireBlock);
+    if (object.timeStamp !== undefined && object.timeStamp !== null) {
+      message.timeStamp = Number(object.timeStamp);
     } else {
-      message.expireBlock = 0;
+      message.timeStamp = 0;
     }
     return message;
   },
@@ -200,8 +200,7 @@ export const Collection = {
       ));
     message.status !== undefined &&
       (obj.status = cStatusToJSON(message.status));
-    message.expireBlock !== undefined &&
-      (obj.expireBlock = message.expireBlock);
+    message.timeStamp !== undefined && (obj.timeStamp = message.timeStamp);
     return obj;
   },
 
@@ -239,10 +238,10 @@ export const Collection = {
     } else {
       message.status = 0;
     }
-    if (object.expireBlock !== undefined && object.expireBlock !== null) {
-      message.expireBlock = object.expireBlock;
+    if (object.timeStamp !== undefined && object.timeStamp !== null) {
+      message.timeStamp = object.timeStamp;
     } else {
-      message.expireBlock = 0;
+      message.timeStamp = 0;
     }
     return message;
   },

@@ -1761,7 +1761,7 @@ const baseQueryQCollectionResponse = {
     contributors: "",
     story: "",
     status: 0,
-    expireBlock: 0,
+    timeStamp: 0,
 };
 export const QueryQCollectionResponse = {
     encode(message, writer = Writer.create()) {
@@ -1785,8 +1785,8 @@ export const QueryQCollectionResponse = {
         if (message.status !== 0) {
             writer.uint32(48).int32(message.status);
         }
-        if (message.expireBlock !== 0) {
-            writer.uint32(56).int64(message.expireBlock);
+        if (message.timeStamp !== 0) {
+            writer.uint32(56).int64(message.timeStamp);
         }
         return writer;
     },
@@ -1828,7 +1828,7 @@ export const QueryQCollectionResponse = {
                     message.status = reader.int32();
                     break;
                 case 7:
-                    message.expireBlock = longToNumber(reader.int64());
+                    message.timeStamp = longToNumber(reader.int64());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -1874,11 +1874,11 @@ export const QueryQCollectionResponse = {
         else {
             message.status = 0;
         }
-        if (object.expireBlock !== undefined && object.expireBlock !== null) {
-            message.expireBlock = Number(object.expireBlock);
+        if (object.timeStamp !== undefined && object.timeStamp !== null) {
+            message.timeStamp = Number(object.timeStamp);
         }
         else {
-            message.expireBlock = 0;
+            message.timeStamp = 0;
         }
         return message;
     },
@@ -1902,8 +1902,7 @@ export const QueryQCollectionResponse = {
             (obj.artwork = base64FromBytes(message.artwork !== undefined ? message.artwork : new Uint8Array()));
         message.status !== undefined &&
             (obj.status = cStatusToJSON(message.status));
-        message.expireBlock !== undefined &&
-            (obj.expireBlock = message.expireBlock);
+        message.timeStamp !== undefined && (obj.timeStamp = message.timeStamp);
         return obj;
     },
     fromPartial(object) {
@@ -1946,11 +1945,11 @@ export const QueryQCollectionResponse = {
         else {
             message.status = 0;
         }
-        if (object.expireBlock !== undefined && object.expireBlock !== null) {
-            message.expireBlock = object.expireBlock;
+        if (object.timeStamp !== undefined && object.timeStamp !== null) {
+            message.timeStamp = object.timeStamp;
         }
         else {
-            message.expireBlock = 0;
+            message.timeStamp = 0;
         }
         return message;
     },

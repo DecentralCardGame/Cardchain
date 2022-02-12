@@ -84,7 +84,7 @@ func handleMsgCreateCollection(ctx sdk.Context, keeper keeper.Keeper, msg *types
 		Story:        msg.Story,
 		Artwork:      msg.Artwork,
 		Status:       types.CStatus_design,
-		ExpireBlock:  0,
+		TimeStamp:    0,
 	}
 
 	keeper.SetCollection(ctx, collectionId, collection)

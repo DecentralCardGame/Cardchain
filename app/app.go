@@ -531,15 +531,6 @@ func (app *App) EndBlocker(ctx sdk.Context, req abci.RequestEndBlock) abci.Respo
 		app.CardchainKeeper.AddVoteRightsToAllUsers(ctx, ctx.BlockHeight()+votingRightsExpirationTime)
 	}
 
-	// Checks for expired Collections
-	for _, val := range app.CardchainKeeper.GetActiveCollections(ctx) {
-		var collection = app.CardchainKeeper.GetCollection(ctx, val)
-		if ctx.BlockHeight() > collection.ExpireBlock {
-			collection.Status = cardchainmoduletypes.CStatus_archived
-			app.CardchainKeeper.SetCollection(ctx, val, collection)
-		}
-	}
-
 	return app.mm.EndBlock(ctx, req)
 }
 

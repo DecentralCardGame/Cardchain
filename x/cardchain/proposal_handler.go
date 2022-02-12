@@ -1,6 +1,8 @@
 package cardchain
 
 import (
+	"sort"
+
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/keeper"
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -48,10 +50,31 @@ func handleCollectionProposal(ctx sdk.Context, k keeper.Keeper, p *types.Collect
 		return sdkerrors.Wrapf(types.ErrCollectionNotInDesign, "Collection status is %s but should be finalized", collection.Status)
 	}
 
+	activeCollectionsIds := k.GetActiveCollections(ctx)
+	var activeCollections []sortStruct
+	if len(activeCollections) >= 3 {
+		for _, id := range activeCollectionsIds {
+			var collection = k.GetCollection(ctx, id)
+			activeCollections = append(activeCollections, sortStruct{id, collection})
+		}
+		sort.SliceStable(activeCollections, func(i, j int) bool {
+    		return activeCollections[i].Collection.TimeStamp < activeCollections[j].Collection.TimeStamp
+			},
+		)
+		yeetStruct := activeCollections[0]
+		yeetStruct.Collection.Status = types.CStatus_archived
+		k.SetCollection(ctx, yeetStruct.Id, yeetStruct.Collection)
+	}
+
 	collection.Status = types.CStatus_active
-	collection.ExpireBlock = ctx.BlockHeight() + 1032000  // 3 months I guess
+	collection.TimeStamp = ctx.BlockHeight()
 
 	k.SetCollection(ctx, p.CollectionId, collection)
 
 	return nil
+}
+
+type sortStruct struct {
+	Id uint64
+	Collection types.Collection
 }

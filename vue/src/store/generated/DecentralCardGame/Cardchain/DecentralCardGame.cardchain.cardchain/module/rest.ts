@@ -138,7 +138,7 @@ export interface CardchainQueryQCollectionResponse {
   status?: CardchainCStatus;
 
   /** @format int64 */
-  expireBlock?: string;
+  timeStamp?: string;
 }
 
 export interface CardchainQueryQMatchResponse {
