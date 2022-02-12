@@ -12141,6 +12141,9 @@ paths:
                   - active
                   - archived
                 default: design
+              expireBlock:
+                type: string
+                format: int64
         default:
           description: An unexpected error response.
           schema:
@@ -20507,6 +20510,9 @@ definitions:
           - active
           - archived
         default: design
+      expireBlock:
+        type: string
+        format: int64
   DecentralCardGame.cardchain.cardchain.QueryQMatchResponse:
     type: object
     properties:

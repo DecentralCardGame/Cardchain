@@ -103,6 +103,7 @@ export interface QueryQCollectionResponse {
     story: string;
     artwork: Uint8Array;
     status: CStatus;
+    expireBlock: number;
 }
 export declare const QueryParamsRequest: {
     encode(_: QueryParamsRequest, writer?: Writer): Writer;

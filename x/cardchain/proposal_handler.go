@@ -49,6 +49,7 @@ func handleCollectionProposal(ctx sdk.Context, k keeper.Keeper, p *types.Collect
 	}
 
 	collection.Status = types.CStatus_active
+	collection.ExpireBlock = ctx.BlockHeight() + 1032000  // 3 months I guess
 
 	k.SetCollection(ctx, p.CollectionId, collection)
 

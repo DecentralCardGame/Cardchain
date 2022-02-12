@@ -131,6 +131,7 @@ export interface QueryQCollectionResponse {
   story: string;
   artwork: Uint8Array;
   status: CStatus;
+  expireBlock: number;
 }
 
 const baseQueryParamsRequest: object = {};
@@ -2059,6 +2060,7 @@ const baseQueryQCollectionResponse: object = {
   contributors: "",
   story: "",
   status: 0,
+  expireBlock: 0,
 };
 
 export const QueryQCollectionResponse = {
@@ -2085,6 +2087,9 @@ export const QueryQCollectionResponse = {
     }
     if (message.status !== 0) {
       writer.uint32(48).int32(message.status);
+    }
+    if (message.expireBlock !== 0) {
+      writer.uint32(56).int64(message.expireBlock);
     }
     return writer;
   },
@@ -2128,6 +2133,9 @@ export const QueryQCollectionResponse = {
         case 6:
           message.status = reader.int32() as any;
           break;
+        case 7:
+          message.expireBlock = longToNumber(reader.int64() as Long);
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -2170,6 +2178,11 @@ export const QueryQCollectionResponse = {
     } else {
       message.status = 0;
     }
+    if (object.expireBlock !== undefined && object.expireBlock !== null) {
+      message.expireBlock = Number(object.expireBlock);
+    } else {
+      message.expireBlock = 0;
+    }
     return message;
   },
 
@@ -2193,6 +2206,8 @@ export const QueryQCollectionResponse = {
       ));
     message.status !== undefined &&
       (obj.status = cStatusToJSON(message.status));
+    message.expireBlock !== undefined &&
+      (obj.expireBlock = message.expireBlock);
     return obj;
   },
 
@@ -2233,6 +2248,11 @@ export const QueryQCollectionResponse = {
       message.status = object.status;
     } else {
       message.status = 0;
+    }
+    if (object.expireBlock !== undefined && object.expireBlock !== null) {
+      message.expireBlock = object.expireBlock;
+    } else {
+      message.expireBlock = 0;
     }
     return message;
   },

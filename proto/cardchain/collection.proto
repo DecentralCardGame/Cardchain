@@ -10,6 +10,7 @@ message Collection {
   string story = 4;
   bytes artwork = 5;
   CStatus status = 6;
+  int64 expireBlock = 7;
 }
 
 enum CStatus {

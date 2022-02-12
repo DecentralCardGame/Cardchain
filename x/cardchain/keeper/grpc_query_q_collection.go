@@ -25,5 +25,6 @@ func (k Keeper) QCollection(goCtx context.Context, req *types.QueryQCollectionRe
 		collection.Story,
 		collection.Artwork,
 		collection.Status,
+		collection.ExpireBlock,
 	}, nil
 }
