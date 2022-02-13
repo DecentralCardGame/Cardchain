@@ -3,6 +3,8 @@ export declare const protobufPackage = "DecentralCardGame.cardchain.cardchain";
 /** Params defines the parameters for the module. */
 export interface Params {
     votingRightsExpirationTime: number;
+    collectionSize: number;
+    collectionPrice: number;
 }
 export declare const Params: {
     encode(message: Params, writer?: Writer): Writer;

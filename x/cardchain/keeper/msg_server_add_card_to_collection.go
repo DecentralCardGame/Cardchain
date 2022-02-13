@@ -12,6 +12,8 @@ import (
 func (k msgServer) AddCardToCollection(goCtx context.Context, msg *types.MsgAddCardToCollection) (*types.MsgAddCardToCollectionResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
+	collectionSize := int(k.GetParams(ctx).CollectionSize)
+
 	collection := k.GetCollection(ctx, msg.CollectionId)
 	if !stringItemInList(msg.Creator, collection.Contributors) {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "Invalid contributor")
@@ -26,7 +28,7 @@ func (k msgServer) AddCardToCollection(goCtx context.Context, msg *types.MsgAddC
 	}
 
 	if len(collection.Cards) >= collectionSize {
-		return nil, sdkerrors.Wrap(types.ErrCollectionSize, "Max is "+strconv.Itoa(int(collectionSize)))
+		return nil, sdkerrors.Wrap(types.ErrCollectionSize, "Max is "+strconv.Itoa(collectionSize))
 	}
 
 	if uintItemInList(msg.CardId, collection.Cards) {

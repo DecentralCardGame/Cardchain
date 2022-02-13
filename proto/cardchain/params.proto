@@ -9,5 +9,7 @@ option go_package = "github.com/DecentralCardGame/Cardchain/x/cardchain/types";
 message Params {
   option (gogoproto.goproto_stringer) = false;
   int64 votingRightsExpirationTime = 1;
+  uint64 collectionSize = 2;
+  int64 collectionPrice = 3;
 
 }

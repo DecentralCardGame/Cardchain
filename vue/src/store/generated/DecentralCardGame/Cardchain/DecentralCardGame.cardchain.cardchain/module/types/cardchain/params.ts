@@ -7,14 +7,26 @@ export const protobufPackage = "DecentralCardGame.cardchain.cardchain";
 /** Params defines the parameters for the module. */
 export interface Params {
   votingRightsExpirationTime: number;
+  collectionSize: number;
+  collectionPrice: number;
 }
 
-const baseParams: object = { votingRightsExpirationTime: 0 };
+const baseParams: object = {
+  votingRightsExpirationTime: 0,
+  collectionSize: 0,
+  collectionPrice: 0,
+};
 
 export const Params = {
   encode(message: Params, writer: Writer = Writer.create()): Writer {
     if (message.votingRightsExpirationTime !== 0) {
       writer.uint32(8).int64(message.votingRightsExpirationTime);
+    }
+    if (message.collectionSize !== 0) {
+      writer.uint32(16).uint64(message.collectionSize);
+    }
+    if (message.collectionPrice !== 0) {
+      writer.uint32(24).int64(message.collectionPrice);
     }
     return writer;
   },
@@ -30,6 +42,12 @@ export const Params = {
           message.votingRightsExpirationTime = longToNumber(
             reader.int64() as Long
           );
+          break;
+        case 2:
+          message.collectionSize = longToNumber(reader.uint64() as Long);
+          break;
+        case 3:
+          message.collectionPrice = longToNumber(reader.int64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -51,6 +69,19 @@ export const Params = {
     } else {
       message.votingRightsExpirationTime = 0;
     }
+    if (object.collectionSize !== undefined && object.collectionSize !== null) {
+      message.collectionSize = Number(object.collectionSize);
+    } else {
+      message.collectionSize = 0;
+    }
+    if (
+      object.collectionPrice !== undefined &&
+      object.collectionPrice !== null
+    ) {
+      message.collectionPrice = Number(object.collectionPrice);
+    } else {
+      message.collectionPrice = 0;
+    }
     return message;
   },
 
@@ -58,6 +89,10 @@ export const Params = {
     const obj: any = {};
     message.votingRightsExpirationTime !== undefined &&
       (obj.votingRightsExpirationTime = message.votingRightsExpirationTime);
+    message.collectionSize !== undefined &&
+      (obj.collectionSize = message.collectionSize);
+    message.collectionPrice !== undefined &&
+      (obj.collectionPrice = message.collectionPrice);
     return obj;
   },
 
@@ -70,6 +105,19 @@ export const Params = {
       message.votingRightsExpirationTime = object.votingRightsExpirationTime;
     } else {
       message.votingRightsExpirationTime = 0;
+    }
+    if (object.collectionSize !== undefined && object.collectionSize !== null) {
+      message.collectionSize = object.collectionSize;
+    } else {
+      message.collectionSize = 0;
+    }
+    if (
+      object.collectionPrice !== undefined &&
+      object.collectionPrice !== null
+    ) {
+      message.collectionPrice = object.collectionPrice;
+    } else {
+      message.collectionPrice = 0;
     }
     return message;
   },

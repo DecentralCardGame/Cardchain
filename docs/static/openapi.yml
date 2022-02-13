@@ -11859,6 +11859,12 @@ paths:
                   votingRightsExpirationTime:
                     type: string
                     format: int64
+                  collectionSize:
+                    type: string
+                    format: uint64
+                  collectionPrice:
+                    type: string
+                    format: int64
             description: >-
               QueryParamsResponse is response type for the Query/Params RPC
               method.
@@ -20415,6 +20421,12 @@ definitions:
       votingRightsExpirationTime:
         type: string
         format: int64
+      collectionSize:
+        type: string
+        format: uint64
+      collectionPrice:
+        type: string
+        format: int64
     description: Params defines the parameters for the module.
   DecentralCardGame.cardchain.cardchain.QueryParamsResponse:
     type: object
@@ -20424,6 +20436,12 @@ definitions:
         type: object
         properties:
           votingRightsExpirationTime:
+            type: string
+            format: int64
+          collectionSize:
+            type: string
+            format: uint64
+          collectionPrice:
             type: string
             format: int64
     description: QueryParamsResponse is response type for the Query/Params RPC method.

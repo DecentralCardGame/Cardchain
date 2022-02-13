@@ -17,12 +17,6 @@ import (
 	paramtypes "github.com/cosmos/cosmos-sdk/x/params/types"
 )
 
-const (
-	collectionSize             = 5
-	collectionPrice            = 10
-	// votingRightsExpirationTime = 86000
-)
-
 type (
 	Keeper struct {
 		cdc                 codec.BinaryCodec // The wire codec for binary encoding/decoding.

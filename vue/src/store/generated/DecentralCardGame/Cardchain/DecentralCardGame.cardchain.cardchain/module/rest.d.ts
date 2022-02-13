@@ -46,6 +46,10 @@ export declare enum CardchainOutcome {
 export interface CardchainParams {
     /** @format int64 */
     votingRightsExpirationTime?: string;
+    /** @format uint64 */
+    collectionSize?: string;
+    /** @format int64 */
+    collectionPrice?: string;
 }
 /**
  * QueryParamsResponse is response type for the Query/Params RPC method.

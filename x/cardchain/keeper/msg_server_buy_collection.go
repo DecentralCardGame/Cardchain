@@ -27,7 +27,7 @@ func (k msgServer) BuyCollection(goCtx context.Context, msg *types.MsgBuyCollect
 		return nil, types.ErrNoActiveCollection
 	}
 
-	k.BurnCoinsFromAddr(ctx, creatorAddr, sdk.Coins{sdk.NewInt64Coin("credits", collectionPrice)})
+	k.BurnCoinsFromAddr(ctx, creatorAddr, sdk.Coins{sdk.NewInt64Coin("credits", k.GetParams(ctx).CollectionPrice)})
 	if err != nil {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrInsufficientFunds, "Buyer does not have enough coins")
 	}
