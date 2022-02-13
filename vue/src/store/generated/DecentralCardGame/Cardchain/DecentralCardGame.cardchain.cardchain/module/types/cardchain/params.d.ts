@@ -5,6 +5,7 @@ export interface Params {
     votingRightsExpirationTime: number;
     collectionSize: number;
     collectionPrice: number;
+    activeCollectionsAmount: number;
 }
 export declare const Params: {
     encode(message: Params, writer?: Writer): Writer;

@@ -20,6 +20,7 @@ func NewParams() Params {
 		VotingRightsExpirationTime: 86000,
 		CollectionSize:             5,
 		CollectionPrice:            10,
+		ActiveCollectionsAmount:    3,
 	}
 }
 
@@ -34,6 +35,7 @@ func (p *Params) ParamSetPairs() paramtypes.ParamSetPairs {
 		paramtypes.NewParamSetPair([]byte("VotingRightsExpirationTime"), &p.VotingRightsExpirationTime, validateVotingRightsExpirationTime),
 		paramtypes.NewParamSetPair([]byte("CollectionSize"), &p.CollectionSize, validateCollectionSize),
 		paramtypes.NewParamSetPair([]byte("CollectionPrice"), &p.CollectionPrice, validateCollectionPrice),
+		paramtypes.NewParamSetPair([]byte("ActiveCollectionsAmount"), &p.ActiveCollectionsAmount, validateActiveCollectionsAmount),
 	}
 }
 
@@ -82,6 +84,19 @@ func validateCollectionPrice(i interface{}) error {
 
 	if v == 0 {
 		return fmt.Errorf("invalid CollectionPrice: %d", v)
+	}
+
+	return nil
+}
+
+func validateActiveCollectionsAmount(i interface{}) error {
+	v, ok := i.(uint64)
+	if !ok {
+		return fmt.Errorf("invalid parameter type: %T", i)
+	}
+
+	if v == 0 {
+		return fmt.Errorf("invalid ActiveCollectionsAmount: %d", v)
 	}
 
 	return nil

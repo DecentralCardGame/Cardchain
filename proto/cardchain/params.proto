@@ -11,5 +11,6 @@ message Params {
   int64 votingRightsExpirationTime = 1;
   uint64 collectionSize = 2;
   int64 collectionPrice = 3;
+  uint64 activeCollectionsAmount = 4;
 
 }

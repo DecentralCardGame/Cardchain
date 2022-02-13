@@ -6,6 +6,7 @@ const baseParams = {
     votingRightsExpirationTime: 0,
     collectionSize: 0,
     collectionPrice: 0,
+    activeCollectionsAmount: 0,
 };
 export const Params = {
     encode(message, writer = Writer.create()) {
@@ -17,6 +18,9 @@ export const Params = {
         }
         if (message.collectionPrice !== 0) {
             writer.uint32(24).int64(message.collectionPrice);
+        }
+        if (message.activeCollectionsAmount !== 0) {
+            writer.uint32(32).uint64(message.activeCollectionsAmount);
         }
         return writer;
     },
@@ -35,6 +39,9 @@ export const Params = {
                     break;
                 case 3:
                     message.collectionPrice = longToNumber(reader.int64());
+                    break;
+                case 4:
+                    message.activeCollectionsAmount = longToNumber(reader.uint64());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -65,6 +72,13 @@ export const Params = {
         else {
             message.collectionPrice = 0;
         }
+        if (object.activeCollectionsAmount !== undefined &&
+            object.activeCollectionsAmount !== null) {
+            message.activeCollectionsAmount = Number(object.activeCollectionsAmount);
+        }
+        else {
+            message.activeCollectionsAmount = 0;
+        }
         return message;
     },
     toJSON(message) {
@@ -75,6 +89,8 @@ export const Params = {
             (obj.collectionSize = message.collectionSize);
         message.collectionPrice !== undefined &&
             (obj.collectionPrice = message.collectionPrice);
+        message.activeCollectionsAmount !== undefined &&
+            (obj.activeCollectionsAmount = message.activeCollectionsAmount);
         return obj;
     },
     fromPartial(object) {
@@ -98,6 +114,13 @@ export const Params = {
         }
         else {
             message.collectionPrice = 0;
+        }
+        if (object.activeCollectionsAmount !== undefined &&
+            object.activeCollectionsAmount !== null) {
+            message.activeCollectionsAmount = object.activeCollectionsAmount;
+        }
+        else {
+            message.activeCollectionsAmount = 0;
         }
         return message;
     },

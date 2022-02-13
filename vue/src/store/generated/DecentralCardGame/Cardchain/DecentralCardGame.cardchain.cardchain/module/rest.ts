@@ -87,6 +87,9 @@ export interface CardchainParams {
 
   /** @format int64 */
   collectionPrice?: string;
+
+  /** @format uint64 */
+  activeCollectionsAmount?: string;
 }
 
 /**

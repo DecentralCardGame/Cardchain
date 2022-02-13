@@ -50,6 +50,8 @@ export interface CardchainParams {
     collectionSize?: string;
     /** @format int64 */
     collectionPrice?: string;
+    /** @format uint64 */
+    activeCollectionsAmount?: string;
 }
 /**
  * QueryParamsResponse is response type for the Query/Params RPC method.
