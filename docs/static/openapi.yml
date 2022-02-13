@@ -11855,6 +11855,10 @@ paths:
               params:
                 description: params holds all the parameters of this module.
                 type: object
+                properties:
+                  votingRightsExpirationTime:
+                    type: string
+                    format: int64
             description: >-
               QueryParamsResponse is response type for the Query/Params RPC
               method.
@@ -20407,6 +20411,10 @@ definitions:
     default: AWon
   DecentralCardGame.cardchain.cardchain.Params:
     type: object
+    properties:
+      votingRightsExpirationTime:
+        type: string
+        format: int64
     description: Params defines the parameters for the module.
   DecentralCardGame.cardchain.cardchain.QueryParamsResponse:
     type: object
@@ -20414,6 +20422,10 @@ definitions:
       params:
         description: params holds all the parameters of this module.
         type: object
+        properties:
+          votingRightsExpirationTime:
+            type: string
+            format: int64
     description: QueryParamsResponse is response type for the Query/Params RPC method.
   DecentralCardGame.cardchain.cardchain.QueryQCardContentResponse:
     type: object

@@ -102,7 +102,7 @@ const (
 	epochBlockTime = 86000 // this is 1 week with 7s block time
 	// epochBlockTime = 5		// this is great for debugging
 	// votingRightsExpirationTime defines after how many blocks a voting right expires by default
-	votingRightsExpirationTime = epochBlockTime // we use the same as epoch time
+	// votingRightsExpirationTime = epochBlockTime // we use the same as epoch time
 )
 
 // this line is used by starport scaffolding # stargate/wasm/app/enabledProposals
@@ -528,7 +528,7 @@ func (app *App) EndBlocker(ctx sdk.Context, req abci.RequestEndBlock) abci.Respo
 	// automated nerf/buff happens here
 	if app.LastBlockHeight()%epochBlockTime == 0 {
 		cardchainmodule.UpdateNerfLevels(ctx, app.CardchainKeeper)
-		app.CardchainKeeper.AddVoteRightsToAllUsers(ctx, ctx.BlockHeight()+votingRightsExpirationTime)
+		app.CardchainKeeper.AddVoteRightsToAllUsers(ctx, ctx.BlockHeight()+app.CardchainKeeper.GetParams(ctx).VotingRightsExpirationTime)
 	}
 
 	return app.mm.EndBlock(ctx, req)
