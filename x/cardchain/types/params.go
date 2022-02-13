@@ -1,6 +1,8 @@
 package types
 
 import (
+	"fmt"
+
 	paramtypes "github.com/cosmos/cosmos-sdk/x/params/types"
 	"gopkg.in/yaml.v2"
 )
@@ -47,13 +49,40 @@ func (p Params) String() string {
 }
 
 func validateVotingRightsExpirationTime(i interface{}) error {
+	v, ok := i.(int64)
+	if !ok {
+		return fmt.Errorf("invalid parameter type: %T", i)
+	}
+
+	if v == 0 {
+		return fmt.Errorf("invalid VotingRightsExpirationTime: %d", v)
+	}
+
 	return nil
 }
 
 func validateCollectionSize(i interface{}) error {
+	v, ok := i.(uint64)
+	if !ok {
+		return fmt.Errorf("invalid parameter type: %T", i)
+	}
+
+	if v == 0 {
+		return fmt.Errorf("invalid CollectionSize: %d", v)
+	}
+
 	return nil
 }
 
 func validateCollectionPrice(i interface{}) error {
+	v, ok := i.(int64)
+	if !ok {
+		return fmt.Errorf("invalid parameter type: %T", i)
+	}
+
+	if v == 0 {
+		return fmt.Errorf("invalid CollectionPrice: %d", v)
+	}
+
 	return nil
 }
