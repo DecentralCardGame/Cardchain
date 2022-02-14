@@ -30,6 +30,7 @@ service Msg {
   rpc RemoveContributorFromCollection(MsgRemoveContributorFromCollection) returns (MsgRemoveContributorFromCollectionResponse);
   rpc AddContributorToCollection(MsgAddContributorToCollection) returns (MsgAddContributorToCollectionResponse);
   rpc SubmitCollectionProposal(MsgSubmitCollectionProposal) returns (MsgSubmitCollectionProposalResponse);
+  rpc CreateSellOffer(MsgCreateSellOffer) returns (MsgCreateSellOfferResponse);
 // this line is used by starport scaffolding # proto/tx/rpc
 }
 
@@ -237,6 +238,15 @@ message MsgSubmitCollectionProposal {
 }
 
 message MsgSubmitCollectionProposalResponse {
+}
+
+message MsgCreateSellOffer {
+  string creator = 1;
+  uint64 card = 2;
+  uint64 price = 3;
+}
+
+message MsgCreateSellOfferResponse {
 }
 
 // this line is used by starport scaffolding # proto/tx/message

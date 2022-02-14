@@ -11,7 +11,8 @@ export declare function sellOfferStatusToJSON(object: SellOfferStatus): string;
 export interface SellOffer {
     seller: string;
     buyer: string;
-    card: string;
+    card: number;
+    price: number;
     status: SellOfferStatus;
 }
 export declare const SellOffer: {

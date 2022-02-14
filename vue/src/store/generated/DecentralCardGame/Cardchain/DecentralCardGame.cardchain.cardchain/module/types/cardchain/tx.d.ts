@@ -168,6 +168,13 @@ export interface MsgSubmitCollectionProposal {
 }
 export interface MsgSubmitCollectionProposalResponse {
 }
+export interface MsgCreateSellOffer {
+    creator: string;
+    card: number;
+    price: number;
+}
+export interface MsgCreateSellOfferResponse {
+}
 export declare const MsgCreateuser: {
     encode(message: MsgCreateuser, writer?: Writer): Writer;
     decode(input: Reader | Uint8Array, length?: number): MsgCreateuser;
@@ -462,6 +469,20 @@ export declare const MsgSubmitCollectionProposalResponse: {
     toJSON(_: MsgSubmitCollectionProposalResponse): unknown;
     fromPartial(_: DeepPartial<MsgSubmitCollectionProposalResponse>): MsgSubmitCollectionProposalResponse;
 };
+export declare const MsgCreateSellOffer: {
+    encode(message: MsgCreateSellOffer, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgCreateSellOffer;
+    fromJSON(object: any): MsgCreateSellOffer;
+    toJSON(message: MsgCreateSellOffer): unknown;
+    fromPartial(object: DeepPartial<MsgCreateSellOffer>): MsgCreateSellOffer;
+};
+export declare const MsgCreateSellOfferResponse: {
+    encode(_: MsgCreateSellOfferResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgCreateSellOfferResponse;
+    fromJSON(_: any): MsgCreateSellOfferResponse;
+    toJSON(_: MsgCreateSellOfferResponse): unknown;
+    fromPartial(_: DeepPartial<MsgCreateSellOfferResponse>): MsgCreateSellOfferResponse;
+};
 /** Msg defines the Msg service. */
 export interface Msg {
     Createuser(request: MsgCreateuser): Promise<MsgCreateuserResponse>;
@@ -484,8 +505,9 @@ export interface Msg {
     RemoveCardFromCollection(request: MsgRemoveCardFromCollection): Promise<MsgRemoveCardFromCollectionResponse>;
     RemoveContributorFromCollection(request: MsgRemoveContributorFromCollection): Promise<MsgRemoveContributorFromCollectionResponse>;
     AddContributorToCollection(request: MsgAddContributorToCollection): Promise<MsgAddContributorToCollectionResponse>;
-    /** this line is used by starport scaffolding # proto/tx/rpc */
     SubmitCollectionProposal(request: MsgSubmitCollectionProposal): Promise<MsgSubmitCollectionProposalResponse>;
+    /** this line is used by starport scaffolding # proto/tx/rpc */
+    CreateSellOffer(request: MsgCreateSellOffer): Promise<MsgCreateSellOfferResponse>;
 }
 export declare class MsgClientImpl implements Msg {
     private readonly rpc;
@@ -511,6 +533,7 @@ export declare class MsgClientImpl implements Msg {
     RemoveContributorFromCollection(request: MsgRemoveContributorFromCollection): Promise<MsgRemoveContributorFromCollectionResponse>;
     AddContributorToCollection(request: MsgAddContributorToCollection): Promise<MsgAddContributorToCollectionResponse>;
     SubmitCollectionProposal(request: MsgSubmitCollectionProposal): Promise<MsgSubmitCollectionProposalResponse>;
+    CreateSellOffer(request: MsgCreateSellOffer): Promise<MsgCreateSellOfferResponse>;
 }
 interface Rpc {
     request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;

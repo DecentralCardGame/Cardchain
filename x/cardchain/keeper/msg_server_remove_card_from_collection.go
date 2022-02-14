@@ -38,5 +38,5 @@ func uintPopElementFromArr(element uint64, arr []uint64) ([]uint64, error) {
 			return append(arr[:idx], arr[idx+1:]...), nil
 		}
 	}
-	return []uint64{}, types.ErrCardNotInCollection
+	return []uint64{}, types.ErrCardNotThere
 }

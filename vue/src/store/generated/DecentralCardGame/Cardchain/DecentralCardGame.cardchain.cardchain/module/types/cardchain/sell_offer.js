@@ -1,5 +1,6 @@
 /* eslint-disable */
-import { Writer, Reader } from "protobufjs/minimal";
+import * as Long from "long";
+import { util, configure, Writer, Reader } from "protobufjs/minimal";
 export const protobufPackage = "DecentralCardGame.cardchain.cardchain";
 export var SellOfferStatus;
 (function (SellOfferStatus) {
@@ -37,7 +38,13 @@ export function sellOfferStatusToJSON(object) {
             return "UNKNOWN";
     }
 }
-const baseSellOffer = { seller: "", buyer: "", card: "", status: 0 };
+const baseSellOffer = {
+    seller: "",
+    buyer: "",
+    card: 0,
+    price: 0,
+    status: 0,
+};
 export const SellOffer = {
     encode(message, writer = Writer.create()) {
         if (message.seller !== "") {
@@ -46,11 +53,14 @@ export const SellOffer = {
         if (message.buyer !== "") {
             writer.uint32(18).string(message.buyer);
         }
-        if (message.card !== "") {
-            writer.uint32(26).string(message.card);
+        if (message.card !== 0) {
+            writer.uint32(24).uint64(message.card);
+        }
+        if (message.price !== 0) {
+            writer.uint32(32).uint64(message.price);
         }
         if (message.status !== 0) {
-            writer.uint32(32).int32(message.status);
+            writer.uint32(40).int32(message.status);
         }
         return writer;
     },
@@ -68,9 +78,12 @@ export const SellOffer = {
                     message.buyer = reader.string();
                     break;
                 case 3:
-                    message.card = reader.string();
+                    message.card = longToNumber(reader.uint64());
                     break;
                 case 4:
+                    message.price = longToNumber(reader.uint64());
+                    break;
+                case 5:
                     message.status = reader.int32();
                     break;
                 default:
@@ -95,10 +108,16 @@ export const SellOffer = {
             message.buyer = "";
         }
         if (object.card !== undefined && object.card !== null) {
-            message.card = String(object.card);
+            message.card = Number(object.card);
         }
         else {
-            message.card = "";
+            message.card = 0;
+        }
+        if (object.price !== undefined && object.price !== null) {
+            message.price = Number(object.price);
+        }
+        else {
+            message.price = 0;
         }
         if (object.status !== undefined && object.status !== null) {
             message.status = sellOfferStatusFromJSON(object.status);
@@ -113,6 +132,7 @@ export const SellOffer = {
         message.seller !== undefined && (obj.seller = message.seller);
         message.buyer !== undefined && (obj.buyer = message.buyer);
         message.card !== undefined && (obj.card = message.card);
+        message.price !== undefined && (obj.price = message.price);
         message.status !== undefined &&
             (obj.status = sellOfferStatusToJSON(message.status));
         return obj;
@@ -135,7 +155,13 @@ export const SellOffer = {
             message.card = object.card;
         }
         else {
-            message.card = "";
+            message.card = 0;
+        }
+        if (object.price !== undefined && object.price !== null) {
+            message.price = object.price;
+        }
+        else {
+            message.price = 0;
         }
         if (object.status !== undefined && object.status !== null) {
             message.status = object.status;
@@ -146,3 +172,24 @@ export const SellOffer = {
         return message;
     },
 };
+var globalThis = (() => {
+    if (typeof globalThis !== "undefined")
+        return globalThis;
+    if (typeof self !== "undefined")
+        return self;
+    if (typeof window !== "undefined")
+        return window;
+    if (typeof global !== "undefined")
+        return global;
+    throw "Unable to locate global object";
+})();
+function longToNumber(long) {
+    if (long.gt(Number.MAX_SAFE_INTEGER)) {
+        throw new globalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
+    }
+    return long.toNumber();
+}
+if (util.Long !== Long) {
+    util.Long = Long;
+    configure();
+}

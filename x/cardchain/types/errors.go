@@ -18,6 +18,6 @@ var (
 	ErrCollectionSize          = sdkerrors.Register(ModuleName, 7, "Collection size is bad")
 	ErrCardAlreadyInCollection = sdkerrors.Register(ModuleName, 8, "Card already in collection")
 	ErrNoActiveCollection      = sdkerrors.Register(ModuleName, 9, "No active collection")
-	ErrCardNotInCollection     = sdkerrors.Register(ModuleName, 10, "Card not in collection")
+	ErrCardNotThere            = sdkerrors.Register(ModuleName, 10, "Card not there")
 	ErrContributor             = sdkerrors.Register(ModuleName, 11, "Contributor error")
 )

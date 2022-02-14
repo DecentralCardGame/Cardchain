@@ -7,8 +7,9 @@ message SellOffer {
 
   string seller = 1;
   string buyer = 2;
-  string card = 3;
-  SellOfferStatus status = 4;
+  uint64 card = 3;
+  uint64 price = 4;
+  SellOfferStatus status = 5;
 }
 
 enum SellOfferStatus {

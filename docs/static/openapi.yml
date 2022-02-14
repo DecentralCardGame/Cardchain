@@ -20380,6 +20380,8 @@ definitions:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgCreateCollectionResponse:
     type: object
+  DecentralCardGame.cardchain.cardchain.MsgCreateSellOfferResponse:
+    type: object
   DecentralCardGame.cardchain.cardchain.MsgCreateuserResponse:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgDonateToCardResponse:

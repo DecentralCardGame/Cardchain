@@ -25,7 +25,7 @@ type (
 		MatchesStoreKey     sdk.StoreKey
 		CollectionsStoreKey sdk.StoreKey
 		InternalStoreKey    sdk.StoreKey
-		SellOffersStoreKey	sdk.StoreKey
+		SellOffersStoreKey  sdk.StoreKey
 		paramstore          paramtypes.Subspace
 
 		BankKeeper types.BankKeeper
