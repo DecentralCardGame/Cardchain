@@ -12236,6 +12236,59 @@ paths:
           format: uint64
       tags:
         - Query
+  '/DecentralCardGame/cardchain/cardchain/q_sell_offer/{sellOfferId}':
+    get:
+      summary: Queries a list of QSellOffer items.
+      operationId: DecentralCardGameCardchainCardchainQSellOffer
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              seller:
+                type: string
+              buyer:
+                type: string
+              card:
+                type: string
+                format: uint64
+              price:
+                type: string
+                format: uint64
+              status:
+                type: string
+                enum:
+                  - open
+                  - sold
+                  - removed
+                default: open
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: sellOfferId
+          in: path
+          required: true
+          type: string
+          format: uint64
+      tags:
+        - Query
   '/DecentralCardGame/cardchain/cardchain/q_user/{address}':
     get:
       summary: Queries a list of QUser items.
@@ -20574,6 +20627,26 @@ definitions:
           - Draw
           - Aborted
         default: AWon
+  DecentralCardGame.cardchain.cardchain.QueryQSellOfferResponse:
+    type: object
+    properties:
+      seller:
+        type: string
+      buyer:
+        type: string
+      card:
+        type: string
+        format: uint64
+      price:
+        type: string
+        format: uint64
+      status:
+        type: string
+        enum:
+          - open
+          - sold
+          - removed
+        default: open
   DecentralCardGame.cardchain.cardchain.QueryQUserResponse:
     type: object
     properties:
@@ -20678,6 +20751,13 @@ definitions:
                   type: string
           notes:
             type: string
+  DecentralCardGame.cardchain.cardchain.SellOfferStatus:
+    type: string
+    enum:
+      - open
+      - sold
+      - removed
+    default: open
   DecentralCardGame.cardchain.cardchain.Status:
     type: string
     enum:

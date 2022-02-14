@@ -10,6 +10,7 @@ import "cardchain/voting_results.proto";
 import "cardchain/card.proto";
 import "cardchain/user.proto";
 import "cardchain/collection.proto";
+import "cardchain/sell_offer.proto";
 import "cardchain/tx.proto";
 
 // this line is used by starport scaffolding # 1
@@ -65,6 +66,11 @@ service Query {
 // Queries a list of QCollection items.
 	rpc QCollection(QueryQCollectionRequest) returns (QueryQCollectionResponse) {
 		option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/q_collection/{collectionId}";
+	}
+
+// Queries a list of QSellOffer items.
+	rpc QSellOffer(QueryQSellOfferRequest) returns (QueryQSellOfferResponse) {
+		option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/q_sell_offer/{sellOfferId}";
 	}
 
 // this line is used by starport scaffolding # 2
@@ -185,6 +191,18 @@ message QueryQCollectionResponse {
   bytes artwork = 5;
   CStatus status = 6;
   int64 timeStamp = 7;
+}
+
+message QueryQSellOfferRequest {
+  uint64 sellOfferId = 1;
+}
+
+message QueryQSellOfferResponse {
+  string seller = 1;
+  string buyer = 2;
+  uint64 card = 3;
+  uint64 price = 4;
+  SellOfferStatus status = 5;
 }
 
 // this line is used by starport scaffolding # 3

@@ -164,6 +164,18 @@ export interface CardchainQueryQMatchResponse {
   outcome?: CardchainOutcome;
 }
 
+export interface CardchainQueryQSellOfferResponse {
+  seller?: string;
+  buyer?: string;
+
+  /** @format uint64 */
+  card?: string;
+
+  /** @format uint64 */
+  price?: string;
+  status?: CardchainSellOfferStatus;
+}
+
 export interface CardchainQueryQUserResponse {
   alias?: string;
   ownedCardSchemes?: string[];
@@ -182,6 +194,12 @@ export interface CardchainQueryQVotableCardsResponse {
 
 export interface CardchainQueryQVotingResultsResponse {
   lastVotingResults?: CardchainVotingResults;
+}
+
+export enum CardchainSellOfferStatus {
+  Open = "open",
+  Sold = "sold",
+  Removed = "removed",
 }
 
 export interface CardchainVoteRight {
@@ -574,6 +592,22 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
   queryQMatch = (matchId: string, params: RequestParams = {}) =>
     this.request<CardchainQueryQMatchResponse, GooglerpcStatus>({
       path: `/DecentralCardGame/cardchain/cardchain/q_match/${matchId}`,
+      method: "GET",
+      format: "json",
+      ...params,
+    });
+
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QueryQSellOffer
+   * @summary Queries a list of QSellOffer items.
+   * @request GET:/DecentralCardGame/cardchain/cardchain/q_sell_offer/{sellOfferId}
+   */
+  queryQSellOffer = (sellOfferId: string, params: RequestParams = {}) =>
+    this.request<CardchainQueryQSellOfferResponse, GooglerpcStatus>({
+      path: `/DecentralCardGame/cardchain/cardchain/q_sell_offer/${sellOfferId}`,
       method: "GET",
       format: "json",
       ...params,

@@ -110,6 +110,15 @@ export interface CardchainQueryQMatchResponse {
     playerB?: string;
     outcome?: CardchainOutcome;
 }
+export interface CardchainQueryQSellOfferResponse {
+    seller?: string;
+    buyer?: string;
+    /** @format uint64 */
+    card?: string;
+    /** @format uint64 */
+    price?: string;
+    status?: CardchainSellOfferStatus;
+}
 export interface CardchainQueryQUserResponse {
     alias?: string;
     ownedCardSchemes?: string[];
@@ -126,6 +135,11 @@ export interface CardchainQueryQVotableCardsResponse {
 }
 export interface CardchainQueryQVotingResultsResponse {
     lastVotingResults?: CardchainVotingResults;
+}
+export declare enum CardchainSellOfferStatus {
+    Open = "open",
+    Sold = "sold",
+    Removed = "removed"
 }
 export interface CardchainVoteRight {
     /** @format uint64 */
@@ -301,6 +315,15 @@ export declare class Api<SecurityDataType extends unknown> extends HttpClient<Se
      * @request GET:/DecentralCardGame/cardchain/cardchain/q_match/{matchId}
      */
     queryQMatch: (matchId: string, params?: RequestParams) => Promise<HttpResponse<CardchainQueryQMatchResponse, GooglerpcStatus>>;
+    /**
+     * No description
+     *
+     * @tags Query
+     * @name QueryQSellOffer
+     * @summary Queries a list of QSellOffer items.
+     * @request GET:/DecentralCardGame/cardchain/cardchain/q_sell_offer/{sellOfferId}
+     */
+    queryQSellOffer: (sellOfferId: string, params?: RequestParams) => Promise<HttpResponse<CardchainQueryQSellOfferResponse, GooglerpcStatus>>;
     /**
      * No description
      *

@@ -29,9 +29,9 @@ func (k msgServer) CreateSellOffer(goCtx context.Context, msg *types.MsgCreateSe
 	sellOfferId := k.GetSellOffersNumber(ctx)
 	sellOffer := types.SellOffer{
 		Seller: msg.Creator,
-		Buyer: "",
-		Card: msg.Card,
-		Price: msg.Price,
+		Buyer:  "",
+		Card:   msg.Card,
+		Price:  msg.Price,
 		Status: types.SellOfferStatus_open,
 	}
 

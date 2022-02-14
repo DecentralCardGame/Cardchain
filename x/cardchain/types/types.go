@@ -10,7 +10,7 @@ import (
 func NewUser() User {
 	return User{
 		Alias:            "newPlayer",
-		Cards:						[]uint64{},
+		Cards:            []uint64{},
 		OwnedCardSchemes: []uint64{},
 		OwnedPrototypes:  []uint64{},
 		VoteRights:       []*VoteRight{},
