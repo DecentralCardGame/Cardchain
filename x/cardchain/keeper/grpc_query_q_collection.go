@@ -21,6 +21,8 @@ func (k Keeper) QCollection(goCtx context.Context, req *types.QueryQCollectionRe
 	return &types.QueryQCollectionResponse{
 		collection.Name,
 		collection.Cards,
+		collection.Artist,
+		collection.StoryWriter,
 		collection.Contributors,
 		collection.Story,
 		collection.Artwork,

@@ -96,6 +96,8 @@ export interface CardchainQueryQCardsResponse {
 export interface CardchainQueryQCollectionResponse {
     name?: string;
     cards?: string[];
+    artist?: string;
+    storyWriter?: string;
     contributors?: string[];
     story?: string;
     /** @format byte */

@@ -100,6 +100,8 @@ export interface QueryQCollectionRequest {
 export interface QueryQCollectionResponse {
     name: string;
     cards: number[];
+    artist: string;
+    storyWriter: string;
     contributors: string[];
     story: string;
     artwork: Uint8Array;

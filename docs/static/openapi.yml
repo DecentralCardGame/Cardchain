@@ -12137,6 +12137,10 @@ paths:
                 items:
                   type: string
                   format: uint64
+              artist:
+                type: string
+              storyWriter:
+                type: string
               contributors:
                 type: array
                 items:
@@ -20591,6 +20595,10 @@ definitions:
         items:
           type: string
           format: uint64
+      artist:
+        type: string
+      storyWriter:
+        type: string
       contributors:
         type: array
         items:
