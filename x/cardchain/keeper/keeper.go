@@ -25,6 +25,7 @@ type (
 		MatchesStoreKey     sdk.StoreKey
 		CollectionsStoreKey sdk.StoreKey
 		InternalStoreKey    sdk.StoreKey
+		SellOffersStoreKey  sdk.StoreKey
 		paramstore          paramtypes.Subspace
 
 		BankKeeper types.BankKeeper
@@ -37,6 +38,7 @@ func NewKeeper(
 	cardsStoreKey sdk.StoreKey,
 	matchesStorekey sdk.StoreKey,
 	collectionsStoreKey sdk.StoreKey,
+	sellOffersStoreKey sdk.StoreKey,
 	internalStoreKey sdk.StoreKey,
 	ps paramtypes.Subspace,
 
@@ -53,6 +55,7 @@ func NewKeeper(
 		CardsStoreKey:       cardsStoreKey,
 		MatchesStoreKey:     matchesStorekey,
 		CollectionsStoreKey: collectionsStoreKey,
+		SellOffersStoreKey:  sellOffersStoreKey,
 		InternalStoreKey:    internalStoreKey,
 		paramstore:          ps,
 		BankKeeper:          bankKeeper,
@@ -157,6 +160,51 @@ func (k Keeper) CalculateMatchReward(outcome types.Outcome) (int64, int64) {
 		amB = 1
 	}
 	return amA, amB
+}
+
+////////////////
+// SellOffers //
+////////////////
+
+func (k Keeper) GetSellOffer(ctx sdk.Context, sellOfferId uint64) types.SellOffer {
+	store := ctx.KVStore(k.SellOffersStoreKey)
+	bz := store.Get(sdk.Uint64ToBigEndian(sellOfferId))
+
+	var gottenSellOffer types.SellOffer
+	k.cdc.MustUnmarshal(bz, &gottenSellOffer)
+	return gottenSellOffer
+}
+
+func (k Keeper) SetSellOffer(ctx sdk.Context, sellOfferId uint64, newSellOffer types.SellOffer) {
+	store := ctx.KVStore(k.SellOffersStoreKey)
+	store.Set(sdk.Uint64ToBigEndian(sellOfferId), k.cdc.MustMarshal(&newSellOffer))
+}
+
+func (k Keeper) GetSellOffersIterator(ctx sdk.Context) sdk.Iterator {
+	store := ctx.KVStore(k.SellOffersStoreKey)
+	return sdk.KVStorePrefixIterator(store, nil)
+}
+
+func (k Keeper) GetAllSellOffers(ctx sdk.Context) []*types.SellOffer {
+	var allSellOfferes []*types.SellOffer
+	iterator := k.GetSellOffersIterator(ctx)
+	for ; iterator.Valid(); iterator.Next() {
+
+		var gottenSellOffer types.SellOffer
+		k.cdc.MustUnmarshal(iterator.Value(), &gottenSellOffer)
+
+		allSellOfferes = append(allSellOfferes, &gottenSellOffer)
+	}
+	return allSellOfferes
+}
+
+func (k Keeper) GetSellOffersNumber(ctx sdk.Context) uint64 {
+	var sellOfferId uint64
+	iterator := k.GetSellOffersIterator(ctx)
+	for ; iterator.Valid(); iterator.Next() {
+		sellOfferId++
+	}
+	return sellOfferId
 }
 
 /////////////////

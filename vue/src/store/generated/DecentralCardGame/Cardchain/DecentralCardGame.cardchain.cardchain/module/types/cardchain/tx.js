@@ -2974,6 +2974,345 @@ export const MsgSubmitCollectionProposalResponse = {
         return message;
     },
 };
+const baseMsgCreateSellOffer = { creator: "", card: 0, price: 0 };
+export const MsgCreateSellOffer = {
+    encode(message, writer = Writer.create()) {
+        if (message.creator !== "") {
+            writer.uint32(10).string(message.creator);
+        }
+        if (message.card !== 0) {
+            writer.uint32(16).uint64(message.card);
+        }
+        if (message.price !== 0) {
+            writer.uint32(24).uint64(message.price);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = { ...baseMsgCreateSellOffer };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.creator = reader.string();
+                    break;
+                case 2:
+                    message.card = longToNumber(reader.uint64());
+                    break;
+                case 3:
+                    message.price = longToNumber(reader.uint64());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = { ...baseMsgCreateSellOffer };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = String(object.creator);
+        }
+        else {
+            message.creator = "";
+        }
+        if (object.card !== undefined && object.card !== null) {
+            message.card = Number(object.card);
+        }
+        else {
+            message.card = 0;
+        }
+        if (object.price !== undefined && object.price !== null) {
+            message.price = Number(object.price);
+        }
+        else {
+            message.price = 0;
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.creator !== undefined && (obj.creator = message.creator);
+        message.card !== undefined && (obj.card = message.card);
+        message.price !== undefined && (obj.price = message.price);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = { ...baseMsgCreateSellOffer };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = object.creator;
+        }
+        else {
+            message.creator = "";
+        }
+        if (object.card !== undefined && object.card !== null) {
+            message.card = object.card;
+        }
+        else {
+            message.card = 0;
+        }
+        if (object.price !== undefined && object.price !== null) {
+            message.price = object.price;
+        }
+        else {
+            message.price = 0;
+        }
+        return message;
+    },
+};
+const baseMsgCreateSellOfferResponse = {};
+export const MsgCreateSellOfferResponse = {
+    encode(_, writer = Writer.create()) {
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = {
+            ...baseMsgCreateSellOfferResponse,
+        };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(_) {
+        const message = {
+            ...baseMsgCreateSellOfferResponse,
+        };
+        return message;
+    },
+    toJSON(_) {
+        const obj = {};
+        return obj;
+    },
+    fromPartial(_) {
+        const message = {
+            ...baseMsgCreateSellOfferResponse,
+        };
+        return message;
+    },
+};
+const baseMsgBuyCard = { creator: "", sellOfferId: 0 };
+export const MsgBuyCard = {
+    encode(message, writer = Writer.create()) {
+        if (message.creator !== "") {
+            writer.uint32(10).string(message.creator);
+        }
+        if (message.sellOfferId !== 0) {
+            writer.uint32(16).uint64(message.sellOfferId);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = { ...baseMsgBuyCard };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.creator = reader.string();
+                    break;
+                case 2:
+                    message.sellOfferId = longToNumber(reader.uint64());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = { ...baseMsgBuyCard };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = String(object.creator);
+        }
+        else {
+            message.creator = "";
+        }
+        if (object.sellOfferId !== undefined && object.sellOfferId !== null) {
+            message.sellOfferId = Number(object.sellOfferId);
+        }
+        else {
+            message.sellOfferId = 0;
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.creator !== undefined && (obj.creator = message.creator);
+        message.sellOfferId !== undefined &&
+            (obj.sellOfferId = message.sellOfferId);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = { ...baseMsgBuyCard };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = object.creator;
+        }
+        else {
+            message.creator = "";
+        }
+        if (object.sellOfferId !== undefined && object.sellOfferId !== null) {
+            message.sellOfferId = object.sellOfferId;
+        }
+        else {
+            message.sellOfferId = 0;
+        }
+        return message;
+    },
+};
+const baseMsgBuyCardResponse = {};
+export const MsgBuyCardResponse = {
+    encode(_, writer = Writer.create()) {
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = { ...baseMsgBuyCardResponse };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(_) {
+        const message = { ...baseMsgBuyCardResponse };
+        return message;
+    },
+    toJSON(_) {
+        const obj = {};
+        return obj;
+    },
+    fromPartial(_) {
+        const message = { ...baseMsgBuyCardResponse };
+        return message;
+    },
+};
+const baseMsgRemoveSellOffer = { creator: "", sellOfferId: 0 };
+export const MsgRemoveSellOffer = {
+    encode(message, writer = Writer.create()) {
+        if (message.creator !== "") {
+            writer.uint32(10).string(message.creator);
+        }
+        if (message.sellOfferId !== 0) {
+            writer.uint32(16).uint64(message.sellOfferId);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = { ...baseMsgRemoveSellOffer };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.creator = reader.string();
+                    break;
+                case 2:
+                    message.sellOfferId = longToNumber(reader.uint64());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = { ...baseMsgRemoveSellOffer };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = String(object.creator);
+        }
+        else {
+            message.creator = "";
+        }
+        if (object.sellOfferId !== undefined && object.sellOfferId !== null) {
+            message.sellOfferId = Number(object.sellOfferId);
+        }
+        else {
+            message.sellOfferId = 0;
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.creator !== undefined && (obj.creator = message.creator);
+        message.sellOfferId !== undefined &&
+            (obj.sellOfferId = message.sellOfferId);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = { ...baseMsgRemoveSellOffer };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = object.creator;
+        }
+        else {
+            message.creator = "";
+        }
+        if (object.sellOfferId !== undefined && object.sellOfferId !== null) {
+            message.sellOfferId = object.sellOfferId;
+        }
+        else {
+            message.sellOfferId = 0;
+        }
+        return message;
+    },
+};
+const baseMsgRemoveSellOfferResponse = {};
+export const MsgRemoveSellOfferResponse = {
+    encode(_, writer = Writer.create()) {
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = {
+            ...baseMsgRemoveSellOfferResponse,
+        };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(_) {
+        const message = {
+            ...baseMsgRemoveSellOfferResponse,
+        };
+        return message;
+    },
+    toJSON(_) {
+        const obj = {};
+        return obj;
+    },
+    fromPartial(_) {
+        const message = {
+            ...baseMsgRemoveSellOfferResponse,
+        };
+        return message;
+    },
+};
 export class MsgClientImpl {
     constructor(rpc) {
         this.rpc = rpc;
@@ -3082,6 +3421,21 @@ export class MsgClientImpl {
         const data = MsgSubmitCollectionProposal.encode(request).finish();
         const promise = this.rpc.request("DecentralCardGame.cardchain.cardchain.Msg", "SubmitCollectionProposal", data);
         return promise.then((data) => MsgSubmitCollectionProposalResponse.decode(new Reader(data)));
+    }
+    CreateSellOffer(request) {
+        const data = MsgCreateSellOffer.encode(request).finish();
+        const promise = this.rpc.request("DecentralCardGame.cardchain.cardchain.Msg", "CreateSellOffer", data);
+        return promise.then((data) => MsgCreateSellOfferResponse.decode(new Reader(data)));
+    }
+    BuyCard(request) {
+        const data = MsgBuyCard.encode(request).finish();
+        const promise = this.rpc.request("DecentralCardGame.cardchain.cardchain.Msg", "BuyCard", data);
+        return promise.then((data) => MsgBuyCardResponse.decode(new Reader(data)));
+    }
+    RemoveSellOffer(request) {
+        const data = MsgRemoveSellOffer.encode(request).finish();
+        const promise = this.rpc.request("DecentralCardGame.cardchain.cardchain.Msg", "RemoveSellOffer", data);
+        return promise.then((data) => MsgRemoveSellOfferResponse.decode(new Reader(data)));
     }
 }
 var globalThis = (() => {

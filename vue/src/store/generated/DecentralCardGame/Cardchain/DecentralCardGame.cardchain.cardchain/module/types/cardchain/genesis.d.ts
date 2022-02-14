@@ -4,6 +4,7 @@ import { Card } from "../cardchain/card";
 import { User } from "../cardchain/user";
 import { Match } from "../cardchain/match";
 import { Collection } from "../cardchain/collection";
+import { SellOffer } from "../cardchain/sell_offer";
 export declare const protobufPackage = "DecentralCardGame.cardchain.cardchain";
 /** GenesisState defines the cardchain module's genesis state. */
 export interface GenesisState {
@@ -13,8 +14,9 @@ export interface GenesisState {
     addresses: string[];
     lastCardSchemeId: number;
     matches: Match[];
-    /** this line is used by starport scaffolding # genesis/proto/state */
     collections: Collection[];
+    /** this line is used by starport scaffolding # genesis/proto/state */
+    sellOffers: SellOffer[];
 }
 export declare const GenesisState: {
     encode(message: GenesisState, writer?: Writer): Writer;

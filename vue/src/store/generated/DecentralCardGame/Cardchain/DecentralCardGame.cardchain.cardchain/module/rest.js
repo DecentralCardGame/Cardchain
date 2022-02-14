@@ -29,6 +29,12 @@ export var CardchainOutcome;
     CardchainOutcome["Draw"] = "Draw";
     CardchainOutcome["Aborted"] = "Aborted";
 })(CardchainOutcome || (CardchainOutcome = {}));
+export var CardchainSellOfferStatus;
+(function (CardchainSellOfferStatus) {
+    CardchainSellOfferStatus["Open"] = "open";
+    CardchainSellOfferStatus["Sold"] = "sold";
+    CardchainSellOfferStatus["Removed"] = "removed";
+})(CardchainSellOfferStatus || (CardchainSellOfferStatus = {}));
 export var CardchaincardchainStatus;
 (function (CardchaincardchainStatus) {
     CardchaincardchainStatus["Scheme"] = "scheme";
@@ -263,6 +269,20 @@ export class Api extends HttpClient {
          */
         this.queryQMatch = (matchId, params = {}) => this.request({
             path: `/DecentralCardGame/cardchain/cardchain/q_match/${matchId}`,
+            method: "GET",
+            format: "json",
+            ...params,
+        });
+        /**
+         * No description
+         *
+         * @tags Query
+         * @name QueryQSellOffer
+         * @summary Queries a list of QSellOffer items.
+         * @request GET:/DecentralCardGame/cardchain/cardchain/q_sell_offer/{sellOfferId}
+         */
+        this.queryQSellOffer = (sellOfferId, params = {}) => this.request({
+            path: `/DecentralCardGame/cardchain/cardchain/q_sell_offer/${sellOfferId}`,
             method: "GET",
             format: "json",
             ...params,

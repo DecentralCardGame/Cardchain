@@ -11,6 +11,11 @@ import {
   cStatusFromJSON,
   cStatusToJSON,
 } from "../cardchain/collection";
+import {
+  SellOfferStatus,
+  sellOfferStatusFromJSON,
+  sellOfferStatusToJSON,
+} from "../cardchain/sell_offer";
 import { Reader, util, configure, Writer } from "protobufjs/minimal";
 import * as Long from "long";
 import { Params } from "../cardchain/params";
@@ -132,6 +137,18 @@ export interface QueryQCollectionResponse {
   artwork: Uint8Array;
   status: CStatus;
   timeStamp: number;
+}
+
+export interface QueryQSellOfferRequest {
+  sellOfferId: number;
+}
+
+export interface QueryQSellOfferResponse {
+  seller: string;
+  buyer: string;
+  card: number;
+  price: number;
+  status: SellOfferStatus;
 }
 
 const baseQueryParamsRequest: object = {};
@@ -2257,6 +2274,208 @@ export const QueryQCollectionResponse = {
   },
 };
 
+const baseQueryQSellOfferRequest: object = { sellOfferId: 0 };
+
+export const QueryQSellOfferRequest = {
+  encode(
+    message: QueryQSellOfferRequest,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.sellOfferId !== 0) {
+      writer.uint32(8).uint64(message.sellOfferId);
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): QueryQSellOfferRequest {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseQueryQSellOfferRequest } as QueryQSellOfferRequest;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.sellOfferId = longToNumber(reader.uint64() as Long);
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryQSellOfferRequest {
+    const message = { ...baseQueryQSellOfferRequest } as QueryQSellOfferRequest;
+    if (object.sellOfferId !== undefined && object.sellOfferId !== null) {
+      message.sellOfferId = Number(object.sellOfferId);
+    } else {
+      message.sellOfferId = 0;
+    }
+    return message;
+  },
+
+  toJSON(message: QueryQSellOfferRequest): unknown {
+    const obj: any = {};
+    message.sellOfferId !== undefined &&
+      (obj.sellOfferId = message.sellOfferId);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<QueryQSellOfferRequest>
+  ): QueryQSellOfferRequest {
+    const message = { ...baseQueryQSellOfferRequest } as QueryQSellOfferRequest;
+    if (object.sellOfferId !== undefined && object.sellOfferId !== null) {
+      message.sellOfferId = object.sellOfferId;
+    } else {
+      message.sellOfferId = 0;
+    }
+    return message;
+  },
+};
+
+const baseQueryQSellOfferResponse: object = {
+  seller: "",
+  buyer: "",
+  card: 0,
+  price: 0,
+  status: 0,
+};
+
+export const QueryQSellOfferResponse = {
+  encode(
+    message: QueryQSellOfferResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.seller !== "") {
+      writer.uint32(10).string(message.seller);
+    }
+    if (message.buyer !== "") {
+      writer.uint32(18).string(message.buyer);
+    }
+    if (message.card !== 0) {
+      writer.uint32(24).uint64(message.card);
+    }
+    if (message.price !== 0) {
+      writer.uint32(32).uint64(message.price);
+    }
+    if (message.status !== 0) {
+      writer.uint32(40).int32(message.status);
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): QueryQSellOfferResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseQueryQSellOfferResponse,
+    } as QueryQSellOfferResponse;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.seller = reader.string();
+          break;
+        case 2:
+          message.buyer = reader.string();
+          break;
+        case 3:
+          message.card = longToNumber(reader.uint64() as Long);
+          break;
+        case 4:
+          message.price = longToNumber(reader.uint64() as Long);
+          break;
+        case 5:
+          message.status = reader.int32() as any;
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryQSellOfferResponse {
+    const message = {
+      ...baseQueryQSellOfferResponse,
+    } as QueryQSellOfferResponse;
+    if (object.seller !== undefined && object.seller !== null) {
+      message.seller = String(object.seller);
+    } else {
+      message.seller = "";
+    }
+    if (object.buyer !== undefined && object.buyer !== null) {
+      message.buyer = String(object.buyer);
+    } else {
+      message.buyer = "";
+    }
+    if (object.card !== undefined && object.card !== null) {
+      message.card = Number(object.card);
+    } else {
+      message.card = 0;
+    }
+    if (object.price !== undefined && object.price !== null) {
+      message.price = Number(object.price);
+    } else {
+      message.price = 0;
+    }
+    if (object.status !== undefined && object.status !== null) {
+      message.status = sellOfferStatusFromJSON(object.status);
+    } else {
+      message.status = 0;
+    }
+    return message;
+  },
+
+  toJSON(message: QueryQSellOfferResponse): unknown {
+    const obj: any = {};
+    message.seller !== undefined && (obj.seller = message.seller);
+    message.buyer !== undefined && (obj.buyer = message.buyer);
+    message.card !== undefined && (obj.card = message.card);
+    message.price !== undefined && (obj.price = message.price);
+    message.status !== undefined &&
+      (obj.status = sellOfferStatusToJSON(message.status));
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<QueryQSellOfferResponse>
+  ): QueryQSellOfferResponse {
+    const message = {
+      ...baseQueryQSellOfferResponse,
+    } as QueryQSellOfferResponse;
+    if (object.seller !== undefined && object.seller !== null) {
+      message.seller = object.seller;
+    } else {
+      message.seller = "";
+    }
+    if (object.buyer !== undefined && object.buyer !== null) {
+      message.buyer = object.buyer;
+    } else {
+      message.buyer = "";
+    }
+    if (object.card !== undefined && object.card !== null) {
+      message.card = object.card;
+    } else {
+      message.card = 0;
+    }
+    if (object.price !== undefined && object.price !== null) {
+      message.price = object.price;
+    } else {
+      message.price = 0;
+    }
+    if (object.status !== undefined && object.status !== null) {
+      message.status = object.status;
+    } else {
+      message.status = 0;
+    }
+    return message;
+  },
+};
+
 /** Query defines the gRPC querier service. */
 export interface Query {
   /** Parameters queries the parameters of the module. */
@@ -2289,6 +2508,8 @@ export interface Query {
   QCollection(
     request: QueryQCollectionRequest
   ): Promise<QueryQCollectionResponse>;
+  /** Queries a list of QSellOffer items. */
+  QSellOffer(request: QueryQSellOfferRequest): Promise<QueryQSellOfferResponse>;
 }
 
 export class QueryClientImpl implements Query {
@@ -2413,6 +2634,20 @@ export class QueryClientImpl implements Query {
     );
     return promise.then((data) =>
       QueryQCollectionResponse.decode(new Reader(data))
+    );
+  }
+
+  QSellOffer(
+    request: QueryQSellOfferRequest
+  ): Promise<QueryQSellOfferResponse> {
+    const data = QueryQSellOfferRequest.encode(request).finish();
+    const promise = this.rpc.request(
+      "DecentralCardGame.cardchain.cardchain.Query",
+      "QSellOffer",
+      data
+    );
+    return promise.then((data) =>
+      QueryQSellOfferResponse.decode(new Reader(data))
     );
   }
 }

@@ -14,16 +14,19 @@ export declare type CardchainMsgAddArtworkResponse = object;
 export declare type CardchainMsgAddCardToCollectionResponse = object;
 export declare type CardchainMsgAddContributorToCollectionResponse = object;
 export declare type CardchainMsgApointMatchReporterResponse = object;
+export declare type CardchainMsgBuyCardResponse = object;
 export declare type CardchainMsgBuyCardSchemeResponse = object;
 export declare type CardchainMsgBuyCollectionResponse = object;
 export declare type CardchainMsgChangeArtistResponse = object;
 export declare type CardchainMsgCreateCollectionResponse = object;
+export declare type CardchainMsgCreateSellOfferResponse = object;
 export declare type CardchainMsgCreateuserResponse = object;
 export declare type CardchainMsgDonateToCardResponse = object;
 export declare type CardchainMsgFinalizeCollectionResponse = object;
 export declare type CardchainMsgRegisterForCouncilResponse = object;
 export declare type CardchainMsgRemoveCardFromCollectionResponse = object;
 export declare type CardchainMsgRemoveContributorFromCollectionResponse = object;
+export declare type CardchainMsgRemoveSellOfferResponse = object;
 export interface CardchainMsgReportMatchResponse {
     /** @format uint64 */
     matchId?: string;
@@ -109,6 +112,15 @@ export interface CardchainQueryQMatchResponse {
     playerB?: string;
     outcome?: CardchainOutcome;
 }
+export interface CardchainQueryQSellOfferResponse {
+    seller?: string;
+    buyer?: string;
+    /** @format uint64 */
+    card?: string;
+    /** @format uint64 */
+    price?: string;
+    status?: CardchainSellOfferStatus;
+}
 export interface CardchainQueryQUserResponse {
     alias?: string;
     ownedCardSchemes?: string[];
@@ -125,6 +137,11 @@ export interface CardchainQueryQVotableCardsResponse {
 }
 export interface CardchainQueryQVotingResultsResponse {
     lastVotingResults?: CardchainVotingResults;
+}
+export declare enum CardchainSellOfferStatus {
+    Open = "open",
+    Sold = "sold",
+    Removed = "removed"
 }
 export interface CardchainVoteRight {
     /** @format uint64 */
@@ -300,6 +317,15 @@ export declare class Api<SecurityDataType extends unknown> extends HttpClient<Se
      * @request GET:/DecentralCardGame/cardchain/cardchain/q_match/{matchId}
      */
     queryQMatch: (matchId: string, params?: RequestParams) => Promise<HttpResponse<CardchainQueryQMatchResponse, GooglerpcStatus>>;
+    /**
+     * No description
+     *
+     * @tags Query
+     * @name QueryQSellOffer
+     * @summary Queries a list of QSellOffer items.
+     * @request GET:/DecentralCardGame/cardchain/cardchain/q_sell_offer/{sellOfferId}
+     */
+    queryQSellOffer: (sellOfferId: string, params?: RequestParams) => Promise<HttpResponse<CardchainQueryQSellOfferResponse, GooglerpcStatus>>;
     /**
      * No description
      *

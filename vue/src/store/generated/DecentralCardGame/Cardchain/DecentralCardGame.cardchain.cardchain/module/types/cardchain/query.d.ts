@@ -2,6 +2,7 @@ import { Status } from "../cardchain/card";
 import { CouncilStatus } from "../cardchain/user";
 import { Outcome } from "../cardchain/tx";
 import { CStatus } from "../cardchain/collection";
+import { SellOfferStatus } from "../cardchain/sell_offer";
 import { Reader, Writer } from "protobufjs/minimal";
 import { Params } from "../cardchain/params";
 import { VoteRight } from "../cardchain/vote_right";
@@ -104,6 +105,16 @@ export interface QueryQCollectionResponse {
     artwork: Uint8Array;
     status: CStatus;
     timeStamp: number;
+}
+export interface QueryQSellOfferRequest {
+    sellOfferId: number;
+}
+export interface QueryQSellOfferResponse {
+    seller: string;
+    buyer: string;
+    card: number;
+    price: number;
+    status: SellOfferStatus;
 }
 export declare const QueryParamsRequest: {
     encode(_: QueryParamsRequest, writer?: Writer): Writer;
@@ -245,6 +256,20 @@ export declare const QueryQCollectionResponse: {
     toJSON(message: QueryQCollectionResponse): unknown;
     fromPartial(object: DeepPartial<QueryQCollectionResponse>): QueryQCollectionResponse;
 };
+export declare const QueryQSellOfferRequest: {
+    encode(message: QueryQSellOfferRequest, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryQSellOfferRequest;
+    fromJSON(object: any): QueryQSellOfferRequest;
+    toJSON(message: QueryQSellOfferRequest): unknown;
+    fromPartial(object: DeepPartial<QueryQSellOfferRequest>): QueryQSellOfferRequest;
+};
+export declare const QueryQSellOfferResponse: {
+    encode(message: QueryQSellOfferResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryQSellOfferResponse;
+    fromJSON(object: any): QueryQSellOfferResponse;
+    toJSON(message: QueryQSellOfferResponse): unknown;
+    fromPartial(object: DeepPartial<QueryQSellOfferResponse>): QueryQSellOfferResponse;
+};
 /** Query defines the gRPC querier service. */
 export interface Query {
     /** Parameters queries the parameters of the module. */
@@ -267,6 +292,8 @@ export interface Query {
     QMatch(request: QueryQMatchRequest): Promise<QueryQMatchResponse>;
     /** Queries a list of QCollection items. */
     QCollection(request: QueryQCollectionRequest): Promise<QueryQCollectionResponse>;
+    /** Queries a list of QSellOffer items. */
+    QSellOffer(request: QueryQSellOfferRequest): Promise<QueryQSellOfferResponse>;
 }
 export declare class QueryClientImpl implements Query {
     private readonly rpc;
@@ -281,6 +308,7 @@ export declare class QueryClientImpl implements Query {
     QCards(request: QueryQCardsRequest): Promise<QueryQCardsResponse>;
     QMatch(request: QueryQMatchRequest): Promise<QueryQMatchResponse>;
     QCollection(request: QueryQCollectionRequest): Promise<QueryQCollectionResponse>;
+    QSellOffer(request: QueryQSellOfferRequest): Promise<QueryQSellOfferResponse>;
 }
 interface Rpc {
     request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;
