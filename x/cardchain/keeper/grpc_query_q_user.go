@@ -30,7 +30,8 @@ func (k Keeper) QUser(goCtx context.Context, req *types.QueryQUserRequest) (*typ
 	return &types.QueryQUserResponse{
 		user.Alias,
 		user.OwnedCardSchemes,
-		user.OwnedCards,
+		user.OwnedPrototypes,
+		user.Cards,
 		user.VoteRights,
 		user.CouncilStatus,
 		user.ReportMatches,

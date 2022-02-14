@@ -17,16 +17,21 @@ import (
 	paramtypes "github.com/cosmos/cosmos-sdk/x/params/types"
 )
 
-const votingRightsExpirationTime = 86000
+const (
+	collectionSize             = 5
+	collectionPrice            = 10
+	votingRightsExpirationTime = 86000
+)
 
 type (
 	Keeper struct {
-		cdc              codec.BinaryCodec // The wire codec for binary encoding/decoding.
-		UsersStoreKey    sdk.StoreKey
-		CardsStoreKey    sdk.StoreKey
-		MatchesStoreKey  sdk.StoreKey
-		InternalStoreKey sdk.StoreKey
-		paramstore       paramtypes.Subspace
+		cdc                 codec.BinaryCodec // The wire codec for binary encoding/decoding.
+		UsersStoreKey       sdk.StoreKey
+		CardsStoreKey       sdk.StoreKey
+		MatchesStoreKey     sdk.StoreKey
+		CollectionsStoreKey sdk.StoreKey
+		InternalStoreKey    sdk.StoreKey
+		paramstore          paramtypes.Subspace
 
 		BankKeeper types.BankKeeper
 	}
@@ -37,6 +42,7 @@ func NewKeeper(
 	usersStoreKey,
 	cardsStoreKey sdk.StoreKey,
 	matchesStorekey sdk.StoreKey,
+	collectionsStoreKey sdk.StoreKey,
 	internalStoreKey sdk.StoreKey,
 	ps paramtypes.Subspace,
 
@@ -48,14 +54,33 @@ func NewKeeper(
 	}
 
 	return &Keeper{
-		cdc:              cdc,
-		UsersStoreKey:    usersStoreKey,
-		CardsStoreKey:    cardsStoreKey,
-		MatchesStoreKey:  matchesStorekey,
-		InternalStoreKey: internalStoreKey,
-		paramstore:       ps,
-		BankKeeper:       bankKeeper,
+		cdc:                 cdc,
+		UsersStoreKey:       usersStoreKey,
+		CardsStoreKey:       cardsStoreKey,
+		MatchesStoreKey:     matchesStorekey,
+		CollectionsStoreKey: collectionsStoreKey,
+		InternalStoreKey:    internalStoreKey,
+		paramstore:          ps,
+		BankKeeper:          bankKeeper,
 	}
+}
+
+func uintItemInList(item uint64, list []uint64) bool {
+	for _, i := range list {
+		if i == item {
+			return true
+		}
+	}
+	return false
+}
+
+func stringItemInList(item string, list []string) bool {
+	for _, i := range list {
+		if i == item {
+			return true
+		}
+	}
+	return false
 }
 
 func (k Keeper) Logger(ctx sdk.Context) log.Logger {
@@ -83,7 +108,7 @@ func (k Keeper) TransferSchemeToCard(ctx sdk.Context, cardId uint64, address sdk
 	idPosition := indexOfId(cardId, gottenUser.OwnedCardSchemes)
 
 	if idPosition >= 0 {
-		gottenUser.OwnedCards = append(gottenUser.OwnedCards, cardId)
+		gottenUser.OwnedPrototypes = append(gottenUser.OwnedPrototypes, cardId)
 		gottenUser.OwnedCardSchemes = append(gottenUser.OwnedCardSchemes[:idPosition], gottenUser.OwnedCardSchemes[idPosition+1:]...)
 
 		store.Set(address, k.cdc.MustMarshal(&gottenUser))
@@ -138,6 +163,61 @@ func (k Keeper) CalculateMatchReward(outcome types.Outcome) (int64, int64) {
 		amB = 1
 	}
 	return amA, amB
+}
+
+/////////////////
+// Collections //
+/////////////////
+
+func (k Keeper) GetActiveCollections(ctx sdk.Context) []uint64 {
+	var activeCollections []uint64
+	for idx, collection := range k.GetAllCollections(ctx) {
+		if collection.Status == types.CStatus_active {
+			activeCollections = append(activeCollections, uint64(idx))
+		}
+	}
+	return activeCollections
+}
+
+func (k Keeper) GetCollection(ctx sdk.Context, cId uint64) types.Collection {
+	store := ctx.KVStore(k.CollectionsStoreKey)
+	bz := store.Get(sdk.Uint64ToBigEndian(cId))
+
+	var gottenC types.Collection
+	k.cdc.MustUnmarshal(bz, &gottenC)
+	return gottenC
+}
+
+func (k Keeper) SetCollection(ctx sdk.Context, CollectionId uint64, newCollection types.Collection) {
+	store := ctx.KVStore(k.CollectionsStoreKey)
+	store.Set(sdk.Uint64ToBigEndian(CollectionId), k.cdc.MustMarshal(&newCollection))
+}
+
+func (k Keeper) GetCollectionsIterator(ctx sdk.Context) sdk.Iterator {
+	store := ctx.KVStore(k.CollectionsStoreKey)
+	return sdk.KVStorePrefixIterator(store, nil)
+}
+
+func (k Keeper) GetAllCollections(ctx sdk.Context) []*types.Collection {
+	var allCollections []*types.Collection
+	iterator := k.GetCollectionsIterator(ctx)
+	for ; iterator.Valid(); iterator.Next() {
+
+		var gottenCollection types.Collection
+		k.cdc.MustUnmarshal(iterator.Value(), &gottenCollection)
+
+		allCollections = append(allCollections, &gottenCollection)
+	}
+	return allCollections
+}
+
+func (k Keeper) GetCollectionsNumber(ctx sdk.Context) uint64 {
+	var CollectionId uint64
+	iterator := k.GetCollectionsIterator(ctx)
+	for ; iterator.Valid(); iterator.Next() {
+		CollectionId++
+	}
+	return CollectionId
 }
 
 /////////////
@@ -569,7 +649,7 @@ func (k Keeper) UpdateBanStatus(ctx sdk.Context, newBannedIds []uint64) {
 
 			idPosition := indexOfId(binary.BigEndian.Uint64(iterator.Key()), gottenUser.OwnedCardSchemes)
 			if idPosition >= 0 {
-				gottenUser.OwnedCards = append(gottenUser.OwnedCardSchemes[:idPosition], gottenUser.OwnedCardSchemes[idPosition+1:]...)
+				gottenUser.OwnedPrototypes = append(gottenUser.OwnedCardSchemes[:idPosition], gottenUser.OwnedCardSchemes[idPosition+1:]...)
 				usersStore.Set(address, k.cdc.MustMarshal(&gottenUser))
 			} else {
 				fmt.Println("trying to delete card id:", binary.BigEndian.Uint64(iterator.Key()), " of owner", address, " but does not exist")

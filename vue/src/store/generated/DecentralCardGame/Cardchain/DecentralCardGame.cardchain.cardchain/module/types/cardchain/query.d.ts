@@ -1,6 +1,7 @@
 import { Status } from "../cardchain/card";
 import { CouncilStatus } from "../cardchain/user";
 import { Outcome } from "../cardchain/tx";
+import { CStatus } from "../cardchain/collection";
 import { Reader, Writer } from "protobufjs/minimal";
 import { Params } from "../cardchain/params";
 import { VoteRight } from "../cardchain/vote_right";
@@ -44,7 +45,8 @@ export interface QueryQUserRequest {
 export interface QueryQUserResponse {
     alias: string;
     ownedCardSchemes: number[];
-    ownedCards: number[];
+    ownedPrototypes: number[];
+    cards: number[];
     voteRights: VoteRight[];
     councilStatus: CouncilStatus;
     reportMatches: boolean;
@@ -53,6 +55,7 @@ export interface QueryQCardchainInfoRequest {
 }
 export interface QueryQCardchainInfoResponse {
     cardAuctionPrice: string;
+    activeCollections: number[];
 }
 export interface QueryQVotingResultsRequest {
 }
@@ -89,6 +92,18 @@ export interface QueryQMatchResponse {
     playerA: string;
     playerB: string;
     outcome: Outcome;
+}
+export interface QueryQCollectionRequest {
+    collectionId: number;
+}
+export interface QueryQCollectionResponse {
+    name: string;
+    cards: number[];
+    contributors: string[];
+    story: string;
+    artwork: Uint8Array;
+    status: CStatus;
+    timeStamp: number;
 }
 export declare const QueryParamsRequest: {
     encode(_: QueryParamsRequest, writer?: Writer): Writer;
@@ -216,6 +231,20 @@ export declare const QueryQMatchResponse: {
     toJSON(message: QueryQMatchResponse): unknown;
     fromPartial(object: DeepPartial<QueryQMatchResponse>): QueryQMatchResponse;
 };
+export declare const QueryQCollectionRequest: {
+    encode(message: QueryQCollectionRequest, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryQCollectionRequest;
+    fromJSON(object: any): QueryQCollectionRequest;
+    toJSON(message: QueryQCollectionRequest): unknown;
+    fromPartial(object: DeepPartial<QueryQCollectionRequest>): QueryQCollectionRequest;
+};
+export declare const QueryQCollectionResponse: {
+    encode(message: QueryQCollectionResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryQCollectionResponse;
+    fromJSON(object: any): QueryQCollectionResponse;
+    toJSON(message: QueryQCollectionResponse): unknown;
+    fromPartial(object: DeepPartial<QueryQCollectionResponse>): QueryQCollectionResponse;
+};
 /** Query defines the gRPC querier service. */
 export interface Query {
     /** Parameters queries the parameters of the module. */
@@ -236,6 +265,8 @@ export interface Query {
     QCards(request: QueryQCardsRequest): Promise<QueryQCardsResponse>;
     /** Queries a list of QMatch items. */
     QMatch(request: QueryQMatchRequest): Promise<QueryQMatchResponse>;
+    /** Queries a list of QCollection items. */
+    QCollection(request: QueryQCollectionRequest): Promise<QueryQCollectionResponse>;
 }
 export declare class QueryClientImpl implements Query {
     private readonly rpc;
@@ -249,6 +280,7 @@ export declare class QueryClientImpl implements Query {
     QVotableCards(request: QueryQVotableCardsRequest): Promise<QueryQVotableCardsResponse>;
     QCards(request: QueryQCardsRequest): Promise<QueryQCardsResponse>;
     QMatch(request: QueryQMatchRequest): Promise<QueryQMatchResponse>;
+    QCollection(request: QueryQCollectionRequest): Promise<QueryQCollectionResponse>;
 }
 interface Rpc {
     request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;

@@ -113,6 +113,61 @@ export interface MsgApointMatchReporter {
 }
 export interface MsgApointMatchReporterResponse {
 }
+export interface MsgCreateCollection {
+    creator: string;
+    name: string;
+    contributors: string[];
+    story: string;
+    artwork: Uint8Array;
+}
+export interface MsgCreateCollectionResponse {
+}
+export interface MsgAddCardToCollection {
+    creator: string;
+    collectionId: number;
+    cardId: number;
+}
+export interface MsgAddCardToCollectionResponse {
+}
+export interface MsgFinalizeCollection {
+    creator: string;
+    collectionId: number;
+}
+export interface MsgFinalizeCollectionResponse {
+}
+export interface MsgBuyCollection {
+    creator: string;
+    collectionId: number;
+}
+export interface MsgBuyCollectionResponse {
+}
+export interface MsgRemoveCardFromCollection {
+    creator: string;
+    collectionId: number;
+    cardId: number;
+}
+export interface MsgRemoveCardFromCollectionResponse {
+}
+export interface MsgRemoveContributorFromCollection {
+    creator: string;
+    collectionId: number;
+    user: string;
+}
+export interface MsgRemoveContributorFromCollectionResponse {
+}
+export interface MsgAddContributorToCollection {
+    creator: string;
+    collectionId: number;
+    user: string;
+}
+export interface MsgAddContributorToCollectionResponse {
+}
+export interface MsgSubmitCollectionProposal {
+    creator: string;
+    collectionId: number;
+}
+export interface MsgSubmitCollectionProposalResponse {
+}
 export declare const MsgCreateuser: {
     encode(message: MsgCreateuser, writer?: Writer): Writer;
     decode(input: Reader | Uint8Array, length?: number): MsgCreateuser;
@@ -295,6 +350,118 @@ export declare const MsgApointMatchReporterResponse: {
     toJSON(_: MsgApointMatchReporterResponse): unknown;
     fromPartial(_: DeepPartial<MsgApointMatchReporterResponse>): MsgApointMatchReporterResponse;
 };
+export declare const MsgCreateCollection: {
+    encode(message: MsgCreateCollection, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgCreateCollection;
+    fromJSON(object: any): MsgCreateCollection;
+    toJSON(message: MsgCreateCollection): unknown;
+    fromPartial(object: DeepPartial<MsgCreateCollection>): MsgCreateCollection;
+};
+export declare const MsgCreateCollectionResponse: {
+    encode(_: MsgCreateCollectionResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgCreateCollectionResponse;
+    fromJSON(_: any): MsgCreateCollectionResponse;
+    toJSON(_: MsgCreateCollectionResponse): unknown;
+    fromPartial(_: DeepPartial<MsgCreateCollectionResponse>): MsgCreateCollectionResponse;
+};
+export declare const MsgAddCardToCollection: {
+    encode(message: MsgAddCardToCollection, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgAddCardToCollection;
+    fromJSON(object: any): MsgAddCardToCollection;
+    toJSON(message: MsgAddCardToCollection): unknown;
+    fromPartial(object: DeepPartial<MsgAddCardToCollection>): MsgAddCardToCollection;
+};
+export declare const MsgAddCardToCollectionResponse: {
+    encode(_: MsgAddCardToCollectionResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgAddCardToCollectionResponse;
+    fromJSON(_: any): MsgAddCardToCollectionResponse;
+    toJSON(_: MsgAddCardToCollectionResponse): unknown;
+    fromPartial(_: DeepPartial<MsgAddCardToCollectionResponse>): MsgAddCardToCollectionResponse;
+};
+export declare const MsgFinalizeCollection: {
+    encode(message: MsgFinalizeCollection, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgFinalizeCollection;
+    fromJSON(object: any): MsgFinalizeCollection;
+    toJSON(message: MsgFinalizeCollection): unknown;
+    fromPartial(object: DeepPartial<MsgFinalizeCollection>): MsgFinalizeCollection;
+};
+export declare const MsgFinalizeCollectionResponse: {
+    encode(_: MsgFinalizeCollectionResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgFinalizeCollectionResponse;
+    fromJSON(_: any): MsgFinalizeCollectionResponse;
+    toJSON(_: MsgFinalizeCollectionResponse): unknown;
+    fromPartial(_: DeepPartial<MsgFinalizeCollectionResponse>): MsgFinalizeCollectionResponse;
+};
+export declare const MsgBuyCollection: {
+    encode(message: MsgBuyCollection, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgBuyCollection;
+    fromJSON(object: any): MsgBuyCollection;
+    toJSON(message: MsgBuyCollection): unknown;
+    fromPartial(object: DeepPartial<MsgBuyCollection>): MsgBuyCollection;
+};
+export declare const MsgBuyCollectionResponse: {
+    encode(_: MsgBuyCollectionResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgBuyCollectionResponse;
+    fromJSON(_: any): MsgBuyCollectionResponse;
+    toJSON(_: MsgBuyCollectionResponse): unknown;
+    fromPartial(_: DeepPartial<MsgBuyCollectionResponse>): MsgBuyCollectionResponse;
+};
+export declare const MsgRemoveCardFromCollection: {
+    encode(message: MsgRemoveCardFromCollection, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgRemoveCardFromCollection;
+    fromJSON(object: any): MsgRemoveCardFromCollection;
+    toJSON(message: MsgRemoveCardFromCollection): unknown;
+    fromPartial(object: DeepPartial<MsgRemoveCardFromCollection>): MsgRemoveCardFromCollection;
+};
+export declare const MsgRemoveCardFromCollectionResponse: {
+    encode(_: MsgRemoveCardFromCollectionResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgRemoveCardFromCollectionResponse;
+    fromJSON(_: any): MsgRemoveCardFromCollectionResponse;
+    toJSON(_: MsgRemoveCardFromCollectionResponse): unknown;
+    fromPartial(_: DeepPartial<MsgRemoveCardFromCollectionResponse>): MsgRemoveCardFromCollectionResponse;
+};
+export declare const MsgRemoveContributorFromCollection: {
+    encode(message: MsgRemoveContributorFromCollection, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgRemoveContributorFromCollection;
+    fromJSON(object: any): MsgRemoveContributorFromCollection;
+    toJSON(message: MsgRemoveContributorFromCollection): unknown;
+    fromPartial(object: DeepPartial<MsgRemoveContributorFromCollection>): MsgRemoveContributorFromCollection;
+};
+export declare const MsgRemoveContributorFromCollectionResponse: {
+    encode(_: MsgRemoveContributorFromCollectionResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgRemoveContributorFromCollectionResponse;
+    fromJSON(_: any): MsgRemoveContributorFromCollectionResponse;
+    toJSON(_: MsgRemoveContributorFromCollectionResponse): unknown;
+    fromPartial(_: DeepPartial<MsgRemoveContributorFromCollectionResponse>): MsgRemoveContributorFromCollectionResponse;
+};
+export declare const MsgAddContributorToCollection: {
+    encode(message: MsgAddContributorToCollection, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgAddContributorToCollection;
+    fromJSON(object: any): MsgAddContributorToCollection;
+    toJSON(message: MsgAddContributorToCollection): unknown;
+    fromPartial(object: DeepPartial<MsgAddContributorToCollection>): MsgAddContributorToCollection;
+};
+export declare const MsgAddContributorToCollectionResponse: {
+    encode(_: MsgAddContributorToCollectionResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgAddContributorToCollectionResponse;
+    fromJSON(_: any): MsgAddContributorToCollectionResponse;
+    toJSON(_: MsgAddContributorToCollectionResponse): unknown;
+    fromPartial(_: DeepPartial<MsgAddContributorToCollectionResponse>): MsgAddContributorToCollectionResponse;
+};
+export declare const MsgSubmitCollectionProposal: {
+    encode(message: MsgSubmitCollectionProposal, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgSubmitCollectionProposal;
+    fromJSON(object: any): MsgSubmitCollectionProposal;
+    toJSON(message: MsgSubmitCollectionProposal): unknown;
+    fromPartial(object: DeepPartial<MsgSubmitCollectionProposal>): MsgSubmitCollectionProposal;
+};
+export declare const MsgSubmitCollectionProposalResponse: {
+    encode(_: MsgSubmitCollectionProposalResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgSubmitCollectionProposalResponse;
+    fromJSON(_: any): MsgSubmitCollectionProposalResponse;
+    toJSON(_: MsgSubmitCollectionProposalResponse): unknown;
+    fromPartial(_: DeepPartial<MsgSubmitCollectionProposalResponse>): MsgSubmitCollectionProposalResponse;
+};
 /** Msg defines the Msg service. */
 export interface Msg {
     Createuser(request: MsgCreateuser): Promise<MsgCreateuserResponse>;
@@ -309,8 +476,16 @@ export interface Msg {
     RegisterForCouncil(request: MsgRegisterForCouncil): Promise<MsgRegisterForCouncilResponse>;
     ReportMatch(request: MsgReportMatch): Promise<MsgReportMatchResponse>;
     SubmitMatchReporterProposal(request: MsgSubmitMatchReporterProposal): Promise<MsgSubmitMatchReporterProposalResponse>;
-    /** this line is used by starport scaffolding # proto/tx/rpc */
     ApointMatchReporter(request: MsgApointMatchReporter): Promise<MsgApointMatchReporterResponse>;
+    CreateCollection(request: MsgCreateCollection): Promise<MsgCreateCollectionResponse>;
+    AddCardToCollection(request: MsgAddCardToCollection): Promise<MsgAddCardToCollectionResponse>;
+    FinalizeCollection(request: MsgFinalizeCollection): Promise<MsgFinalizeCollectionResponse>;
+    BuyCollection(request: MsgBuyCollection): Promise<MsgBuyCollectionResponse>;
+    RemoveCardFromCollection(request: MsgRemoveCardFromCollection): Promise<MsgRemoveCardFromCollectionResponse>;
+    RemoveContributorFromCollection(request: MsgRemoveContributorFromCollection): Promise<MsgRemoveContributorFromCollectionResponse>;
+    AddContributorToCollection(request: MsgAddContributorToCollection): Promise<MsgAddContributorToCollectionResponse>;
+    /** this line is used by starport scaffolding # proto/tx/rpc */
+    SubmitCollectionProposal(request: MsgSubmitCollectionProposal): Promise<MsgSubmitCollectionProposalResponse>;
 }
 export declare class MsgClientImpl implements Msg {
     private readonly rpc;
@@ -328,6 +503,14 @@ export declare class MsgClientImpl implements Msg {
     ReportMatch(request: MsgReportMatch): Promise<MsgReportMatchResponse>;
     SubmitMatchReporterProposal(request: MsgSubmitMatchReporterProposal): Promise<MsgSubmitMatchReporterProposalResponse>;
     ApointMatchReporter(request: MsgApointMatchReporter): Promise<MsgApointMatchReporterResponse>;
+    CreateCollection(request: MsgCreateCollection): Promise<MsgCreateCollectionResponse>;
+    AddCardToCollection(request: MsgAddCardToCollection): Promise<MsgAddCardToCollectionResponse>;
+    FinalizeCollection(request: MsgFinalizeCollection): Promise<MsgFinalizeCollectionResponse>;
+    BuyCollection(request: MsgBuyCollection): Promise<MsgBuyCollectionResponse>;
+    RemoveCardFromCollection(request: MsgRemoveCardFromCollection): Promise<MsgRemoveCardFromCollectionResponse>;
+    RemoveContributorFromCollection(request: MsgRemoveContributorFromCollection): Promise<MsgRemoveContributorFromCollectionResponse>;
+    AddContributorToCollection(request: MsgAddContributorToCollection): Promise<MsgAddContributorToCollectionResponse>;
+    SubmitCollectionProposal(request: MsgSubmitCollectionProposal): Promise<MsgSubmitCollectionProposalResponse>;
 }
 interface Rpc {
     request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;

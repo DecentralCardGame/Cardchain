@@ -2,6 +2,7 @@
 import { statusFromJSON, statusToJSON } from "../cardchain/card";
 import { councilStatusFromJSON, councilStatusToJSON, } from "../cardchain/user";
 import { outcomeFromJSON, outcomeToJSON } from "../cardchain/tx";
+import { cStatusFromJSON, cStatusToJSON, } from "../cardchain/collection";
 import { Reader, util, configure, Writer } from "protobufjs/minimal";
 import * as Long from "long";
 import { Params } from "../cardchain/params";
@@ -616,7 +617,8 @@ export const QueryQUserRequest = {
 const baseQueryQUserResponse = {
     alias: "",
     ownedCardSchemes: 0,
-    ownedCards: 0,
+    ownedPrototypes: 0,
+    cards: 0,
     councilStatus: 0,
     reportMatches: false,
 };
@@ -631,18 +633,23 @@ export const QueryQUserResponse = {
         }
         writer.ldelim();
         writer.uint32(26).fork();
-        for (const v of message.ownedCards) {
+        for (const v of message.ownedPrototypes) {
+            writer.uint64(v);
+        }
+        writer.ldelim();
+        writer.uint32(34).fork();
+        for (const v of message.cards) {
             writer.uint64(v);
         }
         writer.ldelim();
         for (const v of message.voteRights) {
-            VoteRight.encode(v, writer.uint32(34).fork()).ldelim();
+            VoteRight.encode(v, writer.uint32(42).fork()).ldelim();
         }
         if (message.councilStatus !== 0) {
-            writer.uint32(40).int32(message.councilStatus);
+            writer.uint32(48).int32(message.councilStatus);
         }
         if (message.reportMatches === true) {
-            writer.uint32(48).bool(message.reportMatches);
+            writer.uint32(56).bool(message.reportMatches);
         }
         return writer;
     },
@@ -651,7 +658,8 @@ export const QueryQUserResponse = {
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = { ...baseQueryQUserResponse };
         message.ownedCardSchemes = [];
-        message.ownedCards = [];
+        message.ownedPrototypes = [];
+        message.cards = [];
         message.voteRights = [];
         while (reader.pos < end) {
             const tag = reader.uint32();
@@ -674,20 +682,31 @@ export const QueryQUserResponse = {
                     if ((tag & 7) === 2) {
                         const end2 = reader.uint32() + reader.pos;
                         while (reader.pos < end2) {
-                            message.ownedCards.push(longToNumber(reader.uint64()));
+                            message.ownedPrototypes.push(longToNumber(reader.uint64()));
                         }
                     }
                     else {
-                        message.ownedCards.push(longToNumber(reader.uint64()));
+                        message.ownedPrototypes.push(longToNumber(reader.uint64()));
                     }
                     break;
                 case 4:
-                    message.voteRights.push(VoteRight.decode(reader, reader.uint32()));
+                    if ((tag & 7) === 2) {
+                        const end2 = reader.uint32() + reader.pos;
+                        while (reader.pos < end2) {
+                            message.cards.push(longToNumber(reader.uint64()));
+                        }
+                    }
+                    else {
+                        message.cards.push(longToNumber(reader.uint64()));
+                    }
                     break;
                 case 5:
-                    message.councilStatus = reader.int32();
+                    message.voteRights.push(VoteRight.decode(reader, reader.uint32()));
                     break;
                 case 6:
+                    message.councilStatus = reader.int32();
+                    break;
+                case 7:
                     message.reportMatches = reader.bool();
                     break;
                 default:
@@ -700,7 +719,8 @@ export const QueryQUserResponse = {
     fromJSON(object) {
         const message = { ...baseQueryQUserResponse };
         message.ownedCardSchemes = [];
-        message.ownedCards = [];
+        message.ownedPrototypes = [];
+        message.cards = [];
         message.voteRights = [];
         if (object.alias !== undefined && object.alias !== null) {
             message.alias = String(object.alias);
@@ -714,9 +734,15 @@ export const QueryQUserResponse = {
                 message.ownedCardSchemes.push(Number(e));
             }
         }
-        if (object.ownedCards !== undefined && object.ownedCards !== null) {
-            for (const e of object.ownedCards) {
-                message.ownedCards.push(Number(e));
+        if (object.ownedPrototypes !== undefined &&
+            object.ownedPrototypes !== null) {
+            for (const e of object.ownedPrototypes) {
+                message.ownedPrototypes.push(Number(e));
+            }
+        }
+        if (object.cards !== undefined && object.cards !== null) {
+            for (const e of object.cards) {
+                message.cards.push(Number(e));
             }
         }
         if (object.voteRights !== undefined && object.voteRights !== null) {
@@ -747,11 +773,17 @@ export const QueryQUserResponse = {
         else {
             obj.ownedCardSchemes = [];
         }
-        if (message.ownedCards) {
-            obj.ownedCards = message.ownedCards.map((e) => e);
+        if (message.ownedPrototypes) {
+            obj.ownedPrototypes = message.ownedPrototypes.map((e) => e);
         }
         else {
-            obj.ownedCards = [];
+            obj.ownedPrototypes = [];
+        }
+        if (message.cards) {
+            obj.cards = message.cards.map((e) => e);
+        }
+        else {
+            obj.cards = [];
         }
         if (message.voteRights) {
             obj.voteRights = message.voteRights.map((e) => e ? VoteRight.toJSON(e) : undefined);
@@ -768,7 +800,8 @@ export const QueryQUserResponse = {
     fromPartial(object) {
         const message = { ...baseQueryQUserResponse };
         message.ownedCardSchemes = [];
-        message.ownedCards = [];
+        message.ownedPrototypes = [];
+        message.cards = [];
         message.voteRights = [];
         if (object.alias !== undefined && object.alias !== null) {
             message.alias = object.alias;
@@ -782,9 +815,15 @@ export const QueryQUserResponse = {
                 message.ownedCardSchemes.push(e);
             }
         }
-        if (object.ownedCards !== undefined && object.ownedCards !== null) {
-            for (const e of object.ownedCards) {
-                message.ownedCards.push(e);
+        if (object.ownedPrototypes !== undefined &&
+            object.ownedPrototypes !== null) {
+            for (const e of object.ownedPrototypes) {
+                message.ownedPrototypes.push(e);
+            }
+        }
+        if (object.cards !== undefined && object.cards !== null) {
+            for (const e of object.cards) {
+                message.cards.push(e);
             }
         }
         if (object.voteRights !== undefined && object.voteRights !== null) {
@@ -845,12 +884,20 @@ export const QueryQCardchainInfoRequest = {
         return message;
     },
 };
-const baseQueryQCardchainInfoResponse = { cardAuctionPrice: "" };
+const baseQueryQCardchainInfoResponse = {
+    cardAuctionPrice: "",
+    activeCollections: 0,
+};
 export const QueryQCardchainInfoResponse = {
     encode(message, writer = Writer.create()) {
         if (message.cardAuctionPrice !== "") {
             writer.uint32(10).string(message.cardAuctionPrice);
         }
+        writer.uint32(18).fork();
+        for (const v of message.activeCollections) {
+            writer.uint64(v);
+        }
+        writer.ldelim();
         return writer;
     },
     decode(input, length) {
@@ -859,11 +906,23 @@ export const QueryQCardchainInfoResponse = {
         const message = {
             ...baseQueryQCardchainInfoResponse,
         };
+        message.activeCollections = [];
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
                     message.cardAuctionPrice = reader.string();
+                    break;
+                case 2:
+                    if ((tag & 7) === 2) {
+                        const end2 = reader.uint32() + reader.pos;
+                        while (reader.pos < end2) {
+                            message.activeCollections.push(longToNumber(reader.uint64()));
+                        }
+                    }
+                    else {
+                        message.activeCollections.push(longToNumber(reader.uint64()));
+                    }
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -876,6 +935,7 @@ export const QueryQCardchainInfoResponse = {
         const message = {
             ...baseQueryQCardchainInfoResponse,
         };
+        message.activeCollections = [];
         if (object.cardAuctionPrice !== undefined &&
             object.cardAuctionPrice !== null) {
             message.cardAuctionPrice = String(object.cardAuctionPrice);
@@ -883,24 +943,43 @@ export const QueryQCardchainInfoResponse = {
         else {
             message.cardAuctionPrice = "";
         }
+        if (object.activeCollections !== undefined &&
+            object.activeCollections !== null) {
+            for (const e of object.activeCollections) {
+                message.activeCollections.push(Number(e));
+            }
+        }
         return message;
     },
     toJSON(message) {
         const obj = {};
         message.cardAuctionPrice !== undefined &&
             (obj.cardAuctionPrice = message.cardAuctionPrice);
+        if (message.activeCollections) {
+            obj.activeCollections = message.activeCollections.map((e) => e);
+        }
+        else {
+            obj.activeCollections = [];
+        }
         return obj;
     },
     fromPartial(object) {
         const message = {
             ...baseQueryQCardchainInfoResponse,
         };
+        message.activeCollections = [];
         if (object.cardAuctionPrice !== undefined &&
             object.cardAuctionPrice !== null) {
             message.cardAuctionPrice = object.cardAuctionPrice;
         }
         else {
             message.cardAuctionPrice = "";
+        }
+        if (object.activeCollections !== undefined &&
+            object.activeCollections !== null) {
+            for (const e of object.activeCollections) {
+                message.activeCollections.push(e);
+            }
         }
         return message;
     },
@@ -1618,6 +1697,263 @@ export const QueryQMatchResponse = {
         return message;
     },
 };
+const baseQueryQCollectionRequest = { collectionId: 0 };
+export const QueryQCollectionRequest = {
+    encode(message, writer = Writer.create()) {
+        if (message.collectionId !== 0) {
+            writer.uint32(8).uint64(message.collectionId);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = {
+            ...baseQueryQCollectionRequest,
+        };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.collectionId = longToNumber(reader.uint64());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = {
+            ...baseQueryQCollectionRequest,
+        };
+        if (object.collectionId !== undefined && object.collectionId !== null) {
+            message.collectionId = Number(object.collectionId);
+        }
+        else {
+            message.collectionId = 0;
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.collectionId !== undefined &&
+            (obj.collectionId = message.collectionId);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = {
+            ...baseQueryQCollectionRequest,
+        };
+        if (object.collectionId !== undefined && object.collectionId !== null) {
+            message.collectionId = object.collectionId;
+        }
+        else {
+            message.collectionId = 0;
+        }
+        return message;
+    },
+};
+const baseQueryQCollectionResponse = {
+    name: "",
+    cards: 0,
+    contributors: "",
+    story: "",
+    status: 0,
+    timeStamp: 0,
+};
+export const QueryQCollectionResponse = {
+    encode(message, writer = Writer.create()) {
+        if (message.name !== "") {
+            writer.uint32(10).string(message.name);
+        }
+        writer.uint32(18).fork();
+        for (const v of message.cards) {
+            writer.uint64(v);
+        }
+        writer.ldelim();
+        for (const v of message.contributors) {
+            writer.uint32(26).string(v);
+        }
+        if (message.story !== "") {
+            writer.uint32(34).string(message.story);
+        }
+        if (message.artwork.length !== 0) {
+            writer.uint32(42).bytes(message.artwork);
+        }
+        if (message.status !== 0) {
+            writer.uint32(48).int32(message.status);
+        }
+        if (message.timeStamp !== 0) {
+            writer.uint32(56).int64(message.timeStamp);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = {
+            ...baseQueryQCollectionResponse,
+        };
+        message.cards = [];
+        message.contributors = [];
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.name = reader.string();
+                    break;
+                case 2:
+                    if ((tag & 7) === 2) {
+                        const end2 = reader.uint32() + reader.pos;
+                        while (reader.pos < end2) {
+                            message.cards.push(longToNumber(reader.uint64()));
+                        }
+                    }
+                    else {
+                        message.cards.push(longToNumber(reader.uint64()));
+                    }
+                    break;
+                case 3:
+                    message.contributors.push(reader.string());
+                    break;
+                case 4:
+                    message.story = reader.string();
+                    break;
+                case 5:
+                    message.artwork = reader.bytes();
+                    break;
+                case 6:
+                    message.status = reader.int32();
+                    break;
+                case 7:
+                    message.timeStamp = longToNumber(reader.int64());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = {
+            ...baseQueryQCollectionResponse,
+        };
+        message.cards = [];
+        message.contributors = [];
+        if (object.name !== undefined && object.name !== null) {
+            message.name = String(object.name);
+        }
+        else {
+            message.name = "";
+        }
+        if (object.cards !== undefined && object.cards !== null) {
+            for (const e of object.cards) {
+                message.cards.push(Number(e));
+            }
+        }
+        if (object.contributors !== undefined && object.contributors !== null) {
+            for (const e of object.contributors) {
+                message.contributors.push(String(e));
+            }
+        }
+        if (object.story !== undefined && object.story !== null) {
+            message.story = String(object.story);
+        }
+        else {
+            message.story = "";
+        }
+        if (object.artwork !== undefined && object.artwork !== null) {
+            message.artwork = bytesFromBase64(object.artwork);
+        }
+        if (object.status !== undefined && object.status !== null) {
+            message.status = cStatusFromJSON(object.status);
+        }
+        else {
+            message.status = 0;
+        }
+        if (object.timeStamp !== undefined && object.timeStamp !== null) {
+            message.timeStamp = Number(object.timeStamp);
+        }
+        else {
+            message.timeStamp = 0;
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.name !== undefined && (obj.name = message.name);
+        if (message.cards) {
+            obj.cards = message.cards.map((e) => e);
+        }
+        else {
+            obj.cards = [];
+        }
+        if (message.contributors) {
+            obj.contributors = message.contributors.map((e) => e);
+        }
+        else {
+            obj.contributors = [];
+        }
+        message.story !== undefined && (obj.story = message.story);
+        message.artwork !== undefined &&
+            (obj.artwork = base64FromBytes(message.artwork !== undefined ? message.artwork : new Uint8Array()));
+        message.status !== undefined &&
+            (obj.status = cStatusToJSON(message.status));
+        message.timeStamp !== undefined && (obj.timeStamp = message.timeStamp);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = {
+            ...baseQueryQCollectionResponse,
+        };
+        message.cards = [];
+        message.contributors = [];
+        if (object.name !== undefined && object.name !== null) {
+            message.name = object.name;
+        }
+        else {
+            message.name = "";
+        }
+        if (object.cards !== undefined && object.cards !== null) {
+            for (const e of object.cards) {
+                message.cards.push(e);
+            }
+        }
+        if (object.contributors !== undefined && object.contributors !== null) {
+            for (const e of object.contributors) {
+                message.contributors.push(e);
+            }
+        }
+        if (object.story !== undefined && object.story !== null) {
+            message.story = object.story;
+        }
+        else {
+            message.story = "";
+        }
+        if (object.artwork !== undefined && object.artwork !== null) {
+            message.artwork = object.artwork;
+        }
+        else {
+            message.artwork = new Uint8Array();
+        }
+        if (object.status !== undefined && object.status !== null) {
+            message.status = object.status;
+        }
+        else {
+            message.status = 0;
+        }
+        if (object.timeStamp !== undefined && object.timeStamp !== null) {
+            message.timeStamp = object.timeStamp;
+        }
+        else {
+            message.timeStamp = 0;
+        }
+        return message;
+    },
+};
 export class QueryClientImpl {
     constructor(rpc) {
         this.rpc = rpc;
@@ -1667,6 +2003,11 @@ export class QueryClientImpl {
         const promise = this.rpc.request("DecentralCardGame.cardchain.cardchain.Query", "QMatch", data);
         return promise.then((data) => QueryQMatchResponse.decode(new Reader(data)));
     }
+    QCollection(request) {
+        const data = QueryQCollectionRequest.encode(request).finish();
+        const promise = this.rpc.request("DecentralCardGame.cardchain.cardchain.Query", "QCollection", data);
+        return promise.then((data) => QueryQCollectionResponse.decode(new Reader(data)));
+    }
 }
 var globalThis = (() => {
     if (typeof globalThis !== "undefined")
@@ -1679,6 +2020,25 @@ var globalThis = (() => {
         return global;
     throw "Unable to locate global object";
 })();
+const atob = globalThis.atob ||
+    ((b64) => globalThis.Buffer.from(b64, "base64").toString("binary"));
+function bytesFromBase64(b64) {
+    const bin = atob(b64);
+    const arr = new Uint8Array(bin.length);
+    for (let i = 0; i < bin.length; ++i) {
+        arr[i] = bin.charCodeAt(i);
+    }
+    return arr;
+}
+const btoa = globalThis.btoa ||
+    ((bin) => globalThis.Buffer.from(bin, "binary").toString("base64"));
+function base64FromBytes(arr) {
+    const bin = [];
+    for (let i = 0; i < arr.byteLength; ++i) {
+        bin.push(String.fromCharCode(arr[i]));
+    }
+    return btoa(bin.join(""));
+}
 function longToNumber(long) {
     if (long.gt(Number.MAX_SAFE_INTEGER)) {
         throw new globalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");

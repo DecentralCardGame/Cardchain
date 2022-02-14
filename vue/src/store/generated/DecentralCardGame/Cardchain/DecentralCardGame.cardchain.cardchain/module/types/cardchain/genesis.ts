@@ -5,6 +5,7 @@ import { Params } from "../cardchain/params";
 import { Card } from "../cardchain/card";
 import { User } from "../cardchain/user";
 import { Match } from "../cardchain/match";
+import { Collection } from "../cardchain/collection";
 
 export const protobufPackage = "DecentralCardGame.cardchain.cardchain";
 
@@ -15,8 +16,9 @@ export interface GenesisState {
   users: User[];
   addresses: string[];
   lastCardSchemeId: number;
-  /** this line is used by starport scaffolding # genesis/proto/state */
   matches: Match[];
+  /** this line is used by starport scaffolding # genesis/proto/state */
+  collections: Collection[];
 }
 
 const baseGenesisState: object = { addresses: "", lastCardSchemeId: 0 };
@@ -41,6 +43,9 @@ export const GenesisState = {
     for (const v of message.matches) {
       Match.encode(v!, writer.uint32(50).fork()).ldelim();
     }
+    for (const v of message.collections) {
+      Collection.encode(v!, writer.uint32(58).fork()).ldelim();
+    }
     return writer;
   },
 
@@ -52,6 +57,7 @@ export const GenesisState = {
     message.users = [];
     message.addresses = [];
     message.matches = [];
+    message.collections = [];
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -73,6 +79,9 @@ export const GenesisState = {
         case 6:
           message.matches.push(Match.decode(reader, reader.uint32()));
           break;
+        case 7:
+          message.collections.push(Collection.decode(reader, reader.uint32()));
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -87,6 +96,7 @@ export const GenesisState = {
     message.users = [];
     message.addresses = [];
     message.matches = [];
+    message.collections = [];
     if (object.params !== undefined && object.params !== null) {
       message.params = Params.fromJSON(object.params);
     } else {
@@ -118,6 +128,11 @@ export const GenesisState = {
     if (object.matches !== undefined && object.matches !== null) {
       for (const e of object.matches) {
         message.matches.push(Match.fromJSON(e));
+      }
+    }
+    if (object.collections !== undefined && object.collections !== null) {
+      for (const e of object.collections) {
+        message.collections.push(Collection.fromJSON(e));
       }
     }
     return message;
@@ -153,6 +168,13 @@ export const GenesisState = {
     } else {
       obj.matches = [];
     }
+    if (message.collections) {
+      obj.collections = message.collections.map((e) =>
+        e ? Collection.toJSON(e) : undefined
+      );
+    } else {
+      obj.collections = [];
+    }
     return obj;
   },
 
@@ -162,6 +184,7 @@ export const GenesisState = {
     message.users = [];
     message.addresses = [];
     message.matches = [];
+    message.collections = [];
     if (object.params !== undefined && object.params !== null) {
       message.params = Params.fromPartial(object.params);
     } else {
@@ -193,6 +216,11 @@ export const GenesisState = {
     if (object.matches !== undefined && object.matches !== null) {
       for (const e of object.matches) {
         message.matches.push(Match.fromPartial(e));
+      }
+    }
+    if (object.collections !== undefined && object.collections !== null) {
+      for (const e of object.collections) {
+        message.collections.push(Collection.fromPartial(e));
       }
     }
     return message;

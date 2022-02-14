@@ -8,6 +8,13 @@
  * ## SOURCE: https://github.com/acacode/swagger-typescript-api ##
  * ---------------------------------------------------------------
  */
+export var CardchainCStatus;
+(function (CardchainCStatus) {
+    CardchainCStatus["Design"] = "design";
+    CardchainCStatus["Finalized"] = "finalized";
+    CardchainCStatus["Active"] = "active";
+    CardchainCStatus["Archived"] = "archived";
+})(CardchainCStatus || (CardchainCStatus = {}));
 export var CardchainCouncilStatus;
 (function (CardchainCouncilStatus) {
     CardchainCouncilStatus["Available"] = "available";
@@ -228,6 +235,20 @@ export class Api extends HttpClient {
          */
         this.queryQCards = (owner, status, cardType, classes, sortBy, nameContains, keywordsContains, notesContains, params = {}) => this.request({
             path: `/DecentralCardGame/cardchain/cardchain/q_cards/${owner}/${status}/${cardType}/${classes}/${sortBy}/${nameContains}/${keywordsContains}/${notesContains}`,
+            method: "GET",
+            format: "json",
+            ...params,
+        });
+        /**
+         * No description
+         *
+         * @tags Query
+         * @name QueryQCollection
+         * @summary Queries a list of QCollection items.
+         * @request GET:/DecentralCardGame/cardchain/cardchain/q_collection/{collectionId}
+         */
+        this.queryQCollection = (collectionId, params = {}) => this.request({
+            path: `/DecentralCardGame/cardchain/cardchain/q_collection/${collectionId}`,
             method: "GET",
             format: "json",
             ...params,

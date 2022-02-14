@@ -12004,6 +12004,11 @@ paths:
             properties:
               cardAuctionPrice:
                 type: string
+              activeCollections:
+                type: array
+                items:
+                  type: string
+                  format: uint64
         default:
           description: An unexpected error response.
           schema:
@@ -12102,6 +12107,69 @@ paths:
           type: string
       tags:
         - Query
+  '/DecentralCardGame/cardchain/cardchain/q_collection/{collectionId}':
+    get:
+      summary: Queries a list of QCollection items.
+      operationId: DecentralCardGameCardchainCardchainQCollection
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+              cards:
+                type: array
+                items:
+                  type: string
+                  format: uint64
+              contributors:
+                type: array
+                items:
+                  type: string
+              story:
+                type: string
+              artwork:
+                type: string
+                format: byte
+              status:
+                type: string
+                enum:
+                  - design
+                  - finalized
+                  - active
+                  - archived
+                default: design
+              timeStamp:
+                type: string
+                format: int64
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: collectionId
+          in: path
+          required: true
+          type: string
+          format: uint64
+      tags:
+        - Query
   '/DecentralCardGame/cardchain/cardchain/q_match/{matchId}':
     get:
       summary: Queries a list of QMatch items.
@@ -12172,7 +12240,12 @@ paths:
                 items:
                   type: string
                   format: uint64
-              ownedCards:
+              ownedPrototypes:
+                type: array
+                items:
+                  type: string
+                  format: uint64
+              cards:
                 type: array
                 items:
                   type: string
@@ -20262,6 +20335,14 @@ definitions:
     description: >-
       MsgCreateVestingAccountResponse defines the Msg/CreateVestingAccount
       response type.
+  DecentralCardGame.cardchain.cardchain.CStatus:
+    type: string
+    enum:
+      - design
+      - finalized
+      - active
+      - archived
+    default: design
   DecentralCardGame.cardchain.cardchain.CouncilStatus:
     type: string
     enum:
@@ -20272,17 +20353,31 @@ definitions:
     default: available
   DecentralCardGame.cardchain.cardchain.MsgAddArtworkResponse:
     type: object
+  DecentralCardGame.cardchain.cardchain.MsgAddCardToCollectionResponse:
+    type: object
+  DecentralCardGame.cardchain.cardchain.MsgAddContributorToCollectionResponse:
+    type: object
   DecentralCardGame.cardchain.cardchain.MsgApointMatchReporterResponse:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgBuyCardSchemeResponse:
     type: object
+  DecentralCardGame.cardchain.cardchain.MsgBuyCollectionResponse:
+    type: object
   DecentralCardGame.cardchain.cardchain.MsgChangeArtistResponse:
+    type: object
+  DecentralCardGame.cardchain.cardchain.MsgCreateCollectionResponse:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgCreateuserResponse:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgDonateToCardResponse:
     type: object
+  DecentralCardGame.cardchain.cardchain.MsgFinalizeCollectionResponse:
+    type: object
   DecentralCardGame.cardchain.cardchain.MsgRegisterForCouncilResponse:
+    type: object
+  DecentralCardGame.cardchain.cardchain.MsgRemoveCardFromCollectionResponse:
+    type: object
+  DecentralCardGame.cardchain.cardchain.MsgRemoveContributorFromCollectionResponse:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgReportMatchResponse:
     type: object
@@ -20291,6 +20386,8 @@ definitions:
         type: string
         format: uint64
   DecentralCardGame.cardchain.cardchain.MsgSaveCardContentResponse:
+    type: object
+  DecentralCardGame.cardchain.cardchain.MsgSubmitCollectionProposalResponse:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgSubmitCopyrightProposalResponse:
     type: object
@@ -20373,6 +20470,11 @@ definitions:
     properties:
       cardAuctionPrice:
         type: string
+      activeCollections:
+        type: array
+        items:
+          type: string
+          format: uint64
   DecentralCardGame.cardchain.cardchain.QueryQCardsResponse:
     type: object
     properties:
@@ -20381,6 +20483,36 @@ definitions:
         items:
           type: string
           format: uint64
+  DecentralCardGame.cardchain.cardchain.QueryQCollectionResponse:
+    type: object
+    properties:
+      name:
+        type: string
+      cards:
+        type: array
+        items:
+          type: string
+          format: uint64
+      contributors:
+        type: array
+        items:
+          type: string
+      story:
+        type: string
+      artwork:
+        type: string
+        format: byte
+      status:
+        type: string
+        enum:
+          - design
+          - finalized
+          - active
+          - archived
+        default: design
+      timeStamp:
+        type: string
+        format: int64
   DecentralCardGame.cardchain.cardchain.QueryQMatchResponse:
     type: object
     properties:
@@ -20411,7 +20543,12 @@ definitions:
         items:
           type: string
           format: uint64
-      ownedCards:
+      ownedPrototypes:
+        type: array
+        items:
+          type: string
+          format: uint64
+      cards:
         type: array
         items:
           type: string

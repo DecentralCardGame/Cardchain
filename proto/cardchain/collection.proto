@@ -1,0 +1,21 @@
+syntax = "proto3";
+package DecentralCardGame.cardchain.cardchain;
+
+option go_package = "github.com/DecentralCardGame/Cardchain/x/cardchain/types";
+
+message Collection {
+  string name = 1;
+  repeated uint64 cards = 2;
+  repeated string contributors = 3;
+  string story = 4;
+  bytes artwork = 5;
+  CStatus status = 6;
+  int64 timeStamp = 7;
+}
+
+enum CStatus {
+  design = 0;
+  finalized = 1;
+  active = 2;
+  archived = 3;
+}

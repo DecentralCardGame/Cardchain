@@ -12,7 +12,7 @@ import (
 
 // NewHandler ...
 func NewHandler(k keeper.Keeper) sdk.Handler {
-	//msgServer := keeper.NewMsgServerImpl(k)
+	msgServer := keeper.NewMsgServerImpl(k)
 
 	return func(ctx sdk.Context, msg sdk.Msg) (*sdk.Result, error) {
 		ctx = ctx.WithEventManager(sdk.NewEventManager())
@@ -41,14 +41,54 @@ func NewHandler(k keeper.Keeper) sdk.Handler {
 			return handleMsgRegisterForCouncil(ctx, k, msg)
 		case *types.MsgReportMatch:
 			return handleMsgReportMatch(ctx, k, msg)
-		// case *types.MsgApointMatchReporter:  // Will be uncommented later when I know how to check for module account
-		// 	return handleMsgApointMatchReporter(ctx, k, msg)
+			// case *types.MsgApointMatchReporter:  // Will be uncommented later when I know how to check for module account
+			// 	return handleMsgApointMatchReporter(ctx, k, msg)
+		case *types.MsgCreateCollection:
+			return handleMsgCreateCollection(ctx, k, msg)
+		case *types.MsgAddCardToCollection:
+			res, err := msgServer.AddCardToCollection(sdk.WrapSDKContext(ctx), msg)
+			return sdk.WrapServiceResult(ctx, res, err)
+		case *types.MsgFinalizeCollection:
+			res, err := msgServer.FinalizeCollection(sdk.WrapSDKContext(ctx), msg)
+			return sdk.WrapServiceResult(ctx, res, err)
+		case *types.MsgBuyCollection:
+			res, err := msgServer.BuyCollection(sdk.WrapSDKContext(ctx), msg)
+			return sdk.WrapServiceResult(ctx, res, err)
+		case *types.MsgRemoveCardFromCollection:
+			res, err := msgServer.RemoveCardFromCollection(sdk.WrapSDKContext(ctx), msg)
+			return sdk.WrapServiceResult(ctx, res, err)
+		case *types.MsgRemoveContributorFromCollection:
+			res, err := msgServer.RemoveContributorFromCollection(sdk.WrapSDKContext(ctx), msg)
+			return sdk.WrapServiceResult(ctx, res, err)
+		case *types.MsgAddContributorToCollection:
+			res, err := msgServer.AddContributorToCollection(sdk.WrapSDKContext(ctx), msg)
+			return sdk.WrapServiceResult(ctx, res, err)
+		case *types.MsgSubmitCollectionProposal:
+			res, err := msgServer.SubmitCollectionProposal(sdk.WrapSDKContext(ctx), msg)
+			return sdk.WrapServiceResult(ctx, res, err)
 			// this line is used by starport scaffolding # 1
 		default:
 			errMsg := fmt.Sprintf("unrecognized %s message type: %T", types.ModuleName, msg)
 			return nil, sdkerrors.Wrap(sdkerrors.ErrUnknownRequest, errMsg)
 		}
 	}
+}
+
+func handleMsgCreateCollection(ctx sdk.Context, keeper keeper.Keeper, msg *types.MsgCreateCollection) (*sdk.Result, error) {
+	collectionId := keeper.GetCollectionsNumber(ctx)
+
+	collection := types.Collection{
+		Name:         msg.Name,
+		Cards:        []uint64{},
+		Contributors: append([]string{msg.Creator}, msg.Contributors...),
+		Story:        msg.Story,
+		Artwork:      msg.Artwork,
+		Status:       types.CStatus_design,
+		TimeStamp:    0,
+	}
+
+	keeper.SetCollection(ctx, collectionId, collection)
+	return &sdk.Result{}, nil
 }
 
 func handleMsgApointMatchReporter(ctx sdk.Context, keeper keeper.Keeper, msg *types.MsgApointMatchReporter) (*sdk.Result, error) {

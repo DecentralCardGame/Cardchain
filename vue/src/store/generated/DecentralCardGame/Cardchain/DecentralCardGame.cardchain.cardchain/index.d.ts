@@ -1,4 +1,6 @@
 import { Card } from "./module/types/cardchain/card";
+import { Collection } from "./module/types/cardchain/collection";
+import { CollectionProposal } from "./module/types/cardchain/collection_proposal";
 import { CopyrightProposal } from "./module/types/cardchain/copyright_proposal";
 import { Match } from "./module/types/cardchain/match";
 import { MatchReporterProposal } from "./module/types/cardchain/match_reporter_proposal";
@@ -7,6 +9,6 @@ import { User } from "./module/types/cardchain/user";
 import { VoteRight } from "./module/types/cardchain/vote_right";
 import { VotingResult } from "./module/types/cardchain/voting_result";
 import { VotingResults } from "./module/types/cardchain/voting_results";
-export { Card, CopyrightProposal, Match, MatchReporterProposal, Params, User, VoteRight, VotingResult, VotingResults };
+export { Card, Collection, CollectionProposal, CopyrightProposal, Match, MatchReporterProposal, Params, User, VoteRight, VotingResult, VotingResults };
 declare const _default;
 export default _default;

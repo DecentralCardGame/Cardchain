@@ -11,7 +11,7 @@ func NewUser() User {
 	return User{
 		Alias:            "newPlayer",
 		OwnedCardSchemes: []uint64{},
-		OwnedCards:       []uint64{},
+		OwnedPrototypes:  []uint64{},
 		VoteRights:       []*VoteRight{},
 		CouncilStatus:    CouncilStatus_unavailable,
 		ReportMatches:    false,

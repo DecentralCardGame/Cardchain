@@ -14,8 +14,8 @@ func NewMsgReportMatch(creator string, playerA string, playerB string, cardsA []
 		Creator: creator,
 		PlayerA: playerA,
 		PlayerB: playerB,
-		CardsA: cardsA,
-		CardsB: cardsB,
+		CardsA:  cardsA,
+		CardsB:  cardsB,
 		Outcome: outcome,
 	}
 }

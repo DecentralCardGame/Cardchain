@@ -1,8 +1,8 @@
 package cli
 
 import (
-	"strconv"
 	"encoding/json"
+	"strconv"
 
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
 	"github.com/cosmos/cosmos-sdk/client"
@@ -24,14 +24,14 @@ func CmdReportMatch() *cobra.Command {
 			var argCardsA []uint64
 			var argCardsB []uint64
 
-    	err = json.Unmarshal([]byte(args[2]), &argCardsA)
-    	if err != nil {
-        return err
-    	}
-    	err = json.Unmarshal([]byte(args[3]), &argCardsB)
-    	if err != nil {
-        return err
-    	}
+			err = json.Unmarshal([]byte(args[2]), &argCardsA)
+			if err != nil {
+				return err
+			}
+			err = json.Unmarshal([]byte(args[3]), &argCardsB)
+			if err != nil {
+				return err
+			}
 
 			argOutcome := types.Outcome(types.Outcome_value[args[4]])
 

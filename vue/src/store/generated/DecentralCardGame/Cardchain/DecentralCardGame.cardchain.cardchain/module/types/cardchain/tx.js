@@ -1918,6 +1918,1062 @@ export const MsgApointMatchReporterResponse = {
         return message;
     },
 };
+const baseMsgCreateCollection = {
+    creator: "",
+    name: "",
+    contributors: "",
+    story: "",
+};
+export const MsgCreateCollection = {
+    encode(message, writer = Writer.create()) {
+        if (message.creator !== "") {
+            writer.uint32(10).string(message.creator);
+        }
+        if (message.name !== "") {
+            writer.uint32(18).string(message.name);
+        }
+        for (const v of message.contributors) {
+            writer.uint32(26).string(v);
+        }
+        if (message.story !== "") {
+            writer.uint32(34).string(message.story);
+        }
+        if (message.artwork.length !== 0) {
+            writer.uint32(42).bytes(message.artwork);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = { ...baseMsgCreateCollection };
+        message.contributors = [];
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.creator = reader.string();
+                    break;
+                case 2:
+                    message.name = reader.string();
+                    break;
+                case 3:
+                    message.contributors.push(reader.string());
+                    break;
+                case 4:
+                    message.story = reader.string();
+                    break;
+                case 5:
+                    message.artwork = reader.bytes();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = { ...baseMsgCreateCollection };
+        message.contributors = [];
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = String(object.creator);
+        }
+        else {
+            message.creator = "";
+        }
+        if (object.name !== undefined && object.name !== null) {
+            message.name = String(object.name);
+        }
+        else {
+            message.name = "";
+        }
+        if (object.contributors !== undefined && object.contributors !== null) {
+            for (const e of object.contributors) {
+                message.contributors.push(String(e));
+            }
+        }
+        if (object.story !== undefined && object.story !== null) {
+            message.story = String(object.story);
+        }
+        else {
+            message.story = "";
+        }
+        if (object.artwork !== undefined && object.artwork !== null) {
+            message.artwork = bytesFromBase64(object.artwork);
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.creator !== undefined && (obj.creator = message.creator);
+        message.name !== undefined && (obj.name = message.name);
+        if (message.contributors) {
+            obj.contributors = message.contributors.map((e) => e);
+        }
+        else {
+            obj.contributors = [];
+        }
+        message.story !== undefined && (obj.story = message.story);
+        message.artwork !== undefined &&
+            (obj.artwork = base64FromBytes(message.artwork !== undefined ? message.artwork : new Uint8Array()));
+        return obj;
+    },
+    fromPartial(object) {
+        const message = { ...baseMsgCreateCollection };
+        message.contributors = [];
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = object.creator;
+        }
+        else {
+            message.creator = "";
+        }
+        if (object.name !== undefined && object.name !== null) {
+            message.name = object.name;
+        }
+        else {
+            message.name = "";
+        }
+        if (object.contributors !== undefined && object.contributors !== null) {
+            for (const e of object.contributors) {
+                message.contributors.push(e);
+            }
+        }
+        if (object.story !== undefined && object.story !== null) {
+            message.story = object.story;
+        }
+        else {
+            message.story = "";
+        }
+        if (object.artwork !== undefined && object.artwork !== null) {
+            message.artwork = object.artwork;
+        }
+        else {
+            message.artwork = new Uint8Array();
+        }
+        return message;
+    },
+};
+const baseMsgCreateCollectionResponse = {};
+export const MsgCreateCollectionResponse = {
+    encode(_, writer = Writer.create()) {
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = {
+            ...baseMsgCreateCollectionResponse,
+        };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(_) {
+        const message = {
+            ...baseMsgCreateCollectionResponse,
+        };
+        return message;
+    },
+    toJSON(_) {
+        const obj = {};
+        return obj;
+    },
+    fromPartial(_) {
+        const message = {
+            ...baseMsgCreateCollectionResponse,
+        };
+        return message;
+    },
+};
+const baseMsgAddCardToCollection = {
+    creator: "",
+    collectionId: 0,
+    cardId: 0,
+};
+export const MsgAddCardToCollection = {
+    encode(message, writer = Writer.create()) {
+        if (message.creator !== "") {
+            writer.uint32(10).string(message.creator);
+        }
+        if (message.collectionId !== 0) {
+            writer.uint32(16).uint64(message.collectionId);
+        }
+        if (message.cardId !== 0) {
+            writer.uint32(24).uint64(message.cardId);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = { ...baseMsgAddCardToCollection };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.creator = reader.string();
+                    break;
+                case 2:
+                    message.collectionId = longToNumber(reader.uint64());
+                    break;
+                case 3:
+                    message.cardId = longToNumber(reader.uint64());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = { ...baseMsgAddCardToCollection };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = String(object.creator);
+        }
+        else {
+            message.creator = "";
+        }
+        if (object.collectionId !== undefined && object.collectionId !== null) {
+            message.collectionId = Number(object.collectionId);
+        }
+        else {
+            message.collectionId = 0;
+        }
+        if (object.cardId !== undefined && object.cardId !== null) {
+            message.cardId = Number(object.cardId);
+        }
+        else {
+            message.cardId = 0;
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.creator !== undefined && (obj.creator = message.creator);
+        message.collectionId !== undefined &&
+            (obj.collectionId = message.collectionId);
+        message.cardId !== undefined && (obj.cardId = message.cardId);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = { ...baseMsgAddCardToCollection };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = object.creator;
+        }
+        else {
+            message.creator = "";
+        }
+        if (object.collectionId !== undefined && object.collectionId !== null) {
+            message.collectionId = object.collectionId;
+        }
+        else {
+            message.collectionId = 0;
+        }
+        if (object.cardId !== undefined && object.cardId !== null) {
+            message.cardId = object.cardId;
+        }
+        else {
+            message.cardId = 0;
+        }
+        return message;
+    },
+};
+const baseMsgAddCardToCollectionResponse = {};
+export const MsgAddCardToCollectionResponse = {
+    encode(_, writer = Writer.create()) {
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = {
+            ...baseMsgAddCardToCollectionResponse,
+        };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(_) {
+        const message = {
+            ...baseMsgAddCardToCollectionResponse,
+        };
+        return message;
+    },
+    toJSON(_) {
+        const obj = {};
+        return obj;
+    },
+    fromPartial(_) {
+        const message = {
+            ...baseMsgAddCardToCollectionResponse,
+        };
+        return message;
+    },
+};
+const baseMsgFinalizeCollection = { creator: "", collectionId: 0 };
+export const MsgFinalizeCollection = {
+    encode(message, writer = Writer.create()) {
+        if (message.creator !== "") {
+            writer.uint32(10).string(message.creator);
+        }
+        if (message.collectionId !== 0) {
+            writer.uint32(16).uint64(message.collectionId);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = { ...baseMsgFinalizeCollection };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.creator = reader.string();
+                    break;
+                case 2:
+                    message.collectionId = longToNumber(reader.uint64());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = { ...baseMsgFinalizeCollection };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = String(object.creator);
+        }
+        else {
+            message.creator = "";
+        }
+        if (object.collectionId !== undefined && object.collectionId !== null) {
+            message.collectionId = Number(object.collectionId);
+        }
+        else {
+            message.collectionId = 0;
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.creator !== undefined && (obj.creator = message.creator);
+        message.collectionId !== undefined &&
+            (obj.collectionId = message.collectionId);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = { ...baseMsgFinalizeCollection };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = object.creator;
+        }
+        else {
+            message.creator = "";
+        }
+        if (object.collectionId !== undefined && object.collectionId !== null) {
+            message.collectionId = object.collectionId;
+        }
+        else {
+            message.collectionId = 0;
+        }
+        return message;
+    },
+};
+const baseMsgFinalizeCollectionResponse = {};
+export const MsgFinalizeCollectionResponse = {
+    encode(_, writer = Writer.create()) {
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = {
+            ...baseMsgFinalizeCollectionResponse,
+        };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(_) {
+        const message = {
+            ...baseMsgFinalizeCollectionResponse,
+        };
+        return message;
+    },
+    toJSON(_) {
+        const obj = {};
+        return obj;
+    },
+    fromPartial(_) {
+        const message = {
+            ...baseMsgFinalizeCollectionResponse,
+        };
+        return message;
+    },
+};
+const baseMsgBuyCollection = { creator: "", collectionId: 0 };
+export const MsgBuyCollection = {
+    encode(message, writer = Writer.create()) {
+        if (message.creator !== "") {
+            writer.uint32(10).string(message.creator);
+        }
+        if (message.collectionId !== 0) {
+            writer.uint32(16).uint64(message.collectionId);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = { ...baseMsgBuyCollection };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.creator = reader.string();
+                    break;
+                case 2:
+                    message.collectionId = longToNumber(reader.uint64());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = { ...baseMsgBuyCollection };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = String(object.creator);
+        }
+        else {
+            message.creator = "";
+        }
+        if (object.collectionId !== undefined && object.collectionId !== null) {
+            message.collectionId = Number(object.collectionId);
+        }
+        else {
+            message.collectionId = 0;
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.creator !== undefined && (obj.creator = message.creator);
+        message.collectionId !== undefined &&
+            (obj.collectionId = message.collectionId);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = { ...baseMsgBuyCollection };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = object.creator;
+        }
+        else {
+            message.creator = "";
+        }
+        if (object.collectionId !== undefined && object.collectionId !== null) {
+            message.collectionId = object.collectionId;
+        }
+        else {
+            message.collectionId = 0;
+        }
+        return message;
+    },
+};
+const baseMsgBuyCollectionResponse = {};
+export const MsgBuyCollectionResponse = {
+    encode(_, writer = Writer.create()) {
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = {
+            ...baseMsgBuyCollectionResponse,
+        };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(_) {
+        const message = {
+            ...baseMsgBuyCollectionResponse,
+        };
+        return message;
+    },
+    toJSON(_) {
+        const obj = {};
+        return obj;
+    },
+    fromPartial(_) {
+        const message = {
+            ...baseMsgBuyCollectionResponse,
+        };
+        return message;
+    },
+};
+const baseMsgRemoveCardFromCollection = {
+    creator: "",
+    collectionId: 0,
+    cardId: 0,
+};
+export const MsgRemoveCardFromCollection = {
+    encode(message, writer = Writer.create()) {
+        if (message.creator !== "") {
+            writer.uint32(10).string(message.creator);
+        }
+        if (message.collectionId !== 0) {
+            writer.uint32(16).uint64(message.collectionId);
+        }
+        if (message.cardId !== 0) {
+            writer.uint32(24).uint64(message.cardId);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = {
+            ...baseMsgRemoveCardFromCollection,
+        };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.creator = reader.string();
+                    break;
+                case 2:
+                    message.collectionId = longToNumber(reader.uint64());
+                    break;
+                case 3:
+                    message.cardId = longToNumber(reader.uint64());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = {
+            ...baseMsgRemoveCardFromCollection,
+        };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = String(object.creator);
+        }
+        else {
+            message.creator = "";
+        }
+        if (object.collectionId !== undefined && object.collectionId !== null) {
+            message.collectionId = Number(object.collectionId);
+        }
+        else {
+            message.collectionId = 0;
+        }
+        if (object.cardId !== undefined && object.cardId !== null) {
+            message.cardId = Number(object.cardId);
+        }
+        else {
+            message.cardId = 0;
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.creator !== undefined && (obj.creator = message.creator);
+        message.collectionId !== undefined &&
+            (obj.collectionId = message.collectionId);
+        message.cardId !== undefined && (obj.cardId = message.cardId);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = {
+            ...baseMsgRemoveCardFromCollection,
+        };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = object.creator;
+        }
+        else {
+            message.creator = "";
+        }
+        if (object.collectionId !== undefined && object.collectionId !== null) {
+            message.collectionId = object.collectionId;
+        }
+        else {
+            message.collectionId = 0;
+        }
+        if (object.cardId !== undefined && object.cardId !== null) {
+            message.cardId = object.cardId;
+        }
+        else {
+            message.cardId = 0;
+        }
+        return message;
+    },
+};
+const baseMsgRemoveCardFromCollectionResponse = {};
+export const MsgRemoveCardFromCollectionResponse = {
+    encode(_, writer = Writer.create()) {
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = {
+            ...baseMsgRemoveCardFromCollectionResponse,
+        };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(_) {
+        const message = {
+            ...baseMsgRemoveCardFromCollectionResponse,
+        };
+        return message;
+    },
+    toJSON(_) {
+        const obj = {};
+        return obj;
+    },
+    fromPartial(_) {
+        const message = {
+            ...baseMsgRemoveCardFromCollectionResponse,
+        };
+        return message;
+    },
+};
+const baseMsgRemoveContributorFromCollection = {
+    creator: "",
+    collectionId: 0,
+    user: "",
+};
+export const MsgRemoveContributorFromCollection = {
+    encode(message, writer = Writer.create()) {
+        if (message.creator !== "") {
+            writer.uint32(10).string(message.creator);
+        }
+        if (message.collectionId !== 0) {
+            writer.uint32(16).uint64(message.collectionId);
+        }
+        if (message.user !== "") {
+            writer.uint32(26).string(message.user);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = {
+            ...baseMsgRemoveContributorFromCollection,
+        };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.creator = reader.string();
+                    break;
+                case 2:
+                    message.collectionId = longToNumber(reader.uint64());
+                    break;
+                case 3:
+                    message.user = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = {
+            ...baseMsgRemoveContributorFromCollection,
+        };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = String(object.creator);
+        }
+        else {
+            message.creator = "";
+        }
+        if (object.collectionId !== undefined && object.collectionId !== null) {
+            message.collectionId = Number(object.collectionId);
+        }
+        else {
+            message.collectionId = 0;
+        }
+        if (object.user !== undefined && object.user !== null) {
+            message.user = String(object.user);
+        }
+        else {
+            message.user = "";
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.creator !== undefined && (obj.creator = message.creator);
+        message.collectionId !== undefined &&
+            (obj.collectionId = message.collectionId);
+        message.user !== undefined && (obj.user = message.user);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = {
+            ...baseMsgRemoveContributorFromCollection,
+        };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = object.creator;
+        }
+        else {
+            message.creator = "";
+        }
+        if (object.collectionId !== undefined && object.collectionId !== null) {
+            message.collectionId = object.collectionId;
+        }
+        else {
+            message.collectionId = 0;
+        }
+        if (object.user !== undefined && object.user !== null) {
+            message.user = object.user;
+        }
+        else {
+            message.user = "";
+        }
+        return message;
+    },
+};
+const baseMsgRemoveContributorFromCollectionResponse = {};
+export const MsgRemoveContributorFromCollectionResponse = {
+    encode(_, writer = Writer.create()) {
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = {
+            ...baseMsgRemoveContributorFromCollectionResponse,
+        };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(_) {
+        const message = {
+            ...baseMsgRemoveContributorFromCollectionResponse,
+        };
+        return message;
+    },
+    toJSON(_) {
+        const obj = {};
+        return obj;
+    },
+    fromPartial(_) {
+        const message = {
+            ...baseMsgRemoveContributorFromCollectionResponse,
+        };
+        return message;
+    },
+};
+const baseMsgAddContributorToCollection = {
+    creator: "",
+    collectionId: 0,
+    user: "",
+};
+export const MsgAddContributorToCollection = {
+    encode(message, writer = Writer.create()) {
+        if (message.creator !== "") {
+            writer.uint32(10).string(message.creator);
+        }
+        if (message.collectionId !== 0) {
+            writer.uint32(16).uint64(message.collectionId);
+        }
+        if (message.user !== "") {
+            writer.uint32(26).string(message.user);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = {
+            ...baseMsgAddContributorToCollection,
+        };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.creator = reader.string();
+                    break;
+                case 2:
+                    message.collectionId = longToNumber(reader.uint64());
+                    break;
+                case 3:
+                    message.user = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = {
+            ...baseMsgAddContributorToCollection,
+        };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = String(object.creator);
+        }
+        else {
+            message.creator = "";
+        }
+        if (object.collectionId !== undefined && object.collectionId !== null) {
+            message.collectionId = Number(object.collectionId);
+        }
+        else {
+            message.collectionId = 0;
+        }
+        if (object.user !== undefined && object.user !== null) {
+            message.user = String(object.user);
+        }
+        else {
+            message.user = "";
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.creator !== undefined && (obj.creator = message.creator);
+        message.collectionId !== undefined &&
+            (obj.collectionId = message.collectionId);
+        message.user !== undefined && (obj.user = message.user);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = {
+            ...baseMsgAddContributorToCollection,
+        };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = object.creator;
+        }
+        else {
+            message.creator = "";
+        }
+        if (object.collectionId !== undefined && object.collectionId !== null) {
+            message.collectionId = object.collectionId;
+        }
+        else {
+            message.collectionId = 0;
+        }
+        if (object.user !== undefined && object.user !== null) {
+            message.user = object.user;
+        }
+        else {
+            message.user = "";
+        }
+        return message;
+    },
+};
+const baseMsgAddContributorToCollectionResponse = {};
+export const MsgAddContributorToCollectionResponse = {
+    encode(_, writer = Writer.create()) {
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = {
+            ...baseMsgAddContributorToCollectionResponse,
+        };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(_) {
+        const message = {
+            ...baseMsgAddContributorToCollectionResponse,
+        };
+        return message;
+    },
+    toJSON(_) {
+        const obj = {};
+        return obj;
+    },
+    fromPartial(_) {
+        const message = {
+            ...baseMsgAddContributorToCollectionResponse,
+        };
+        return message;
+    },
+};
+const baseMsgSubmitCollectionProposal = {
+    creator: "",
+    collectionId: 0,
+};
+export const MsgSubmitCollectionProposal = {
+    encode(message, writer = Writer.create()) {
+        if (message.creator !== "") {
+            writer.uint32(10).string(message.creator);
+        }
+        if (message.collectionId !== 0) {
+            writer.uint32(16).uint64(message.collectionId);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = {
+            ...baseMsgSubmitCollectionProposal,
+        };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.creator = reader.string();
+                    break;
+                case 2:
+                    message.collectionId = longToNumber(reader.uint64());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = {
+            ...baseMsgSubmitCollectionProposal,
+        };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = String(object.creator);
+        }
+        else {
+            message.creator = "";
+        }
+        if (object.collectionId !== undefined && object.collectionId !== null) {
+            message.collectionId = Number(object.collectionId);
+        }
+        else {
+            message.collectionId = 0;
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.creator !== undefined && (obj.creator = message.creator);
+        message.collectionId !== undefined &&
+            (obj.collectionId = message.collectionId);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = {
+            ...baseMsgSubmitCollectionProposal,
+        };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = object.creator;
+        }
+        else {
+            message.creator = "";
+        }
+        if (object.collectionId !== undefined && object.collectionId !== null) {
+            message.collectionId = object.collectionId;
+        }
+        else {
+            message.collectionId = 0;
+        }
+        return message;
+    },
+};
+const baseMsgSubmitCollectionProposalResponse = {};
+export const MsgSubmitCollectionProposalResponse = {
+    encode(_, writer = Writer.create()) {
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = {
+            ...baseMsgSubmitCollectionProposalResponse,
+        };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(_) {
+        const message = {
+            ...baseMsgSubmitCollectionProposalResponse,
+        };
+        return message;
+    },
+    toJSON(_) {
+        const obj = {};
+        return obj;
+    },
+    fromPartial(_) {
+        const message = {
+            ...baseMsgSubmitCollectionProposalResponse,
+        };
+        return message;
+    },
+};
 export class MsgClientImpl {
     constructor(rpc) {
         this.rpc = rpc;
@@ -1986,6 +3042,46 @@ export class MsgClientImpl {
         const data = MsgApointMatchReporter.encode(request).finish();
         const promise = this.rpc.request("DecentralCardGame.cardchain.cardchain.Msg", "ApointMatchReporter", data);
         return promise.then((data) => MsgApointMatchReporterResponse.decode(new Reader(data)));
+    }
+    CreateCollection(request) {
+        const data = MsgCreateCollection.encode(request).finish();
+        const promise = this.rpc.request("DecentralCardGame.cardchain.cardchain.Msg", "CreateCollection", data);
+        return promise.then((data) => MsgCreateCollectionResponse.decode(new Reader(data)));
+    }
+    AddCardToCollection(request) {
+        const data = MsgAddCardToCollection.encode(request).finish();
+        const promise = this.rpc.request("DecentralCardGame.cardchain.cardchain.Msg", "AddCardToCollection", data);
+        return promise.then((data) => MsgAddCardToCollectionResponse.decode(new Reader(data)));
+    }
+    FinalizeCollection(request) {
+        const data = MsgFinalizeCollection.encode(request).finish();
+        const promise = this.rpc.request("DecentralCardGame.cardchain.cardchain.Msg", "FinalizeCollection", data);
+        return promise.then((data) => MsgFinalizeCollectionResponse.decode(new Reader(data)));
+    }
+    BuyCollection(request) {
+        const data = MsgBuyCollection.encode(request).finish();
+        const promise = this.rpc.request("DecentralCardGame.cardchain.cardchain.Msg", "BuyCollection", data);
+        return promise.then((data) => MsgBuyCollectionResponse.decode(new Reader(data)));
+    }
+    RemoveCardFromCollection(request) {
+        const data = MsgRemoveCardFromCollection.encode(request).finish();
+        const promise = this.rpc.request("DecentralCardGame.cardchain.cardchain.Msg", "RemoveCardFromCollection", data);
+        return promise.then((data) => MsgRemoveCardFromCollectionResponse.decode(new Reader(data)));
+    }
+    RemoveContributorFromCollection(request) {
+        const data = MsgRemoveContributorFromCollection.encode(request).finish();
+        const promise = this.rpc.request("DecentralCardGame.cardchain.cardchain.Msg", "RemoveContributorFromCollection", data);
+        return promise.then((data) => MsgRemoveContributorFromCollectionResponse.decode(new Reader(data)));
+    }
+    AddContributorToCollection(request) {
+        const data = MsgAddContributorToCollection.encode(request).finish();
+        const promise = this.rpc.request("DecentralCardGame.cardchain.cardchain.Msg", "AddContributorToCollection", data);
+        return promise.then((data) => MsgAddContributorToCollectionResponse.decode(new Reader(data)));
+    }
+    SubmitCollectionProposal(request) {
+        const data = MsgSubmitCollectionProposal.encode(request).finish();
+        const promise = this.rpc.request("DecentralCardGame.cardchain.cardchain.Msg", "SubmitCollectionProposal", data);
+        return promise.then((data) => MsgSubmitCollectionProposalResponse.decode(new Reader(data)));
     }
 }
 var globalThis = (() => {

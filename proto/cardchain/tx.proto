@@ -22,6 +22,14 @@ service Msg {
   rpc ReportMatch(MsgReportMatch) returns (MsgReportMatchResponse);
   rpc SubmitMatchReporterProposal(MsgSubmitMatchReporterProposal) returns (MsgSubmitMatchReporterProposalResponse);
   rpc ApointMatchReporter(MsgApointMatchReporter) returns (MsgApointMatchReporterResponse);
+  rpc CreateCollection(MsgCreateCollection) returns (MsgCreateCollectionResponse);
+  rpc AddCardToCollection(MsgAddCardToCollection) returns (MsgAddCardToCollectionResponse);
+  rpc FinalizeCollection(MsgFinalizeCollection) returns (MsgFinalizeCollectionResponse);
+  rpc BuyCollection(MsgBuyCollection) returns (MsgBuyCollectionResponse);
+  rpc RemoveCardFromCollection(MsgRemoveCardFromCollection) returns (MsgRemoveCardFromCollectionResponse);
+  rpc RemoveContributorFromCollection(MsgRemoveContributorFromCollection) returns (MsgRemoveContributorFromCollectionResponse);
+  rpc AddContributorToCollection(MsgAddContributorToCollection) returns (MsgAddContributorToCollectionResponse);
+  rpc SubmitCollectionProposal(MsgSubmitCollectionProposal) returns (MsgSubmitCollectionProposalResponse);
 // this line is used by starport scaffolding # proto/tx/rpc
 }
 
@@ -158,6 +166,77 @@ message MsgApointMatchReporter {
 }
 
 message MsgApointMatchReporterResponse {
+}
+
+message MsgCreateCollection {
+  string creator = 1;
+  string name = 2;
+  repeated string contributors = 3;
+  string story = 4;
+  bytes artwork = 5;
+}
+
+message MsgCreateCollectionResponse {
+}
+
+message MsgAddCardToCollection {
+  string creator = 1;
+  uint64 collectionId = 2;
+  uint64 cardId = 3;
+}
+
+message MsgAddCardToCollectionResponse {
+}
+
+message MsgFinalizeCollection {
+  string creator = 1;
+  uint64 collectionId = 2;
+}
+
+message MsgFinalizeCollectionResponse {
+}
+
+message MsgBuyCollection {
+  string creator = 1;
+  uint64 collectionId = 2;
+}
+
+message MsgBuyCollectionResponse {
+}
+
+message MsgRemoveCardFromCollection {
+  string creator = 1;
+  uint64 collectionId = 2;
+  uint64 cardId = 3;
+}
+
+message MsgRemoveCardFromCollectionResponse {
+}
+
+message MsgRemoveContributorFromCollection {
+  string creator = 1;
+  uint64 collectionId = 2;
+  string user = 3;
+}
+
+message MsgRemoveContributorFromCollectionResponse {
+}
+
+message MsgAddContributorToCollection {
+  string creator = 1;
+  uint64 collectionId = 2;
+  string user = 3;
+}
+
+message MsgAddContributorToCollectionResponse {
+}
+
+message MsgSubmitCollectionProposal {
+  string creator = 1;
+  uint64 collectionId = 2;
+}
+
+message MsgSubmitCollectionProposalResponse {
 }
 
 // this line is used by starport scaffolding # proto/tx/message

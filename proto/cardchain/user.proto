@@ -8,10 +8,11 @@ message User {
 
   string alias = 1;
   repeated uint64 ownedCardSchemes = 2;
-  repeated uint64 ownedCards = 3;
-  repeated VoteRight voteRights = 4;
-  CouncilStatus CouncilStatus = 5;
-  bool ReportMatches = 6;
+  repeated uint64 ownedPrototypes = 3;
+  repeated uint64 cards = 4;
+  repeated VoteRight voteRights = 5;
+  CouncilStatus CouncilStatus = 6;
+  bool ReportMatches = 7;
 }
 
 enum CouncilStatus {
