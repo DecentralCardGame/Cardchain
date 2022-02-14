@@ -55,6 +55,8 @@ export type CardchainMsgRemoveCardFromCollectionResponse = object;
 
 export type CardchainMsgRemoveContributorFromCollectionResponse = object;
 
+export type CardchainMsgRemoveSellOfferResponse = object;
+
 export interface CardchainMsgReportMatchResponse {
   /** @format uint64 */
   matchId?: string;

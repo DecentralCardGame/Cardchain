@@ -20449,6 +20449,8 @@ definitions:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgRemoveContributorFromCollectionResponse:
     type: object
+  DecentralCardGame.cardchain.cardchain.MsgRemoveSellOfferResponse:
+    type: object
   DecentralCardGame.cardchain.cardchain.MsgReportMatchResponse:
     type: object
     properties:

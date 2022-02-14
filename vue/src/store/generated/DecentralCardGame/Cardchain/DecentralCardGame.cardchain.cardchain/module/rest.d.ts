@@ -26,6 +26,7 @@ export declare type CardchainMsgFinalizeCollectionResponse = object;
 export declare type CardchainMsgRegisterForCouncilResponse = object;
 export declare type CardchainMsgRemoveCardFromCollectionResponse = object;
 export declare type CardchainMsgRemoveContributorFromCollectionResponse = object;
+export declare type CardchainMsgRemoveSellOfferResponse = object;
 export interface CardchainMsgReportMatchResponse {
     /** @format uint64 */
     matchId?: string;
