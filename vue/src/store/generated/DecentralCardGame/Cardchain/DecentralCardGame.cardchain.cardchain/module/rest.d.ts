@@ -14,6 +14,7 @@ export declare type CardchainMsgAddArtworkResponse = object;
 export declare type CardchainMsgAddCardToCollectionResponse = object;
 export declare type CardchainMsgAddContributorToCollectionResponse = object;
 export declare type CardchainMsgApointMatchReporterResponse = object;
+export declare type CardchainMsgBuyCardResponse = object;
 export declare type CardchainMsgBuyCardSchemeResponse = object;
 export declare type CardchainMsgBuyCollectionResponse = object;
 export declare type CardchainMsgChangeArtistResponse = object;

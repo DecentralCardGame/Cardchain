@@ -31,6 +31,8 @@ export type CardchainMsgAddContributorToCollectionResponse = object;
 
 export type CardchainMsgApointMatchReporterResponse = object;
 
+export type CardchainMsgBuyCardResponse = object;
+
 export type CardchainMsgBuyCardSchemeResponse = object;
 
 export type CardchainMsgBuyCollectionResponse = object;

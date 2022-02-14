@@ -237,6 +237,13 @@ export interface MsgCreateSellOffer {
 
 export interface MsgCreateSellOfferResponse {}
 
+export interface MsgBuyCard {
+  creator: string;
+  sellOfferId: number;
+}
+
+export interface MsgBuyCardResponse {}
+
 const baseMsgCreateuser: object = { creator: "", newUser: "", alias: "" };
 
 export const MsgCreateuser = {
@@ -3628,6 +3635,117 @@ export const MsgCreateSellOfferResponse = {
   },
 };
 
+const baseMsgBuyCard: object = { creator: "", sellOfferId: 0 };
+
+export const MsgBuyCard = {
+  encode(message: MsgBuyCard, writer: Writer = Writer.create()): Writer {
+    if (message.creator !== "") {
+      writer.uint32(10).string(message.creator);
+    }
+    if (message.sellOfferId !== 0) {
+      writer.uint32(16).uint64(message.sellOfferId);
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgBuyCard {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseMsgBuyCard } as MsgBuyCard;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string();
+          break;
+        case 2:
+          message.sellOfferId = longToNumber(reader.uint64() as Long);
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgBuyCard {
+    const message = { ...baseMsgBuyCard } as MsgBuyCard;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = String(object.creator);
+    } else {
+      message.creator = "";
+    }
+    if (object.sellOfferId !== undefined && object.sellOfferId !== null) {
+      message.sellOfferId = Number(object.sellOfferId);
+    } else {
+      message.sellOfferId = 0;
+    }
+    return message;
+  },
+
+  toJSON(message: MsgBuyCard): unknown {
+    const obj: any = {};
+    message.creator !== undefined && (obj.creator = message.creator);
+    message.sellOfferId !== undefined &&
+      (obj.sellOfferId = message.sellOfferId);
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<MsgBuyCard>): MsgBuyCard {
+    const message = { ...baseMsgBuyCard } as MsgBuyCard;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    } else {
+      message.creator = "";
+    }
+    if (object.sellOfferId !== undefined && object.sellOfferId !== null) {
+      message.sellOfferId = object.sellOfferId;
+    } else {
+      message.sellOfferId = 0;
+    }
+    return message;
+  },
+};
+
+const baseMsgBuyCardResponse: object = {};
+
+export const MsgBuyCardResponse = {
+  encode(_: MsgBuyCardResponse, writer: Writer = Writer.create()): Writer {
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgBuyCardResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseMsgBuyCardResponse } as MsgBuyCardResponse;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): MsgBuyCardResponse {
+    const message = { ...baseMsgBuyCardResponse } as MsgBuyCardResponse;
+    return message;
+  },
+
+  toJSON(_: MsgBuyCardResponse): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial(_: DeepPartial<MsgBuyCardResponse>): MsgBuyCardResponse {
+    const message = { ...baseMsgBuyCardResponse } as MsgBuyCardResponse;
+    return message;
+  },
+};
+
 /** Msg defines the Msg service. */
 export interface Msg {
   Createuser(request: MsgCreateuser): Promise<MsgCreateuserResponse>;
@@ -3675,10 +3793,11 @@ export interface Msg {
   SubmitCollectionProposal(
     request: MsgSubmitCollectionProposal
   ): Promise<MsgSubmitCollectionProposalResponse>;
-  /** this line is used by starport scaffolding # proto/tx/rpc */
   CreateSellOffer(
     request: MsgCreateSellOffer
   ): Promise<MsgCreateSellOfferResponse>;
+  /** this line is used by starport scaffolding # proto/tx/rpc */
+  BuyCard(request: MsgBuyCard): Promise<MsgBuyCardResponse>;
 }
 
 export class MsgClientImpl implements Msg {
@@ -3972,6 +4091,16 @@ export class MsgClientImpl implements Msg {
     return promise.then((data) =>
       MsgCreateSellOfferResponse.decode(new Reader(data))
     );
+  }
+
+  BuyCard(request: MsgBuyCard): Promise<MsgBuyCardResponse> {
+    const data = MsgBuyCard.encode(request).finish();
+    const promise = this.rpc.request(
+      "DecentralCardGame.cardchain.cardchain.Msg",
+      "BuyCard",
+      data
+    );
+    return promise.then((data) => MsgBuyCardResponse.decode(new Reader(data)));
   }
 }
 

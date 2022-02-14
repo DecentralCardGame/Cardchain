@@ -3101,6 +3101,109 @@ export const MsgCreateSellOfferResponse = {
         return message;
     },
 };
+const baseMsgBuyCard = { creator: "", sellOfferId: 0 };
+export const MsgBuyCard = {
+    encode(message, writer = Writer.create()) {
+        if (message.creator !== "") {
+            writer.uint32(10).string(message.creator);
+        }
+        if (message.sellOfferId !== 0) {
+            writer.uint32(16).uint64(message.sellOfferId);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = { ...baseMsgBuyCard };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.creator = reader.string();
+                    break;
+                case 2:
+                    message.sellOfferId = longToNumber(reader.uint64());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = { ...baseMsgBuyCard };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = String(object.creator);
+        }
+        else {
+            message.creator = "";
+        }
+        if (object.sellOfferId !== undefined && object.sellOfferId !== null) {
+            message.sellOfferId = Number(object.sellOfferId);
+        }
+        else {
+            message.sellOfferId = 0;
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.creator !== undefined && (obj.creator = message.creator);
+        message.sellOfferId !== undefined &&
+            (obj.sellOfferId = message.sellOfferId);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = { ...baseMsgBuyCard };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = object.creator;
+        }
+        else {
+            message.creator = "";
+        }
+        if (object.sellOfferId !== undefined && object.sellOfferId !== null) {
+            message.sellOfferId = object.sellOfferId;
+        }
+        else {
+            message.sellOfferId = 0;
+        }
+        return message;
+    },
+};
+const baseMsgBuyCardResponse = {};
+export const MsgBuyCardResponse = {
+    encode(_, writer = Writer.create()) {
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = { ...baseMsgBuyCardResponse };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(_) {
+        const message = { ...baseMsgBuyCardResponse };
+        return message;
+    },
+    toJSON(_) {
+        const obj = {};
+        return obj;
+    },
+    fromPartial(_) {
+        const message = { ...baseMsgBuyCardResponse };
+        return message;
+    },
+};
 export class MsgClientImpl {
     constructor(rpc) {
         this.rpc = rpc;
@@ -3214,6 +3317,11 @@ export class MsgClientImpl {
         const data = MsgCreateSellOffer.encode(request).finish();
         const promise = this.rpc.request("DecentralCardGame.cardchain.cardchain.Msg", "CreateSellOffer", data);
         return promise.then((data) => MsgCreateSellOfferResponse.decode(new Reader(data)));
+    }
+    BuyCard(request) {
+        const data = MsgBuyCard.encode(request).finish();
+        const promise = this.rpc.request("DecentralCardGame.cardchain.cardchain.Msg", "BuyCard", data);
+        return promise.then((data) => MsgBuyCardResponse.decode(new Reader(data)));
     }
 }
 var globalThis = (() => {

@@ -175,6 +175,12 @@ export interface MsgCreateSellOffer {
 }
 export interface MsgCreateSellOfferResponse {
 }
+export interface MsgBuyCard {
+    creator: string;
+    sellOfferId: number;
+}
+export interface MsgBuyCardResponse {
+}
 export declare const MsgCreateuser: {
     encode(message: MsgCreateuser, writer?: Writer): Writer;
     decode(input: Reader | Uint8Array, length?: number): MsgCreateuser;
@@ -483,6 +489,20 @@ export declare const MsgCreateSellOfferResponse: {
     toJSON(_: MsgCreateSellOfferResponse): unknown;
     fromPartial(_: DeepPartial<MsgCreateSellOfferResponse>): MsgCreateSellOfferResponse;
 };
+export declare const MsgBuyCard: {
+    encode(message: MsgBuyCard, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgBuyCard;
+    fromJSON(object: any): MsgBuyCard;
+    toJSON(message: MsgBuyCard): unknown;
+    fromPartial(object: DeepPartial<MsgBuyCard>): MsgBuyCard;
+};
+export declare const MsgBuyCardResponse: {
+    encode(_: MsgBuyCardResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgBuyCardResponse;
+    fromJSON(_: any): MsgBuyCardResponse;
+    toJSON(_: MsgBuyCardResponse): unknown;
+    fromPartial(_: DeepPartial<MsgBuyCardResponse>): MsgBuyCardResponse;
+};
 /** Msg defines the Msg service. */
 export interface Msg {
     Createuser(request: MsgCreateuser): Promise<MsgCreateuserResponse>;
@@ -506,8 +526,9 @@ export interface Msg {
     RemoveContributorFromCollection(request: MsgRemoveContributorFromCollection): Promise<MsgRemoveContributorFromCollectionResponse>;
     AddContributorToCollection(request: MsgAddContributorToCollection): Promise<MsgAddContributorToCollectionResponse>;
     SubmitCollectionProposal(request: MsgSubmitCollectionProposal): Promise<MsgSubmitCollectionProposalResponse>;
-    /** this line is used by starport scaffolding # proto/tx/rpc */
     CreateSellOffer(request: MsgCreateSellOffer): Promise<MsgCreateSellOfferResponse>;
+    /** this line is used by starport scaffolding # proto/tx/rpc */
+    BuyCard(request: MsgBuyCard): Promise<MsgBuyCardResponse>;
 }
 export declare class MsgClientImpl implements Msg {
     private readonly rpc;
@@ -534,6 +555,7 @@ export declare class MsgClientImpl implements Msg {
     AddContributorToCollection(request: MsgAddContributorToCollection): Promise<MsgAddContributorToCollectionResponse>;
     SubmitCollectionProposal(request: MsgSubmitCollectionProposal): Promise<MsgSubmitCollectionProposalResponse>;
     CreateSellOffer(request: MsgCreateSellOffer): Promise<MsgCreateSellOfferResponse>;
+    BuyCard(request: MsgBuyCard): Promise<MsgBuyCardResponse>;
 }
 interface Rpc {
     request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;

@@ -20,4 +20,5 @@ var (
 	ErrNoActiveCollection      = sdkerrors.Register(ModuleName, 9, "No active collection")
 	ErrCardNotThere            = sdkerrors.Register(ModuleName, 10, "Card not there")
 	ErrContributor             = sdkerrors.Register(ModuleName, 11, "Contributor error")
+	ErrNoOpenSellOffer         = sdkerrors.Register(ModuleName, 12, "No open sell-offer")
 )
