@@ -6,6 +6,7 @@ import { Card } from "../cardchain/card";
 import { User } from "../cardchain/user";
 import { Match } from "../cardchain/match";
 import { Collection } from "../cardchain/collection";
+import { SellOffer } from "../cardchain/sell_offer";
 
 export const protobufPackage = "DecentralCardGame.cardchain.cardchain";
 
@@ -17,8 +18,9 @@ export interface GenesisState {
   addresses: string[];
   lastCardSchemeId: number;
   matches: Match[];
-  /** this line is used by starport scaffolding # genesis/proto/state */
   collections: Collection[];
+  /** this line is used by starport scaffolding # genesis/proto/state */
+  sellOffers: SellOffer[];
 }
 
 const baseGenesisState: object = { addresses: "", lastCardSchemeId: 0 };
@@ -46,6 +48,9 @@ export const GenesisState = {
     for (const v of message.collections) {
       Collection.encode(v!, writer.uint32(58).fork()).ldelim();
     }
+    for (const v of message.sellOffers) {
+      SellOffer.encode(v!, writer.uint32(66).fork()).ldelim();
+    }
     return writer;
   },
 
@@ -58,6 +63,7 @@ export const GenesisState = {
     message.addresses = [];
     message.matches = [];
     message.collections = [];
+    message.sellOffers = [];
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -82,6 +88,9 @@ export const GenesisState = {
         case 7:
           message.collections.push(Collection.decode(reader, reader.uint32()));
           break;
+        case 8:
+          message.sellOffers.push(SellOffer.decode(reader, reader.uint32()));
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -97,6 +106,7 @@ export const GenesisState = {
     message.addresses = [];
     message.matches = [];
     message.collections = [];
+    message.sellOffers = [];
     if (object.params !== undefined && object.params !== null) {
       message.params = Params.fromJSON(object.params);
     } else {
@@ -133,6 +143,11 @@ export const GenesisState = {
     if (object.collections !== undefined && object.collections !== null) {
       for (const e of object.collections) {
         message.collections.push(Collection.fromJSON(e));
+      }
+    }
+    if (object.sellOffers !== undefined && object.sellOffers !== null) {
+      for (const e of object.sellOffers) {
+        message.sellOffers.push(SellOffer.fromJSON(e));
       }
     }
     return message;
@@ -175,6 +190,13 @@ export const GenesisState = {
     } else {
       obj.collections = [];
     }
+    if (message.sellOffers) {
+      obj.sellOffers = message.sellOffers.map((e) =>
+        e ? SellOffer.toJSON(e) : undefined
+      );
+    } else {
+      obj.sellOffers = [];
+    }
     return obj;
   },
 
@@ -185,6 +207,7 @@ export const GenesisState = {
     message.addresses = [];
     message.matches = [];
     message.collections = [];
+    message.sellOffers = [];
     if (object.params !== undefined && object.params !== null) {
       message.params = Params.fromPartial(object.params);
     } else {
@@ -221,6 +244,11 @@ export const GenesisState = {
     if (object.collections !== undefined && object.collections !== null) {
       for (const e of object.collections) {
         message.collections.push(Collection.fromPartial(e));
+      }
+    }
+    if (object.sellOffers !== undefined && object.sellOffers !== null) {
+      for (const e of object.sellOffers) {
+        message.sellOffers.push(SellOffer.fromPartial(e));
       }
     }
     return message;

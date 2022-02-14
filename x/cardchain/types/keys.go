@@ -10,6 +10,7 @@ const (
 	UsersStoreKey       = "Users"
 	MatchesStoreKey     = "Matches"
 	CollectionsStoreKey = "Collections"
+	SellOffersStoreKey  = "SellOffers"
 	InternalStoreKey    = "Internal"
 
 	// RouterKey is the message route for slashing
