@@ -12,6 +12,8 @@ export declare function cStatusToJSON(object: CStatus): string;
 export interface Collection {
     name: string;
     cards: number[];
+    artist: string;
+    storywriter: string;
     contributors: string[];
     story: string;
     artwork: Uint8Array;

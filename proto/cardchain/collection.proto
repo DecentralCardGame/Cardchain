@@ -6,11 +6,13 @@ option go_package = "github.com/DecentralCardGame/Cardchain/x/cardchain/types";
 message Collection {
   string name = 1;
   repeated uint64 cards = 2;
-  repeated string contributors = 3;
-  string story = 4;
-  bytes artwork = 5;
-  CStatus status = 6;
-  int64 timeStamp = 7;
+  string artist = 3;
+  string storywriter = 4;
+  repeated string contributors = 5;
+  string story = 6;
+  bytes artwork = 7;
+  CStatus status = 8;
+  int64 timeStamp = 9;
 }
 
 enum CStatus {

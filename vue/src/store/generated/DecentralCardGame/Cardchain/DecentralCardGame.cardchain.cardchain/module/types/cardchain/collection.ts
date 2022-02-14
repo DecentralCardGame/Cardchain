@@ -51,6 +51,8 @@ export function cStatusToJSON(object: CStatus): string {
 export interface Collection {
   name: string;
   cards: number[];
+  artist: string;
+  storywriter: string;
   contributors: string[];
   story: string;
   artwork: Uint8Array;
@@ -61,6 +63,8 @@ export interface Collection {
 const baseCollection: object = {
   name: "",
   cards: 0,
+  artist: "",
+  storywriter: "",
   contributors: "",
   story: "",
   status: 0,
@@ -77,20 +81,26 @@ export const Collection = {
       writer.uint64(v);
     }
     writer.ldelim();
+    if (message.artist !== "") {
+      writer.uint32(26).string(message.artist);
+    }
+    if (message.storywriter !== "") {
+      writer.uint32(34).string(message.storywriter);
+    }
     for (const v of message.contributors) {
-      writer.uint32(26).string(v!);
+      writer.uint32(42).string(v!);
     }
     if (message.story !== "") {
-      writer.uint32(34).string(message.story);
+      writer.uint32(50).string(message.story);
     }
     if (message.artwork.length !== 0) {
-      writer.uint32(42).bytes(message.artwork);
+      writer.uint32(58).bytes(message.artwork);
     }
     if (message.status !== 0) {
-      writer.uint32(48).int32(message.status);
+      writer.uint32(64).int32(message.status);
     }
     if (message.timeStamp !== 0) {
-      writer.uint32(56).int64(message.timeStamp);
+      writer.uint32(72).int64(message.timeStamp);
     }
     return writer;
   },
@@ -118,18 +128,24 @@ export const Collection = {
           }
           break;
         case 3:
-          message.contributors.push(reader.string());
+          message.artist = reader.string();
           break;
         case 4:
-          message.story = reader.string();
+          message.storywriter = reader.string();
           break;
         case 5:
-          message.artwork = reader.bytes();
+          message.contributors.push(reader.string());
           break;
         case 6:
-          message.status = reader.int32() as any;
+          message.story = reader.string();
           break;
         case 7:
+          message.artwork = reader.bytes();
+          break;
+        case 8:
+          message.status = reader.int32() as any;
+          break;
+        case 9:
           message.timeStamp = longToNumber(reader.int64() as Long);
           break;
         default:
@@ -153,6 +169,16 @@ export const Collection = {
       for (const e of object.cards) {
         message.cards.push(Number(e));
       }
+    }
+    if (object.artist !== undefined && object.artist !== null) {
+      message.artist = String(object.artist);
+    } else {
+      message.artist = "";
+    }
+    if (object.storywriter !== undefined && object.storywriter !== null) {
+      message.storywriter = String(object.storywriter);
+    } else {
+      message.storywriter = "";
     }
     if (object.contributors !== undefined && object.contributors !== null) {
       for (const e of object.contributors) {
@@ -188,6 +214,9 @@ export const Collection = {
     } else {
       obj.cards = [];
     }
+    message.artist !== undefined && (obj.artist = message.artist);
+    message.storywriter !== undefined &&
+      (obj.storywriter = message.storywriter);
     if (message.contributors) {
       obj.contributors = message.contributors.map((e) => e);
     } else {
@@ -217,6 +246,16 @@ export const Collection = {
       for (const e of object.cards) {
         message.cards.push(e);
       }
+    }
+    if (object.artist !== undefined && object.artist !== null) {
+      message.artist = object.artist;
+    } else {
+      message.artist = "";
+    }
+    if (object.storywriter !== undefined && object.storywriter !== null) {
+      message.storywriter = object.storywriter;
+    } else {
+      message.storywriter = "";
     }
     if (object.contributors !== undefined && object.contributors !== null) {
       for (const e of object.contributors) {
