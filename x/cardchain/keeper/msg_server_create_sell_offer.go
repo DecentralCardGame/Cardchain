@@ -11,11 +11,7 @@ import (
 func (k msgServer) CreateSellOffer(goCtx context.Context, msg *types.MsgCreateSellOffer) (*types.MsgCreateSellOfferResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	creatorAddr, err := sdk.AccAddressFromBech32(msg.Creator)
-	if err != nil {
-		return nil, sdkerrors.Wrap(types.ErrInvalidAccAddress, "Unable to convert to AccAddress")
-	}
-	creator, err := k.GetUser(ctx, creatorAddr)
+	creator, err := k.GetUserFromString(ctx, msg.Creator)
 	if err != nil {
 		return nil, err
 	}
@@ -36,7 +32,7 @@ func (k msgServer) CreateSellOffer(goCtx context.Context, msg *types.MsgCreateSe
 	}
 
 	k.SetSellOffer(ctx, sellOfferId, sellOffer)
-	k.SetUser(ctx, creatorAddr, creator)
+	k.SetUserFromUser(ctx, creator)
 
 	return &types.MsgCreateSellOfferResponse{}, nil
 }

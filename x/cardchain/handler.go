@@ -105,12 +105,7 @@ func handleMsgApointMatchReporter(ctx sdk.Context, keeper keeper.Keeper, msg *ty
 }
 
 func handleMsgReportMatch(ctx sdk.Context, keeper keeper.Keeper, msg *types.MsgReportMatch) (*sdk.Result, error) {
-	address, err := sdk.AccAddressFromBech32(msg.Creator)
-	if err != nil {
-		return nil, sdkerrors.Wrap(types.ErrInvalidAccAddress, "Invalid creator")
-	}
-
-	creator, err := keeper.GetUser(ctx, address)
+	creator, err := keeper.GetUserFromString(ctx, msg.Creator)
 	if err != nil {
 		return nil, err
 	}
@@ -164,12 +159,7 @@ func handleMsgReportMatch(ctx sdk.Context, keeper keeper.Keeper, msg *types.MsgR
 }
 
 func handleMsgRegisterForCouncil(ctx sdk.Context, keeper keeper.Keeper, msg *types.MsgRegisterForCouncil) (*sdk.Result, error) {
-	address, err := sdk.AccAddressFromBech32(msg.Creator)
-	if err != nil {
-		return nil, sdkerrors.Wrap(types.ErrInvalidAccAddress, "Invalid address")
-	}
-
-	user, err := keeper.GetUser(ctx, address)
+	user, err := keeper.GetUserFromString(ctx, msg.Creator)
 	if err != nil {
 		return nil, err
 	}
@@ -178,7 +168,7 @@ func handleMsgRegisterForCouncil(ctx sdk.Context, keeper keeper.Keeper, msg *typ
 		user.CouncilStatus = types.CouncilStatus_available
 	}
 
-	keeper.SetUser(ctx, address, user)
+	keeper.SetUserFromUser(ctx, user)
 	return &sdk.Result{}, nil
 }
 

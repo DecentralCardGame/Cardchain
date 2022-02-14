@@ -62,6 +62,11 @@ func NewKeeper(
 	}
 }
 
+type User struct {
+	types.User
+	Addr sdk.AccAddress
+}
+
 func uintItemInList(item uint64, list []uint64) bool {
 	for _, i := range list {
 		if i == item {
@@ -471,6 +476,22 @@ func (k Keeper) GetUser(ctx sdk.Context, address sdk.AccAddress) (types.User, er
 
 	k.cdc.MustUnmarshal(bz, &gottenUser)
 	return gottenUser, nil
+}
+
+func (k Keeper) GetUserFromString(ctx sdk.Context, addr string) (user User, err error) {
+	user.Addr, err = sdk.AccAddressFromBech32(addr)
+	if err != nil {
+		return user, sdkerrors.Wrap(types.ErrInvalidAccAddress, "Unable to convert to AccAddress")
+	}
+	user.User, err = k.GetUser(ctx, user.Addr)
+	if err != nil {
+		return
+	}
+	return
+}
+
+func (k Keeper) SetUserFromUser(ctx sdk.Context, user User) {
+	k.SetUser(ctx, user.Addr, user.User)
 }
 
 func (k Keeper) SetUser(ctx sdk.Context, address sdk.AccAddress, userData types.User) {

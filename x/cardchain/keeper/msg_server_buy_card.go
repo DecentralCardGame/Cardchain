@@ -11,11 +11,7 @@ import (
 func (k msgServer) BuyCard(goCtx context.Context, msg *types.MsgBuyCard) (*types.MsgBuyCardResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	buyerAddr, err := sdk.AccAddressFromBech32(msg.Creator)
-	if err != nil {
-		return nil, sdkerrors.Wrap(types.ErrInvalidAccAddress, "Unable to convert to AccAddress")
-	}
-	buyer, err := k.GetUser(ctx, buyerAddr)
+	buyer, err := k.GetUserFromString(ctx, msg.Creator)
 	if err != nil {
 		return nil, err
 	}
@@ -31,7 +27,7 @@ func (k msgServer) BuyCard(goCtx context.Context, msg *types.MsgBuyCard) (*types
 		return nil, sdkerrors.Wrapf(types.ErrNoOpenSellOffer, "Status: %v", sellOffer.Status)
 	}
 
-	err = k.BankKeeper.SendCoins(ctx, buyerAddr, sellerAddr, sdk.Coins{sdk.NewInt64Coin("credits", int64(sellOffer.Price))})
+	err = k.BankKeeper.SendCoins(ctx, buyer.Addr, sellerAddr, sdk.Coins{sdk.NewInt64Coin("credits", int64(sellOffer.Price))})
 	if err != nil {
 		return nil, err
 	}
@@ -41,7 +37,7 @@ func (k msgServer) BuyCard(goCtx context.Context, msg *types.MsgBuyCard) (*types
 	sellOffer.Status = types.SellOfferStatus_sold
 
 	k.SetSellOffer(ctx, msg.SellOfferId, sellOffer)
-	k.SetUser(ctx, buyerAddr, buyer)
+	k.SetUserFromUser(ctx, buyer)
 
 	return &types.MsgBuyCardResponse{}, nil
 }
