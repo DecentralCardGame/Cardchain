@@ -39,6 +39,7 @@ func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) 
 		k.SetLastCardSchemeId(ctx, currId)
 		k.SetCard(ctx, currId, *record)
 	}
+	fmt.Println("Params", genState.Params)
 	k.SetParams(ctx, genState.Params)
 }
 

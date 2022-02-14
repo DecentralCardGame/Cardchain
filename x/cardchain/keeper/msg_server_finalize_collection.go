@@ -12,6 +12,8 @@ import (
 func (k msgServer) FinalizeCollection(goCtx context.Context, msg *types.MsgFinalizeCollection) (*types.MsgFinalizeCollectionResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
+	collectionSize := int(k.GetParams(ctx).CollectionSize)
+
 	collection := k.GetCollection(ctx, msg.CollectionId)
 	if msg.Creator != collection.Contributors[0] {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "Invalid creator")
@@ -22,7 +24,7 @@ func (k msgServer) FinalizeCollection(goCtx context.Context, msg *types.MsgFinal
 	}
 
 	if len(collection.Cards) != collectionSize {
-		return nil, sdkerrors.Wrap(types.ErrCollectionSize, "Has to be "+strconv.Itoa(int(collectionSize)))
+		return nil, sdkerrors.Wrap(types.ErrCollectionSize, "Has to be "+strconv.Itoa(collectionSize))
 	}
 
 	// TODO Add checking for rarity

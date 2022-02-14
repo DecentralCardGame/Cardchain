@@ -78,7 +78,19 @@ export enum CardchainOutcome {
 /**
  * Params defines the parameters for the module.
  */
-export type CardchainParams = object;
+export interface CardchainParams {
+  /** @format int64 */
+  votingRightsExpirationTime?: string;
+
+  /** @format uint64 */
+  collectionSize?: string;
+
+  /** @format int64 */
+  collectionPrice?: string;
+
+  /** @format uint64 */
+  activeCollectionsAmount?: string;
+}
 
 /**
  * QueryParamsResponse is response type for the Query/Params RPC method.

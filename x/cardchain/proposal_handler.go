@@ -52,7 +52,7 @@ func handleCollectionProposal(ctx sdk.Context, k keeper.Keeper, p *types.Collect
 
 	activeCollectionsIds := k.GetActiveCollections(ctx)
 	var activeCollections []sortStruct
-	if len(activeCollections) >= 3 {
+	if len(activeCollections) >= int(k.GetParams(ctx).ActiveCollectionsAmount) {
 		for _, id := range activeCollectionsIds {
 			var collection = k.GetCollection(ctx, id)
 			activeCollections = append(activeCollections, sortStruct{id, collection})
