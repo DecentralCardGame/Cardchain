@@ -116,9 +116,9 @@ export interface MsgApointMatchReporterResponse {
 export interface MsgCreateCollection {
     creator: string;
     name: string;
+    artist: string;
+    storyWriter: string;
     contributors: string[];
-    story: string;
-    artwork: Uint8Array;
 }
 export interface MsgCreateCollectionResponse {
 }

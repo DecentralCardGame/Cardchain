@@ -90,8 +90,8 @@ func handleMsgCreateCollection(ctx sdk.Context, keeper keeper.Keeper, msg *types
 		Name:         msg.Name,
 		Cards:        []uint64{},
 		Contributors: append([]string{msg.Creator}, msg.Contributors...),
-		Story:        msg.Story,
-		Artwork:      msg.Artwork,
+		Artist:				msg.Artist,
+		StoryWriter:	msg.StoryWriter,
 		Status:       types.CStatus_design,
 		TimeStamp:    0,
 	}

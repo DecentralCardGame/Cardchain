@@ -174,9 +174,9 @@ message MsgApointMatchReporterResponse {
 message MsgCreateCollection {
   string creator = 1;
   string name = 2;
-  repeated string contributors = 3;
-  string story = 4;
-  bytes artwork = 5;
+  string artist = 3;
+  string storyWriter = 4;
+  repeated string contributors = 5;
 }
 
 message MsgCreateCollectionResponse {

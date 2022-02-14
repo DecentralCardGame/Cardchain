@@ -169,9 +169,9 @@ export interface MsgApointMatchReporterResponse {}
 export interface MsgCreateCollection {
   creator: string;
   name: string;
+  artist: string;
+  storyWriter: string;
   contributors: string[];
-  story: string;
-  artwork: Uint8Array;
 }
 
 export interface MsgCreateCollectionResponse {}
@@ -2282,8 +2282,9 @@ export const MsgApointMatchReporterResponse = {
 const baseMsgCreateCollection: object = {
   creator: "",
   name: "",
+  artist: "",
+  storyWriter: "",
   contributors: "",
-  story: "",
 };
 
 export const MsgCreateCollection = {
@@ -2297,14 +2298,14 @@ export const MsgCreateCollection = {
     if (message.name !== "") {
       writer.uint32(18).string(message.name);
     }
+    if (message.artist !== "") {
+      writer.uint32(26).string(message.artist);
+    }
+    if (message.storyWriter !== "") {
+      writer.uint32(34).string(message.storyWriter);
+    }
     for (const v of message.contributors) {
-      writer.uint32(26).string(v!);
-    }
-    if (message.story !== "") {
-      writer.uint32(34).string(message.story);
-    }
-    if (message.artwork.length !== 0) {
-      writer.uint32(42).bytes(message.artwork);
+      writer.uint32(42).string(v!);
     }
     return writer;
   },
@@ -2324,13 +2325,13 @@ export const MsgCreateCollection = {
           message.name = reader.string();
           break;
         case 3:
-          message.contributors.push(reader.string());
+          message.artist = reader.string();
           break;
         case 4:
-          message.story = reader.string();
+          message.storyWriter = reader.string();
           break;
         case 5:
-          message.artwork = reader.bytes();
+          message.contributors.push(reader.string());
           break;
         default:
           reader.skipType(tag & 7);
@@ -2353,18 +2354,20 @@ export const MsgCreateCollection = {
     } else {
       message.name = "";
     }
+    if (object.artist !== undefined && object.artist !== null) {
+      message.artist = String(object.artist);
+    } else {
+      message.artist = "";
+    }
+    if (object.storyWriter !== undefined && object.storyWriter !== null) {
+      message.storyWriter = String(object.storyWriter);
+    } else {
+      message.storyWriter = "";
+    }
     if (object.contributors !== undefined && object.contributors !== null) {
       for (const e of object.contributors) {
         message.contributors.push(String(e));
       }
-    }
-    if (object.story !== undefined && object.story !== null) {
-      message.story = String(object.story);
-    } else {
-      message.story = "";
-    }
-    if (object.artwork !== undefined && object.artwork !== null) {
-      message.artwork = bytesFromBase64(object.artwork);
     }
     return message;
   },
@@ -2373,16 +2376,14 @@ export const MsgCreateCollection = {
     const obj: any = {};
     message.creator !== undefined && (obj.creator = message.creator);
     message.name !== undefined && (obj.name = message.name);
+    message.artist !== undefined && (obj.artist = message.artist);
+    message.storyWriter !== undefined &&
+      (obj.storyWriter = message.storyWriter);
     if (message.contributors) {
       obj.contributors = message.contributors.map((e) => e);
     } else {
       obj.contributors = [];
     }
-    message.story !== undefined && (obj.story = message.story);
-    message.artwork !== undefined &&
-      (obj.artwork = base64FromBytes(
-        message.artwork !== undefined ? message.artwork : new Uint8Array()
-      ));
     return obj;
   },
 
@@ -2399,20 +2400,20 @@ export const MsgCreateCollection = {
     } else {
       message.name = "";
     }
+    if (object.artist !== undefined && object.artist !== null) {
+      message.artist = object.artist;
+    } else {
+      message.artist = "";
+    }
+    if (object.storyWriter !== undefined && object.storyWriter !== null) {
+      message.storyWriter = object.storyWriter;
+    } else {
+      message.storyWriter = "";
+    }
     if (object.contributors !== undefined && object.contributors !== null) {
       for (const e of object.contributors) {
         message.contributors.push(e);
       }
-    }
-    if (object.story !== undefined && object.story !== null) {
-      message.story = object.story;
-    } else {
-      message.story = "";
-    }
-    if (object.artwork !== undefined && object.artwork !== null) {
-      message.artwork = object.artwork;
-    } else {
-      message.artwork = new Uint8Array();
     }
     return message;
   },

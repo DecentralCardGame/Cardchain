@@ -15,16 +15,16 @@ var _ = strconv.Itoa(0)
 
 func CmdCreateCollection() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "create-collection [name] [contributors] [story] [artwork]",
+		Use:   "create-collection [name] [artist] [story-writer] [contributors]",
 		Short: "Broadcast message createCollection",
 		Args:  cobra.ExactArgs(4),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
 			argName := args[0]
 			var argContributors []string
-			argStory := args[2]
-			argArtwork := []byte(args[3])
+			argArtist := args[1]
+			argStoryWriter := args[2]
 
-			err = json.Unmarshal([]byte(args[1]), &argContributors)
+			err = json.Unmarshal([]byte(args[3]), &argContributors)
 			if err != nil {
 				return err
 			}
@@ -36,10 +36,10 @@ func CmdCreateCollection() *cobra.Command {
 
 			msg := types.NewMsgCreateCollection(
 				clientCtx.GetFromAddress().String(),
+				argArtist,
+				argStoryWriter,
 				argName,
 				argContributors,
-				argStory,
-				argArtwork,
 			)
 			if err := msg.ValidateBasic(); err != nil {
 				return err

@@ -9,13 +9,13 @@ const TypeMsgCreateCollection = "create_collection"
 
 var _ sdk.Msg = &MsgCreateCollection{}
 
-func NewMsgCreateCollection(creator string, name string, contributors []string, story string, artwork []byte) *MsgCreateCollection {
+func NewMsgCreateCollection(creator string, name string, artist string, storyWriter string, contributors []string) *MsgCreateCollection {
 	return &MsgCreateCollection{
 		Creator:      creator,
 		Name:         name,
+		Artist:				artist,
+		StoryWriter:	storyWriter,
 		Contributors: contributors,
-		Story:        story,
-		Artwork:      artwork,
 	}
 }
 

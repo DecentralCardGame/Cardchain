@@ -52,7 +52,7 @@ export interface Collection {
   name: string;
   cards: number[];
   artist: string;
-  storywriter: string;
+  storyWriter: string;
   contributors: string[];
   story: string;
   artwork: Uint8Array;
@@ -64,7 +64,7 @@ const baseCollection: object = {
   name: "",
   cards: 0,
   artist: "",
-  storywriter: "",
+  storyWriter: "",
   contributors: "",
   story: "",
   status: 0,
@@ -84,8 +84,8 @@ export const Collection = {
     if (message.artist !== "") {
       writer.uint32(26).string(message.artist);
     }
-    if (message.storywriter !== "") {
-      writer.uint32(34).string(message.storywriter);
+    if (message.storyWriter !== "") {
+      writer.uint32(34).string(message.storyWriter);
     }
     for (const v of message.contributors) {
       writer.uint32(42).string(v!);
@@ -131,7 +131,7 @@ export const Collection = {
           message.artist = reader.string();
           break;
         case 4:
-          message.storywriter = reader.string();
+          message.storyWriter = reader.string();
           break;
         case 5:
           message.contributors.push(reader.string());
@@ -175,10 +175,10 @@ export const Collection = {
     } else {
       message.artist = "";
     }
-    if (object.storywriter !== undefined && object.storywriter !== null) {
-      message.storywriter = String(object.storywriter);
+    if (object.storyWriter !== undefined && object.storyWriter !== null) {
+      message.storyWriter = String(object.storyWriter);
     } else {
-      message.storywriter = "";
+      message.storyWriter = "";
     }
     if (object.contributors !== undefined && object.contributors !== null) {
       for (const e of object.contributors) {
@@ -215,8 +215,8 @@ export const Collection = {
       obj.cards = [];
     }
     message.artist !== undefined && (obj.artist = message.artist);
-    message.storywriter !== undefined &&
-      (obj.storywriter = message.storywriter);
+    message.storyWriter !== undefined &&
+      (obj.storyWriter = message.storyWriter);
     if (message.contributors) {
       obj.contributors = message.contributors.map((e) => e);
     } else {
@@ -252,10 +252,10 @@ export const Collection = {
     } else {
       message.artist = "";
     }
-    if (object.storywriter !== undefined && object.storywriter !== null) {
-      message.storywriter = object.storywriter;
+    if (object.storyWriter !== undefined && object.storyWriter !== null) {
+      message.storyWriter = object.storyWriter;
     } else {
-      message.storywriter = "";
+      message.storyWriter = "";
     }
     if (object.contributors !== undefined && object.contributors !== null) {
       for (const e of object.contributors) {

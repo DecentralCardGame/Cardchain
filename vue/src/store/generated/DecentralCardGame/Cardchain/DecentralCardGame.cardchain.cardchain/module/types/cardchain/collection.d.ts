@@ -13,7 +13,7 @@ export interface Collection {
     name: string;
     cards: number[];
     artist: string;
-    storywriter: string;
+    storyWriter: string;
     contributors: string[];
     story: string;
     artwork: Uint8Array;
