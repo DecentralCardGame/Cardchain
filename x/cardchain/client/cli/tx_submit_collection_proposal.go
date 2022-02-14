@@ -35,7 +35,7 @@ func CmdSubmitCollectionProposal() *cobra.Command {
 			from := clientCtx.GetFromAddress()
 			proposal := types.CollectionProposal{
 				Title:        "Request to activate the collection `" + args[0] + "`",
-				Description: 	"See `" + args[0] + "` for more information on the collection.",
+				Description:  "See `" + args[0] + "` for more information on the collection.",
 				CollectionId: argCollectionId,
 			}
 

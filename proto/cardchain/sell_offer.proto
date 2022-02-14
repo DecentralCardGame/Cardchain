@@ -1,0 +1,18 @@
+syntax = "proto3";
+package DecentralCardGame.cardchain.cardchain;
+
+option go_package = "github.com/DecentralCardGame/Cardchain/x/cardchain/types";
+
+message SellOffer {
+
+  string seller = 1;
+  string buyer = 2;
+  string card = 3;
+  SellOfferStatus status = 4;
+}
+
+enum SellOfferStatus {
+  open = 0;
+  sold = 1;
+  removed = 2;
+}

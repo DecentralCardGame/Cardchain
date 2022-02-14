@@ -58,8 +58,8 @@ func handleCollectionProposal(ctx sdk.Context, k keeper.Keeper, p *types.Collect
 			activeCollections = append(activeCollections, sortStruct{id, collection})
 		}
 		sort.SliceStable(activeCollections, func(i, j int) bool {
-    		return activeCollections[i].Collection.TimeStamp < activeCollections[j].Collection.TimeStamp
-			},
+			return activeCollections[i].Collection.TimeStamp < activeCollections[j].Collection.TimeStamp
+		},
 		)
 		yeetStruct := activeCollections[0]
 		yeetStruct.Collection.Status = types.CStatus_archived
@@ -75,6 +75,6 @@ func handleCollectionProposal(ctx sdk.Context, k keeper.Keeper, p *types.Collect
 }
 
 type sortStruct struct {
-	Id uint64
+	Id         uint64
 	Collection types.Collection
 }
