@@ -22,7 +22,7 @@ func (k msgServer) RemoveSellOffer(goCtx context.Context, msg *types.MsgRemoveSe
 		return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "Incorrect Seller")
 	}
 
-	if sellOffer.Status != types.SellOfferStatus_open{
+	if sellOffer.Status != types.SellOfferStatus_open {
 		return nil, sdkerrors.Wrapf(types.ErrNoOpenSellOffer, "Status: %v", sellOffer.Status)
 	}
 

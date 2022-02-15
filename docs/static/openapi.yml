@@ -20423,6 +20423,8 @@ definitions:
     default: available
   DecentralCardGame.cardchain.cardchain.MsgAddArtworkResponse:
     type: object
+  DecentralCardGame.cardchain.cardchain.MsgAddArtworkToCollectionResponse:
+    type: object
   DecentralCardGame.cardchain.cardchain.MsgAddCardToCollectionResponse:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgAddContributorToCollectionResponse:

@@ -13,8 +13,8 @@ func NewMsgCreateCollection(creator string, name string, artist string, storyWri
 	return &MsgCreateCollection{
 		Creator:      creator,
 		Name:         name,
-		Artist:				artist,
-		StoryWriter:	storyWriter,
+		Artist:       artist,
+		StoryWriter:  storyWriter,
 		Contributors: contributors,
 	}
 }

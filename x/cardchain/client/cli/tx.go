@@ -54,6 +54,7 @@ func GetTxCmd() *cobra.Command {
 	cmd.AddCommand(CmdCreateSellOffer())
 	cmd.AddCommand(CmdBuyCard())
 	cmd.AddCommand(CmdRemoveSellOffer())
+	cmd.AddCommand(CmdAddArtworkToCollection())
 	// this line is used by starport scaffolding # 1
 
 	return cmd
