@@ -20429,6 +20429,8 @@ definitions:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgAddContributorToCollectionResponse:
     type: object
+  DecentralCardGame.cardchain.cardchain.MsgAddStoryToCollectionResponse:
+    type: object
   DecentralCardGame.cardchain.cardchain.MsgApointMatchReporterResponse:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgBuyCardResponse:

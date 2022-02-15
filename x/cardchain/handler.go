@@ -78,6 +78,9 @@ func NewHandler(k keeper.Keeper) sdk.Handler {
 		case *types.MsgAddArtworkToCollection:
 			res, err := msgServer.AddArtworkToCollection(sdk.WrapSDKContext(ctx), msg)
 			return sdk.WrapServiceResult(ctx, res, err)
+		case *types.MsgAddStoryToCollection:
+			res, err := msgServer.AddStoryToCollection(sdk.WrapSDKContext(ctx), msg)
+			return sdk.WrapServiceResult(ctx, res, err)
 			// this line is used by starport scaffolding # 1
 		default:
 			errMsg := fmt.Sprintf("unrecognized %s message type: %T", types.ModuleName, msg)

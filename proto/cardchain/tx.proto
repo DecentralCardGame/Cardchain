@@ -34,6 +34,7 @@ service Msg {
   rpc BuyCard(MsgBuyCard) returns (MsgBuyCardResponse);
   rpc RemoveSellOffer(MsgRemoveSellOffer) returns (MsgRemoveSellOfferResponse);
   rpc AddArtworkToCollection(MsgAddArtworkToCollection) returns (MsgAddArtworkToCollectionResponse);
+  rpc AddStoryToCollection(MsgAddStoryToCollection) returns (MsgAddStoryToCollectionResponse);
 // this line is used by starport scaffolding # proto/tx/rpc
 }
 
@@ -275,6 +276,15 @@ message MsgAddArtworkToCollection {
 }
 
 message MsgAddArtworkToCollectionResponse {
+}
+
+message MsgAddStoryToCollection {
+  string creator = 1;
+  uint64 collectionId = 2;
+  string story = 3;
+}
+
+message MsgAddStoryToCollectionResponse {
 }
 
 // this line is used by starport scaffolding # proto/tx/message

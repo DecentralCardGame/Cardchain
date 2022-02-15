@@ -11,9 +11,9 @@ var _ sdk.Msg = &MsgAddArtworkToCollection{}
 
 func NewMsgAddArtworkToCollection(creator string, collectionId uint64, image []byte) *MsgAddArtworkToCollection {
 	return &MsgAddArtworkToCollection{
-		Creator: creator,
+		Creator:      creator,
 		CollectionId: collectionId,
-		Image:   image,
+		Image:        image,
 	}
 }
 
