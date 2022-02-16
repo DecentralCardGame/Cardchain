@@ -216,6 +216,17 @@ func (k Keeper) GetSellOffersNumber(ctx sdk.Context) uint64 {
 // Collections //
 /////////////////
 
+func (k Keeper) GetAllCollectionContributors(ctx sdk.Context, collection types.Collection) []string {
+	contribs := []string{collection.StoryWriter, collection.Artist, collection.Contributors[0], collection.Contributors[0]}
+	for _, cardId := range collection.Cards {
+		var card = k.GetCard(ctx, cardId)
+		if card.Owner != "" {
+			contribs = append(contribs, card.Owner)
+		}
+	}
+	return contribs
+}
+
 func (k Keeper) GetActiveCollections(ctx sdk.Context) []uint64 {
 	var activeCollections []uint64
 	for idx, collection := range k.GetAllCollections(ctx) {

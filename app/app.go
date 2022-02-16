@@ -98,6 +98,7 @@ import (
 const (
 	AccountAddressPrefix = "cc"
 	Name                 = "Cardchain"
+	BondDenom						 = "bpf"
 	// epochBlockTime defines how many blocks are one buffnerf epoch
 	epochBlockTime = 86000 // this is 1 week with 7s block time
 	// epochBlockTime = 5		// this is great for debugging
@@ -132,12 +133,12 @@ var (
 		genutil.AppModuleBasic{},
 		bank.AppModuleBasic{},
 		capability.AppModuleBasic{},
-		staking.AppModuleBasic{},
-		mint.AppModuleBasic{},
+		StakingModule{},
+		MintModule{},
 		distr.AppModuleBasic{},
-		gov.NewAppModuleBasic(getGovProposalHandlers()...),
+		GovModule{AppModuleBasic: gov.NewAppModuleBasic(getGovProposalHandlers()...)},
 		params.AppModuleBasic{},
-		crisis.AppModuleBasic{},
+		CrisisModule{},
 		slashing.AppModuleBasic{},
 		feegrantmodule.AppModuleBasic{},
 		ibc.AppModuleBasic{},
