@@ -27,7 +27,7 @@ func (k msgServer) BuyCard(goCtx context.Context, msg *types.MsgBuyCard) (*types
 		return nil, sdkerrors.Wrapf(types.ErrNoOpenSellOffer, "Status: %v", sellOffer.Status)
 	}
 
-	err = k.BankKeeper.SendCoins(ctx, buyer.Addr, sellerAddr, sdk.Coins{sdk.NewInt64Coin("credits", int64(sellOffer.Price))})
+	err = k.BankKeeper.SendCoins(ctx, buyer.Addr, sellerAddr, sdk.Coins{sellOffer.Price})
 	if err != nil {
 		return nil, err
 	}

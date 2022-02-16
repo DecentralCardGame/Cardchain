@@ -527,7 +527,7 @@ func (app *App) BeginBlocker(ctx sdk.Context, req abci.RequestBeginBlock) abci.R
 func (app *App) EndBlocker(ctx sdk.Context, req abci.RequestEndBlock) abci.ResponseEndBlock {
 	// update the price of card auction (currently 1% decay per block)
 	price := app.CardchainKeeper.GetCardAuctionPrice(ctx)
-	newprice := price.Sub(sdk.NewCoin("credits", price.Amount.Quo(sdk.NewInt(100)))) // Somehow this line is evil
+	newprice := price.Sub(sdk.NewCoin("ucredits", price.Amount.Quo(sdk.NewInt(100000000)))) // Somehow this line is evil
 	app.CardchainKeeper.SetCardAuctionPrice(ctx, newprice)
 
 	// automated nerf/buff happens here
@@ -548,8 +548,8 @@ func (app *App) InitChainer(ctx sdk.Context, req abci.RequestInitChain) abci.Res
 
 	// initialize CardScheme Id, Auction price and public pool
 	app.CardchainKeeper.SetLastCardSchemeId(ctx, uint64(0))
-	app.CardchainKeeper.SetCardAuctionPrice(ctx, sdk.NewInt64Coin("credits", 10))
-	app.CardchainKeeper.SetPublicPoolCredits(ctx, sdk.NewInt64Coin("credits", 1000))
+	app.CardchainKeeper.SetCardAuctionPrice(ctx, sdk.NewInt64Coin("ucredits", 10000000))
+	app.CardchainKeeper.SetPublicPoolCredits(ctx, sdk.NewInt64Coin("ucredits", 1000000000))
 
 	app.UpgradeKeeper.SetModuleVersionMap(ctx, app.mm.GetVersionMap())
 	return app.mm.InitGenesis(ctx, app.appCodec, genesisState)

@@ -7,6 +7,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/flags"
 	"github.com/cosmos/cosmos-sdk/client/tx"
+	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/spf13/cast"
 	"github.com/spf13/cobra"
 )
@@ -23,7 +24,7 @@ func CmdCreateSellOffer() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			argPrice, err := cast.ToUint64E(args[1])
+			argPrice, err := sdk.ParseCoinNormalized(args[2])
 			if err != nil {
 				return err
 			}

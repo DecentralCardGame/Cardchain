@@ -1,8 +1,8 @@
 accounts:
   - name: alice
-    coins: ["20000credits", "200000000bpf"]
+    coins: ["20000000000ucredits", "200000000bpf"]
   - name: bob
-    coins: ["10000credits", "100000000bpf"]
+    coins: ["10000000000ucredits", "100000000bpf"]
 validator:
   name: alice
   staked: "100000000bpf"
@@ -13,4 +13,4 @@ client:
     path: "vue/src/store"
 faucet:
   name: bob
-  coins: ["5credits", "100000bpf"]
+  coins: ["5000000ucredits", "100000bpf"]

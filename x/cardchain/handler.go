@@ -285,7 +285,7 @@ func handleMsgSaveCardContent(ctx sdk.Context, keeper keeper.Keeper, msg *types.
 	}
 
 	// TODO cards get a starting pool currently, this should be removed later and the starting pool should come after council decision
-	card.VotePool.Add(sdk.NewInt64Coin("credits", 10))
+	card.VotePool.Add(sdk.NewInt64Coin("ucredits", 10000000))
 
 	card.Content = []byte(msg.Content)
 	// card.Image = []byte(msg.Image)
@@ -343,12 +343,12 @@ func handleMsgVoteCard(ctx sdk.Context, keeper keeper.Keeper, msg *types.MsgVote
 
 	// check for specific bounty on the card
 	if !card.VotePool.IsZero() {
-		card.VotePool.Sub(sdk.NewInt64Coin("credits", 1))
-		keeper.MintCoinsToAddr(ctx, voter, sdk.Coins{sdk.NewInt64Coin("credits", 1)})
+		card.VotePool.Sub(sdk.NewInt64Coin("ucredits", 1000000))
+		keeper.MintCoinsToAddr(ctx, voter, sdk.Coins{sdk.NewInt64Coin("ucredits", 1000000)})
 	}
 
 	// give generic bounty for voting
-	keeper.MintCoinsToAddr(ctx, voter, sdk.Coins{sdk.NewInt64Coin("credits", 1)})
+	keeper.MintCoinsToAddr(ctx, voter, sdk.Coins{sdk.NewInt64Coin("ucredits", 1000000)})
 
 	keeper.SetCard(ctx, msg.CardId, card)
 

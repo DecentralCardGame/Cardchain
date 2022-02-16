@@ -11864,7 +11864,6 @@ paths:
                     format: uint64
                   collectionBaseUnitPrice:
                     type: string
-                    format: int64
                   activeCollectionsAmount:
                     type: string
                     format: uint64
@@ -12259,7 +12258,6 @@ paths:
                 format: uint64
               price:
                 type: string
-                format: uint64
               status:
                 type: string
                 enum:
@@ -20496,7 +20494,6 @@ definitions:
         format: uint64
       collectionBaseUnitPrice:
         type: string
-        format: int64
       activeCollectionsAmount:
         type: string
         format: uint64
@@ -20516,7 +20513,6 @@ definitions:
             format: uint64
           collectionBaseUnitPrice:
             type: string
-            format: int64
           activeCollectionsAmount:
             type: string
             format: uint64
@@ -20655,7 +20651,6 @@ definitions:
         format: uint64
       price:
         type: string
-        format: uint64
       status:
         type: string
         enum:

@@ -247,7 +247,7 @@ message MsgSubmitCollectionProposalResponse {
 message MsgCreateSellOffer {
   string creator = 1;
   uint64 card = 2;
-  uint64 price = 3;
+  string price = 3 [(gogoproto.nullable) = false, (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Coin"];;
 }
 
 message MsgCreateSellOfferResponse {

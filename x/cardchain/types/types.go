@@ -34,7 +34,7 @@ func NewCard(owner sdk.AccAddress) Card {
 		Notes:              "",
 		FullArt:            true,
 		Status:             Status_scheme,
-		VotePool:           sdk.NewInt64Coin("credits", 0),
+		VotePool:           sdk.NewInt64Coin("ucredits", 0),
 		FairEnoughVotes:    0,
 		OverpoweredVotes:   0,
 		UnderpoweredVotes:  0,

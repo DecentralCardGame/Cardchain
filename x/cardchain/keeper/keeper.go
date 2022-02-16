@@ -358,7 +358,7 @@ func (k Keeper) SetLastCardSchemeId(ctx sdk.Context, lastId uint64) {
 func (k Keeper) GetCardAuctionPrice(ctx sdk.Context) sdk.Coin {
 	store := ctx.KVStore(k.InternalStoreKey)
 	bz := store.Get([]byte("currentCardSchemeAuctionPrice"))
-	var price sdk.Coin = sdk.NewInt64Coin("credits", 0) // This value is needed so that saving genesisstate works
+	var price sdk.Coin = sdk.NewInt64Coin("ucredits", 0) // This value is needed so that saving genesisstate works
 	k.cdc.MustUnmarshal(bz, &price)
 	return price
 }
@@ -470,7 +470,7 @@ func (k Keeper) InitUser(ctx sdk.Context, address sdk.AccAddress, alias string) 
 	}
 	newUser := types.NewUser()
 	newUser.Alias = alias
-	k.MintCoinsToAddr(ctx, address, sdk.Coins{sdk.NewInt64Coin("credits", 10000)})
+	k.MintCoinsToAddr(ctx, address, sdk.Coins{sdk.NewInt64Coin("ucredits", 10000000000)})
 	newUser.VoteRights = k.GetVoteRightToAllCards(ctx, ctx.BlockHeight()+k.GetParams(ctx).VotingRightsExpirationTime) // TODO this might be a good thing to remove later, so that sybil voting is not possible
 
 	store.Set(address, k.cdc.MustMarshal(&newUser))

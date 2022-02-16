@@ -3,6 +3,7 @@ package types
 import (
 	"fmt"
 
+	sdk "github.com/cosmos/cosmos-sdk/types"
 	paramtypes "github.com/cosmos/cosmos-sdk/x/params/types"
 	"gopkg.in/yaml.v2"
 )
@@ -19,7 +20,7 @@ func NewParams() Params {
 	return Params{
 		VotingRightsExpirationTime: 86000,
 		CollectionSize:             5,
-		CollectionBaseUnitPrice:    10,
+		CollectionBaseUnitPrice:    sdk.NewInt64Coin("ucredits", 1000),
 		ActiveCollectionsAmount:    3,
 	}
 }
@@ -77,12 +78,12 @@ func validateCollectionSize(i interface{}) error {
 }
 
 func validateCollectionBaseUnitPrice(i interface{}) error {
-	v, ok := i.(int64)
+	v, ok := i.(sdk.Coin)
 	if !ok {
 		return fmt.Errorf("invalid parameter type: %T", i)
 	}
 
-	if v == 0 {
+	if v == sdk.NewInt64Coin("ucredits", 0) {
 		return fmt.Errorf("invalid CollectionPrice: %d", v)
 	}
 
