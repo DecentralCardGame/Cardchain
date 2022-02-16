@@ -92,6 +92,8 @@ import (
 	cardchainmodule "github.com/DecentralCardGame/Cardchain/x/cardchain"
 	cardchainmodulekeeper "github.com/DecentralCardGame/Cardchain/x/cardchain/keeper"
 	cardchainmoduletypes "github.com/DecentralCardGame/Cardchain/x/cardchain/types"
+
+	globtypes "github.com/DecentralCardGame/Cardchain/types"
 	// this line is used by starport scaffolding # stargate/app/moduleImport
 )
 
@@ -444,6 +446,9 @@ func New(
 		cardchainmoduletypes.ModuleName,
 		// this line is used by starport scaffolding # stargate/app/initGenesis
 	)
+
+	// This registers denomtypes
+	globtypes.RegisterNativeCoinUnits()
 
 	app.mm.RegisterInvariants(&app.CrisisKeeper)
 	app.mm.RegisterRoutes(app.Router(), app.QueryRouter(), encodingConfig.Amino)
