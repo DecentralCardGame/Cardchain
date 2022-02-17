@@ -11,6 +11,7 @@ const (
 	MatchesStoreKey     = "Matches"
 	CollectionsStoreKey = "Collections"
 	SellOffersStoreKey  = "SellOffers"
+	PoolsStoreKey       = "Pools"
 	InternalStoreKey    = "Internal"
 
 	// RouterKey is the message route for slashing

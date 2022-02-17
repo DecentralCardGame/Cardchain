@@ -256,7 +256,7 @@ func New(
 		minttypes.StoreKey, distrtypes.StoreKey, slashingtypes.StoreKey,
 		govtypes.StoreKey, paramstypes.StoreKey, ibchost.StoreKey, upgradetypes.StoreKey, feegrant.StoreKey,
 		evidencetypes.StoreKey, ibctransfertypes.StoreKey, capabilitytypes.StoreKey,
-		cardchainmoduletypes.UsersStoreKey, cardchainmoduletypes.CardsStoreKey, cardchainmoduletypes.MatchesStoreKey, cardchainmoduletypes.CollectionsStoreKey, cardchainmoduletypes.SellOffersStoreKey, cardchainmoduletypes.InternalStoreKey,
+		cardchainmoduletypes.UsersStoreKey, cardchainmoduletypes.CardsStoreKey, cardchainmoduletypes.MatchesStoreKey, cardchainmoduletypes.CollectionsStoreKey, cardchainmoduletypes.SellOffersStoreKey, cardchainmoduletypes.PoolsStoreKey, cardchainmoduletypes.InternalStoreKey,
 		// this line is used by starport scaffolding # stargate/app/storeKey
 	)
 	tkeys := sdk.NewTransientStoreKeys(paramstypes.TStoreKey)
@@ -349,6 +349,7 @@ func New(
 		keys[cardchainmoduletypes.MatchesStoreKey],
 		keys[cardchainmoduletypes.CollectionsStoreKey],
 		keys[cardchainmoduletypes.SellOffersStoreKey],
+		keys[cardchainmoduletypes.PoolsStoreKey],
 		keys[cardchainmoduletypes.InternalStoreKey],
 		app.GetSubspace(cardchainmoduletypes.ModuleName),
 

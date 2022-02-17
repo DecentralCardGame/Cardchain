@@ -26,6 +26,7 @@ type (
 		CollectionsStoreKey sdk.StoreKey
 		InternalStoreKey    sdk.StoreKey
 		SellOffersStoreKey  sdk.StoreKey
+		PoolsStoreKey       sdk.StoreKey
 		paramstore          paramtypes.Subspace
 
 		BankKeeper types.BankKeeper
@@ -39,6 +40,7 @@ func NewKeeper(
 	matchesStorekey sdk.StoreKey,
 	collectionsStoreKey sdk.StoreKey,
 	sellOffersStoreKey sdk.StoreKey,
+	poolsStoreKey sdk.StoreKey,
 	internalStoreKey sdk.StoreKey,
 	ps paramtypes.Subspace,
 
@@ -56,6 +58,7 @@ func NewKeeper(
 		MatchesStoreKey:     matchesStorekey,
 		CollectionsStoreKey: collectionsStoreKey,
 		SellOffersStoreKey:  sellOffersStoreKey,
+		PoolsStoreKey:  		 poolsStoreKey,
 		InternalStoreKey:    internalStoreKey,
 		paramstore:          ps,
 		BankKeeper:          bankKeeper,
@@ -165,6 +168,51 @@ func (k Keeper) CalculateMatchReward(outcome types.Outcome) (int64, int64) {
 		amB = 1
 	}
 	return amA, amB
+}
+
+///////////
+// Pools //
+///////////
+
+func (k Keeper) GetPool(ctx sdk.Context, poolId uint64) sdk.Coin {
+	store := ctx.KVStore(k.PoolsStoreKey)
+	bz := store.Get(sdk.Uint64ToBigEndian(poolId))
+
+	var gottenPool sdk.Coin
+	k.cdc.MustUnmarshal(bz, &gottenPool)
+	return gottenPool
+}
+
+func (k Keeper) SetPool(ctx sdk.Context, poolId uint64, newPool sdk.Coin) {
+	store := ctx.KVStore(k.PoolsStoreKey)
+	store.Set(sdk.Uint64ToBigEndian(poolId), k.cdc.MustMarshal(&newPool))
+}
+
+func (k Keeper) GetPoolsIterator(ctx sdk.Context) sdk.Iterator {
+	store := ctx.KVStore(k.PoolsStoreKey)
+	return sdk.KVStorePrefixIterator(store, nil)
+}
+
+func (k Keeper) GetAllPools(ctx sdk.Context) []sdk.Coin {
+	var allPools []sdk.Coin
+	iterator := k.GetPoolsIterator(ctx)
+	for ; iterator.Valid(); iterator.Next() {
+
+		var gottenPool sdk.Coin
+		k.cdc.MustUnmarshal(iterator.Value(), &gottenPool)
+
+		allPools = append(allPools, gottenPool)
+	}
+	return allPools
+}
+
+func (k Keeper) GetPoolsNumber(ctx sdk.Context) uint64 {
+	var poolId uint64
+	iterator := k.GetPoolsIterator(ctx)
+	for ; iterator.Valid(); iterator.Next() {
+		poolId++
+	}
+	return poolId
 }
 
 ////////////////
