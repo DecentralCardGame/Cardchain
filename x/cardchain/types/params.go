@@ -2,6 +2,7 @@ package types
 
 import (
 	"fmt"
+	"math"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	paramtypes "github.com/cosmos/cosmos-sdk/x/params/types"
@@ -22,6 +23,7 @@ func NewParams() Params {
 		CollectionSize:             5,
 		CollectionBaseUnitPrice:    sdk.NewInt64Coin("ucredits", 1000),
 		ActiveCollectionsAmount:    3,
+		CollectionCreationFee:      sdk.NewInt64Coin("ucredits", int64(5000*math.Pow(10, 6))),
 	}
 }
 
@@ -37,6 +39,7 @@ func (p *Params) ParamSetPairs() paramtypes.ParamSetPairs {
 		paramtypes.NewParamSetPair([]byte("CollectionSize"), &p.CollectionSize, validateCollectionSize),
 		paramtypes.NewParamSetPair([]byte("CollectionBaseUnitPrice"), &p.CollectionBaseUnitPrice, validateCollectionBaseUnitPrice),
 		paramtypes.NewParamSetPair([]byte("ActiveCollectionsAmount"), &p.ActiveCollectionsAmount, validateActiveCollectionsAmount),
+		paramtypes.NewParamSetPair([]byte("CollectionCreationFee"), &p.CollectionCreationFee, validateCollectionCreationFee),
 	}
 }
 
@@ -84,7 +87,7 @@ func validateCollectionBaseUnitPrice(i interface{}) error {
 	}
 
 	if v == sdk.NewInt64Coin("ucredits", 0) {
-		return fmt.Errorf("invalid CollectionPrice: %d", v)
+		return fmt.Errorf("invalid CollectionBaseUnitPrice: %d", v)
 	}
 
 	return nil
@@ -98,6 +101,19 @@ func validateActiveCollectionsAmount(i interface{}) error {
 
 	if v == 0 {
 		return fmt.Errorf("invalid ActiveCollectionsAmount: %d", v)
+	}
+
+	return nil
+}
+
+func validateCollectionCreationFee(i interface{}) error {
+	v, ok := i.(sdk.Coin)
+	if !ok {
+		return fmt.Errorf("invalid parameter type: %T", i)
+	}
+
+	if v == sdk.NewInt64Coin("ucredits", 0) {
+		return fmt.Errorf("invalid CollectionCreationFee: %d", v)
 	}
 
 	return nil

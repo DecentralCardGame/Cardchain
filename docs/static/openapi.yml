@@ -11867,6 +11867,8 @@ paths:
                   activeCollectionsAmount:
                     type: string
                     format: uint64
+                  collectionCreationFee:
+                    type: string
             description: >-
               QueryParamsResponse is response type for the Query/Params RPC
               method.
@@ -20497,6 +20499,8 @@ definitions:
       activeCollectionsAmount:
         type: string
         format: uint64
+      collectionCreationFee:
+        type: string
     description: Params defines the parameters for the module.
   DecentralCardGame.cardchain.cardchain.QueryParamsResponse:
     type: object
@@ -20516,6 +20520,8 @@ definitions:
           activeCollectionsAmount:
             type: string
             format: uint64
+          collectionCreationFee:
+            type: string
     description: QueryParamsResponse is response type for the Query/Params RPC method.
   DecentralCardGame.cardchain.cardchain.QueryQCardContentResponse:
     type: object

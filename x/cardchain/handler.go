@@ -45,7 +45,8 @@ func NewHandler(k keeper.Keeper) sdk.Handler {
 			// case *types.MsgApointMatchReporter:  // Will be uncommented later when I know how to check for module account
 			// 	return handleMsgApointMatchReporter(ctx, k, msg)
 		case *types.MsgCreateCollection:
-			return handleMsgCreateCollection(ctx, k, msg)
+			res, err := msgServer.CreateCollection(sdk.WrapSDKContext(ctx), msg)
+			return sdk.WrapServiceResult(ctx, res, err)
 		case *types.MsgAddCardToCollection:
 			res, err := msgServer.AddCardToCollection(sdk.WrapSDKContext(ctx), msg)
 			return sdk.WrapServiceResult(ctx, res, err)
@@ -88,23 +89,6 @@ func NewHandler(k keeper.Keeper) sdk.Handler {
 			return nil, sdkerrors.Wrap(sdkerrors.ErrUnknownRequest, errMsg)
 		}
 	}
-}
-
-func handleMsgCreateCollection(ctx sdk.Context, keeper keeper.Keeper, msg *types.MsgCreateCollection) (*sdk.Result, error) {
-	collectionId := keeper.GetCollectionsNumber(ctx)
-
-	collection := types.Collection{
-		Name:         msg.Name,
-		Cards:        []uint64{},
-		Contributors: append([]string{msg.Creator}, msg.Contributors...),
-		Artist:       msg.Artist,
-		StoryWriter:  msg.StoryWriter,
-		Status:       types.CStatus_design,
-		TimeStamp:    0,
-	}
-
-	keeper.SetCollection(ctx, collectionId, collection)
-	return &sdk.Result{}, nil
 }
 
 func handleMsgApointMatchReporter(ctx sdk.Context, keeper keeper.Keeper, msg *types.MsgApointMatchReporter) (*sdk.Result, error) {
