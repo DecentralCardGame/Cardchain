@@ -203,7 +203,7 @@ func handleMsgAddArtwork(ctx sdk.Context, keeper keeper.Keeper, msg *types.MsgAd
 }
 
 func handleMsgDonateToCard(ctx sdk.Context, keeper keeper.Keeper, msg *types.MsgDonateToCard) (*sdk.Result, error) {
-	donator, err := sdk.AccAddressFromBech32(msg.Donator)
+	donator, err := sdk.AccAddressFromBech32(msg.Creator)
 	if err != nil {
 		return nil, sdkerrors.Wrap(types.ErrInvalidAccAddress, "Unable to convert to AccAddress")
 	}
@@ -254,7 +254,7 @@ func handleMsgTransferCard(ctx sdk.Context, keeper keeper.Keeper, msg *types.Msg
 func handleMsgSaveCardContent(ctx sdk.Context, keeper keeper.Keeper, msg *types.MsgSaveCardContent) (*sdk.Result, error) {
 	card := keeper.GetCard(ctx, msg.CardId)
 
-	msgOwner, err := sdk.AccAddressFromBech32(msg.Owner)
+	msgOwner, err := sdk.AccAddressFromBech32(msg.Creator)
 	if err != nil {
 		return nil, sdkerrors.Wrap(types.ErrInvalidAccAddress, err.Error())
 	}

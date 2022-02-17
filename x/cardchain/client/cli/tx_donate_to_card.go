@@ -16,18 +16,16 @@ var _ = strconv.Itoa(0)
 
 func CmdDonateToCard() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "donate-to-card [card-id] [donator] [amount]",
+		Use:   "donate-to-card [card-id] [amount]",
 		Short: "Broadcast message DonateToCard",
-		Args:  cobra.ExactArgs(3),
+		Args:  cobra.ExactArgs(2),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
 			argCardId, err := cast.ToUint64E(args[0])
 			if err != nil {
 				return err
 			}
 
-			argDonator := args[1]
-
-			argAmount, err := sdk.ParseCoinNormalized(args[2])
+			argAmount, err := sdk.ParseCoinNormalized(args[1])
 			if err != nil {
 				return err
 			}
@@ -40,7 +38,6 @@ func CmdDonateToCard() *cobra.Command {
 			msg := types.NewMsgDonateToCard(
 				clientCtx.GetFromAddress().String(),
 				argCardId,
-				argDonator,
 				argAmount,
 			)
 			if err := msg.ValidateBasic(); err != nil {

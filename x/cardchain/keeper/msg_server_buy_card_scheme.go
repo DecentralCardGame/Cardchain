@@ -16,7 +16,7 @@ func (k msgServer) BuyCardScheme(goCtx context.Context, msg *types.MsgBuyCardSch
 
 	price := k.GetCardAuctionPrice(ctx)
 
-	buyer, err := sdk.AccAddressFromBech32(msg.Buyer)
+	buyer, err := sdk.AccAddressFromBech32(msg.Creator)
 	if err != nil {
 		return nil, sdkerrors.Wrap(types.ErrInvalidAccAddress, "Unable to convert to AccAddress")
 	}
