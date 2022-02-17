@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
+	"math"
 
 	"github.com/cosmos/cosmos-sdk/baseapp"
 	"github.com/cosmos/cosmos-sdk/client"
@@ -550,7 +551,10 @@ func (app *App) InitChainer(ctx sdk.Context, req abci.RequestInitChain) abci.Res
 	// initialize CardScheme Id, Auction price and public pool
 	app.CardchainKeeper.SetLastCardSchemeId(ctx, uint64(0))
 	app.CardchainKeeper.SetCardAuctionPrice(ctx, sdk.NewInt64Coin("ucredits", 10000000))
-	app.CardchainKeeper.SetPublicPoolCredits(ctx, sdk.NewInt64Coin("ucredits", 1000000000))
+
+	for _, key := range app.CardchainKeeper.PoolKeys{
+		app.CardchainKeeper.SetPool(ctx, key, sdk.NewInt64Coin("ucredits", int64(1000*math.Pow(10, 6))))
+	}
 
 	app.UpgradeKeeper.SetModuleVersionMap(ctx, app.mm.GetVersionMap())
 	return app.mm.InitGenesis(ctx, app.appCodec, genesisState)

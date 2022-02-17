@@ -17,6 +17,12 @@ import (
 	paramtypes "github.com/cosmos/cosmos-sdk/x/params/types"
 )
 
+const (
+	PublicPoolKey = "public"
+	WinnersPoolKey = "winners"
+	MakersPoolKey = "makers"
+)
+
 type (
 	Keeper struct {
 		cdc                 codec.BinaryCodec // The wire codec for binary encoding/decoding.
@@ -28,6 +34,8 @@ type (
 		SellOffersStoreKey  sdk.StoreKey
 		PoolsStoreKey       sdk.StoreKey
 		paramstore          paramtypes.Subspace
+
+		PoolKeys						[]string
 
 		BankKeeper types.BankKeeper
 	}
@@ -61,6 +69,7 @@ func NewKeeper(
 		PoolsStoreKey:  		 poolsStoreKey,
 		InternalStoreKey:    internalStoreKey,
 		paramstore:          ps,
+		PoolKeys:						 []string{PublicPoolKey, WinnersPoolKey, MakersPoolKey},
 		BankKeeper:          bankKeeper,
 	}
 }
@@ -95,12 +104,6 @@ func (k Keeper) Logger(ctx sdk.Context) log.Logger {
 func (k Keeper) GetVoteRights(ctx sdk.Context, voter sdk.AccAddress) []*types.VoteRight {
 	user, _ := k.GetUser(ctx, voter)
 	return user.VoteRights
-}
-
-// sets the credits in the public pool
-func (k Keeper) SetPublicPoolCredits(ctx sdk.Context, price sdk.Coin) {
-	store := ctx.KVStore(k.InternalStoreKey)
-	store.Set([]byte("publicPoolCredits"), k.cdc.MustMarshal(&price))
 }
 
 func (k Keeper) TransferSchemeToCard(ctx sdk.Context, cardId uint64, address sdk.AccAddress) {
@@ -174,18 +177,30 @@ func (k Keeper) CalculateMatchReward(outcome types.Outcome) (int64, int64) {
 // Pools //
 ///////////
 
-func (k Keeper) GetPool(ctx sdk.Context, poolId uint64) sdk.Coin {
+func (k Keeper) AddPoolCredits(ctx sdk.Context, poolName string, amount sdk.Coin) {
+	pool := k.GetPool(ctx, poolName)
+	pool = pool.Add(amount)
+	k.SetPool(ctx, poolName, pool)
+}
+
+func (k Keeper) SubPoolCredits(ctx sdk.Context, poolName string, amount sdk.Coin) {
+	pool := k.GetPool(ctx, poolName)
+	pool = pool.Sub(amount)
+	k.SetPool(ctx, poolName, pool)
+}
+
+func (k Keeper) GetPool(ctx sdk.Context, poolName string) sdk.Coin {
 	store := ctx.KVStore(k.PoolsStoreKey)
-	bz := store.Get(sdk.Uint64ToBigEndian(poolId))
+	bz := store.Get([]byte(poolName))
 
 	var gottenPool sdk.Coin
 	k.cdc.MustUnmarshal(bz, &gottenPool)
 	return gottenPool
 }
 
-func (k Keeper) SetPool(ctx sdk.Context, poolId uint64, newPool sdk.Coin) {
+func (k Keeper) SetPool(ctx sdk.Context, poolName string, newPool sdk.Coin) {
 	store := ctx.KVStore(k.PoolsStoreKey)
-	store.Set(sdk.Uint64ToBigEndian(poolId), k.cdc.MustMarshal(&newPool))
+	store.Set([]byte(poolName), k.cdc.MustMarshal(&newPool))
 }
 
 func (k Keeper) GetPoolsIterator(ctx sdk.Context) sdk.Iterator {
@@ -195,13 +210,8 @@ func (k Keeper) GetPoolsIterator(ctx sdk.Context) sdk.Iterator {
 
 func (k Keeper) GetAllPools(ctx sdk.Context) []sdk.Coin {
 	var allPools []sdk.Coin
-	iterator := k.GetPoolsIterator(ctx)
-	for ; iterator.Valid(); iterator.Next() {
-
-		var gottenPool sdk.Coin
-		k.cdc.MustUnmarshal(iterator.Value(), &gottenPool)
-
-		allPools = append(allPools, gottenPool)
+	for _, poolName := range k.PoolKeys {
+		allPools = append(allPools, k.GetPool(ctx, poolName))
 	}
 	return allPools
 }
@@ -481,16 +491,6 @@ func (k Keeper) BurnCoinsFromAddr(ctx sdk.Context, addr sdk.AccAddress, amounts 
 		return err
 	}
 	return nil
-}
-
-// adds or subtracts credits from the public pool
-func (k Keeper) AddPublicPoolCredits(ctx sdk.Context, delta sdk.Coin) {
-	store := ctx.KVStore(k.InternalStoreKey)
-	bz := store.Get([]byte("publicPoolCredits"))
-	var amount sdk.Coin
-	k.cdc.MustUnmarshal(bz, &amount)
-	newAmount := amount.Add(delta)
-	store.Set([]byte("publicPoolCredits"), k.cdc.MustMarshal(&newAmount))
 }
 
 ///////////

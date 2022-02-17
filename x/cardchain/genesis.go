@@ -27,7 +27,7 @@ func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) 
 		k.SetSellOffer(ctx, uint64(id), *sellOffer)
 	}
 	for id, pool := range genState.Pools {
-		k.SetPool(ctx, uint64(id), pool)
+		k.SetPool(ctx, k.PoolKeys[id], pool)
 	}
 	fmt.Println("reading cards with id:")
 	for _, record := range genState.CardRecords {
