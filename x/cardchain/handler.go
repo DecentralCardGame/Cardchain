@@ -373,39 +373,6 @@ func SearchVoteRights(cardID uint64, rights []*types.VoteRight) int {
 	return -1
 }
 
-// Handle a message to buy name
-// func handleMsgBuyCardScheme(ctx sdk.Context, keeper keeper.Keeper, msg *types.MsgBuyCardScheme) (*sdk.Result, error) {
-// 	lastId := keeper.GetLastCardSchemeId(ctx) // first get last card bought id
-// 	currId := lastId + 1                      // iterate it by 1
-//
-// 	price := keeper.GetCardAuctionPrice(ctx)
-//
-// 	buyer, err := sdk.AccAddressFromBech32(msg.Buyer)
-// 	if err != nil {
-// 		return nil, sdkerrors.Wrap(types.ErrInvalidAccAddress, "Unable to convert to AccAddress")
-// 	}
-//
-// 	if msg.Bid.IsLT(price) { // Checks if the bid is less than price
-// 		return nil, sdkerrors.Wrap(sdkerrors.ErrInsufficientFunds, "Bid not high enough")
-// 	}
-//
-// 	err = keeper.BurnCoinsFromAddr(ctx, buyer, sdk.Coins{price}) // If so, deduct the Bid amount from the sender
-// 	if err != nil {
-// 		return nil, sdkerrors.Wrap(sdkerrors.ErrInsufficientFunds, "Buyer does not have enough coins")
-// 	}
-//
-// 	keeper.AddPublicPoolCredits(ctx, price)
-// 	keeper.SetCardAuctionPrice(ctx, price.Add(price))
-// 	keeper.SetLastCardSchemeId(ctx, currId)
-//
-// 	newCard := types.NewCard(buyer)
-//
-// 	keeper.SetCard(ctx, currId, newCard)
-// 	keeper.AddOwnedCardScheme(ctx, currId, buyer)
-//
-// 	return &sdk.Result{}, nil
-// }
-
 func handleMsgCreateUser(ctx sdk.Context, keeper keeper.Keeper, msg *types.MsgCreateuser) (*sdk.Result, error) {
 	// check if user already exists
 	keeper.Createuser(ctx, msg.GetNewUserAddr(), msg.Alias)
