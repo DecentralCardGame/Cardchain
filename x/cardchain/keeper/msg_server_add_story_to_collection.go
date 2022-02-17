@@ -19,6 +19,11 @@ func (k msgServer) AddStoryToCollection(goCtx context.Context, msg *types.MsgAdd
 		return nil, types.ErrCollectionNotInDesign
 	}
 
+	err := k.CollectCollectionConributionFee(ctx, msg.Creator)
+	if err != nil {
+		return nil, err
+	}
+
 	collection.Story = msg.Story
 
 	k.SetCollection(ctx, msg.CollectionId, collection)

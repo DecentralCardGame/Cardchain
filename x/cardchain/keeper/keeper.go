@@ -260,6 +260,20 @@ func (k Keeper) GetSellOffersNumber(ctx sdk.Context) uint64 {
 // Collections //
 /////////////////
 
+func (k Keeper) CollectCollectionConributionFee(ctx sdk.Context, creator string) error{
+	price := sdk.NewInt64Coin("ucredits", 1000000)
+	contributor, err := sdk.AccAddressFromBech32(creator)
+	if err != nil {
+		return sdkerrors.Wrap(types.ErrInvalidAccAddress, "Unable to convert to AccAddress")
+	}
+	err = k.BurnCoinsFromAddr(ctx, contributor, sdk.Coins{price})
+	if err != nil {
+		return sdkerrors.Wrap(sdkerrors.ErrInsufficientFunds, "Creator does not have enough coins")
+	}
+	k.AddPoolCredits(ctx, PublicPoolKey, price)
+	return nil
+}
+
 func (k Keeper) GetAllCollectionContributors(ctx sdk.Context, collection types.Collection, cardsList []uint64) []string {
 	contribs := []string{collection.StoryWriter, collection.Artist, collection.Contributors[0], collection.Contributors[0]}
 	for _, cardId := range cardsList {

@@ -38,6 +38,11 @@ func (k msgServer) AddCardToCollection(goCtx context.Context, msg *types.MsgAddC
 		return nil, sdkerrors.Wrapf(types.ErrCardAlreadyInCollection, "Card: %d", msg.CardId)
 	}
 
+	err := k.CollectCollectionConributionFee(ctx, msg.Creator)
+	if err != nil {
+		return nil, err
+	}
+
 	collection.Cards = append(collection.Cards, msg.CardId)
 
 	k.SetCollection(ctx, msg.CollectionId, collection)

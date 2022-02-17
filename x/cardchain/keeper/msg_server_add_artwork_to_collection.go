@@ -19,6 +19,11 @@ func (k msgServer) AddArtworkToCollection(goCtx context.Context, msg *types.MsgA
 		return nil, types.ErrCollectionNotInDesign
 	}
 
+	err := k.CollectCollectionConributionFee(ctx, msg.Creator)
+	if err != nil {
+		return nil, err
+	}
+
 	collection.Artwork = msg.Image
 
 	k.SetCollection(ctx, msg.CollectionId, collection)

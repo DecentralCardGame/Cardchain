@@ -23,6 +23,11 @@ func (k msgServer) AddContributorToCollection(goCtx context.Context, msg *types.
 		return nil, sdkerrors.Wrap(types.ErrContributor, "Contributor allready Contributor: "+msg.User)
 	}
 
+	err := k.CollectCollectionConributionFee(ctx, msg.Creator)
+	if err != nil {
+		return nil, err
+	}
+
 	collection.Contributors = append(collection.Contributors, msg.User)
 
 	k.SetCollection(ctx, msg.CollectionId, collection)
