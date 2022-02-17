@@ -287,7 +287,7 @@ func handleMsgSaveCardContent(ctx sdk.Context, keeper keeper.Keeper, msg *types.
 
 // handle vote card message
 func handleMsgVoteCard(ctx sdk.Context, k keeper.Keeper, msg *types.MsgVoteCard) (*sdk.Result, error) {
-	voter, err := sdk.AccAddressFromBech32(msg.Voter)
+	voter, err := sdk.AccAddressFromBech32(msg.Creator)
 	if err != nil {
 		return nil, sdkerrors.Wrap(types.ErrInvalidAccAddress, "Unable to convert to AccAddress")
 	}
