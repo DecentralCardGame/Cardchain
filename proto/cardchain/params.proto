@@ -13,4 +13,5 @@ message Params {
   string collectionBaseUnitPrice = 3 [(gogoproto.nullable) = false, (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Coin"];;
   uint64 activeCollectionsAmount = 4;
   string collectionCreationFee = 5 [(gogoproto.nullable) = false, (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Coin"];;
+  string collateralDeposit = 6 [(gogoproto.nullable) = false, (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Coin"];;
 }
