@@ -17,7 +17,7 @@ func CmdVoteCard() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "vote-card [card-id] [vote-type]",
 		Short: "Broadcast message VoteCard",
-		Args:  cobra.ExactArgs(3),
+		Args:  cobra.ExactArgs(2),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
 			argCardId, err := cast.ToUint64E(args[0])
 			if err != nil {
