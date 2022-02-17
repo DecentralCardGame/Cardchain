@@ -203,26 +203,12 @@ func (k Keeper) SetPool(ctx sdk.Context, poolName string, newPool sdk.Coin) {
 	store.Set([]byte(poolName), k.cdc.MustMarshal(&newPool))
 }
 
-func (k Keeper) GetPoolsIterator(ctx sdk.Context) sdk.Iterator {
-	store := ctx.KVStore(k.PoolsStoreKey)
-	return sdk.KVStorePrefixIterator(store, nil)
-}
-
 func (k Keeper) GetAllPools(ctx sdk.Context) []sdk.Coin {
 	var allPools []sdk.Coin
 	for _, poolName := range k.PoolKeys {
 		allPools = append(allPools, k.GetPool(ctx, poolName))
 	}
 	return allPools
-}
-
-func (k Keeper) GetPoolsNumber(ctx sdk.Context) uint64 {
-	var poolId uint64
-	iterator := k.GetPoolsIterator(ctx)
-	for ; iterator.Valid(); iterator.Next() {
-		poolId++
-	}
-	return poolId
 }
 
 ////////////////
