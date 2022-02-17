@@ -2,6 +2,7 @@ package keeper
 
 import (
 	"context"
+	"math/rand"
 
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -22,7 +23,12 @@ func (k msgServer) BuyCollection(goCtx context.Context, msg *types.MsgBuyCollect
 		return nil, types.ErrNoActiveCollection
 	}
 
-	contribs := k.GetAllCollectionContributors(ctx, collection)
+	cardsList := []uint64{}
+	for i := 0; i < 13; i++ {
+		cardsList = append(cardsList, collection.Cards[rand.Intn(len(collection.Cards))])
+	}
+
+	contribs := k.GetAllCollectionContributors(ctx, collection, cardsList)
 
 	for _, contrib := range contribs {
 		contribAddr, err := sdk.AccAddressFromBech32(contrib)
@@ -36,7 +42,7 @@ func (k msgServer) BuyCollection(goCtx context.Context, msg *types.MsgBuyCollect
 		}
 	}
 
-	creator.Cards = append(creator.Cards, collection.Cards...)
+	creator.Cards = append(creator.Cards, cardsList...)
 
 	k.SetUserFromUser(ctx, creator)
 

@@ -216,9 +216,9 @@ func (k Keeper) GetSellOffersNumber(ctx sdk.Context) uint64 {
 // Collections //
 /////////////////
 
-func (k Keeper) GetAllCollectionContributors(ctx sdk.Context, collection types.Collection) []string {
+func (k Keeper) GetAllCollectionContributors(ctx sdk.Context, collection types.Collection, cardsList []uint64) []string {
 	contribs := []string{collection.StoryWriter, collection.Artist, collection.Contributors[0], collection.Contributors[0]}
-	for _, cardId := range collection.Cards {
+	for _, cardId := range cardsList {
 		var card = k.GetCard(ctx, cardId)
 		if card.Owner != "" {
 			contribs = append(contribs, card.Owner)
