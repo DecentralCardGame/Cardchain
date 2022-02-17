@@ -26,6 +26,7 @@ func NewParams() Params {
 		CollectionCreationFee:      sdk.NewInt64Coin("ucredits", int64(5000*math.Pow(10, 6))),
 		CollateralDeposit:					sdk.NewInt64Coin("ucredits", int64(50*math.Pow(10, 6))),
 		WinnerReward:               sdk.NewInt64Coin("ucredits", 1),
+		VoterReward:                sdk.NewInt64Coin("ucredits", 1),
 	}
 }
 
@@ -44,6 +45,7 @@ func (p *Params) ParamSetPairs() paramtypes.ParamSetPairs {
 		paramtypes.NewParamSetPair([]byte("CollectionCreationFee"), &p.CollectionCreationFee, validateCollectionCreationFee),
 		paramtypes.NewParamSetPair([]byte("CollateralDeposit"), &p.CollateralDeposit, validateCollateralDeposit),
 		paramtypes.NewParamSetPair([]byte("WinnerReward"), &p.WinnerReward, validateWinnerReward),
+		paramtypes.NewParamSetPair([]byte("VoterReward"), &p.VoterReward, validateVoterReward),
 	}
 }
 
@@ -144,6 +146,19 @@ func validateWinnerReward(i interface{}) error {
 
 	if v == sdk.NewInt64Coin("ucredits", 0) {
 		return fmt.Errorf("invalid WinnerReward: %d", v)
+	}
+
+	return nil
+}
+
+func validateVoterReward(i interface{}) error {
+	v, ok := i.(sdk.Coin)
+	if !ok {
+		return fmt.Errorf("invalid parameter type: %T", i)
+	}
+
+	if v == sdk.NewInt64Coin("ucredits", 0) {
+		return fmt.Errorf("invalid VoterReward: %d", v)
 	}
 
 	return nil

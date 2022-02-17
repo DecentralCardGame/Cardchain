@@ -20,7 +20,7 @@ import (
 const (
 	PublicPoolKey = "public"
 	WinnersPoolKey = "winners"
-	MakersPoolKey = "balancers"
+	BalancersPoolKey = "balancers"
 )
 
 type (
@@ -69,7 +69,7 @@ func NewKeeper(
 		PoolsStoreKey:  		 poolsStoreKey,
 		InternalStoreKey:    internalStoreKey,
 		paramstore:          ps,
-		PoolKeys:						 []string{PublicPoolKey, WinnersPoolKey, MakersPoolKey},
+		PoolKeys:						 []string{PublicPoolKey, WinnersPoolKey, BalancersPoolKey},
 		BankKeeper:          bankKeeper,
 	}
 }

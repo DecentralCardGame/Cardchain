@@ -95,8 +95,8 @@ func handleMsgApointMatchReporter(ctx sdk.Context, keeper keeper.Keeper, msg *ty
 	return &sdk.Result{}, keeper.ApointMatchReporter(ctx, msg.Reporter)
 }
 
-func handleMsgReportMatch(ctx sdk.Context, keeper keeper.Keeper, msg *types.MsgReportMatch) (*sdk.Result, error) {
-	creator, err := keeper.GetUserFromString(ctx, msg.Creator)
+func handleMsgReportMatch(ctx sdk.Context, k keeper.Keeper, msg *types.MsgReportMatch) (*sdk.Result, error) {
+	creator, err := k.GetUserFromString(ctx, msg.Creator)
 	if err != nil {
 		return nil, err
 	}
@@ -104,7 +104,7 @@ func handleMsgReportMatch(ctx sdk.Context, keeper keeper.Keeper, msg *types.MsgR
 		return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "Incorrect Reporter")
 	}
 
-	matchId := keeper.GetMatchesNumber(ctx)
+	matchId := k.GetMatchesNumber(ctx)
 
 	match := types.Match{
 		uint64(time.Now().Unix()),
@@ -130,7 +130,7 @@ func handleMsgReportMatch(ctx sdk.Context, keeper keeper.Keeper, msg *types.MsgR
 	if msg.Outcome != types.Outcome_Aborted {
 		for idx, _ := range addresses {
 			for _, cardId := range cards[idx] {
-				err = keeper.AddVoteRight(ctx, addresses[idx], cardId)
+				err = k.AddVoteRight(ctx, addresses[idx], cardId)
 				if err != nil {
 					return nil, err
 				}
@@ -138,12 +138,13 @@ func handleMsgReportMatch(ctx sdk.Context, keeper keeper.Keeper, msg *types.MsgR
 		}
 	}
 
-	keeper.SetMatch(ctx, matchId, match)
+	k.SetMatch(ctx, matchId, match)
 
-	amA, amB := keeper.CalculateMatchReward(ctx, msg.Outcome)
+	amA, amB := k.CalculateMatchReward(ctx, msg.Outcome)
 	amounts := []sdk.Coin{amA, amB}
 	for idx, _ := range addresses {
-		keeper.MintCoinsToAddr(ctx, addresses[idx], sdk.Coins{amounts[idx]})
+		k.MintCoinsToAddr(ctx, addresses[idx], sdk.Coins{amounts[idx]})
+		k.SubPoolCredits(ctx, keeper.WinnersPoolKey, amounts[idx])
 	}
 
 	return sdk.WrapServiceResult(ctx, &types.MsgReportMatchResponse{matchId}, nil)
@@ -285,13 +286,13 @@ func handleMsgSaveCardContent(ctx sdk.Context, keeper keeper.Keeper, msg *types.
 }
 
 // handle vote card message
-func handleMsgVoteCard(ctx sdk.Context, keeper keeper.Keeper, msg *types.MsgVoteCard) (*sdk.Result, error) {
+func handleMsgVoteCard(ctx sdk.Context, k keeper.Keeper, msg *types.MsgVoteCard) (*sdk.Result, error) {
 	voter, err := sdk.AccAddressFromBech32(msg.Voter)
 	if err != nil {
 		return nil, sdkerrors.Wrap(types.ErrInvalidAccAddress, "Unable to convert to AccAddress")
 	}
 
-	voteRights := keeper.GetVoteRights(ctx, voter)
+	voteRights := k.GetVoteRights(ctx, voter)
 	rightsIndex := SearchVoteRights(msg.CardId, voteRights)
 
 	// check if voting rights are true
@@ -305,7 +306,7 @@ func handleMsgVoteCard(ctx sdk.Context, keeper keeper.Keeper, msg *types.MsgVote
 	}
 
 	// if the vote right is valid, get the Card
-	card := keeper.GetCard(ctx, msg.CardId)
+	card := k.GetCard(ctx, msg.CardId)
 
 	// check if card status is valid // TODO remove prototype as soon as the council exists
 	if card.Status != types.Status_permanent && card.Status != types.Status_trial && card.Status != types.Status_prototype {
@@ -329,15 +330,19 @@ func handleMsgVoteCard(ctx sdk.Context, keeper keeper.Keeper, msg *types.MsgVote
 	// check for specific bounty on the card
 	if !card.VotePool.IsZero() {
 		card.VotePool.Sub(sdk.NewInt64Coin("ucredits", 1000000))
-		keeper.MintCoinsToAddr(ctx, voter, sdk.Coins{sdk.NewInt64Coin("ucredits", 1000000)})
+		k.MintCoinsToAddr(ctx, voter, sdk.Coins{sdk.NewInt64Coin("ucredits", 1000000)})
 	}
 
 	// give generic bounty for voting
-	keeper.MintCoinsToAddr(ctx, voter, sdk.Coins{sdk.NewInt64Coin("ucredits", 1000000)})
+	k.MintCoinsToAddr(ctx, voter, sdk.Coins{sdk.NewInt64Coin("ucredits", 1000000)})
 
-	keeper.SetCard(ctx, msg.CardId, card)
+	amount := k.GetParams(ctx).VoterReward
+	k.MintCoinsToAddr(ctx, voter, sdk.Coins{amount})
+	k.SubPoolCredits(ctx, keeper.BalancersPoolKey, amount)
 
-	err = keeper.RemoveVoteRight(ctx, voter, rightsIndex)
+	k.SetCard(ctx, msg.CardId, card)
+
+	err = k.RemoveVoteRight(ctx, voter, rightsIndex)
 	if err != nil {
 		return nil, err
 	}
