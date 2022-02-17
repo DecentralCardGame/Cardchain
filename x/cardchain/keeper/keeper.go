@@ -260,8 +260,15 @@ func (k Keeper) GetSellOffersNumber(ctx sdk.Context) uint64 {
 // Collections //
 /////////////////
 
-func (k Keeper) CollectCollectionConributionFee(ctx sdk.Context, creator string) error{
-	price := sdk.NewInt64Coin("ucredits", 1000000)
+func (k Keeper) CollectCollectionConributionFee(ctx sdk.Context, creator string) error {
+	return k.CollectCollectionFee(ctx, sdk.NewInt64Coin("ucredits", 1000000), creator)
+}
+
+func (k Keeper) CollectCollectionCreationFee(ctx sdk.Context, creator string) error {
+	return k.CollectCollectionFee(ctx, k.GetParams(ctx).CollectionCreationFee, creator)
+}
+
+func (k Keeper) CollectCollectionFee(ctx sdk.Context, price sdk.Coin, creator string) error {
 	contributor, err := sdk.AccAddressFromBech32(creator)
 	if err != nil {
 		return sdkerrors.Wrap(types.ErrInvalidAccAddress, "Unable to convert to AccAddress")

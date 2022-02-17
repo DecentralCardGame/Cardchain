@@ -27,6 +27,11 @@ func (k msgServer) FinalizeCollection(goCtx context.Context, msg *types.MsgFinal
 		return nil, sdkerrors.Wrap(types.ErrCollectionSize, "Has to be "+strconv.Itoa(collectionSize))
 	}
 
+	err := k.CollectCollectionCreationFee(ctx, msg.Creator)
+	if err != nil {
+		return nil, err
+	}
+
 	// TODO Add checking for rarity
 
 	collection.Status = types.CStatus_finalized
