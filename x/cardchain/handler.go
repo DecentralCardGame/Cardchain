@@ -140,10 +140,10 @@ func handleMsgReportMatch(ctx sdk.Context, keeper keeper.Keeper, msg *types.MsgR
 
 	keeper.SetMatch(ctx, matchId, match)
 
-	amA, amB := keeper.CalculateMatchReward(msg.Outcome)
-	amounts := []int64{amA, amB}
+	amA, amB := keeper.CalculateMatchReward(ctx, msg.Outcome)
+	amounts := []sdk.Coin{amA, amB}
 	for idx, _ := range addresses {
-		keeper.MintCoinsToAddr(ctx, addresses[idx], sdk.Coins{sdk.NewInt64Coin("credits", amounts[idx])})
+		keeper.MintCoinsToAddr(ctx, addresses[idx], sdk.Coins{amounts[idx]})
 	}
 
 	return sdk.WrapServiceResult(ctx, &types.MsgReportMatchResponse{matchId}, nil)

@@ -20,7 +20,7 @@ import (
 const (
 	PublicPoolKey = "public"
 	WinnersPoolKey = "winners"
-	MakersPoolKey = "makers"
+	MakersPoolKey = "balancers"
 )
 
 type (
@@ -156,21 +156,18 @@ func (k Keeper) ApointMatchReporter(ctx sdk.Context, reporter string) error {
 	return nil
 }
 
-func (k Keeper) CalculateMatchReward(outcome types.Outcome) (int64, int64) {
-	var (
-		amA int64
-		amB int64
-	)
-	// TODO More logic
+func (k Keeper) CalculateMatchReward(ctx sdk.Context, outcome types.Outcome) (amA sdk.Coin, amB sdk.Coin) {
+	rew := k.GetParams(ctx).WinnerReward
+
 	if outcome == types.Outcome_AWon {
-		amA = 2
+		amA = rew
 	} else if outcome == types.Outcome_BWon {
-		amB = 2
+		amB = rew
 	} else if outcome == types.Outcome_Draw {
-		amA = 1
-		amB = 1
+		amA = sdk.NewCoin(rew.Denom, rew.Amount.Quo(sdk.NewInt(2)))
+		amB = sdk.NewCoin(rew.Denom, rew.Amount.Quo(sdk.NewInt(2)))
 	}
-	return amA, amB
+	return
 }
 
 ///////////

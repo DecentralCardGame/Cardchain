@@ -11871,6 +11871,8 @@ paths:
                     type: string
                   collateralDeposit:
                     type: string
+                  winnerReward:
+                    type: string
             description: >-
               QueryParamsResponse is response type for the Query/Params RPC
               method.
@@ -20505,6 +20507,8 @@ definitions:
         type: string
       collateralDeposit:
         type: string
+      winnerReward:
+        type: string
     description: Params defines the parameters for the module.
   DecentralCardGame.cardchain.cardchain.QueryParamsResponse:
     type: object
@@ -20527,6 +20531,8 @@ definitions:
           collectionCreationFee:
             type: string
           collateralDeposit:
+            type: string
+          winnerReward:
             type: string
     description: QueryParamsResponse is response type for the Query/Params RPC method.
   DecentralCardGame.cardchain.cardchain.QueryQCardContentResponse:
