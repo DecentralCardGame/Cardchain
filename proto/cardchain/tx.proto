@@ -59,7 +59,6 @@ message MsgVoteCard {
   string creator = 1;
   uint64 cardId = 2;
   string voteType = 3;
-  string voter = 4;
 }
 
 message MsgVoteCardResponse {
