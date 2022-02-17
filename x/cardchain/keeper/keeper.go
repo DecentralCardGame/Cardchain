@@ -278,9 +278,9 @@ func (k Keeper) CollectCollectionFee(ctx sdk.Context, price sdk.Coin, creator st
 	return nil
 }
 
-func (k Keeper) GetAllCollectionContributors(ctx sdk.Context, collection types.Collection, cardsList []uint64) []string {
+func (k Keeper) GetAllCollectionContributors(ctx sdk.Context, collection types.Collection) []string {
 	contribs := []string{collection.StoryWriter, collection.Artist, collection.Contributors[0], collection.Contributors[0]}
-	for _, cardId := range cardsList {
+	for _, cardId := range collection.Cards {
 		var card = k.GetCard(ctx, cardId)
 		if card.Owner != "" {
 			contribs = append(contribs, card.Owner)

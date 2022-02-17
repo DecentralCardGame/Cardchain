@@ -28,7 +28,7 @@ func (k msgServer) BuyCollection(goCtx context.Context, msg *types.MsgBuyCollect
 		cardsList = append(cardsList, collection.Cards[rand.Intn(len(collection.Cards))])
 	}
 
-	contribs := k.GetAllCollectionContributors(ctx, collection, cardsList)
+	contribs := k.GetAllCollectionContributors(ctx, collection)
 
 	for _, contrib := range contribs {
 		contribAddr, err := sdk.AccAddressFromBech32(contrib)
