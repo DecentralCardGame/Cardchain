@@ -538,6 +538,10 @@ func (app *App) EndBlocker(ctx sdk.Context, req abci.RequestEndBlock) abci.Respo
 		app.CardchainKeeper.AddVoteRightsToAllUsers(ctx, ctx.BlockHeight()+app.CardchainKeeper.GetParams(ctx).VotingRightsExpirationTime)
 	}
 
+	if app.LastBlockHeight()%500 == 0 { //HourlyFaucet
+		app.CardchainKeeper.AddPoolCredits(ctx, cardchainmodulekeeper.PublicPoolKey, app.CardchainKeeper.GetParams(ctx).HourlyFaucet)
+	}
+
 	return app.mm.EndBlock(ctx, req)
 }
 
