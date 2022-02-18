@@ -3,6 +3,7 @@ package types
 import (
 	"fmt"
 
+	sdk "github.com/cosmos/cosmos-sdk/types"
 	paramtypes "github.com/cosmos/cosmos-sdk/x/params/types"
 	"gopkg.in/yaml.v2"
 )
@@ -19,7 +20,7 @@ func NewParams() Params {
 	return Params{
 		VotingRightsExpirationTime: 86000,
 		CollectionSize:             5,
-		CollectionPrice:            10,
+		CollectionBaseUnitPrice:    sdk.NewInt64Coin("ucredits", 1000),
 		ActiveCollectionsAmount:    3,
 	}
 }
@@ -34,7 +35,7 @@ func (p *Params) ParamSetPairs() paramtypes.ParamSetPairs {
 	return paramtypes.ParamSetPairs{
 		paramtypes.NewParamSetPair([]byte("VotingRightsExpirationTime"), &p.VotingRightsExpirationTime, validateVotingRightsExpirationTime),
 		paramtypes.NewParamSetPair([]byte("CollectionSize"), &p.CollectionSize, validateCollectionSize),
-		paramtypes.NewParamSetPair([]byte("CollectionPrice"), &p.CollectionPrice, validateCollectionPrice),
+		paramtypes.NewParamSetPair([]byte("CollectionBaseUnitPrice"), &p.CollectionBaseUnitPrice, validateCollectionBaseUnitPrice),
 		paramtypes.NewParamSetPair([]byte("ActiveCollectionsAmount"), &p.ActiveCollectionsAmount, validateActiveCollectionsAmount),
 	}
 }
@@ -76,13 +77,13 @@ func validateCollectionSize(i interface{}) error {
 	return nil
 }
 
-func validateCollectionPrice(i interface{}) error {
-	v, ok := i.(int64)
+func validateCollectionBaseUnitPrice(i interface{}) error {
+	v, ok := i.(sdk.Coin)
 	if !ok {
 		return fmt.Errorf("invalid parameter type: %T", i)
 	}
 
-	if v == 0 {
+	if v == sdk.NewInt64Coin("ucredits", 0) {
 		return fmt.Errorf("invalid CollectionPrice: %d", v)
 	}
 

@@ -2,7 +2,6 @@ package keeper
 
 import (
 	"context"
-	"strconv"
 
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -22,7 +21,7 @@ func (k msgServer) RemoveCardFromCollection(goCtx context.Context, msg *types.Ms
 
 	newCards, err := uintPopElementFromArr(msg.CardId, collection.Cards)
 	if err != nil {
-		return nil, sdkerrors.Wrap(err, "Card: "+strconv.Itoa(int(msg.CardId)))
+		return nil, sdkerrors.Wrapf(err, "Card: %d", msg.CardId)
 	}
 
 	collection.Cards = newCards

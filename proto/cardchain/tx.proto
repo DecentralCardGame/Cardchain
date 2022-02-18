@@ -33,6 +33,8 @@ service Msg {
   rpc CreateSellOffer(MsgCreateSellOffer) returns (MsgCreateSellOfferResponse);
   rpc BuyCard(MsgBuyCard) returns (MsgBuyCardResponse);
   rpc RemoveSellOffer(MsgRemoveSellOffer) returns (MsgRemoveSellOfferResponse);
+  rpc AddArtworkToCollection(MsgAddArtworkToCollection) returns (MsgAddArtworkToCollectionResponse);
+  rpc AddStoryToCollection(MsgAddStoryToCollection) returns (MsgAddStoryToCollectionResponse);
 // this line is used by starport scaffolding # proto/tx/rpc
 }
 
@@ -174,9 +176,9 @@ message MsgApointMatchReporterResponse {
 message MsgCreateCollection {
   string creator = 1;
   string name = 2;
-  repeated string contributors = 3;
-  string story = 4;
-  bytes artwork = 5;
+  string artist = 3;
+  string storyWriter = 4;
+  repeated string contributors = 5;
 }
 
 message MsgCreateCollectionResponse {
@@ -245,7 +247,7 @@ message MsgSubmitCollectionProposalResponse {
 message MsgCreateSellOffer {
   string creator = 1;
   uint64 card = 2;
-  uint64 price = 3;
+  string price = 3 [(gogoproto.nullable) = false, (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Coin"];;
 }
 
 message MsgCreateSellOfferResponse {
@@ -265,6 +267,24 @@ message MsgRemoveSellOffer {
 }
 
 message MsgRemoveSellOfferResponse {
+}
+
+message MsgAddArtworkToCollection {
+  string creator = 1;
+  uint64 collectionId = 2;
+  bytes image = 3;
+}
+
+message MsgAddArtworkToCollectionResponse {
+}
+
+message MsgAddStoryToCollection {
+  string creator = 1;
+  uint64 collectionId = 2;
+  string story = 3;
+}
+
+message MsgAddStoryToCollectionResponse {
 }
 
 // this line is used by starport scaffolding # proto/tx/message

@@ -9,7 +9,7 @@ const TypeMsgCreateSellOffer = "create_sell_offer"
 
 var _ sdk.Msg = &MsgCreateSellOffer{}
 
-func NewMsgCreateSellOffer(creator string, card uint64, price uint64) *MsgCreateSellOffer {
+func NewMsgCreateSellOffer(creator string, card uint64, price sdk.Coin) *MsgCreateSellOffer {
 	return &MsgCreateSellOffer{
 		Creator: creator,
 		Card:    card,

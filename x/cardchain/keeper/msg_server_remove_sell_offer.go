@@ -11,11 +11,7 @@ import (
 func (k msgServer) RemoveSellOffer(goCtx context.Context, msg *types.MsgRemoveSellOffer) (*types.MsgRemoveSellOfferResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	creatorAddr, err := sdk.AccAddressFromBech32(msg.Creator)
-	if err != nil {
-		return nil, sdkerrors.Wrap(types.ErrInvalidAccAddress, "Unable to convert to AccAddress")
-	}
-	creator, err := k.GetUser(ctx, creatorAddr)
+	creator, err := k.GetUserFromString(ctx, msg.Creator)
 	if err != nil {
 		return nil, err
 	}
@@ -26,7 +22,7 @@ func (k msgServer) RemoveSellOffer(goCtx context.Context, msg *types.MsgRemoveSe
 		return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "Incorrect Seller")
 	}
 
-	if sellOffer.Status != types.SellOfferStatus_open{
+	if sellOffer.Status != types.SellOfferStatus_open {
 		return nil, sdkerrors.Wrapf(types.ErrNoOpenSellOffer, "Status: %v", sellOffer.Status)
 	}
 
@@ -34,7 +30,7 @@ func (k msgServer) RemoveSellOffer(goCtx context.Context, msg *types.MsgRemoveSe
 	creator.Cards = append(creator.Cards, sellOffer.Card)
 
 	k.SetSellOffer(ctx, msg.SellOfferId, sellOffer)
-	k.SetUser(ctx, creatorAddr, creator)
+	k.SetUserFromUser(ctx, creator)
 
 	return &types.MsgRemoveSellOfferResponse{}, nil
 }

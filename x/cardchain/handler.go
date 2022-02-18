@@ -75,6 +75,12 @@ func NewHandler(k keeper.Keeper) sdk.Handler {
 		case *types.MsgRemoveSellOffer:
 			res, err := msgServer.RemoveSellOffer(sdk.WrapSDKContext(ctx), msg)
 			return sdk.WrapServiceResult(ctx, res, err)
+		case *types.MsgAddArtworkToCollection:
+			res, err := msgServer.AddArtworkToCollection(sdk.WrapSDKContext(ctx), msg)
+			return sdk.WrapServiceResult(ctx, res, err)
+		case *types.MsgAddStoryToCollection:
+			res, err := msgServer.AddStoryToCollection(sdk.WrapSDKContext(ctx), msg)
+			return sdk.WrapServiceResult(ctx, res, err)
 			// this line is used by starport scaffolding # 1
 		default:
 			errMsg := fmt.Sprintf("unrecognized %s message type: %T", types.ModuleName, msg)
@@ -90,8 +96,8 @@ func handleMsgCreateCollection(ctx sdk.Context, keeper keeper.Keeper, msg *types
 		Name:         msg.Name,
 		Cards:        []uint64{},
 		Contributors: append([]string{msg.Creator}, msg.Contributors...),
-		Story:        msg.Story,
-		Artwork:      msg.Artwork,
+		Artist:       msg.Artist,
+		StoryWriter:  msg.StoryWriter,
 		Status:       types.CStatus_design,
 		TimeStamp:    0,
 	}
@@ -105,12 +111,7 @@ func handleMsgApointMatchReporter(ctx sdk.Context, keeper keeper.Keeper, msg *ty
 }
 
 func handleMsgReportMatch(ctx sdk.Context, keeper keeper.Keeper, msg *types.MsgReportMatch) (*sdk.Result, error) {
-	address, err := sdk.AccAddressFromBech32(msg.Creator)
-	if err != nil {
-		return nil, sdkerrors.Wrap(types.ErrInvalidAccAddress, "Invalid creator")
-	}
-
-	creator, err := keeper.GetUser(ctx, address)
+	creator, err := keeper.GetUserFromString(ctx, msg.Creator)
 	if err != nil {
 		return nil, err
 	}
@@ -164,12 +165,7 @@ func handleMsgReportMatch(ctx sdk.Context, keeper keeper.Keeper, msg *types.MsgR
 }
 
 func handleMsgRegisterForCouncil(ctx sdk.Context, keeper keeper.Keeper, msg *types.MsgRegisterForCouncil) (*sdk.Result, error) {
-	address, err := sdk.AccAddressFromBech32(msg.Creator)
-	if err != nil {
-		return nil, sdkerrors.Wrap(types.ErrInvalidAccAddress, "Invalid address")
-	}
-
-	user, err := keeper.GetUser(ctx, address)
+	user, err := keeper.GetUserFromString(ctx, msg.Creator)
 	if err != nil {
 		return nil, err
 	}
@@ -178,7 +174,7 @@ func handleMsgRegisterForCouncil(ctx sdk.Context, keeper keeper.Keeper, msg *typ
 		user.CouncilStatus = types.CouncilStatus_available
 	}
 
-	keeper.SetUser(ctx, address, user)
+	keeper.SetUserFromUser(ctx, user)
 	return &sdk.Result{}, nil
 }
 
@@ -289,7 +285,7 @@ func handleMsgSaveCardContent(ctx sdk.Context, keeper keeper.Keeper, msg *types.
 	}
 
 	// TODO cards get a starting pool currently, this should be removed later and the starting pool should come after council decision
-	card.VotePool.Add(sdk.NewInt64Coin("credits", 10))
+	card.VotePool.Add(sdk.NewInt64Coin("ucredits", 10000000))
 
 	card.Content = []byte(msg.Content)
 	// card.Image = []byte(msg.Image)
@@ -347,12 +343,12 @@ func handleMsgVoteCard(ctx sdk.Context, keeper keeper.Keeper, msg *types.MsgVote
 
 	// check for specific bounty on the card
 	if !card.VotePool.IsZero() {
-		card.VotePool.Sub(sdk.NewInt64Coin("credits", 1))
-		keeper.MintCoinsToAddr(ctx, voter, sdk.Coins{sdk.NewInt64Coin("credits", 1)})
+		card.VotePool.Sub(sdk.NewInt64Coin("ucredits", 1000000))
+		keeper.MintCoinsToAddr(ctx, voter, sdk.Coins{sdk.NewInt64Coin("ucredits", 1000000)})
 	}
 
 	// give generic bounty for voting
-	keeper.MintCoinsToAddr(ctx, voter, sdk.Coins{sdk.NewInt64Coin("credits", 1)})
+	keeper.MintCoinsToAddr(ctx, voter, sdk.Coins{sdk.NewInt64Coin("ucredits", 1000000)})
 
 	keeper.SetCard(ctx, msg.CardId, card)
 

@@ -2,7 +2,6 @@ package keeper
 
 import (
 	"context"
-	"strconv"
 
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -27,12 +26,16 @@ func (k msgServer) AddCardToCollection(goCtx context.Context, msg *types.MsgAddC
 		return nil, sdkerrors.Wrap(types.ErrCardDoesNotExist, "Card is not permanent or does not exist")
 	}
 
+	if card.Owner != msg.Creator {
+		return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "Invalid creator")
+	}
+
 	if len(collection.Cards) >= collectionSize {
-		return nil, sdkerrors.Wrap(types.ErrCollectionSize, "Max is "+strconv.Itoa(collectionSize))
+		return nil, sdkerrors.Wrapf(types.ErrCollectionSize, "Max is %d", collectionSize)
 	}
 
 	if uintItemInList(msg.CardId, collection.Cards) {
-		return nil, sdkerrors.Wrap(types.ErrCardAlreadyInCollection, "Card: "+strconv.Itoa(int(msg.CardId)))
+		return nil, sdkerrors.Wrapf(types.ErrCardAlreadyInCollection, "Card: %d", msg.CardId)
 	}
 
 	collection.Cards = append(collection.Cards, msg.CardId)

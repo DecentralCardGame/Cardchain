@@ -11862,9 +11862,8 @@ paths:
                   collectionSize:
                     type: string
                     format: uint64
-                  collectionPrice:
+                  collectionBaseUnitPrice:
                     type: string
-                    format: int64
                   activeCollectionsAmount:
                     type: string
                     format: uint64
@@ -12137,6 +12136,10 @@ paths:
                 items:
                   type: string
                   format: uint64
+              artist:
+                type: string
+              storyWriter:
+                type: string
               contributors:
                 type: array
                 items:
@@ -12255,7 +12258,6 @@ paths:
                 format: uint64
               price:
                 type: string
-                format: uint64
               status:
                 type: string
                 enum:
@@ -20419,9 +20421,13 @@ definitions:
     default: available
   DecentralCardGame.cardchain.cardchain.MsgAddArtworkResponse:
     type: object
+  DecentralCardGame.cardchain.cardchain.MsgAddArtworkToCollectionResponse:
+    type: object
   DecentralCardGame.cardchain.cardchain.MsgAddCardToCollectionResponse:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgAddContributorToCollectionResponse:
+    type: object
+  DecentralCardGame.cardchain.cardchain.MsgAddStoryToCollectionResponse:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgApointMatchReporterResponse:
     type: object
@@ -20486,9 +20492,8 @@ definitions:
       collectionSize:
         type: string
         format: uint64
-      collectionPrice:
+      collectionBaseUnitPrice:
         type: string
-        format: int64
       activeCollectionsAmount:
         type: string
         format: uint64
@@ -20506,9 +20511,8 @@ definitions:
           collectionSize:
             type: string
             format: uint64
-          collectionPrice:
+          collectionBaseUnitPrice:
             type: string
-            format: int64
           activeCollectionsAmount:
             type: string
             format: uint64
@@ -20591,6 +20595,10 @@ definitions:
         items:
           type: string
           format: uint64
+      artist:
+        type: string
+      storyWriter:
+        type: string
       contributors:
         type: array
         items:
@@ -20643,7 +20651,6 @@ definitions:
         format: uint64
       price:
         type: string
-        format: uint64
       status:
         type: string
         enum:

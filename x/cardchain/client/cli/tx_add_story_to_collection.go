@@ -7,37 +7,33 @@ import (
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/flags"
 	"github.com/cosmos/cosmos-sdk/client/tx"
-	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/spf13/cast"
 	"github.com/spf13/cobra"
 )
 
 var _ = strconv.Itoa(0)
 
-func CmdCreateSellOffer() *cobra.Command {
+func CmdAddStoryToCollection() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "create-sell-offer [card] [price]",
-		Short: "Broadcast message CreateSellOffer",
+		Use:   "add-story-to-collection [collection-id] [story]",
+		Short: "Broadcast message AddStoryToCollection",
 		Args:  cobra.ExactArgs(2),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
-			argCard, err := cast.ToUint64E(args[0])
+			argCollectionId, err := cast.ToUint64E(args[0])
 			if err != nil {
 				return err
 			}
-			argPrice, err := sdk.ParseCoinNormalized(args[2])
-			if err != nil {
-				return err
-			}
+			argStory := args[1]
 
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
 				return err
 			}
 
-			msg := types.NewMsgCreateSellOffer(
+			msg := types.NewMsgAddStoryToCollection(
 				clientCtx.GetFromAddress().String(),
-				argCard,
-				argPrice,
+				argCollectionId,
+				argStory,
 			)
 			if err := msg.ValidateBasic(); err != nil {
 				return err

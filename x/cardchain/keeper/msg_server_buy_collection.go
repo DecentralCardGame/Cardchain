@@ -2,6 +2,7 @@ package keeper
 
 import (
 	"context"
+	"math/rand"
 
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -11,12 +12,7 @@ import (
 func (k msgServer) BuyCollection(goCtx context.Context, msg *types.MsgBuyCollection) (*types.MsgBuyCollectionResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	creatorAddr, err := sdk.AccAddressFromBech32(msg.Creator)
-	if err != nil {
-		return nil, sdkerrors.Wrap(types.ErrInvalidAccAddress, "Unable to convert to AccAddress")
-	}
-
-	creator, err := k.GetUser(ctx, creatorAddr)
+	creator, err := k.GetUserFromString(ctx, msg.Creator)
 	if err != nil {
 		return nil, err
 	}
@@ -27,14 +23,28 @@ func (k msgServer) BuyCollection(goCtx context.Context, msg *types.MsgBuyCollect
 		return nil, types.ErrNoActiveCollection
 	}
 
-	k.BurnCoinsFromAddr(ctx, creatorAddr, sdk.Coins{sdk.NewInt64Coin("credits", k.GetParams(ctx).CollectionPrice)})
-	if err != nil {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrInsufficientFunds, "Buyer does not have enough coins")
+	cardsList := []uint64{}
+	for i := 0; i < 13; i++ {
+		cardsList = append(cardsList, collection.Cards[rand.Intn(len(collection.Cards))])
 	}
 
-	creator.Cards = append(creator.Cards, collection.Cards...)
+	contribs := k.GetAllCollectionContributors(ctx, collection, cardsList)
 
-	k.SetUser(ctx, creatorAddr, creator)
+	for _, contrib := range contribs {
+		contribAddr, err := sdk.AccAddressFromBech32(contrib)
+		if err != nil {
+			return nil, sdkerrors.Wrap(types.ErrInvalidAccAddress, "Unable to convert to AccAddress")
+		}
+
+		err = k.BankKeeper.SendCoins(ctx, creator.Addr, contribAddr, sdk.Coins{k.GetParams(ctx).CollectionBaseUnitPrice})
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	creator.Cards = append(creator.Cards, cardsList...)
+
+	k.SetUserFromUser(ctx, creator)
 
 	return &types.MsgBuyCollectionResponse{}, nil
 }
