@@ -9,11 +9,10 @@ const TypeMsgDonateToCard = "donate_to_card"
 
 var _ sdk.Msg = &MsgDonateToCard{}
 
-func NewMsgDonateToCard(creator string, cardId uint64, donator string, amount sdk.Coin) *MsgDonateToCard {
+func NewMsgDonateToCard(creator string, cardId uint64, amount sdk.Coin) *MsgDonateToCard {
 	return &MsgDonateToCard{
 		Creator: creator,
 		CardId:  cardId,
-		Donator: donator,
 		Amount:  amount,
 	}
 }

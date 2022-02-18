@@ -17,9 +17,9 @@ var _ = strconv.Itoa(0)
 
 func CmdSaveCardContent() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "save-card-content [card-id] [content] [notes] [owner] [artist]",
+		Use:   "save-card-content [card-id] [content] [notes] [artist]",
 		Short: "Broadcast message SaveCardContent",
-		Args:  cobra.ExactArgs(5),
+		Args:  cobra.ExactArgs(4),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
 			argCardId, err := cast.ToUint64E(args[0])
 			if err != nil {
@@ -37,8 +37,7 @@ func CmdSaveCardContent() *cobra.Command {
 			}
 
 			argNotes := args[2]
-			argOwner := args[3]
-			argArtist := args[4]
+			argArtist := args[3]
 
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
@@ -52,7 +51,6 @@ func CmdSaveCardContent() *cobra.Command {
 				// argImage,
 				// argFullArt,
 				argNotes,
-				argOwner,
 				argArtist,
 			)
 			if err := msg.ValidateBasic(); err != nil {

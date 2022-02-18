@@ -50,7 +50,6 @@ message MsgCreateuserResponse {
 message MsgBuyCardScheme {
   string creator = 1;
   string bid = 2 [(gogoproto.nullable) = false, (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Coin"];;
-  string buyer = 3;
 }
 
 message MsgBuyCardSchemeResponse {
@@ -60,7 +59,6 @@ message MsgVoteCard {
   string creator = 1;
   uint64 cardId = 2;
   string voteType = 3;
-  string voter = 4;
 }
 
 message MsgVoteCardResponse {
@@ -73,8 +71,7 @@ message MsgSaveCardContent {
 //  bytes image = 4;
 //  string fullArt = 5;
   string notes = 4;
-  string owner = 5;
-  string artist = 6;
+  string artist = 5;
 }
 
 message MsgSaveCardContentResponse {
@@ -92,8 +89,7 @@ message MsgTransferCardResponse {
 message MsgDonateToCard {
   string creator = 1;
   uint64 cardId = 2;
-  string donator = 3;
-  string amount = 4 [(gogoproto.nullable) = false, (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Coin"];;
+  string amount = 3 [(gogoproto.nullable) = false, (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Coin"];;
 }
 
 message MsgDonateToCardResponse {
