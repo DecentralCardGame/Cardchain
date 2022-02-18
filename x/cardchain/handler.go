@@ -42,8 +42,8 @@ func NewHandler(k keeper.Keeper) sdk.Handler {
 			return handleMsgRegisterForCouncil(ctx, k, msg)
 		case *types.MsgReportMatch:
 			return handleMsgReportMatch(ctx, k, msg)
-			// case *types.MsgApointMatchReporter:  // Will be uncommented later when I know how to check for module account
-			// 	return handleMsgApointMatchReporter(ctx, k, msg)
+		// case *types.MsgApointMatchReporter:  // Will be uncommented later when I know how to check for module account
+		// 	return handleMsgApointMatchReporter(ctx, k, msg)
 		case *types.MsgCreateCollection:
 			res, err := msgServer.CreateCollection(sdk.WrapSDKContext(ctx), msg)
 			return sdk.WrapServiceResult(ctx, res, err)
@@ -146,6 +146,9 @@ func handleMsgReportMatch(ctx sdk.Context, k keeper.Keeper, msg *types.MsgReport
 		k.MintCoinsToAddr(ctx, addresses[idx], sdk.Coins{amounts[idx]})
 		k.SubPoolCredits(ctx, keeper.WinnersPoolKey, amounts[idx])
 	}
+
+	games := k.GetGeneralValue(ctx, keeper.Games24ValueKey)
+	k.SetGeneralValue(ctx, keeper.Games24ValueKey, games+1)
 
 	return sdk.WrapServiceResult(ctx, &types.MsgReportMatchResponse{matchId}, nil)
 }
@@ -341,6 +344,9 @@ func handleMsgVoteCard(ctx sdk.Context, k keeper.Keeper, msg *types.MsgVoteCard)
 	k.SubPoolCredits(ctx, keeper.BalancersPoolKey, amount)
 
 	k.SetCard(ctx, msg.CardId, card)
+
+	votes := k.GetGeneralValue(ctx, keeper.Votes24ValueKey)
+	k.SetGeneralValue(ctx, keeper.Votes24ValueKey, votes+1)
 
 	err = k.RemoveVoteRight(ctx, voter, rightsIndex)
 	if err != nil {

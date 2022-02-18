@@ -21,11 +21,14 @@ const (
 	PublicPoolKey = "public"
 	WinnersPoolKey = "winners"
 	BalancersPoolKey = "balancers"
+	Games24ValueKey = "games/24h"
+	Votes24ValueKey = "votes/24h"
 )
 
 type (
 	Keeper struct {
 		cdc                 codec.BinaryCodec // The wire codec for binary encoding/decoding.
+		GeneralStoreKey			sdk.StoreKey
 		UsersStoreKey       sdk.StoreKey
 		CardsStoreKey       sdk.StoreKey
 		MatchesStoreKey     sdk.StoreKey
@@ -36,6 +39,7 @@ type (
 		paramstore          paramtypes.Subspace
 
 		PoolKeys						[]string
+		GeneralValueKeys    []string
 
 		BankKeeper types.BankKeeper
 	}
@@ -44,6 +48,7 @@ type (
 func NewKeeper(
 	cdc codec.BinaryCodec,
 	usersStoreKey,
+	generalStoreKey sdk.StoreKey,
 	cardsStoreKey sdk.StoreKey,
 	matchesStorekey sdk.StoreKey,
 	collectionsStoreKey sdk.StoreKey,
@@ -61,6 +66,7 @@ func NewKeeper(
 
 	return &Keeper{
 		cdc:                 cdc,
+		GeneralStoreKey:		 generalStoreKey,
 		UsersStoreKey:       usersStoreKey,
 		CardsStoreKey:       cardsStoreKey,
 		MatchesStoreKey:     matchesStorekey,
@@ -70,6 +76,7 @@ func NewKeeper(
 		InternalStoreKey:    internalStoreKey,
 		paramstore:          ps,
 		PoolKeys:						 []string{PublicPoolKey, WinnersPoolKey, BalancersPoolKey},
+		GeneralValueKeys:		 []string{Games24ValueKey, Votes24ValueKey},
 		BankKeeper:          bankKeeper,
 	}
 }
@@ -135,6 +142,29 @@ func indexOfId(cardID uint64, cards []uint64) int {
 	return -1
 }
 
+////////////////////
+// General values //
+////////////////////
+
+func (k Keeper) GetGeneralValue(ctx sdk.Context, key string) uint64 {
+	store := ctx.KVStore(k.GeneralStoreKey)
+	bz := store.Get([]byte(key))
+	return binary.BigEndian.Uint64(bz)
+}
+
+func (k Keeper) SetGeneralValue(ctx sdk.Context, key string, val uint64) {
+	store := ctx.KVStore(k.GeneralStoreKey)
+	store.Set([]byte(key), sdk.Uint64ToBigEndian(val))
+}
+
+func (k Keeper) GetAllGeneralValues(ctx sdk.Context) map[string]uint64 {
+	allValues := make(map[string]uint64)
+	for _, key := range k.GeneralValueKeys {
+		allValues[key] = k.GetGeneralValue(ctx, key)
+	}
+	return allValues
+}
+
 //////////////
 // Reporter //
 //////////////
@@ -158,6 +188,8 @@ func (k Keeper) ApointMatchReporter(ctx sdk.Context, reporter string) error {
 
 func (k Keeper) CalculateMatchReward(ctx sdk.Context, outcome types.Outcome) (amA sdk.Coin, amB sdk.Coin) {
 	rew := k.GetParams(ctx).WinnerReward
+	amA = sdk.NewInt64Coin("ucredits", 0)
+	amB = sdk.NewInt64Coin("ucredits", 0)
 
 	if outcome == types.Outcome_AWon {
 		amA = rew

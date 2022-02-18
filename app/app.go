@@ -257,7 +257,7 @@ func New(
 		minttypes.StoreKey, distrtypes.StoreKey, slashingtypes.StoreKey,
 		govtypes.StoreKey, paramstypes.StoreKey, ibchost.StoreKey, upgradetypes.StoreKey, feegrant.StoreKey,
 		evidencetypes.StoreKey, ibctransfertypes.StoreKey, capabilitytypes.StoreKey,
-		cardchainmoduletypes.UsersStoreKey, cardchainmoduletypes.CardsStoreKey, cardchainmoduletypes.MatchesStoreKey, cardchainmoduletypes.CollectionsStoreKey, cardchainmoduletypes.SellOffersStoreKey, cardchainmoduletypes.PoolsStoreKey, cardchainmoduletypes.InternalStoreKey,
+		cardchainmoduletypes.GeneralStoreKey, cardchainmoduletypes.UsersStoreKey, cardchainmoduletypes.CardsStoreKey, cardchainmoduletypes.MatchesStoreKey, cardchainmoduletypes.CollectionsStoreKey, cardchainmoduletypes.SellOffersStoreKey, cardchainmoduletypes.PoolsStoreKey, cardchainmoduletypes.InternalStoreKey,
 		// this line is used by starport scaffolding # stargate/app/storeKey
 	)
 	tkeys := sdk.NewTransientStoreKeys(paramstypes.TStoreKey)
@@ -345,6 +345,7 @@ func New(
 
 	app.CardchainKeeper = *cardchainmodulekeeper.NewKeeper(
 		appCodec,
+		keys[cardchainmoduletypes.GeneralStoreKey],
 		keys[cardchainmoduletypes.UsersStoreKey],
 		keys[cardchainmoduletypes.CardsStoreKey],
 		keys[cardchainmoduletypes.MatchesStoreKey],
@@ -542,6 +543,11 @@ func (app *App) EndBlocker(ctx sdk.Context, req abci.RequestEndBlock) abci.Respo
 		app.CardchainKeeper.AddPoolCredits(ctx, cardchainmodulekeeper.PublicPoolKey, app.CardchainKeeper.GetParams(ctx).HourlyFaucet)
 	}
 
+	if app.LastBlockHeight()%(24*500) == 0 { //Dayly game/vote reset
+		app.CardchainKeeper.SetGeneralValue(ctx, cardchainmodulekeeper.Votes24ValueKey, 0)
+		app.CardchainKeeper.SetGeneralValue(ctx, cardchainmodulekeeper.Games24ValueKey, 0)
+	}
+
 	return app.mm.EndBlock(ctx, req)
 }
 
@@ -558,6 +564,10 @@ func (app *App) InitChainer(ctx sdk.Context, req abci.RequestInitChain) abci.Res
 
 	for _, key := range app.CardchainKeeper.PoolKeys{
 		app.CardchainKeeper.SetPool(ctx, key, sdk.NewInt64Coin("ucredits", int64(1000*math.Pow(10, 6))))
+	}
+
+	for _, key := range app.CardchainKeeper.GeneralValueKeys{
+		app.CardchainKeeper.SetGeneralValue(ctx, key, uint64(0))
 	}
 
 	app.UpgradeKeeper.SetModuleVersionMap(ctx, app.mm.GetVersionMap())
