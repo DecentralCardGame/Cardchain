@@ -27,6 +27,7 @@ func NewParams() Params {
 		CollateralDeposit:					sdk.NewInt64Coin("ucredits", int64(50*math.Pow(10, 6))),
 		WinnerReward:               sdk.NewInt64Coin("ucredits", 1),
 		VoterReward:                sdk.NewInt64Coin("ucredits", 1),
+		HourlyFaucet:								sdk.NewInt64Coin("ucredits", int64(50*math.Pow(10, 6))),
 	}
 }
 
@@ -46,6 +47,7 @@ func (p *Params) ParamSetPairs() paramtypes.ParamSetPairs {
 		paramtypes.NewParamSetPair([]byte("CollateralDeposit"), &p.CollateralDeposit, validateCollateralDeposit),
 		paramtypes.NewParamSetPair([]byte("WinnerReward"), &p.WinnerReward, validateWinnerReward),
 		paramtypes.NewParamSetPair([]byte("VoterReward"), &p.VoterReward, validateVoterReward),
+		paramtypes.NewParamSetPair([]byte("HourlyFaucet"), &p.HourlyFaucet, validateHourlyFaucet),
 	}
 }
 
@@ -159,6 +161,19 @@ func validateVoterReward(i interface{}) error {
 
 	if v == sdk.NewInt64Coin("ucredits", 0) {
 		return fmt.Errorf("invalid VoterReward: %d", v)
+	}
+
+	return nil
+}
+
+func validateHourlyFaucet(i interface{}) error {
+	v, ok := i.(sdk.Coin)
+	if !ok {
+		return fmt.Errorf("invalid parameter type: %T", i)
+	}
+
+	if v == sdk.NewInt64Coin("ucredits", 0) {
+		return fmt.Errorf("invalid HourlyFaucet: %d", v)
 	}
 
 	return nil
