@@ -6,6 +6,7 @@ import (
 	"os"
 	"path/filepath"
 	"math"
+	"fmt"
 
 	"github.com/cosmos/cosmos-sdk/baseapp"
 	"github.com/cosmos/cosmos-sdk/client"
@@ -543,6 +544,13 @@ func (app *App) EndBlocker(ctx sdk.Context, req abci.RequestEndBlock) abci.Respo
 
 	if app.LastBlockHeight()%500 == 0 { //HourlyFaucet
 		app.CardchainKeeper.AddPoolCredits(ctx, cardchainmodulekeeper.PublicPoolKey, app.CardchainKeeper.GetParams(ctx).HourlyFaucet)
+
+		incentives := sdk.NewCoin("ucredits", app.CardchainKeeper.GetPool(ctx, cardchainmodulekeeper.PublicPoolKey).Amount.Quo(sdk.NewInt(10)))
+		app.CardchainKeeper.SubPoolCredits(ctx, cardchainmodulekeeper.PublicPoolKey, incentives)
+		winnersIncentives := sdk.NewInt64Coin("ucredits", int64(float32(incentives.Amount.Int64())*app.CardchainKeeper.GetWinnerIncentives(ctx)))
+		balancersIncentives := sdk.NewInt64Coin("ucredits", int64(float32(incentives.Amount.Int64())*app.CardchainKeeper.GetBalancerIncentives(ctx)))
+		app.CardchainKeeper.AddPoolCredits(ctx, cardchainmodulekeeper.WinnersPoolKey, winnersIncentives)
+		app.CardchainKeeper.AddPoolCredits(ctx, cardchainmodulekeeper.BalancersPoolKey, balancersIncentives)
 	}
 
 	if app.LastBlockHeight()%(24*500) == 0 { //Dayly game/vote reset
