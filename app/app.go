@@ -559,7 +559,6 @@ func (app *App) InitChainer(ctx sdk.Context, req abci.RequestInitChain) abci.Res
 	}
 
 	// initialize CardScheme Id, Auction price and public pool
-	app.CardchainKeeper.SetLastCardSchemeId(ctx, uint64(0))
 	app.CardchainKeeper.SetCardAuctionPrice(ctx, sdk.NewInt64Coin("ucredits", 10000000))
 
 	for _, key := range app.CardchainKeeper.PoolKeys{

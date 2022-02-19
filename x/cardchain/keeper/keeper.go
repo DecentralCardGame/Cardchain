@@ -435,19 +435,6 @@ func (k Keeper) SetCard(ctx sdk.Context, cardId uint64, newCard types.Card) {
 	store.Set(sdk.Uint64ToBigEndian(cardId), k.cdc.MustMarshal(&newCard))
 }
 
-// GetLastCardScheme - get the current id of the last bought card scheme
-func (k Keeper) GetLastCardSchemeId(ctx sdk.Context) uint64 {
-	store := ctx.KVStore(k.InternalStoreKey)
-	bz := store.Get([]byte("lastCardScheme"))
-	return binary.BigEndian.Uint64(bz)
-}
-
-// SetLastCardScheme - sets the current id of the last bought card scheme
-func (k Keeper) SetLastCardSchemeId(ctx sdk.Context, lastId uint64) {
-	store := ctx.KVStore(k.InternalStoreKey)
-	store.Set([]byte("lastCardScheme"), sdk.Uint64ToBigEndian(lastId))
-}
-
 // returns the current price of the card scheme auction
 func (k Keeper) GetCardAuctionPrice(ctx sdk.Context) sdk.Coin {
 	store := ctx.KVStore(k.InternalStoreKey)
@@ -491,6 +478,15 @@ func (k Keeper) GetAllCards(ctx sdk.Context) []*types.Card {
 		allCards = append(allCards, &gottenCard)
 	}
 	return allCards
+}
+
+func (k Keeper) GetCardsNumber(ctx sdk.Context) uint64 {
+	var cardId uint64
+	iterator := k.GetCardsIterator(ctx)
+	for ; iterator.Valid(); iterator.Next() {
+		cardId++
+	}
+	return cardId
 }
 
 /////////////////////

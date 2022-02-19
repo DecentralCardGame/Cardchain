@@ -18,7 +18,6 @@ message GenesisState {
   repeated Card cardRecords = 2;
   repeated User users = 3;
   repeated string addresses = 4;
-  uint64 lastCardSchemeId = 5;
   repeated Match matches = 6;
   repeated Collection collections = 7;
   repeated SellOffer sellOffers = 8;

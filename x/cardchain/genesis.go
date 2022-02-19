@@ -33,10 +33,7 @@ func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) 
 		k.SetGeneralValue(ctx, key, value)
 	}
 	fmt.Println("reading cards with id:")
-	for _, record := range genState.CardRecords {
-		lastId := k.GetLastCardSchemeId(ctx)
-		currId := lastId + 1
-
+	for currId, record := range genState.CardRecords {
 		_, err := keywords.Unmarshal(record.Content)
 		if err != nil {
 			fmt.Println(currId, ":")
@@ -45,8 +42,7 @@ func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) 
 			fmt.Println("-----")
 		}
 
-		k.SetLastCardSchemeId(ctx, currId)
-		k.SetCard(ctx, currId, *record)
+		k.SetCard(ctx, uint64(currId), *record)
 	}
 	fmt.Println("Params", genState.Params)
 	k.SetParams(ctx, genState.Params)
@@ -73,6 +69,5 @@ func ExportGenesis(ctx sdk.Context, k keeper.Keeper) *types.GenesisState {
 		SellOffers:       sellOffers,
 		Pools:            pools,
 		Addresses:        addresses,
-		LastCardSchemeId: k.GetLastCardSchemeId(ctx),
 	}
 }

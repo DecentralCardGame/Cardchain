@@ -11,9 +11,7 @@ import (
 func (k msgServer) BuyCardScheme(goCtx context.Context, msg *types.MsgBuyCardScheme) (*types.MsgBuyCardSchemeResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	lastId := k.GetLastCardSchemeId(ctx) // first get last card bought id
-	currId := lastId + 1                      // iterate it by 1
-
+	currId := k.GetCardsNumber(ctx)
 	price := k.GetCardAuctionPrice(ctx)
 
 	buyer, err := sdk.AccAddressFromBech32(msg.Creator)
@@ -32,7 +30,6 @@ func (k msgServer) BuyCardScheme(goCtx context.Context, msg *types.MsgBuyCardSch
 
 	k.AddPoolCredits(ctx, PublicPoolKey, price)
 	k.SetCardAuctionPrice(ctx, price.Add(price))
-	k.SetLastCardSchemeId(ctx, currId)
 
 	newCard := types.NewCard(buyer)
 
