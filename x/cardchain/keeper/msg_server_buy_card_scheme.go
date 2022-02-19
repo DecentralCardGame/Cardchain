@@ -2,6 +2,7 @@ package keeper
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -23,9 +24,12 @@ func (k msgServer) BuyCardScheme(goCtx context.Context, msg *types.MsgBuyCardSch
 		return nil, sdkerrors.Wrap(sdkerrors.ErrInsufficientFunds, "Bid not high enough")
 	}
 
+	fmt.Println(price)
+
 	err = k.BurnCoinsFromAddr(ctx, buyer, sdk.Coins{price}) // If so, deduct the Bid amount from the sender
 	if err != nil {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrInsufficientFunds, "Buyer does not have enough coins")
+		fmt.Println(err)
+		return nil, sdkerrors.Wrapf(sdkerrors.ErrInsufficientFunds, "Buyer does not have enough coins %s", err)
 	}
 
 	k.AddPoolCredits(ctx, PublicPoolKey, price)

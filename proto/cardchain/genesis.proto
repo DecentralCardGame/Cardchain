@@ -23,5 +23,6 @@ message GenesisState {
   repeated SellOffer sellOffers = 8;
   repeated string pools = 9 [(gogoproto.nullable) = false, (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Coin"];;
   map<string, uint64> generalValues = 10;
+  string cardAuctionPrice = 11 [(gogoproto.nullable) = false, (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Coin"];;
   // this line is used by starport scaffolding # genesis/proto/state
 }

@@ -32,6 +32,9 @@ func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) 
 	for key, value := range genState.GeneralValues {
 		k.SetGeneralValue(ctx, key, value)
 	}
+	if genState.CardAuctionPrice.Denom != "" {
+		k.SetCardAuctionPrice(ctx, genState.CardAuctionPrice)
+	}
 	fmt.Println("reading cards with id:")
 	for currId, record := range genState.CardRecords {
 		_, err := keywords.Unmarshal(record.Content)
@@ -52,6 +55,7 @@ func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) 
 func ExportGenesis(ctx sdk.Context, k keeper.Keeper) *types.GenesisState {
 	// this line is used by starport scaffolding # genesis/module/export
 	params := k.GetParams(ctx)
+	cardAuctionPrice := k.GetCardAuctionPrice(ctx)
 	generalValues := k.GetAllGeneralValues(ctx)
 	sellOffers := k.GetAllSellOffers(ctx)
 	pools := k.GetAllPools(ctx)
@@ -69,5 +73,6 @@ func ExportGenesis(ctx sdk.Context, k keeper.Keeper) *types.GenesisState {
 		SellOffers:       sellOffers,
 		Pools:            pools,
 		Addresses:        addresses,
+		CardAuctionPrice: cardAuctionPrice,
 	}
 }

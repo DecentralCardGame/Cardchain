@@ -530,8 +530,10 @@ func (app *App) BeginBlocker(ctx sdk.Context, req abci.RequestBeginBlock) abci.R
 func (app *App) EndBlocker(ctx sdk.Context, req abci.RequestEndBlock) abci.ResponseEndBlock {
 	// update the price of card auction (currently 1% decay per block)
 	price := app.CardchainKeeper.GetCardAuctionPrice(ctx)
-	newprice := price.Sub(sdk.NewCoin("ucredits", price.Amount.Quo(sdk.NewInt(100000000)))) // Somehow this line is evil
-	app.CardchainKeeper.SetCardAuctionPrice(ctx, newprice)
+	newprice := price.Sub(sdk.NewCoin("ucredits", price.Amount.Quo(sdk.NewInt(100))))
+	if !newprice.IsLT(sdk.NewInt64Coin("ucredits", 1000000)) {  // stop at 1 credit
+		app.CardchainKeeper.SetCardAuctionPrice(ctx, newprice)
+	}
 
 	// automated nerf/buff happens here
 	if app.LastBlockHeight()%epochBlockTime == 0 {
@@ -555,7 +557,7 @@ func (app *App) EndBlocker(ctx sdk.Context, req abci.RequestEndBlock) abci.Respo
 func (app *App) InitChainer(ctx sdk.Context, req abci.RequestInitChain) abci.ResponseInitChain {
 	var genesisState GenesisState
 	if err := tmjson.Unmarshal(req.AppStateBytes, &genesisState); err != nil {
-		panic(err)
+		//panic(err)
 	}
 
 	// initialize CardScheme Id, Auction price and public pool

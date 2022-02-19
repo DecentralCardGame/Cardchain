@@ -439,7 +439,7 @@ func (k Keeper) SetCard(ctx sdk.Context, cardId uint64, newCard types.Card) {
 func (k Keeper) GetCardAuctionPrice(ctx sdk.Context) sdk.Coin {
 	store := ctx.KVStore(k.InternalStoreKey)
 	bz := store.Get([]byte("currentCardSchemeAuctionPrice"))
-	var price sdk.Coin = sdk.NewInt64Coin("ucredits", 0) // This value is needed so that saving genesisstate works
+	var price sdk.Coin
 	k.cdc.MustUnmarshal(bz, &price)
 	return price
 }
