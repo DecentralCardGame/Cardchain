@@ -21,7 +21,7 @@ func NewParams() Params {
 	return Params{
 		VotingRightsExpirationTime: 86000,
 		CollectionSize:             5,
-		CollectionBaseUnitPrice:    sdk.NewInt64Coin("ucredits", 1000),
+		CollectionPrice:            sdk.NewInt64Coin("ucredits", 10000000),
 		ActiveCollectionsAmount:    3,
 		CollectionCreationFee:      sdk.NewInt64Coin("ucredits", int64(5000*math.Pow(10, 6))),
 		CollateralDeposit:					sdk.NewInt64Coin("ucredits", int64(50*math.Pow(10, 6))),
@@ -41,7 +41,7 @@ func (p *Params) ParamSetPairs() paramtypes.ParamSetPairs {
 	return paramtypes.ParamSetPairs{
 		paramtypes.NewParamSetPair([]byte("VotingRightsExpirationTime"), &p.VotingRightsExpirationTime, validateVotingRightsExpirationTime),
 		paramtypes.NewParamSetPair([]byte("CollectionSize"), &p.CollectionSize, validateCollectionSize),
-		paramtypes.NewParamSetPair([]byte("CollectionBaseUnitPrice"), &p.CollectionBaseUnitPrice, validateCollectionBaseUnitPrice),
+		paramtypes.NewParamSetPair([]byte("CollectionPrice"), &p.CollectionPrice, validateCollectionPrice),
 		paramtypes.NewParamSetPair([]byte("ActiveCollectionsAmount"), &p.ActiveCollectionsAmount, validateActiveCollectionsAmount),
 		paramtypes.NewParamSetPair([]byte("CollectionCreationFee"), &p.CollectionCreationFee, validateCollectionCreationFee),
 		paramtypes.NewParamSetPair([]byte("CollateralDeposit"), &p.CollateralDeposit, validateCollateralDeposit),
@@ -88,14 +88,14 @@ func validateCollectionSize(i interface{}) error {
 	return nil
 }
 
-func validateCollectionBaseUnitPrice(i interface{}) error {
+func validateCollectionPrice(i interface{}) error {
 	v, ok := i.(sdk.Coin)
 	if !ok {
 		return fmt.Errorf("invalid parameter type: %T", i)
 	}
 
 	if v == sdk.NewInt64Coin("ucredits", 0) {
-		return fmt.Errorf("invalid CollectionBaseUnitPrice: %d", v)
+		return fmt.Errorf("invalid CollectionPrice: %d", v)
 	}
 
 	return nil

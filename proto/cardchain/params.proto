@@ -10,7 +10,7 @@ message Params {
   option (gogoproto.goproto_stringer) = false;
   int64 votingRightsExpirationTime = 1;
   uint64 collectionSize = 2;
-  string collectionBaseUnitPrice = 3 [(gogoproto.nullable) = false, (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Coin"];;
+  string collectionPrice = 3 [(gogoproto.nullable) = false, (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Coin"];;
   uint64 activeCollectionsAmount = 4;
   string collectionCreationFee = 5 [(gogoproto.nullable) = false, (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Coin"];;
   string collateralDeposit = 6 [(gogoproto.nullable) = false, (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Coin"];;

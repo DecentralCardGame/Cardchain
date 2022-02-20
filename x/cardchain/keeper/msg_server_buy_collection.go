@@ -36,7 +36,7 @@ func (k msgServer) BuyCollection(goCtx context.Context, msg *types.MsgBuyCollect
 			return nil, sdkerrors.Wrap(types.ErrInvalidAccAddress, "Unable to convert to AccAddress")
 		}
 
-		err = k.BankKeeper.SendCoins(ctx, creator.Addr, contribAddr, sdk.Coins{k.GetParams(ctx).CollectionBaseUnitPrice})
+		err = k.BankKeeper.SendCoins(ctx, creator.Addr, contribAddr, sdk.Coins{sdk.NewCoin("ucredits", k.GetParams(ctx).CollectionPrice.Amount.Quo(sdk.NewInt(int64(len(contribs)))))})
 		if err != nil {
 			return nil, err
 		}
