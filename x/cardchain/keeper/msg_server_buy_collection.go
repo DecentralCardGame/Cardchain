@@ -3,6 +3,8 @@ package keeper
 import (
 	"context"
 	"math/rand"
+	"fmt"
+	"strconv"
 
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -45,6 +47,12 @@ func (k msgServer) BuyCollection(goCtx context.Context, msg *types.MsgBuyCollect
 	creator.Cards = append(creator.Cards, cardsList...)
 
 	k.SetUserFromUser(ctx, creator)
+
+	inflationRate, err := strconv.ParseFloat(k.GetParams(ctx).InflationRate, 8)
+	pPool := k.GetPool(ctx, PublicPoolKey)
+	pPool = sdk.NewInt64Coin("ucredits", int64(float64(pPool.Amount.Int64())*inflationRate))
+	k.SetPool(ctx, PublicPoolKey, pPool)
+	k.Logger(ctx).Info(fmt.Sprintf(":: PublicPool: %s", pPool))
 
 	return &types.MsgBuyCollectionResponse{}, nil
 }

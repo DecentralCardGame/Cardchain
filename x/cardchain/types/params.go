@@ -3,6 +3,7 @@ package types
 import (
 	"fmt"
 	"math"
+	"strconv"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	paramtypes "github.com/cosmos/cosmos-sdk/x/params/types"
@@ -28,6 +29,7 @@ func NewParams() Params {
 		WinnerReward:               sdk.NewInt64Coin("ucredits", 1),
 		VoterReward:                sdk.NewInt64Coin("ucredits", 1),
 		HourlyFaucet:								sdk.NewInt64Coin("ucredits", int64(50*math.Pow(10, 6))),
+		InflationRate:							"1.1",
 	}
 }
 
@@ -48,6 +50,7 @@ func (p *Params) ParamSetPairs() paramtypes.ParamSetPairs {
 		paramtypes.NewParamSetPair([]byte("WinnerReward"), &p.WinnerReward, validateWinnerReward),
 		paramtypes.NewParamSetPair([]byte("VoterReward"), &p.VoterReward, validateVoterReward),
 		paramtypes.NewParamSetPair([]byte("HourlyFaucet"), &p.HourlyFaucet, validateHourlyFaucet),
+		paramtypes.NewParamSetPair([]byte("InflationRate"), &p.InflationRate, validateInflationRate),
 	}
 }
 
@@ -176,5 +179,17 @@ func validateHourlyFaucet(i interface{}) error {
 		return fmt.Errorf("invalid HourlyFaucet: %d", v)
 	}
 
+	return nil
+}
+
+func validateInflationRate(i interface{}) error {
+	v, ok := i.(string)
+	if !ok {
+		return fmt.Errorf("invalid parameter type: %T", i)
+	}
+	_, err := strconv.ParseFloat(v, 8)
+	if err != nil {
+		return fmt.Errorf("invalid parameter: %s", err)
+	}
 	return nil
 }
