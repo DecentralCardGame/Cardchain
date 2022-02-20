@@ -535,6 +535,7 @@ func (app *App) EndBlocker(ctx sdk.Context, req abci.RequestEndBlock) abci.Respo
 	if !newprice.IsLT(sdk.NewInt64Coin("ucredits", 1000000)) {  // stop at 1 credit
 		app.CardchainKeeper.SetCardAuctionPrice(ctx, newprice)
 	}
+	app.CardchainKeeper.Logger(ctx).Info(fmt.Sprintf(":: CardAuctionPrice: %s", app.CardchainKeeper.GetCardAuctionPrice(ctx)))
 
 	// automated nerf/buff happens here
 	if app.LastBlockHeight()%epochBlockTime == 0 {
@@ -551,6 +552,7 @@ func (app *App) EndBlocker(ctx sdk.Context, req abci.RequestEndBlock) abci.Respo
 		balancersIncentives := sdk.NewInt64Coin("ucredits", int64(float32(incentives.Amount.Int64())*app.CardchainKeeper.GetBalancerIncentives(ctx)))
 		app.CardchainKeeper.AddPoolCredits(ctx, cardchainmodulekeeper.WinnersPoolKey, winnersIncentives)
 		app.CardchainKeeper.AddPoolCredits(ctx, cardchainmodulekeeper.BalancersPoolKey, balancersIncentives)
+		app.CardchainKeeper.Logger(ctx).Info(fmt.Sprintf(":: PublicPool: %s", app.CardchainKeeper.GetPool(ctx, cardchainmodulekeeper.PublicPoolKey)))
 	}
 
 	if app.LastBlockHeight()%(24*500) == 0 { //Dayly game/vote reset

@@ -90,7 +90,7 @@ func (k Keeper) GetGameVoteRatio(ctx sdk.Context) float32 {
 	games := k.GetGeneralValue(ctx, Games24ValueKey)
 	votes := k.GetGeneralValue(ctx, Votes24ValueKey)
 	if games == 0 || votes == 0 {
-		return float32(1)
+		return 0.2
 	}
 	return (float32(games)/float32(votes))
 }
@@ -100,7 +100,8 @@ func (k Keeper) GetWinnerIncentives(ctx sdk.Context) float32 {
 	votes := float32(k.GetGeneralValue(ctx, Votes24ValueKey))
 	gVR := k.GetGameVoteRatio(ctx)
 	if games == 0 || votes == 0 {
-		return 0.5
+		games = 1
+		votes = 1
 	}
 	return games / (votes * gVR + games)
 }
@@ -110,7 +111,8 @@ func (k Keeper) GetBalancerIncentives(ctx sdk.Context) float32 {
 	votes := float32(k.GetGeneralValue(ctx, Votes24ValueKey))
 	gVR := k.GetGameVoteRatio(ctx)
 	if games == 0 || votes == 0 {
-		return 0.5
+		games = 1
+		votes = 1
 	}
 	return (votes * gVR) / (votes * gVR + games)
 }
