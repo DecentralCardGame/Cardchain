@@ -49,13 +49,13 @@ func DefaultGenesisState() GenesisState {
 
 func InitGenesis(ctx sdk.Context, keeper Keeper, data GenesisState) {
 	for id := range data.Users {
+		fmt.Println("setting user", data.SdkAddresses[id])
 		keeper.SetUser(ctx, data.SdkAddresses[id], data.Users[id])
 	}
 	fmt.Println("reading cards with id:")
 	for _, record := range data.CardRecords {
 		lastId := keeper.GetLastCardSchemeId(ctx)
 		currId := lastId + 1
-
 
 		_, err := keywords.Unmarshal(record.Content)
 		if err != nil {
@@ -64,7 +64,6 @@ func InitGenesis(ctx sdk.Context, keeper Keeper, data GenesisState) {
 			fmt.Println(string(record.Content))
 			fmt.Println("-----")
 		}
-
 		keeper.SetLastCardSchemeId(ctx, currId)
 		keeper.SetCard(ctx, currId, record)
 
@@ -73,6 +72,9 @@ func InitGenesis(ctx sdk.Context, keeper Keeper, data GenesisState) {
 		//}
 
 	}
+	//owner, _ := sdk.AccAddressFromBech32("cosmos146pck88zyxjzxcx9gm47r9zuk7j44dwe7anpc5")
+	//keeper.InitUser(ctx, owner, "sucker")
+	fmt.Println("finish import")
 }
 
 func ExportGenesis(ctx sdk.Context, k Keeper) GenesisState {
