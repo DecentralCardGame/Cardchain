@@ -18,17 +18,17 @@ import (
 )
 
 const (
-	PublicPoolKey = "public"
-	WinnersPoolKey = "winners"
+	PublicPoolKey    = "public"
+	WinnersPoolKey   = "winners"
 	BalancersPoolKey = "balancers"
-	Games24ValueKey = "games/24h"
-	Votes24ValueKey = "votes/24h"
+	Games24ValueKey  = "games/24h"
+	Votes24ValueKey  = "votes/24h"
 )
 
 type (
 	Keeper struct {
 		cdc                 codec.BinaryCodec // The wire codec for binary encoding/decoding.
-		GeneralStoreKey			sdk.StoreKey
+		GeneralStoreKey     sdk.StoreKey
 		UsersStoreKey       sdk.StoreKey
 		CardsStoreKey       sdk.StoreKey
 		MatchesStoreKey     sdk.StoreKey
@@ -38,8 +38,8 @@ type (
 		PoolsStoreKey       sdk.StoreKey
 		paramstore          paramtypes.Subspace
 
-		PoolKeys						[]string
-		GeneralValueKeys    []string
+		PoolKeys         []string
+		GeneralValueKeys []string
 
 		BankKeeper types.BankKeeper
 	}
@@ -66,17 +66,17 @@ func NewKeeper(
 
 	return &Keeper{
 		cdc:                 cdc,
-		GeneralStoreKey:		 generalStoreKey,
+		GeneralStoreKey:     generalStoreKey,
 		UsersStoreKey:       usersStoreKey,
 		CardsStoreKey:       cardsStoreKey,
 		MatchesStoreKey:     matchesStorekey,
 		CollectionsStoreKey: collectionsStoreKey,
 		SellOffersStoreKey:  sellOffersStoreKey,
-		PoolsStoreKey:  		 poolsStoreKey,
+		PoolsStoreKey:       poolsStoreKey,
 		InternalStoreKey:    internalStoreKey,
 		paramstore:          ps,
-		PoolKeys:						 []string{PublicPoolKey, WinnersPoolKey, BalancersPoolKey},
-		GeneralValueKeys:		 []string{Games24ValueKey, Votes24ValueKey},
+		PoolKeys:            []string{PublicPoolKey, WinnersPoolKey, BalancersPoolKey},
+		GeneralValueKeys:    []string{Games24ValueKey, Votes24ValueKey},
 		BankKeeper:          bankKeeper,
 	}
 }
@@ -92,7 +92,7 @@ func (k Keeper) GetGameVoteRatio(ctx sdk.Context) float32 {
 	if games == 0 || votes == 0 {
 		return 0.2
 	}
-	return (float32(games)/float32(votes))
+	return (float32(games) / float32(votes))
 }
 
 func (k Keeper) GetWinnerIncentives(ctx sdk.Context) float32 {
@@ -103,7 +103,7 @@ func (k Keeper) GetWinnerIncentives(ctx sdk.Context) float32 {
 		games = 1
 		votes = 1
 	}
-	return games / (votes * gVR + games)
+	return games / (votes*gVR + games)
 }
 
 func (k Keeper) GetBalancerIncentives(ctx sdk.Context) float32 {
@@ -114,7 +114,7 @@ func (k Keeper) GetBalancerIncentives(ctx sdk.Context) float32 {
 		games = 1
 		votes = 1
 	}
-	return (votes * gVR) / (votes * gVR + games)
+	return (votes * gVR) / (votes*gVR + games)
 }
 
 func uintItemInList(item uint64, list []uint64) bool {

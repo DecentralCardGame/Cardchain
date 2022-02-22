@@ -25,14 +25,14 @@ func NewParams() Params {
 		CollectionPrice:            sdk.NewInt64Coin("ucredits", 10000000),
 		ActiveCollectionsAmount:    3,
 		CollectionCreationFee:      sdk.NewInt64Coin("ucredits", int64(5000*math.Pow(10, 6))),
-		CollateralDeposit:					sdk.NewInt64Coin("ucredits", int64(50*math.Pow(10, 6))),
+		CollateralDeposit:          sdk.NewInt64Coin("ucredits", int64(50*math.Pow(10, 6))),
 		WinnerReward:               sdk.NewInt64Coin("ucredits", 1),
 		VoterReward:                sdk.NewInt64Coin("ucredits", 1),
-		HourlyFaucet:								sdk.NewInt64Coin("ucredits", int64(50*math.Pow(10, 6))),
-		InflationRate:							"1.1",
-		RaresPerPack:								1,
-		CommonsPerPack:							9,
-		UnCommonsPerPack:						3,
+		HourlyFaucet:               sdk.NewInt64Coin("ucredits", int64(50*math.Pow(10, 6))),
+		InflationRate:              "1.1",
+		RaresPerPack:               1,
+		CommonsPerPack:             9,
+		UnCommonsPerPack:           3,
 	}
 }
 

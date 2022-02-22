@@ -5,9 +5,9 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/DecentralCardGame/cardobject/keywords"
-	"github.com/DecentralCardGame/cardobject/cardobject"
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
+	"github.com/DecentralCardGame/cardobject/cardobject"
+	"github.com/DecentralCardGame/cardobject/keywords"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 )
@@ -35,8 +35,8 @@ func (k msgServer) FinalizeCollection(goCtx context.Context, msg *types.MsgFinal
 		return nil, err
 	}
 
-	unCommonsAll := int(collectionSize/3)
-	raresAll := int(collectionSize/3)
+	unCommonsAll := int(collectionSize / 3)
+	raresAll := int(collectionSize / 3)
 	commonsAll := collectionSize - raresAll - unCommonsAll
 
 	var (

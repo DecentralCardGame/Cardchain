@@ -20486,6 +20486,8 @@ definitions:
         format: uint64
   DecentralCardGame.cardchain.cardchain.MsgSaveCardContentResponse:
     type: object
+  DecentralCardGame.cardchain.cardchain.MsgSetCardRarityResponse:
+    type: object
   DecentralCardGame.cardchain.cardchain.MsgSubmitCollectionProposalResponse:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgSubmitCopyrightProposalResponse:

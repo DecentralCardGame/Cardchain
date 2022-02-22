@@ -1,12 +1,12 @@
 package app
 
 import (
+	"fmt"
 	"io"
+	"math"
 	"net/http"
 	"os"
 	"path/filepath"
-	"math"
-	"fmt"
 
 	"github.com/cosmos/cosmos-sdk/baseapp"
 	"github.com/cosmos/cosmos-sdk/client"
@@ -102,7 +102,7 @@ import (
 const (
 	AccountAddressPrefix = "cc"
 	Name                 = "Cardchain"
-	BondDenom						 = "bpf"
+	BondDenom            = "bpf"
 	// epochBlockTime defines how many blocks are one buffnerf epoch
 	epochBlockTime = 86000 // this is 1 week with 7s block time
 	// epochBlockTime = 5		// this is great for debugging
@@ -532,7 +532,7 @@ func (app *App) EndBlocker(ctx sdk.Context, req abci.RequestEndBlock) abci.Respo
 	// update the price of card auction (currently 1% decay per block)
 	price := app.CardchainKeeper.GetCardAuctionPrice(ctx)
 	newprice := price.Sub(sdk.NewCoin("ucredits", price.Amount.Quo(sdk.NewInt(100))))
-	if !newprice.IsLT(sdk.NewInt64Coin("ucredits", 1000000)) {  // stop at 1 credit
+	if !newprice.IsLT(sdk.NewInt64Coin("ucredits", 1000000)) { // stop at 1 credit
 		app.CardchainKeeper.SetCardAuctionPrice(ctx, newprice)
 	}
 	app.CardchainKeeper.Logger(ctx).Info(fmt.Sprintf(":: CardAuctionPrice: %s", app.CardchainKeeper.GetCardAuctionPrice(ctx)))
@@ -573,11 +573,11 @@ func (app *App) InitChainer(ctx sdk.Context, req abci.RequestInitChain) abci.Res
 	// initialize CardScheme Id, Auction price and public pool
 	app.CardchainKeeper.SetCardAuctionPrice(ctx, sdk.NewInt64Coin("ucredits", 10000000))
 
-	for _, key := range app.CardchainKeeper.PoolKeys{
+	for _, key := range app.CardchainKeeper.PoolKeys {
 		app.CardchainKeeper.SetPool(ctx, key, sdk.NewInt64Coin("ucredits", int64(1000*math.Pow(10, 6))))
 	}
 
-	for _, key := range app.CardchainKeeper.GeneralValueKeys{
+	for _, key := range app.CardchainKeeper.GeneralValueKeys {
 		app.CardchainKeeper.SetGeneralValue(ctx, key, uint64(0))
 	}
 

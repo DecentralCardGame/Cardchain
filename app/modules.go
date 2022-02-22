@@ -1,19 +1,19 @@
 package app
 
 import (
-  "encoding/json"
+	"encoding/json"
 
-  "github.com/cosmos/cosmos-sdk/codec"
-  sdk "github.com/cosmos/cosmos-sdk/types"
-  "github.com/cosmos/cosmos-sdk/x/bank"
+	"github.com/cosmos/cosmos-sdk/codec"
+	sdk "github.com/cosmos/cosmos-sdk/types"
+	"github.com/cosmos/cosmos-sdk/x/bank"
 	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
-  "github.com/cosmos/cosmos-sdk/x/crisis"
-  crisistypes "github.com/cosmos/cosmos-sdk/x/crisis/types"
-  "github.com/cosmos/cosmos-sdk/x/gov"
+	"github.com/cosmos/cosmos-sdk/x/crisis"
+	crisistypes "github.com/cosmos/cosmos-sdk/x/crisis/types"
+	"github.com/cosmos/cosmos-sdk/x/gov"
 	govtypes "github.com/cosmos/cosmos-sdk/x/gov/types"
-  "github.com/cosmos/cosmos-sdk/x/mint"
-  minttypes "github.com/cosmos/cosmos-sdk/x/mint/types"
-  "github.com/cosmos/cosmos-sdk/x/staking"
+	"github.com/cosmos/cosmos-sdk/x/mint"
+	minttypes "github.com/cosmos/cosmos-sdk/x/mint/types"
+	"github.com/cosmos/cosmos-sdk/x/staking"
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
 )
 
@@ -26,16 +26,16 @@ type BankModule struct {
 // DefaultGenesis returns custom x/bank module genesis state.
 func (BankModule) DefaultGenesis(cdc codec.JSONCodec) json.RawMessage {
 	Metadata := banktypes.Metadata{
-    Name:        "Burning Pitchfork",
-  	Symbol:      "BPF",
-  	Description: "The native staking token of the CrowdControlNetwork.",
-  	DenomUnits: []*banktypes.DenomUnit{
-  		{"ubpf", uint32(0), []string{"microbpf"}},
-  		{"mbpf", uint32(3), []string{"millibpf"}},
-  		{BondDenom, uint32(6), nil},
-  	},
-  	Base:    "ubpf",
-  	Display: BondDenom,
+		Name:        "Burning Pitchfork",
+		Symbol:      "BPF",
+		Description: "The native staking token of the CrowdControlNetwork.",
+		DenomUnits: []*banktypes.DenomUnit{
+			{"ubpf", uint32(0), []string{"microbpf"}},
+			{"mbpf", uint32(3), []string{"millibpf"}},
+			{BondDenom, uint32(6), nil},
+		},
+		Base:    "ubpf",
+		Display: BondDenom,
 	}
 
 	genState := banktypes.DefaultGenesisState()
@@ -73,7 +73,6 @@ func (MintModule) DefaultGenesis(cdc codec.JSONCodec) json.RawMessage {
 
 	return cdc.MustMarshalJSON(genState)
 }
-
 
 // GovModule defines a custom wrapper around the x/gov module's
 // AppModuleBasic implementation to provide custom default genesis state.
