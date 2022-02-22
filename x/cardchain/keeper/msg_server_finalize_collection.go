@@ -2,8 +2,11 @@ package keeper
 
 import (
 	"context"
-	"strconv"
+	"errors"
+	"fmt"
 
+	"github.com/DecentralCardGame/cardobject/keywords"
+	"github.com/DecentralCardGame/cardobject/cardobject"
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
@@ -24,7 +27,7 @@ func (k msgServer) FinalizeCollection(goCtx context.Context, msg *types.MsgFinal
 	}
 
 	if len(collection.Cards) != collectionSize {
-		return nil, sdkerrors.Wrap(types.ErrCollectionSize, "Has to be "+strconv.Itoa(collectionSize))
+		return nil, sdkerrors.Wrapf(types.ErrCollectionSize, "Has to be %d", collectionSize)
 	}
 
 	err := k.CollectCollectionCreationFee(ctx, msg.Creator)
@@ -32,11 +35,55 @@ func (k msgServer) FinalizeCollection(goCtx context.Context, msg *types.MsgFinal
 		return nil, err
 	}
 
-	// TODO Add checking for rarity
+	unCommonsAll := int(collectionSize/3)
+	raresAll := int(collectionSize/3)
+	commonsAll := collectionSize - raresAll - unCommonsAll
+
+	var (
+		unCommons, rares, commons int
+	)
+
+	for _, cardId := range collection.Cards {
+		cardobj, err := keywords.Unmarshal(k.GetCard(ctx, cardId).Content)
+		if err != nil {
+			return nil, err
+		}
+		rarity, err := GetCardRarity(cardobj)
+		if err != nil {
+			return nil, err
+		}
+		switch *rarity {
+		case cardobject.Rarity("COMMON"):
+			commons++
+		case cardobject.Rarity("UNCOMMON"):
+			unCommons++
+		case cardobject.Rarity("RARE"):
+			rares++
+		default:
+			return nil, errors.New(fmt.Sprintf("Card '%d' has no type", cardId))
+		}
+	}
+
+	if unCommons != unCommonsAll || commons != commonsAll || rares != raresAll {
+		return nil, errors.New(fmt.Sprintf("Collections should contain (c,u,r) %d, %d, %d but contains %d, %d, %d", commonsAll, unCommonsAll, raresAll, commons, unCommons, rares))
+	}
 
 	collection.Status = types.CStatus_finalized
 
 	k.SetCollection(ctx, msg.CollectionId, collection)
 
 	return &types.MsgFinalizeCollectionResponse{}, nil
+}
+
+func GetCardRarity(card *keywords.Card) (*cardobject.Rarity, error) {
+	if card.Action != nil {
+		return card.Action.Rarity, nil
+	} else if card.Place != nil {
+		return card.Place.Rarity, nil
+	} else if card.Entity != nil {
+		return card.Entity.Rarity, nil
+	} else if card.Headquarter != nil {
+		return card.Headquarter.Rarity, nil
+	}
+	return nil, errors.New("No card-attributes")
 }
