@@ -11879,6 +11879,15 @@ paths:
                     type: string
                   inflationRate:
                     type: string
+                  raresPerPack:
+                    type: string
+                    format: uint64
+                  commonsPerPack:
+                    type: string
+                    format: uint64
+                  unCommonsPerPack:
+                    type: string
+                    format: uint64
             description: >-
               QueryParamsResponse is response type for the Query/Params RPC
               method.
@@ -20521,6 +20530,15 @@ definitions:
         type: string
       inflationRate:
         type: string
+      raresPerPack:
+        type: string
+        format: uint64
+      commonsPerPack:
+        type: string
+        format: uint64
+      unCommonsPerPack:
+        type: string
+        format: uint64
     description: Params defines the parameters for the module.
   DecentralCardGame.cardchain.cardchain.QueryParamsResponse:
     type: object
@@ -20552,6 +20570,15 @@ definitions:
             type: string
           inflationRate:
             type: string
+          raresPerPack:
+            type: string
+            format: uint64
+          commonsPerPack:
+            type: string
+            format: uint64
+          unCommonsPerPack:
+            type: string
+            format: uint64
     description: QueryParamsResponse is response type for the Query/Params RPC method.
   DecentralCardGame.cardchain.cardchain.QueryQCardContentResponse:
     type: object

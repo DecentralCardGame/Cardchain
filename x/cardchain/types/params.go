@@ -30,6 +30,9 @@ func NewParams() Params {
 		VoterReward:                sdk.NewInt64Coin("ucredits", 1),
 		HourlyFaucet:								sdk.NewInt64Coin("ucredits", int64(50*math.Pow(10, 6))),
 		InflationRate:							"1.1",
+		RaresPerPack:								1,
+		CommonsPerPack:							9,
+		UnCommonsPerPack:						3,
 	}
 }
 
@@ -51,6 +54,9 @@ func (p *Params) ParamSetPairs() paramtypes.ParamSetPairs {
 		paramtypes.NewParamSetPair([]byte("VoterReward"), &p.VoterReward, validateVoterReward),
 		paramtypes.NewParamSetPair([]byte("HourlyFaucet"), &p.HourlyFaucet, validateHourlyFaucet),
 		paramtypes.NewParamSetPair([]byte("InflationRate"), &p.InflationRate, validateInflationRate),
+		paramtypes.NewParamSetPair([]byte("RaresPerPack"), &p.RaresPerPack, validatePerPack),
+		paramtypes.NewParamSetPair([]byte("CommonsPerPack"), &p.CommonsPerPack, validatePerPack),
+		paramtypes.NewParamSetPair([]byte("UnCommonsPerPack"), &p.UnCommonsPerPack, validatePerPack),
 	}
 }
 
@@ -112,6 +118,19 @@ func validateActiveCollectionsAmount(i interface{}) error {
 
 	if v == 0 {
 		return fmt.Errorf("invalid ActiveCollectionsAmount: %d", v)
+	}
+
+	return nil
+}
+
+func validatePerPack(i interface{}) error {
+	v, ok := i.(uint64)
+	if !ok {
+		return fmt.Errorf("invalid parameter type: %T", i)
+	}
+
+	if v == 0 {
+		return fmt.Errorf("invalid number per pack: %d", v)
 	}
 
 	return nil

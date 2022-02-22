@@ -18,4 +18,7 @@ message Params {
   string voterReward = 8 [(gogoproto.nullable) = false, (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Coin"];;
   string hourlyFaucet = 9 [(gogoproto.nullable) = false, (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Coin"];;
   string inflationRate = 10;
+  uint64 raresPerPack = 11;
+  uint64 commonsPerPack = 12;
+  uint64 unCommonsPerPack = 13;
 }
