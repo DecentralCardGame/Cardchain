@@ -1,0 +1,28 @@
+syntax = "proto3";
+package DecentralCardGame.cardchain.cardchain;
+
+import "gogoproto/gogo.proto";
+
+option go_package = "github.com/DecentralCardGame/Cardchain/x/cardchain/types";
+
+message Council {
+
+  uint64 cardId = 1;
+  string voters = 2;
+  repeated string hashResponses = 3;
+  repeated Response clearResponses = 4;
+  string treasury = 5 [(gogoproto.nullable) = false, (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Coin"];;
+  CouncelingStatus status = 6;
+}
+
+enum Response {
+  Yes = 0;
+  No = 1;
+}
+
+enum CouncelingStatus {
+  councilOpen = 0;
+  councilClosed = 1;
+  commited = 2;
+  revealed = 3;
+}

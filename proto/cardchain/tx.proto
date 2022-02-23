@@ -2,6 +2,7 @@ syntax = "proto3";
 package DecentralCardGame.cardchain.cardchain;
 
 import "gogoproto/gogo.proto";
+import "cardchain/council.proto";
 
 // this line is used by starport scaffolding # proto/tx/import
 
@@ -36,6 +37,9 @@ service Msg {
   rpc AddArtworkToCollection(MsgAddArtworkToCollection) returns (MsgAddArtworkToCollectionResponse);
   rpc AddStoryToCollection(MsgAddStoryToCollection) returns (MsgAddStoryToCollectionResponse);
   rpc SetCardRarity(MsgSetCardRarity) returns (MsgSetCardRarityResponse);
+  rpc CreateCouncil(MsgCreateCouncil) returns (MsgCreateCouncilResponse);
+  rpc CommitCouncilResponse(MsgCommitCouncilResponse) returns (MsgCommitCouncilResponseResponse);
+  rpc RevealCouncilResponse(MsgRevealCouncilResponse) returns (MsgRevealCouncilResponseResponse);
 // this line is used by starport scaffolding # proto/tx/rpc
 }
 
@@ -292,6 +296,33 @@ message MsgSetCardRarity {
 }
 
 message MsgSetCardRarityResponse {
+}
+
+message MsgCreateCouncil {
+  string creator = 1;
+  uint64 cardId = 2;
+}
+
+message MsgCreateCouncilResponse {
+}
+
+message MsgCommitCouncilResponse {
+  string creator = 1;
+  string response = 2;
+  uint64 councilId = 3;
+}
+
+message MsgCommitCouncilResponseResponse {
+}
+
+message MsgRevealCouncilResponse {
+  string creator = 1;
+  Response response = 2;
+  string secret = 3;
+  uint64 councilId = 4;
+}
+
+message MsgRevealCouncilResponseResponse {
 }
 
 // this line is used by starport scaffolding # proto/tx/message

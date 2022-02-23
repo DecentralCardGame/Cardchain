@@ -20460,7 +20460,11 @@ definitions:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgChangeArtistResponse:
     type: object
+  DecentralCardGame.cardchain.cardchain.MsgCommitCouncilResponseResponse:
+    type: object
   DecentralCardGame.cardchain.cardchain.MsgCreateCollectionResponse:
+    type: object
+  DecentralCardGame.cardchain.cardchain.MsgCreateCouncilResponse:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgCreateSellOfferResponse:
     type: object
@@ -20484,6 +20488,8 @@ definitions:
       matchId:
         type: string
         format: uint64
+  DecentralCardGame.cardchain.cardchain.MsgRevealCouncilResponseResponse:
+    type: object
   DecentralCardGame.cardchain.cardchain.MsgSaveCardContentResponse:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgSetCardRarityResponse:
@@ -20827,6 +20833,12 @@ definitions:
                   type: string
           notes:
             type: string
+  DecentralCardGame.cardchain.cardchain.Response:
+    type: string
+    enum:
+      - 'Yes'
+      - 'No'
+    default: 'Yes'
   DecentralCardGame.cardchain.cardchain.SellOfferStatus:
     type: string
     enum:

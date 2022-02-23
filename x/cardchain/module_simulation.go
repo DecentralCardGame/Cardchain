@@ -132,6 +132,18 @@ const (
 	// TODO: Determine the simulation weight value
 	defaultWeightMsgSetCardRarity int = 100
 
+	opWeightMsgCreateCouncil = "op_weight_msg_create_chain"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgCreateCouncil int = 100
+
+	opWeightMsgCommitCouncilResponse = "op_weight_msg_create_chain"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgCommitCouncilResponse int = 100
+
+	opWeightMsgRevealCouncilResponse = "op_weight_msg_create_chain"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgRevealCouncilResponse int = 100
+
 	// this line is used by starport scaffolding # simapp/module/const
 )
 
@@ -460,6 +472,39 @@ func (am AppModule) WeightedOperations(simState module.SimulationState) []simtyp
 	operations = append(operations, simulation.NewWeightedOperation(
 		weightMsgSetCardRarity,
 		cardchainsimulation.SimulateMsgSetCardRarity(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
+	var weightMsgCreateCouncil int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgCreateCouncil, &weightMsgCreateCouncil, nil,
+		func(_ *rand.Rand) {
+			weightMsgCreateCouncil = defaultWeightMsgCreateCouncil
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgCreateCouncil,
+		cardchainsimulation.SimulateMsgCreateCouncil(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
+	var weightMsgCommitCouncilResponse int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgCommitCouncilResponse, &weightMsgCommitCouncilResponse, nil,
+		func(_ *rand.Rand) {
+			weightMsgCommitCouncilResponse = defaultWeightMsgCommitCouncilResponse
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgCommitCouncilResponse,
+		cardchainsimulation.SimulateMsgCommitCouncilResponse(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
+	var weightMsgRevealCouncilResponse int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgRevealCouncilResponse, &weightMsgRevealCouncilResponse, nil,
+		func(_ *rand.Rand) {
+			weightMsgRevealCouncilResponse = defaultWeightMsgRevealCouncilResponse
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgRevealCouncilResponse,
+		cardchainsimulation.SimulateMsgRevealCouncilResponse(am.accountKeeper, am.bankKeeper, am.keeper),
 	))
 
 	// this line is used by starport scaffolding # simapp/module/operation

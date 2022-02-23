@@ -5,9 +5,9 @@ import (
 	"encoding/json"
 	"errors"
 
+	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
 	"github.com/DecentralCardGame/cardobject/cardobject"
 	"github.com/DecentralCardGame/cardobject/keywords"
-	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 )
@@ -33,7 +33,7 @@ func (k msgServer) SetCardRarity(goCtx context.Context, msg *types.MsgSetCardRar
 	} else if cardobj.Place != nil {
 		cardobj.Place.Rarity = &rarity
 	} else if cardobj.Entity != nil {
-	  cardobj.Entity.Rarity = &rarity
+		cardobj.Entity.Rarity = &rarity
 	} else if cardobj.Headquarter != nil {
 		cardobj.Headquarter.Rarity = &rarity
 	} else {
