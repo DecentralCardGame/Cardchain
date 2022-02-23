@@ -36,6 +36,7 @@ type (
 		InternalStoreKey    sdk.StoreKey
 		SellOffersStoreKey  sdk.StoreKey
 		PoolsStoreKey       sdk.StoreKey
+		CouncilsStoreKey    sdk.StoreKey
 		paramstore          paramtypes.Subspace
 
 		PoolKeys         []string
@@ -54,6 +55,7 @@ func NewKeeper(
 	collectionsStoreKey sdk.StoreKey,
 	sellOffersStoreKey sdk.StoreKey,
 	poolsStoreKey sdk.StoreKey,
+	councilsStoreKey sdk.StoreKey,
 	internalStoreKey sdk.StoreKey,
 	ps paramtypes.Subspace,
 
@@ -73,6 +75,7 @@ func NewKeeper(
 		CollectionsStoreKey: collectionsStoreKey,
 		SellOffersStoreKey:  sellOffersStoreKey,
 		PoolsStoreKey:       poolsStoreKey,
+		CouncilsStoreKey:    councilsStoreKey,
 		InternalStoreKey:    internalStoreKey,
 		paramstore:          ps,
 		PoolKeys:            []string{PublicPoolKey, WinnersPoolKey, BalancersPoolKey},
@@ -402,6 +405,53 @@ func (k Keeper) GetCollectionsNumber(ctx sdk.Context) uint64 {
 	}
 	return CollectionId
 }
+
+
+//////////////
+// Councils //
+//////////////
+
+func (k Keeper) GetCouncil(ctx sdk.Context, councilId uint64) types.Council {
+	store := ctx.KVStore(k.CouncilsStoreKey)
+	bz := store.Get(sdk.Uint64ToBigEndian(councilId))
+
+	var gottenCouncil types.Council
+	k.cdc.MustUnmarshal(bz, &gottenCouncil)
+	return gottenCouncil
+}
+
+func (k Keeper) SetCouncil(ctx sdk.Context, councilId uint64, newCouncil types.Council) {
+	store := ctx.KVStore(k.CouncilsStoreKey)
+	store.Set(sdk.Uint64ToBigEndian(councilId), k.cdc.MustMarshal(&newCouncil))
+}
+
+func (k Keeper) GetCouncilsIterator(ctx sdk.Context) sdk.Iterator {
+	store := ctx.KVStore(k.CouncilsStoreKey)
+	return sdk.KVStorePrefixIterator(store, nil)
+}
+
+func (k Keeper) GetAllCouncils(ctx sdk.Context) []*types.Council {
+	var allCouncils []*types.Council
+	iterator := k.GetCouncilsIterator(ctx)
+	for ; iterator.Valid(); iterator.Next() {
+
+		var gottenCouncil types.Council
+		k.cdc.MustUnmarshal(iterator.Value(), &gottenCouncil)
+
+		allCouncils = append(allCouncils, &gottenCouncil)
+	}
+	return allCouncils
+}
+
+func (k Keeper) GetCouncilsNumber(ctx sdk.Context) uint64 {
+	var councilId uint64
+	iterator := k.GetCouncilsIterator(ctx)
+	for ; iterator.Valid(); iterator.Next() {
+		councilId++
+	}
+	return councilId
+}
+
 
 /////////////
 // Matches //

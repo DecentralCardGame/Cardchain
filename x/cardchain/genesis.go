@@ -20,6 +20,9 @@ func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) 
 	for id, match := range genState.Matches {
 		k.SetMatch(ctx, uint64(id), *match)
 	}
+	for id, council := range genState.Councils {
+		k.SetCouncil(ctx, uint64(id), *council)
+	}
 	for id, collection := range genState.Collections {
 		k.SetCollection(ctx, uint64(id), *collection)
 	}
@@ -61,6 +64,7 @@ func ExportGenesis(ctx sdk.Context, k keeper.Keeper) *types.GenesisState {
 	pools := k.GetAllPools(ctx)
 	records := k.GetAllCards(ctx)
 	matches := k.GetAllMatches(ctx)
+	councils := k.GetAllCouncils(ctx)
 	collections := k.GetAllCollections(ctx)
 	users, addresses := k.GetAllUsers(ctx)
 	return &types.GenesisState{
@@ -72,6 +76,7 @@ func ExportGenesis(ctx sdk.Context, k keeper.Keeper) *types.GenesisState {
 		Collections:      collections,
 		SellOffers:       sellOffers,
 		Pools:            pools,
+		Councils:					councils,
 		Addresses:        addresses,
 		CardAuctionPrice: cardAuctionPrice,
 	}
