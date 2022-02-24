@@ -9,8 +9,10 @@ import "cardchain/vote_right.proto";
 import "cardchain/voting_results.proto";
 import "cardchain/card.proto";
 import "cardchain/user.proto";
+import "cardchain/match.proto";
 import "cardchain/collection.proto";
 import "cardchain/sell_offer.proto";
+import "cardchain/council.proto";
 import "cardchain/tx.proto";
 
 // this line is used by starport scaffolding # 1
@@ -24,7 +26,7 @@ service Query {
     option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/params";
   }
   // Queries a list of QCard items.
-	rpc QCard(QueryQCardRequest) returns (QueryQCardResponse) {
+	rpc QCard(QueryQCardRequest) returns (Card) {
 		option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/q_card/{cardId}";
 	}
 
@@ -34,7 +36,7 @@ service Query {
 	}
 
 // Queries a list of QUser items.
-	rpc QUser(QueryQUserRequest) returns (QueryQUserResponse) {
+	rpc QUser(QueryQUserRequest) returns (User) {
 		option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/q_user/{address}";
 	}
 
@@ -59,18 +61,23 @@ service Query {
 	}
 
 // Queries a list of QMatch items.
-	rpc QMatch(QueryQMatchRequest) returns (QueryQMatchResponse) {
+	rpc QMatch(QueryQMatchRequest) returns (Match) {
 		option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/q_match/{matchId}";
 	}
 
 // Queries a list of QCollection items.
-	rpc QCollection(QueryQCollectionRequest) returns (QueryQCollectionResponse) {
+	rpc QCollection(QueryQCollectionRequest) returns (Collection) {
 		option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/q_collection/{collectionId}";
 	}
 
 // Queries a list of QSellOffer items.
-	rpc QSellOffer(QueryQSellOfferRequest) returns (QueryQSellOfferResponse) {
+	rpc QSellOffer(QueryQSellOfferRequest) returns (SellOffer) {
 		option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/q_sell_offer/{sellOfferId}";
+	}
+
+// Queries a list of QCouncil items.
+	rpc QCouncil(QueryQCouncilRequest) returns (Council) {
+		option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/q_council/{councilId}";
 	}
 
 // this line is used by starport scaffolding # 2
@@ -89,22 +96,6 @@ message QueryQCardRequest {
   string cardId = 1;
 }
 
-message QueryQCardResponse {
-  string owner = 1;
-  string content = 2;
-  string artist = 3;
-  string image = 4;
-  bool fullArt = 5;
-  string notes = 6;
-  Status status = 7;
-  string votePool = 8 [(gogoproto.nullable) = false, (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Coin"];;
-  uint64 fairEnoughVotes = 9;
-  uint64 overpoweredVotes = 10;
-  uint64 underpoweredVotes = 11;
-  uint64 inappropriateVotes = 12;
-  int64 nerflevel = 13;
-}
-
 message QueryQCardContentRequest {
   string cardId = 1;
 }
@@ -115,16 +106,6 @@ message QueryQCardContentResponse {
 
 message QueryQUserRequest {
   string address = 1;
-}
-
-message QueryQUserResponse {
-  string alias = 1;
-  repeated uint64 ownedCardSchemes = 2;
-  repeated uint64 ownedPrototypes = 3;
-  repeated uint64 cards = 4;
-  repeated VoteRight voteRights = 5;
-  CouncilStatus councilStatus = 6;
-  bool reportMatches = 7;
 }
 
 message QueryQCardchainInfoRequest {
@@ -171,40 +152,16 @@ message QueryQMatchRequest {
   uint64 matchId = 1;
 }
 
-message QueryQMatchResponse {
-  uint64 timestamp = 1;
-  string reporter = 2;
-  string playerA = 3;
-  string playerB = 4;
-  Outcome outcome = 5;
-}
-
 message QueryQCollectionRequest {
   uint64 collectionId = 1;
-}
-
-message QueryQCollectionResponse {
-  string name = 1;
-  repeated uint64 cards = 2;
-  string artist = 3;
-  string storyWriter = 4;
-  repeated string contributors = 5;
-  string story = 6;
-  bytes artwork = 7;
-  CStatus status = 8;
-  int64 timeStamp = 9;
 }
 
 message QueryQSellOfferRequest {
   uint64 sellOfferId = 1;
 }
 
-message QueryQSellOfferResponse {
-  string seller = 1;
-  string buyer = 2;
-  uint64 card = 3;
-  string price = 4 [(gogoproto.nullable) = false, (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Coin"];;
-  SellOfferStatus status = 5;
+message QueryQCouncilRequest {
+  uint64 councilId = 1;
 }
 
 // this line is used by starport scaffolding # 3

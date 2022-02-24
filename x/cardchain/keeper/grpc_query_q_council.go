@@ -9,17 +9,14 @@ import (
 	"google.golang.org/grpc/status"
 )
 
-func (k Keeper) QUser(goCtx context.Context, req *types.QueryQUserRequest) (*types.User, error) {
+func (k Keeper) QCouncil(goCtx context.Context, req *types.QueryQCouncilRequest) (*types.Council, error) {
 	if req == nil {
 		return nil, status.Error(codes.InvalidArgument, "invalid request")
 	}
 
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	user, err := k.GetUserFromString(ctx, req.Address)
-	if err != nil {
-		return nil, err
-	}
+	council := k.GetCouncil(ctx, req.CouncilId)
 
-	return &user.User, nil
+	return &council, nil
 }

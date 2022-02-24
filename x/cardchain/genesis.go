@@ -76,7 +76,7 @@ func ExportGenesis(ctx sdk.Context, k keeper.Keeper) *types.GenesisState {
 		Collections:      collections,
 		SellOffers:       sellOffers,
 		Pools:            pools,
-		Councils:					councils,
+		Councils:         councils,
 		Addresses:        addresses,
 		CardAuctionPrice: cardAuctionPrice,
 	}

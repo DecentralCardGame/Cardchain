@@ -11923,12 +11923,14 @@ paths:
             properties:
               owner:
                 type: string
-              content:
-                type: string
               artist:
                 type: string
+              content:
+                type: string
+                format: byte
               image:
                 type: string
+                format: byte
               fullArt:
                 type: boolean
               notes:
@@ -12207,6 +12209,79 @@ paths:
           format: uint64
       tags:
         - Query
+  '/DecentralCardGame/cardchain/cardchain/q_council/{councilId}':
+    get:
+      summary: Queries a list of QCouncil items.
+      operationId: DecentralCardGameCardchainCardchainQCouncil
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              cardId:
+                type: string
+                format: uint64
+              voters:
+                type: string
+              hashResponses:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    user:
+                      type: string
+                    hash:
+                      type: string
+              clearResponses:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    user:
+                      type: string
+                    response:
+                      type: string
+                      enum:
+                        - 'Yes'
+                        - 'No'
+                      default: 'Yes'
+              treasury:
+                type: string
+              status:
+                type: string
+                enum:
+                  - councilOpen
+                  - councilClosed
+                  - commited
+                  - revealed
+                default: councilOpen
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: councilId
+          in: path
+          required: true
+          type: string
+          format: uint64
+      tags:
+        - Query
   '/DecentralCardGame/cardchain/cardchain/q_match/{matchId}':
     get:
       summary: Queries a list of QMatch items.
@@ -12350,7 +12425,7 @@ paths:
                     expireBlock:
                       type: string
                       format: int64
-              councilStatus:
+              CouncilStatus:
                 type: string
                 enum:
                   - available
@@ -12358,7 +12433,7 @@ paths:
                   - openCouncil
                   - startedCouncil
                 default: available
-              reportMatches:
+              ReportMatches:
                 type: boolean
         default:
           description: An unexpected error response.
@@ -20432,6 +20507,135 @@ definitions:
       - active
       - archived
     default: design
+  DecentralCardGame.cardchain.cardchain.Card:
+    type: object
+    properties:
+      owner:
+        type: string
+      artist:
+        type: string
+      content:
+        type: string
+        format: byte
+      image:
+        type: string
+        format: byte
+      fullArt:
+        type: boolean
+      notes:
+        type: string
+      status:
+        type: string
+        enum:
+          - scheme
+          - prototype
+          - trial
+          - permanent
+          - suspended
+          - banned
+          - bannedSoon
+          - bannedVerySoon
+          - none
+        default: scheme
+      votePool:
+        type: string
+      fairEnoughVotes:
+        type: string
+        format: uint64
+      overpoweredVotes:
+        type: string
+        format: uint64
+      underpoweredVotes:
+        type: string
+        format: uint64
+      inappropriateVotes:
+        type: string
+        format: uint64
+      nerflevel:
+        type: string
+        format: int64
+  DecentralCardGame.cardchain.cardchain.Collection:
+    type: object
+    properties:
+      name:
+        type: string
+      cards:
+        type: array
+        items:
+          type: string
+          format: uint64
+      artist:
+        type: string
+      storyWriter:
+        type: string
+      contributors:
+        type: array
+        items:
+          type: string
+      story:
+        type: string
+      artwork:
+        type: string
+        format: byte
+      status:
+        type: string
+        enum:
+          - design
+          - finalized
+          - active
+          - archived
+        default: design
+      timeStamp:
+        type: string
+        format: int64
+  DecentralCardGame.cardchain.cardchain.CouncelingStatus:
+    type: string
+    enum:
+      - councilOpen
+      - councilClosed
+      - commited
+      - revealed
+    default: councilOpen
+  DecentralCardGame.cardchain.cardchain.Council:
+    type: object
+    properties:
+      cardId:
+        type: string
+        format: uint64
+      voters:
+        type: string
+      hashResponses:
+        type: array
+        items:
+          type: object
+          properties:
+            user:
+              type: string
+            hash:
+              type: string
+      clearResponses:
+        type: array
+        items:
+          type: object
+          properties:
+            user:
+              type: string
+            response:
+              type: string
+              enum:
+                - 'Yes'
+                - 'No'
+              default: 'Yes'
+      treasury:
+        type: string
+      status:
+        type: string
+        enum:
+          - councilOpen
+          - councilClosed
+          - commited
+          - revealed
+        default: councilOpen
   DecentralCardGame.cardchain.cardchain.CouncilStatus:
     type: string
     enum:
@@ -20440,6 +20644,26 @@ definitions:
       - openCouncil
       - startedCouncil
     default: available
+  DecentralCardGame.cardchain.cardchain.Match:
+    type: object
+    properties:
+      timestamp:
+        type: string
+        format: uint64
+      reporter:
+        type: string
+      playerA:
+        type: string
+      playerB:
+        type: string
+      outcome:
+        type: string
+        enum:
+          - AWon
+          - BWon
+          - Draw
+          - Aborted
+        default: AWon
   DecentralCardGame.cardchain.cardchain.MsgAddArtworkResponse:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgAddArtworkToCollectionResponse:
@@ -20593,51 +20817,6 @@ definitions:
     properties:
       content:
         type: string
-  DecentralCardGame.cardchain.cardchain.QueryQCardResponse:
-    type: object
-    properties:
-      owner:
-        type: string
-      content:
-        type: string
-      artist:
-        type: string
-      image:
-        type: string
-      fullArt:
-        type: boolean
-      notes:
-        type: string
-      status:
-        type: string
-        enum:
-          - scheme
-          - prototype
-          - trial
-          - permanent
-          - suspended
-          - banned
-          - bannedSoon
-          - bannedVerySoon
-          - none
-        default: scheme
-      votePool:
-        type: string
-      fairEnoughVotes:
-        type: string
-        format: uint64
-      overpoweredVotes:
-        type: string
-        format: uint64
-      underpoweredVotes:
-        type: string
-        format: uint64
-      inappropriateVotes:
-        type: string
-        format: uint64
-      nerflevel:
-        type: string
-        format: int64
   DecentralCardGame.cardchain.cardchain.QueryQCardchainInfoResponse:
     type: object
     properties:
@@ -20656,120 +20835,6 @@ definitions:
         items:
           type: string
           format: uint64
-  DecentralCardGame.cardchain.cardchain.QueryQCollectionResponse:
-    type: object
-    properties:
-      name:
-        type: string
-      cards:
-        type: array
-        items:
-          type: string
-          format: uint64
-      artist:
-        type: string
-      storyWriter:
-        type: string
-      contributors:
-        type: array
-        items:
-          type: string
-      story:
-        type: string
-      artwork:
-        type: string
-        format: byte
-      status:
-        type: string
-        enum:
-          - design
-          - finalized
-          - active
-          - archived
-        default: design
-      timeStamp:
-        type: string
-        format: int64
-  DecentralCardGame.cardchain.cardchain.QueryQMatchResponse:
-    type: object
-    properties:
-      timestamp:
-        type: string
-        format: uint64
-      reporter:
-        type: string
-      playerA:
-        type: string
-      playerB:
-        type: string
-      outcome:
-        type: string
-        enum:
-          - AWon
-          - BWon
-          - Draw
-          - Aborted
-        default: AWon
-  DecentralCardGame.cardchain.cardchain.QueryQSellOfferResponse:
-    type: object
-    properties:
-      seller:
-        type: string
-      buyer:
-        type: string
-      card:
-        type: string
-        format: uint64
-      price:
-        type: string
-      status:
-        type: string
-        enum:
-          - open
-          - sold
-          - removed
-        default: open
-  DecentralCardGame.cardchain.cardchain.QueryQUserResponse:
-    type: object
-    properties:
-      alias:
-        type: string
-      ownedCardSchemes:
-        type: array
-        items:
-          type: string
-          format: uint64
-      ownedPrototypes:
-        type: array
-        items:
-          type: string
-          format: uint64
-      cards:
-        type: array
-        items:
-          type: string
-          format: uint64
-      voteRights:
-        type: array
-        items:
-          type: object
-          properties:
-            cardId:
-              type: string
-              format: uint64
-            expireBlock:
-              type: string
-              format: int64
-      councilStatus:
-        type: string
-        enum:
-          - available
-          - unavailable
-          - openCouncil
-          - startedCouncil
-        default: available
-      reportMatches:
-        type: boolean
   DecentralCardGame.cardchain.cardchain.QueryQVotableCardsResponse:
     type: object
     properties:
@@ -20839,6 +20904,25 @@ definitions:
       - 'Yes'
       - 'No'
     default: 'Yes'
+  DecentralCardGame.cardchain.cardchain.SellOffer:
+    type: object
+    properties:
+      seller:
+        type: string
+      buyer:
+        type: string
+      card:
+        type: string
+        format: uint64
+      price:
+        type: string
+      status:
+        type: string
+        enum:
+          - open
+          - sold
+          - removed
+        default: open
   DecentralCardGame.cardchain.cardchain.SellOfferStatus:
     type: string
     enum:
@@ -20859,6 +20943,47 @@ definitions:
       - bannedVerySoon
       - none
     default: scheme
+  DecentralCardGame.cardchain.cardchain.User:
+    type: object
+    properties:
+      alias:
+        type: string
+      ownedCardSchemes:
+        type: array
+        items:
+          type: string
+          format: uint64
+      ownedPrototypes:
+        type: array
+        items:
+          type: string
+          format: uint64
+      cards:
+        type: array
+        items:
+          type: string
+          format: uint64
+      voteRights:
+        type: array
+        items:
+          type: object
+          properties:
+            cardId:
+              type: string
+              format: uint64
+            expireBlock:
+              type: string
+              format: int64
+      CouncilStatus:
+        type: string
+        enum:
+          - available
+          - unavailable
+          - openCouncil
+          - startedCouncil
+        default: available
+      ReportMatches:
+        type: boolean
   DecentralCardGame.cardchain.cardchain.VoteRight:
     type: object
     properties:
@@ -20929,6 +21054,24 @@ definitions:
             result:
               type: string
       notes:
+        type: string
+  DecentralCardGame.cardchain.cardchain.WrapClearResponse:
+    type: object
+    properties:
+      user:
+        type: string
+      response:
+        type: string
+        enum:
+          - 'Yes'
+          - 'No'
+        default: 'Yes'
+  DecentralCardGame.cardchain.cardchain.WrapHashResponse:
+    type: object
+    properties:
+      user:
+        type: string
+      hash:
         type: string
   ibc.applications.transfer.v1.DenomTrace:
     type: object

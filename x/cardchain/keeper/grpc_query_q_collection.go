@@ -9,7 +9,7 @@ import (
 	"google.golang.org/grpc/status"
 )
 
-func (k Keeper) QCollection(goCtx context.Context, req *types.QueryQCollectionRequest) (*types.QueryQCollectionResponse, error) {
+func (k Keeper) QCollection(goCtx context.Context, req *types.QueryQCollectionRequest) (*types.Collection, error) {
 	if req == nil {
 		return nil, status.Error(codes.InvalidArgument, "invalid request")
 	}
@@ -18,15 +18,5 @@ func (k Keeper) QCollection(goCtx context.Context, req *types.QueryQCollectionRe
 
 	collection := k.GetCollection(ctx, req.CollectionId)
 
-	return &types.QueryQCollectionResponse{
-		collection.Name,
-		collection.Cards,
-		collection.Artist,
-		collection.StoryWriter,
-		collection.Contributors,
-		collection.Story,
-		collection.Artwork,
-		collection.Status,
-		collection.TimeStamp,
-	}, nil
+	return &collection, nil
 }

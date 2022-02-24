@@ -406,7 +406,6 @@ func (k Keeper) GetCollectionsNumber(ctx sdk.Context) uint64 {
 	return CollectionId
 }
 
-
 //////////////
 // Councils //
 //////////////
@@ -451,7 +450,6 @@ func (k Keeper) GetCouncilsNumber(ctx sdk.Context) uint64 {
 	}
 	return councilId
 }
-
 
 /////////////
 // Matches //

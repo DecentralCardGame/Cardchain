@@ -11,9 +11,9 @@ var _ sdk.Msg = &MsgRevealCouncilResponse{}
 
 func NewMsgRevealCouncilResponse(creator string, response Response, secret string, councilId uint64) *MsgRevealCouncilResponse {
 	return &MsgRevealCouncilResponse{
-		Creator:  creator,
-		Response: response,
-		Secret: secret,
+		Creator:   creator,
+		Response:  response,
+		Secret:    secret,
 		CouncilId: councilId,
 	}
 }

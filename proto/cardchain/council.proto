@@ -6,13 +6,22 @@ import "gogoproto/gogo.proto";
 option go_package = "github.com/DecentralCardGame/Cardchain/x/cardchain/types";
 
 message Council {
-
   uint64 cardId = 1;
   string voters = 2;
-  repeated string hashResponses = 3;
-  repeated Response clearResponses = 4;
+  repeated WrapHashResponse hashResponses = 3;
+  repeated WrapClearResponse clearResponses = 4;
   string treasury = 5 [(gogoproto.nullable) = false, (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Coin"];;
   CouncelingStatus status = 6;
+}
+
+message WrapClearResponse {
+  string user = 1;
+  Response response = 2;
+}
+
+message WrapHashResponse {
+  string user = 1;
+  string hash = 2;
 }
 
 enum Response {

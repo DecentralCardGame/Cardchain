@@ -9,7 +9,7 @@ import (
 	"google.golang.org/grpc/status"
 )
 
-func (k Keeper) QSellOffer(goCtx context.Context, req *types.QueryQSellOfferRequest) (*types.QueryQSellOfferResponse, error) {
+func (k Keeper) QSellOffer(goCtx context.Context, req *types.QueryQSellOfferRequest) (*types.SellOffer, error) {
 	if req == nil {
 		return nil, status.Error(codes.InvalidArgument, "invalid request")
 	}
@@ -18,11 +18,5 @@ func (k Keeper) QSellOffer(goCtx context.Context, req *types.QueryQSellOfferRequ
 
 	sellOffer := k.GetSellOffer(ctx, req.SellOfferId)
 
-	return &types.QueryQSellOfferResponse{
-		sellOffer.Seller,
-		sellOffer.Buyer,
-		sellOffer.Card,
-		sellOffer.Price,
-		sellOffer.Status,
-	}, nil
+	return &sellOffer, nil
 }

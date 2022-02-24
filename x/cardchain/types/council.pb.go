@@ -83,8 +83,8 @@ func (CouncelingStatus) EnumDescriptor() ([]byte, []int) {
 type Council struct {
 	CardId         uint64                                  `protobuf:"varint,1,opt,name=cardId,proto3" json:"cardId,omitempty"`
 	Voters         string                                  `protobuf:"bytes,2,opt,name=voters,proto3" json:"voters,omitempty"`
-	HashResponses  []string                                `protobuf:"bytes,3,rep,name=hashResponses,proto3" json:"hashResponses,omitempty"`
-	ClearResponses []Response                              `protobuf:"varint,4,rep,packed,name=clearResponses,proto3,enum=DecentralCardGame.cardchain.cardchain.Response" json:"clearResponses,omitempty"`
+	HashResponses  []*WrapHashResponse                     `protobuf:"bytes,3,rep,name=hashResponses,proto3" json:"hashResponses,omitempty"`
+	ClearResponses []*WrapClearResponse                    `protobuf:"bytes,4,rep,name=clearResponses,proto3" json:"clearResponses,omitempty"`
 	Treasury       github_com_cosmos_cosmos_sdk_types.Coin `protobuf:"bytes,5,opt,name=treasury,proto3,customtype=github.com/cosmos/cosmos-sdk/types.Coin" json:"treasury"`
 	Status         CouncelingStatus                        `protobuf:"varint,6,opt,name=status,proto3,enum=DecentralCardGame.cardchain.cardchain.CouncelingStatus" json:"status,omitempty"`
 }
@@ -136,14 +136,14 @@ func (m *Council) GetVoters() string {
 	return ""
 }
 
-func (m *Council) GetHashResponses() []string {
+func (m *Council) GetHashResponses() []*WrapHashResponse {
 	if m != nil {
 		return m.HashResponses
 	}
 	return nil
 }
 
-func (m *Council) GetClearResponses() []Response {
+func (m *Council) GetClearResponses() []*WrapClearResponse {
 	if m != nil {
 		return m.ClearResponses
 	}
@@ -157,41 +157,151 @@ func (m *Council) GetStatus() CouncelingStatus {
 	return CouncelingStatus_councilOpen
 }
 
+type WrapClearResponse struct {
+	User     string   `protobuf:"bytes,1,opt,name=user,proto3" json:"user,omitempty"`
+	Response Response `protobuf:"varint,2,opt,name=response,proto3,enum=DecentralCardGame.cardchain.cardchain.Response" json:"response,omitempty"`
+}
+
+func (m *WrapClearResponse) Reset()         { *m = WrapClearResponse{} }
+func (m *WrapClearResponse) String() string { return proto.CompactTextString(m) }
+func (*WrapClearResponse) ProtoMessage()    {}
+func (*WrapClearResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_7e7c85d7820f234e, []int{1}
+}
+func (m *WrapClearResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *WrapClearResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_WrapClearResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *WrapClearResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_WrapClearResponse.Merge(m, src)
+}
+func (m *WrapClearResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *WrapClearResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_WrapClearResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_WrapClearResponse proto.InternalMessageInfo
+
+func (m *WrapClearResponse) GetUser() string {
+	if m != nil {
+		return m.User
+	}
+	return ""
+}
+
+func (m *WrapClearResponse) GetResponse() Response {
+	if m != nil {
+		return m.Response
+	}
+	return Response_Yes
+}
+
+type WrapHashResponse struct {
+	User string `protobuf:"bytes,1,opt,name=user,proto3" json:"user,omitempty"`
+	Hash string `protobuf:"bytes,2,opt,name=hash,proto3" json:"hash,omitempty"`
+}
+
+func (m *WrapHashResponse) Reset()         { *m = WrapHashResponse{} }
+func (m *WrapHashResponse) String() string { return proto.CompactTextString(m) }
+func (*WrapHashResponse) ProtoMessage()    {}
+func (*WrapHashResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_7e7c85d7820f234e, []int{2}
+}
+func (m *WrapHashResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *WrapHashResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_WrapHashResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *WrapHashResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_WrapHashResponse.Merge(m, src)
+}
+func (m *WrapHashResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *WrapHashResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_WrapHashResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_WrapHashResponse proto.InternalMessageInfo
+
+func (m *WrapHashResponse) GetUser() string {
+	if m != nil {
+		return m.User
+	}
+	return ""
+}
+
+func (m *WrapHashResponse) GetHash() string {
+	if m != nil {
+		return m.Hash
+	}
+	return ""
+}
+
 func init() {
 	proto.RegisterEnum("DecentralCardGame.cardchain.cardchain.Response", Response_name, Response_value)
 	proto.RegisterEnum("DecentralCardGame.cardchain.cardchain.CouncelingStatus", CouncelingStatus_name, CouncelingStatus_value)
 	proto.RegisterType((*Council)(nil), "DecentralCardGame.cardchain.cardchain.Council")
+	proto.RegisterType((*WrapClearResponse)(nil), "DecentralCardGame.cardchain.cardchain.WrapClearResponse")
+	proto.RegisterType((*WrapHashResponse)(nil), "DecentralCardGame.cardchain.cardchain.WrapHashResponse")
 }
 
 func init() { proto.RegisterFile("cardchain/council.proto", fileDescriptor_7e7c85d7820f234e) }
 
 var fileDescriptor_7e7c85d7820f234e = []byte{
-	// 395 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x8c, 0x52, 0x41, 0x8b, 0xd3, 0x40,
-	0x18, 0xcd, 0x24, 0x6b, 0xb6, 0x3b, 0xba, 0x35, 0x0e, 0xa2, 0x41, 0x21, 0x1b, 0x44, 0x31, 0x2c,
-	0x98, 0x81, 0xf5, 0xa0, 0xe7, 0x8d, 0x20, 0x22, 0xb8, 0x30, 0x1e, 0x44, 0x6f, 0xd3, 0xc9, 0x47,
-	0x12, 0x4c, 0x32, 0x61, 0x66, 0x52, 0xec, 0xbf, 0xf0, 0x67, 0xf5, 0xd8, 0x93, 0x88, 0x87, 0x22,
-	0xed, 0x1f, 0x91, 0xa4, 0x69, 0xab, 0xf5, 0xd2, 0x53, 0xbe, 0xef, 0xe3, 0xbd, 0xc7, 0xcb, 0x9b,
-	0x87, 0x1f, 0x0a, 0xae, 0x52, 0x91, 0xf3, 0xa2, 0xa6, 0x42, 0xb6, 0xb5, 0x28, 0xca, 0xb8, 0x51,
-	0xd2, 0x48, 0xf2, 0xec, 0x0d, 0x08, 0xa8, 0x8d, 0xe2, 0x65, 0xc2, 0x55, 0xfa, 0x96, 0x57, 0x10,
-	0xef, 0xa0, 0xfb, 0xe9, 0xd1, 0xfd, 0x4c, 0x66, 0xb2, 0x67, 0xd0, 0x6e, 0xda, 0x90, 0x9f, 0xfc,
-	0xb0, 0xf1, 0x69, 0xb2, 0x91, 0x23, 0x0f, 0xb0, 0xdb, 0xc1, 0xdf, 0xa5, 0x3e, 0x0a, 0x51, 0x74,
-	0xc2, 0x86, 0xad, 0xbb, 0x4f, 0xa5, 0x01, 0xa5, 0x7d, 0x3b, 0x44, 0xd1, 0x19, 0x1b, 0x36, 0xf2,
-	0x14, 0x9f, 0xe7, 0x5c, 0xe7, 0x0c, 0x74, 0x23, 0x6b, 0x0d, 0xda, 0x77, 0x42, 0x27, 0x3a, 0x63,
-	0xff, 0x1e, 0xc9, 0x27, 0x3c, 0x16, 0x25, 0x70, 0xb5, 0x87, 0x9d, 0x84, 0x4e, 0x34, 0xbe, 0xa2,
-	0xf1, 0x51, 0xbe, 0xe3, 0x2d, 0x8f, 0x1d, 0xc8, 0x90, 0xf7, 0x78, 0x64, 0x14, 0x70, 0xdd, 0xaa,
-	0x99, 0x7f, 0xab, 0x33, 0x76, 0x4d, 0xe7, 0xcb, 0x0b, 0xeb, 0xd7, 0xf2, 0xe2, 0x79, 0x56, 0x98,
-	0xbc, 0x9d, 0xc4, 0x42, 0x56, 0x54, 0x48, 0x5d, 0x49, 0x3d, 0x7c, 0x5e, 0xe8, 0xf4, 0x2b, 0x35,
-	0xb3, 0x06, 0x74, 0x9c, 0xc8, 0xa2, 0x66, 0x3b, 0x01, 0x72, 0x83, 0x5d, 0x6d, 0xb8, 0x69, 0xb5,
-	0xef, 0x86, 0x28, 0x1a, 0x5f, 0xbd, 0x3a, 0xd2, 0x5d, 0x9f, 0x1d, 0x94, 0x45, 0x9d, 0x7d, 0xec,
-	0xe9, 0x6c, 0x90, 0xb9, 0x7c, 0x8c, 0x47, 0x5b, 0xab, 0xe4, 0x14, 0x3b, 0x9f, 0x41, 0x7b, 0x16,
-	0x71, 0xb1, 0xfd, 0x41, 0x7a, 0xe8, 0x92, 0x61, 0xef, 0x90, 0x48, 0xee, 0xe2, 0xdb, 0xc3, 0xbb,
-	0xde, 0x34, 0x50, 0x7b, 0x16, 0xb9, 0x87, 0xcf, 0x87, 0x43, 0x52, 0x4a, 0x0d, 0xa9, 0x87, 0xc8,
-	0x1d, 0x3c, 0x12, 0xb2, 0xaa, 0x0a, 0x03, 0xa9, 0x67, 0x77, 0x9b, 0x82, 0x29, 0xf0, 0x12, 0x52,
-	0xcf, 0xb9, 0x66, 0xf3, 0x55, 0x80, 0x16, 0xab, 0x00, 0xfd, 0x5e, 0x05, 0xe8, 0xfb, 0x3a, 0xb0,
-	0x16, 0xeb, 0xc0, 0xfa, 0xb9, 0x0e, 0xac, 0x2f, 0xaf, 0xff, 0x8a, 0xe3, 0xbf, 0xbf, 0xa2, 0xc9,
-	0xae, 0x56, 0xdf, 0xe8, 0xbe, 0x62, 0x7d, 0x48, 0x13, 0xb7, 0x2f, 0xc9, 0xcb, 0x3f, 0x01, 0x00,
-	0x00, 0xff, 0xff, 0xd1, 0x49, 0xf6, 0xb3, 0x7c, 0x02, 0x00, 0x00,
+	// 456 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x94, 0x93, 0x41, 0x6b, 0xd4, 0x40,
+	0x14, 0xc7, 0x33, 0x9b, 0x35, 0xdd, 0xbe, 0xda, 0x35, 0x1d, 0x44, 0x83, 0x42, 0xba, 0x2c, 0x88,
+	0x4b, 0xc1, 0x04, 0xea, 0xc1, 0xe2, 0xb1, 0x11, 0x54, 0x04, 0x0b, 0xe3, 0x41, 0x14, 0x04, 0xa7,
+	0x93, 0xc7, 0x6e, 0x30, 0xc9, 0x84, 0x99, 0x49, 0xb1, 0xdf, 0xc2, 0xa3, 0x1f, 0xa9, 0xc7, 0x1e,
+	0xc5, 0x43, 0x91, 0xdd, 0x2f, 0x22, 0x99, 0x86, 0xec, 0xba, 0xf5, 0xb0, 0x3d, 0xe5, 0xbd, 0xc9,
+	0xfc, 0x7f, 0x33, 0xef, 0xfd, 0xe7, 0xc1, 0x43, 0xc1, 0x55, 0x2a, 0x66, 0x3c, 0x2b, 0x63, 0x21,
+	0xeb, 0x52, 0x64, 0x79, 0x54, 0x29, 0x69, 0x24, 0x7d, 0xf2, 0x0a, 0x05, 0x96, 0x46, 0xf1, 0x3c,
+	0xe1, 0x2a, 0x7d, 0xcd, 0x0b, 0x8c, 0xba, 0xad, 0xcb, 0xe8, 0xd1, 0xfd, 0xa9, 0x9c, 0x4a, 0xab,
+	0x88, 0x9b, 0xe8, 0x5a, 0x3c, 0xfe, 0xe9, 0xc2, 0x56, 0x72, 0x8d, 0xa3, 0x0f, 0xc0, 0x6b, 0xb6,
+	0xbf, 0x4d, 0x03, 0x32, 0x22, 0x93, 0x3e, 0x6b, 0xb3, 0x66, 0xfd, 0x4c, 0x1a, 0x54, 0x3a, 0xe8,
+	0x8d, 0xc8, 0x64, 0x9b, 0xb5, 0x19, 0xfd, 0x02, 0xbb, 0x33, 0xae, 0x67, 0x0c, 0x75, 0x25, 0x4b,
+	0x8d, 0x3a, 0x70, 0x47, 0xee, 0x64, 0xe7, 0xf0, 0x45, 0xb4, 0xd1, 0x85, 0xa2, 0x8f, 0x8a, 0x57,
+	0x6f, 0x56, 0xf4, 0xec, 0x5f, 0x1a, 0xfd, 0x0a, 0x43, 0x91, 0x23, 0x57, 0x4b, 0x7e, 0xdf, 0xf2,
+	0x8f, 0x6e, 0xc1, 0x4f, 0x56, 0x01, 0x6c, 0x8d, 0x47, 0xdf, 0xc1, 0xc0, 0x28, 0xe4, 0xba, 0x56,
+	0xe7, 0xc1, 0x9d, 0xa6, 0xb4, 0xe3, 0xf8, 0xe2, 0x6a, 0xdf, 0xf9, 0x7d, 0xb5, 0xff, 0x74, 0x9a,
+	0x99, 0x59, 0x7d, 0x1a, 0x09, 0x59, 0xc4, 0x42, 0xea, 0x42, 0xea, 0xf6, 0xf3, 0x4c, 0xa7, 0xdf,
+	0x62, 0x73, 0x5e, 0xa1, 0x8e, 0x12, 0x99, 0x95, 0xac, 0x03, 0xd0, 0x13, 0xf0, 0xb4, 0xe1, 0xa6,
+	0xd6, 0x81, 0x37, 0x22, 0x93, 0xe1, 0xc6, 0x6d, 0xb0, 0xdd, 0xc7, 0x3c, 0x2b, 0xa7, 0x1f, 0xac,
+	0x9c, 0xb5, 0x98, 0xb1, 0x81, 0xbd, 0x1b, 0x25, 0x50, 0x0a, 0xfd, 0x5a, 0xa3, 0xb2, 0x0e, 0x6d,
+	0x33, 0x1b, 0x37, 0x65, 0xa8, 0xf6, 0xbf, 0x75, 0x68, 0x78, 0x18, 0x6f, 0x78, 0x76, 0xd7, 0x99,
+	0x0e, 0x30, 0x7e, 0x09, 0xfe, 0xba, 0x31, 0xff, 0x3d, 0x94, 0x42, 0xbf, 0xb1, 0xab, 0x7d, 0x12,
+	0x36, 0x3e, 0x78, 0x0c, 0x83, 0x4e, 0xb3, 0x05, 0xee, 0x27, 0xd4, 0xbe, 0x43, 0x3d, 0xe8, 0xbd,
+	0x97, 0x3e, 0x39, 0x60, 0xe0, 0xaf, 0x97, 0x4a, 0xef, 0xc1, 0x4e, 0xfb, 0x96, 0x4f, 0x2a, 0x2c,
+	0x7d, 0x87, 0xee, 0xc1, 0x6e, 0xbb, 0x90, 0xe4, 0x52, 0x63, 0xea, 0x13, 0x7a, 0x17, 0x06, 0x42,
+	0x16, 0x45, 0x66, 0x30, 0xf5, 0x7b, 0x4d, 0xa6, 0xf0, 0x0c, 0x79, 0x8e, 0xa9, 0xef, 0x1e, 0xb3,
+	0x8b, 0x79, 0x48, 0x2e, 0xe7, 0x21, 0xf9, 0x33, 0x0f, 0xc9, 0x8f, 0x45, 0xe8, 0x5c, 0x2e, 0x42,
+	0xe7, 0xd7, 0x22, 0x74, 0x3e, 0x1f, 0xad, 0x18, 0x78, 0xa3, 0x17, 0x71, 0xd2, 0x8d, 0xd2, 0xf7,
+	0x78, 0x39, 0x56, 0xd6, 0xd6, 0x53, 0xcf, 0x0e, 0xc6, 0xf3, 0xbf, 0x01, 0x00, 0x00, 0xff, 0xff,
+	0xd9, 0x5b, 0xee, 0x28, 0x70, 0x03, 0x00, 0x00,
 }
 
 func (m *Council) Marshal() (dAtA []byte, err error) {
@@ -230,28 +340,29 @@ func (m *Council) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i--
 	dAtA[i] = 0x2a
 	if len(m.ClearResponses) > 0 {
-		dAtA2 := make([]byte, len(m.ClearResponses)*10)
-		var j1 int
-		for _, num := range m.ClearResponses {
-			for num >= 1<<7 {
-				dAtA2[j1] = uint8(uint64(num)&0x7f | 0x80)
-				num >>= 7
-				j1++
+		for iNdEx := len(m.ClearResponses) - 1; iNdEx >= 0; iNdEx-- {
+			{
+				size, err := m.ClearResponses[iNdEx].MarshalToSizedBuffer(dAtA[:i])
+				if err != nil {
+					return 0, err
+				}
+				i -= size
+				i = encodeVarintCouncil(dAtA, i, uint64(size))
 			}
-			dAtA2[j1] = uint8(num)
-			j1++
+			i--
+			dAtA[i] = 0x22
 		}
-		i -= j1
-		copy(dAtA[i:], dAtA2[:j1])
-		i = encodeVarintCouncil(dAtA, i, uint64(j1))
-		i--
-		dAtA[i] = 0x22
 	}
 	if len(m.HashResponses) > 0 {
 		for iNdEx := len(m.HashResponses) - 1; iNdEx >= 0; iNdEx-- {
-			i -= len(m.HashResponses[iNdEx])
-			copy(dAtA[i:], m.HashResponses[iNdEx])
-			i = encodeVarintCouncil(dAtA, i, uint64(len(m.HashResponses[iNdEx])))
+			{
+				size, err := m.HashResponses[iNdEx].MarshalToSizedBuffer(dAtA[:i])
+				if err != nil {
+					return 0, err
+				}
+				i -= size
+				i = encodeVarintCouncil(dAtA, i, uint64(size))
+			}
 			i--
 			dAtA[i] = 0x1a
 		}
@@ -267,6 +378,78 @@ func (m *Council) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 		i = encodeVarintCouncil(dAtA, i, uint64(m.CardId))
 		i--
 		dAtA[i] = 0x8
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *WrapClearResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *WrapClearResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *WrapClearResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.Response != 0 {
+		i = encodeVarintCouncil(dAtA, i, uint64(m.Response))
+		i--
+		dAtA[i] = 0x10
+	}
+	if len(m.User) > 0 {
+		i -= len(m.User)
+		copy(dAtA[i:], m.User)
+		i = encodeVarintCouncil(dAtA, i, uint64(len(m.User)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *WrapHashResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *WrapHashResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *WrapHashResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.Hash) > 0 {
+		i -= len(m.Hash)
+		copy(dAtA[i:], m.Hash)
+		i = encodeVarintCouncil(dAtA, i, uint64(len(m.Hash)))
+		i--
+		dAtA[i] = 0x12
+	}
+	if len(m.User) > 0 {
+		i -= len(m.User)
+		copy(dAtA[i:], m.User)
+		i = encodeVarintCouncil(dAtA, i, uint64(len(m.User)))
+		i--
+		dAtA[i] = 0xa
 	}
 	return len(dAtA) - i, nil
 }
@@ -296,22 +479,54 @@ func (m *Council) Size() (n int) {
 		n += 1 + l + sovCouncil(uint64(l))
 	}
 	if len(m.HashResponses) > 0 {
-		for _, s := range m.HashResponses {
-			l = len(s)
+		for _, e := range m.HashResponses {
+			l = e.Size()
 			n += 1 + l + sovCouncil(uint64(l))
 		}
 	}
 	if len(m.ClearResponses) > 0 {
-		l = 0
 		for _, e := range m.ClearResponses {
-			l += sovCouncil(uint64(e))
+			l = e.Size()
+			n += 1 + l + sovCouncil(uint64(l))
 		}
-		n += 1 + sovCouncil(uint64(l)) + l
 	}
 	l = m.Treasury.Size()
 	n += 1 + l + sovCouncil(uint64(l))
 	if m.Status != 0 {
 		n += 1 + sovCouncil(uint64(m.Status))
+	}
+	return n
+}
+
+func (m *WrapClearResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.User)
+	if l > 0 {
+		n += 1 + l + sovCouncil(uint64(l))
+	}
+	if m.Response != 0 {
+		n += 1 + sovCouncil(uint64(m.Response))
+	}
+	return n
+}
+
+func (m *WrapHashResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.User)
+	if l > 0 {
+		n += 1 + l + sovCouncil(uint64(l))
+	}
+	l = len(m.Hash)
+	if l > 0 {
+		n += 1 + l + sovCouncil(uint64(l))
 	}
 	return n
 }
@@ -406,7 +621,7 @@ func (m *Council) Unmarshal(dAtA []byte) error {
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field HashResponses", wireType)
 			}
-			var stringLen uint64
+			var msglen int
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowCouncil
@@ -416,93 +631,60 @@ func (m *Council) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				stringLen |= uint64(b&0x7F) << shift
+				msglen |= int(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
-			intStringLen := int(stringLen)
-			if intStringLen < 0 {
+			if msglen < 0 {
 				return ErrInvalidLengthCouncil
 			}
-			postIndex := iNdEx + intStringLen
+			postIndex := iNdEx + msglen
 			if postIndex < 0 {
 				return ErrInvalidLengthCouncil
 			}
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.HashResponses = append(m.HashResponses, string(dAtA[iNdEx:postIndex]))
+			m.HashResponses = append(m.HashResponses, &WrapHashResponse{})
+			if err := m.HashResponses[len(m.HashResponses)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
 			iNdEx = postIndex
 		case 4:
-			if wireType == 0 {
-				var v Response
-				for shift := uint(0); ; shift += 7 {
-					if shift >= 64 {
-						return ErrIntOverflowCouncil
-					}
-					if iNdEx >= l {
-						return io.ErrUnexpectedEOF
-					}
-					b := dAtA[iNdEx]
-					iNdEx++
-					v |= Response(b&0x7F) << shift
-					if b < 0x80 {
-						break
-					}
-				}
-				m.ClearResponses = append(m.ClearResponses, v)
-			} else if wireType == 2 {
-				var packedLen int
-				for shift := uint(0); ; shift += 7 {
-					if shift >= 64 {
-						return ErrIntOverflowCouncil
-					}
-					if iNdEx >= l {
-						return io.ErrUnexpectedEOF
-					}
-					b := dAtA[iNdEx]
-					iNdEx++
-					packedLen |= int(b&0x7F) << shift
-					if b < 0x80 {
-						break
-					}
-				}
-				if packedLen < 0 {
-					return ErrInvalidLengthCouncil
-				}
-				postIndex := iNdEx + packedLen
-				if postIndex < 0 {
-					return ErrInvalidLengthCouncil
-				}
-				if postIndex > l {
-					return io.ErrUnexpectedEOF
-				}
-				var elementCount int
-				if elementCount != 0 && len(m.ClearResponses) == 0 {
-					m.ClearResponses = make([]Response, 0, elementCount)
-				}
-				for iNdEx < postIndex {
-					var v Response
-					for shift := uint(0); ; shift += 7 {
-						if shift >= 64 {
-							return ErrIntOverflowCouncil
-						}
-						if iNdEx >= l {
-							return io.ErrUnexpectedEOF
-						}
-						b := dAtA[iNdEx]
-						iNdEx++
-						v |= Response(b&0x7F) << shift
-						if b < 0x80 {
-							break
-						}
-					}
-					m.ClearResponses = append(m.ClearResponses, v)
-				}
-			} else {
+			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field ClearResponses", wireType)
 			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowCouncil
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthCouncil
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthCouncil
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ClearResponses = append(m.ClearResponses, &WrapClearResponse{})
+			if err := m.ClearResponses[len(m.ClearResponses)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
 		case 5:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Treasury", wireType)
@@ -556,6 +738,221 @@ func (m *Council) Unmarshal(dAtA []byte) error {
 					break
 				}
 			}
+		default:
+			iNdEx = preIndex
+			skippy, err := skipCouncil(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthCouncil
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *WrapClearResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowCouncil
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: WrapClearResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: WrapClearResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field User", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowCouncil
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthCouncil
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthCouncil
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.User = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Response", wireType)
+			}
+			m.Response = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowCouncil
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Response |= Response(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		default:
+			iNdEx = preIndex
+			skippy, err := skipCouncil(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthCouncil
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *WrapHashResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowCouncil
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: WrapHashResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: WrapHashResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field User", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowCouncil
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthCouncil
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthCouncil
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.User = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Hash", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowCouncil
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthCouncil
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthCouncil
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Hash = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
 			skippy, err := skipCouncil(dAtA[iNdEx:])
