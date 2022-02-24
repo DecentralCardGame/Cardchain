@@ -66,7 +66,11 @@ func ExportGenesis(ctx sdk.Context, k keeper.Keeper) *types.GenesisState {
 	matches := k.GetAllMatches(ctx)
 	councils := k.GetAllCouncils(ctx)
 	collections := k.GetAllCollections(ctx)
-	users, addresses := k.GetAllUsers(ctx)
+	users, accAddresses := k.GetAllUsers(ctx)
+	var addresses []string
+	for _, addr := range accAddresses {
+		addresses = append(addresses, addr.String())
+	}
 	return &types.GenesisState{
 		Params:           params,
 		CardRecords:      records,

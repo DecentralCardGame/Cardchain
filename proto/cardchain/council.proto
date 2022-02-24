@@ -7,7 +7,7 @@ option go_package = "github.com/DecentralCardGame/Cardchain/x/cardchain/types";
 
 message Council {
   uint64 cardId = 1;
-  string voters = 2;
+  repeated string voters = 2;
   repeated WrapHashResponse hashResponses = 3;
   repeated WrapClearResponse clearResponses = 4;
   string treasury = 5 [(gogoproto.nullable) = false, (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Coin"];;
@@ -31,7 +31,8 @@ enum Response {
 
 enum CouncelingStatus {
   councilOpen = 0;
-  councilClosed = 1;
-  commited = 2;
-  revealed = 3;
+  councilCreated = 1;
+  councilClosed = 2;
+  commited = 3;
+  revealed = 4;
 }

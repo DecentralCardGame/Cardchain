@@ -12223,7 +12223,9 @@ paths:
                 type: string
                 format: uint64
               voters:
-                type: string
+                type: array
+                items:
+                  type: string
               hashResponses:
                 type: array
                 items:
@@ -12252,6 +12254,7 @@ paths:
                 type: string
                 enum:
                   - councilOpen
+                  - councilCreated
                   - councilClosed
                   - commited
                   - revealed
@@ -20592,6 +20595,7 @@ definitions:
     type: string
     enum:
       - councilOpen
+      - councilCreated
       - councilClosed
       - commited
       - revealed
@@ -20603,7 +20607,9 @@ definitions:
         type: string
         format: uint64
       voters:
-        type: string
+        type: array
+        items:
+          type: string
       hashResponses:
         type: array
         items:
@@ -20632,6 +20638,7 @@ definitions:
         type: string
         enum:
           - councilOpen
+          - councilCreated
           - councilClosed
           - commited
           - revealed

@@ -674,9 +674,9 @@ func (k Keeper) GetUsersIterator(ctx sdk.Context) sdk.Iterator {
 	return sdk.KVStorePrefixIterator(store, nil)
 }
 
-func (k Keeper) GetAllUsers(ctx sdk.Context) ([]*types.User, []string) {
+func (k Keeper) GetAllUsers(ctx sdk.Context) ([]*types.User, []sdk.AccAddress) {
 	var allUsers []*types.User
-	var allAddresses []string
+	var allAddresses []sdk.AccAddress
 
 	iterator := k.GetUsersIterator(ctx)
 	for ; iterator.Valid(); iterator.Next() {
@@ -685,7 +685,7 @@ func (k Keeper) GetAllUsers(ctx sdk.Context) ([]*types.User, []string) {
 		k.cdc.MustUnmarshal(iterator.Value(), &gottenUser)
 
 		allUsers = append(allUsers, &gottenUser)
-		allAddresses = append(allAddresses, sdk.AccAddress(iterator.Key()).String())
+		allAddresses = append(allAddresses, sdk.AccAddress(iterator.Key()))
 	}
 	return allUsers, allAddresses
 }
