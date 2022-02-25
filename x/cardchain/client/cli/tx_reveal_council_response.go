@@ -17,7 +17,7 @@ func CmdRevealCouncilResponse() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "reveal-council-response [councilId] [response] [secret]",
 		Short: "Broadcast message RevealCouncilResponse",
-		Args:  cobra.ExactArgs(1),
+		Args:  cobra.ExactArgs(3),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
 			argCouncilId, err := cast.ToUint64E(args[0])
 			if err != nil {

@@ -23,4 +23,5 @@ var (
 	ErrNoOpenSellOffer         = sdkerrors.Register(ModuleName, 12, "No open sell-offer")
 	ErrInvalidCardStatus       = sdkerrors.Register(ModuleName, 13, "Invalid card-status")
 	ErrInvalidUserStatus       = sdkerrors.Register(ModuleName, 14, "Invalid user-status")
+	ErrBadReveal               = sdkerrors.Register(ModuleName, 15, "Reveal does not fit commit")
 )
