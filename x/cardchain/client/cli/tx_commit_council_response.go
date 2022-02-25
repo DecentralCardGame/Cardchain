@@ -19,7 +19,7 @@ func CmdCommitCouncilResponse() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "commit-council-response [councilId] [response] [secret]",
 		Short: "Broadcast message CommitCouncilResponse",
-		Args:  cobra.ExactArgs(2),
+		Args:  cobra.ExactArgs(3),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
 			argCouncilId, err := cast.ToUint64E(args[0])
 			if err != nil {
