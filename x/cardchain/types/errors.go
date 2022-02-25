@@ -22,4 +22,5 @@ var (
 	ErrContributor             = sdkerrors.Register(ModuleName, 11, "Contributor error")
 	ErrNoOpenSellOffer         = sdkerrors.Register(ModuleName, 12, "No open sell-offer")
 	ErrInvalidCardStatus       = sdkerrors.Register(ModuleName, 13, "Invalid card-status")
+	ErrInvalidUserStatus       = sdkerrors.Register(ModuleName, 14, "Invalid user-status")
 )

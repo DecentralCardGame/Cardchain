@@ -51,14 +51,21 @@ func (k msgServer) CreateCouncil(goCtx context.Context, msg *types.MsgCreateCoun
 		fiveVoters = possibleVoters[:5]
 	}
 
-	for _, user := range fiveVoters {
-		voters = append(voters, user.Addr.String())
-	}
-
 	err = k.BurnCoinsFromAddr(ctx, creator.Addr, sdk.Coins{treasury})
 	if err != nil {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrInsufficientFunds, "Creator does not have enough coins")
 	}
+
+	for _, user := range fiveVoters {
+		if status == types.CouncelingStatus_councilOpen {
+			user.CouncilStatus = types.CouncilStatus_openCouncil
+		} else {
+			user.CouncilStatus = types.CouncilStatus_startedCouncil
+		}
+		k.SetUserFromUser(ctx, user)
+		voters = append(voters, user.Addr.String())
+	}
+
 
 	council := types.Council{
 		CardId: msg.CardId,

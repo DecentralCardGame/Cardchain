@@ -39,7 +39,8 @@ func NewHandler(k keeper.Keeper) sdk.Handler {
 		case *types.MsgChangeArtist:
 			return handleMsgChangeArtist(ctx, k, msg)
 		case *types.MsgRegisterForCouncil:
-			return handleMsgRegisterForCouncil(ctx, k, msg)
+			res, err := msgServer.RegisterForCouncil(sdk.WrapSDKContext(ctx), msg)
+			return sdk.WrapServiceResult(ctx, res, err)
 		case *types.MsgReportMatch:
 			return handleMsgReportMatch(ctx, k, msg)
 		// case *types.MsgApointMatchReporter:  // Will be uncommented later when I know how to check for module account
@@ -163,20 +164,6 @@ func handleMsgReportMatch(ctx sdk.Context, k keeper.Keeper, msg *types.MsgReport
 	k.SetGeneralValue(ctx, keeper.Games24ValueKey, games+1)
 
 	return sdk.WrapServiceResult(ctx, &types.MsgReportMatchResponse{matchId}, nil)
-}
-
-func handleMsgRegisterForCouncil(ctx sdk.Context, keeper keeper.Keeper, msg *types.MsgRegisterForCouncil) (*sdk.Result, error) {
-	user, err := keeper.GetUserFromString(ctx, msg.Creator)
-	if err != nil {
-		return nil, err
-	}
-
-	if user.CouncilStatus == types.CouncilStatus_unavailable {
-		user.CouncilStatus = types.CouncilStatus_available
-	}
-
-	keeper.SetUserFromUser(ctx, user)
-	return &sdk.Result{}, nil
 }
 
 func handleMsgChangeArtist(ctx sdk.Context, keeper keeper.Keeper, msg *types.MsgChangeArtist) (*sdk.Result, error) {
