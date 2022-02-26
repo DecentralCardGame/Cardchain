@@ -97,10 +97,25 @@ func (k msgServer) RevealCouncilResponse(goCtx context.Context, msg *types.MsgRe
 			council.Status = types.CouncelingStatus_councilClosed
 		} else {
 			card := k.GetCard(ctx, council.CardId)
+			card.Voters = []string{}
+			card.FairEnoughVotes = 0
+			card.OverpoweredVotes = 0
+			card.UnderpoweredVotes = 0
+			card.InappropriateVotes = 0
 			card.VotePool = card.VotePool.Add(votePool)
 			card.Status = types.Status_trial
 			k.SetCard(ctx, council.CardId, card)
+			council.TrialStart = uint64(ctx.BlockHeight())
 			council.Treasury = council.Treasury.Sub(votePool)
+		}
+		for _, addr := range council.Voters {
+			user, err := k.GetUserFromString(ctx, addr)
+			if err != nil {
+				return nil, err
+			}
+			user.CouncilStatus = types.CouncilStatus_available
+			user.Cards = append(user.Cards, council.CardId)
+			k.SetUserFromUser(ctx, user)
 		}
 	}
 

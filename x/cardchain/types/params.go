@@ -33,6 +33,7 @@ func NewParams() Params {
 		RaresPerPack:               1,
 		CommonsPerPack:             9,
 		UnCommonsPerPack:           3,
+		TrialPeriod:								100, // 14*24*500
 	}
 }
 
@@ -57,6 +58,7 @@ func (p *Params) ParamSetPairs() paramtypes.ParamSetPairs {
 		paramtypes.NewParamSetPair([]byte("RaresPerPack"), &p.RaresPerPack, validatePerPack),
 		paramtypes.NewParamSetPair([]byte("CommonsPerPack"), &p.CommonsPerPack, validatePerPack),
 		paramtypes.NewParamSetPair([]byte("UnCommonsPerPack"), &p.UnCommonsPerPack, validatePerPack),
+		paramtypes.NewParamSetPair([]byte("TrialPeriod"), &p.TrialPeriod, validateTrialPeriod),
 	}
 }
 
@@ -118,6 +120,19 @@ func validateActiveCollectionsAmount(i interface{}) error {
 
 	if v == 0 {
 		return fmt.Errorf("invalid ActiveCollectionsAmount: %d", v)
+	}
+
+	return nil
+}
+
+func validateTrialPeriod(i interface{}) error {
+	v, ok := i.(uint64)
+	if !ok {
+		return fmt.Errorf("invalid parameter type: %T", i)
+	}
+
+	if v == 0 {
+		return fmt.Errorf("invalid TrialPeriod: %d", v)
 	}
 
 	return nil

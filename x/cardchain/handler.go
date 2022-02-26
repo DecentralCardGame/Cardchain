@@ -328,6 +328,7 @@ func handleMsgVoteCard(ctx sdk.Context, k keeper.Keeper, msg *types.MsgVoteCard)
 		errMsg := fmt.Sprintf("Unrecognized card vote type: %s", msg.VoteType)
 		return nil, sdkerrors.Wrap(sdkerrors.ErrUnknownRequest, errMsg)
 	}
+	card.Voters = append(card.Voters, msg.Creator)
 
 	// check for specific bounty on the card
 	if !card.VotePool.IsZero() {

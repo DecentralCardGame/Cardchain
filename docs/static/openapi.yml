@@ -11888,6 +11888,9 @@ paths:
                   unCommonsPerPack:
                     type: string
                     format: uint64
+                  trialPeriod:
+                    type: string
+                    format: uint64
             description: >-
               QueryParamsResponse is response type for the Query/Params RPC
               method.
@@ -11950,6 +11953,10 @@ paths:
                 default: scheme
               votePool:
                 type: string
+              voters:
+                type: array
+                items:
+                  type: string
               fairEnoughVotes:
                 type: string
                 format: uint64
@@ -12259,6 +12266,9 @@ paths:
                   - commited
                   - revealed
                 default: councilOpen
+              trialStart:
+                type: string
+                format: uint64
         default:
           description: An unexpected error response.
           schema:
@@ -20542,6 +20552,10 @@ definitions:
         default: scheme
       votePool:
         type: string
+      voters:
+        type: array
+        items:
+          type: string
       fairEnoughVotes:
         type: string
         format: uint64
@@ -20643,6 +20657,9 @@ definitions:
           - commited
           - revealed
         default: councilOpen
+      trialStart:
+        type: string
+        format: uint64
   DecentralCardGame.cardchain.cardchain.CouncilStatus:
     type: string
     enum:
@@ -20778,6 +20795,9 @@ definitions:
       unCommonsPerPack:
         type: string
         format: uint64
+      trialPeriod:
+        type: string
+        format: uint64
     description: Params defines the parameters for the module.
   DecentralCardGame.cardchain.cardchain.QueryParamsResponse:
     type: object
@@ -20816,6 +20836,9 @@ definitions:
             type: string
             format: uint64
           unCommonsPerPack:
+            type: string
+            format: uint64
+          trialPeriod:
             type: string
             format: uint64
     description: QueryParamsResponse is response type for the Query/Params RPC method.

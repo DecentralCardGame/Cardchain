@@ -12,6 +12,7 @@ message Council {
   repeated WrapClearResponse clearResponses = 4;
   string treasury = 5 [(gogoproto.nullable) = false, (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Coin"];;
   CouncelingStatus status = 6;
+  uint64 trialStart = 7;
 }
 
 message WrapClearResponse {

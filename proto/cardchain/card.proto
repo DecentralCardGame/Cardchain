@@ -15,6 +15,7 @@ message Card {
   string notes = 6;
   Status status = 7;
   string votePool = 8 [(gogoproto.nullable) = false, (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Coin"];;
+  repeated string voters = 14;
   uint64 fairEnoughVotes = 9;
   uint64 overpoweredVotes = 10;
   uint64 underpoweredVotes = 11;

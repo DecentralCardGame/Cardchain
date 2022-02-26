@@ -104,8 +104,8 @@ const (
 	Name                 = "Cardchain"
 	BondDenom            = "bpf"
 	// epochBlockTime defines how many blocks are one buffnerf epoch
-	epochBlockTime = 86000 // this is 1 week with 7s block time
-	// epochBlockTime = 5		// this is great for debugging
+	// epochBlockTime = 86000 // this is 1 week with 7s block time
+	epochBlockTime = 5		// this is great for debugging
 )
 
 // this line is used by starport scaffolding # stargate/wasm/app/enabledProposals
@@ -559,6 +559,11 @@ func (app *App) EndBlocker(ctx sdk.Context, req abci.RequestEndBlock) abci.Respo
 	if app.LastBlockHeight()%(24*500) == 0 { //Dayly game/vote reset
 		app.CardchainKeeper.SetGeneralValue(ctx, cardchainmodulekeeper.Votes24ValueKey, 0)
 		app.CardchainKeeper.SetGeneralValue(ctx, cardchainmodulekeeper.Games24ValueKey, 0)
+	}
+
+	err := app.CardchainKeeper.CheckTrial(ctx)
+	if err != nil {
+		app.CardchainKeeper.Logger(ctx).Error(fmt.Sprintf("%s", err))
 	}
 
 	return app.mm.EndBlock(ctx, req)
