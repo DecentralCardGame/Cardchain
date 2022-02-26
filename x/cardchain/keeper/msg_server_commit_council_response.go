@@ -11,6 +11,13 @@ import (
 func (k msgServer) CommitCouncilResponse(goCtx context.Context, msg *types.MsgCommitCouncilResponse) (*types.MsgCommitCouncilResponseResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
+	colDep := k.GetParams(ctx).CollateralDeposit
+
+	creator, err := k.GetUserFromString(ctx, msg.Creator)
+	if err != nil {
+		return nil, err
+	}
+
 	council := k.GetCouncil(ctx, msg.CouncilId)
 	if !stringItemInList(msg.Creator, council.Voters) {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "Invalid Voter")
@@ -31,6 +38,13 @@ func (k msgServer) CommitCouncilResponse(goCtx context.Context, msg *types.MsgCo
 	if len(council.HashResponses) == 5 {
 		council.Status = types.CouncelingStatus_commited
 	}
+
+	err = k.BurnCoinsFromAddr(ctx, creator.Addr, sdk.Coins{colDep})
+	if err != nil {
+		return nil, sdkerrors.Wrap(sdkerrors.ErrInsufficientFunds, "Voter does not have enough coins")
+	}
+	council.Treasury = council.Treasury.Add(colDep)
+
 	k.SetCouncil(ctx, msg.CouncilId, council)
 
 	return &types.MsgCommitCouncilResponseResponse{}, nil

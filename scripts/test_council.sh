@@ -14,14 +14,14 @@ done
 
 for i in {0..5}
 do
-Cardchaind tx cardchain commit-council-response 0 No abc --from $i
+Cardchaind tx cardchain commit-council-response 0 Yes $i --from $i
 done
 
 Cardchaind q cardchain q-council 0
 
 for i in {0..5}
 do
-Cardchaind tx cardchain reveal-council-response 0 No abc --from $i
+Cardchaind tx cardchain reveal-council-response 0 Yes $i --from $i
 done
 
 Cardchaind q cardchain q-council 0
