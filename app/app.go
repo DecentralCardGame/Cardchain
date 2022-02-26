@@ -104,8 +104,8 @@ const (
 	Name                 = "Cardchain"
 	BondDenom            = "bpf"
 	// epochBlockTime defines how many blocks are one buffnerf epoch
-	// epochBlockTime = 86000 // this is 1 week with 7s block time
-	epochBlockTime = 5		// this is great for debugging
+	epochBlockTime = 86000 // this is 1 week with 7s block time
+	// epochBlockTime = 5		// this is great for debugging
 )
 
 // this line is used by starport scaffolding # stargate/wasm/app/enabledProposals

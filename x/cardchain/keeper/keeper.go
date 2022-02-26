@@ -779,12 +779,13 @@ func (k Keeper) ResetAllVotes(ctx sdk.Context) {
 	for ; iterator.Valid(); iterator.Next() {
 		var resetCard types.Card
 		k.cdc.MustUnmarshal(iterator.Value(), &resetCard)
-
-		resetCard.Voters = []string{}
-		resetCard.FairEnoughVotes = 0
-		resetCard.OverpoweredVotes = 0
-		resetCard.UnderpoweredVotes = 0
-		resetCard.InappropriateVotes = 0
+			if resetCard.Status != types.Status_trial {
+			resetCard.Voters = []string{}
+			resetCard.FairEnoughVotes = 0
+			resetCard.OverpoweredVotes = 0
+			resetCard.UnderpoweredVotes = 0
+			resetCard.InappropriateVotes = 0
+		}
 
 		store.Set(iterator.Key(), k.cdc.MustMarshal(&resetCard))
 	}

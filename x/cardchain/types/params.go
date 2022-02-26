@@ -33,7 +33,7 @@ func NewParams() Params {
 		RaresPerPack:               1,
 		CommonsPerPack:             9,
 		UnCommonsPerPack:           3,
-		TrialPeriod:								100, // 14*24*500
+		TrialPeriod:								14*24*500,
 	}
 }
 
