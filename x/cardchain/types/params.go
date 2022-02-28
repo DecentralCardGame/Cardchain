@@ -106,7 +106,7 @@ func validateCollectionPrice(i interface{}) error {
 	}
 
 	if v == sdk.NewInt64Coin("ucredits", 0) {
-		return fmt.Errorf("invalid CollectionPrice: %d", v)
+		return fmt.Errorf("invalid CollectionPrice: %v", v)
 	}
 
 	return nil
@@ -158,7 +158,7 @@ func validateCollectionCreationFee(i interface{}) error {
 	}
 
 	if v == sdk.NewInt64Coin("ucredits", 0) {
-		return fmt.Errorf("invalid CollectionCreationFee: %d", v)
+		return fmt.Errorf("invalid CollectionCreationFee: %v", v)
 	}
 
 	return nil
@@ -171,7 +171,7 @@ func validateCollateralDeposit(i interface{}) error {
 	}
 
 	if v == sdk.NewInt64Coin("ucredits", 0) {
-		return fmt.Errorf("invalid CollateralDeposit: %d", v)
+		return fmt.Errorf("invalid CollateralDeposit: %v", v)
 	}
 
 	return nil
@@ -184,7 +184,7 @@ func validateWinnerReward(i interface{}) error {
 	}
 
 	if v == sdk.NewInt64Coin("ucredits", 0) {
-		return fmt.Errorf("invalid WinnerReward: %d", v)
+		return fmt.Errorf("invalid WinnerReward: %v", v)
 	}
 
 	return nil
@@ -197,7 +197,7 @@ func validateVoterReward(i interface{}) error {
 	}
 
 	if v == sdk.NewInt64Coin("ucredits", 0) {
-		return fmt.Errorf("invalid VoterReward: %d", v)
+		return fmt.Errorf("invalid VoterReward: %v", v)
 	}
 
 	return nil
@@ -210,7 +210,7 @@ func validateHourlyFaucet(i interface{}) error {
 	}
 
 	if v == sdk.NewInt64Coin("ucredits", 0) {
-		return fmt.Errorf("invalid HourlyFaucet: %d", v)
+		return fmt.Errorf("invalid HourlyFaucet: %v", v)
 	}
 
 	return nil
@@ -223,7 +223,7 @@ func validateInflationRate(i interface{}) error {
 	}
 	_, err := strconv.ParseFloat(v, 8)
 	if err != nil {
-		return fmt.Errorf("invalid parameter: %s", err)
+		return fmt.Errorf("invalid parameter: %d", err)
 	}
 	return nil
 }
