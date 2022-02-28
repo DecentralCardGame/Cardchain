@@ -230,8 +230,8 @@ func (k Keeper) CalculateMatchReward(ctx sdk.Context, outcome types.Outcome) (am
 	} else if outcome == types.Outcome_BWon {
 		amB = rew
 	} else if outcome == types.Outcome_Draw {
-		amA = sdk.NewCoin(rew.Denom, rew.Amount.Quo(sdk.NewInt(2)))
-		amB = sdk.NewCoin(rew.Denom, rew.Amount.Quo(sdk.NewInt(2)))
+		amA = QuoCoin(rew, 2)
+		amB = QuoCoin(rew, 2)
 	}
 	return
 }
@@ -464,7 +464,7 @@ func (k Keeper) CheckTrial(ctx sdk.Context) error {
 				k.SetPool(ctx, PublicPoolKey, pool)
 				council.Treasury = council.Treasury.Sub(council.Treasury)
 
-				incentive := sdk.Coin{card.VotePool.Denom, card.VotePool.Amount.Quo(sdk.NewInt(int64(len(card.Voters))))}
+				incentive := QuoCoin(card.VotePool, int64(len(card.Voters)))
 				for _, user := range card.Voters {
 					addr, err := sdk.AccAddressFromBech32(user)
 					if err != nil {

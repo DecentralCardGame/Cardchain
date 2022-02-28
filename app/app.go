@@ -532,7 +532,7 @@ func (app *App) BeginBlocker(ctx sdk.Context, req abci.RequestBeginBlock) abci.R
 func (app *App) EndBlocker(ctx sdk.Context, req abci.RequestEndBlock) abci.ResponseEndBlock {
 	// update the price of card auction (currently 1% decay per block)
 	price := app.CardchainKeeper.GetCardAuctionPrice(ctx)
-	newprice := price.Sub(sdk.NewCoin("ucredits", price.Amount.Quo(sdk.NewInt(100))))
+	newprice := price.Sub(cardchainmodulekeeper.QuoCoin(price, 100))
 	if !newprice.IsLT(sdk.NewInt64Coin("ucredits", 1000000)) { // stop at 1 credit
 		app.CardchainKeeper.SetCardAuctionPrice(ctx, newprice)
 	}
@@ -547,10 +547,10 @@ func (app *App) EndBlocker(ctx sdk.Context, req abci.RequestEndBlock) abci.Respo
 	if app.LastBlockHeight()%500 == 0 { //HourlyFaucet
 		app.CardchainKeeper.AddPoolCredits(ctx, cardchainmodulekeeper.PublicPoolKey, app.CardchainKeeper.GetParams(ctx).HourlyFaucet)
 
-		incentives := sdk.NewCoin("ucredits", app.CardchainKeeper.GetPool(ctx, cardchainmodulekeeper.PublicPoolKey).Amount.Quo(sdk.NewInt(10)))
+		incentives := cardchainmodulekeeper.QuoCoin(app.CardchainKeeper.GetPool(ctx, cardchainmodulekeeper.PublicPoolKey), 10)
 		app.CardchainKeeper.SubPoolCredits(ctx, cardchainmodulekeeper.PublicPoolKey, incentives)
-		winnersIncentives := sdk.NewInt64Coin("ucredits", int64(float32(incentives.Amount.Int64())*app.CardchainKeeper.GetWinnerIncentives(ctx)))
-		balancersIncentives := sdk.NewInt64Coin("ucredits", int64(float32(incentives.Amount.Int64())*app.CardchainKeeper.GetBalancerIncentives(ctx)))
+		winnersIncentives := cardchainmodulekeeper.MulCoinFloat(incentives, float64(app.CardchainKeeper.GetWinnerIncentives(ctx)))
+		balancersIncentives := cardchainmodulekeeper.MulCoinFloat(incentives, float64(app.CardchainKeeper.GetBalancerIncentives(ctx)))
 		app.CardchainKeeper.AddPoolCredits(ctx, cardchainmodulekeeper.WinnersPoolKey, winnersIncentives)
 		app.CardchainKeeper.AddPoolCredits(ctx, cardchainmodulekeeper.BalancersPoolKey, balancersIncentives)
 		app.CardchainKeeper.Logger(ctx).Info(fmt.Sprintf(":: PublicPool: %s", app.CardchainKeeper.GetPool(ctx, cardchainmodulekeeper.PublicPoolKey)))
