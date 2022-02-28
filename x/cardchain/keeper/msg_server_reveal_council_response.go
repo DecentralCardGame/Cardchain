@@ -88,9 +88,7 @@ func (k msgServer) RevealCouncilResponse(goCtx context.Context, msg *types.MsgRe
 				}
 				council.Treasury = council.Treasury.Sub(bounty)
 			}
-			pool := k.GetPool(ctx, PublicPoolKey)
-			pool = pool.Add(council.Treasury)
-			k.SetPool(ctx, PublicPoolKey, pool)
+			k.AddPoolCredits(ctx, PublicPoolKey, council.Treasury)
 			council.Treasury = council.Treasury.Sub(council.Treasury)
 			council.Status = types.CouncelingStatus_councilClosed
 		} else {
