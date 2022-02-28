@@ -530,7 +530,7 @@ func (app *App) BeginBlocker(ctx sdk.Context, req abci.RequestBeginBlock) abci.R
 // EndBlocker application updates every end block
 func (app *App) EndBlocker(ctx sdk.Context, req abci.RequestEndBlock) abci.ResponseEndBlock {
 	// update the price of card auction (currently 1% decay per block)
-	price := app.CardchainKeeper.GetCardAuctionPrice(ctx)
+	price := app.CardchainKeeper.GetCardAuctionPrice(ctx)  // TODO intervall
 	newprice := price.Sub(sdk.NewCoin("ucredits", price.Amount.Quo(sdk.NewInt(100))))
 	if !newprice.IsLT(sdk.NewInt64Coin("ucredits", 1000000)) { // stop at 1 credit
 		app.CardchainKeeper.SetCardAuctionPrice(ctx, newprice)
