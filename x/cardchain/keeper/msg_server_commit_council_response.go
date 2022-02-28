@@ -23,6 +23,10 @@ func (k msgServer) CommitCouncilResponse(goCtx context.Context, msg *types.MsgCo
 		return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "Invalid Voter")
 	}
 
+	if council.Status != types.CouncelingStatus_councilCreated {
+		return nil, sdkerrors.Wrapf(types.ErrCouncilStatus, "Have '%s', want '%s'", council.Status.String(), types.CouncelingStatus_councilCreated.String())
+	}
+
 	var allreadyVoted []string
 	for _, response := range council.HashResponses {
 		allreadyVoted = append(allreadyVoted, response.User)

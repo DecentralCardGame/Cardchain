@@ -25,6 +25,10 @@ func (k msgServer) RevealCouncilResponse(goCtx context.Context, msg *types.MsgRe
 		return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "Invalid Voter")
 	}
 
+	if council.Status != types.CouncelingStatus_commited {
+		return nil, sdkerrors.Wrapf(types.ErrCouncilStatus, "Have '%s', want '%s'", council.Status.String(), types.CouncelingStatus_commited.String())
+	}
+
 	response := msg.Response.String()
 	clearResponse := response + msg.Secret
 	hashResponse := sha256.Sum256([]byte(clearResponse))
