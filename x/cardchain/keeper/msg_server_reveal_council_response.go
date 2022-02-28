@@ -82,11 +82,7 @@ func (k msgServer) RevealCouncilResponse(goCtx context.Context, msg *types.MsgRe
 		votePool := MulCoin(colDep, 5)
 		if nrNo > nrYes {
 			for _, user := range deniers {
-				addr, err := sdk.AccAddressFromBech32(user)
-				if err != nil {
-					return nil, sdkerrors.Wrap(types.ErrInvalidAccAddress, "Unable to convert to AccAddress")
-				}
-				err = k.MintCoinsToAddr(ctx, addr, sdk.Coins{bounty})
+				err = k.MintCoinsToString(ctx, user, sdk.Coins{bounty})
 				if err != nil {
 					return nil, err
 				}

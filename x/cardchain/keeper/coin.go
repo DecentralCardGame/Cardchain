@@ -3,6 +3,7 @@ package keeper
 import (
   "github.com/DecentralCardGame/Cardchain/x/cardchain/types"
   sdk "github.com/cosmos/cosmos-sdk/types"
+  sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 )
 
 // MulCoin multiplies a Coin with an int
@@ -50,4 +51,30 @@ func (k Keeper) BurnCoinsFromAddr(ctx sdk.Context, addr sdk.AccAddress, amounts 
 		return err
 	}
 	return nil
+}
+
+// MintCoinsToString adds coins to an Account
+func (k Keeper) MintCoinsToString(ctx sdk.Context, user string, amounts sdk.Coins) error {
+  addr, err := sdk.AccAddressFromBech32(user)
+  if err != nil {
+    return sdkerrors.Wrap(types.ErrInvalidAccAddress, "Unable to convert to AccAddress")
+  }
+  err = k.MintCoinsToAddr(ctx, addr, amounts)
+  if err != nil {
+    return err
+  }
+  return nil
+}
+
+// BurnCoinsFromString adds coins to an Account
+func (k Keeper) BurnCoinsFromString(ctx sdk.Context, user string, amounts sdk.Coins) error {
+  addr, err := sdk.AccAddressFromBech32(user)
+  if err != nil {
+    return sdkerrors.Wrap(types.ErrInvalidAccAddress, "Unable to convert to AccAddress")
+  }
+  err = k.BurnCoinsFromAddr(ctx, addr, amounts)
+  if err != nil {
+    return err
+  }
+  return nil
 }

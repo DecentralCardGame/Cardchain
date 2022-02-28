@@ -332,13 +332,9 @@ func (k Keeper) CollectCollectionCreationFee(ctx sdk.Context, creator string) er
 }
 
 func (k Keeper) CollectCollectionFee(ctx sdk.Context, price sdk.Coin, creator string) error {
-	contributor, err := sdk.AccAddressFromBech32(creator)
+	err := k.BurnCoinsFromString(ctx, creator, sdk.Coins{price})
 	if err != nil {
-		return sdkerrors.Wrap(types.ErrInvalidAccAddress, "Unable to convert to AccAddress")
-	}
-	err = k.BurnCoinsFromAddr(ctx, contributor, sdk.Coins{price})
-	if err != nil {
-		return sdkerrors.Wrap(sdkerrors.ErrInsufficientFunds, "Creator does not have enough coins")
+		return err
 	}
 	k.AddPoolCredits(ctx, PublicPoolKey, price)
 	return nil
@@ -452,11 +448,10 @@ func (k Keeper) CheckTrial(ctx sdk.Context) error {
 
 				bounty := MulCoin(colDep, amt)
 				for _, user := range group {
-					addr, err := sdk.AccAddressFromBech32(user)
+					err := k.MintCoinsToString(ctx, user, sdk.Coins{bounty})
 					if err != nil {
-						return sdkerrors.Wrap(types.ErrInvalidAccAddress, "Unable to convert to AccAddress")
+						return nil
 					}
-					k.MintCoinsToAddr(ctx, addr, sdk.Coins{bounty})
 					council.Treasury = council.Treasury.Sub(bounty)
 				}
 				pool := k.GetPool(ctx, PublicPoolKey)
@@ -466,11 +461,10 @@ func (k Keeper) CheckTrial(ctx sdk.Context) error {
 
 				incentive := QuoCoin(card.VotePool, int64(len(card.Voters)))
 				for _, user := range card.Voters {
-					addr, err := sdk.AccAddressFromBech32(user)
+					err := k.MintCoinsToString(ctx, user, sdk.Coins{incentive})
 					if err != nil {
-						return sdkerrors.Wrap(types.ErrInvalidAccAddress, "Unable to convert to AccAddress")
+						return nil
 					}
-					k.MintCoinsToAddr(ctx, addr, sdk.Coins{incentive})
 				}
 				card.VotePool = card.VotePool.Sub(card.VotePool)
 				council.Status = types.CouncelingStatus_councilClosed

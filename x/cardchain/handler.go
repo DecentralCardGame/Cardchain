@@ -205,12 +205,7 @@ func handleMsgAddArtwork(ctx sdk.Context, keeper keeper.Keeper, msg *types.MsgAd
 }
 
 func handleMsgDonateToCard(ctx sdk.Context, keeper keeper.Keeper, msg *types.MsgDonateToCard) (*sdk.Result, error) {
-	donator, err := sdk.AccAddressFromBech32(msg.Creator)
-	if err != nil {
-		return nil, sdkerrors.Wrap(types.ErrInvalidAccAddress, "Unable to convert to AccAddress")
-	}
-
-	err = keeper.BurnCoinsFromAddr(ctx, donator, sdk.Coins{msg.Amount}) // If so, deduct the Bid amount from the sender
+	err := keeper.BurnCoinsFromString(ctx, msg.Creator, sdk.Coins{msg.Amount}) // If so, deduct the Bid amount from the sender
 	if err != nil {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrInsufficientFunds, "Donator does not have enough coins")
 	}
