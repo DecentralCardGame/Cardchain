@@ -1,8 +1,6 @@
 package keeper
 
 import (
-	"crypto/sha256"
-	"encoding/hex"
 	"context"
 
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
@@ -29,10 +27,7 @@ func (k msgServer) RevealCouncilResponse(goCtx context.Context, msg *types.MsgRe
 		return nil, sdkerrors.Wrapf(types.ErrCouncilStatus, "Have '%s', want '%s'", council.Status.String(), types.CouncelingStatus_commited.String())
 	}
 
-	response := msg.Response.String()
-	clearResponse := response + msg.Secret
-	hashResponse := sha256.Sum256([]byte(clearResponse))
-	hashStringResponse := hex.EncodeToString(hashResponse[:])
+	hashStringResponse := GetResponseHash(msg.Response, msg.Secret)
 
 	var origHash string
 	for _, hash := range council.HashResponses {
@@ -83,15 +78,18 @@ func (k msgServer) RevealCouncilResponse(goCtx context.Context, msg *types.MsgRe
 				deniers = append(deniers, response.User)
 			}
 		}
-		bounty := sdk.Coin{colDep.Denom, colDep.Amount.Mul(sdk.NewInt(2))}
-		votePool := sdk.Coin{colDep.Denom, colDep.Amount.Mul(sdk.NewInt(5))}
+		bounty := MulCoin(colDep, 2)
+		votePool := MulCoin(colDep, 5)
 		if nrNo > nrYes {
 			for _, user := range deniers {
 				addr, err := sdk.AccAddressFromBech32(user)
 				if err != nil {
 					return nil, sdkerrors.Wrap(types.ErrInvalidAccAddress, "Unable to convert to AccAddress")
 				}
-				k.MintCoinsToAddr(ctx, addr, sdk.Coins{bounty})
+				err = k.MintCoinsToAddr(ctx, addr, sdk.Coins{bounty})
+				if err != nil {
+					return nil, err
+				}
 				council.Treasury = council.Treasury.Sub(bounty)
 			}
 			pool := k.GetPool(ctx, PublicPoolKey)
@@ -101,11 +99,7 @@ func (k msgServer) RevealCouncilResponse(goCtx context.Context, msg *types.MsgRe
 			council.Status = types.CouncelingStatus_councilClosed
 		} else {
 			card := k.GetCard(ctx, council.CardId)
-			card.Voters = []string{}
-			card.FairEnoughVotes = 0
-			card.OverpoweredVotes = 0
-			card.UnderpoweredVotes = 0
-			card.InappropriateVotes = 0
+			card.ResetVotes()
 			card.VotePool = card.VotePool.Add(votePool)
 			card.Status = types.Status_trial
 			k.SetCard(ctx, council.CardId, card)

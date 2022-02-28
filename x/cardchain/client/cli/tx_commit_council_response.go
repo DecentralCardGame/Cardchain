@@ -1,11 +1,10 @@
 package cli
 
 import (
-	"crypto/sha256"
-	"encoding/hex"
 	"strconv"
 
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
+	"github.com/DecentralCardGame/Cardchain/x/cardchain/keeper"
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/flags"
 	"github.com/cosmos/cosmos-sdk/client/tx"
@@ -25,11 +24,8 @@ func CmdCommitCouncilResponse() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			response := types.Response_name[types.Response_value[args[1]]]
-			clearResponse := response + args[2]
 
-			hashResponse := sha256.Sum256([]byte(clearResponse))
-			hashStringResponse := hex.EncodeToString(hashResponse[:])
+			hashStringResponse := keeper.GetResponseHash(types.Response(types.Response_value[args[1]]), args[2])
 
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {

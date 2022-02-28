@@ -450,7 +450,7 @@ func (k Keeper) CheckTrial(ctx sdk.Context) error {
 
 				k.Logger(ctx).Debug(fmt.Sprintf(":: Card Set to %s", card.Status.String()))
 
-				bounty := sdk.Coin{colDep.Denom, colDep.Amount.Mul(sdk.NewInt(amt))}
+				bounty := MulCoin(colDep, amt)
 				for _, user := range group {
 					addr, err := sdk.AccAddressFromBech32(user)
 					if err != nil {
@@ -570,114 +570,6 @@ func (k Keeper) GetMatchesNumber(ctx sdk.Context) uint64 {
 }
 
 ///////////
-// Cards //
-///////////
-
-func (k Keeper) GetCard(ctx sdk.Context, cardId uint64) types.Card {
-	store := ctx.KVStore(k.CardsStoreKey)
-	bz := store.Get(sdk.Uint64ToBigEndian(cardId))
-
-	var gottenCard types.Card
-	k.cdc.MustUnmarshal(bz, &gottenCard)
-	return gottenCard
-}
-
-func (k Keeper) SetCard(ctx sdk.Context, cardId uint64, newCard types.Card) {
-	store := ctx.KVStore(k.CardsStoreKey)
-	store.Set(sdk.Uint64ToBigEndian(cardId), k.cdc.MustMarshal(&newCard))
-}
-
-// returns the current price of the card scheme auction
-func (k Keeper) GetCardAuctionPrice(ctx sdk.Context) sdk.Coin {
-	store := ctx.KVStore(k.InternalStoreKey)
-	bz := store.Get([]byte("currentCardSchemeAuctionPrice"))
-	var price sdk.Coin
-	k.cdc.MustUnmarshal(bz, &price)
-	return price
-}
-
-// sets the current price of the card scheme auction
-func (k Keeper) SetCardAuctionPrice(ctx sdk.Context, price sdk.Coin) {
-	store := ctx.KVStore(k.InternalStoreKey)
-	store.Set([]byte("currentCardSchemeAuctionPrice"), k.cdc.MustMarshal(&price))
-}
-
-func (k Keeper) AddOwnedCardScheme(ctx sdk.Context, cardId uint64, address sdk.AccAddress) {
-	store := ctx.KVStore(k.UsersStoreKey)
-	bz := store.Get(address)
-
-	var gottenUser types.User
-	k.cdc.MustUnmarshal(bz, &gottenUser)
-
-	gottenUser.OwnedCardSchemes = append(gottenUser.OwnedCardSchemes, cardId)
-
-	store.Set(address, k.cdc.MustMarshal(&gottenUser))
-}
-
-func (k Keeper) GetCardsIterator(ctx sdk.Context) sdk.Iterator {
-	store := ctx.KVStore(k.CardsStoreKey)
-	return sdk.KVStorePrefixIterator(store, nil)
-}
-
-func (k Keeper) GetAllCards(ctx sdk.Context) []*types.Card {
-	var allCards []*types.Card
-	iterator := k.GetCardsIterator(ctx)
-	for ; iterator.Valid(); iterator.Next() {
-
-		var gottenCard types.Card
-		k.cdc.MustUnmarshal(iterator.Value(), &gottenCard)
-
-		allCards = append(allCards, &gottenCard)
-	}
-	return allCards
-}
-
-func (k Keeper) GetCardsNumber(ctx sdk.Context) uint64 {
-	var cardId uint64
-	iterator := k.GetCardsIterator(ctx)
-	for ; iterator.Valid(); iterator.Next() {
-		cardId++
-	}
-	return cardId
-}
-
-/////////////////////
-// Coin management //
-/////////////////////
-
-// Adds coins to an Account
-func (k Keeper) MintCoinsToAddr(ctx sdk.Context, addr sdk.AccAddress, amounts sdk.Coins) error {
-	coinMint := types.CoinsIssuerName
-	// mint coins to minter module account
-	err := k.BankKeeper.MintCoins(ctx, coinMint, amounts)
-	if err != nil {
-		return err
-	}
-	// send coins to the address
-	err = k.BankKeeper.SendCoinsFromModuleToAccount(ctx, coinMint, addr, amounts)
-	if err != nil {
-		return err
-	}
-	return nil
-}
-
-// Removes Coins from an Account
-func (k Keeper) BurnCoinsFromAddr(ctx sdk.Context, addr sdk.AccAddress, amounts sdk.Coins) error {
-	coinMint := types.CoinsIssuerName
-	// send coins to the module
-	err := k.BankKeeper.SendCoinsFromAccountToModule(ctx, addr, coinMint, amounts)
-	if err != nil {
-		return err
-	}
-	// burn coins from minter module account
-	err = k.BankKeeper.BurnCoins(ctx, coinMint, amounts)
-	if err != nil {
-		return err
-	}
-	return nil
-}
-
-///////////
 // Users //
 ///////////
 
@@ -780,11 +672,7 @@ func (k Keeper) ResetAllVotes(ctx sdk.Context) {
 		var resetCard types.Card
 		k.cdc.MustUnmarshal(iterator.Value(), &resetCard)
 			if resetCard.Status != types.Status_trial {
-			resetCard.Voters = []string{}
-			resetCard.FairEnoughVotes = 0
-			resetCard.OverpoweredVotes = 0
-			resetCard.UnderpoweredVotes = 0
-			resetCard.InappropriateVotes = 0
+				resetCard.ResetVotes()
 		}
 
 		store.Set(iterator.Key(), k.cdc.MustMarshal(&resetCard))

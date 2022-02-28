@@ -29,7 +29,7 @@ func (k msgServer) CreateCouncil(goCtx context.Context, msg *types.MsgCreateCoun
 	var voters []string
 	var status types.CouncelingStatus
 	colDep := k.GetParams(ctx).CollateralDeposit
-	treasury := sdk.NewCoin(colDep.Denom, colDep.Amount.Mul(sdk.NewInt(10)))
+	treasury := MulCoin(colDep, 10)
 	councilId := k.GetCouncilsNumber(ctx)
 	users, addresses := k.GetAllUsers(ctx)
 
