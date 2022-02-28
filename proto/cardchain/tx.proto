@@ -306,6 +306,8 @@ message MsgCreateCouncil {
 message MsgCreateCouncilResponse {
 }
 
+// Add revision
+
 message MsgCommitCouncilResponse {
   string creator = 1;
   string response = 2;

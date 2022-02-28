@@ -47,7 +47,7 @@ func (k msgServer) RevealCouncilResponse(goCtx context.Context, msg *types.MsgRe
 	}
 
 	if stringItemInList(msg.Creator, allreadyVoted) {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "Allready voted")
+		return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "Already voted")
 	}
 
 	resp := types.WrapClearResponse{msg.Creator, msg.Response}
