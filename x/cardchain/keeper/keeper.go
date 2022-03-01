@@ -17,11 +17,6 @@ import (
 	paramtypes "github.com/cosmos/cosmos-sdk/x/params/types"
 )
 
-const (
-	Games24ValueKey  = "games/24h"
-	Votes24ValueKey  = "votes/24h"
-)
-
 type (
 	Keeper struct {
 		cdc                 codec.BinaryCodec // The wire codec for binary encoding/decoding.
@@ -34,10 +29,11 @@ type (
 		SellOffersStoreKey  sdk.StoreKey
 		PoolsStoreKey       sdk.StoreKey
 		CouncilsStoreKey    sdk.StoreKey
+		RunningAveragesStoreKey sdk.StoreKey
 		paramstore          paramtypes.Subspace
 
 		PoolKeys         []string
-		GeneralValueKeys []string
+		RunningAverageKeys []string
 
 		BankKeeper types.BankKeeper
 	}
@@ -53,6 +49,7 @@ func NewKeeper(
 	sellOffersStoreKey sdk.StoreKey,
 	poolsStoreKey sdk.StoreKey,
 	councilsStoreKey sdk.StoreKey,
+	runningAveragesStoreKey sdk.StoreKey,
 	internalStoreKey sdk.StoreKey,
 	ps paramtypes.Subspace,
 
@@ -73,10 +70,11 @@ func NewKeeper(
 		SellOffersStoreKey:  sellOffersStoreKey,
 		PoolsStoreKey:       poolsStoreKey,
 		CouncilsStoreKey:    councilsStoreKey,
+		RunningAveragesStoreKey: runningAveragesStoreKey,
 		InternalStoreKey:    internalStoreKey,
 		paramstore:          ps,
 		PoolKeys:            []string{PublicPoolKey, WinnersPoolKey, BalancersPoolKey},
-		GeneralValueKeys:    []string{Games24ValueKey, Votes24ValueKey},
+		RunningAverageKeys:  []string{Games24ValueKey, Votes24ValueKey},
 		BankKeeper:          bankKeeper,
 	}
 }
@@ -84,37 +82,6 @@ func NewKeeper(
 type User struct {
 	types.User
 	Addr sdk.AccAddress
-}
-
-func (k Keeper) GetGameVoteRatio(ctx sdk.Context) float32 {  // TODO make this a param
-	games := k.GetGeneralValue(ctx, Games24ValueKey)
-	votes := k.GetGeneralValue(ctx, Votes24ValueKey)
-	if games == 0 || votes == 0 {
-		return 0.2
-	}
-	return (float32(games) / float32(votes))
-}
-
-func (k Keeper) GetWinnerIncentives(ctx sdk.Context) float32 {
-	games := float32(k.GetGeneralValue(ctx, Games24ValueKey))
-	votes := float32(k.GetGeneralValue(ctx, Votes24ValueKey))
-	gVR := k.GetGameVoteRatio(ctx)
-	if games == 0 || votes == 0 {
-		games = 1
-		votes = 1
-	}
-	return games / (votes*gVR + games)
-}
-
-func (k Keeper) GetBalancerIncentives(ctx sdk.Context) float32 {
-	games := float32(k.GetGeneralValue(ctx, Games24ValueKey))
-	votes := float32(k.GetGeneralValue(ctx, Votes24ValueKey))
-	gVR := k.GetGameVoteRatio(ctx)
-	if games == 0 || votes == 0 {
-		games = 1
-		votes = 1
-	}
-	return (votes * gVR) / (votes*gVR + games)
 }
 
 func (k Keeper) Logger(ctx sdk.Context) log.Logger {
@@ -141,29 +108,6 @@ func (k Keeper) TransferSchemeToCard(ctx sdk.Context, cardId uint64, address sdk
 
 		store.Set(address, k.cdc.MustMarshal(&gottenUser))
 	}
-}
-
-////////////////////
-// General values //
-////////////////////
-
-func (k Keeper) GetGeneralValue(ctx sdk.Context, key string) uint64 {
-	store := ctx.KVStore(k.GeneralStoreKey)
-	bz := store.Get([]byte(key))
-	return binary.BigEndian.Uint64(bz)
-}
-
-func (k Keeper) SetGeneralValue(ctx sdk.Context, key string, val uint64) {
-	store := ctx.KVStore(k.GeneralStoreKey)
-	store.Set([]byte(key), sdk.Uint64ToBigEndian(val))
-}
-
-func (k Keeper) GetAllGeneralValues(ctx sdk.Context) map[string]uint64 {
-	allValues := make(map[string]uint64)
-	for _, key := range k.GeneralValueKeys {
-		allValues[key] = k.GetGeneralValue(ctx, key)
-	}
-	return allValues
 }
 
 //////////////

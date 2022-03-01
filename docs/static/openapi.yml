@@ -11891,6 +11891,9 @@ paths:
                   trialPeriod:
                     type: string
                     format: uint64
+                  gameVoteRatio:
+                    type: string
+                    format: int64
             description: >-
               QueryParamsResponse is response type for the Query/Params RPC
               method.
@@ -20798,6 +20801,9 @@ definitions:
       trialPeriod:
         type: string
         format: uint64
+      gameVoteRatio:
+        type: string
+        format: int64
     description: Params defines the parameters for the module.
   DecentralCardGame.cardchain.cardchain.QueryParamsResponse:
     type: object
@@ -20841,6 +20847,9 @@ definitions:
           trialPeriod:
             type: string
             format: uint64
+          gameVoteRatio:
+            type: string
+            format: int64
     description: QueryParamsResponse is response type for the Query/Params RPC method.
   DecentralCardGame.cardchain.cardchain.QueryQCardContentResponse:
     type: object

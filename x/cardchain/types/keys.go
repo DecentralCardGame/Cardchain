@@ -15,6 +15,7 @@ const (
 	PoolsStoreKey       = "Pools"
 	CouncilsStoreKey    = "Councils"
 	InternalStoreKey    = "Internal"
+	RunningAveragesStoreKey = "RunningAverages"
 
 	// RouterKey is the message route for slashing
 	RouterKey = ModuleName

@@ -22,4 +22,5 @@ message Params {
   uint64 commonsPerPack = 12;
   uint64 unCommonsPerPack = 13;
   uint64 trialPeriod = 14;
+  int64 gameVoteRatio = 15;
 }

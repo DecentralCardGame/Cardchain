@@ -29,11 +29,12 @@ func NewParams() Params {
 		WinnerReward:               sdk.NewInt64Coin("ucredits", 1),
 		VoterReward:                sdk.NewInt64Coin("ucredits", 1),
 		HourlyFaucet:               sdk.NewInt64Coin("ucredits", int64(50*math.Pow(10, 6))),
-		InflationRate:              "1.1",
+		InflationRate:              "1.1",  // TDOD: Also make this a fixed point number
 		RaresPerPack:               1,
 		CommonsPerPack:             9,
 		UnCommonsPerPack:           3,
 		TrialPeriod:								14*24*500,
+		GameVoteRatio:              20,  // This is a fixed point number and will be devided by 100 when used
 	}
 }
 
@@ -59,6 +60,7 @@ func (p *Params) ParamSetPairs() paramtypes.ParamSetPairs {
 		paramtypes.NewParamSetPair([]byte("CommonsPerPack"), &p.CommonsPerPack, validatePerPack),
 		paramtypes.NewParamSetPair([]byte("UnCommonsPerPack"), &p.UnCommonsPerPack, validatePerPack),
 		paramtypes.NewParamSetPair([]byte("TrialPeriod"), &p.TrialPeriod, validateTrialPeriod),
+		paramtypes.NewParamSetPair([]byte("GameVoteRatio"), &p.GameVoteRatio, validateGameVoteRatio),
 	}
 }
 
@@ -146,6 +148,19 @@ func validatePerPack(i interface{}) error {
 
 	if v == 0 {
 		return fmt.Errorf("invalid number per pack: %d", v)
+	}
+
+	return nil
+}
+
+func validateGameVoteRatio(i interface{}) error {
+	v, ok := i.(int64)
+	if !ok {
+		return fmt.Errorf("invalid parameter type: %T", i)
+	}
+
+	if v == 0 {
+		return fmt.Errorf("invalid GameVoteRatio: %d", v)
 	}
 
 	return nil
