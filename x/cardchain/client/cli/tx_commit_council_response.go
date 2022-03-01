@@ -3,8 +3,8 @@ package cli
 import (
 	"strconv"
 
-	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/keeper"
+	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/flags"
 	"github.com/cosmos/cosmos-sdk/client/tx"

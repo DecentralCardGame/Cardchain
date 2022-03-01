@@ -21,7 +21,7 @@ func (k msgServer) RegisterForCouncil(goCtx context.Context, msg *types.MsgRegis
 	}
 
 	allCouncils := k.GetAllCouncils(ctx)
-	for i := len(allCouncils)-1; i>=0; i-- {
+	for i := len(allCouncils) - 1; i >= 0; i-- {
 		var council = allCouncils[i]
 		if council.Status == types.CouncelingStatus_councilOpen {
 			council.Voters = append(council.Voters, msg.Creator)

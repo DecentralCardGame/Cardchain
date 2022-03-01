@@ -21,7 +21,7 @@ func (k msgServer) CreateCouncil(goCtx context.Context, msg *types.MsgCreateCoun
 	if card.Status != types.Status_prototype {
 		return nil, sdkerrors.Wrapf(types.ErrInvalidCardStatus, "%s", card.Status.String())
 	} else if card.Owner != msg.Creator {
-	  return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "Incorrect Creator")
+		return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "Incorrect Creator")
 	}
 
 	var possibleVoters []User
@@ -66,12 +66,11 @@ func (k msgServer) CreateCouncil(goCtx context.Context, msg *types.MsgCreateCoun
 		voters = append(voters, user.Addr.String())
 	}
 
-
 	council := types.Council{
-		CardId: msg.CardId,
-		Voters: voters,
+		CardId:   msg.CardId,
+		Voters:   voters,
 		Treasury: treasury,
-		Status: status,
+		Status:   status,
 	}
 
 	k.SetCouncil(ctx, councilId, council)

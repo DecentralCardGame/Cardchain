@@ -2,7 +2,6 @@ package cardchain
 
 import (
 	"fmt"
-	"time"
 
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/keeper"
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
@@ -42,7 +41,8 @@ func NewHandler(k keeper.Keeper) sdk.Handler {
 			res, err := msgServer.RegisterForCouncil(sdk.WrapSDKContext(ctx), msg)
 			return sdk.WrapServiceResult(ctx, res, err)
 		case *types.MsgReportMatch:
-			return handleMsgReportMatch(ctx, k, msg)
+			res, err := msgServer.ReportMatch(sdk.WrapSDKContext(ctx), msg)
+			return sdk.WrapServiceResult(ctx, res, err)
 		// case *types.MsgApointMatchReporter:  // Will be uncommented later when I know how to check for module account
 		// 	return handleMsgApointMatchReporter(ctx, k, msg)
 		case *types.MsgCreateCollection:
@@ -106,64 +106,6 @@ func NewHandler(k keeper.Keeper) sdk.Handler {
 
 func handleMsgApointMatchReporter(ctx sdk.Context, keeper keeper.Keeper, msg *types.MsgApointMatchReporter) (*sdk.Result, error) {
 	return &sdk.Result{}, keeper.ApointMatchReporter(ctx, msg.Reporter)
-}
-
-func handleMsgReportMatch(ctx sdk.Context, k keeper.Keeper, msg *types.MsgReportMatch) (*sdk.Result, error) {
-	creator, err := k.GetUserFromString(ctx, msg.Creator)
-	if err != nil {
-		return nil, err
-	}
-	if creator.ReportMatches == false {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "Incorrect Reporter")
-	}
-
-	matchId := k.GetMatchesNumber(ctx)
-
-	match := types.Match{
-		uint64(time.Now().Unix()),
-		msg.Creator,
-		msg.PlayerA,
-		msg.PlayerB,
-		msg.Outcome,
-	}
-
-	addresses := []sdk.AccAddress{}
-
-	for _, player := range []string{msg.PlayerA, msg.PlayerB} {
-		var address sdk.AccAddress
-		address, err = sdk.AccAddressFromBech32(player)
-		if err != nil {
-			return nil, sdkerrors.Wrap(types.ErrInvalidAccAddress, "Invalid player")
-		}
-		addresses = append(addresses, address)
-	}
-
-	cards := [][]uint64{msg.CardsB, msg.CardsA}
-
-	if msg.Outcome != types.Outcome_Aborted {
-		for idx, _ := range addresses {
-			for _, cardId := range cards[idx] {
-				err = k.AddVoteRight(ctx, addresses[idx], cardId)
-				if err != nil {
-					return nil, err
-				}
-			}
-		}
-	}
-
-	k.SetMatch(ctx, matchId, match)
-
-	amountA, amountB := k.CalculateMatchReward(ctx, msg.Outcome)
-	amounts := []sdk.Coin{amountA, amountB}
-	for idx, _ := range addresses {
-		k.MintCoinsToAddr(ctx, addresses[idx], sdk.Coins{amounts[idx]})
-		k.SubPoolCredits(ctx, keeper.WinnersPoolKey, amounts[idx])
-	}
-
-	games := k.GetGeneralValue(ctx, keeper.Games24ValueKey)
-	k.SetGeneralValue(ctx, keeper.Games24ValueKey, games+1)
-
-	return sdk.WrapServiceResult(ctx, &types.MsgReportMatchResponse{matchId}, nil)
 }
 
 func handleMsgChangeArtist(ctx sdk.Context, keeper keeper.Keeper, msg *types.MsgChangeArtist) (*sdk.Result, error) {

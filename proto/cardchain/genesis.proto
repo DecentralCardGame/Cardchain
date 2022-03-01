@@ -8,6 +8,7 @@ import "cardchain/user.proto";
 import "cardchain/match.proto";
 import "cardchain/collection.proto";
 import "cardchain/sell_offer.proto";
+import "cardchain/running_average.proto";
 import "cardchain/council.proto";
 // this line is used by starport scaffolding # genesis/proto/import
 
@@ -25,7 +26,6 @@ message GenesisState {
   repeated string pools = 9 [(gogoproto.nullable) = false, (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Coin"];;
   string cardAuctionPrice = 11 [(gogoproto.nullable) = false, (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Coin"];;
   repeated Council councils = 12;
-  repeated uint64 VotesRunningAverage = 13;
-  repeated uint64 GamesRunningAverage = 14;
+  repeated RunningAverage RunningAverages = 13;
   // this line is used by starport scaffolding # genesis/proto/state
 }

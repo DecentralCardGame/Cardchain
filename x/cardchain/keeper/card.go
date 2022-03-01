@@ -1,8 +1,8 @@
 package keeper
 
 import (
-  "github.com/DecentralCardGame/Cardchain/x/cardchain/types"
-  sdk "github.com/cosmos/cosmos-sdk/types"
+	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
+	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
 func (k Keeper) GetCard(ctx sdk.Context, cardId uint64) types.Card {

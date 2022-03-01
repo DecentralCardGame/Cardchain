@@ -66,7 +66,7 @@ func (k msgServer) RevealCouncilResponse(goCtx context.Context, msg *types.MsgRe
 	//
 	if len(council.ClearResponses) == 5 {
 		var (
-			nrNo, nrYes int
+			nrNo, nrYes        int
 			approvers, deniers []string
 		)
 		for _, response := range council.ClearResponses {

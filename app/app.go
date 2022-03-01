@@ -532,7 +532,7 @@ func (app *App) BeginBlocker(ctx sdk.Context, req abci.RequestBeginBlock) abci.R
 // EndBlocker application updates every end block
 func (app *App) EndBlocker(ctx sdk.Context, req abci.RequestEndBlock) abci.ResponseEndBlock {
 	// update the price of card auction (currently 1% decay per block)
-	price := app.CardchainKeeper.GetCardAuctionPrice(ctx)  // TODO intervall
+	price := app.CardchainKeeper.GetCardAuctionPrice(ctx) // TODO intervall
 	newprice := price.Sub(cardchainmodulekeeper.QuoCoin(price, 100))
 	if !newprice.IsLT(sdk.NewInt64Coin("ucredits", 1000000)) { // stop at 1 credit
 		app.CardchainKeeper.SetCardAuctionPrice(ctx, newprice)
@@ -558,7 +558,7 @@ func (app *App) EndBlocker(ctx sdk.Context, req abci.RequestEndBlock) abci.Respo
 	}
 
 	if app.LastBlockHeight()%(24*500) == 0 { // Dayly game/vote reset
-		app.CardchainKeeper.SetGeneralValue(ctx, cardchainmodulekeeper.Votes24ValueKey, 0)  // TODO make those running averages
+		app.CardchainKeeper.SetGeneralValue(ctx, cardchainmodulekeeper.Votes24ValueKey, 0) // TODO make those running averages
 		app.CardchainKeeper.SetGeneralValue(ctx, cardchainmodulekeeper.Games24ValueKey, 0)
 	}
 
@@ -585,7 +585,7 @@ func (app *App) InitChainer(ctx sdk.Context, req abci.RequestInitChain) abci.Res
 	}
 
 	for _, key := range app.CardchainKeeper.RunningAverageKeys {
-		app.CardchainKeeper.SetGeneralValue(ctx, key, []int64{0})
+		app.CardchainKeeper.SetGeneralValue(ctx, key, cardchainmoduletypes.RunningAverage{[]int64{0}})
 	}
 
 	app.UpgradeKeeper.SetModuleVersionMap(ctx, app.mm.GetVersionMap())

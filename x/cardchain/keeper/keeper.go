@@ -19,20 +19,20 @@ import (
 
 type (
 	Keeper struct {
-		cdc                 codec.BinaryCodec // The wire codec for binary encoding/decoding.
-		GeneralStoreKey     sdk.StoreKey
-		UsersStoreKey       sdk.StoreKey
-		CardsStoreKey       sdk.StoreKey
-		MatchesStoreKey     sdk.StoreKey
-		CollectionsStoreKey sdk.StoreKey
-		InternalStoreKey    sdk.StoreKey
-		SellOffersStoreKey  sdk.StoreKey
-		PoolsStoreKey       sdk.StoreKey
-		CouncilsStoreKey    sdk.StoreKey
+		cdc                     codec.BinaryCodec // The wire codec for binary encoding/decoding.
+		GeneralStoreKey         sdk.StoreKey
+		UsersStoreKey           sdk.StoreKey
+		CardsStoreKey           sdk.StoreKey
+		MatchesStoreKey         sdk.StoreKey
+		CollectionsStoreKey     sdk.StoreKey
+		InternalStoreKey        sdk.StoreKey
+		SellOffersStoreKey      sdk.StoreKey
+		PoolsStoreKey           sdk.StoreKey
+		CouncilsStoreKey        sdk.StoreKey
 		RunningAveragesStoreKey sdk.StoreKey
-		paramstore          paramtypes.Subspace
+		paramstore              paramtypes.Subspace
 
-		PoolKeys         []string
+		PoolKeys           []string
 		RunningAverageKeys []string
 
 		BankKeeper types.BankKeeper
@@ -61,21 +61,21 @@ func NewKeeper(
 	}
 
 	return &Keeper{
-		cdc:                 cdc,
-		GeneralStoreKey:     generalStoreKey,
-		UsersStoreKey:       usersStoreKey,
-		CardsStoreKey:       cardsStoreKey,
-		MatchesStoreKey:     matchesStorekey,
-		CollectionsStoreKey: collectionsStoreKey,
-		SellOffersStoreKey:  sellOffersStoreKey,
-		PoolsStoreKey:       poolsStoreKey,
-		CouncilsStoreKey:    councilsStoreKey,
+		cdc:                     cdc,
+		GeneralStoreKey:         generalStoreKey,
+		UsersStoreKey:           usersStoreKey,
+		CardsStoreKey:           cardsStoreKey,
+		MatchesStoreKey:         matchesStorekey,
+		CollectionsStoreKey:     collectionsStoreKey,
+		SellOffersStoreKey:      sellOffersStoreKey,
+		PoolsStoreKey:           poolsStoreKey,
+		CouncilsStoreKey:        councilsStoreKey,
 		RunningAveragesStoreKey: runningAveragesStoreKey,
-		InternalStoreKey:    internalStoreKey,
-		paramstore:          ps,
-		PoolKeys:            []string{PublicPoolKey, WinnersPoolKey, BalancersPoolKey},
-		RunningAverageKeys:  []string{Games24ValueKey, Votes24ValueKey},
-		BankKeeper:          bankKeeper,
+		InternalStoreKey:        internalStoreKey,
+		paramstore:              ps,
+		PoolKeys:                []string{PublicPoolKey, WinnersPoolKey, BalancersPoolKey},
+		RunningAverageKeys:      []string{Games24ValueKey, Votes24ValueKey},
+		BankKeeper:              bankKeeper,
 	}
 }
 
@@ -132,7 +132,7 @@ func (k Keeper) ApointMatchReporter(ctx sdk.Context, reporter string) error {
 }
 
 func (k Keeper) CalculateMatchReward(ctx sdk.Context, outcome types.Outcome) (amountA sdk.Coin, amountB sdk.Coin) {
-	reward := k.GetParams(ctx).WinnerReward  // TODO make a fraction
+	reward := k.GetParams(ctx).WinnerReward // TODO make a fraction
 	amountA = sdk.NewInt64Coin("ucredits", 0)
 	amountB = sdk.NewInt64Coin("ucredits", 0)
 
@@ -283,12 +283,12 @@ func (k Keeper) CheckTrial(ctx sdk.Context) error {
 	collateralDeposit := k.GetParams(ctx).CollateralDeposit
 	for idx, council := range k.GetAllCouncils(ctx) {
 		if council.Status == types.CouncelingStatus_revealed {
-			if council.TrialStart + k.GetParams(ctx).TrialPeriod <= uint64(ctx.BlockHeight()) {
+			if council.TrialStart+k.GetParams(ctx).TrialPeriod <= uint64(ctx.BlockHeight()) {
 				card := k.GetCard(ctx, council.CardId)
 
 				var (
 					group, approvers, deniers []string
-					amt int64
+					amt                       int64
 				)
 				for _, response := range council.ClearResponses {
 					if response.Response == types.Response_Yes {
@@ -538,8 +538,8 @@ func (k Keeper) ResetAllVotes(ctx sdk.Context) {
 	for ; iterator.Valid(); iterator.Next() {
 		var resetCard types.Card
 		k.cdc.MustUnmarshal(iterator.Value(), &resetCard)
-			if resetCard.Status != types.Status_trial {
-				resetCard.ResetVotes()
+		if resetCard.Status != types.Status_trial {
+			resetCard.ResetVotes()
 		}
 
 		store.Set(iterator.Key(), k.cdc.MustMarshal(&resetCard))

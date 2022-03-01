@@ -5,16 +5,16 @@ const (
 	ModuleName = "cardchain"
 
 	// StoreKey defines the primary module store key
-	StoreKey            = ModuleName
-	GeneralStoreKey     = "GeneralValues"
-	CardsStoreKey       = "Cards"
-	UsersStoreKey       = "Users"
-	MatchesStoreKey     = "Matches"
-	CollectionsStoreKey = "Collections"
-	SellOffersStoreKey  = "SellOffers"
-	PoolsStoreKey       = "Pools"
-	CouncilsStoreKey    = "Councils"
-	InternalStoreKey    = "Internal"
+	StoreKey                = ModuleName
+	GeneralStoreKey         = "GeneralValues"
+	CardsStoreKey           = "Cards"
+	UsersStoreKey           = "Users"
+	MatchesStoreKey         = "Matches"
+	CollectionsStoreKey     = "Collections"
+	SellOffersStoreKey      = "SellOffers"
+	PoolsStoreKey           = "Pools"
+	CouncilsStoreKey        = "Councils"
+	InternalStoreKey        = "Internal"
 	RunningAveragesStoreKey = "RunningAverages"
 
 	// RouterKey is the message route for slashing
