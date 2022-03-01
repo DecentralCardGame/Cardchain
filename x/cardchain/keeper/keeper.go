@@ -117,24 +117,6 @@ func (k Keeper) GetBalancerIncentives(ctx sdk.Context) float32 {
 	return (votes * gVR) / (votes*gVR + games)
 }
 
-func uintItemInList(item uint64, list []uint64) bool {
-	for _, i := range list {
-		if i == item {
-			return true
-		}
-	}
-	return false
-}
-
-func stringItemInList(item string, list []string) bool {
-	for _, i := range list {
-		if i == item {
-			return true
-		}
-	}
-	return false
-}
-
 func (k Keeper) Logger(ctx sdk.Context) log.Logger {
 	return ctx.Logger().With("module", fmt.Sprintf("x/%s", types.ModuleName))
 }
@@ -159,18 +141,6 @@ func (k Keeper) TransferSchemeToCard(ctx sdk.Context, cardId uint64, address sdk
 
 		store.Set(address, k.cdc.MustMarshal(&gottenUser))
 	}
-}
-
-func indexOfId(cardID uint64, cards []uint64) int {
-	if cards == nil {
-		return -1
-	}
-	for i, b := range cards {
-		if b == cardID {
-			return i
-		}
-	}
-	return -1
 }
 
 ////////////////////
