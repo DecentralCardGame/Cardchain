@@ -153,8 +153,8 @@ func handleMsgReportMatch(ctx sdk.Context, k keeper.Keeper, msg *types.MsgReport
 
 	k.SetMatch(ctx, matchId, match)
 
-	amA, amB := k.CalculateMatchReward(ctx, msg.Outcome)
-	amounts := []sdk.Coin{amA, amB}
+	amountA, amountB := k.CalculateMatchReward(ctx, msg.Outcome)
+	amounts := []sdk.Coin{amountA, amountB}
 	for idx, _ := range addresses {
 		k.MintCoinsToAddr(ctx, addresses[idx], sdk.Coins{amounts[idx]})
 		k.SubPoolCredits(ctx, keeper.WinnersPoolKey, amounts[idx])

@@ -217,18 +217,18 @@ func (k Keeper) ApointMatchReporter(ctx sdk.Context, reporter string) error {
 	return nil
 }
 
-func (k Keeper) CalculateMatchReward(ctx sdk.Context, outcome types.Outcome) (amA sdk.Coin, amB sdk.Coin) {
-	rew := k.GetParams(ctx).WinnerReward  // TODO make a fraction
-	amA = sdk.NewInt64Coin("ucredits", 0)
-	amB = sdk.NewInt64Coin("ucredits", 0)  // TODO better variable names
+func (k Keeper) CalculateMatchReward(ctx sdk.Context, outcome types.Outcome) (amountA sdk.Coin, amountB sdk.Coin) {
+	reward := k.GetParams(ctx).WinnerReward  // TODO make a fraction
+	amountA = sdk.NewInt64Coin("ucredits", 0)
+	amountB = sdk.NewInt64Coin("ucredits", 0)  // TODO better variable names
 
 	if outcome == types.Outcome_AWon {
-		amA = rew
+		amountA = reward
 	} else if outcome == types.Outcome_BWon {
-		amB = rew
+		amountB = reward
 	} else if outcome == types.Outcome_Draw {
-		amA = QuoCoin(rew, 2)
-		amB = QuoCoin(rew, 2)
+		amountA = QuoCoin(reward, 2)
+		amountB = QuoCoin(reward, 2)
 	}
 	return
 }
@@ -366,7 +366,7 @@ func (k Keeper) GetCollectionsNumber(ctx sdk.Context) uint64 {
 //////////////
 
 func (k Keeper) CheckTrial(ctx sdk.Context) error {
-	colDep := k.GetParams(ctx).CollateralDeposit
+	collateralDeposit := k.GetParams(ctx).CollateralDeposit
 	for idx, council := range k.GetAllCouncils(ctx) {
 		if council.Status == types.CouncelingStatus_revealed {
 			if council.TrialStart + k.GetParams(ctx).TrialPeriod <= uint64(ctx.BlockHeight()) {
@@ -405,7 +405,7 @@ func (k Keeper) CheckTrial(ctx sdk.Context) error {
 
 				k.Logger(ctx).Debug(fmt.Sprintf(":: Card Set to %s", card.Status.String()))
 
-				bounty := MulCoin(colDep, amt)
+				bounty := MulCoin(collateralDeposit, amt)
 				for _, user := range group {
 					err := k.MintCoinsToString(ctx, user, sdk.Coins{bounty})
 					if err != nil {

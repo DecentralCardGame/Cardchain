@@ -11,7 +11,7 @@ import (
 func (k msgServer) RevealCouncilResponse(goCtx context.Context, msg *types.MsgRevealCouncilResponse) (*types.MsgRevealCouncilResponseResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	colDep := k.GetParams(ctx).CollateralDeposit
+	collateralDeposit := k.GetParams(ctx).CollateralDeposit
 
 	creator, err := k.GetUserFromString(ctx, msg.Creator)
 	if err != nil {
@@ -57,11 +57,11 @@ func (k msgServer) RevealCouncilResponse(goCtx context.Context, msg *types.MsgRe
 		council.Status = types.CouncelingStatus_revealed
 	}
 
-	err = k.BurnCoinsFromAddr(ctx, creator.Addr, sdk.Coins{colDep})
+	err = k.BurnCoinsFromAddr(ctx, creator.Addr, sdk.Coins{collateralDeposit})
 	if err != nil {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrInsufficientFunds, "Voter does not have enough coins")
 	}
-	council.Treasury = council.Treasury.Add(colDep)
+	council.Treasury = council.Treasury.Add(collateralDeposit)
 
 	//
 	if len(council.ClearResponses) == 5 {
@@ -78,8 +78,8 @@ func (k msgServer) RevealCouncilResponse(goCtx context.Context, msg *types.MsgRe
 				deniers = append(deniers, response.User)
 			}
 		}
-		bounty := MulCoin(colDep, 2)
-		votePool := MulCoin(colDep, 5)
+		bounty := MulCoin(collateralDeposit, 2)
+		votePool := MulCoin(collateralDeposit, 5)
 		if nrNo > nrYes {
 			for _, user := range deniers {
 				err = k.MintCoinsToString(ctx, user, sdk.Coins{bounty})

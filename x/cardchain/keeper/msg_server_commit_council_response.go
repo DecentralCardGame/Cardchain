@@ -11,7 +11,7 @@ import (
 func (k msgServer) CommitCouncilResponse(goCtx context.Context, msg *types.MsgCommitCouncilResponse) (*types.MsgCommitCouncilResponseResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	colDep := k.GetParams(ctx).CollateralDeposit
+	collateralDeposit := k.GetParams(ctx).CollateralDeposit
 
 	creator, err := k.GetUserFromString(ctx, msg.Creator)
 	if err != nil {
@@ -43,11 +43,11 @@ func (k msgServer) CommitCouncilResponse(goCtx context.Context, msg *types.MsgCo
 		council.Status = types.CouncelingStatus_commited
 	}
 
-	err = k.BurnCoinsFromAddr(ctx, creator.Addr, sdk.Coins{colDep})
+	err = k.BurnCoinsFromAddr(ctx, creator.Addr, sdk.Coins{collateralDeposit})
 	if err != nil {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrInsufficientFunds, "Voter does not have enough coins")
 	}
-	council.Treasury = council.Treasury.Add(colDep)
+	council.Treasury = council.Treasury.Add(collateralDeposit)
 
 	k.SetCouncil(ctx, msg.CouncilId, council)
 
