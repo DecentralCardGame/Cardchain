@@ -556,8 +556,8 @@ func (app *App) EndBlocker(ctx sdk.Context, req abci.RequestEndBlock) abci.Respo
 		app.CardchainKeeper.Logger(ctx).Info(fmt.Sprintf(":: PublicPool: %s", app.CardchainKeeper.GetPool(ctx, cardchainmodulekeeper.PublicPoolKey)))
 	}
 
-	if app.LastBlockHeight()%(24*500) == 0 { //Dayly game/vote reset
-		app.CardchainKeeper.SetGeneralValue(ctx, cardchainmodulekeeper.Votes24ValueKey, 0)
+	if app.LastBlockHeight()%(24*500) == 0 { // Dayly game/vote reset
+		app.CardchainKeeper.SetGeneralValue(ctx, cardchainmodulekeeper.Votes24ValueKey, 0)  // TODO make those running averages
 		app.CardchainKeeper.SetGeneralValue(ctx, cardchainmodulekeeper.Games24ValueKey, 0)
 	}
 

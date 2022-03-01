@@ -220,7 +220,7 @@ func (k Keeper) ApointMatchReporter(ctx sdk.Context, reporter string) error {
 func (k Keeper) CalculateMatchReward(ctx sdk.Context, outcome types.Outcome) (amountA sdk.Coin, amountB sdk.Coin) {
 	reward := k.GetParams(ctx).WinnerReward  // TODO make a fraction
 	amountA = sdk.NewInt64Coin("ucredits", 0)
-	amountB = sdk.NewInt64Coin("ucredits", 0)  // TODO better variable names
+	amountB = sdk.NewInt64Coin("ucredits", 0)
 
 	if outcome == types.Outcome_AWon {
 		amountA = reward
