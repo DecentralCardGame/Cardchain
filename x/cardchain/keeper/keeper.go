@@ -89,7 +89,7 @@ type User struct {
 	Addr sdk.AccAddress
 }
 
-func (k Keeper) GetGameVoteRatio(ctx sdk.Context) float32 {
+func (k Keeper) GetGameVoteRatio(ctx sdk.Context) float32 {  // TODO make this a param
 	games := k.GetGeneralValue(ctx, Games24ValueKey)
 	votes := k.GetGeneralValue(ctx, Votes24ValueKey)
 	if games == 0 || votes == 0 {
@@ -221,9 +221,9 @@ func (k Keeper) ApointMatchReporter(ctx sdk.Context, reporter string) error {
 }
 
 func (k Keeper) CalculateMatchReward(ctx sdk.Context, outcome types.Outcome) (amA sdk.Coin, amB sdk.Coin) {
-	rew := k.GetParams(ctx).WinnerReward
+	rew := k.GetParams(ctx).WinnerReward  // TODO make a fraction
 	amA = sdk.NewInt64Coin("ucredits", 0)
-	amB = sdk.NewInt64Coin("ucredits", 0)
+	amB = sdk.NewInt64Coin("ucredits", 0)  // TODO better variable names
 
 	if outcome == types.Outcome_AWon {
 		amA = rew
@@ -262,7 +262,7 @@ func (k Keeper) GetPool(ctx sdk.Context, poolName string) sdk.Coin {
 }
 
 func (k Keeper) SetPool(ctx sdk.Context, poolName string, newPool sdk.Coin) {
-	store := ctx.KVStore(k.PoolsStoreKey)
+	store := ctx.KVStore(k.PoolsStoreKey)  // TODO Add zero checking
 	store.Set([]byte(poolName), k.cdc.MustMarshal(&newPool))
 }
 
