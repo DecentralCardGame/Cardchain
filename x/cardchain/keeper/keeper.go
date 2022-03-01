@@ -259,7 +259,7 @@ func (k Keeper) GetPool(ctx sdk.Context, poolName string) sdk.Coin {
 }
 
 func (k Keeper) SetPool(ctx sdk.Context, poolName string, newPool sdk.Coin) {
-	store := ctx.KVStore(k.PoolsStoreKey)
+	store := ctx.KVStore(k.PoolsStoreKey)  // TODO Add zero checking
 	store.Set([]byte(poolName), k.cdc.MustMarshal(&newPool))
 }
 
