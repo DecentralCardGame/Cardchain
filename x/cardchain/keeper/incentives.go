@@ -11,33 +11,39 @@ const (
 )
 
 func (k Keeper) GetWinnerIncentives(ctx sdk.Context) float32 {
-	games := float32(k.GetGames())
-	votes := float32(k.GetVotes())
+	games := float32(k.GetGames(ctx))
+	votes := float32(k.GetVotes(ctx))
 	gVR := float32(k.GetParams(ctx).GameVoteRatio) / 100
-	if games == 0 || votes == 0 {
-		games = 1
-		votes = 1
-	}
 	return games / (votes*gVR + games)
 }
 
 func (k Keeper) GetBalancerIncentives(ctx sdk.Context) float32 {
-	games := float32(k.GetGames())
-	votes := float32(k.GetVotes())
+	games := float32(k.GetGames(ctx))
+	votes := float32(k.GetVotes(ctx))
 	gVR := float32(k.GetParams(ctx).GameVoteRatio) / 100
-	if games == 0 || votes == 0 {
-		games = 1
-		votes = 1
-	}
 	return (votes * gVR) / (votes*gVR + games)
 }
 
-func (k Keeper) GetGames() int64 {
-	return 0
+func (k Keeper) GetGames(ctx sdk.Context) (num int64) {
+	games := k.GetRunningAverage(ctx, Games24ValueKey)
+  for _, val := range games.Arr {
+    num += val
+  }
+  if num == 0 {
+    num = 1
+  }
+  return
 }
 
-func (k Keeper) GetVotes() int64 {
-	return 0
+func (k Keeper) GetVotes(ctx sdk.Context) (num int64) {
+	votes := k.GetRunningAverage(ctx, Votes24ValueKey)
+  for _, val := range votes.Arr {
+    num += val
+  }
+  if num == 0 {
+    num = 1
+  }
+  return
 }
 
 // GetRunningAverage Returns a given runningAverage
@@ -57,9 +63,10 @@ func (k Keeper) SetRunningAverage(ctx sdk.Context, runningAverageName string, ne
 }
 
 // GetAllRunningAverages Returns all runningAverages
-func (k Keeper) GetAllRunningAverages(ctx sdk.Context) (allRunningAverages []types.RunningAverage) {
+func (k Keeper) GetAllRunningAverages(ctx sdk.Context) (allRunningAverages []*types.RunningAverage) {
 	for _, runningAverageName := range k.RunningAverageKeys {
-		allRunningAverages = append(allRunningAverages, k.GetRunningAverage(ctx, runningAverageName))
+    gottenAverage := k.GetRunningAverage(ctx, runningAverageName)
+		allRunningAverages = append(allRunningAverages, &gottenAverage)
 	}
 	return
 }

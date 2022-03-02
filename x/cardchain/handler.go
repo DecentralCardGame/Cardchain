@@ -282,8 +282,9 @@ func handleMsgVoteCard(ctx sdk.Context, k keeper.Keeper, msg *types.MsgVoteCard)
 
 	k.SetCard(ctx, msg.CardId, card)
 
-	votes := k.GetGeneralValue(ctx, keeper.Votes24ValueKey)
-	k.SetGeneralValue(ctx, keeper.Votes24ValueKey, votes+1)
+	votes := k.GetRunningAverage(ctx, keeper.Votes24ValueKey)
+	votes.Arr[len(votes.Arr)-1]++
+	k.SetRunningAverage(ctx, keeper.Votes24ValueKey, votes)
 
 	err = k.RemoveVoteRight(ctx, voter, rightsIndex)
 	if err != nil {

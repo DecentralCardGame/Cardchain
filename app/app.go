@@ -552,14 +552,22 @@ func (app *App) EndBlocker(ctx sdk.Context, req abci.RequestEndBlock) abci.Respo
 		app.CardchainKeeper.SubPoolCredits(ctx, cardchainmodulekeeper.PublicPoolKey, incentives)
 		winnersIncentives := cardchainmodulekeeper.MulCoinFloat(incentives, float64(app.CardchainKeeper.GetWinnerIncentives(ctx)))
 		balancersIncentives := cardchainmodulekeeper.MulCoinFloat(incentives, float64(app.CardchainKeeper.GetBalancerIncentives(ctx)))
+		app.CardchainKeeper.Logger(ctx).Info(fmt.Sprintf(":: Incentives (w, b): %s, %s", winnersIncentives, balancersIncentives))
 		app.CardchainKeeper.AddPoolCredits(ctx, cardchainmodulekeeper.WinnersPoolKey, winnersIncentives)
 		app.CardchainKeeper.AddPoolCredits(ctx, cardchainmodulekeeper.BalancersPoolKey, balancersIncentives)
 		app.CardchainKeeper.Logger(ctx).Info(fmt.Sprintf(":: PublicPool: %s", app.CardchainKeeper.GetPool(ctx, cardchainmodulekeeper.PublicPoolKey)))
 	}
 
-	if app.LastBlockHeight()%(24*500) == 0 { // Dayly game/vote reset
-		app.CardchainKeeper.SetGeneralValue(ctx, cardchainmodulekeeper.Votes24ValueKey, 0) // TODO make those running averages
-		app.CardchainKeeper.SetGeneralValue(ctx, cardchainmodulekeeper.Games24ValueKey, 0)
+	// Setting running averages
+	if app.LastBlockHeight()%(500) == 0 {
+		averages := app.CardchainKeeper.GetAllRunningAverages(ctx)
+		for idx, average := range averages {
+			average.Arr = append(average.Arr, 0)
+			if len(average.Arr) > 24 {
+				average.Arr = average.Arr[1:]
+			}
+			app.CardchainKeeper.SetRunningAverage(ctx, app.CardchainKeeper.RunningAverageKeys[idx], *average)
+		}
 	}
 
 	err := app.CardchainKeeper.CheckTrial(ctx)
@@ -582,10 +590,6 @@ func (app *App) InitChainer(ctx sdk.Context, req abci.RequestInitChain) abci.Res
 
 	for _, key := range app.CardchainKeeper.PoolKeys {
 		app.CardchainKeeper.SetPool(ctx, key, sdk.NewInt64Coin("ucredits", int64(1000*math.Pow(10, 6))))
-	}
-
-	for _, key := range app.CardchainKeeper.RunningAverageKeys {
-		app.CardchainKeeper.SetGeneralValue(ctx, key, cardchainmoduletypes.RunningAverage{[]int64{0}})
 	}
 
 	app.UpgradeKeeper.SetModuleVersionMap(ctx, app.mm.GetVersionMap())
