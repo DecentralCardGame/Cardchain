@@ -168,9 +168,7 @@ func (k Keeper) CheckTrial(ctx sdk.Context) error {
 					}
 					council.Treasury = council.Treasury.Sub(bounty)
 				}
-				pool := k.GetPool(ctx, PublicPoolKey)
-				pool = pool.Add(council.Treasury)
-				k.SetPool(ctx, PublicPoolKey, pool)
+				k.AddPoolCredits(ctx, PublicPoolKey, council.Treasury)
 				council.Treasury = council.Treasury.Sub(council.Treasury)
 
 				incentive := QuoCoin(card.VotePool, int64(len(card.Voters)))
