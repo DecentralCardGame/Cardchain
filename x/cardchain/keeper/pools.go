@@ -6,6 +6,7 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
+// Keys to access pools
 const (
 	PublicPoolKey    = "public"
 	WinnersPoolKey   = "winners"

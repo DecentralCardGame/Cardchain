@@ -37,6 +37,7 @@ func (k Keeper) CalculateMatchReward(ctx sdk.Context, outcome types.Outcome) (am
 	return
 }
 
+// GetReward Calculates winner rewards 
 func (k Keeper) GetReward(ctx sdk.Context) sdk.Coin {
   pool := k.GetPool(ctx, WinnersPoolKey)
   reward := QuoCoin(pool, k.GetParams(ctx).WinnerReward)

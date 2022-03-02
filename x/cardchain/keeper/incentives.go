@@ -5,6 +5,7 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
+// Keys to access RunningAverages
 const (
 	Games24ValueKey = "games/24h"
 	Votes24ValueKey = "votes/24h"
@@ -51,13 +52,12 @@ func (k Keeper) GetVotes(ctx sdk.Context) (num int64) {
 }
 
 // GetRunningAverage Returns a given runningAverage
-func (k Keeper) GetRunningAverage(ctx sdk.Context, runningAverageName string) types.RunningAverage {
+func (k Keeper) GetRunningAverage(ctx sdk.Context, runningAverageName string) (gottenRunningAverage types.RunningAverage) {
 	store := ctx.KVStore(k.RunningAveragesStoreKey)
 	bz := store.Get([]byte(runningAverageName))
 
-	var gottenRunningAverage types.RunningAverage
 	k.cdc.MustUnmarshal(bz, &gottenRunningAverage)
-	return gottenRunningAverage
+	return
 }
 
 // SetRunningAverage Sets a given runningAverage

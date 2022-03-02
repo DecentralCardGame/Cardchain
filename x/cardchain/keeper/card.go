@@ -5,27 +5,27 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
-func (k Keeper) GetCard(ctx sdk.Context, cardId uint64) types.Card {
+// GetCard Gets card from store
+func (k Keeper) GetCard(ctx sdk.Context, cardId uint64) (gottenCard types.Card) {
 	store := ctx.KVStore(k.CardsStoreKey)
 	bz := store.Get(sdk.Uint64ToBigEndian(cardId))
 
-	var gottenCard types.Card
 	k.cdc.MustUnmarshal(bz, &gottenCard)
-	return gottenCard
+	return
 }
 
+// SetCard Sets card in store
 func (k Keeper) SetCard(ctx sdk.Context, cardId uint64, newCard types.Card) {
 	store := ctx.KVStore(k.CardsStoreKey)
 	store.Set(sdk.Uint64ToBigEndian(cardId), k.cdc.MustMarshal(&newCard))
 }
 
 // GetCardAuctionPrice Returns the current price of the card scheme auction
-func (k Keeper) GetCardAuctionPrice(ctx sdk.Context) sdk.Coin {
+func (k Keeper) GetCardAuctionPrice(ctx sdk.Context) (price sdk.Coin) {
 	store := ctx.KVStore(k.InternalStoreKey)
 	bz := store.Get([]byte("currentCardSchemeAuctionPrice"))
-	var price sdk.Coin
 	k.cdc.MustUnmarshal(bz, &price)
-	return price
+	return
 }
 
 // SetCardAuctionPrice Sets the current price of the card scheme auction
@@ -34,6 +34,7 @@ func (k Keeper) SetCardAuctionPrice(ctx sdk.Context, price sdk.Coin) {
 	store.Set([]byte("currentCardSchemeAuctionPrice"), k.cdc.MustMarshal(&price))
 }
 
+// AddOwnedCardScheme Adds a cardscheme to a user
 func (k Keeper) AddOwnedCardScheme(ctx sdk.Context, cardId uint64, address sdk.AccAddress) {
 	store := ctx.KVStore(k.UsersStoreKey)
 	bz := store.Get(address)
@@ -46,13 +47,14 @@ func (k Keeper) AddOwnedCardScheme(ctx sdk.Context, cardId uint64, address sdk.A
 	store.Set(address, k.cdc.MustMarshal(&gottenUser))
 }
 
+// GetCardsIterator Returns an iterator for all cards
 func (k Keeper) GetCardsIterator(ctx sdk.Context) sdk.Iterator {
 	store := ctx.KVStore(k.CardsStoreKey)
 	return sdk.KVStorePrefixIterator(store, nil)
 }
 
-func (k Keeper) GetAllCards(ctx sdk.Context) []*types.Card {
-	var allCards []*types.Card
+// GetAllCards Gets all cards form store
+func (k Keeper) GetAllCards(ctx sdk.Context) (allCards []*types.Card) {
 	iterator := k.GetCardsIterator(ctx)
 	for ; iterator.Valid(); iterator.Next() {
 
@@ -61,14 +63,14 @@ func (k Keeper) GetAllCards(ctx sdk.Context) []*types.Card {
 
 		allCards = append(allCards, &gottenCard)
 	}
-	return allCards
+	return
 }
 
-func (k Keeper) GetCardsNumber(ctx sdk.Context) uint64 {
-	var cardId uint64
+// GetCardsNumber Gets the number of all card in store
+func (k Keeper) GetCardsNumber(ctx sdk.Context) (cardId uint64) {
 	iterator := k.GetCardsIterator(ctx)
 	for ; iterator.Valid(); iterator.Next() {
 		cardId++
 	}
-	return cardId
+	return
 }

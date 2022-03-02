@@ -44,7 +44,7 @@ func (k msgServer) ReportMatch(goCtx context.Context, msg *types.MsgReportMatch)
 	cards := [][]uint64{msg.CardsB, msg.CardsA}
 
 	if msg.Outcome != types.Outcome_Aborted {
-		for idx, _ := range addresses {
+		for idx := range addresses {
 			for _, cardId := range cards[idx] {
 				err = k.AddVoteRight(ctx, addresses[idx], cardId)
 				if err != nil {
@@ -58,7 +58,7 @@ func (k msgServer) ReportMatch(goCtx context.Context, msg *types.MsgReportMatch)
 
 	amountA, amountB := k.CalculateMatchReward(ctx, msg.Outcome)
 	amounts := []sdk.Coin{amountA, amountB}
-	for idx, _ := range addresses {
+	for idx := range addresses {
 		k.MintCoinsToAddr(ctx, addresses[idx], sdk.Coins{amounts[idx]})
 		k.SubPoolCredits(ctx, WinnersPoolKey, amounts[idx])
 	}
