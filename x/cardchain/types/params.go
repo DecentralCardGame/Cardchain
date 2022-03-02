@@ -35,6 +35,7 @@ func NewParams() Params {
 		UnCommonsPerPack:           3,
 		TrialPeriod:                14 * 24 * 500,
 		GameVoteRatio:              20, // This is a fixed point number and will be devided by 100 when used
+		CardAuctionPriceReductionPeriod: 20,
 	}
 }
 
@@ -61,6 +62,7 @@ func (p *Params) ParamSetPairs() paramtypes.ParamSetPairs {
 		paramtypes.NewParamSetPair([]byte("UnCommonsPerPack"), &p.UnCommonsPerPack, validatePerPack),
 		paramtypes.NewParamSetPair([]byte("TrialPeriod"), &p.TrialPeriod, validateTrialPeriod),
 		paramtypes.NewParamSetPair([]byte("GameVoteRatio"), &p.GameVoteRatio, validateGameVoteRatio),
+		paramtypes.NewParamSetPair([]byte("CardAuctionPriceReductionPeriod"), &p.CardAuctionPriceReductionPeriod, validateCardAuctionPriceReductionPeriod),
 	}
 }
 
@@ -161,6 +163,19 @@ func validateGameVoteRatio(i interface{}) error {
 
 	if v == 0 {
 		return fmt.Errorf("invalid GameVoteRatio: %d", v)
+	}
+
+	return nil
+}
+
+func validateCardAuctionPriceReductionPeriod(i interface{}) error {
+	v, ok := i.(int64)
+	if !ok {
+		return fmt.Errorf("invalid parameter type: %T", i)
+	}
+
+	if v == 0 {
+		return fmt.Errorf("invalid CardAuctionPriceReductionPeriod: %d", v)
 	}
 
 	return nil

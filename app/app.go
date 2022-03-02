@@ -532,12 +532,14 @@ func (app *App) BeginBlocker(ctx sdk.Context, req abci.RequestBeginBlock) abci.R
 // EndBlocker application updates every end block
 func (app *App) EndBlocker(ctx sdk.Context, req abci.RequestEndBlock) abci.ResponseEndBlock {
 	// update the price of card auction (currently 1% decay per block)
-	price := app.CardchainKeeper.GetCardAuctionPrice(ctx) // TODO intervall
-	newprice := price.Sub(cardchainmodulekeeper.QuoCoin(price, 100))
-	if !newprice.IsLT(sdk.NewInt64Coin("ucredits", 1000000)) { // stop at 1 credit
-		app.CardchainKeeper.SetCardAuctionPrice(ctx, newprice)
+	if app.LastBlockHeight()%app.CardchainKeeper.GetParams(ctx).CardAuctionPriceReductionPeriod == 0 {
+		price := app.CardchainKeeper.GetCardAuctionPrice(ctx)
+		newprice := price.Sub(cardchainmodulekeeper.QuoCoin(price, 100))
+		if !newprice.IsLT(sdk.NewInt64Coin("ucredits", 1000000)) { // stop at 1 credit
+			app.CardchainKeeper.SetCardAuctionPrice(ctx, newprice)
+		}
+		app.CardchainKeeper.Logger(ctx).Info(fmt.Sprintf(":: CardAuctionPrice: %s", app.CardchainKeeper.GetCardAuctionPrice(ctx)))
 	}
-	app.CardchainKeeper.Logger(ctx).Info(fmt.Sprintf(":: CardAuctionPrice: %s", app.CardchainKeeper.GetCardAuctionPrice(ctx)))
 
 	// automated nerf/buff happens here
 	if app.LastBlockHeight()%epochBlockTime == 0 {
