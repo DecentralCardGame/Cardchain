@@ -224,10 +224,7 @@ func (k Keeper) GetUsersIterator(ctx sdk.Context) sdk.Iterator {
 	return sdk.KVStorePrefixIterator(store, nil)
 }
 
-func (k Keeper) GetAllUsers(ctx sdk.Context) ([]*types.User, []sdk.AccAddress) {
-	var allUsers []*types.User
-	var allAddresses []sdk.AccAddress
-
+func (k Keeper) GetAllUsers(ctx sdk.Context) (allUsers []*types.User, allAddresses []sdk.AccAddress) {
 	iterator := k.GetUsersIterator(ctx)
 	for ; iterator.Valid(); iterator.Next() {
 
@@ -237,7 +234,7 @@ func (k Keeper) GetAllUsers(ctx sdk.Context) ([]*types.User, []sdk.AccAddress) {
 		allUsers = append(allUsers, &gottenUser)
 		allAddresses = append(allAddresses, sdk.AccAddress(iterator.Key()))
 	}
-	return allUsers, allAddresses
+	return
 }
 
 ////////////
@@ -271,12 +268,11 @@ func (k Keeper) SetLastVotingResults(ctx sdk.Context, results types.VotingResult
 }
 
 // returns the current price of the card scheme auction
-func (k Keeper) GetLastVotingResults(ctx sdk.Context) types.VotingResults {
+func (k Keeper) GetLastVotingResults(ctx sdk.Context) (results types.VotingResults) {
 	store := ctx.KVStore(k.InternalStoreKey)
 	bz := store.Get([]byte("lastVotingResults"))
-	var results types.VotingResults
 	k.cdc.MustUnmarshal(bz, &results)
-	return results
+	return
 }
 
 func (k Keeper) AddVoteRight(ctx sdk.Context, userAddress sdk.AccAddress, cardId uint64) error {
@@ -319,11 +315,9 @@ func (k Keeper) RemoveVoteRight(ctx sdk.Context, userAddress sdk.AccAddress, rig
 	return nil
 }
 
-func (k Keeper) GetVoteRightToAllCards(ctx sdk.Context, expireBlock int64) []*types.VoteRight {
+func (k Keeper) GetVoteRightToAllCards(ctx sdk.Context, expireBlock int64) (votingRights []*types.VoteRight) {
 	cardStore := ctx.KVStore(k.CardsStoreKey)
 	cardIterator := sdk.KVStorePrefixIterator(cardStore, nil)
-
-	votingRights := []*types.VoteRight{}
 
 	for ; cardIterator.Valid(); cardIterator.Next() {
 		// here only give right if card is not a scheme or banished
@@ -337,7 +331,7 @@ func (k Keeper) GetVoteRightToAllCards(ctx sdk.Context, expireBlock int64) []*ty
 	}
 	cardIterator.Close()
 
-	return votingRights
+	return
 }
 
 func (k Keeper) NerfBuffCards(ctx sdk.Context, cardIds []uint64, buff bool) {
@@ -442,15 +436,10 @@ func (k Keeper) UpdateBanStatus(ctx sdk.Context, newBannedIds []uint64) {
 	}
 }
 
-func (k Keeper) GetOPandUPCards(ctx sdk.Context) ([]uint64, []uint64, []uint64, []uint64) {
+func (k Keeper) GetOPandUPCards(ctx sdk.Context) (buffbois []uint64, nerfbois []uint64, fairbois []uint64, banbois []uint64) {
 	var OPcandidates []candidate
 	var UPcandidates []candidate
 	var IAcandidates []candidate
-
-	var nerfbois []uint64
-	var buffbois []uint64
-	var fairbois []uint64
-	var banbois []uint64
 
 	//var votingResults VotingResults
 	votingResults := types.NewVotingResults()
@@ -585,5 +574,5 @@ func (k Keeper) GetOPandUPCards(ctx sdk.Context) ([]uint64, []uint64, []uint64, 
 	// and save the log
 	k.SetLastVotingResults(ctx, votingResults)
 
-	return buffbois, nerfbois, fairbois, banbois
+	return
 }
