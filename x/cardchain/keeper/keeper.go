@@ -110,43 +110,6 @@ func (k Keeper) TransferSchemeToCard(ctx sdk.Context, cardId uint64, address sdk
 	}
 }
 
-//////////////
-// Reporter //
-//////////////
-
-func (k Keeper) ApointMatchReporter(ctx sdk.Context, reporter string) error {
-	address, err := sdk.AccAddressFromBech32(reporter)
-	if err != nil {
-		return sdkerrors.Wrap(types.ErrInvalidAccAddress, "Invalid address")
-	}
-
-	reporterOb, err := k.GetUser(ctx, address)
-	if err != nil {
-		return err
-	}
-
-	reporterOb.ReportMatches = true
-
-	k.SetUser(ctx, address, reporterOb)
-	return nil
-}
-
-func (k Keeper) CalculateMatchReward(ctx sdk.Context, outcome types.Outcome) (amountA sdk.Coin, amountB sdk.Coin) {
-	reward := k.GetParams(ctx).WinnerReward // TODO make a fraction
-	amountA = sdk.NewInt64Coin("ucredits", 0)
-	amountB = sdk.NewInt64Coin("ucredits", 0)
-
-	if outcome == types.Outcome_AWon {
-		amountA = reward
-	} else if outcome == types.Outcome_BWon {
-		amountB = reward
-	} else if outcome == types.Outcome_Draw {
-		amountA = QuoCoin(reward, 2)
-		amountB = QuoCoin(reward, 2)
-	}
-	return
-}
-
 ////////////////
 // SellOffers //
 ////////////////
@@ -270,51 +233,6 @@ func (k Keeper) GetCollectionsNumber(ctx sdk.Context) uint64 {
 		CollectionId++
 	}
 	return CollectionId
-}
-
-/////////////
-// Matches //
-/////////////
-
-func (k Keeper) GetMatch(ctx sdk.Context, matchId uint64) types.Match {
-	store := ctx.KVStore(k.MatchesStoreKey)
-	bz := store.Get(sdk.Uint64ToBigEndian(matchId))
-
-	var gottenMatch types.Match
-	k.cdc.MustUnmarshal(bz, &gottenMatch)
-	return gottenMatch
-}
-
-func (k Keeper) SetMatch(ctx sdk.Context, matchId uint64, newMatch types.Match) {
-	store := ctx.KVStore(k.MatchesStoreKey)
-	store.Set(sdk.Uint64ToBigEndian(matchId), k.cdc.MustMarshal(&newMatch))
-}
-
-func (k Keeper) GetMatchesIterator(ctx sdk.Context) sdk.Iterator {
-	store := ctx.KVStore(k.MatchesStoreKey)
-	return sdk.KVStorePrefixIterator(store, nil)
-}
-
-func (k Keeper) GetAllMatches(ctx sdk.Context) []*types.Match {
-	var allMatches []*types.Match
-	iterator := k.GetMatchesIterator(ctx)
-	for ; iterator.Valid(); iterator.Next() {
-
-		var gottenMatch types.Match
-		k.cdc.MustUnmarshal(iterator.Value(), &gottenMatch)
-
-		allMatches = append(allMatches, &gottenMatch)
-	}
-	return allMatches
-}
-
-func (k Keeper) GetMatchesNumber(ctx sdk.Context) uint64 {
-	var matchId uint64
-	iterator := k.GetMatchesIterator(ctx)
-	for ; iterator.Valid(); iterator.Next() {
-		matchId++
-	}
-	return matchId
 }
 
 ///////////
