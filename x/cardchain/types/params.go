@@ -26,7 +26,7 @@ func NewParams() Params {
 		ActiveCollectionsAmount:         3,
 		CollectionCreationFee:           sdk.NewInt64Coin("ucredits", int64(5000*math.Pow(10, 6))),
 		CollateralDeposit:               sdk.NewInt64Coin("ucredits", int64(50*math.Pow(10, 6))),
-		WinnerReward:                    sdk.NewInt64Coin("ucredits", 1),
+		WinnerReward:                    int64(math.Pow(10, 6)),
 		VoterReward:                     sdk.NewInt64Coin("ucredits", 1),
 		HourlyFaucet:                    sdk.NewInt64Coin("ucredits", int64(50*math.Pow(10, 6))),
 		InflationRate:                   "1.1", // TDOD: Also make this a fixed point number
@@ -208,12 +208,12 @@ func validateCollateralDeposit(i interface{}) error {
 }
 
 func validateWinnerReward(i interface{}) error {
-	v, ok := i.(sdk.Coin)
+	v, ok := i.(int64)
 	if !ok {
 		return fmt.Errorf("invalid parameter type: %T", i)
 	}
 
-	if v == sdk.NewInt64Coin("ucredits", 0) {
+	if v == 0 {
 		return fmt.Errorf("invalid WinnerReward: %d", v)
 	}
 

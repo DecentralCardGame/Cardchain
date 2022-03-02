@@ -11873,6 +11873,7 @@ paths:
                     type: string
                   winnerReward:
                     type: string
+                    format: int64
                   voterReward:
                     type: string
                   hourlyFaucet:
@@ -20797,6 +20798,7 @@ definitions:
         type: string
       winnerReward:
         type: string
+        format: int64
       voterReward:
         type: string
       hourlyFaucet:
@@ -20846,6 +20848,7 @@ definitions:
             type: string
           winnerReward:
             type: string
+            format: int64
           voterReward:
             type: string
           hourlyFaucet:
