@@ -19,7 +19,7 @@ func (k Keeper) SetCard(ctx sdk.Context, cardId uint64, newCard types.Card) {
 	store.Set(sdk.Uint64ToBigEndian(cardId), k.cdc.MustMarshal(&newCard))
 }
 
-// returns the current price of the card scheme auction
+// GetCardAuctionPrice Returns the current price of the card scheme auction
 func (k Keeper) GetCardAuctionPrice(ctx sdk.Context) sdk.Coin {
 	store := ctx.KVStore(k.InternalStoreKey)
 	bz := store.Get([]byte("currentCardSchemeAuctionPrice"))
@@ -28,7 +28,7 @@ func (k Keeper) GetCardAuctionPrice(ctx sdk.Context) sdk.Coin {
 	return price
 }
 
-// sets the current price of the card scheme auction
+// SetCardAuctionPrice Sets the current price of the card scheme auction
 func (k Keeper) SetCardAuctionPrice(ctx sdk.Context, price sdk.Coin) {
 	store := ctx.KVStore(k.InternalStoreKey)
 	store.Set([]byte("currentCardSchemeAuctionPrice"), k.cdc.MustMarshal(&price))

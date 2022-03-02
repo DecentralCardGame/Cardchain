@@ -37,16 +37,16 @@ func (k msgServer) RevealCouncilResponse(goCtx context.Context, msg *types.MsgRe
 	}
 
 	hashStringResponse := GetResponseHash(msg.Response, msg.Secret)
+	var originalHash string
 
-	var origHash string
 	for _, hash := range council.HashResponses {
 		if hash.User == msg.Creator {
-			origHash = hash.Hash
+			originalHash = hash.Hash
 			break
 		}
 	}
 
-	if origHash != hashStringResponse {
+	if originalHash != hashStringResponse {
 		return nil, types.ErrBadReveal
 	}
 
@@ -68,61 +68,4 @@ func (k msgServer) RevealCouncilResponse(goCtx context.Context, msg *types.MsgRe
 	k.SetCouncil(ctx, msg.CouncilId, council)
 
 	return &types.MsgRevealCouncilResponseResponse{}, nil
-}
-
-func (k Keeper) TryEvaluate(ctx sdk.Context, council types.Council) (types.Council, error) {
-	collateralDeposit := k.GetParams(ctx).CollateralDeposit
-
-	if len(council.ClearResponses) == 5 {
-		var (
-			nrNo, nrYes, nrSuggestion int
-			approvers, deniers        []string
-		)
-		for _, response := range council.ClearResponses {
-			if response.Response == types.Response_Yes {
-				nrYes++
-				approvers = append(approvers, response.User)
-			} else if response.Response == types.Response_No {
-				nrNo++
-				deniers = append(deniers, response.User)
-			} else if response.Response == types.Response_Suggestion {
-				nrSuggestion++
-			}
-		}
-		bounty := MulCoin(collateralDeposit, 2)
-		votePool := MulCoin(collateralDeposit, 5)
-		if nrNo == nrYes || nrSuggestion > nrNo || nrSuggestion > nrYes {
-			council.Status = types.CouncelingStatus_suggestionsMade
-			return council, nil
-		} else if nrNo > nrYes {
-			for _, user := range deniers {
-				err := k.MintCoinsToString(ctx, user, sdk.Coins{bounty})
-				if err != nil {
-					return council, err
-				}
-				council.Treasury = council.Treasury.Sub(bounty)
-			}
-			k.AddPoolCredits(ctx, PublicPoolKey, council.Treasury)
-			council.Treasury = council.Treasury.Sub(council.Treasury)
-			council.Status = types.CouncelingStatus_councilClosed
-		} else if nrNo < nrYes {
-			card := k.GetCard(ctx, council.CardId)
-			card.ResetVotes()
-			card.VotePool = card.VotePool.Add(votePool)
-			card.Status = types.Status_trial
-			k.SetCard(ctx, council.CardId, card)
-			council.TrialStart = uint64(ctx.BlockHeight())
-			council.Treasury = council.Treasury.Sub(votePool)
-		}
-		for _, addr := range council.Voters {
-			user, err := k.GetUserFromString(ctx, addr)
-			if err != nil {
-				return council, err
-			}
-			user.CouncilStatus = types.CouncilStatus_available
-			user.Cards = append(user.Cards, council.CardId)
-			k.SetUserFromUser(ctx, user)
-		}
-	}
-	return council, nil
 }

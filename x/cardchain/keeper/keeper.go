@@ -170,17 +170,16 @@ func (k Keeper) GetSellOffersIterator(ctx sdk.Context) sdk.Iterator {
 	return sdk.KVStorePrefixIterator(store, nil)
 }
 
-func (k Keeper) GetAllSellOffers(ctx sdk.Context) []*types.SellOffer {
-	var allSellOfferes []*types.SellOffer
+func (k Keeper) GetAllSellOffers(ctx sdk.Context) (allSellOffers []*types.SellOffer) {
 	iterator := k.GetSellOffersIterator(ctx)
 	for ; iterator.Valid(); iterator.Next() {
 
 		var gottenSellOffer types.SellOffer
 		k.cdc.MustUnmarshal(iterator.Value(), &gottenSellOffer)
 
-		allSellOfferes = append(allSellOfferes, &gottenSellOffer)
+		allSellOffers = append(allSellOffers, &gottenSellOffer)
 	}
-	return allSellOfferes
+	return
 }
 
 func (k Keeper) GetSellOffersNumber(ctx sdk.Context) uint64 {
@@ -224,14 +223,13 @@ func (k Keeper) GetAllCollectionContributors(ctx sdk.Context, collection types.C
 	return contribs
 }
 
-func (k Keeper) GetActiveCollections(ctx sdk.Context) []uint64 {
-	var activeCollections []uint64
+func (k Keeper) GetActiveCollections(ctx sdk.Context) (activeCollections []uint64) {
 	for idx, collection := range k.GetAllCollections(ctx) {
 		if collection.Status == types.CStatus_active {
 			activeCollections = append(activeCollections, uint64(idx))
 		}
 	}
-	return activeCollections
+	return
 }
 
 func (k Keeper) GetCollection(ctx sdk.Context, cId uint64) types.Collection {
@@ -253,8 +251,7 @@ func (k Keeper) GetCollectionsIterator(ctx sdk.Context) sdk.Iterator {
 	return sdk.KVStorePrefixIterator(store, nil)
 }
 
-func (k Keeper) GetAllCollections(ctx sdk.Context) []*types.Collection {
-	var allCollections []*types.Collection
+func (k Keeper) GetAllCollections(ctx sdk.Context) (allCollections []*types.Collection) {
 	iterator := k.GetCollectionsIterator(ctx)
 	for ; iterator.Valid(); iterator.Next() {
 
@@ -263,7 +260,7 @@ func (k Keeper) GetAllCollections(ctx sdk.Context) []*types.Collection {
 
 		allCollections = append(allCollections, &gottenCollection)
 	}
-	return allCollections
+	return
 }
 
 func (k Keeper) GetCollectionsNumber(ctx sdk.Context) uint64 {
@@ -273,122 +270,6 @@ func (k Keeper) GetCollectionsNumber(ctx sdk.Context) uint64 {
 		CollectionId++
 	}
 	return CollectionId
-}
-
-//////////////
-// Councils //
-//////////////
-
-func (k Keeper) CheckTrial(ctx sdk.Context) error {
-	collateralDeposit := k.GetParams(ctx).CollateralDeposit
-	for idx, council := range k.GetAllCouncils(ctx) {
-		if council.Status == types.CouncelingStatus_revealed {
-			if council.TrialStart+k.GetParams(ctx).TrialPeriod <= uint64(ctx.BlockHeight()) {
-				card := k.GetCard(ctx, council.CardId)
-
-				var (
-					group, approvers, deniers []string
-					amt                       int64
-				)
-				for _, response := range council.ClearResponses {
-					if response.Response == types.Response_Yes {
-						approvers = append(approvers, response.User)
-					} else {
-						deniers = append(deniers, response.User)
-					}
-				}
-
-				votes := []uint64{card.FairEnoughVotes, card.OverpoweredVotes, card.UnderpoweredVotes, card.InappropriateVotes}
-				sort.Slice(votes, func(i, j int) bool {
-					return votes[i] < votes[j]
-				})
-				if votes[len(votes)-1] == 0 {
-					council.TrialStart = uint64(ctx.BlockHeight())
-					k.SetCouncil(ctx, uint64(idx), *council)
-					continue
-				}
-				if card.FairEnoughVotes == votes[len(votes)-1] {
-					card.Status = types.Status_permanent
-					group = approvers
-					amt = 2
-				} else {
-					card.Status = types.Status_prototype
-					group = deniers
-					amt = 3
-				}
-
-				k.Logger(ctx).Debug(fmt.Sprintf(":: Card Set to %s", card.Status.String()))
-
-				bounty := MulCoin(collateralDeposit, amt)
-				for _, user := range group {
-					err := k.MintCoinsToString(ctx, user, sdk.Coins{bounty})
-					if err != nil {
-						return nil
-					}
-					council.Treasury = council.Treasury.Sub(bounty)
-				}
-				pool := k.GetPool(ctx, PublicPoolKey)
-				pool = pool.Add(council.Treasury)
-				k.SetPool(ctx, PublicPoolKey, pool)
-				council.Treasury = council.Treasury.Sub(council.Treasury)
-
-				incentive := QuoCoin(card.VotePool, int64(len(card.Voters)))
-				for _, user := range card.Voters {
-					err := k.MintCoinsToString(ctx, user, sdk.Coins{incentive})
-					if err != nil {
-						return nil
-					}
-				}
-				card.VotePool = card.VotePool.Sub(card.VotePool)
-				council.Status = types.CouncelingStatus_councilClosed
-
-				k.SetCouncil(ctx, uint64(idx), *council)
-				k.SetCard(ctx, council.CardId, card)
-			}
-		}
-	}
-	return nil
-}
-
-func (k Keeper) GetCouncil(ctx sdk.Context, councilId uint64) types.Council {
-	store := ctx.KVStore(k.CouncilsStoreKey)
-	bz := store.Get(sdk.Uint64ToBigEndian(councilId))
-
-	var gottenCouncil types.Council
-	k.cdc.MustUnmarshal(bz, &gottenCouncil)
-	return gottenCouncil
-}
-
-func (k Keeper) SetCouncil(ctx sdk.Context, councilId uint64, newCouncil types.Council) {
-	store := ctx.KVStore(k.CouncilsStoreKey)
-	store.Set(sdk.Uint64ToBigEndian(councilId), k.cdc.MustMarshal(&newCouncil))
-}
-
-func (k Keeper) GetCouncilsIterator(ctx sdk.Context) sdk.Iterator {
-	store := ctx.KVStore(k.CouncilsStoreKey)
-	return sdk.KVStorePrefixIterator(store, nil)
-}
-
-func (k Keeper) GetAllCouncils(ctx sdk.Context) []*types.Council {
-	var allCouncils []*types.Council
-	iterator := k.GetCouncilsIterator(ctx)
-	for ; iterator.Valid(); iterator.Next() {
-
-		var gottenCouncil types.Council
-		k.cdc.MustUnmarshal(iterator.Value(), &gottenCouncil)
-
-		allCouncils = append(allCouncils, &gottenCouncil)
-	}
-	return allCouncils
-}
-
-func (k Keeper) GetCouncilsNumber(ctx sdk.Context) uint64 {
-	var councilId uint64
-	iterator := k.GetCouncilsIterator(ctx)
-	for ; iterator.Valid(); iterator.Next() {
-		councilId++
-	}
-	return councilId
 }
 
 /////////////
