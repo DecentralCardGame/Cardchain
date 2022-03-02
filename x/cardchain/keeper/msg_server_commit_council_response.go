@@ -38,6 +38,10 @@ func (k msgServer) CommitCouncilResponse(goCtx context.Context, msg *types.MsgCo
 
 	resp := types.WrapHashResponse{msg.Creator, msg.Response}
 	council.HashResponses = append(council.HashResponses, &resp)
+	if msg.Suggestion != "" {  // Direcly reveal when a suggestion is made
+		clearResp := types.WrapClearResponse{msg.Creator, types.Response_Suggestion, msg.Suggestion}
+		council.ClearResponses = append(council.ClearResponses, &clearResp)
+	}
 
 	if len(council.HashResponses) == 5 {
 		council.Status = types.CouncelingStatus_commited
@@ -48,6 +52,8 @@ func (k msgServer) CommitCouncilResponse(goCtx context.Context, msg *types.MsgCo
 		return nil, sdkerrors.Wrap(sdkerrors.ErrInsufficientFunds, "Voter does not have enough coins")
 	}
 	council.Treasury = council.Treasury.Add(collateralDeposit)
+
+	council, err = k.TryEvaluate(ctx, council)
 
 	k.SetCouncil(ctx, msg.CouncilId, council)
 

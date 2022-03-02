@@ -27,6 +27,15 @@ func (k msgServer) RevealCouncilResponse(goCtx context.Context, msg *types.MsgRe
 		return nil, sdkerrors.Wrapf(types.ErrCouncilStatus, "Have '%s', want '%s'", council.Status.String(), types.CouncelingStatus_commited.String())
 	}
 
+	var allreadyVoted []string
+	for _, response := range council.ClearResponses {
+		allreadyVoted = append(allreadyVoted, response.User)
+	}
+
+	if stringItemInList(msg.Creator, allreadyVoted) {
+		return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "Already voted")
+	}
+
 	hashStringResponse := GetResponseHash(msg.Response, msg.Secret)
 
 	var origHash string
@@ -41,16 +50,7 @@ func (k msgServer) RevealCouncilResponse(goCtx context.Context, msg *types.MsgRe
 		return nil, types.ErrBadReveal
 	}
 
-	var allreadyVoted []string
-	for _, response := range council.ClearResponses {
-		allreadyVoted = append(allreadyVoted, response.User)
-	}
-
-	if stringItemInList(msg.Creator, allreadyVoted) {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "Already voted")
-	}
-
-	resp := types.WrapClearResponse{msg.Creator, msg.Response}
+	resp := types.WrapClearResponse{msg.Creator, msg.Response, ""}
 	council.ClearResponses = append(council.ClearResponses, &resp)
 
 	if len(council.ClearResponses) == 5 {
@@ -63,35 +63,50 @@ func (k msgServer) RevealCouncilResponse(goCtx context.Context, msg *types.MsgRe
 	}
 	council.Treasury = council.Treasury.Add(collateralDeposit)
 
-	//
+	council, err = k.TryEvaluate(ctx, council)
+
+	k.SetCouncil(ctx, msg.CouncilId, council)
+
+	return &types.MsgRevealCouncilResponseResponse{}, nil
+}
+
+
+func (k Keeper) TryEvaluate(ctx sdk.Context, council types.Council) (types.Council, error) {
+	collateralDeposit := k.GetParams(ctx).CollateralDeposit
+
 	if len(council.ClearResponses) == 5 {
 		var (
-			nrNo, nrYes        int
+			nrNo, nrYes, nrSuggestion int
 			approvers, deniers []string
 		)
 		for _, response := range council.ClearResponses {
 			if response.Response == types.Response_Yes {
 				nrYes++
 				approvers = append(approvers, response.User)
-			} else {
+			} else if response.Response == types.Response_No {
 				nrNo++
 				deniers = append(deniers, response.User)
+			} else if response.Response == types.Response_Suggestion {
+				nrSuggestion++
 			}
 		}
 		bounty := MulCoin(collateralDeposit, 2)
 		votePool := MulCoin(collateralDeposit, 5)
-		if nrNo > nrYes {
+		if nrNo == nrYes || nrSuggestion > nrNo || nrSuggestion > nrYes {
+			council.Status = types.CouncelingStatus_suggestionsMade
+			return council, nil
+		} else if nrNo > nrYes {
 			for _, user := range deniers {
-				err = k.MintCoinsToString(ctx, user, sdk.Coins{bounty})
+				err := k.MintCoinsToString(ctx, user, sdk.Coins{bounty})
 				if err != nil {
-					return nil, err
+					return council, err
 				}
 				council.Treasury = council.Treasury.Sub(bounty)
 			}
 			k.AddPoolCredits(ctx, PublicPoolKey, council.Treasury)
 			council.Treasury = council.Treasury.Sub(council.Treasury)
 			council.Status = types.CouncelingStatus_councilClosed
-		} else {
+		} else if nrNo < nrYes {
 			card := k.GetCard(ctx, council.CardId)
 			card.ResetVotes()
 			card.VotePool = card.VotePool.Add(votePool)
@@ -103,15 +118,12 @@ func (k msgServer) RevealCouncilResponse(goCtx context.Context, msg *types.MsgRe
 		for _, addr := range council.Voters {
 			user, err := k.GetUserFromString(ctx, addr)
 			if err != nil {
-				return nil, err
+				return council, err
 			}
 			user.CouncilStatus = types.CouncilStatus_available
 			user.Cards = append(user.Cards, council.CardId)
 			k.SetUserFromUser(ctx, user)
 		}
 	}
-
-	k.SetCouncil(ctx, msg.CouncilId, council)
-
-	return &types.MsgRevealCouncilResponseResponse{}, nil
+	return council, nil
 }

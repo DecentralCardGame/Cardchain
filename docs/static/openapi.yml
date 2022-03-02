@@ -12260,7 +12260,10 @@ paths:
                       enum:
                         - 'Yes'
                         - 'No'
+                        - Suggestion
                       default: 'Yes'
+                    suggestion:
+                      type: string
               treasury:
                 type: string
               status:
@@ -12271,6 +12274,7 @@ paths:
                   - councilClosed
                   - commited
                   - revealed
+                  - suggestionsMade
                 default: councilOpen
               trialStart:
                 type: string
@@ -20619,6 +20623,7 @@ definitions:
       - councilClosed
       - commited
       - revealed
+      - suggestionsMade
     default: councilOpen
   DecentralCardGame.cardchain.cardchain.Council:
     type: object
@@ -20651,7 +20656,10 @@ definitions:
               enum:
                 - 'Yes'
                 - 'No'
+                - Suggestion
               default: 'Yes'
+            suggestion:
+              type: string
       treasury:
         type: string
       status:
@@ -20662,6 +20670,7 @@ definitions:
           - councilClosed
           - commited
           - revealed
+          - suggestionsMade
         default: councilOpen
       trialStart:
         type: string
@@ -20951,6 +20960,7 @@ definitions:
     enum:
       - 'Yes'
       - 'No'
+      - Suggestion
     default: 'Yes'
   DecentralCardGame.cardchain.cardchain.SellOffer:
     type: object
@@ -21113,7 +21123,10 @@ definitions:
         enum:
           - 'Yes'
           - 'No'
+          - Suggestion
         default: 'Yes'
+      suggestion:
+        type: string
   DecentralCardGame.cardchain.cardchain.WrapHashResponse:
     type: object
     properties:

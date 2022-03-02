@@ -312,6 +312,7 @@ message MsgCommitCouncilResponse {
   string creator = 1;
   string response = 2;
   uint64 councilId = 3;
+  string suggestion = 4;
 }
 
 message MsgCommitCouncilResponseResponse {
