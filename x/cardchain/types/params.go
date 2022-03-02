@@ -20,21 +20,21 @@ func ParamKeyTable() paramtypes.KeyTable {
 // NewParams creates a new Params instance
 func NewParams() Params {
 	return Params{
-		VotingRightsExpirationTime: 86000,
-		CollectionSize:             5,
-		CollectionPrice:            sdk.NewInt64Coin("ucredits", 10000000),
-		ActiveCollectionsAmount:    3,
-		CollectionCreationFee:      sdk.NewInt64Coin("ucredits", int64(5000*math.Pow(10, 6))),
-		CollateralDeposit:          sdk.NewInt64Coin("ucredits", int64(50*math.Pow(10, 6))),
-		WinnerReward:               sdk.NewInt64Coin("ucredits", 1),
-		VoterReward:                sdk.NewInt64Coin("ucredits", 1),
-		HourlyFaucet:               sdk.NewInt64Coin("ucredits", int64(50*math.Pow(10, 6))),
-		InflationRate:              "1.1", // TDOD: Also make this a fixed point number
-		RaresPerPack:               1,
-		CommonsPerPack:             9,
-		UnCommonsPerPack:           3,
-		TrialPeriod:                14 * 24 * 500,
-		GameVoteRatio:              20, // This is a fixed point number and will be devided by 100 when used
+		VotingRightsExpirationTime:      86000,
+		CollectionSize:                  5,
+		CollectionPrice:                 sdk.NewInt64Coin("ucredits", 10000000),
+		ActiveCollectionsAmount:         3,
+		CollectionCreationFee:           sdk.NewInt64Coin("ucredits", int64(5000*math.Pow(10, 6))),
+		CollateralDeposit:               sdk.NewInt64Coin("ucredits", int64(50*math.Pow(10, 6))),
+		WinnerReward:                    sdk.NewInt64Coin("ucredits", 1),
+		VoterReward:                     sdk.NewInt64Coin("ucredits", 1),
+		HourlyFaucet:                    sdk.NewInt64Coin("ucredits", int64(50*math.Pow(10, 6))),
+		InflationRate:                   "1.1", // TDOD: Also make this a fixed point number
+		RaresPerPack:                    1,
+		CommonsPerPack:                  9,
+		UnCommonsPerPack:                3,
+		TrialPeriod:                     14 * 24 * 500,
+		GameVoteRatio:                   20, // This is a fixed point number and will be devided by 100 when used
 		CardAuctionPriceReductionPeriod: 20,
 	}
 }

@@ -144,6 +144,10 @@ const (
 	// TODO: Determine the simulation weight value
 	defaultWeightMsgRevealCouncilResponse int = 100
 
+	opWeightMsgRestartCouncil = "op_weight_msg_create_chain"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgRestartCouncil int = 100
+
 	// this line is used by starport scaffolding # simapp/module/const
 )
 
@@ -505,6 +509,17 @@ func (am AppModule) WeightedOperations(simState module.SimulationState) []simtyp
 	operations = append(operations, simulation.NewWeightedOperation(
 		weightMsgRevealCouncilResponse,
 		cardchainsimulation.SimulateMsgRevealCouncilResponse(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
+	var weightMsgRestartCouncil int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgRestartCouncil, &weightMsgRestartCouncil, nil,
+		func(_ *rand.Rand) {
+			weightMsgRestartCouncil = defaultWeightMsgRestartCouncil
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgRestartCouncil,
+		cardchainsimulation.SimulateMsgRestartCouncil(am.accountKeeper, am.bankKeeper, am.keeper),
 	))
 
 	// this line is used by starport scaffolding # simapp/module/operation

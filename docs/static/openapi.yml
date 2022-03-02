@@ -20751,6 +20751,8 @@ definitions:
       matchId:
         type: string
         format: uint64
+  DecentralCardGame.cardchain.cardchain.MsgRestartCouncilResponse:
+    type: object
   DecentralCardGame.cardchain.cardchain.MsgRevealCouncilResponseResponse:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgSaveCardContentResponse:

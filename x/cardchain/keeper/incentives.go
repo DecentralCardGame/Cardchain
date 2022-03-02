@@ -1,7 +1,7 @@
 package keeper
 
 import (
-  "github.com/DecentralCardGame/Cardchain/x/cardchain/types"
+	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
@@ -29,25 +29,25 @@ func (k Keeper) GetBalancerIncentives(ctx sdk.Context) float32 {
 // GetGames Gets the number of games played in the last 24 hours
 func (k Keeper) GetGames(ctx sdk.Context) (num int64) {
 	games := k.GetRunningAverage(ctx, Games24ValueKey)
-  for _, val := range games.Arr {
-    num += val
-  }
-  if num == 0 {
-    num = 1
-  }
-  return
+	for _, val := range games.Arr {
+		num += val
+	}
+	if num == 0 {
+		num = 1
+	}
+	return
 }
 
 // GetVotes Gets the number of votes made in the last 24 hours
 func (k Keeper) GetVotes(ctx sdk.Context) (num int64) {
 	votes := k.GetRunningAverage(ctx, Votes24ValueKey)
-  for _, val := range votes.Arr {
-    num += val
-  }
-  if num == 0 {
-    num = 1
-  }
-  return
+	for _, val := range votes.Arr {
+		num += val
+	}
+	if num == 0 {
+		num = 1
+	}
+	return
 }
 
 // GetRunningAverage Returns a given runningAverage
@@ -69,7 +69,7 @@ func (k Keeper) SetRunningAverage(ctx sdk.Context, runningAverageName string, ne
 // GetAllRunningAverages Returns all runningAverages
 func (k Keeper) GetAllRunningAverages(ctx sdk.Context) (allRunningAverages []*types.RunningAverage) {
 	for _, runningAverageName := range k.RunningAverageKeys {
-    gottenAverage := k.GetRunningAverage(ctx, runningAverageName)
+		gottenAverage := k.GetRunningAverage(ctx, runningAverageName)
 		allRunningAverages = append(allRunningAverages, &gottenAverage)
 	}
 	return

@@ -11,9 +11,9 @@ var _ sdk.Msg = &MsgCommitCouncilResponse{}
 
 func NewMsgCommitCouncilResponse(creator string, response string, councilId uint64, suggestion string) *MsgCommitCouncilResponse {
 	return &MsgCommitCouncilResponse{
-		Creator:   creator,
-		Response:  response,
-		CouncilId: councilId,
+		Creator:    creator,
+		Response:   response,
+		CouncilId:  councilId,
 		Suggestion: suggestion,
 	}
 }

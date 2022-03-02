@@ -70,14 +70,13 @@ func (k msgServer) RevealCouncilResponse(goCtx context.Context, msg *types.MsgRe
 	return &types.MsgRevealCouncilResponseResponse{}, nil
 }
 
-
 func (k Keeper) TryEvaluate(ctx sdk.Context, council types.Council) (types.Council, error) {
 	collateralDeposit := k.GetParams(ctx).CollateralDeposit
 
 	if len(council.ClearResponses) == 5 {
 		var (
 			nrNo, nrYes, nrSuggestion int
-			approvers, deniers []string
+			approvers, deniers        []string
 		)
 		for _, response := range council.ClearResponses {
 			if response.Response == types.Response_Yes {
