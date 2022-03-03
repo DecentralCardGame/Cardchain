@@ -59,10 +59,7 @@ func (k msgServer) VoteCard(goCtx context.Context, msg *types.MsgVoteCard) (*typ
 		k.MintCoinsToAddr(ctx, voter, sdk.Coins{sdk.NewInt64Coin("ucredits", 1000000)})
 	}
 
-	// give generic bounty for voting
-	k.MintCoinsToAddr(ctx, voter, sdk.Coins{sdk.NewInt64Coin("ucredits", 1000000)})
-
-	amount := k.GetParams(ctx).VoterReward
+	amount := k.GetParams(ctx).VoterReward  // TODO Make this a fraction
 	k.MintCoinsToAddr(ctx, voter, sdk.Coins{amount})
 	k.SubPoolCredits(ctx, BalancersPoolKey, amount)
 
