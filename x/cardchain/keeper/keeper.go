@@ -110,50 +110,6 @@ func (k Keeper) TransferSchemeToCard(ctx sdk.Context, cardId uint64, address sdk
 	}
 }
 
-////////////////
-// SellOffers //
-////////////////
-
-func (k Keeper) GetSellOffer(ctx sdk.Context, sellOfferId uint64) types.SellOffer {
-	store := ctx.KVStore(k.SellOffersStoreKey)
-	bz := store.Get(sdk.Uint64ToBigEndian(sellOfferId))
-
-	var gottenSellOffer types.SellOffer
-	k.cdc.MustUnmarshal(bz, &gottenSellOffer)
-	return gottenSellOffer
-}
-
-func (k Keeper) SetSellOffer(ctx sdk.Context, sellOfferId uint64, newSellOffer types.SellOffer) {
-	store := ctx.KVStore(k.SellOffersStoreKey)
-	store.Set(sdk.Uint64ToBigEndian(sellOfferId), k.cdc.MustMarshal(&newSellOffer))
-}
-
-func (k Keeper) GetSellOffersIterator(ctx sdk.Context) sdk.Iterator {
-	store := ctx.KVStore(k.SellOffersStoreKey)
-	return sdk.KVStorePrefixIterator(store, nil)
-}
-
-func (k Keeper) GetAllSellOffers(ctx sdk.Context) (allSellOffers []*types.SellOffer) {
-	iterator := k.GetSellOffersIterator(ctx)
-	for ; iterator.Valid(); iterator.Next() {
-
-		var gottenSellOffer types.SellOffer
-		k.cdc.MustUnmarshal(iterator.Value(), &gottenSellOffer)
-
-		allSellOffers = append(allSellOffers, &gottenSellOffer)
-	}
-	return
-}
-
-func (k Keeper) GetSellOffersNumber(ctx sdk.Context) uint64 {
-	var sellOfferId uint64
-	iterator := k.GetSellOffersIterator(ctx)
-	for ; iterator.Valid(); iterator.Next() {
-		sellOfferId++
-	}
-	return sellOfferId
-}
-
 ///////////
 // Users //
 ///////////
