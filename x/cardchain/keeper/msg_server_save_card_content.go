@@ -18,14 +18,9 @@ func (k msgServer) SaveCardContent(goCtx context.Context, msg *types.MsgSaveCard
 		return nil, sdkerrors.Wrap(types.ErrInvalidAccAddress, err.Error())
 	}
 
-	// TODO Add error when writing to unowned card
-
-	cardOwner, err := sdk.AccAddressFromBech32(card.Owner)
-	if err != nil {
-		return nil, sdkerrors.Wrap(types.ErrInvalidAccAddress, err.Error())
-	}
-
-	if !msgOwner.Equals(cardOwner) { // Checks if the the msg sender is the same as the current owner
+	if card.Owner == "" {
+		return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "Card has no owner")
+	} else if msg.Creator != card.Owner { // Checks if the the msg sender is the same as the current owner
 		return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "Incorrect Owner")
 	}
 
