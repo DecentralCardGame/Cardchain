@@ -14,12 +14,6 @@ func (k msgServer) TransferCard(goCtx context.Context, msg *types.MsgTransferCar
 	// if the vote right is valid, get the Card
 	card := k.GetCard(ctx, msg.CardId)
 
-	// check if card status is valid // TODO ponder if this is necessary for transfer card
-	/*
-		if(card.Status != "permanent" && card.Status != "trial") {
-			return sdk.ErrUnknownRequest("Transferring a card is only possible if it is in trial or a permanent card").Result()
-		}
-	*/
 	sender, err := sdk.AccAddressFromBech32(msg.Creator)
 	if err != nil {
 		return nil, sdkerrors.Wrap(types.ErrInvalidAccAddress, "Unable to convert to AccAddress")
