@@ -33,8 +33,8 @@ func (k msgServer) VoteCard(goCtx context.Context, msg *types.MsgVoteCard) (*typ
 	// if the vote right is valid, get the Card
 	card := k.GetCard(ctx, msg.CardId)
 
-	// check if card status is valid // TODO remove prototype as soon as the council exists
-	if card.Status != types.Status_permanent && card.Status != types.Status_trial && card.Status != types.Status_prototype {
+	// check if card status is valid
+	if card.Status != types.Status_permanent && card.Status != types.Status_trial {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrUnknownRequest, "Voting on a card is only possible if it is in trial or a permanent card")
 	}
 
