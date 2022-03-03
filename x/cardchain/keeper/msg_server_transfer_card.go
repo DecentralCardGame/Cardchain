@@ -14,17 +14,9 @@ func (k msgServer) TransferCard(goCtx context.Context, msg *types.MsgTransferCar
 	// if the vote right is valid, get the Card
 	card := k.GetCard(ctx, msg.CardId)
 
-	sender, err := sdk.AccAddressFromBech32(msg.Creator)
-	if err != nil {
-		return nil, sdkerrors.Wrap(types.ErrInvalidAccAddress, "Unable to convert to AccAddress")
-	}
-
-	owner, err := sdk.AccAddressFromBech32(card.Owner)
-	if err != nil {
-		return nil, sdkerrors.Wrap(types.ErrInvalidAccAddress, "Unable to convert to AccAddress")
-	}
-
-	if !sender.Equals(owner) { // Checks if the the msg sender is the same as the current owner
+	if card.Owner == "" {
+		return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "Card has no owner")
+	} else if msg.Creator != card.Owner { // Checks if the the msg sender is the same as the current owner
 		return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "Incorrect Owner") // If not, throw an error
 	}
 
