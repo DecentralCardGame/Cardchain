@@ -28,7 +28,7 @@ func NewProposalHandler(k keeper.Keeper) govtypes.Handler {
 }
 
 func handleMatchReporterProposal(ctx sdk.Context, k keeper.Keeper, p *types.MatchReporterProposal) error {
-	return k.ApointMatchReporter(ctx, p.Reporter)
+	return k.SetMatchReporter(ctx, p.Reporter)
 }
 
 func handleCopyrightProposal(ctx sdk.Context, k keeper.Keeper, p *types.CopyrightProposal) error {

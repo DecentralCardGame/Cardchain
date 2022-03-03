@@ -5,8 +5,8 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
-// ApointMatchReporter Makes a user a match reporter
-func (k Keeper) ApointMatchReporter(ctx sdk.Context, address string) error {
+// SetMatchReporter Makes a user a match reporter
+func (k Keeper) SetMatchReporter(ctx sdk.Context, address string) error {
 	reporter, err := k.GetUserFromString(ctx, address)
 	if err != nil {
 		return err
@@ -37,7 +37,7 @@ func (k Keeper) CalculateMatchReward(ctx sdk.Context, outcome types.Outcome) (am
 	return
 }
 
-// GetReward Calculates winner rewards 
+// GetReward Calculates winner rewards
 func (k Keeper) GetReward(ctx sdk.Context) sdk.Coin {
   pool := k.GetPool(ctx, WinnersPoolKey)
   reward := QuoCoin(pool, k.GetParams(ctx).WinnerReward)

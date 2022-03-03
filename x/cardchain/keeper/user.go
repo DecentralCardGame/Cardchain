@@ -13,7 +13,7 @@ type User struct {
 }
 
 // CreateUser Creates a new user
-func (k Keeper) Createuser(ctx sdk.Context, newUser sdk.AccAddress, alias string) types.User {
+func (k Keeper) CreateUser(ctx sdk.Context, newUser sdk.AccAddress, alias string) types.User {
   // check if user already exists
 	store := ctx.KVStore(k.UsersStoreKey)
 	bz := store.Get(newUser)

@@ -78,6 +78,18 @@ func NewKeeper(
 	}
 }
 
+func SearchVoteRights(cardID uint64, rights []*types.VoteRight) int {
+	if rights == nil {
+		return -1
+	}
+	for i, b := range rights {
+		if b.CardId == cardID {
+			return i
+		}
+	}
+	return -1
+}
+
 func (k Keeper) Logger(ctx sdk.Context) log.Logger {
 	return ctx.Logger().With("module", fmt.Sprintf("x/%s", types.ModuleName))
 }
