@@ -13,7 +13,6 @@ import (
 	"github.com/DecentralCardGame/cardobject/keywords"
 	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	paramtypes "github.com/cosmos/cosmos-sdk/x/params/types"
 )
 
@@ -79,11 +78,6 @@ func NewKeeper(
 	}
 }
 
-type User struct {
-	types.User
-	Addr sdk.AccAddress
-}
-
 func (k Keeper) Logger(ctx sdk.Context) log.Logger {
 	return ctx.Logger().With("module", fmt.Sprintf("x/%s", types.ModuleName))
 }
@@ -108,89 +102,6 @@ func (k Keeper) TransferSchemeToCard(ctx sdk.Context, cardId uint64, address sdk
 
 		store.Set(address, k.cdc.MustMarshal(&gottenUser))
 	}
-}
-
-///////////
-// Users //
-///////////
-
-func (k Keeper) Createuser(ctx sdk.Context, newUser sdk.AccAddress, alias string) types.User {
-	// check if user already exists
-	store := ctx.KVStore(k.UsersStoreKey)
-	bz := store.Get(newUser)
-
-	if bz == nil {
-		k.InitUser(ctx, newUser, alias)
-	}
-
-	user, _ := k.GetUser(ctx, newUser)
-	return user
-}
-
-func (k Keeper) InitUser(ctx sdk.Context, address sdk.AccAddress, alias string) {
-	store := ctx.KVStore(k.UsersStoreKey)
-
-	if alias == "" {
-		alias = "newbie"
-	}
-	newUser := types.NewUser()
-	newUser.Alias = alias
-	k.MintCoinsToAddr(ctx, address, sdk.Coins{sdk.NewInt64Coin("ucredits", 10000000000)})
-	newUser.VoteRights = k.GetVoteRightToAllCards(ctx, ctx.BlockHeight()+k.GetParams(ctx).VotingRightsExpirationTime) // TODO this might be a good thing to remove later, so that sybil voting is not possible
-
-	store.Set(address, k.cdc.MustMarshal(&newUser))
-}
-
-func (k Keeper) GetUser(ctx sdk.Context, address sdk.AccAddress) (types.User, error) {
-	store := ctx.KVStore(k.UsersStoreKey)
-	bz := store.Get(address)
-	var gottenUser types.User
-
-	if bz == nil {
-		return gottenUser, sdkerrors.Wrap(types.ErrUserDoesNotExist, "Address not in store")
-	}
-
-	k.cdc.MustUnmarshal(bz, &gottenUser)
-	return gottenUser, nil
-}
-
-func (k Keeper) GetUserFromString(ctx sdk.Context, addr string) (user User, err error) {
-	user.Addr, err = sdk.AccAddressFromBech32(addr)
-	if err != nil {
-		return user, sdkerrors.Wrap(types.ErrInvalidAccAddress, "Unable to convert to AccAddress")
-	}
-	user.User, err = k.GetUser(ctx, user.Addr)
-	if err != nil {
-		return
-	}
-	return
-}
-
-func (k Keeper) SetUserFromUser(ctx sdk.Context, user User) {
-	k.SetUser(ctx, user.Addr, user.User)
-}
-
-func (k Keeper) SetUser(ctx sdk.Context, address sdk.AccAddress, userData types.User) {
-	store := ctx.KVStore(k.UsersStoreKey)
-	store.Set(address, k.cdc.MustMarshal(&userData))
-}
-
-func (k Keeper) GetUsersIterator(ctx sdk.Context) sdk.Iterator {
-	store := ctx.KVStore(k.UsersStoreKey)
-	return sdk.KVStorePrefixIterator(store, nil)
-}
-
-func (k Keeper) GetAllUsers(ctx sdk.Context) (allUsers []*types.User, allAddresses []sdk.AccAddress) {
-	iterator := k.GetUsersIterator(ctx)
-	for ; iterator.Valid(); iterator.Next() {
-
-		var gottenUser types.User
-		k.cdc.MustUnmarshal(iterator.Value(), &gottenUser)
-
-		allUsers = append(allUsers, &gottenUser)
-		allAddresses = append(allAddresses, sdk.AccAddress(iterator.Key()))
-	}
-	return
 }
 
 ////////////
