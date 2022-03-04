@@ -11876,6 +11876,7 @@ paths:
                     format: int64
                   voterReward:
                     type: string
+                    format: int64
                   hourlyFaucet:
                     type: string
                   inflationRate:
@@ -20801,6 +20802,7 @@ definitions:
         format: int64
       voterReward:
         type: string
+        format: int64
       hourlyFaucet:
         type: string
       inflationRate:
@@ -20851,6 +20853,7 @@ definitions:
             format: int64
           voterReward:
             type: string
+            format: int64
           hourlyFaucet:
             type: string
           inflationRate:

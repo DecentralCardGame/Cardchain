@@ -19,7 +19,7 @@ func (k Keeper) SetMatchReporter(ctx sdk.Context, address string) error {
 
 // CalculateMatchReward Calculates the match winning rewards
 func (k Keeper) CalculateMatchReward(ctx sdk.Context, outcome types.Outcome) (amountA sdk.Coin, amountB sdk.Coin) {
-	reward := k.GetReward(ctx)
+	reward := k.GetMatchReward(ctx)
 	amountA = sdk.NewInt64Coin("ucredits", 0)
 	amountB = sdk.NewInt64Coin("ucredits", 0)
 
@@ -37,8 +37,8 @@ func (k Keeper) CalculateMatchReward(ctx sdk.Context, outcome types.Outcome) (am
 	return
 }
 
-// GetReward Calculates winner rewards
-func (k Keeper) GetReward(ctx sdk.Context) sdk.Coin {
+// GetMatchReward Calculates winner rewards
+func (k Keeper) GetMatchReward(ctx sdk.Context) sdk.Coin {
   pool := k.GetPool(ctx, WinnersPoolKey)
   reward := QuoCoin(pool, k.GetParams(ctx).WinnerReward)
   if reward.Amount.Int64() > 1000000 {
