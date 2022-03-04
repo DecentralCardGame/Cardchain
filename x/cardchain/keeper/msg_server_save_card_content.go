@@ -24,15 +24,10 @@ func (k msgServer) SaveCardContent(goCtx context.Context, msg *types.MsgSaveCard
 		return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "Incorrect Owner")
 	}
 
-	// TODO cards get a starting pool currently, this should be removed later and the starting pool should come after council decision
-	card.VotePool.Add(sdk.NewInt64Coin("ucredits", 10000000))
-
 	card.Content = []byte(msg.Content)
-	// card.Image = []byte(msg.Image)
 	card.Status = types.Status_prototype
 	card.Notes = msg.Notes
 	card.Artist = msg.Artist
-	// card.FullArt = msg.FullArt
 	k.SetCard(ctx, msg.CardId, card)
 	k.TransferSchemeToCard(ctx, msg.CardId, msgOwner)
 
