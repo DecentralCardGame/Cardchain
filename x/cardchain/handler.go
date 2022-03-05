@@ -116,16 +116,6 @@ func NewHandler(k keeper.Keeper) sdk.Handler {
 func UpdateNerfLevels(ctx sdk.Context, keeper keeper.Keeper) sdk.Result {
 
 	buffbois, nerfbois, _, banbois := keeper.GetOPandUPCards(ctx)
-	/*
-		fmt.Println("buff:")
-		fmt.Println(buffbois)
-		fmt.Println("nerf:")
-		fmt.Println(nerfbois)
-		fmt.Println("fair:")
-		fmt.Println(fairbois)
-		fmt.Println("ban:")
-		fmt.Println(banbois)
-	*/
 	keeper.NerfBuffCards(ctx, buffbois, true)
 	keeper.NerfBuffCards(ctx, nerfbois, false)
 	keeper.UpdateBanStatus(ctx, banbois)

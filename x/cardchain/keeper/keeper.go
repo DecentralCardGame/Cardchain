@@ -16,28 +16,29 @@ import (
 	paramtypes "github.com/cosmos/cosmos-sdk/x/params/types"
 )
 
-type (
-	Keeper struct {
-		cdc                     codec.BinaryCodec // The wire codec for binary encoding/decoding.
-		GeneralStoreKey         sdk.StoreKey
-		UsersStoreKey           sdk.StoreKey
-		CardsStoreKey           sdk.StoreKey
-		MatchesStoreKey         sdk.StoreKey
-		CollectionsStoreKey     sdk.StoreKey
-		InternalStoreKey        sdk.StoreKey
-		SellOffersStoreKey      sdk.StoreKey
-		PoolsStoreKey           sdk.StoreKey
-		CouncilsStoreKey        sdk.StoreKey
-		RunningAveragesStoreKey sdk.StoreKey
-		paramstore              paramtypes.Subspace
 
-		PoolKeys           []string
-		RunningAverageKeys []string
+// Keeper Yeah the keeper
+type Keeper struct {
+	cdc                     codec.BinaryCodec // The wire codec for binary encoding/decoding.
+	GeneralStoreKey         sdk.StoreKey
+	UsersStoreKey           sdk.StoreKey
+	CardsStoreKey           sdk.StoreKey
+	MatchesStoreKey         sdk.StoreKey
+	CollectionsStoreKey     sdk.StoreKey
+	InternalStoreKey        sdk.StoreKey
+	SellOffersStoreKey      sdk.StoreKey
+	PoolsStoreKey           sdk.StoreKey
+	CouncilsStoreKey        sdk.StoreKey
+	RunningAveragesStoreKey sdk.StoreKey
+	paramstore              paramtypes.Subspace
 
-		BankKeeper types.BankKeeper
-	}
-)
+	PoolKeys           []string
+	RunningAverageKeys []string
 
+	BankKeeper types.BankKeeper
+}
+
+// NewKeeper Constructor for Keeper
 func NewKeeper(
 	cdc codec.BinaryCodec,
 	usersStoreKey,
@@ -78,10 +79,12 @@ func NewKeeper(
 	}
 }
 
+// Logger Tendermint logger for logging in the cosmos log
 func (k Keeper) Logger(ctx sdk.Context) log.Logger {
 	return ctx.Logger().With("module", fmt.Sprintf("x/%s", types.ModuleName))
 }
 
+// TransferSchemeToCard Makes a users cardscheme a card
 func (k Keeper) TransferSchemeToCard(ctx sdk.Context, cardId uint64, address sdk.AccAddress) {
 	store := ctx.KVStore(k.UsersStoreKey)
 	bz := store.Get(address)
@@ -104,13 +107,13 @@ type candidate struct {
 	votes int64
 }
 
-// SetLastCardScheme - sets the current id of the last bought card scheme
+// SetLastCardScheme Sets the current id of the last bought card scheme
 func (k Keeper) SetLastVotingResults(ctx sdk.Context, results types.VotingResults) {
 	store := ctx.KVStore(k.InternalStoreKey)
 	store.Set([]byte("lastVotingResults"), k.cdc.MustMarshal(&results))
 }
 
-// returns the current price of the card scheme auction
+// GetLastVotingResults Returns the current price of the card scheme auction
 func (k Keeper) GetLastVotingResults(ctx sdk.Context) (results types.VotingResults) {
 	store := ctx.KVStore(k.InternalStoreKey)
 	bz := store.Get([]byte("lastVotingResults"))
@@ -118,6 +121,7 @@ func (k Keeper) GetLastVotingResults(ctx sdk.Context) (results types.VotingResul
 	return
 }
 
+// NerfBuffCards Nerfes or buffs certain cards
 func (k Keeper) NerfBuffCards(ctx sdk.Context, cardIds []uint64, buff bool) {
 	store := ctx.KVStore(k.CardsStoreKey)
 
@@ -184,6 +188,7 @@ func (k Keeper) NerfBuffCards(ctx sdk.Context, cardIds []uint64, buff bool) {
 	}
 }
 
+// UpdateBanStatus Bans cards
 func (k Keeper) UpdateBanStatus(ctx sdk.Context, newBannedIds []uint64) {
 	cardsStore := ctx.KVStore(k.CardsStoreKey)
 	usersStore := ctx.KVStore(k.UsersStoreKey)
@@ -220,6 +225,7 @@ func (k Keeper) UpdateBanStatus(ctx sdk.Context, newBannedIds []uint64) {
 	}
 }
 
+// GetOPandUPCards Gets OP and UP cards
 func (k Keeper) GetOPandUPCards(ctx sdk.Context) (buffbois []uint64, nerfbois []uint64, fairbois []uint64, banbois []uint64) {
 	var OPcandidates []candidate
 	var UPcandidates []candidate
