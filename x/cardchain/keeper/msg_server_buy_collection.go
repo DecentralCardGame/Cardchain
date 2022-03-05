@@ -58,7 +58,7 @@ func (k msgServer) BuyCollection(goCtx context.Context, msg *types.MsgBuyCollect
 			return nil, sdkerrors.Wrap(types.ErrInvalidAccAddress, "Unable to convert to AccAddress")
 		}
 
-		err = k.BankKeeper.SendCoins(ctx, creator.Addr, contribAddr, sdk.Coins{sdk.NewCoin("ucredits", params.CollectionPrice.Amount.Quo(sdk.NewInt(int64(len(contribs)))))})
+		err = k.BankKeeper.SendCoins(ctx, creator.Addr, contribAddr, sdk.Coins{QuoCoin(params.CollectionPrice, int64(len(contribs)))})
 		if err != nil {
 			return nil, err
 		}
@@ -70,7 +70,7 @@ func (k msgServer) BuyCollection(goCtx context.Context, msg *types.MsgBuyCollect
 
 	inflationRate, err := strconv.ParseFloat(params.InflationRate, 8)
 	pPool := k.GetPool(ctx, PublicPoolKey)
-	pPool = sdk.NewInt64Coin("ucredits", int64(float64(pPool.Amount.Int64())*inflationRate))
+	pPool = MulCoinFloat(pPool, inflationRate)
 	k.SetPool(ctx, PublicPoolKey, pPool)
 	k.Logger(ctx).Info(fmt.Sprintf(":: PublicPool: %s", pPool))
 

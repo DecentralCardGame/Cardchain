@@ -11,7 +11,7 @@ import (
 func (k msgServer) CommitCouncilResponse(goCtx context.Context, msg *types.MsgCommitCouncilResponse) (*types.MsgCommitCouncilResponseResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	colDep := k.GetParams(ctx).CollateralDeposit
+	collateralDeposit := k.GetParams(ctx).CollateralDeposit
 
 	creator, err := k.GetUserFromString(ctx, msg.Creator)
 	if err != nil {
@@ -21,6 +21,10 @@ func (k msgServer) CommitCouncilResponse(goCtx context.Context, msg *types.MsgCo
 	council := k.GetCouncil(ctx, msg.CouncilId)
 	if !stringItemInList(msg.Creator, council.Voters) {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "Invalid Voter")
+	}
+
+	if council.Status != types.CouncelingStatus_councilCreated {
+		return nil, sdkerrors.Wrapf(types.ErrCouncilStatus, "Have '%s', want '%s'", council.Status.String(), types.CouncelingStatus_councilCreated.String())
 	}
 
 	var allreadyVoted []string
@@ -34,16 +38,22 @@ func (k msgServer) CommitCouncilResponse(goCtx context.Context, msg *types.MsgCo
 
 	resp := types.WrapHashResponse{msg.Creator, msg.Response}
 	council.HashResponses = append(council.HashResponses, &resp)
+	if msg.Suggestion != "" { // Direcly reveal when a suggestion is made
+		clearResp := types.WrapClearResponse{msg.Creator, types.Response_Suggestion, msg.Suggestion}
+		council.ClearResponses = append(council.ClearResponses, &clearResp)
+	}
 
 	if len(council.HashResponses) == 5 {
 		council.Status = types.CouncelingStatus_commited
 	}
 
-	err = k.BurnCoinsFromAddr(ctx, creator.Addr, sdk.Coins{colDep})
+	err = k.BurnCoinsFromAddr(ctx, creator.Addr, sdk.Coins{collateralDeposit})
 	if err != nil {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrInsufficientFunds, "Voter does not have enough coins")
 	}
-	council.Treasury = council.Treasury.Add(colDep)
+	council.Treasury = council.Treasury.Add(collateralDeposit)
+
+	council, err = k.TryEvaluate(ctx, council)
 
 	k.SetCouncil(ctx, msg.CouncilId, council)
 

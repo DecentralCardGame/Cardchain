@@ -13,39 +13,31 @@ import (
 	"github.com/DecentralCardGame/cardobject/keywords"
 	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	paramtypes "github.com/cosmos/cosmos-sdk/x/params/types"
 )
 
-const (
-	PublicPoolKey    = "public"
-	WinnersPoolKey   = "winners"
-	BalancersPoolKey = "balancers"
-	Games24ValueKey  = "games/24h"
-	Votes24ValueKey  = "votes/24h"
-)
+// Keeper Yeah the keeper
+type Keeper struct {
+	cdc                     codec.BinaryCodec // The wire codec for binary encoding/decoding.
+	GeneralStoreKey         sdk.StoreKey
+	UsersStoreKey           sdk.StoreKey
+	CardsStoreKey           sdk.StoreKey
+	MatchesStoreKey         sdk.StoreKey
+	CollectionsStoreKey     sdk.StoreKey
+	InternalStoreKey        sdk.StoreKey
+	SellOffersStoreKey      sdk.StoreKey
+	PoolsStoreKey           sdk.StoreKey
+	CouncilsStoreKey        sdk.StoreKey
+	RunningAveragesStoreKey sdk.StoreKey
+	paramstore              paramtypes.Subspace
 
-type (
-	Keeper struct {
-		cdc                 codec.BinaryCodec // The wire codec for binary encoding/decoding.
-		GeneralStoreKey     sdk.StoreKey
-		UsersStoreKey       sdk.StoreKey
-		CardsStoreKey       sdk.StoreKey
-		MatchesStoreKey     sdk.StoreKey
-		CollectionsStoreKey sdk.StoreKey
-		InternalStoreKey    sdk.StoreKey
-		SellOffersStoreKey  sdk.StoreKey
-		PoolsStoreKey       sdk.StoreKey
-		CouncilsStoreKey    sdk.StoreKey
-		paramstore          paramtypes.Subspace
+	PoolKeys           []string
+	RunningAverageKeys []string
 
-		PoolKeys         []string
-		GeneralValueKeys []string
+	BankKeeper types.BankKeeper
+}
 
-		BankKeeper types.BankKeeper
-	}
-)
-
+// NewKeeper Constructor for Keeper
 func NewKeeper(
 	cdc codec.BinaryCodec,
 	usersStoreKey,
@@ -56,6 +48,7 @@ func NewKeeper(
 	sellOffersStoreKey sdk.StoreKey,
 	poolsStoreKey sdk.StoreKey,
 	councilsStoreKey sdk.StoreKey,
+	runningAveragesStoreKey sdk.StoreKey,
 	internalStoreKey sdk.StoreKey,
 	ps paramtypes.Subspace,
 
@@ -67,86 +60,30 @@ func NewKeeper(
 	}
 
 	return &Keeper{
-		cdc:                 cdc,
-		GeneralStoreKey:     generalStoreKey,
-		UsersStoreKey:       usersStoreKey,
-		CardsStoreKey:       cardsStoreKey,
-		MatchesStoreKey:     matchesStorekey,
-		CollectionsStoreKey: collectionsStoreKey,
-		SellOffersStoreKey:  sellOffersStoreKey,
-		PoolsStoreKey:       poolsStoreKey,
-		CouncilsStoreKey:    councilsStoreKey,
-		InternalStoreKey:    internalStoreKey,
-		paramstore:          ps,
-		PoolKeys:            []string{PublicPoolKey, WinnersPoolKey, BalancersPoolKey},
-		GeneralValueKeys:    []string{Games24ValueKey, Votes24ValueKey},
-		BankKeeper:          bankKeeper,
+		cdc:                     cdc,
+		GeneralStoreKey:         generalStoreKey,
+		UsersStoreKey:           usersStoreKey,
+		CardsStoreKey:           cardsStoreKey,
+		MatchesStoreKey:         matchesStorekey,
+		CollectionsStoreKey:     collectionsStoreKey,
+		SellOffersStoreKey:      sellOffersStoreKey,
+		PoolsStoreKey:           poolsStoreKey,
+		CouncilsStoreKey:        councilsStoreKey,
+		RunningAveragesStoreKey: runningAveragesStoreKey,
+		InternalStoreKey:        internalStoreKey,
+		paramstore:              ps,
+		PoolKeys:                []string{PublicPoolKey, WinnersPoolKey, BalancersPoolKey},
+		RunningAverageKeys:      []string{Games24ValueKey, Votes24ValueKey},
+		BankKeeper:              bankKeeper,
 	}
 }
 
-type User struct {
-	types.User
-	Addr sdk.AccAddress
-}
-
-func (k Keeper) GetGameVoteRatio(ctx sdk.Context) float32 {
-	games := k.GetGeneralValue(ctx, Games24ValueKey)
-	votes := k.GetGeneralValue(ctx, Votes24ValueKey)
-	if games == 0 || votes == 0 {
-		return 0.2
-	}
-	return (float32(games) / float32(votes))
-}
-
-func (k Keeper) GetWinnerIncentives(ctx sdk.Context) float32 {
-	games := float32(k.GetGeneralValue(ctx, Games24ValueKey))
-	votes := float32(k.GetGeneralValue(ctx, Votes24ValueKey))
-	gVR := k.GetGameVoteRatio(ctx)
-	if games == 0 || votes == 0 {
-		games = 1
-		votes = 1
-	}
-	return games / (votes*gVR + games)
-}
-
-func (k Keeper) GetBalancerIncentives(ctx sdk.Context) float32 {
-	games := float32(k.GetGeneralValue(ctx, Games24ValueKey))
-	votes := float32(k.GetGeneralValue(ctx, Votes24ValueKey))
-	gVR := k.GetGameVoteRatio(ctx)
-	if games == 0 || votes == 0 {
-		games = 1
-		votes = 1
-	}
-	return (votes * gVR) / (votes*gVR + games)
-}
-
-func uintItemInList(item uint64, list []uint64) bool {
-	for _, i := range list {
-		if i == item {
-			return true
-		}
-	}
-	return false
-}
-
-func stringItemInList(item string, list []string) bool {
-	for _, i := range list {
-		if i == item {
-			return true
-		}
-	}
-	return false
-}
-
+// Logger Tendermint logger for logging in the cosmos log
 func (k Keeper) Logger(ctx sdk.Context) log.Logger {
 	return ctx.Logger().With("module", fmt.Sprintf("x/%s", types.ModuleName))
 }
 
-func (k Keeper) GetVoteRights(ctx sdk.Context, voter sdk.AccAddress) []*types.VoteRight {
-	user, _ := k.GetUser(ctx, voter)
-	return user.VoteRights
-}
-
+// TransferSchemeToCard Makes a users cardscheme a card
 func (k Keeper) TransferSchemeToCard(ctx sdk.Context, cardId uint64, address sdk.AccAddress) {
 	store := ctx.KVStore(k.UsersStoreKey)
 	bz := store.Get(address)
@@ -164,709 +101,26 @@ func (k Keeper) TransferSchemeToCard(ctx sdk.Context, cardId uint64, address sdk
 	}
 }
 
-func indexOfId(cardID uint64, cards []uint64) int {
-	if cards == nil {
-		return -1
-	}
-	for i, b := range cards {
-		if b == cardID {
-			return i
-		}
-	}
-	return -1
-}
-
-////////////////////
-// General values //
-////////////////////
-
-func (k Keeper) GetGeneralValue(ctx sdk.Context, key string) uint64 {
-	store := ctx.KVStore(k.GeneralStoreKey)
-	bz := store.Get([]byte(key))
-	return binary.BigEndian.Uint64(bz)
-}
-
-func (k Keeper) SetGeneralValue(ctx sdk.Context, key string, val uint64) {
-	store := ctx.KVStore(k.GeneralStoreKey)
-	store.Set([]byte(key), sdk.Uint64ToBigEndian(val))
-}
-
-func (k Keeper) GetAllGeneralValues(ctx sdk.Context) map[string]uint64 {
-	allValues := make(map[string]uint64)
-	for _, key := range k.GeneralValueKeys {
-		allValues[key] = k.GetGeneralValue(ctx, key)
-	}
-	return allValues
-}
-
-//////////////
-// Reporter //
-//////////////
-
-func (k Keeper) ApointMatchReporter(ctx sdk.Context, reporter string) error {
-	address, err := sdk.AccAddressFromBech32(reporter)
-	if err != nil {
-		return sdkerrors.Wrap(types.ErrInvalidAccAddress, "Invalid address")
-	}
-
-	reporterOb, err := k.GetUser(ctx, address)
-	if err != nil {
-		return err
-	}
-
-	reporterOb.ReportMatches = true
-
-	k.SetUser(ctx, address, reporterOb)
-	return nil
-}
-
-func (k Keeper) CalculateMatchReward(ctx sdk.Context, outcome types.Outcome) (amA sdk.Coin, amB sdk.Coin) {
-	rew := k.GetParams(ctx).WinnerReward
-	amA = sdk.NewInt64Coin("ucredits", 0)
-	amB = sdk.NewInt64Coin("ucredits", 0)
-
-	if outcome == types.Outcome_AWon {
-		amA = rew
-	} else if outcome == types.Outcome_BWon {
-		amB = rew
-	} else if outcome == types.Outcome_Draw {
-		amA = sdk.NewCoin(rew.Denom, rew.Amount.Quo(sdk.NewInt(2)))
-		amB = sdk.NewCoin(rew.Denom, rew.Amount.Quo(sdk.NewInt(2)))
-	}
-	return
-}
-
-///////////
-// Pools //
-///////////
-
-func (k Keeper) AddPoolCredits(ctx sdk.Context, poolName string, amount sdk.Coin) {
-	pool := k.GetPool(ctx, poolName)
-	pool = pool.Add(amount)
-	k.SetPool(ctx, poolName, pool)
-}
-
-func (k Keeper) SubPoolCredits(ctx sdk.Context, poolName string, amount sdk.Coin) {
-	pool := k.GetPool(ctx, poolName)
-	pool = pool.Sub(amount)
-	k.SetPool(ctx, poolName, pool)
-}
-
-func (k Keeper) GetPool(ctx sdk.Context, poolName string) sdk.Coin {
-	store := ctx.KVStore(k.PoolsStoreKey)
-	bz := store.Get([]byte(poolName))
-
-	var gottenPool sdk.Coin
-	k.cdc.MustUnmarshal(bz, &gottenPool)
-	return gottenPool
-}
-
-func (k Keeper) SetPool(ctx sdk.Context, poolName string, newPool sdk.Coin) {
-	store := ctx.KVStore(k.PoolsStoreKey)
-	store.Set([]byte(poolName), k.cdc.MustMarshal(&newPool))
-}
-
-func (k Keeper) GetAllPools(ctx sdk.Context) []sdk.Coin {
-	var allPools []sdk.Coin
-	for _, poolName := range k.PoolKeys {
-		allPools = append(allPools, k.GetPool(ctx, poolName))
-	}
-	return allPools
-}
-
-////////////////
-// SellOffers //
-////////////////
-
-func (k Keeper) GetSellOffer(ctx sdk.Context, sellOfferId uint64) types.SellOffer {
-	store := ctx.KVStore(k.SellOffersStoreKey)
-	bz := store.Get(sdk.Uint64ToBigEndian(sellOfferId))
-
-	var gottenSellOffer types.SellOffer
-	k.cdc.MustUnmarshal(bz, &gottenSellOffer)
-	return gottenSellOffer
-}
-
-func (k Keeper) SetSellOffer(ctx sdk.Context, sellOfferId uint64, newSellOffer types.SellOffer) {
-	store := ctx.KVStore(k.SellOffersStoreKey)
-	store.Set(sdk.Uint64ToBigEndian(sellOfferId), k.cdc.MustMarshal(&newSellOffer))
-}
-
-func (k Keeper) GetSellOffersIterator(ctx sdk.Context) sdk.Iterator {
-	store := ctx.KVStore(k.SellOffersStoreKey)
-	return sdk.KVStorePrefixIterator(store, nil)
-}
-
-func (k Keeper) GetAllSellOffers(ctx sdk.Context) []*types.SellOffer {
-	var allSellOfferes []*types.SellOffer
-	iterator := k.GetSellOffersIterator(ctx)
-	for ; iterator.Valid(); iterator.Next() {
-
-		var gottenSellOffer types.SellOffer
-		k.cdc.MustUnmarshal(iterator.Value(), &gottenSellOffer)
-
-		allSellOfferes = append(allSellOfferes, &gottenSellOffer)
-	}
-	return allSellOfferes
-}
-
-func (k Keeper) GetSellOffersNumber(ctx sdk.Context) uint64 {
-	var sellOfferId uint64
-	iterator := k.GetSellOffersIterator(ctx)
-	for ; iterator.Valid(); iterator.Next() {
-		sellOfferId++
-	}
-	return sellOfferId
-}
-
-/////////////////
-// Collections //
-/////////////////
-
-func (k Keeper) CollectCollectionConributionFee(ctx sdk.Context, creator string) error {
-	return k.CollectCollectionFee(ctx, sdk.NewInt64Coin("ucredits", 1000000), creator)
-}
-
-func (k Keeper) CollectCollectionCreationFee(ctx sdk.Context, creator string) error {
-	return k.CollectCollectionFee(ctx, k.GetParams(ctx).CollectionCreationFee, creator)
-}
-
-func (k Keeper) CollectCollectionFee(ctx sdk.Context, price sdk.Coin, creator string) error {
-	contributor, err := sdk.AccAddressFromBech32(creator)
-	if err != nil {
-		return sdkerrors.Wrap(types.ErrInvalidAccAddress, "Unable to convert to AccAddress")
-	}
-	err = k.BurnCoinsFromAddr(ctx, contributor, sdk.Coins{price})
-	if err != nil {
-		return sdkerrors.Wrap(sdkerrors.ErrInsufficientFunds, "Creator does not have enough coins")
-	}
-	k.AddPoolCredits(ctx, PublicPoolKey, price)
-	return nil
-}
-
-func (k Keeper) GetAllCollectionContributors(ctx sdk.Context, collection types.Collection) []string {
-	contribs := []string{collection.StoryWriter, collection.StoryWriter, collection.Artist, collection.Artist, collection.Contributors[0], collection.Contributors[0], collection.Contributors[0], collection.Contributors[0]}
-	for _, cardId := range collection.Cards {
-		var card = k.GetCard(ctx, cardId)
-		if card.Owner != "" {
-			contribs = append(contribs, card.Owner, card.Artist)
-		}
-	}
-	return contribs
-}
-
-func (k Keeper) GetActiveCollections(ctx sdk.Context) []uint64 {
-	var activeCollections []uint64
-	for idx, collection := range k.GetAllCollections(ctx) {
-		if collection.Status == types.CStatus_active {
-			activeCollections = append(activeCollections, uint64(idx))
-		}
-	}
-	return activeCollections
-}
-
-func (k Keeper) GetCollection(ctx sdk.Context, cId uint64) types.Collection {
-	store := ctx.KVStore(k.CollectionsStoreKey)
-	bz := store.Get(sdk.Uint64ToBigEndian(cId))
-
-	var gottenC types.Collection
-	k.cdc.MustUnmarshal(bz, &gottenC)
-	return gottenC
-}
-
-func (k Keeper) SetCollection(ctx sdk.Context, CollectionId uint64, newCollection types.Collection) {
-	store := ctx.KVStore(k.CollectionsStoreKey)
-	store.Set(sdk.Uint64ToBigEndian(CollectionId), k.cdc.MustMarshal(&newCollection))
-}
-
-func (k Keeper) GetCollectionsIterator(ctx sdk.Context) sdk.Iterator {
-	store := ctx.KVStore(k.CollectionsStoreKey)
-	return sdk.KVStorePrefixIterator(store, nil)
-}
-
-func (k Keeper) GetAllCollections(ctx sdk.Context) []*types.Collection {
-	var allCollections []*types.Collection
-	iterator := k.GetCollectionsIterator(ctx)
-	for ; iterator.Valid(); iterator.Next() {
-
-		var gottenCollection types.Collection
-		k.cdc.MustUnmarshal(iterator.Value(), &gottenCollection)
-
-		allCollections = append(allCollections, &gottenCollection)
-	}
-	return allCollections
-}
-
-func (k Keeper) GetCollectionsNumber(ctx sdk.Context) uint64 {
-	var CollectionId uint64
-	iterator := k.GetCollectionsIterator(ctx)
-	for ; iterator.Valid(); iterator.Next() {
-		CollectionId++
-	}
-	return CollectionId
-}
-
-//////////////
-// Councils //
-//////////////
-
-func (k Keeper) CheckTrial(ctx sdk.Context) error {
-	colDep := k.GetParams(ctx).CollateralDeposit
-	for idx, council := range k.GetAllCouncils(ctx) {
-		if council.Status == types.CouncelingStatus_revealed {
-			if council.TrialStart + k.GetParams(ctx).TrialPeriod <= uint64(ctx.BlockHeight()) {
-				card := k.GetCard(ctx, council.CardId)
-
-				var (
-					group, approvers, deniers []string
-					amt int64
-				)
-				for _, response := range council.ClearResponses {
-					if response.Response == types.Response_Yes {
-						approvers = append(approvers, response.User)
-					} else {
-						deniers = append(deniers, response.User)
-					}
-				}
-
-				votes := []uint64{card.FairEnoughVotes, card.OverpoweredVotes, card.UnderpoweredVotes, card.InappropriateVotes}
-				sort.Slice(votes, func(i, j int) bool {
-					return votes[i] < votes[j]
-				})
-				if votes[len(votes)-1] == 0 {
-					council.TrialStart = uint64(ctx.BlockHeight())
-					k.SetCouncil(ctx, uint64(idx), *council)
-					continue
-				}
-				if card.FairEnoughVotes == votes[len(votes)-1] {
-					card.Status = types.Status_permanent
-					group = approvers
-					amt = 2
-				} else {
-					card.Status = types.Status_prototype
-					group = deniers
-					amt = 3
-				}
-
-				k.Logger(ctx).Debug(fmt.Sprintf(":: Card Set to %s", card.Status.String()))
-
-				bounty := sdk.Coin{colDep.Denom, colDep.Amount.Mul(sdk.NewInt(amt))}
-				for _, user := range group {
-					addr, err := sdk.AccAddressFromBech32(user)
-					if err != nil {
-						return sdkerrors.Wrap(types.ErrInvalidAccAddress, "Unable to convert to AccAddress")
-					}
-					k.MintCoinsToAddr(ctx, addr, sdk.Coins{bounty})
-					council.Treasury = council.Treasury.Sub(bounty)
-				}
-				pool := k.GetPool(ctx, PublicPoolKey)
-				pool = pool.Add(council.Treasury)
-				k.SetPool(ctx, PublicPoolKey, pool)
-				council.Treasury = council.Treasury.Sub(council.Treasury)
-
-				incentive := sdk.Coin{card.VotePool.Denom, card.VotePool.Amount.Quo(sdk.NewInt(int64(len(card.Voters))))}
-				for _, user := range card.Voters {
-					addr, err := sdk.AccAddressFromBech32(user)
-					if err != nil {
-						return sdkerrors.Wrap(types.ErrInvalidAccAddress, "Unable to convert to AccAddress")
-					}
-					k.MintCoinsToAddr(ctx, addr, sdk.Coins{incentive})
-				}
-				card.VotePool = card.VotePool.Sub(card.VotePool)
-				council.Status = types.CouncelingStatus_councilClosed
-
-				k.SetCouncil(ctx, uint64(idx), *council)
-				k.SetCard(ctx, council.CardId, card)
-			}
-		}
-	}
-	return nil
-}
-
-func (k Keeper) GetCouncil(ctx sdk.Context, councilId uint64) types.Council {
-	store := ctx.KVStore(k.CouncilsStoreKey)
-	bz := store.Get(sdk.Uint64ToBigEndian(councilId))
-
-	var gottenCouncil types.Council
-	k.cdc.MustUnmarshal(bz, &gottenCouncil)
-	return gottenCouncil
-}
-
-func (k Keeper) SetCouncil(ctx sdk.Context, councilId uint64, newCouncil types.Council) {
-	store := ctx.KVStore(k.CouncilsStoreKey)
-	store.Set(sdk.Uint64ToBigEndian(councilId), k.cdc.MustMarshal(&newCouncil))
-}
-
-func (k Keeper) GetCouncilsIterator(ctx sdk.Context) sdk.Iterator {
-	store := ctx.KVStore(k.CouncilsStoreKey)
-	return sdk.KVStorePrefixIterator(store, nil)
-}
-
-func (k Keeper) GetAllCouncils(ctx sdk.Context) []*types.Council {
-	var allCouncils []*types.Council
-	iterator := k.GetCouncilsIterator(ctx)
-	for ; iterator.Valid(); iterator.Next() {
-
-		var gottenCouncil types.Council
-		k.cdc.MustUnmarshal(iterator.Value(), &gottenCouncil)
-
-		allCouncils = append(allCouncils, &gottenCouncil)
-	}
-	return allCouncils
-}
-
-func (k Keeper) GetCouncilsNumber(ctx sdk.Context) uint64 {
-	var councilId uint64
-	iterator := k.GetCouncilsIterator(ctx)
-	for ; iterator.Valid(); iterator.Next() {
-		councilId++
-	}
-	return councilId
-}
-
-/////////////
-// Matches //
-/////////////
-
-func (k Keeper) GetMatch(ctx sdk.Context, matchId uint64) types.Match {
-	store := ctx.KVStore(k.MatchesStoreKey)
-	bz := store.Get(sdk.Uint64ToBigEndian(matchId))
-
-	var gottenMatch types.Match
-	k.cdc.MustUnmarshal(bz, &gottenMatch)
-	return gottenMatch
-}
-
-func (k Keeper) SetMatch(ctx sdk.Context, matchId uint64, newMatch types.Match) {
-	store := ctx.KVStore(k.MatchesStoreKey)
-	store.Set(sdk.Uint64ToBigEndian(matchId), k.cdc.MustMarshal(&newMatch))
-}
-
-func (k Keeper) GetMatchesIterator(ctx sdk.Context) sdk.Iterator {
-	store := ctx.KVStore(k.MatchesStoreKey)
-	return sdk.KVStorePrefixIterator(store, nil)
-}
-
-func (k Keeper) GetAllMatches(ctx sdk.Context) []*types.Match {
-	var allMatches []*types.Match
-	iterator := k.GetMatchesIterator(ctx)
-	for ; iterator.Valid(); iterator.Next() {
-
-		var gottenMatch types.Match
-		k.cdc.MustUnmarshal(iterator.Value(), &gottenMatch)
-
-		allMatches = append(allMatches, &gottenMatch)
-	}
-	return allMatches
-}
-
-func (k Keeper) GetMatchesNumber(ctx sdk.Context) uint64 {
-	var matchId uint64
-	iterator := k.GetMatchesIterator(ctx)
-	for ; iterator.Valid(); iterator.Next() {
-		matchId++
-	}
-	return matchId
-}
-
-///////////
-// Cards //
-///////////
-
-func (k Keeper) GetCard(ctx sdk.Context, cardId uint64) types.Card {
-	store := ctx.KVStore(k.CardsStoreKey)
-	bz := store.Get(sdk.Uint64ToBigEndian(cardId))
-
-	var gottenCard types.Card
-	k.cdc.MustUnmarshal(bz, &gottenCard)
-	return gottenCard
-}
-
-func (k Keeper) SetCard(ctx sdk.Context, cardId uint64, newCard types.Card) {
-	store := ctx.KVStore(k.CardsStoreKey)
-	store.Set(sdk.Uint64ToBigEndian(cardId), k.cdc.MustMarshal(&newCard))
-}
-
-// returns the current price of the card scheme auction
-func (k Keeper) GetCardAuctionPrice(ctx sdk.Context) sdk.Coin {
-	store := ctx.KVStore(k.InternalStoreKey)
-	bz := store.Get([]byte("currentCardSchemeAuctionPrice"))
-	var price sdk.Coin
-	k.cdc.MustUnmarshal(bz, &price)
-	return price
-}
-
-// sets the current price of the card scheme auction
-func (k Keeper) SetCardAuctionPrice(ctx sdk.Context, price sdk.Coin) {
-	store := ctx.KVStore(k.InternalStoreKey)
-	store.Set([]byte("currentCardSchemeAuctionPrice"), k.cdc.MustMarshal(&price))
-}
-
-func (k Keeper) AddOwnedCardScheme(ctx sdk.Context, cardId uint64, address sdk.AccAddress) {
-	store := ctx.KVStore(k.UsersStoreKey)
-	bz := store.Get(address)
-
-	var gottenUser types.User
-	k.cdc.MustUnmarshal(bz, &gottenUser)
-
-	gottenUser.OwnedCardSchemes = append(gottenUser.OwnedCardSchemes, cardId)
-
-	store.Set(address, k.cdc.MustMarshal(&gottenUser))
-}
-
-func (k Keeper) GetCardsIterator(ctx sdk.Context) sdk.Iterator {
-	store := ctx.KVStore(k.CardsStoreKey)
-	return sdk.KVStorePrefixIterator(store, nil)
-}
-
-func (k Keeper) GetAllCards(ctx sdk.Context) []*types.Card {
-	var allCards []*types.Card
-	iterator := k.GetCardsIterator(ctx)
-	for ; iterator.Valid(); iterator.Next() {
-
-		var gottenCard types.Card
-		k.cdc.MustUnmarshal(iterator.Value(), &gottenCard)
-
-		allCards = append(allCards, &gottenCard)
-	}
-	return allCards
-}
-
-func (k Keeper) GetCardsNumber(ctx sdk.Context) uint64 {
-	var cardId uint64
-	iterator := k.GetCardsIterator(ctx)
-	for ; iterator.Valid(); iterator.Next() {
-		cardId++
-	}
-	return cardId
-}
-
-/////////////////////
-// Coin management //
-/////////////////////
-
-// Adds coins to an Account
-func (k Keeper) MintCoinsToAddr(ctx sdk.Context, addr sdk.AccAddress, amounts sdk.Coins) error {
-	coinMint := types.CoinsIssuerName
-	// mint coins to minter module account
-	err := k.BankKeeper.MintCoins(ctx, coinMint, amounts)
-	if err != nil {
-		return err
-	}
-	// send coins to the address
-	err = k.BankKeeper.SendCoinsFromModuleToAccount(ctx, coinMint, addr, amounts)
-	if err != nil {
-		return err
-	}
-	return nil
-}
-
-// Removes Coins from an Account
-func (k Keeper) BurnCoinsFromAddr(ctx sdk.Context, addr sdk.AccAddress, amounts sdk.Coins) error {
-	coinMint := types.CoinsIssuerName
-	// send coins to the module
-	err := k.BankKeeper.SendCoinsFromAccountToModule(ctx, addr, coinMint, amounts)
-	if err != nil {
-		return err
-	}
-	// burn coins from minter module account
-	err = k.BankKeeper.BurnCoins(ctx, coinMint, amounts)
-	if err != nil {
-		return err
-	}
-	return nil
-}
-
-///////////
-// Users //
-///////////
-
-func (k Keeper) Createuser(ctx sdk.Context, newUser sdk.AccAddress, alias string) types.User {
-	// check if user already exists
-	store := ctx.KVStore(k.UsersStoreKey)
-	bz := store.Get(newUser)
-
-	if bz == nil {
-		k.InitUser(ctx, newUser, alias)
-	}
-
-	user, _ := k.GetUser(ctx, newUser)
-	return user
-}
-
-func (k Keeper) InitUser(ctx sdk.Context, address sdk.AccAddress, alias string) {
-	store := ctx.KVStore(k.UsersStoreKey)
-
-	if alias == "" {
-		alias = "newbie"
-	}
-	newUser := types.NewUser()
-	newUser.Alias = alias
-	k.MintCoinsToAddr(ctx, address, sdk.Coins{sdk.NewInt64Coin("ucredits", 10000000000)})
-	newUser.VoteRights = k.GetVoteRightToAllCards(ctx, ctx.BlockHeight()+k.GetParams(ctx).VotingRightsExpirationTime) // TODO this might be a good thing to remove later, so that sybil voting is not possible
-
-	store.Set(address, k.cdc.MustMarshal(&newUser))
-}
-
-func (k Keeper) GetUser(ctx sdk.Context, address sdk.AccAddress) (types.User, error) {
-	store := ctx.KVStore(k.UsersStoreKey)
-	bz := store.Get(address)
-	var gottenUser types.User
-
-	if bz == nil {
-		return gottenUser, sdkerrors.Wrap(types.ErrUserDoesNotExist, "Address not in store")
-	}
-
-	k.cdc.MustUnmarshal(bz, &gottenUser)
-	return gottenUser, nil
-}
-
-func (k Keeper) GetUserFromString(ctx sdk.Context, addr string) (user User, err error) {
-	user.Addr, err = sdk.AccAddressFromBech32(addr)
-	if err != nil {
-		return user, sdkerrors.Wrap(types.ErrInvalidAccAddress, "Unable to convert to AccAddress")
-	}
-	user.User, err = k.GetUser(ctx, user.Addr)
-	if err != nil {
-		return
-	}
-	return
-}
-
-func (k Keeper) SetUserFromUser(ctx sdk.Context, user User) {
-	k.SetUser(ctx, user.Addr, user.User)
-}
-
-func (k Keeper) SetUser(ctx sdk.Context, address sdk.AccAddress, userData types.User) {
-	store := ctx.KVStore(k.UsersStoreKey)
-	store.Set(address, k.cdc.MustMarshal(&userData))
-}
-
-func (k Keeper) GetUsersIterator(ctx sdk.Context) sdk.Iterator {
-	store := ctx.KVStore(k.UsersStoreKey)
-	return sdk.KVStorePrefixIterator(store, nil)
-}
-
-func (k Keeper) GetAllUsers(ctx sdk.Context) ([]*types.User, []sdk.AccAddress) {
-	var allUsers []*types.User
-	var allAddresses []sdk.AccAddress
-
-	iterator := k.GetUsersIterator(ctx)
-	for ; iterator.Valid(); iterator.Next() {
-
-		var gottenUser types.User
-		k.cdc.MustUnmarshal(iterator.Value(), &gottenUser)
-
-		allUsers = append(allUsers, &gottenUser)
-		allAddresses = append(allAddresses, sdk.AccAddress(iterator.Key()))
-	}
-	return allUsers, allAddresses
-}
-
-////////////
-// Voting //
-////////////
-
 type candidate struct {
 	id    uint64
 	votes int64
 }
 
-func (k Keeper) ResetAllVotes(ctx sdk.Context) {
-	store := ctx.KVStore(k.CardsStoreKey)
-	iterator := sdk.KVStorePrefixIterator(store, nil)
-
-	for ; iterator.Valid(); iterator.Next() {
-		var resetCard types.Card
-		k.cdc.MustUnmarshal(iterator.Value(), &resetCard)
-			if resetCard.Status != types.Status_trial {
-			resetCard.Voters = []string{}
-			resetCard.FairEnoughVotes = 0
-			resetCard.OverpoweredVotes = 0
-			resetCard.UnderpoweredVotes = 0
-			resetCard.InappropriateVotes = 0
-		}
-
-		store.Set(iterator.Key(), k.cdc.MustMarshal(&resetCard))
-	}
-}
-
-// SetLastCardScheme - sets the current id of the last bought card scheme
+// SetLastCardScheme Sets the current id of the last bought card scheme
 func (k Keeper) SetLastVotingResults(ctx sdk.Context, results types.VotingResults) {
 	store := ctx.KVStore(k.InternalStoreKey)
 	store.Set([]byte("lastVotingResults"), k.cdc.MustMarshal(&results))
 }
 
-// returns the current price of the card scheme auction
-func (k Keeper) GetLastVotingResults(ctx sdk.Context) types.VotingResults {
+// GetLastVotingResults Returns the current price of the card scheme auction
+func (k Keeper) GetLastVotingResults(ctx sdk.Context) (results types.VotingResults) {
 	store := ctx.KVStore(k.InternalStoreKey)
 	bz := store.Get([]byte("lastVotingResults"))
-	var results types.VotingResults
 	k.cdc.MustUnmarshal(bz, &results)
-	return results
+	return
 }
 
-func (k Keeper) AddVoteRight(ctx sdk.Context, userAddress sdk.AccAddress, cardId uint64) error {
-	user, err := k.GetUser(ctx, userAddress)
-	if err != nil {
-		return err
-	}
-	right := types.NewVoteRight(cardId, ctx.BlockHeight()+k.GetParams(ctx).VotingRightsExpirationTime)
-	user.VoteRights = append(user.VoteRights, &right)
-	k.SetUser(ctx, userAddress, user)
-	return nil
-}
-
-func (k Keeper) AddVoteRightsToAllUsers(ctx sdk.Context, expireBlock int64) {
-	votingRights := k.GetVoteRightToAllCards(ctx, expireBlock)
-
-	userStore := ctx.KVStore(k.UsersStoreKey)
-
-	userIterator := sdk.KVStorePrefixIterator(userStore, nil)
-
-	for ; userIterator.Valid(); userIterator.Next() {
-		var user types.User
-		k.cdc.MustUnmarshal(userIterator.Value(), &user)
-		user.VoteRights = votingRights
-		userStore.Set(userIterator.Key(), k.cdc.MustMarshal(&user))
-	}
-
-	userIterator.Close()
-}
-
-func (k Keeper) RemoveVoteRight(ctx sdk.Context, userAddress sdk.AccAddress, rightsIndex int) error {
-	user, err := k.GetUser(ctx, userAddress)
-	if err != nil {
-		return err
-	}
-	user.VoteRights[rightsIndex] = user.VoteRights[len(user.VoteRights)-1]
-	//user.VoteRights[len(user.VoteRights)-1] = null
-	user.VoteRights = user.VoteRights[:len(user.VoteRights)-1]
-	k.SetUser(ctx, userAddress, user)
-	return nil
-}
-
-func (k Keeper) GetVoteRightToAllCards(ctx sdk.Context, expireBlock int64) []*types.VoteRight {
-	cardStore := ctx.KVStore(k.CardsStoreKey)
-	cardIterator := sdk.KVStorePrefixIterator(cardStore, nil)
-
-	votingRights := []*types.VoteRight{}
-
-	for ; cardIterator.Valid(); cardIterator.Next() {
-		// here only give right if card is not a scheme or banished
-		var gottenCard types.Card
-		k.cdc.MustUnmarshal(cardIterator.Value(), &gottenCard)
-
-		if gottenCard.Status == types.Status_permanent || gottenCard.Status == types.Status_trial || gottenCard.Status == types.Status_prototype {
-			right := types.NewVoteRight(binary.BigEndian.Uint64(cardIterator.Key()), expireBlock)
-			votingRights = append(votingRights, &right)
-		}
-	}
-	cardIterator.Close()
-
-	return votingRights
-}
-
+// NerfBuffCards Nerfes or buffs certain cards
 func (k Keeper) NerfBuffCards(ctx sdk.Context, cardIds []uint64, buff bool) {
 	store := ctx.KVStore(k.CardsStoreKey)
 
@@ -933,6 +187,7 @@ func (k Keeper) NerfBuffCards(ctx sdk.Context, cardIds []uint64, buff bool) {
 	}
 }
 
+// UpdateBanStatus Bans cards
 func (k Keeper) UpdateBanStatus(ctx sdk.Context, newBannedIds []uint64) {
 	cardsStore := ctx.KVStore(k.CardsStoreKey)
 	usersStore := ctx.KVStore(k.UsersStoreKey)
@@ -969,15 +224,11 @@ func (k Keeper) UpdateBanStatus(ctx sdk.Context, newBannedIds []uint64) {
 	}
 }
 
-func (k Keeper) GetOPandUPCards(ctx sdk.Context) ([]uint64, []uint64, []uint64, []uint64) {
+// GetOPandUPCards Gets OP and UP cards
+func (k Keeper) GetOPandUPCards(ctx sdk.Context) (buffbois []uint64, nerfbois []uint64, fairbois []uint64, banbois []uint64) {
 	var OPcandidates []candidate
 	var UPcandidates []candidate
 	var IAcandidates []candidate
-
-	var nerfbois []uint64
-	var buffbois []uint64
-	var fairbois []uint64
-	var banbois []uint64
 
 	//var votingResults VotingResults
 	votingResults := types.NewVotingResults()
@@ -1112,5 +363,5 @@ func (k Keeper) GetOPandUPCards(ctx sdk.Context) ([]uint64, []uint64, []uint64, 
 	// and save the log
 	k.SetLastVotingResults(ctx, votingResults)
 
-	return buffbois, nerfbois, fairbois, banbois
+	return
 }

@@ -7,6 +7,7 @@ import (
 // Here can constructors for types be placed, sice the files containing those
 // types shall not be edited
 
+// NewUser Constructor for User
 func NewUser() User {
 	return User{
 		Alias:            "newPlayer",
@@ -19,6 +20,7 @@ func NewUser() User {
 	}
 }
 
+// NewVoteRight Constructor for VoteRights
 func NewVoteRight(cardId uint64, expireBlock int64) VoteRight {
 	return VoteRight{
 		CardId:      cardId,
@@ -26,6 +28,7 @@ func NewVoteRight(cardId uint64, expireBlock int64) VoteRight {
 	}
 }
 
+// NewCard Constructor for Card
 func NewCard(owner sdk.AccAddress) Card {
 	return Card{
 		Owner:              owner.String(),
@@ -43,14 +46,7 @@ func NewCard(owner sdk.AccAddress) Card {
 	}
 }
 
-func (m *Card) GetOwnerAddr() sdk.AccAddress {
-	owner, err := sdk.AccAddressFromBech32(m.GetOwner())
-	if err != nil {
-		panic(err)
-	}
-	return owner
-}
-
+// NewVotingResults Constructor for VoteResults
 func NewVotingResults() VotingResults {
 	return VotingResults{
 		TotalVotes:              0,

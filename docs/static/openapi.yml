@@ -11873,8 +11873,10 @@ paths:
                     type: string
                   winnerReward:
                     type: string
+                    format: int64
                   voterReward:
                     type: string
+                    format: int64
                   hourlyFaucet:
                     type: string
                   inflationRate:
@@ -11891,6 +11893,12 @@ paths:
                   trialPeriod:
                     type: string
                     format: uint64
+                  gameVoteRatio:
+                    type: string
+                    format: int64
+                  cardAuctionPriceReductionPeriod:
+                    type: string
+                    format: int64
             description: >-
               QueryParamsResponse is response type for the Query/Params RPC
               method.
@@ -12254,7 +12262,10 @@ paths:
                       enum:
                         - 'Yes'
                         - 'No'
+                        - Suggestion
                       default: 'Yes'
+                    suggestion:
+                      type: string
               treasury:
                 type: string
               status:
@@ -12265,6 +12276,7 @@ paths:
                   - councilClosed
                   - commited
                   - revealed
+                  - suggestionsMade
                 default: councilOpen
               trialStart:
                 type: string
@@ -20613,6 +20625,7 @@ definitions:
       - councilClosed
       - commited
       - revealed
+      - suggestionsMade
     default: councilOpen
   DecentralCardGame.cardchain.cardchain.Council:
     type: object
@@ -20645,7 +20658,10 @@ definitions:
               enum:
                 - 'Yes'
                 - 'No'
+                - Suggestion
               default: 'Yes'
+            suggestion:
+              type: string
       treasury:
         type: string
       status:
@@ -20656,6 +20672,7 @@ definitions:
           - councilClosed
           - commited
           - revealed
+          - suggestionsMade
         default: councilOpen
       trialStart:
         type: string
@@ -20736,7 +20753,11 @@ definitions:
       matchId:
         type: string
         format: uint64
+  DecentralCardGame.cardchain.cardchain.MsgRestartCouncilResponse:
+    type: object
   DecentralCardGame.cardchain.cardchain.MsgRevealCouncilResponseResponse:
+    type: object
+  DecentralCardGame.cardchain.cardchain.MsgRewokeCouncilRegistrationResponse:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgSaveCardContentResponse:
     type: object
@@ -20780,8 +20801,10 @@ definitions:
         type: string
       winnerReward:
         type: string
+        format: int64
       voterReward:
         type: string
+        format: int64
       hourlyFaucet:
         type: string
       inflationRate:
@@ -20798,6 +20821,12 @@ definitions:
       trialPeriod:
         type: string
         format: uint64
+      gameVoteRatio:
+        type: string
+        format: int64
+      cardAuctionPriceReductionPeriod:
+        type: string
+        format: int64
     description: Params defines the parameters for the module.
   DecentralCardGame.cardchain.cardchain.QueryParamsResponse:
     type: object
@@ -20823,8 +20852,10 @@ definitions:
             type: string
           winnerReward:
             type: string
+            format: int64
           voterReward:
             type: string
+            format: int64
           hourlyFaucet:
             type: string
           inflationRate:
@@ -20841,6 +20872,12 @@ definitions:
           trialPeriod:
             type: string
             format: uint64
+          gameVoteRatio:
+            type: string
+            format: int64
+          cardAuctionPriceReductionPeriod:
+            type: string
+            format: int64
     description: QueryParamsResponse is response type for the Query/Params RPC method.
   DecentralCardGame.cardchain.cardchain.QueryQCardContentResponse:
     type: object
@@ -20933,6 +20970,7 @@ definitions:
     enum:
       - 'Yes'
       - 'No'
+      - Suggestion
     default: 'Yes'
   DecentralCardGame.cardchain.cardchain.SellOffer:
     type: object
@@ -21095,7 +21133,10 @@ definitions:
         enum:
           - 'Yes'
           - 'No'
+          - Suggestion
         default: 'Yes'
+      suggestion:
+        type: string
   DecentralCardGame.cardchain.cardchain.WrapHashResponse:
     type: object
     properties:
