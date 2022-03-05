@@ -20757,6 +20757,8 @@ definitions:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgRevealCouncilResponseResponse:
     type: object
+  DecentralCardGame.cardchain.cardchain.MsgRewokeCouncilRegistrationResponse:
+    type: object
   DecentralCardGame.cardchain.cardchain.MsgSaveCardContentResponse:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgSetCardRarityResponse:

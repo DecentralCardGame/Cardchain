@@ -16,7 +16,6 @@ import (
 	paramtypes "github.com/cosmos/cosmos-sdk/x/params/types"
 )
 
-
 // Keeper Yeah the keeper
 type Keeper struct {
 	cdc                     codec.BinaryCodec // The wire codec for binary encoding/decoding.

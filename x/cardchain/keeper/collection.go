@@ -7,18 +7,19 @@ import (
 
 // CollectCollectionFee Collects a fee from a user
 func (k Keeper) CollectCollectionFee(ctx sdk.Context, price sdk.Coin, creator string) error {
-  err := k.BurnCoinsFromString(ctx, creator, sdk.Coins{price})
-  if err != nil {
-    return err
-  }
-  k.AddPoolCredits(ctx, PublicPoolKey, price)
-  return nil
+	err := k.BurnCoinsFromString(ctx, creator, sdk.Coins{price})
+	if err != nil {
+		return err
+	}
+	k.AddPoolCredits(ctx, PublicPoolKey, price)
+	return nil
 }
 
 // CollectCollectionConributionFee Is a wrapper for CollectCollectionFee with contributionfee
 func (k Keeper) CollectCollectionConributionFee(ctx sdk.Context, creator string) error {
 	return k.CollectCollectionFee(ctx, sdk.NewInt64Coin("ucredits", 1000000), creator)
 }
+
 // CollectCollectionCreationFee Is a wrapper for CollectCollectionFee with creationfee
 func (k Keeper) CollectCollectionCreationFee(ctx sdk.Context, creator string) error {
 	return k.CollectCollectionFee(ctx, k.GetParams(ctx).CollectionCreationFee, creator)

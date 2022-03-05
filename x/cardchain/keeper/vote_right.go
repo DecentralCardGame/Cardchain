@@ -1,7 +1,7 @@
 package keeper
 
 import (
-  "encoding/binary"
+	"encoding/binary"
 
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -9,12 +9,12 @@ import (
 
 // GetVoteReward Calculates winner rewards
 func (k Keeper) GetVoteReward(ctx sdk.Context) sdk.Coin {
-  pool := k.GetPool(ctx, BalancersPoolKey)
-  reward := QuoCoin(pool, k.GetParams(ctx).VoterReward)
-  if reward.Amount.Int64() > 1000000 {
-    return sdk.NewInt64Coin(reward.Denom, 1000000)
-  }
-  return reward
+	pool := k.GetPool(ctx, BalancersPoolKey)
+	reward := QuoCoin(pool, k.GetParams(ctx).VoterReward)
+	if reward.Amount.Int64() > 1000000 {
+		return sdk.NewInt64Coin(reward.Denom, 1000000)
+	}
+	return reward
 }
 
 // AddVoteRight Adds a voteright for a certain card to a certain user

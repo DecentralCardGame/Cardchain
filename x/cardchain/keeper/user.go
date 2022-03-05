@@ -3,7 +3,7 @@ package keeper
 import (
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-  sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 )
 
 // User Combines types.User and it's account address for better usability
@@ -14,7 +14,7 @@ type User struct {
 
 // CreateUser Creates a new user
 func (k Keeper) CreateUser(ctx sdk.Context, newUser sdk.AccAddress, alias string) types.User {
-  // check if user already exists
+	// check if user already exists
 	store := ctx.KVStore(k.UsersStoreKey)
 	bz := store.Get(newUser)
 
@@ -76,7 +76,7 @@ func (k Keeper) SetUser(ctx sdk.Context, address sdk.AccAddress, userData types.
 
 // SetUserFromUser Sets a user in store, but takes a User struct as defined above
 func (k Keeper) SetUserFromUser(ctx sdk.Context, user User) {
-  k.SetUser(ctx, user.Addr, user.User)
+	k.SetUser(ctx, user.Addr, user.User)
 }
 
 // GetUsersIterator Returns an iterator for all users
