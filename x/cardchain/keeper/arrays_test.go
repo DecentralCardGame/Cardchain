@@ -7,7 +7,7 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func TestUintItemInList(t *testing.T) {
+func TestArrays(t *testing.T) {
   // UintItemInList
   uintList := []uint64{1,5,8,9,4}
   require.EqualValues(t, true, keeper.UintItemInList(5, uintList))
