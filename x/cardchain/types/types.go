@@ -32,17 +32,10 @@ func NewVoteRight(cardId uint64, expireBlock int64) VoteRight {
 func NewCard(owner sdk.AccAddress) Card {
 	return Card{
 		Owner:              owner.String(),
-		Content:            []byte{},
-		Image:              []byte{},
 		Notes:              "",
 		FullArt:            true,
 		Status:             Status_scheme,
 		VotePool:           sdk.NewInt64Coin("ucredits", 0),
-		FairEnoughVotes:    0,
-		OverpoweredVotes:   0,
-		UnderpoweredVotes:  0,
-		InappropriateVotes: 0,
-		Nerflevel:          0,
 	}
 }
 
