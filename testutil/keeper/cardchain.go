@@ -27,6 +27,7 @@ func CardchainKeeper(t testing.TB) (*keeper.Keeper, sdk.Context) {
 	internalStoreKey := sdk.NewKVStoreKey(types.InternalStoreKey)
 	sellOffersStoreKey := sdk.NewKVStoreKey(types.SellOffersStoreKey)
 	poolsStoreKey := sdk.NewKVStoreKey(types.PoolsStoreKey)
+	runningAveragesStoreKey := sdk.NewKVStoreKey(types.RunningAveragesStoreKey)
 	councilsStoreKey := sdk.NewKVStoreKey(types.CouncilsStoreKey)
 
 	db := tmdb.NewMemDB()
@@ -41,6 +42,7 @@ func CardchainKeeper(t testing.TB) (*keeper.Keeper, sdk.Context) {
 	stateStore.MountStoreWithDB(sellOffersStoreKey, sdk.StoreTypeIAVL, db)
 	stateStore.MountStoreWithDB(poolsStoreKey, sdk.StoreTypeIAVL, db)
 	stateStore.MountStoreWithDB(councilsStoreKey, sdk.StoreTypeIAVL, db)
+	stateStore.MountStoreWithDB(runningAveragesStoreKey, sdk.StoreTypeIAVL, db)
 	require.NoError(t, stateStore.LoadLatestVersion())
 
 	registry := codectypes.NewInterfaceRegistry()
@@ -63,6 +65,7 @@ func CardchainKeeper(t testing.TB) (*keeper.Keeper, sdk.Context) {
 		sellOffersStoreKey,
 		poolsStoreKey,
 		councilsStoreKey,
+		runningAveragesStoreKey,
 		paramsSubspace,
 		nil,
 	)
