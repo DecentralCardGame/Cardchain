@@ -12,7 +12,7 @@ func (k msgServer) RemoveCardFromCollection(goCtx context.Context, msg *types.Ms
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
 	collection := k.GetCollection(ctx, msg.CollectionId)
-	if !stringItemInList(msg.Creator, collection.Contributors) {
+	if !StringItemInList(msg.Creator, collection.Contributors) {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "Invalid contributor")
 	}
 	if collection.Status != types.CStatus_design {

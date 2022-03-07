@@ -1,6 +1,6 @@
 package keeper
 
-func uintItemInList(item uint64, list []uint64) bool {
+func UintItemInList(item uint64, list []uint64) bool {
 	for _, i := range list {
 		if i == item {
 			return true
@@ -9,7 +9,7 @@ func uintItemInList(item uint64, list []uint64) bool {
 	return false
 }
 
-func stringItemInList(item string, list []string) bool {
+func StringItemInList(item string, list []string) bool {
 	for _, i := range list {
 		if i == item {
 			return true
@@ -18,7 +18,7 @@ func stringItemInList(item string, list []string) bool {
 	return false
 }
 
-func indexOfId(cardID uint64, cards []uint64) int {
+func IndexOfId(cardID uint64, cards []uint64) int {
 	if cards == nil {
 		return -1
 	}

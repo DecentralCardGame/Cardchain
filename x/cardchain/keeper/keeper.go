@@ -91,7 +91,7 @@ func (k Keeper) TransferSchemeToCard(ctx sdk.Context, cardId uint64, address sdk
 	var gottenUser types.User
 	k.cdc.MustUnmarshal(bz, &gottenUser)
 
-	idPosition := indexOfId(cardId, gottenUser.OwnedCardSchemes)
+	idPosition := IndexOfId(cardId, gottenUser.OwnedCardSchemes)
 
 	if idPosition >= 0 {
 		gottenUser.OwnedPrototypes = append(gottenUser.OwnedPrototypes, cardId)
@@ -210,7 +210,7 @@ func (k Keeper) UpdateBanStatus(ctx sdk.Context, newBannedIds []uint64) {
 			var gottenUser types.User
 			k.cdc.MustUnmarshal(bz2, &gottenUser)
 
-			idPosition := indexOfId(binary.BigEndian.Uint64(iterator.Key()), gottenUser.OwnedCardSchemes)
+			idPosition := IndexOfId(binary.BigEndian.Uint64(iterator.Key()), gottenUser.OwnedCardSchemes)
 			if idPosition >= 0 {
 				gottenUser.OwnedPrototypes = append(gottenUser.OwnedCardSchemes[:idPosition], gottenUser.OwnedCardSchemes[idPosition+1:]...)
 				usersStore.Set(address, k.cdc.MustMarshal(&gottenUser))
