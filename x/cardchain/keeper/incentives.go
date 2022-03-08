@@ -27,10 +27,10 @@ func (k Keeper) GetBalancerIncentives(ctx sdk.Context) float32 {
 	return (votes * gVR) / (votes*gVR + games)
 }
 
-// GetGames Gets the number of games played in the last 24 hours
-func (k Keeper) GetGames(ctx sdk.Context) (num int64) {
-	games := k.GetRunningAverage(ctx, Games24ValueKey)
-	for _, val := range games.Arr {
+// GetRunningAverageTotal Sums up a certain running average
+func (k Keeper) GetRunningAverageTotal(ctx sdk.Context, key string) (num int64) {
+	runningAverage := k.GetRunningAverage(ctx, key)
+	for _, val := range runningAverage.Arr {
 		num += val
 	}
 	if num == 0 {
@@ -39,16 +39,14 @@ func (k Keeper) GetGames(ctx sdk.Context) (num int64) {
 	return
 }
 
+// GetGames Gets the number of games played in the last 24 hours
+func (k Keeper) GetGames(ctx sdk.Context) int64 {
+	return k.GetRunningAverageTotal(ctx, Games24ValueKey)
+}
+
 // GetVotes Gets the number of votes made in the last 24 hours
-func (k Keeper) GetVotes(ctx sdk.Context) (num int64) {
-	votes := k.GetRunningAverage(ctx, Votes24ValueKey)
-	for _, val := range votes.Arr {
-		num += val
-	}
-	if num == 0 {
-		num = 1
-	}
-	return
+func (k Keeper) GetVotes(ctx sdk.Context) int64 {
+	return k.GetRunningAverageTotal(ctx, Votes24ValueKey)
 }
 
 // GetRunningAverage Returns a given runningAverage
