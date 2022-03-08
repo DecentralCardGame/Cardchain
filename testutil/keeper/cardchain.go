@@ -61,13 +61,13 @@ func CardchainKeeper(t testing.TB) (*keeper.Keeper, sdk.Context) {
 		cardsStoreKey,
 		matchesStoreKey,
 		collectionsStoreKey,
-		internalStoreKey,
 		sellOffersStoreKey,
 		poolsStoreKey,
 		councilsStoreKey,
 		runningAveragesStoreKey,
+		internalStoreKey,
 		paramsSubspace,
-		nil,
+		nil, // That's why minting fails
 	)
 
 	ctx := sdk.NewContext(stateStore, tmproto.Header{}, false, log.NewNopLogger())
