@@ -19,7 +19,6 @@ import (
 // Keeper Yeah the keeper
 type Keeper struct {
 	cdc                     codec.BinaryCodec // The wire codec for binary encoding/decoding.
-	GeneralStoreKey         sdk.StoreKey
 	UsersStoreKey           sdk.StoreKey
 	CardsStoreKey           sdk.StoreKey
 	MatchesStoreKey         sdk.StoreKey
@@ -41,7 +40,6 @@ type Keeper struct {
 func NewKeeper(
 	cdc codec.BinaryCodec,
 	usersStoreKey,
-	generalStoreKey sdk.StoreKey,
 	cardsStoreKey sdk.StoreKey,
 	matchesStorekey sdk.StoreKey,
 	collectionsStoreKey sdk.StoreKey,
@@ -61,7 +59,6 @@ func NewKeeper(
 
 	return &Keeper{
 		cdc:                     cdc,
-		GeneralStoreKey:         generalStoreKey,
 		UsersStoreKey:           usersStoreKey,
 		CardsStoreKey:           cardsStoreKey,
 		MatchesStoreKey:         matchesStorekey,

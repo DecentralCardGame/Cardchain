@@ -19,7 +19,6 @@ import (
 
 func CardchainKeeper(t testing.TB) (*keeper.Keeper, sdk.Context) {
 	storeKey := sdk.NewKVStoreKey(types.StoreKey)
-	generalStoreKey := sdk.NewKVStoreKey(types.GeneralStoreKey)
 	usersStoreKey := sdk.NewKVStoreKey(types.UsersStoreKey)
 	cardsStoreKey := sdk.NewKVStoreKey(types.CardsStoreKey)
 	matchesStoreKey := sdk.NewKVStoreKey(types.MatchesStoreKey)
@@ -33,7 +32,6 @@ func CardchainKeeper(t testing.TB) (*keeper.Keeper, sdk.Context) {
 	db := tmdb.NewMemDB()
 	stateStore := store.NewCommitMultiStore(db)
 	stateStore.MountStoreWithDB(storeKey, sdk.StoreTypeIAVL, db)
-	stateStore.MountStoreWithDB(generalStoreKey, sdk.StoreTypeIAVL, db)
 	stateStore.MountStoreWithDB(usersStoreKey, sdk.StoreTypeIAVL, db)
 	stateStore.MountStoreWithDB(cardsStoreKey, sdk.StoreTypeIAVL, db)
 	stateStore.MountStoreWithDB(matchesStoreKey, sdk.StoreTypeIAVL, db)
@@ -56,7 +54,6 @@ func CardchainKeeper(t testing.TB) (*keeper.Keeper, sdk.Context) {
 	)
 	k := keeper.NewKeeper(
 		cdc,
-		generalStoreKey,
 		usersStoreKey,
 		cardsStoreKey,
 		matchesStoreKey,

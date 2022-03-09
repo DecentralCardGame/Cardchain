@@ -6,7 +6,6 @@ const (
 
 	// StoreKey defines the primary module store key
 	StoreKey                = ModuleName
-	GeneralStoreKey         = "GeneralValues"
 	CardsStoreKey           = "Cards"
 	UsersStoreKey           = "Users"
 	MatchesStoreKey         = "Matches"
