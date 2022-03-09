@@ -1,4 +1,8 @@
 #!/usr/bin/env python3
+"""
+Imports a old genesis' cards into cardchain
+get_card_content has to be installed first
+"""
 
 import json
 import sys
@@ -33,11 +37,8 @@ def main(card_records):
             raise KeyboardInterrupt
 
 
+if __name__ == "__main__":
+    with open(sys.argv[1], "r") as file:
+        card_records = json.load(file)["app_state"]["cardservice"]["card_records"]
 
-
-
-
-with open(sys.argv[1], "r") as file:
-    card_records = json.load(file)["app_state"]["cardservice"]["card_records"]
-
-main(card_records)
+    main(card_records)
