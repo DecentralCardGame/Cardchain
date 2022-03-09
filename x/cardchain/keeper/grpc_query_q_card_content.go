@@ -1,6 +1,7 @@
 package keeper
 
 import (
+	"fmt"
 	"context"
 	"strconv"
 
@@ -27,6 +28,8 @@ func (k Keeper) QCardContent(goCtx context.Context, req *types.QueryQCardContent
 	if &card == nil {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrUnknownRequest, "cardId does not represent a card")
 	}
+
+	k.Logger(ctx).Info(fmt.Sprintf("%v", card.Content) + " " + string(card.Content))
 
 	return &types.QueryQCardContentResponse{string(card.Content)}, nil
 }
