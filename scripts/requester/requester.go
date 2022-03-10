@@ -35,7 +35,7 @@ func getClient() (cosmosclient.Client, error) {
   config := sdktypes.GetConfig()
 	config.SetBech32PrefixForAccount("cc", "ccpub")
 
-  return cosmosclient.New(context.Background(), cosmosclient.WithAddressPrefix("cc"), cosmosclient.WithKeyringServiceName("Cardchain"))
+  return cosmosclient.New(context.Background(), cosmosclient.WithAddressPrefix("cc"))
 }
 
 func broadcastMsg(logger *log.Logger, cosmos cosmosclient.Client, creator string, msg sdktypes.Msg) {
@@ -130,6 +130,46 @@ func make_buy_card_scheme_request(creator *C.char, price *C.char) {
   msg := types.NewMsgBuyCardScheme(
     address.String(),
     bid,
+	)
+
+  broadcastMsg(logger, cosmos, C.GoString(creator), msg)
+}
+
+//export make_create_user_request
+func make_create_user_request(creator *C.char, alias *C.char) {
+  logger := getLogger("make_create_user_request")
+  cosmos, err := getClient()
+	if err != nil {
+		logger.Fatal("Error:", err)
+	}
+
+  address := getAddr(logger, cosmos, C.GoString(creator))
+  useraddr := getAddr(logger, cosmos, C.GoString(alias))
+
+  msg := types.NewMsgCreateuser(
+    address.String(),
+    useraddr.String(),
+    C.GoString(alias),
+	)
+
+  broadcastMsg(logger, cosmos, C.GoString(creator), msg)
+}
+
+//export make_transfer_card_request
+func make_transfer_card_request(creator *C.char, cardId int, receiver *C.char) {
+  logger := getLogger("make_transfer_card_request")
+  cosmos, err := getClient()
+	if err != nil {
+		logger.Fatal("Error:", err)
+	}
+
+  address := getAddr(logger, cosmos, C.GoString(creator))
+  receiverAddr := getAddr(logger, cosmos, C.GoString(receiver))
+
+  msg := types.NewMsgTransferCard(
+    address.String(),
+    uint64(cardId),
+    receiverAddr.String(),
 	)
 
   broadcastMsg(logger, cosmos, C.GoString(creator), msg)
