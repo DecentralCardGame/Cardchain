@@ -3,5 +3,5 @@ Get's a clear string card content from a as string marshaled byte array. Has to 
 
 ## Install
 ```
-go install
+go build -buildmode=c-shared -o ../get_card_content.so ./get_card_content.go
 ```
