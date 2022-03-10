@@ -69,7 +69,8 @@ extern "C" {
 #endif
 
 extern char* get_card_content(char* rawContent);
-extern void make_add_artwork_request(char* addr, GoInt cardId, char* image, GoUint8 fullArt);
+extern void make_add_artwork_request(char* creator, GoInt cardId, char* image, GoUint8 fullArt);
+extern void make_save_card_content_request(char* creator, GoInt cardId, char* content, char* notes, char* artist);
 
 #ifdef __cplusplus
 }

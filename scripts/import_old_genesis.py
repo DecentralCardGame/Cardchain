@@ -13,6 +13,7 @@ import requests
 lib = ctypes.cdll.LoadLibrary('./get_card_content.so')
 lib.get_card_content.restype = ctypes.c_char_p
 lib.make_add_artwork_request.restype = ctypes.c_char_p
+lib.make_save_card_content_request.restype = ctypes.c_char_p
 
 def main(card_records):
     artist = os.popen('Cardchaind keys show "Cooler Artist" --address').read().strip()
@@ -25,16 +26,10 @@ def main(card_records):
         if ret != 0:
             raise KeyboardInterrupt
 
-        # content = os.popen(f'get_card_content {card["Content"]}').read()
-        content = lib.get_card_content(card["Content"].encode('utf-8')).decode('utf-8')
-        print(content)
-        notes = card['Notes']
+        content = lib.get_card_content(card["Content"].encode('utf-8'))
+        notes = card['Notes'].encode("utf-8")
         id = i+1
-        command = f"Cardchaind tx cardchain save-card-content \"{id}\" '{content}' \"{notes}\" {artist} --from 'Cooler Typ'"
-        print(command)
-        ret = os.system(command)
-        if ret != 0:
-            raise KeyboardInterrupt
+        lib.make_save_card_content_request("Cooler Typ".encode("utf-8"), i+1, content, notes, artist.encode("utf-8"))
 
         artwork = lib.get_card_content(card["Image"].encode("utf-8")).decode("utf-8")
         full_art = card["FullArt"]
