@@ -40,7 +40,7 @@ func (k Keeper) GetPool(ctx sdk.Context, poolName string) sdk.Coin {
 // SetPool Sets a given pool
 func (k Keeper) SetPool(ctx sdk.Context, poolName string, newPool sdk.Coin) {
 	store := ctx.KVStore(k.PoolsStoreKey)
-	if newPool.Amount.Int64() < 0 {
+	if newPool.Amount.LT(sdk.NewInt(0)) {
 		k.Logger(ctx).Error(fmt.Sprintf(":: Pool amount negativ!: %s: %d", poolName, newPool.Amount.Int64()))
 	}
 	store.Set([]byte(poolName), k.cdc.MustMarshal(&newPool))

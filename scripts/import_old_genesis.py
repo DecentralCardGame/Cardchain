@@ -11,7 +11,8 @@ from requester import requester
 def main(card_records):
     artist = "Cooler Artist".encode("utf-8")
     creator = "Cooler Typ".encode("utf-8")
-    for i, card in enumerate([c for c in card_records if c["Content"] not in ["", "e30="] and c["Image"] != ""]):
+    cards = [c for c in card_records if c["Content"] not in ["", "e30="] and c["Image"] != ""]
+    for i, card in enumerate(cards):
         requester.make_buy_card_scheme_request(creator, "800000000000000000000000000000000000000000000000ucredits".encode("utf-8"))
 
         content = card["Content"].encode('utf-8')
