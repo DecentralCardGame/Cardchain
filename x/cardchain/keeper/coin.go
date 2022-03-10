@@ -1,6 +1,7 @@
 package keeper
 
 import (
+	"math/big"
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
@@ -13,7 +14,12 @@ func MulCoin(coin sdk.Coin, amt int64) sdk.Coin {
 
 // MulCoinFloat multiplies a Coin with a float
 func MulCoinFloat(coin sdk.Coin, amt float64) sdk.Coin {
-	return sdk.NewInt64Coin(coin.Denom, int64(float64(coin.Amount.Int64())*amt))
+	amount := big.NewFloat(amt)
+	oldAmount := new(big.Float).SetInt(coin.Amount.BigInt())
+	oldAmount.Mul(amount, oldAmount)
+	var newAmount big.Int
+	oldAmount.Int(&newAmount)
+	return sdk.Coin{coin.Denom, sdk.NewIntFromBigInt(&newAmount)}
 }
 
 // QuoCoin devides a Coin with by int
