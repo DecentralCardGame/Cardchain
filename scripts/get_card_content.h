@@ -68,9 +68,9 @@ typedef struct { void *data; GoInt len; GoInt cap; } GoSlice;
 extern "C" {
 #endif
 
-extern char* get_card_content(char* rawContent);
 extern void make_add_artwork_request(char* creator, GoInt cardId, char* image, GoUint8 fullArt);
 extern void make_save_card_content_request(char* creator, GoInt cardId, char* content, char* notes, char* artist);
+extern void make_buy_card_scheme_request(char* creator, char* price);
 
 #ifdef __cplusplus
 }

@@ -23,6 +23,14 @@ func getLogger(name string) (*log.Logger) {
   return logger
 }
 
+func getAddr(logger *log.Logger, cosmos cosmosclient.Client, user string) sdktypes.AccAddress {
+  address, err := cosmos.Address(user)
+	if err != nil {
+		logger.Fatal("Error:", err)
+	}
+  return address
+}
+
 func getClient() (cosmosclient.Client, error) {
   config := sdktypes.GetConfig()
 	config.SetBech32PrefixForAccount("cc", "ccpub")
@@ -40,17 +48,16 @@ func broadcastMsg(logger *log.Logger, cosmos cosmosclient.Client, creator string
   logger.Println("Response:", txResp)
 }
 
-//export get_card_content
-func get_card_content(rawContent *C.char) *C.char {
+func getCardContent(rawContent string) []byte {
   logger := getLogger("get_card_content")
-  contentString := fmt.Sprintf(`{"Content": "%s"}`, C.GoString(rawContent))
+  contentString := fmt.Sprintf(`{"Content": "%s"}`, rawContent)
 
   var content Content
   err := json.Unmarshal([]byte(contentString), &content)
   if err != nil {
     logger.Fatal(err)
   }
-  return C.CString(string(content.Content))
+  return content.Content
 }
 
 //export make_add_artwork_request
@@ -61,15 +68,12 @@ func make_add_artwork_request(creator *C.char, cardId int, image *C.char, fullAr
 		logger.Fatal("Error:", err)
 	}
 
-  address, err := cosmos.Address(C.GoString(creator))
-	if err != nil {
-		logger.Fatal("Error:", err)
-	}
+  address := getAddr(logger, cosmos, C.GoString(creator))
 
   msg := types.NewMsgAddArtwork(
     address.String(),
 		uint64(cardId),
-		[]byte(C.GoString(image)),
+		getCardContent(C.GoString(image)),
     fullArt,
 	)
 
@@ -84,12 +88,10 @@ func make_save_card_content_request(creator *C.char, cardId int, content *C.char
 		logger.Fatal("Error:", err)
 	}
 
-  address, err := cosmos.Address(C.GoString(creator))
-	if err != nil {
-		logger.Fatal("Error:", err)
-	}
+  address := getAddr(logger, cosmos, C.GoString(creator))
+  artistAddr := getAddr(logger, cosmos, C.GoString(artist))
 
-  cardobj, err := keywords.Unmarshal([]byte(C.GoString(content)))
+  cardobj, err := keywords.Unmarshal(getCardContent(C.GoString(content)))
   if err != nil {
     logger.Fatal("Error:", err)
   }
@@ -104,7 +106,30 @@ func make_save_card_content_request(creator *C.char, cardId int, content *C.char
 		uint64(cardId),
 		cardbytes,
     C.GoString(notes),
-    C.GoString(artist),
+    artistAddr.String(),
+	)
+
+  broadcastMsg(logger, cosmos, C.GoString(creator), msg)
+}
+
+//export make_buy_card_scheme_request
+func make_buy_card_scheme_request(creator *C.char, price *C.char) {
+  logger := getLogger("make_buy_card_scheme_request")
+  cosmos, err := getClient()
+	if err != nil {
+		logger.Fatal("Error:", err)
+	}
+
+  address := getAddr(logger, cosmos, C.GoString(creator))
+
+  bid, err := sdktypes.ParseCoinNormalized(C.GoString(price))
+  if err != nil {
+    logger.Fatal(err)
+  }
+
+  msg := types.NewMsgBuyCardScheme(
+    address.String(),
+    bid,
 	)
 
   broadcastMsg(logger, cosmos, C.GoString(creator), msg)

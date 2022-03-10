@@ -6,34 +6,24 @@ get_card_content has to be build first
 
 import json
 import sys
-import os
 import ctypes
-import requests
 
 lib = ctypes.cdll.LoadLibrary('./get_card_content.so')
-lib.get_card_content.restype = ctypes.c_char_p
-lib.make_add_artwork_request.restype = ctypes.c_char_p
-lib.make_save_card_content_request.restype = ctypes.c_char_p
 
 def main(card_records):
-    artist = os.popen('Cardchaind keys show "Cooler Artist" --address').read().strip()
-    print(artist)
-    for i, card in enumerate(card_records):
-        if card["Content"] in ["", "e30="] or card["Image"] == "":
-            continue
-        ret = os.system('Cardchaind tx cardchain buy-card-scheme 8000000000ucredits --from "Cooler Typ"')
-        print("")
-        if ret != 0:
-            raise KeyboardInterrupt
+    artist = "Cooler Artist".encode("utf-8")
+    creator = "Cooler Typ".encode("utf-8")
+    for i, card in enumerate([c for c in card_records if c["Content"] not in ["", "e30="] and c["Image"] != ""]):
+        lib.make_buy_card_scheme_request(creator, "800000000000ucredits".encode("utf-8"))
 
-        content = lib.get_card_content(card["Content"].encode('utf-8'))
+        content = card["Content"].encode('utf-8')
         notes = card['Notes'].encode("utf-8")
         id = i+1
-        lib.make_save_card_content_request("Cooler Typ".encode("utf-8"), i+1, content, notes, artist.encode("utf-8"))
+        lib.make_save_card_content_request(creator, i+1, content, notes, artist)
 
-        artwork = lib.get_card_content(card["Image"].encode("utf-8")).decode("utf-8")
+        artwork = card["Image"].encode("utf-8")
         full_art = card["FullArt"]
-        lib.make_add_artwork_request("Cooler Artist".encode("utf-8"), i+1, artwork.encode("utf-8"), full_art)
+        lib.make_add_artwork_request(artist, i+1, artwork, full_art)
 
 
 if __name__ == "__main__":
