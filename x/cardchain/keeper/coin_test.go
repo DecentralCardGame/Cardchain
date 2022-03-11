@@ -5,18 +5,18 @@ import (
 
 	// testkeeper "github.com/DecentralCardGame/Cardchain/testutil/keeper"
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/keeper"
-  sdk "github.com/cosmos/cosmos-sdk/types"
+	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/stretchr/testify/require"
 )
 
 func TestCoins(t *testing.T) {
 	// k, ctx := testkeeper.CardchainKeeper(t)
-  coin1 := sdk.NewInt64Coin("ucredits", 10)
-  coin2 := sdk.NewInt64Coin("ucredits", 20)
+	coin1 := sdk.NewInt64Coin("ucredits", 10)
+	coin2 := sdk.NewInt64Coin("ucredits", 20)
 	coin3 := sdk.NewInt64Coin("ucredits", 15)
 
 	// Mulcoin
-  require.EqualValues(t, coin2, keeper.MulCoin(coin1, 2))
+	require.EqualValues(t, coin2, keeper.MulCoin(coin1, 2))
 	require.NotEqualValues(t, coin2, keeper.MulCoin(coin1, 3))
 	// QuoCoin
 	require.EqualValues(t, coin1, keeper.QuoCoin(coin2, 2))

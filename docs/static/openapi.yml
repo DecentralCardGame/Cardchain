@@ -12326,6 +12326,16 @@ paths:
                 type: string
               playerB:
                 type: string
+              playerACards:
+                type: array
+                items:
+                  type: string
+                  format: uint64
+              playerBCards:
+                type: array
+                items:
+                  type: string
+                  format: uint64
               outcome:
                 type: string
                 enum:
@@ -12358,6 +12368,93 @@ paths:
           required: true
           type: string
           format: uint64
+      tags:
+        - Query
+  '/DecentralCardGame/cardchain/cardchain/q_matches/{timestampDown}/{timestampUp}/{containsUsers}/{outcome}':
+    get:
+      summary: Queries a list of QMatches items.
+      operationId: DecentralCardGameCardchainCardchainQMatches
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              matchesList:
+                type: array
+                items:
+                  type: string
+                  format: uint64
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: timestampDown
+          in: path
+          required: true
+          type: string
+          format: uint64
+        - name: timestampUp
+          in: path
+          required: true
+          type: string
+          format: uint64
+        - name: containsUsers
+          in: path
+          required: true
+          type: array
+          items:
+            type: string
+          collectionFormat: csv
+          minItems: 1
+        - name: outcome
+          in: path
+          required: true
+          type: string
+          enum:
+            - AWon
+            - BWon
+            - Draw
+            - Aborted
+        - name: reporter
+          in: query
+          required: false
+          type: string
+        - name: cardsPlayed
+          in: query
+          required: false
+          type: array
+          items:
+            type: string
+            format: uint64
+          collectionFormat: multi
+        - name: ignore.outcome
+          in: query
+          required: false
+          type: boolean
+        - name: ignore.timestamp
+          in: query
+          required: false
+          type: boolean
+        - name: ignore.reporter
+          in: query
+          required: false
+          type: boolean
       tags:
         - Query
   '/DecentralCardGame/cardchain/cardchain/q_sell_offer/{sellOfferId}':
@@ -20685,6 +20782,15 @@ definitions:
       - openCouncil
       - startedCouncil
     default: available
+  DecentralCardGame.cardchain.cardchain.Ignore:
+    type: object
+    properties:
+      outcome:
+        type: boolean
+      timestamp:
+        type: boolean
+      reporter:
+        type: boolean
   DecentralCardGame.cardchain.cardchain.Match:
     type: object
     properties:
@@ -20697,6 +20803,16 @@ definitions:
         type: string
       playerB:
         type: string
+      playerACards:
+        type: array
+        items:
+          type: string
+          format: uint64
+      playerBCards:
+        type: array
+        items:
+          type: string
+          format: uint64
       outcome:
         type: string
         enum:
@@ -20898,6 +21014,14 @@ definitions:
     type: object
     properties:
       cardsList:
+        type: array
+        items:
+          type: string
+          format: uint64
+  DecentralCardGame.cardchain.cardchain.QueryQMatchesResponse:
+    type: object
+    properties:
+      matchesList:
         type: array
         items:
           type: string

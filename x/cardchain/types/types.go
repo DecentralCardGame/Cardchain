@@ -7,6 +7,19 @@ import (
 // Here can constructors for types be placed, sice the files containing those
 // types shall not be edited
 
+// type Ignore struct {
+// 	bool Outcome
+// 	bool Timestamp
+// }
+
+func NewIgnore() Ignore {
+	return Ignore{
+		false,
+		false,
+		false,
+	}
+}
+
 // NewUser Constructor for User
 func NewUser() User {
 	return User{
@@ -31,11 +44,11 @@ func NewVoteRight(cardId uint64, expireBlock int64) VoteRight {
 // NewCard Constructor for Card
 func NewCard(owner sdk.AccAddress) Card {
 	return Card{
-		Owner:              owner.String(),
-		Notes:              "",
-		FullArt:            true,
-		Status:             Status_scheme,
-		VotePool:           sdk.NewInt64Coin("ucredits", 0),
+		Owner:    owner.String(),
+		Notes:    "",
+		FullArt:  true,
+		Status:   Status_scheme,
+		VotePool: sdk.NewInt64Coin("ucredits", 0),
 	}
 }
 

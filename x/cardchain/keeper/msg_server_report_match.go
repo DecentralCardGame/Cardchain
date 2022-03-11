@@ -27,6 +27,8 @@ func (k msgServer) ReportMatch(goCtx context.Context, msg *types.MsgReportMatch)
 		msg.Creator,
 		msg.PlayerA,
 		msg.PlayerB,
+		msg.CardsA,
+		msg.CardsB,
 		msg.Outcome,
 	}
 

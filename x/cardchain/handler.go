@@ -47,9 +47,9 @@ func NewHandler(k keeper.Keeper) sdk.Handler {
 		case *types.MsgReportMatch:
 			res, err := msgServer.ReportMatch(sdk.WrapSDKContext(ctx), msg)
 			return sdk.WrapServiceResult(ctx, res, err)
-		// case *types.MsgApointMatchReporter:  // Will be uncommented later when I know how to check for module account
-		// res, err := msgServer.ApointMatchReporter(sdk.WrapSDKContext(ctx), msg)
-		// return sdk.WrapServiceResult(ctx, res, err)
+		case *types.MsgApointMatchReporter:  // Will be uncommented later when I know how to check for module account
+		res, err := msgServer.ApointMatchReporter(sdk.WrapSDKContext(ctx), msg)
+		return sdk.WrapServiceResult(ctx, res, err)
 		case *types.MsgCreateCollection:
 			res, err := msgServer.CreateCollection(sdk.WrapSDKContext(ctx), msg)
 			return sdk.WrapServiceResult(ctx, res, err)

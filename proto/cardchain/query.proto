@@ -80,6 +80,11 @@ service Query {
 		option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/q_council/{councilId}";
 	}
 
+// Queries a list of QMatches items.
+	rpc QMatches(QueryQMatchesRequest) returns (QueryQMatchesResponse) {
+		option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/q_matches/{timestampDown}/{timestampUp}/{containsUsers}/{outcome}";
+	}
+
 // this line is used by starport scaffolding # 2
 }
 
@@ -162,6 +167,26 @@ message QueryQSellOfferRequest {
 
 message QueryQCouncilRequest {
   uint64 councilId = 1;
+}
+
+message QueryQMatchesRequest {
+  uint64 timestampDown = 1;
+  uint64 timestampUp = 2;
+  repeated string containsUsers = 3;
+  string reporter = 4;
+  Outcome outcome = 5;
+  repeated uint64 cardsPlayed = 6;
+  Ignore ignore = 7;
+}
+
+message Ignore {
+  bool outcome = 1;
+  bool timestamp = 2;
+  bool reporter = 3;
+}
+
+message QueryQMatchesResponse {
+  repeated uint64 matchesList = 1;
 }
 
 // this line is used by starport scaffolding # 3

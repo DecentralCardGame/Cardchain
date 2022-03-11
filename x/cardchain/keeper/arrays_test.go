@@ -8,18 +8,18 @@ import (
 )
 
 func TestArrays(t *testing.T) {
-  // UintItemInList
-  uintList := []uint64{1,5,8,9,4}
-  require.EqualValues(t, true, keeper.UintItemInList(5, uintList))
-  require.EqualValues(t, false, keeper.UintItemInList(10, uintList))
+	// UintItemInList
+	uintList := []uint64{1, 5, 8, 9, 4}
+	require.EqualValues(t, true, keeper.UintItemInList(5, uintList))
+	require.EqualValues(t, false, keeper.UintItemInList(10, uintList))
 
-  // stringList
-  stringList := []string{"Hello", "world", "I", "hope", "this", "works"}
-  require.EqualValues(t, true, keeper.StringItemInList("hope", stringList))
-  require.EqualValues(t, false, keeper.StringItemInList("not", stringList))
+	// stringList
+	stringList := []string{"Hello", "world", "I", "hope", "this", "works"}
+	require.EqualValues(t, true, keeper.StringItemInList("hope", stringList))
+	require.EqualValues(t, false, keeper.StringItemInList("not", stringList))
 
-  // IndexOfId
-  require.EqualValues(t, 2, keeper.IndexOfId(8, uintList))
-  require.EqualValues(t, -1, keeper.IndexOfId(10, uintList))
-  require.EqualValues(t, -1, keeper.IndexOfId(8, nil))
+	// IndexOfId
+	require.EqualValues(t, 2, keeper.IndexOfId(8, uintList))
+	require.EqualValues(t, -1, keeper.IndexOfId(10, uintList))
+	require.EqualValues(t, -1, keeper.IndexOfId(8, nil))
 }
