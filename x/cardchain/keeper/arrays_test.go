@@ -22,4 +22,9 @@ func TestArrays(t *testing.T) {
 	require.EqualValues(t, 2, keeper.IndexOfId(8, uintList))
 	require.EqualValues(t, -1, keeper.IndexOfId(10, uintList))
 	require.EqualValues(t, -1, keeper.IndexOfId(8, nil))
+
+	// UintPopElementFromArr
+	arr, err := keeper.UintPopElementFromArr(9, uintList)
+	require.EqualValues(t, []uint64{1, 5, 8, 4}, arr)
+	require.EqualValues(t, nil, err)
 }

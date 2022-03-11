@@ -19,7 +19,7 @@ func (k msgServer) RemoveCardFromCollection(goCtx context.Context, msg *types.Ms
 		return nil, types.ErrCollectionNotInDesign
 	}
 
-	newCards, err := uintPopElementFromArr(msg.CardId, collection.Cards)
+	newCards, err := UintPopElementFromArr(msg.CardId, collection.Cards)
 	if err != nil {
 		return nil, sdkerrors.Wrapf(err, "Card: %d", msg.CardId)
 	}
@@ -29,13 +29,4 @@ func (k msgServer) RemoveCardFromCollection(goCtx context.Context, msg *types.Ms
 	k.SetCollection(ctx, msg.CollectionId, collection)
 
 	return &types.MsgRemoveCardFromCollectionResponse{}, nil
-}
-
-func uintPopElementFromArr(element uint64, arr []uint64) ([]uint64, error) {
-	for idx, val := range arr {
-		if element == val {
-			return append(arr[:idx], arr[idx+1:]...), nil
-		}
-	}
-	return []uint64{}, types.ErrCardNotThere
 }
