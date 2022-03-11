@@ -85,6 +85,11 @@ service Query {
 		option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/q_matches/{timestampDown}/{timestampUp}/{containsUsers}/{outcome}";
 	}
 
+// Queries a list of QSellOffers items.
+	rpc QSellOffers(QueryQSellOffersRequest) returns (QueryQSellOffersResponse) {
+		option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/q_sell_offers/{priceDown}/{priceUp}/{seller}/{buyer}/{status}";
+	}
+
 // this line is used by starport scaffolding # 2
 }
 
@@ -176,10 +181,10 @@ message QueryQMatchesRequest {
   string reporter = 4;
   Outcome outcome = 5;
   repeated uint64 cardsPlayed = 6;
-  Ignore ignore = 7;
+  IgnoreMatches ignore = 7;
 }
 
-message Ignore {
+message IgnoreMatches {
   bool outcome = 1;
   bool timestamp = 2;
   bool reporter = 3;
@@ -187,6 +192,28 @@ message Ignore {
 
 message QueryQMatchesResponse {
   repeated uint64 matchesList = 1;
+}
+
+message QueryQSellOffersRequest {
+  string priceDown = 1;
+  string priceUp = 2;
+  string seller = 3;
+  string buyer = 4;
+  uint64 card = 5;
+  SellOfferStatus status = 6;
+  IgnoreSellOffers ignore = 7;
+}
+
+message IgnoreSellOffers {
+  bool status = 1;
+  bool price = 2;
+  bool seller = 3;
+  bool buyer = 4;
+  bool card = 5;
+}
+
+message QueryQSellOffersResponse {
+  repeated uint64 sellOffersList = 1;
 }
 
 // this line is used by starport scaffolding # 3

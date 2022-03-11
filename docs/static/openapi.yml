@@ -12509,6 +12509,91 @@ paths:
           format: uint64
       tags:
         - Query
+  '/DecentralCardGame/cardchain/cardchain/q_sell_offers/{priceDown}/{priceUp}/{seller}/{buyer}/{status}':
+    get:
+      summary: Queries a list of QSellOffers items.
+      operationId: DecentralCardGameCardchainCardchainQSellOffers
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              sellOffersList:
+                type: array
+                items:
+                  type: string
+                  format: uint64
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: priceDown
+          in: path
+          required: true
+          type: string
+        - name: priceUp
+          in: path
+          required: true
+          type: string
+        - name: seller
+          in: path
+          required: true
+          type: string
+        - name: buyer
+          in: path
+          required: true
+          type: string
+        - name: status
+          in: path
+          required: true
+          type: string
+          enum:
+            - open
+            - sold
+            - removed
+        - name: card
+          in: query
+          required: false
+          type: string
+          format: uint64
+        - name: ignore.status
+          in: query
+          required: false
+          type: boolean
+        - name: ignore.price
+          in: query
+          required: false
+          type: boolean
+        - name: ignore.seller
+          in: query
+          required: false
+          type: boolean
+        - name: ignore.buyer
+          in: query
+          required: false
+          type: boolean
+        - name: ignore.card
+          in: query
+          required: false
+          type: boolean
+      tags:
+        - Query
   '/DecentralCardGame/cardchain/cardchain/q_user/{address}':
     get:
       summary: Queries a list of QUser items.
@@ -20782,7 +20867,7 @@ definitions:
       - openCouncil
       - startedCouncil
     default: available
-  DecentralCardGame.cardchain.cardchain.Ignore:
+  DecentralCardGame.cardchain.cardchain.IgnoreMatches:
     type: object
     properties:
       outcome:
@@ -20790,6 +20875,19 @@ definitions:
       timestamp:
         type: boolean
       reporter:
+        type: boolean
+  DecentralCardGame.cardchain.cardchain.IgnoreSellOffers:
+    type: object
+    properties:
+      status:
+        type: boolean
+      price:
+        type: boolean
+      seller:
+        type: boolean
+      buyer:
+        type: boolean
+      card:
         type: boolean
   DecentralCardGame.cardchain.cardchain.Match:
     type: object
@@ -21022,6 +21120,14 @@ definitions:
     type: object
     properties:
       matchesList:
+        type: array
+        items:
+          type: string
+          format: uint64
+  DecentralCardGame.cardchain.cardchain.QueryQSellOffersResponse:
+    type: object
+    properties:
+      sellOffersList:
         type: array
         items:
           type: string

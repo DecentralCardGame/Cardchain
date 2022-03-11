@@ -12,8 +12,18 @@ import (
 // 	bool Timestamp
 // }
 
-func NewIgnore() Ignore {
-	return Ignore{
+func NewIgnoreMatches() IgnoreMatches {
+	return IgnoreMatches{
+		false,
+		false,
+		false,
+	}
+}
+
+func NewIgnoreSellOffers() IgnoreSellOffers {
+	return IgnoreSellOffers{
+		false,
+		false,
 		false,
 		false,
 		false,

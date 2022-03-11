@@ -24,7 +24,7 @@ func (k Keeper) QMatches(goCtx context.Context, req *types.QueryQMatchesRequest)
 	for idx, match := range matches {
 		// Checks for timestamp
 		if !req.Ignore.Timestamp {
-			if !(req.TimestampDown < match.Timestamp && match.Timestamp < req.TimestampUp) {
+			if !(req.TimestampDown <= match.Timestamp && match.Timestamp <= req.TimestampUp) {
 				continue
 			}
 		}

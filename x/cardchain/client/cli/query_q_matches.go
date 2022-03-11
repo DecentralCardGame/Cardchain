@@ -1,9 +1,9 @@
 package cli
 
 import (
+	"encoding/json"
 	"fmt"
 	"strconv"
-	"encoding/json"
 
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
 	"github.com/cosmos/cosmos-sdk/client"
@@ -20,12 +20,12 @@ func CmdQMatches() *cobra.Command {
 		Short: "Query qMatches",
 		Args:  cobra.ExactArgs(6),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
-			ignore := types.NewIgnore()
+			ignore := types.NewIgnoreMatches()
 			var (
 				reqTimestampDown, reqTimestampUp uint64
-				reqOutcome types.Outcome
-				argCards []uint64
-				reqContainsUsers []string
+				reqOutcome                       types.Outcome
+				argCards                         []uint64
+				reqContainsUsers                 []string
 			)
 
 			if args[0] == "" && args[1] == "" {
@@ -77,9 +77,9 @@ func CmdQMatches() *cobra.Command {
 				TimestampUp:   reqTimestampUp,
 				ContainsUsers: reqContainsUsers,
 				CardsPlayed:   argCards,
-				Reporter:			 reqReporter,
+				Reporter:      reqReporter,
 				Outcome:       reqOutcome,
-				Ignore:				 &ignore,
+				Ignore:        &ignore,
 			}
 
 			res, err := queryClient.QMatches(cmd.Context(), params)
