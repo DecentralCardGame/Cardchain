@@ -20,20 +20,20 @@ func (k Keeper) QSellOffers(goCtx context.Context, req *types.QueryQSellOffersRe
 		sellOffersList []uint64
 	)
 
-	// Conversion to coins
-	priceUp, err := sdk.ParseCoinNormalized(req.PriceUp)
-	if err != nil {
-		return nil, err
-	}
-	priceDown, err := sdk.ParseCoinNormalized(req.PriceDown)
-	if err != nil {
-		return nil, err
-	}
-
 	sellOffers := k.GetAllSellOffers(ctx)
 	for idx, sellOffer := range sellOffers {
 		// Checks for price
 		if !req.Ignore.Price {
+			// Conversion to coins
+			priceUp, err := sdk.ParseCoinNormalized(req.PriceUp)
+			if err != nil {
+				return nil, err
+			}
+			priceDown, err := sdk.ParseCoinNormalized(req.PriceDown)
+			if err != nil {
+				return nil, err
+			}
+			
 			if !(sellOffer.Price.IsGTE(priceDown) && priceUp.IsGTE(sellOffer.Price)) {
 				continue
 			}
