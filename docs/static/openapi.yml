@@ -12059,6 +12059,18 @@ paths:
                 items:
                   type: string
                   format: uint64
+              cardsNumber:
+                type: string
+                format: uint64
+              matchesNumber:
+                type: string
+                format: uint64
+              sellOffersNumber:
+                type: string
+                format: uint64
+              councilsNumber:
+                type: string
+                format: uint64
         default:
           description: An unexpected error response.
           schema:
@@ -21108,6 +21120,18 @@ definitions:
         items:
           type: string
           format: uint64
+      cardsNumber:
+        type: string
+        format: uint64
+      matchesNumber:
+        type: string
+        format: uint64
+      sellOffersNumber:
+        type: string
+        format: uint64
+      councilsNumber:
+        type: string
+        format: uint64
   DecentralCardGame.cardchain.cardchain.QueryQCardsResponse:
     type: object
     properties:
