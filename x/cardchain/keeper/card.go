@@ -36,15 +36,9 @@ func (k Keeper) SetCardAuctionPrice(ctx sdk.Context, price sdk.Coin) {
 
 // AddOwnedCardScheme Adds a cardscheme to a user
 func (k Keeper) AddOwnedCardScheme(ctx sdk.Context, cardId uint64, address sdk.AccAddress) {
-	store := ctx.KVStore(k.UsersStoreKey)
-	bz := store.Get(address)
-
-	var gottenUser types.User
-	k.cdc.MustUnmarshal(bz, &gottenUser)
-
-	gottenUser.OwnedCardSchemes = append(gottenUser.OwnedCardSchemes, cardId)
-
-	store.Set(address, k.cdc.MustMarshal(&gottenUser))
+	user, _ := k.GetUser(ctx, address)
+	user.OwnedCardSchemes = append(user.OwnedCardSchemes, cardId)
+	k.SetUser(ctx, address, user)
 }
 
 // GetCardsIterator Returns an iterator for all cards
