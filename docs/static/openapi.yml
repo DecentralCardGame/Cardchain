@@ -12397,6 +12397,38 @@ paths:
                 items:
                   type: string
                   format: uint64
+              matches:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    timestamp:
+                      type: string
+                      format: uint64
+                    reporter:
+                      type: string
+                    playerA:
+                      type: string
+                    playerB:
+                      type: string
+                    playerACards:
+                      type: array
+                      items:
+                        type: string
+                        format: uint64
+                    playerBCards:
+                      type: array
+                      items:
+                        type: string
+                        format: uint64
+                    outcome:
+                      type: string
+                      enum:
+                        - AWon
+                        - BWon
+                        - Draw
+                        - Aborted
+                      default: AWon
         default:
           description: An unexpected error response.
           schema:
@@ -21169,6 +21201,38 @@ definitions:
         items:
           type: string
           format: uint64
+      matches:
+        type: array
+        items:
+          type: object
+          properties:
+            timestamp:
+              type: string
+              format: uint64
+            reporter:
+              type: string
+            playerA:
+              type: string
+            playerB:
+              type: string
+            playerACards:
+              type: array
+              items:
+                type: string
+                format: uint64
+            playerBCards:
+              type: array
+              items:
+                type: string
+                format: uint64
+            outcome:
+              type: string
+              enum:
+                - AWon
+                - BWon
+                - Draw
+                - Aborted
+              default: AWon
   DecentralCardGame.cardchain.cardchain.QueryQSellOffersResponse:
     type: object
     properties:

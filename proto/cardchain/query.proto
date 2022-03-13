@@ -196,6 +196,7 @@ message IgnoreMatches {
 
 message QueryQMatchesResponse {
   repeated uint64 matchesList = 1;
+  repeated Match matches = 2;
 }
 
 message QueryQSellOffersRequest {

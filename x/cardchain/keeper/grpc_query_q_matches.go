@@ -14,7 +14,10 @@ func (k Keeper) QMatches(goCtx context.Context, req *types.QueryQMatchesRequest)
 		return nil, status.Error(codes.InvalidArgument, "invalid request")
 	}
 
-	var matchesList []uint64
+	var (
+		matchesList []*types.Match
+		matchIds    []uint64
+	)
 	allUsersInMatch := true
 	allCardsInMatch := true
 
@@ -63,8 +66,9 @@ func (k Keeper) QMatches(goCtx context.Context, req *types.QueryQMatchesRequest)
 			}
 		}
 
-		matchesList = append(matchesList, uint64(idx))
+		matchIds = append(matchIds, uint64(idx))
+		matchesList = append(matchesList, match)
 	}
 
-	return &types.QueryQMatchesResponse{matchesList}, nil
+	return &types.QueryQMatchesResponse{matchIds, matchesList}, nil
 }
