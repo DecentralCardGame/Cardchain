@@ -1,8 +1,6 @@
 package keeper
 
 import (
-	"encoding/binary"
-
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
@@ -32,19 +30,12 @@ func (k Keeper) AddVoteRight(ctx sdk.Context, userAddress sdk.AccAddress, cardId
 // AddVoteRightsToAllUsers Adds voterights to all cards to all users
 func (k Keeper) AddVoteRightsToAllUsers(ctx sdk.Context, expireBlock int64) {
 	votingRights := k.GetVoteRightToAllCards(ctx, expireBlock)
+	allUsers, allAddrs := k.GetAllUsers(ctx)
 
-	userStore := ctx.KVStore(k.UsersStoreKey)
-
-	userIterator := sdk.KVStorePrefixIterator(userStore, nil)
-
-	for ; userIterator.Valid(); userIterator.Next() {
-		var user types.User
-		k.cdc.MustUnmarshal(userIterator.Value(), &user)
+	for idx, user := range allUsers {
 		user.VoteRights = votingRights
-		userStore.Set(userIterator.Key(), k.cdc.MustMarshal(&user))
+		k.SetUser(ctx, allAddrs[idx], *user)
 	}
-
-	userIterator.Close()
 }
 
 // RemoveVoteRight Removes a voteright from a user
@@ -62,21 +53,15 @@ func (k Keeper) RemoveVoteRight(ctx sdk.Context, userAddress sdk.AccAddress, rig
 
 // GetVoteRightToAllCards Gets the voterights to all cards
 func (k Keeper) GetVoteRightToAllCards(ctx sdk.Context, expireBlock int64) (votingRights []*types.VoteRight) {
-	cardStore := ctx.KVStore(k.CardsStoreKey)
-	cardIterator := sdk.KVStorePrefixIterator(cardStore, nil)
+	allCards := k.GetAllCards(ctx)
 
-	for ; cardIterator.Valid(); cardIterator.Next() {
+	for idx, gottenCard := range allCards {
 		// here only give right if card is not a scheme or banished
-		var gottenCard types.Card
-		k.cdc.MustUnmarshal(cardIterator.Value(), &gottenCard)
-
 		if gottenCard.Status == types.Status_permanent || gottenCard.Status == types.Status_trial || gottenCard.Status == types.Status_prototype {
-			right := types.NewVoteRight(binary.BigEndian.Uint64(cardIterator.Key()), expireBlock)
+			right := types.NewVoteRight(uint64(idx), expireBlock)
 			votingRights = append(votingRights, &right)
 		}
 	}
-	cardIterator.Close()
-
 	return
 }
 
@@ -88,29 +73,12 @@ func (k Keeper) GetVoteRights(ctx sdk.Context, voter sdk.AccAddress) []*types.Vo
 
 // ResetAllVotes Resets all cards votes
 func (k Keeper) ResetAllVotes(ctx sdk.Context) {
-	store := ctx.KVStore(k.CardsStoreKey)
-	iterator := sdk.KVStorePrefixIterator(store, nil)
+	allCards := k.GetAllCards(ctx)
 
-	for ; iterator.Valid(); iterator.Next() {
-		var resetCard types.Card
-		k.cdc.MustUnmarshal(iterator.Value(), &resetCard)
+	for idx, resetCard := range allCards {
 		if resetCard.Status != types.Status_trial {
 			resetCard.ResetVotes()
 		}
-
-		store.Set(iterator.Key(), k.cdc.MustMarshal(&resetCard))
+		k.SetCard(ctx, uint64(idx), *resetCard)
 	}
-}
-
-// SearchVoteRights Searches voterights for a certain card
-func SearchVoteRights(cardID uint64, rights []*types.VoteRight) int {
-	if rights == nil {
-		return -1
-	}
-	for i, b := range rights {
-		if b.CardId == cardID {
-			return i
-		}
-	}
-	return -1
 }

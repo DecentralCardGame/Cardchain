@@ -1,7 +1,6 @@
 package keeper
 
 import (
-	"encoding/binary"
 	"encoding/json"
 	"fmt"
 	"sort"
@@ -81,21 +80,20 @@ func (k Keeper) Logger(ctx sdk.Context) log.Logger {
 }
 
 // TransferSchemeToCard Makes a users cardscheme a card
-func (k Keeper) TransferSchemeToCard(ctx sdk.Context, cardId uint64, address sdk.AccAddress) {
-	store := ctx.KVStore(k.UsersStoreKey)
-	bz := store.Get(address)
-
-	var gottenUser types.User
-	k.cdc.MustUnmarshal(bz, &gottenUser)
-
-	idPosition := IndexOfId(cardId, gottenUser.OwnedCardSchemes)
-
-	if idPosition >= 0 {
-		gottenUser.OwnedPrototypes = append(gottenUser.OwnedPrototypes, cardId)
-		gottenUser.OwnedCardSchemes = append(gottenUser.OwnedCardSchemes[:idPosition], gottenUser.OwnedCardSchemes[idPosition+1:]...)
-
-		store.Set(address, k.cdc.MustMarshal(&gottenUser))
+func (k Keeper) TransferSchemeToCard(ctx sdk.Context, cardId uint64, address sdk.AccAddress) (err error) {
+	user, err := k.GetUser(ctx, address)
+	if err != nil {
+		return err
 	}
+
+	user.OwnedCardSchemes, err = UintPopItemFromArr(cardId, user.OwnedCardSchemes)
+	if err != nil {
+		return err
+	}
+
+	user.OwnedPrototypes = append(user.OwnedPrototypes, cardId)
+	k.SetUser(ctx, address, user)
+	return nil
 }
 
 type candidate struct {
@@ -186,37 +184,26 @@ func (k Keeper) NerfBuffCards(ctx sdk.Context, cardIds []uint64, buff bool) {
 
 // UpdateBanStatus Bans cards
 func (k Keeper) UpdateBanStatus(ctx sdk.Context, newBannedIds []uint64) {
-	cardsStore := ctx.KVStore(k.CardsStoreKey)
-	usersStore := ctx.KVStore(k.UsersStoreKey)
-
 	// go through all cards and find already marked cards
-	iterator := k.GetCardsIterator(ctx)
-	for ; iterator.Valid(); iterator.Next() {
-		var gottenCard types.Card
-		k.cdc.MustUnmarshal(iterator.Value(), &gottenCard)
-
+	allCards := k.GetAllCards(ctx)
+	for idx, gottenCard := range allCards {
 		if gottenCard.Status == types.Status_bannedVerySoon {
-			address, _ := sdk.AccAddressFromBech32(gottenCard.Owner)
+			gottenUser, err := k.GetUserFromString(ctx, gottenCard.Owner)
 
 			// remove the card from the Cards store
 			var emptyCard types.Card
-			cardsStore.Set(iterator.Key(), k.cdc.MustMarshal(&emptyCard))
+			k.SetCard(ctx, uint64(idx), emptyCard)
 
 			// remove the card from the ownedCards of the owner
-			bz2 := usersStore.Get(address)
-			var gottenUser types.User
-			k.cdc.MustUnmarshal(bz2, &gottenUser)
-
-			idPosition := IndexOfId(binary.BigEndian.Uint64(iterator.Key()), gottenUser.OwnedCardSchemes)
-			if idPosition >= 0 {
-				gottenUser.OwnedPrototypes = append(gottenUser.OwnedCardSchemes[:idPosition], gottenUser.OwnedCardSchemes[idPosition+1:]...)
-				usersStore.Set(address, k.cdc.MustMarshal(&gottenUser))
+			gottenUser.OwnedCardSchemes, err = UintPopItemFromArr(uint64(idx), gottenUser.OwnedCardSchemes)
+			if err == nil {
+				k.SetUserFromUser(ctx, gottenUser)
 			} else {
-				fmt.Println("trying to delete card id:", binary.BigEndian.Uint64(iterator.Key()), " of owner", address, " but does not exist")
+				k.Logger(ctx).Error(fmt.Sprintf("trying to delete card id: %d of owner %s but does not exist", idx, gottenUser.Addr))
 			}
 		} else if gottenCard.Status == types.Status_bannedSoon {
 			gottenCard.Status = types.Status_bannedVerySoon
-			cardsStore.Set(iterator.Key(), k.cdc.MustMarshal(&gottenCard))
+			k.SetCard(ctx, uint64(idx), *gottenCard)
 		}
 	}
 }
@@ -233,14 +220,10 @@ func (k Keeper) GetOPandUPCards(ctx sdk.Context) (buffbois []uint64, nerfbois []
 	var µUP float64 = 0
 	var µOP float64 = 0
 
-	iterator := k.GetCardsIterator(ctx)
-
 	// go through all cards and collect candidates
-	for ; iterator.Valid(); iterator.Next() {
-		var gottenCard types.Card
-		k.cdc.MustUnmarshal(iterator.Value(), &gottenCard)
+	for idx, gottenCard := range k.GetAllCards(ctx) {
 
-		id := binary.BigEndian.Uint64(iterator.Key())
+		id := uint64(idx)
 		nettoOP := int64(gottenCard.OverpoweredVotes - gottenCard.FairEnoughVotes - gottenCard.UnderpoweredVotes)
 		nettoUP := int64(gottenCard.UnderpoweredVotes - gottenCard.FairEnoughVotes - gottenCard.OverpoweredVotes)
 		nettoIA := int64(gottenCard.InappropriateVotes - gottenCard.FairEnoughVotes - gottenCard.OverpoweredVotes - gottenCard.UnderpoweredVotes)

@@ -19,7 +19,7 @@ func (k msgServer) CommitCouncilResponse(goCtx context.Context, msg *types.MsgCo
 	}
 
 	council := k.GetCouncil(ctx, msg.CouncilId)
-	if !StringItemInList(msg.Creator, council.Voters) {
+	if !StringItemInArr(msg.Creator, council.Voters) {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "Invalid Voter")
 	}
 
@@ -32,7 +32,7 @@ func (k msgServer) CommitCouncilResponse(goCtx context.Context, msg *types.MsgCo
 		allreadyVoted = append(allreadyVoted, response.User)
 	}
 
-	if StringItemInList(msg.Creator, allreadyVoted) {
+	if StringItemInArr(msg.Creator, allreadyVoted) {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "Allready voted")
 	}
 

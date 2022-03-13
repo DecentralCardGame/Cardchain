@@ -29,7 +29,10 @@ func (k msgServer) SaveCardContent(goCtx context.Context, msg *types.MsgSaveCard
 	card.Notes = msg.Notes
 	card.Artist = msg.Artist
 	k.SetCard(ctx, msg.CardId, card)
-	k.TransferSchemeToCard(ctx, msg.CardId, msgOwner)
+	err = k.TransferSchemeToCard(ctx, msg.CardId, msgOwner)
+	if err != nil {
+		return nil, err
+	}
 
 	return &types.MsgSaveCardContentResponse{}, nil
 }

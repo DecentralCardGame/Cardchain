@@ -5,7 +5,7 @@ import (
 )
 
 
-func UintItemInList(item uint64, list []uint64) bool {
+func UintItemInArr(item uint64, list []uint64) bool {
 	for _, i := range list {
 		if i == item {
 			return true
@@ -14,7 +14,7 @@ func UintItemInList(item uint64, list []uint64) bool {
 	return false
 }
 
-func StringItemInList(item string, list []string) bool {
+func StringItemInArr(item string, list []string) bool {
 	for _, i := range list {
 		if i == item {
 			return true
@@ -23,19 +23,16 @@ func StringItemInList(item string, list []string) bool {
 	return false
 }
 
-func IndexOfId(cardID uint64, cards []uint64) int {
-	if cards == nil {
-		return -1
-	}
-	for i, b := range cards {
-		if b == cardID {
+func IndexOfId(id uint64, length int, f func(int) uint64) int {
+	for i := 0; i < length; i++ {
+		if f(i) == id {
 			return i
 		}
 	}
 	return -1
 }
 
-func UintPopElementFromArr(element uint64, arr []uint64) ([]uint64, error) {
+func UintPopItemFromArr(element uint64, arr []uint64) ([]uint64, error) {
 	for idx, val := range arr {
 		if element == val {
 			return append(arr[:idx], arr[idx+1:]...), nil

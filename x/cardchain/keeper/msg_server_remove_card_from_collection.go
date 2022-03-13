@@ -12,14 +12,14 @@ func (k msgServer) RemoveCardFromCollection(goCtx context.Context, msg *types.Ms
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
 	collection := k.GetCollection(ctx, msg.CollectionId)
-	if !StringItemInList(msg.Creator, collection.Contributors) {
+	if !StringItemInArr(msg.Creator, collection.Contributors) {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "Invalid contributor")
 	}
 	if collection.Status != types.CStatus_design {
 		return nil, types.ErrCollectionNotInDesign
 	}
 
-	newCards, err := UintPopElementFromArr(msg.CardId, collection.Cards)
+	newCards, err := UintPopItemFromArr(msg.CardId, collection.Cards)
 	if err != nil {
 		return nil, sdkerrors.Wrapf(err, "Card: %d", msg.CardId)
 	}

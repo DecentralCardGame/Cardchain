@@ -38,7 +38,7 @@ func (k Keeper) QMatches(goCtx context.Context, req *types.QueryQMatchesRequest)
 
 		// Checks for users contained in the match
 		for _, user := range req.ContainsUsers {
-			if !StringItemInList(user, []string{match.PlayerA, match.PlayerB}) {
+			if !StringItemInArr(user, []string{match.PlayerA, match.PlayerB}) {
 				allUsersInMatch = false
 			}
 		}
@@ -48,7 +48,7 @@ func (k Keeper) QMatches(goCtx context.Context, req *types.QueryQMatchesRequest)
 
 		// Checks for card contained in the match
 		for _, card := range req.CardsPlayed {
-			if !UintItemInList(card, append(match.PlayerACards, match.PlayerBCards...)) {
+			if !UintItemInArr(card, append(match.PlayerACards, match.PlayerBCards...)) {
 				allCardsInMatch = false
 			}
 		}

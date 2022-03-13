@@ -18,7 +18,7 @@ func (k msgServer) VoteCard(goCtx context.Context, msg *types.MsgVoteCard) (*typ
 	}
 
 	voteRights := k.GetVoteRights(ctx, voter)
-	rightsIndex := SearchVoteRights(msg.CardId, voteRights)
+	rightsIndex := IndexOfId(msg.CardId, len(voteRights), func(i int) uint64 {return voteRights[i].CardId})
 
 	// check if voting rights are true
 	if rightsIndex < 0 {

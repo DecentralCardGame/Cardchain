@@ -19,7 +19,7 @@ func (k msgServer) AddContributorToCollection(goCtx context.Context, msg *types.
 		return nil, types.ErrCollectionNotInDesign
 	}
 
-	if StringItemInList(msg.User, collection.Contributors) {
+	if StringItemInArr(msg.User, collection.Contributors) {
 		return nil, sdkerrors.Wrap(types.ErrContributor, "Contributor allready Contributor: "+msg.User)
 	}
 
