@@ -322,20 +322,15 @@ func (k Keeper) GetOPandUPCards(ctx sdk.Context) (buffbois []uint64, nerfbois []
 	}
 
 	// add the result to the voting log
+	allBois :=  [][]uint64{buffbois, nerfbois, banbois}
+	boisCodes := []string{"buff", "nerf", "ban"}
+
 	for i := 0; i < len(votingResults.CardResults); i++ {
-		for j := 0; j < len(buffbois); j++ {
-			if votingResults.CardResults[i].CardId == buffbois[j] {
-				votingResults.CardResults[i].Result = "buff"
-			}
-		}
-		for j := 0; j < len(nerfbois); j++ {
-			if votingResults.CardResults[i].CardId == nerfbois[j] {
-				votingResults.CardResults[i].Result = "nerf"
-			}
-		}
-		for j := 0; j < len(banbois); j++ {
-			if votingResults.CardResults[i].CardId == banbois[j] {
-				votingResults.CardResults[i].Result = "ban"
+		for idx, boisCode := range boisCodes {
+			for _, bois := range allBois[idx] {
+				if votingResults.CardResults[i].CardId == bois {
+					votingResults.CardResults[i].Result = boisCode
+				}
 			}
 		}
 	}
