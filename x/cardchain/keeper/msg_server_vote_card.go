@@ -55,8 +55,11 @@ func (k msgServer) VoteCard(goCtx context.Context, msg *types.MsgVoteCard) (*typ
 
 	// check for specific bounty on the card
 	if !card.VotePool.IsZero() {
+		err := k.MintCoinsToAddr(ctx, voter, sdk.Coins{sdk.NewInt64Coin("ucredits", 1000000)})
+		if err != nil {
+			return nil, err
+		}
 		card.VotePool.Sub(sdk.NewInt64Coin("ucredits", 1000000))
-		k.MintCoinsToAddr(ctx, voter, sdk.Coins{sdk.NewInt64Coin("ucredits", 1000000)})
 	}
 
 	amount := k.GetVoteReward(ctx)

@@ -84,3 +84,13 @@ func (k Keeper) BurnCoinsFromString(ctx sdk.Context, user string, amounts sdk.Co
 	}
 	return nil
 }
+
+// TransferFromCoin Transfers coins from a certain pool to a coin
+func (k Keeper) TransferFromCoin(ctx sdk.Context, addr string, pool *sdk.Coin, coin sdk.Coin) error {
+	err := k.MintCoinsToString(ctx, addr, sdk.Coins{coin})
+	if err != nil {
+		return err
+	}
+	*pool = pool.Sub(coin)
+	return nil
+}

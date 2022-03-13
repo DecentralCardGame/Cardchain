@@ -91,11 +91,10 @@ func (k Keeper) TryEvaluate(ctx sdk.Context, council types.Council) (types.Counc
 			return council, nil
 		} else if nrNo > nrYes {
 			for _, user := range deniers {
-				err := k.MintCoinsToString(ctx, user, sdk.Coins{bounty})
+				err := k.TransferFromCoin(ctx, user, &council.Treasury, bounty)
 				if err != nil {
 					return council, err
 				}
-				council.Treasury = council.Treasury.Sub(bounty)
 			}
 			k.AddPoolCredits(ctx, PublicPoolKey, council.Treasury)
 			council.Treasury = council.Treasury.Sub(council.Treasury)
@@ -156,11 +155,10 @@ func (k Keeper) CheckTrial(ctx sdk.Context) error {
 
 				bounty := MulCoin(collateralDeposit, amt)
 				for _, user := range group {
-					err := k.MintCoinsToString(ctx, user, sdk.Coins{bounty})
+					err := k.TransferFromCoin(ctx, user, &council.Treasury, bounty)
 					if err != nil {
 						return nil
 					}
-					council.Treasury = council.Treasury.Sub(bounty)
 				}
 				k.AddPoolCredits(ctx, PublicPoolKey, council.Treasury)
 				council.Treasury = council.Treasury.Sub(council.Treasury)
