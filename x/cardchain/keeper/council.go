@@ -101,11 +101,7 @@ func (k Keeper) TryEvaluate(ctx sdk.Context, council types.Council) (types.Counc
 			council.Treasury = council.Treasury.Sub(council.Treasury)
 			council.Status = types.CouncelingStatus_councilClosed
 		} else if nrNo < nrYes {
-			card := k.GetCard(ctx, council.CardId)
-			card.ResetVotes()
-			card.VotePool = card.VotePool.Add(votePool)
-			card.Status = types.Status_trial
-			k.SetCard(ctx, council.CardId, card)
+			k.SetCardToTrial(ctx, council.CardId, votePool)
 			council.TrialStart = uint64(ctx.BlockHeight())
 			council.Treasury = council.Treasury.Sub(votePool)
 		}
@@ -132,7 +128,7 @@ func (k Keeper) CheckTrial(ctx sdk.Context) error {
 
 				var (
 					group []string
-					amt                       int64
+					amt   int64
 				)
 
 				approvers, deniers, _ := GetCouncilPartiedVoters(council.ClearResponses)

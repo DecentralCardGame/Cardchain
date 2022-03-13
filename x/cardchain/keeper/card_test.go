@@ -41,3 +41,16 @@ func TestCardAuctionPrice(t *testing.T) {
 
 	require.EqualValues(t, coin1, k.GetCardAuctionPrice(ctx))
 }
+
+func TestSetCardToTrial(t *testing.T) {
+	k, ctx := testkeeper.CardchainKeeper(t)
+	card := setUpCard(ctx, k)
+
+	votePool := sdk.NewInt64Coin("ucredits", 10000)
+	k.SetCardToTrial(ctx, 0, votePool)
+	card = k.GetCard(ctx, 0)
+
+	require.EqualValues(t, votePool, card.VotePool)
+	require.EqualValues(t, types.Status_trial, card.Status)
+	require.EqualValues(t, *new([]string), card.Voters)
+}
