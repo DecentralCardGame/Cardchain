@@ -61,28 +61,31 @@ func (k Keeper) GetCouncilsNumber(ctx sdk.Context) (councilId uint64) {
 	return
 }
 
+// GetCouncilPartiedVoters Sorts the voters of a council in approvers, deniers and suggestors
+func GetCouncilPartiedVoters(responses []*types.WrapClearResponse) (approvers []string, deniers []string, suggestors []string) {
+	for _, response := range responses {
+		switch response.Response {
+		case types.Response_Yes:
+			approvers = append(approvers, response.User)
+		case types.Response_No:
+			deniers = append(deniers, response.User)
+		case types.Response_Suggestion:
+			suggestors = append(suggestors, response.User)
+		}
+	}
+	return
+}
+
 // TryEvaluate Tries to evaluate the council decision
 func (k Keeper) TryEvaluate(ctx sdk.Context, council types.Council) (types.Council, error) {
 	collateralDeposit := k.GetParams(ctx).CollateralDeposit
+	bounty := MulCoin(collateralDeposit, 2)
+	votePool := MulCoin(collateralDeposit, 5)
 
 	if len(council.ClearResponses) == 5 {
-		var (
-			nrNo, nrYes, nrSuggestion int
-			approvers, deniers        []string
-		)
-		for _, response := range council.ClearResponses {
-			if response.Response == types.Response_Yes {
-				nrYes++
-				approvers = append(approvers, response.User)
-			} else if response.Response == types.Response_No {
-				nrNo++
-				deniers = append(deniers, response.User)
-			} else if response.Response == types.Response_Suggestion {
-				nrSuggestion++
-			}
-		}
-		bounty := MulCoin(collateralDeposit, 2)
-		votePool := MulCoin(collateralDeposit, 5)
+		approvers, deniers, suggestors := GetCouncilPartiedVoters(council.ClearResponses)
+		nrYes, nrNo, nrSuggestion := len(approvers), len(deniers), len(suggestors)
+
 		if nrNo == nrYes || nrSuggestion > nrNo || nrSuggestion > nrYes {
 			council.Status = types.CouncelingStatus_suggestionsMade
 			return council, nil
@@ -128,16 +131,11 @@ func (k Keeper) CheckTrial(ctx sdk.Context) error {
 				card := k.GetCard(ctx, council.CardId)
 
 				var (
-					group, approvers, deniers []string
+					group []string
 					amt                       int64
 				)
-				for _, response := range council.ClearResponses {
-					if response.Response == types.Response_Yes {
-						approvers = append(approvers, response.User)
-					} else {
-						deniers = append(deniers, response.User)
-					}
-				}
+
+				approvers, deniers, _ := GetCouncilPartiedVoters(council.ClearResponses)
 
 				votes := []uint64{card.FairEnoughVotes, card.OverpoweredVotes, card.UnderpoweredVotes, card.InappropriateVotes}
 				sort.Slice(votes, func(i, j int) bool {
