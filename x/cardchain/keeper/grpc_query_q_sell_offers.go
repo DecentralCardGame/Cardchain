@@ -17,7 +17,8 @@ func (k Keeper) QSellOffers(goCtx context.Context, req *types.QueryQSellOffersRe
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
 	var (
-		sellOffersList []uint64
+		sellOfferIds   []uint64
+		sellOffersList []*types.SellOffer
 	)
 
 	sellOffers := k.GetAllSellOffers(ctx)
@@ -33,7 +34,7 @@ func (k Keeper) QSellOffers(goCtx context.Context, req *types.QueryQSellOffersRe
 			if err != nil {
 				return nil, err
 			}
-			
+
 			if !(sellOffer.Price.IsGTE(priceDown) && priceUp.IsGTE(sellOffer.Price)) {
 				continue
 			}
@@ -67,8 +68,9 @@ func (k Keeper) QSellOffers(goCtx context.Context, req *types.QueryQSellOffersRe
 			}
 		}
 
-		sellOffersList = append(sellOffersList, uint64(idx))
+		sellOffersList = append(sellOffersList, sellOffer)
+		sellOfferIds = append(sellOfferIds, uint64(idx))
 	}
 
-	return &types.QueryQSellOffersResponse{sellOffersList}, nil
+	return &types.QueryQSellOffersResponse{sellOfferIds, sellOffersList}, nil
 }

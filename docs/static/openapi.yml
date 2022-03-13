@@ -12531,11 +12531,32 @@ paths:
           schema:
             type: object
             properties:
-              sellOffersList:
+              sellOffersIds:
                 type: array
                 items:
                   type: string
                   format: uint64
+              sellOffers:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    seller:
+                      type: string
+                    buyer:
+                      type: string
+                    card:
+                      type: string
+                      format: uint64
+                    price:
+                      type: string
+                    status:
+                      type: string
+                      enum:
+                        - open
+                        - sold
+                        - removed
+                      default: open
         default:
           description: An unexpected error response.
           schema:
@@ -21151,11 +21172,32 @@ definitions:
   DecentralCardGame.cardchain.cardchain.QueryQSellOffersResponse:
     type: object
     properties:
-      sellOffersList:
+      sellOffersIds:
         type: array
         items:
           type: string
           format: uint64
+      sellOffers:
+        type: array
+        items:
+          type: object
+          properties:
+            seller:
+              type: string
+            buyer:
+              type: string
+            card:
+              type: string
+              format: uint64
+            price:
+              type: string
+            status:
+              type: string
+              enum:
+                - open
+                - sold
+                - removed
+              default: open
   DecentralCardGame.cardchain.cardchain.QueryQVotableCardsResponse:
     type: object
     properties:

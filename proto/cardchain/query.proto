@@ -217,7 +217,8 @@ message IgnoreSellOffers {
 }
 
 message QueryQSellOffersResponse {
-  repeated uint64 sellOffersList = 1;
+  repeated uint64 sellOffersIds = 1;
+  repeated SellOffer sellOffers = 2;
 }
 
 // this line is used by starport scaffolding # 3
