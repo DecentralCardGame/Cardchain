@@ -127,7 +127,7 @@ func (k Keeper) NerfBuffCards(ctx sdk.Context, cardIds []uint64, buff bool) {
 
 		cardobj, err := keywords.Unmarshal(buffCard.Content)
 		if err != nil {
-			fmt.Println("error on card content:", err, "with card", buffCard.Content)
+			k.Logger(ctx).Error("error on card content:", err, "with card", buffCard.Content)
 		}
 
 		buffnerfCost := func(cost *cardobject.CastingCost) {
@@ -235,9 +235,6 @@ func (k Keeper) GetOPandUPCards(ctx sdk.Context) (buffbois []uint64, nerfbois []
 		votingResults.TotalInappropriateVotes += gottenCard.InappropriateVotes
 		votingResults.TotalVotes += gottenCard.FairEnoughVotes + gottenCard.OverpoweredVotes + gottenCard.UnderpoweredVotes + gottenCard.InappropriateVotes
 
-		//fmt.Println("id:",id," - op:",nettoOP," / up:", nettoUP);
-		//fmt.Println(gottenCard)
-
 		// all candidates are added to the results log
 		if nettoIA > 0 || nettoOP > 0 || nettoUP > 0 {
 			votingResults.CardResults = append(votingResults.CardResults, &types.VotingResult{
@@ -279,8 +276,6 @@ func (k Keeper) GetOPandUPCards(ctx sdk.Context) (buffbois []uint64, nerfbois []
 		giniOP := giniOPsum / float64(len(OPcandidates)*len(OPcandidates)) / µOP
 		cutvalue := giniOP * float64(OPcandidates[len(OPcandidates)-1].votes)
 
-		//fmt.Println("µ/gini/cut: ",µOP, giniOP,cutvalue)
-
 		for i := 0; i < len(OPcandidates); i++ {
 			if float64(OPcandidates[i].votes) > cutvalue {
 				nerfbois = append(nerfbois, OPcandidates[i].id)
@@ -304,8 +299,6 @@ func (k Keeper) GetOPandUPCards(ctx sdk.Context) (buffbois []uint64, nerfbois []
 
 		giniUP := giniUPsum / float64(len(UPcandidates)*len(UPcandidates)) / µUP
 		cutvalue := giniUP * float64(UPcandidates[len(UPcandidates)-1].votes)
-
-		//fmt.Println("µ/gini/cut: ",µUP, giniUP,cutvalue)
 
 		for i := 0; i < len(UPcandidates); i++ {
 			if float64(UPcandidates[i].votes) > cutvalue {

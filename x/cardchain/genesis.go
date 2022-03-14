@@ -38,19 +38,16 @@ func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) 
 	if genState.CardAuctionPrice.Denom != "" {
 		k.SetCardAuctionPrice(ctx, genState.CardAuctionPrice)
 	}
-	fmt.Println("reading cards with id:")
+	k.Logger(ctx).Info("reading cards with id:")
 	for currId, record := range genState.CardRecords {
 		_, err := keywords.Unmarshal(record.Content)
 		if err != nil {
-			fmt.Println(currId, ":")
-			fmt.Println(err.Error())
-			fmt.Println(string(record.Content))
-			fmt.Println("-----")
+			k.Logger(ctx).Error(fmt.Sprintf("%d :\n\t%s\n\t%s\n-----", currId, err.Error(), record.Content))
 		}
 
 		k.SetCard(ctx, uint64(currId), *record)
 	}
-	fmt.Println("Params", genState.Params)
+	k.Logger(ctx).Info("Params", genState.Params)
 	k.SetParams(ctx, genState.Params)
 }
 
