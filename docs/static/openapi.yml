@@ -11938,10 +11938,8 @@ paths:
                 type: string
               content:
                 type: string
-                format: byte
               image:
                 type: string
-                format: byte
               fullArt:
                 type: boolean
               notes:
@@ -20779,57 +20777,6 @@ definitions:
       - active
       - archived
     default: design
-  DecentralCardGame.cardchain.cardchain.Card:
-    type: object
-    properties:
-      owner:
-        type: string
-      artist:
-        type: string
-      content:
-        type: string
-        format: byte
-      image:
-        type: string
-        format: byte
-      fullArt:
-        type: boolean
-      notes:
-        type: string
-      status:
-        type: string
-        enum:
-          - scheme
-          - prototype
-          - trial
-          - permanent
-          - suspended
-          - banned
-          - bannedSoon
-          - bannedVerySoon
-          - none
-        default: scheme
-      votePool:
-        type: string
-      voters:
-        type: array
-        items:
-          type: string
-      fairEnoughVotes:
-        type: string
-        format: uint64
-      overpoweredVotes:
-        type: string
-        format: uint64
-      underpoweredVotes:
-        type: string
-        format: uint64
-      inappropriateVotes:
-        type: string
-        format: uint64
-      nerflevel:
-        type: string
-        format: int64
   DecentralCardGame.cardchain.cardchain.Collection:
     type: object
     properties:
@@ -21060,6 +21007,55 @@ definitions:
       - Draw
       - Aborted
     default: AWon
+  DecentralCardGame.cardchain.cardchain.OutpCard:
+    type: object
+    properties:
+      owner:
+        type: string
+      artist:
+        type: string
+      content:
+        type: string
+      image:
+        type: string
+      fullArt:
+        type: boolean
+      notes:
+        type: string
+      status:
+        type: string
+        enum:
+          - scheme
+          - prototype
+          - trial
+          - permanent
+          - suspended
+          - banned
+          - bannedSoon
+          - bannedVerySoon
+          - none
+        default: scheme
+      votePool:
+        type: string
+      voters:
+        type: array
+        items:
+          type: string
+      fairEnoughVotes:
+        type: string
+        format: uint64
+      overpoweredVotes:
+        type: string
+        format: uint64
+      underpoweredVotes:
+        type: string
+        format: uint64
+      inappropriateVotes:
+        type: string
+        format: uint64
+      nerflevel:
+        type: string
+        format: int64
   DecentralCardGame.cardchain.cardchain.Params:
     type: object
     properties:

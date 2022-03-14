@@ -26,7 +26,7 @@ service Query {
     option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/params";
   }
   // Queries a list of QCard items.
-	rpc QCard(QueryQCardRequest) returns (Card) {
+	rpc QCard(QueryQCardRequest) returns (OutpCard) {
 		option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/q_card/{cardId}";
 	}
 

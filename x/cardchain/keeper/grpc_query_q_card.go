@@ -11,7 +11,7 @@ import (
 	"google.golang.org/grpc/status"
 )
 
-func (k Keeper) QCard(goCtx context.Context, req *types.QueryQCardRequest) (*types.Card, error) {
+func (k Keeper) QCard(goCtx context.Context, req *types.QueryQCardRequest) (*types.OutpCard, error) {
 	if req == nil {
 		return nil, status.Error(codes.InvalidArgument, "invalid request")
 	}
@@ -29,5 +29,22 @@ func (k Keeper) QCard(goCtx context.Context, req *types.QueryQCardRequest) (*typ
 		return nil, sdkerrors.Wrap(sdkerrors.ErrUnknownRequest, "cardId does not represent a card")
 	}
 
-	return &card, nil
+	outpCard := types.OutpCard{
+		Owner: card.Owner,
+		Artist: card.Artist,
+		Content: string(card.Content),
+		Image: string(card.Image),
+		FullArt: card.FullArt,
+		Notes: card.Notes,
+		Status: card.Status,
+		VotePool: card.VotePool,
+		Voters: card.Voters,
+		FairEnoughVotes: card.FairEnoughVotes,
+		OverpoweredVotes: card.OverpoweredVotes,
+		UnderpoweredVotes: card.UnderpoweredVotes,
+		InappropriateVotes: card.InappropriateVotes,
+		Nerflevel: card.Nerflevel,
+	}
+
+	return &outpCard, nil
 }
