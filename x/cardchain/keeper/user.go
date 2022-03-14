@@ -16,7 +16,7 @@ type User struct {
 func (k Keeper) CreateUser(ctx sdk.Context, addr sdk.AccAddress, alias string) types.User {
 	// check if user already exists
 	_, err := k.GetUser(ctx, addr)
-	if err == nil {
+	if err != nil {
 		k.InitUser(ctx, addr, alias)
 	}
 
