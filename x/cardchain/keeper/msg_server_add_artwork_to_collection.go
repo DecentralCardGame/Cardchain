@@ -19,6 +19,10 @@ func (k msgServer) AddArtworkToCollection(goCtx context.Context, msg *types.MsgA
 		return nil, types.ErrCollectionNotInDesign
 	}
 
+	if len(msg.Image) > 500000 {
+		return nil, sdkerrors.Wrap(types.ErrImageSizeExceeded, string(len(msg.Image)))
+	}
+
 	err := k.CollectCollectionConributionFee(ctx, msg.Creator)
 	if err != nil {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrInsufficientFunds, err.Error())
