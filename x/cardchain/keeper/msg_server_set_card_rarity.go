@@ -24,7 +24,7 @@ func (k msgServer) SetCardRarity(goCtx context.Context, msg *types.MsgSetCardRar
 
 	cardobj, err := keywords.Unmarshal(card.Content)
 	if err != nil {
-		return nil, err
+		return nil, sdkerrors.Wrap(types.ErrCardobject, err.Error())
 	}
 
 	rarity := cardobject.Rarity(msg.Rarity)
@@ -42,7 +42,7 @@ func (k msgServer) SetCardRarity(goCtx context.Context, msg *types.MsgSetCardRar
 
 	cardbytes, err := json.Marshal(cardobj)
 	if err != nil {
-		return nil, err
+		return nil, sdkerrors.Wrap(types.ErrCardobject, err.Error())
 	}
 	card.Content = cardbytes
 

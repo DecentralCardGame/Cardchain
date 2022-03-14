@@ -12,6 +12,7 @@ import (
 	"github.com/DecentralCardGame/cardobject/keywords"
 	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	paramtypes "github.com/cosmos/cosmos-sdk/x/params/types"
 )
 
@@ -83,12 +84,12 @@ func (k Keeper) Logger(ctx sdk.Context) log.Logger {
 func (k Keeper) TransferSchemeToCard(ctx sdk.Context, cardId uint64, address sdk.AccAddress) (err error) {
 	user, err := k.GetUser(ctx, address)
 	if err != nil {
-		return err
+		return types.ErrUserDoesNotExist
 	}
 
 	user.OwnedCardSchemes, err = UintPopItemFromArr(cardId, user.OwnedCardSchemes)
 	if err != nil {
-		return err
+		return sdkerrors.ErrUnauthorized
 	}
 
 	user.OwnedPrototypes = append(user.OwnedPrototypes, cardId)

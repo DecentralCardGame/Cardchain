@@ -57,7 +57,7 @@ func (k msgServer) VoteCard(goCtx context.Context, msg *types.MsgVoteCard) (*typ
 	if !card.VotePool.IsZero() {
 		err := k.MintCoinsToAddr(ctx, voter, sdk.Coins{sdk.NewInt64Coin("ucredits", 1000000)})
 		if err != nil {
-			return nil, err
+			return nil, sdkerrors.Wrap(sdkerrors.ErrInsufficientFunds, err.Error())
 		}
 		card.VotePool.Sub(sdk.NewInt64Coin("ucredits", 1000000))
 	}
@@ -74,7 +74,7 @@ func (k msgServer) VoteCard(goCtx context.Context, msg *types.MsgVoteCard) (*typ
 
 	err = k.RemoveVoteRight(ctx, voter, rightsIndex)
 	if err != nil {
-		return nil, err
+		return nil, sdkerrors.Wrap(types.ErrUserDoesNotExist, err.Error())
 	}
 
 	return &types.MsgVoteCardResponse{}, nil

@@ -13,7 +13,7 @@ func (k msgServer) RemoveSellOffer(goCtx context.Context, msg *types.MsgRemoveSe
 
 	creator, err := k.GetUserFromString(ctx, msg.Creator)
 	if err != nil {
-		return nil, err
+		return nil, sdkerrors.Wrap(types.ErrUserDoesNotExist, err.Error())
 	}
 
 	sellOffer := k.GetSellOffer(ctx, msg.SellOfferId)

@@ -14,7 +14,7 @@ func (k msgServer) CreateCouncil(goCtx context.Context, msg *types.MsgCreateCoun
 
 	creator, err := k.GetUserFromString(ctx, msg.Creator)
 	if err != nil {
-		return nil, err
+		return nil, sdkerrors.Wrap(types.ErrUserDoesNotExist, err.Error())
 	}
 
 	card := k.GetCard(ctx, msg.CardId)

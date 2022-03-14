@@ -19,7 +19,7 @@ func (k msgServer) BuyCollection(goCtx context.Context, msg *types.MsgBuyCollect
 
 	creator, err := k.GetUserFromString(ctx, msg.Creator)
 	if err != nil {
-		return nil, err
+		return nil, sdkerrors.Wrap(types.ErrUserDoesNotExist, err.Error())
 	}
 
 	collection := k.GetCollection(ctx, msg.CollectionId)
@@ -36,11 +36,11 @@ func (k msgServer) BuyCollection(goCtx context.Context, msg *types.MsgBuyCollect
 			for _, cardId := range collection.Cards {
 				cardobj, err := keywords.Unmarshal(k.GetCard(ctx, cardId).Content)
 				if err != nil {
-					return nil, err
+					return nil, sdkerrors.Wrap(types.ErrCardobject, err.Error())
 				}
 				rarity, err := GetCardRarity(cardobj)
 				if err != nil {
-					return nil, err
+					return nil, sdkerrors.Wrap(types.ErrCardobject, err.Error())
 				}
 				if *rarity == cardobject.Rarity(rarities[idx]) {
 					rarityCards = append(rarityCards, cardId)
@@ -60,7 +60,7 @@ func (k msgServer) BuyCollection(goCtx context.Context, msg *types.MsgBuyCollect
 
 		err = k.BankKeeper.SendCoins(ctx, creator.Addr, contribAddr, sdk.Coins{QuoCoin(params.CollectionPrice, int64(len(contribs)))})
 		if err != nil {
-			return nil, err
+			return nil, sdkerrors.Wrap(sdkerrors.ErrInsufficientFunds, err.Error())
 		}
 	}
 

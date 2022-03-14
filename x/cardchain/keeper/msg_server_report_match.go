@@ -14,7 +14,7 @@ func (k msgServer) ReportMatch(goCtx context.Context, msg *types.MsgReportMatch)
 
 	creator, err := k.GetUserFromString(ctx, msg.Creator)
 	if err != nil {
-		return nil, err
+		return nil, sdkerrors.Wrap(types.ErrUserDoesNotExist, err.Error())
 	}
 	if creator.ReportMatches == false {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "Incorrect Reporter")
@@ -50,7 +50,7 @@ func (k msgServer) ReportMatch(goCtx context.Context, msg *types.MsgReportMatch)
 			for _, cardId := range cards[idx] {
 				err = k.AddVoteRight(ctx, addresses[idx], cardId)
 				if err != nil {
-					return nil, err
+					return nil, sdkerrors.Wrap(types.ErrUserDoesNotExist, err.Error())
 				}
 			}
 		}
@@ -63,7 +63,7 @@ func (k msgServer) ReportMatch(goCtx context.Context, msg *types.MsgReportMatch)
 	for idx := range addresses {
 		err := k.MintCoinsToAddr(ctx, addresses[idx], sdk.Coins{amounts[idx]})
 		if err != nil {
-			return nil, err
+			return nil, sdkerrors.Wrap(sdkerrors.ErrInsufficientFunds, err.Error())
 		}
 		k.SubPoolCredits(ctx, WinnersPoolKey, amounts[idx])
 	}

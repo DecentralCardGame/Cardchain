@@ -21,7 +21,7 @@ func (k msgServer) AddArtworkToCollection(goCtx context.Context, msg *types.MsgA
 
 	err := k.CollectCollectionConributionFee(ctx, msg.Creator)
 	if err != nil {
-		return nil, err
+		return nil, sdkerrors.Wrap(sdkerrors.ErrInsufficientFunds, err.Error())
 	}
 
 	collection.Artwork = msg.Image

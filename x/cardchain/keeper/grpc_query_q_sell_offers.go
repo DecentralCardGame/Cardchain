@@ -5,6 +5,7 @@ import (
 
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 )
@@ -28,11 +29,11 @@ func (k Keeper) QSellOffers(goCtx context.Context, req *types.QueryQSellOffersRe
 			// Conversion to coins
 			priceUp, err := sdk.ParseCoinNormalized(req.PriceUp)
 			if err != nil {
-				return nil, err
+				return nil, sdkerrors.Wrap(types.ErrConversion, err.Error())
 			}
 			priceDown, err := sdk.ParseCoinNormalized(req.PriceDown)
 			if err != nil {
-				return nil, err
+				return nil, sdkerrors.Wrap(types.ErrConversion, err.Error())
 			}
 
 			if !(sellOffer.Price.IsGTE(priceDown) && priceUp.IsGTE(sellOffer.Price)) {

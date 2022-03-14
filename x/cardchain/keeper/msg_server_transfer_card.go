@@ -15,11 +15,11 @@ func (k msgServer) TransferCard(goCtx context.Context, msg *types.MsgTransferCar
 	card := k.GetCard(ctx, msg.CardId)
 	creator, err := k.GetUserFromString(ctx, msg.Creator)
 	if err != nil {
-		return nil, err
+		return nil, sdkerrors.Wrap(types.ErrUserDoesNotExist, err.Error())
 	}
 	receiver, err := k.GetUserFromString(ctx, msg.Receiver)
 	if err != nil {
-		return nil, err
+		return nil, sdkerrors.Wrap(types.ErrUserDoesNotExist, err.Error())
 	}
 
 	if card.Owner == "" {
@@ -31,13 +31,13 @@ func (k msgServer) TransferCard(goCtx context.Context, msg *types.MsgTransferCar
 	if card.Status == types.Status_scheme {
 		creator.OwnedCardSchemes, err = UintPopItemFromArr(msg.CardId, creator.OwnedCardSchemes)
 		if err != nil {
-			return nil, err
+			return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, err.Error())
 		}
 		receiver.OwnedCardSchemes = append(receiver.OwnedCardSchemes, msg.CardId)
 	} else {
 		creator.OwnedPrototypes, err = UintPopItemFromArr(msg.CardId, creator.OwnedPrototypes)
 		if err != nil {
-			return nil, err
+			return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, err.Error())
 		}
 		receiver.OwnedPrototypes = append(receiver.OwnedPrototypes, msg.CardId)
 	}

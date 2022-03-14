@@ -32,7 +32,7 @@ func (k msgServer) FinalizeCollection(goCtx context.Context, msg *types.MsgFinal
 
 	err := k.CollectCollectionCreationFee(ctx, msg.Creator)
 	if err != nil {
-		return nil, err
+		return nil, sdkerrors.Wrap(sdkerrors.ErrInsufficientFunds, err.Error())
 	}
 
 	unCommonsAll := int(collectionSize / 3)
@@ -46,11 +46,11 @@ func (k msgServer) FinalizeCollection(goCtx context.Context, msg *types.MsgFinal
 	for _, cardId := range collection.Cards {
 		cardobj, err := keywords.Unmarshal(k.GetCard(ctx, cardId).Content)
 		if err != nil {
-			return nil, err
+			return nil, sdkerrors.Wrap(types.ErrCardobject, err.Error())
 		}
 		rarity, err := GetCardRarity(cardobj)
 		if err != nil {
-			return nil, err
+			return nil, sdkerrors.Wrap(types.ErrCardobject, err.Error())
 		}
 		switch *rarity {
 		case cardobject.Rarity("COMMON"):

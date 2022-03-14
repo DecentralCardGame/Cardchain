@@ -13,7 +13,7 @@ func (k msgServer) RegisterForCouncil(goCtx context.Context, msg *types.MsgRegis
 
 	user, err := k.GetUserFromString(ctx, msg.Creator)
 	if err != nil {
-		return nil, err
+		return nil, sdkerrors.Wrap(types.ErrUserDoesNotExist, err.Error())
 	}
 
 	if user.CouncilStatus != types.CouncilStatus_unavailable {
@@ -31,7 +31,7 @@ func (k msgServer) RegisterForCouncil(goCtx context.Context, msg *types.MsgRegis
 			for _, addr := range council.Voters {
 				usr, err := k.GetUserFromString(ctx, addr)
 				if err != nil {
-					return nil, err
+					return nil, sdkerrors.Wrap(types.ErrUserDoesNotExist, err.Error())
 				}
 				if len(council.Voters) == 5 {
 					usr.CouncilStatus = types.CouncilStatus_startedCouncil
@@ -47,7 +47,7 @@ func (k msgServer) RegisterForCouncil(goCtx context.Context, msg *types.MsgRegis
 
 	user, err = k.GetUserFromString(ctx, msg.Creator)
 	if err != nil {
-		return nil, err
+		return nil, sdkerrors.Wrap(types.ErrUserDoesNotExist, err.Error())
 	}
 	if user.CouncilStatus == types.CouncilStatus_unavailable {
 		user.CouncilStatus = types.CouncilStatus_available

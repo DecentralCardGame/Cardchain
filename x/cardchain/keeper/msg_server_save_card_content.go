@@ -31,7 +31,7 @@ func (k msgServer) SaveCardContent(goCtx context.Context, msg *types.MsgSaveCard
 	k.SetCard(ctx, msg.CardId, card)
 	err = k.TransferSchemeToCard(ctx, msg.CardId, msgOwner)
 	if err != nil {
-		return nil, err
+		return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "An error accured while converting a card to a scheme: "+err.Error())
 	}
 
 	return &types.MsgSaveCardContentResponse{}, nil

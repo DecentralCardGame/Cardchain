@@ -13,7 +13,7 @@ func (k msgServer) RewokeCouncilRegistration(goCtx context.Context, msg *types.M
 
 	user, err := k.GetUserFromString(ctx, msg.Creator)
 	if err != nil {
-		return nil, err
+		return nil, sdkerrors.Wrap(types.ErrUserDoesNotExist, err.Error())
 	}
 
 	if user.CouncilStatus != types.CouncilStatus_available {

@@ -13,7 +13,7 @@ func (k msgServer) BuyCard(goCtx context.Context, msg *types.MsgBuyCard) (*types
 
 	buyer, err := k.GetUserFromString(ctx, msg.Creator)
 	if err != nil {
-		return nil, err
+		return nil, sdkerrors.Wrap(types.ErrUserDoesNotExist, err.Error())
 	}
 
 	sellOffer := k.GetSellOffer(ctx, msg.SellOfferId)
@@ -29,7 +29,7 @@ func (k msgServer) BuyCard(goCtx context.Context, msg *types.MsgBuyCard) (*types
 
 	err = k.BankKeeper.SendCoins(ctx, buyer.Addr, sellerAddr, sdk.Coins{sellOffer.Price})
 	if err != nil {
-		return nil, err
+		return nil, sdkerrors.Wrap(sdkerrors.ErrInsufficientFunds, err.Error())
 	}
 
 	buyer.Cards = append(buyer.Cards, sellOffer.Card)
