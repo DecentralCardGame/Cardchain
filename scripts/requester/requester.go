@@ -39,13 +39,13 @@ func getClient() (cosmosclient.Client, error) {
 }
 
 func broadcastMsg(logger *log.Logger, cosmos cosmosclient.Client, creator string, msg sdktypes.Msg) {
-  logger.Println("Message:", msg)
+  go logger.Println("Message:", msg)
 
   txResp, err := cosmos.BroadcastTx(creator, msg)
   if err != nil {
     logger.Fatal("Error:", err)
   }
-  logger.Println("Response:", txResp)
+  go logger.Println("Response:", txResp)
 }
 
 func getCardContent(rawContent string) []byte {

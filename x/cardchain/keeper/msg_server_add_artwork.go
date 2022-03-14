@@ -17,6 +17,10 @@ func (k msgServer) AddArtwork(goCtx context.Context, msg *types.MsgAddArtwork) (
 		return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "Incorrect Artist")
 	}
 
+	if len(msg.Image) > 500000 {
+		return nil, sdkerrors.Wrap(types.ErrImageSizeExceeded, string(len(msg.Image)))
+	}
+
 	card.FullArt = msg.FullArt
 	card.Image = msg.Image
 

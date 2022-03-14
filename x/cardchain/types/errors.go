@@ -25,4 +25,5 @@ var (
 	ErrInvalidUserStatus       = sdkerrors.Register(ModuleName, 14, "Invalid user-status")
 	ErrBadReveal               = sdkerrors.Register(ModuleName, 15, "Reveal does not fit commit")
 	ErrCouncilStatus           = sdkerrors.Register(ModuleName, 16, "Wrong council status")
+	ErrImageSizeExceeded       = sdkerrors.Register(ModuleName, 17, "Image too big! Max size is 500kb")
 )
