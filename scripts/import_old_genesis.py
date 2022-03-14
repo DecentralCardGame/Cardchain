@@ -30,13 +30,15 @@ def register_cards(card_records, address_records):
 
 
 def register_users(user_records, address_records):
+    user_aliases = [""]
     for user in user_records:
         alias = user["Alias"].strip()
-        if alias in [""]:
+        if alias in user_aliases:
             continue
         os.system(f"Cardchaind keys add '{alias}'")
         print("")
         requester.make_create_user_request("alice".encode("utf-8"), alias.encode("utf-8"))
+        user_aliases.append(alias)
 
 
 if __name__ == "__main__":
