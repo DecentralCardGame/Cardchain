@@ -14,22 +14,22 @@ func (k msgServer) CreateCouncil(goCtx context.Context, msg *types.MsgCreateCoun
 
 	creator, err := k.GetUserFromString(ctx, msg.Creator)
 	if err != nil {
-		return nil, err
+		return nil, sdkerrors.Wrap(types.ErrUserDoesNotExist, err.Error())
 	}
 
 	card := k.GetCard(ctx, msg.CardId)
 	if card.Status != types.Status_prototype {
 		return nil, sdkerrors.Wrapf(types.ErrInvalidCardStatus, "%s", card.Status.String())
 	} else if card.Owner != msg.Creator {
-	  return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "Incorrect Creator")
+		return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "Incorrect Creator")
 	}
 
 	var possibleVoters []User
 	var fiveVoters []User
 	var voters []string
 	var status types.CouncelingStatus
-	colDep := k.GetParams(ctx).CollateralDeposit
-	treasury := MulCoin(colDep, 10)
+	collateralDeposit := k.GetParams(ctx).CollateralDeposit
+	treasury := MulCoin(collateralDeposit, 10)
 	councilId := k.GetCouncilsNumber(ctx)
 	users, addresses := k.GetAllUsers(ctx)
 
@@ -66,12 +66,11 @@ func (k msgServer) CreateCouncil(goCtx context.Context, msg *types.MsgCreateCoun
 		voters = append(voters, user.Addr.String())
 	}
 
-
 	council := types.Council{
-		CardId: msg.CardId,
-		Voters: voters,
+		CardId:   msg.CardId,
+		Voters:   voters,
 		Treasury: treasury,
-		Status: status,
+		Status:   status,
 	}
 
 	k.SetCouncil(ctx, councilId, council)

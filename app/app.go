@@ -258,7 +258,7 @@ func New(
 		minttypes.StoreKey, distrtypes.StoreKey, slashingtypes.StoreKey,
 		govtypes.StoreKey, paramstypes.StoreKey, ibchost.StoreKey, upgradetypes.StoreKey, feegrant.StoreKey,
 		evidencetypes.StoreKey, ibctransfertypes.StoreKey, capabilitytypes.StoreKey,
-		cardchainmoduletypes.GeneralStoreKey, cardchainmoduletypes.UsersStoreKey, cardchainmoduletypes.CardsStoreKey, cardchainmoduletypes.MatchesStoreKey, cardchainmoduletypes.CollectionsStoreKey, cardchainmoduletypes.SellOffersStoreKey, cardchainmoduletypes.PoolsStoreKey, cardchainmoduletypes.CouncilsStoreKey, cardchainmoduletypes.InternalStoreKey,
+		cardchainmoduletypes.UsersStoreKey, cardchainmoduletypes.CardsStoreKey, cardchainmoduletypes.MatchesStoreKey, cardchainmoduletypes.CollectionsStoreKey, cardchainmoduletypes.SellOffersStoreKey, cardchainmoduletypes.PoolsStoreKey, cardchainmoduletypes.RunningAveragesStoreKey, cardchainmoduletypes.CouncilsStoreKey, cardchainmoduletypes.InternalStoreKey,
 		// this line is used by starport scaffolding # stargate/app/storeKey
 	)
 	tkeys := sdk.NewTransientStoreKeys(paramstypes.TStoreKey)
@@ -346,7 +346,6 @@ func New(
 
 	app.CardchainKeeper = *cardchainmodulekeeper.NewKeeper(
 		appCodec,
-		keys[cardchainmoduletypes.GeneralStoreKey],
 		keys[cardchainmoduletypes.UsersStoreKey],
 		keys[cardchainmoduletypes.CardsStoreKey],
 		keys[cardchainmoduletypes.MatchesStoreKey],
@@ -354,6 +353,7 @@ func New(
 		keys[cardchainmoduletypes.SellOffersStoreKey],
 		keys[cardchainmoduletypes.PoolsStoreKey],
 		keys[cardchainmoduletypes.CouncilsStoreKey],
+		keys[cardchainmoduletypes.RunningAveragesStoreKey],
 		keys[cardchainmoduletypes.InternalStoreKey],
 		app.GetSubspace(cardchainmoduletypes.ModuleName),
 
@@ -531,12 +531,14 @@ func (app *App) BeginBlocker(ctx sdk.Context, req abci.RequestBeginBlock) abci.R
 // EndBlocker application updates every end block
 func (app *App) EndBlocker(ctx sdk.Context, req abci.RequestEndBlock) abci.ResponseEndBlock {
 	// update the price of card auction (currently 1% decay per block)
-	price := app.CardchainKeeper.GetCardAuctionPrice(ctx)  // TODO intervall
-	newprice := price.Sub(cardchainmodulekeeper.QuoCoin(price, 100))
-	if !newprice.IsLT(sdk.NewInt64Coin("ucredits", 1000000)) { // stop at 1 credit
-		app.CardchainKeeper.SetCardAuctionPrice(ctx, newprice)
+	if app.LastBlockHeight()%app.CardchainKeeper.GetParams(ctx).CardAuctionPriceReductionPeriod == 0 {
+		price := app.CardchainKeeper.GetCardAuctionPrice(ctx)
+		newprice := price.Sub(cardchainmodulekeeper.QuoCoin(price, 100))
+		if !newprice.IsLT(sdk.NewInt64Coin("ucredits", 1000000)) { // stop at 1 credit
+			app.CardchainKeeper.SetCardAuctionPrice(ctx, newprice)
+		}
+		app.CardchainKeeper.Logger(ctx).Info(fmt.Sprintf(":: CardAuctionPrice: %s", app.CardchainKeeper.GetCardAuctionPrice(ctx)))
 	}
-	app.CardchainKeeper.Logger(ctx).Info(fmt.Sprintf(":: CardAuctionPrice: %s", app.CardchainKeeper.GetCardAuctionPrice(ctx)))
 
 	// automated nerf/buff happens here
 	if app.LastBlockHeight()%epochBlockTime == 0 {
@@ -551,14 +553,22 @@ func (app *App) EndBlocker(ctx sdk.Context, req abci.RequestEndBlock) abci.Respo
 		app.CardchainKeeper.SubPoolCredits(ctx, cardchainmodulekeeper.PublicPoolKey, incentives)
 		winnersIncentives := cardchainmodulekeeper.MulCoinFloat(incentives, float64(app.CardchainKeeper.GetWinnerIncentives(ctx)))
 		balancersIncentives := cardchainmodulekeeper.MulCoinFloat(incentives, float64(app.CardchainKeeper.GetBalancerIncentives(ctx)))
+		app.CardchainKeeper.Logger(ctx).Info(fmt.Sprintf(":: Incentives (w, b): %s, %s", winnersIncentives, balancersIncentives))
 		app.CardchainKeeper.AddPoolCredits(ctx, cardchainmodulekeeper.WinnersPoolKey, winnersIncentives)
 		app.CardchainKeeper.AddPoolCredits(ctx, cardchainmodulekeeper.BalancersPoolKey, balancersIncentives)
 		app.CardchainKeeper.Logger(ctx).Info(fmt.Sprintf(":: PublicPool: %s", app.CardchainKeeper.GetPool(ctx, cardchainmodulekeeper.PublicPoolKey)))
 	}
 
-	if app.LastBlockHeight()%(24*500) == 0 { //Dayly game/vote reset
-		app.CardchainKeeper.SetGeneralValue(ctx, cardchainmodulekeeper.Votes24ValueKey, 0)
-		app.CardchainKeeper.SetGeneralValue(ctx, cardchainmodulekeeper.Games24ValueKey, 0)
+	// Setting running averages
+	if app.LastBlockHeight()%500 == 0 {
+		averages := app.CardchainKeeper.GetAllRunningAverages(ctx)
+		for idx, average := range averages {
+			average.Arr = append(average.Arr, 0)
+			if len(average.Arr) > 24 {
+				average.Arr = average.Arr[1:]
+			}
+			app.CardchainKeeper.SetRunningAverage(ctx, app.CardchainKeeper.RunningAverageKeys[idx], *average)
+		}
 	}
 
 	err := app.CardchainKeeper.CheckTrial(ctx)
@@ -573,7 +583,7 @@ func (app *App) EndBlocker(ctx sdk.Context, req abci.RequestEndBlock) abci.Respo
 func (app *App) InitChainer(ctx sdk.Context, req abci.RequestInitChain) abci.ResponseInitChain {
 	var genesisState GenesisState
 	if err := tmjson.Unmarshal(req.AppStateBytes, &genesisState); err != nil {
-		//panic(err)
+		panic(err)
 	}
 
 	// initialize CardScheme Id, Auction price and public pool
@@ -581,10 +591,6 @@ func (app *App) InitChainer(ctx sdk.Context, req abci.RequestInitChain) abci.Res
 
 	for _, key := range app.CardchainKeeper.PoolKeys {
 		app.CardchainKeeper.SetPool(ctx, key, sdk.NewInt64Coin("ucredits", int64(1000*math.Pow(10, 6))))
-	}
-
-	for _, key := range app.CardchainKeeper.GeneralValueKeys {
-		app.CardchainKeeper.SetGeneralValue(ctx, key, uint64(0))
 	}
 
 	app.UpgradeKeeper.SetModuleVersionMap(ctx, app.mm.GetVersionMap())

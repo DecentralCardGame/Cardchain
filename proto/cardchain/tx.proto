@@ -40,6 +40,8 @@ service Msg {
   rpc CreateCouncil(MsgCreateCouncil) returns (MsgCreateCouncilResponse);
   rpc CommitCouncilResponse(MsgCommitCouncilResponse) returns (MsgCommitCouncilResponseResponse);
   rpc RevealCouncilResponse(MsgRevealCouncilResponse) returns (MsgRevealCouncilResponseResponse);
+  rpc RestartCouncil(MsgRestartCouncil) returns (MsgRestartCouncilResponse);
+  rpc RewokeCouncilRegistration(MsgRewokeCouncilRegistration) returns (MsgRewokeCouncilRegistrationResponse);
 // this line is used by starport scaffolding # proto/tx/rpc
 }
 
@@ -312,6 +314,7 @@ message MsgCommitCouncilResponse {
   string creator = 1;
   string response = 2;
   uint64 councilId = 3;
+  string suggestion = 4;
 }
 
 message MsgCommitCouncilResponseResponse {
@@ -325,6 +328,21 @@ message MsgRevealCouncilResponse {
 }
 
 message MsgRevealCouncilResponseResponse {
+}
+
+message MsgRestartCouncil {
+  string creator = 1;
+  uint64 councilId = 2;
+}
+
+message MsgRestartCouncilResponse {
+}
+
+message MsgRewokeCouncilRegistration {
+  string creator = 1;
+}
+
+message MsgRewokeCouncilRegistrationResponse {
 }
 
 // this line is used by starport scaffolding # proto/tx/message

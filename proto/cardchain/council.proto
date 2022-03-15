@@ -18,6 +18,7 @@ message Council {
 message WrapClearResponse {
   string user = 1;
   Response response = 2;
+  string suggestion = 3;
 }
 
 message WrapHashResponse {
@@ -28,6 +29,7 @@ message WrapHashResponse {
 enum Response {
   Yes = 0;
   No = 1;
+  Suggestion = 2;
 }
 
 enum CouncelingStatus {
@@ -36,4 +38,5 @@ enum CouncelingStatus {
   councilClosed = 2;
   commited = 3;
   revealed = 4;
+  suggestionsMade = 5;
 }

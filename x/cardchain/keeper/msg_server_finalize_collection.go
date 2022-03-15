@@ -32,7 +32,7 @@ func (k msgServer) FinalizeCollection(goCtx context.Context, msg *types.MsgFinal
 
 	err := k.CollectCollectionCreationFee(ctx, msg.Creator)
 	if err != nil {
-		return nil, err
+		return nil, sdkerrors.Wrap(sdkerrors.ErrInsufficientFunds, err.Error())
 	}
 
 	unCommonsAll := int(collectionSize / 3)
@@ -46,11 +46,11 @@ func (k msgServer) FinalizeCollection(goCtx context.Context, msg *types.MsgFinal
 	for _, cardId := range collection.Cards {
 		cardobj, err := keywords.Unmarshal(k.GetCard(ctx, cardId).Content)
 		if err != nil {
-			return nil, err
+			return nil, sdkerrors.Wrap(types.ErrCardobject, err.Error())
 		}
 		rarity, err := GetCardRarity(cardobj)
 		if err != nil {
-			return nil, err
+			return nil, sdkerrors.Wrap(types.ErrCardobject, err.Error())
 		}
 		switch *rarity {
 		case cardobject.Rarity("COMMON"):
@@ -60,12 +60,12 @@ func (k msgServer) FinalizeCollection(goCtx context.Context, msg *types.MsgFinal
 		case cardobject.Rarity("RARE"):
 			rares++
 		default:
-			return nil, errors.New(fmt.Sprintf("Card '%d' has no type", cardId))
+			return nil, fmt.Errorf("Card '%d' has no type", cardId)
 		}
 	}
 
 	if unCommons != unCommonsAll || commons != commonsAll || rares != raresAll {
-		return nil, errors.New(fmt.Sprintf("Collections should contain (c,u,r) %d, %d, %d but contains %d, %d, %d", commonsAll, unCommonsAll, raresAll, commons, unCommons, rares))
+		return nil, fmt.Errorf("Collections should contain (c,u,r) %d, %d, %d but contains %d, %d, %d", commonsAll, unCommonsAll, raresAll, commons, unCommons, rares)
 	}
 
 	collection.Status = types.CStatus_finalized

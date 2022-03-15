@@ -11873,8 +11873,10 @@ paths:
                     type: string
                   winnerReward:
                     type: string
+                    format: int64
                   voterReward:
                     type: string
+                    format: int64
                   hourlyFaucet:
                     type: string
                   inflationRate:
@@ -11891,6 +11893,12 @@ paths:
                   trialPeriod:
                     type: string
                     format: uint64
+                  gameVoteRatio:
+                    type: string
+                    format: int64
+                  cardAuctionPriceReductionPeriod:
+                    type: string
+                    format: int64
             description: >-
               QueryParamsResponse is response type for the Query/Params RPC
               method.
@@ -11930,10 +11938,8 @@ paths:
                 type: string
               content:
                 type: string
-                format: byte
               image:
                 type: string
-                format: byte
               fullArt:
                 type: boolean
               notes:
@@ -12051,6 +12057,18 @@ paths:
                 items:
                   type: string
                   format: uint64
+              cardsNumber:
+                type: string
+                format: uint64
+              matchesNumber:
+                type: string
+                format: uint64
+              sellOffersNumber:
+                type: string
+                format: uint64
+              councilsNumber:
+                type: string
+                format: uint64
         default:
           description: An unexpected error response.
           schema:
@@ -12254,7 +12272,10 @@ paths:
                       enum:
                         - 'Yes'
                         - 'No'
+                        - Suggestion
                       default: 'Yes'
+                    suggestion:
+                      type: string
               treasury:
                 type: string
               status:
@@ -12265,6 +12286,7 @@ paths:
                   - councilClosed
                   - commited
                   - revealed
+                  - suggestionsMade
                 default: councilOpen
               trialStart:
                 type: string
@@ -12314,6 +12336,16 @@ paths:
                 type: string
               playerB:
                 type: string
+              playerACards:
+                type: array
+                items:
+                  type: string
+                  format: uint64
+              playerBCards:
+                type: array
+                items:
+                  type: string
+                  format: uint64
               outcome:
                 type: string
                 enum:
@@ -12346,6 +12378,125 @@ paths:
           required: true
           type: string
           format: uint64
+      tags:
+        - Query
+  '/DecentralCardGame/cardchain/cardchain/q_matches/{timestampDown}/{timestampUp}/{containsUsers}/{outcome}':
+    get:
+      summary: Queries a list of QMatches items.
+      operationId: DecentralCardGameCardchainCardchainQMatches
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              matchesList:
+                type: array
+                items:
+                  type: string
+                  format: uint64
+              matches:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    timestamp:
+                      type: string
+                      format: uint64
+                    reporter:
+                      type: string
+                    playerA:
+                      type: string
+                    playerB:
+                      type: string
+                    playerACards:
+                      type: array
+                      items:
+                        type: string
+                        format: uint64
+                    playerBCards:
+                      type: array
+                      items:
+                        type: string
+                        format: uint64
+                    outcome:
+                      type: string
+                      enum:
+                        - AWon
+                        - BWon
+                        - Draw
+                        - Aborted
+                      default: AWon
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: timestampDown
+          in: path
+          required: true
+          type: string
+          format: uint64
+        - name: timestampUp
+          in: path
+          required: true
+          type: string
+          format: uint64
+        - name: containsUsers
+          in: path
+          required: true
+          type: array
+          items:
+            type: string
+          collectionFormat: csv
+          minItems: 1
+        - name: outcome
+          in: path
+          required: true
+          type: string
+          enum:
+            - AWon
+            - BWon
+            - Draw
+            - Aborted
+        - name: reporter
+          in: query
+          required: false
+          type: string
+        - name: cardsPlayed
+          in: query
+          required: false
+          type: array
+          items:
+            type: string
+            format: uint64
+          collectionFormat: multi
+        - name: ignore.outcome
+          in: query
+          required: false
+          type: boolean
+        - name: ignore.timestamp
+          in: query
+          required: false
+          type: boolean
+        - name: ignore.reporter
+          in: query
+          required: false
+          type: boolean
       tags:
         - Query
   '/DecentralCardGame/cardchain/cardchain/q_sell_offer/{sellOfferId}':
@@ -12398,6 +12549,112 @@ paths:
           required: true
           type: string
           format: uint64
+      tags:
+        - Query
+  '/DecentralCardGame/cardchain/cardchain/q_sell_offers/{priceDown}/{priceUp}/{seller}/{buyer}/{status}':
+    get:
+      summary: Queries a list of QSellOffers items.
+      operationId: DecentralCardGameCardchainCardchainQSellOffers
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              sellOffersIds:
+                type: array
+                items:
+                  type: string
+                  format: uint64
+              sellOffers:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    seller:
+                      type: string
+                    buyer:
+                      type: string
+                    card:
+                      type: string
+                      format: uint64
+                    price:
+                      type: string
+                    status:
+                      type: string
+                      enum:
+                        - open
+                        - sold
+                        - removed
+                      default: open
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: priceDown
+          in: path
+          required: true
+          type: string
+        - name: priceUp
+          in: path
+          required: true
+          type: string
+        - name: seller
+          in: path
+          required: true
+          type: string
+        - name: buyer
+          in: path
+          required: true
+          type: string
+        - name: status
+          in: path
+          required: true
+          type: string
+          enum:
+            - open
+            - sold
+            - removed
+        - name: card
+          in: query
+          required: false
+          type: string
+          format: uint64
+        - name: ignore.status
+          in: query
+          required: false
+          type: boolean
+        - name: ignore.price
+          in: query
+          required: false
+          type: boolean
+        - name: ignore.seller
+          in: query
+          required: false
+          type: boolean
+        - name: ignore.buyer
+          in: query
+          required: false
+          type: boolean
+        - name: ignore.card
+          in: query
+          required: false
+          type: boolean
       tags:
         - Query
   '/DecentralCardGame/cardchain/cardchain/q_user/{address}':
@@ -20520,57 +20777,6 @@ definitions:
       - active
       - archived
     default: design
-  DecentralCardGame.cardchain.cardchain.Card:
-    type: object
-    properties:
-      owner:
-        type: string
-      artist:
-        type: string
-      content:
-        type: string
-        format: byte
-      image:
-        type: string
-        format: byte
-      fullArt:
-        type: boolean
-      notes:
-        type: string
-      status:
-        type: string
-        enum:
-          - scheme
-          - prototype
-          - trial
-          - permanent
-          - suspended
-          - banned
-          - bannedSoon
-          - bannedVerySoon
-          - none
-        default: scheme
-      votePool:
-        type: string
-      voters:
-        type: array
-        items:
-          type: string
-      fairEnoughVotes:
-        type: string
-        format: uint64
-      overpoweredVotes:
-        type: string
-        format: uint64
-      underpoweredVotes:
-        type: string
-        format: uint64
-      inappropriateVotes:
-        type: string
-        format: uint64
-      nerflevel:
-        type: string
-        format: int64
   DecentralCardGame.cardchain.cardchain.Collection:
     type: object
     properties:
@@ -20613,6 +20819,7 @@ definitions:
       - councilClosed
       - commited
       - revealed
+      - suggestionsMade
     default: councilOpen
   DecentralCardGame.cardchain.cardchain.Council:
     type: object
@@ -20645,7 +20852,10 @@ definitions:
               enum:
                 - 'Yes'
                 - 'No'
+                - Suggestion
               default: 'Yes'
+            suggestion:
+              type: string
       treasury:
         type: string
       status:
@@ -20656,6 +20866,7 @@ definitions:
           - councilClosed
           - commited
           - revealed
+          - suggestionsMade
         default: councilOpen
       trialStart:
         type: string
@@ -20668,6 +20879,28 @@ definitions:
       - openCouncil
       - startedCouncil
     default: available
+  DecentralCardGame.cardchain.cardchain.IgnoreMatches:
+    type: object
+    properties:
+      outcome:
+        type: boolean
+      timestamp:
+        type: boolean
+      reporter:
+        type: boolean
+  DecentralCardGame.cardchain.cardchain.IgnoreSellOffers:
+    type: object
+    properties:
+      status:
+        type: boolean
+      price:
+        type: boolean
+      seller:
+        type: boolean
+      buyer:
+        type: boolean
+      card:
+        type: boolean
   DecentralCardGame.cardchain.cardchain.Match:
     type: object
     properties:
@@ -20680,6 +20913,16 @@ definitions:
         type: string
       playerB:
         type: string
+      playerACards:
+        type: array
+        items:
+          type: string
+          format: uint64
+      playerBCards:
+        type: array
+        items:
+          type: string
+          format: uint64
       outcome:
         type: string
         enum:
@@ -20736,7 +20979,11 @@ definitions:
       matchId:
         type: string
         format: uint64
+  DecentralCardGame.cardchain.cardchain.MsgRestartCouncilResponse:
+    type: object
   DecentralCardGame.cardchain.cardchain.MsgRevealCouncilResponseResponse:
+    type: object
+  DecentralCardGame.cardchain.cardchain.MsgRewokeCouncilRegistrationResponse:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgSaveCardContentResponse:
     type: object
@@ -20760,6 +21007,55 @@ definitions:
       - Draw
       - Aborted
     default: AWon
+  DecentralCardGame.cardchain.cardchain.OutpCard:
+    type: object
+    properties:
+      owner:
+        type: string
+      artist:
+        type: string
+      content:
+        type: string
+      image:
+        type: string
+      fullArt:
+        type: boolean
+      notes:
+        type: string
+      status:
+        type: string
+        enum:
+          - scheme
+          - prototype
+          - trial
+          - permanent
+          - suspended
+          - banned
+          - bannedSoon
+          - bannedVerySoon
+          - none
+        default: scheme
+      votePool:
+        type: string
+      voters:
+        type: array
+        items:
+          type: string
+      fairEnoughVotes:
+        type: string
+        format: uint64
+      overpoweredVotes:
+        type: string
+        format: uint64
+      underpoweredVotes:
+        type: string
+        format: uint64
+      inappropriateVotes:
+        type: string
+        format: uint64
+      nerflevel:
+        type: string
+        format: int64
   DecentralCardGame.cardchain.cardchain.Params:
     type: object
     properties:
@@ -20780,8 +21076,10 @@ definitions:
         type: string
       winnerReward:
         type: string
+        format: int64
       voterReward:
         type: string
+        format: int64
       hourlyFaucet:
         type: string
       inflationRate:
@@ -20798,6 +21096,12 @@ definitions:
       trialPeriod:
         type: string
         format: uint64
+      gameVoteRatio:
+        type: string
+        format: int64
+      cardAuctionPriceReductionPeriod:
+        type: string
+        format: int64
     description: Params defines the parameters for the module.
   DecentralCardGame.cardchain.cardchain.QueryParamsResponse:
     type: object
@@ -20823,8 +21127,10 @@ definitions:
             type: string
           winnerReward:
             type: string
+            format: int64
           voterReward:
             type: string
+            format: int64
           hourlyFaucet:
             type: string
           inflationRate:
@@ -20841,6 +21147,12 @@ definitions:
           trialPeriod:
             type: string
             format: uint64
+          gameVoteRatio:
+            type: string
+            format: int64
+          cardAuctionPriceReductionPeriod:
+            type: string
+            format: int64
     description: QueryParamsResponse is response type for the Query/Params RPC method.
   DecentralCardGame.cardchain.cardchain.QueryQCardContentResponse:
     type: object
@@ -20857,6 +21169,18 @@ definitions:
         items:
           type: string
           format: uint64
+      cardsNumber:
+        type: string
+        format: uint64
+      matchesNumber:
+        type: string
+        format: uint64
+      sellOffersNumber:
+        type: string
+        format: uint64
+      councilsNumber:
+        type: string
+        format: uint64
   DecentralCardGame.cardchain.cardchain.QueryQCardsResponse:
     type: object
     properties:
@@ -20865,6 +21189,75 @@ definitions:
         items:
           type: string
           format: uint64
+  DecentralCardGame.cardchain.cardchain.QueryQMatchesResponse:
+    type: object
+    properties:
+      matchesList:
+        type: array
+        items:
+          type: string
+          format: uint64
+      matches:
+        type: array
+        items:
+          type: object
+          properties:
+            timestamp:
+              type: string
+              format: uint64
+            reporter:
+              type: string
+            playerA:
+              type: string
+            playerB:
+              type: string
+            playerACards:
+              type: array
+              items:
+                type: string
+                format: uint64
+            playerBCards:
+              type: array
+              items:
+                type: string
+                format: uint64
+            outcome:
+              type: string
+              enum:
+                - AWon
+                - BWon
+                - Draw
+                - Aborted
+              default: AWon
+  DecentralCardGame.cardchain.cardchain.QueryQSellOffersResponse:
+    type: object
+    properties:
+      sellOffersIds:
+        type: array
+        items:
+          type: string
+          format: uint64
+      sellOffers:
+        type: array
+        items:
+          type: object
+          properties:
+            seller:
+              type: string
+            buyer:
+              type: string
+            card:
+              type: string
+              format: uint64
+            price:
+              type: string
+            status:
+              type: string
+              enum:
+                - open
+                - sold
+                - removed
+              default: open
   DecentralCardGame.cardchain.cardchain.QueryQVotableCardsResponse:
     type: object
     properties:
@@ -20933,6 +21326,7 @@ definitions:
     enum:
       - 'Yes'
       - 'No'
+      - Suggestion
     default: 'Yes'
   DecentralCardGame.cardchain.cardchain.SellOffer:
     type: object
@@ -21095,7 +21489,10 @@ definitions:
         enum:
           - 'Yes'
           - 'No'
+          - Suggestion
         default: 'Yes'
+      suggestion:
+        type: string
   DecentralCardGame.cardchain.cardchain.WrapHashResponse:
     type: object
     properties:

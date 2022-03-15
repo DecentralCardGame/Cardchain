@@ -16,6 +16,12 @@ import (
 	"google.golang.org/grpc/status"
 )
 
+type Result struct {
+	Id    uint64
+	Value string
+	Num   int
+}
+
 func (k Keeper) QCards(goCtx context.Context, req *types.QueryQCardsRequest) (*types.QueryQCardsResponse, error) {
 	if req == nil {
 		return nil, status.Error(codes.InvalidArgument, "invalid request")
@@ -23,13 +29,14 @@ func (k Keeper) QCards(goCtx context.Context, req *types.QueryQCardsRequest) (*t
 
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	var cardsList []uint64
-
-	type Result struct {
-		Id    uint64
-		Value string
-		Num   int
+	// This one fixes escaping
+	for _, arg := range []*string{&req.Owner, &req.CardType, &req.Classes, &req.SortBy, &req.NameContains, &req.KeywordsContains, &req.NotesContains} {
+		if *arg == "\"\"" {
+			*arg = ""
+		}
 	}
+
+	var cardsList []uint64
 	var results []Result
 
 	checkName := func(cardName cardobject.CardName) bool {

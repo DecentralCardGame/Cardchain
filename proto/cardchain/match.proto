@@ -10,5 +10,7 @@ message Match {
   string reporter = 2;
   string playerA = 3;
   string playerB = 4;
-  Outcome outcome = 5;
+  repeated uint64 playerACards = 5;
+  repeated uint64 playerBCards = 6;
+  Outcome outcome = 7;
 }

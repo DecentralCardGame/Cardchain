@@ -13,10 +13,10 @@ func (k msgServer) CreateSellOffer(goCtx context.Context, msg *types.MsgCreateSe
 
 	creator, err := k.GetUserFromString(ctx, msg.Creator)
 	if err != nil {
-		return nil, err
+		return nil, sdkerrors.Wrap(types.ErrUserDoesNotExist, err.Error())
 	}
 
-	newCards, err := uintPopElementFromArr(msg.Card, creator.Cards)
+	newCards, err := UintPopItemFromArr(msg.Card, creator.Cards)
 	if err != nil {
 		return nil, sdkerrors.Wrapf(err, "User does not posses Card: %d", msg.Card)
 	}

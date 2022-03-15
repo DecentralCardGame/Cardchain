@@ -32,25 +32,22 @@ func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) 
 	for id, pool := range genState.Pools {
 		k.SetPool(ctx, k.PoolKeys[id], pool)
 	}
-	for key, value := range genState.GeneralValues {
-		k.SetGeneralValue(ctx, key, value)
+	for idx, average := range genState.RunningAverages {
+		k.SetRunningAverage(ctx, k.RunningAverageKeys[idx], *average)
 	}
 	if genState.CardAuctionPrice.Denom != "" {
 		k.SetCardAuctionPrice(ctx, genState.CardAuctionPrice)
 	}
-	fmt.Println("reading cards with id:")
+	k.Logger(ctx).Info("reading cards with id:")
 	for currId, record := range genState.CardRecords {
 		_, err := keywords.Unmarshal(record.Content)
 		if err != nil {
-			fmt.Println(currId, ":")
-			fmt.Println(err.Error())
-			fmt.Println(string(record.Content))
-			fmt.Println("-----")
+			k.Logger(ctx).Error(fmt.Sprintf("%d :\n\t%s\n\t%s\n-----", currId, err.Error(), record.Content))
 		}
 
 		k.SetCard(ctx, uint64(currId), *record)
 	}
-	fmt.Println("Params", genState.Params)
+	k.Logger(ctx).Info("Params", genState.Params)
 	k.SetParams(ctx, genState.Params)
 }
 
@@ -59,12 +56,12 @@ func ExportGenesis(ctx sdk.Context, k keeper.Keeper) *types.GenesisState {
 	// this line is used by starport scaffolding # genesis/module/export
 	params := k.GetParams(ctx)
 	cardAuctionPrice := k.GetCardAuctionPrice(ctx)
-	generalValues := k.GetAllGeneralValues(ctx)
 	sellOffers := k.GetAllSellOffers(ctx)
 	pools := k.GetAllPools(ctx)
 	records := k.GetAllCards(ctx)
 	matches := k.GetAllMatches(ctx)
 	councils := k.GetAllCouncils(ctx)
+	runningAverages := k.GetAllRunningAverages(ctx)
 	collections := k.GetAllCollections(ctx)
 	users, accAddresses := k.GetAllUsers(ctx)
 	var addresses []string
@@ -74,7 +71,6 @@ func ExportGenesis(ctx sdk.Context, k keeper.Keeper) *types.GenesisState {
 	return &types.GenesisState{
 		Params:           params,
 		CardRecords:      records,
-		GeneralValues:    generalValues,
 		Users:            users,
 		Matches:          matches,
 		Collections:      collections,
@@ -83,5 +79,6 @@ func ExportGenesis(ctx sdk.Context, k keeper.Keeper) *types.GenesisState {
 		Councils:         councils,
 		Addresses:        addresses,
 		CardAuctionPrice: cardAuctionPrice,
+		RunningAverages:  runningAverages,
 	}
 }

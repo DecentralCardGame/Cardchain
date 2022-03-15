@@ -24,7 +24,7 @@ func CmdCreateSellOffer() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			argPrice, err := sdk.ParseCoinNormalized(args[2])
+			argPrice, err := sdk.ParseCoinNormalized(args[1])
 			if err != nil {
 				return err
 			}

@@ -26,7 +26,7 @@ service Query {
     option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/params";
   }
   // Queries a list of QCard items.
-	rpc QCard(QueryQCardRequest) returns (Card) {
+	rpc QCard(QueryQCardRequest) returns (OutpCard) {
 		option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/q_card/{cardId}";
 	}
 
@@ -80,6 +80,16 @@ service Query {
 		option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/q_council/{councilId}";
 	}
 
+// Queries a list of QMatches items.
+	rpc QMatches(QueryQMatchesRequest) returns (QueryQMatchesResponse) {
+		option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/q_matches/{timestampDown}/{timestampUp}/{containsUsers}/{outcome}";
+	}
+
+// Queries a list of QSellOffers items.
+	rpc QSellOffers(QueryQSellOffersRequest) returns (QueryQSellOffersResponse) {
+		option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/q_sell_offers/{priceDown}/{priceUp}/{seller}/{buyer}/{status}";
+	}
+
 // this line is used by starport scaffolding # 2
 }
 
@@ -114,6 +124,10 @@ message QueryQCardchainInfoRequest {
 message QueryQCardchainInfoResponse {
   string cardAuctionPrice = 1 [(gogoproto.nullable) = false, (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Coin"];;
   repeated uint64 activeCollections = 2;
+  uint64 cardsNumber = 3;
+  uint64 matchesNumber = 4;
+  uint64 sellOffersNumber = 5;
+  uint64 councilsNumber = 6;
 }
 
 message QueryQVotingResultsRequest {
@@ -162,6 +176,50 @@ message QueryQSellOfferRequest {
 
 message QueryQCouncilRequest {
   uint64 councilId = 1;
+}
+
+message QueryQMatchesRequest {
+  uint64 timestampDown = 1;
+  uint64 timestampUp = 2;
+  repeated string containsUsers = 3;
+  string reporter = 4;
+  Outcome outcome = 5;
+  repeated uint64 cardsPlayed = 6;
+  IgnoreMatches ignore = 7;
+}
+
+message IgnoreMatches {
+  bool outcome = 1;
+  bool timestamp = 2;
+  bool reporter = 3;
+}
+
+message QueryQMatchesResponse {
+  repeated uint64 matchesList = 1;
+  repeated Match matches = 2;
+}
+
+message QueryQSellOffersRequest {
+  string priceDown = 1;
+  string priceUp = 2;
+  string seller = 3;
+  string buyer = 4;
+  uint64 card = 5;
+  SellOfferStatus status = 6;
+  IgnoreSellOffers ignore = 7;
+}
+
+message IgnoreSellOffers {
+  bool status = 1;
+  bool price = 2;
+  bool seller = 3;
+  bool buyer = 4;
+  bool card = 5;
+}
+
+message QueryQSellOffersResponse {
+  repeated uint64 sellOffersIds = 1;
+  repeated SellOffer sellOffers = 2;
 }
 
 // this line is used by starport scaffolding # 3

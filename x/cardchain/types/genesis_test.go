@@ -7,6 +7,14 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
+var someMatch = types.Match{
+	100,
+	"cc1cyezs5v34utk48l3mgm8v8ll2d286xhs7apu0d",
+	"cc1cyezs5v34utk48l3mgm8v8ll2d286xhs7apu0d",
+	"cc1cyezs5v34utk48l3mgm8v8ll2d286xhs7apu0d",
+	types.Outcome_AWon,
+}
+
 func TestGenesisState_Validate(t *testing.T) {
 	for _, tc := range []struct {
 		desc     string
@@ -22,53 +30,13 @@ func TestGenesisState_Validate(t *testing.T) {
 			desc: "valid genesis state",
 			genState: &types.GenesisState{
 
-				MatchList: []types.Match{
-					{
-						Index: "0",
-					},
-					{
-						Index: "1",
-					},
-				},
-				MatchList: []types.Match{
-					{
-						Index: "0",
-					},
-					{
-						Index: "1",
-					},
+				Matches: []*types.Match{
+					&someMatch,
+					&someMatch,
 				},
 				// this line is used by starport scaffolding # types/genesis/validField
 			},
 			valid: true,
-		},
-		{
-			desc: "duplicated match",
-			genState: &types.GenesisState{
-				MatchList: []types.Match{
-					{
-						Index: "0",
-					},
-					{
-						Index: "0",
-					},
-				},
-			},
-			valid: false,
-		},
-		{
-			desc: "duplicated match",
-			genState: &types.GenesisState{
-				MatchList: []types.Match{
-					{
-						Index: "0",
-					},
-					{
-						Index: "0",
-					},
-				},
-			},
-			valid: false,
 		},
 		// this line is used by starport scaffolding # types/genesis/testcase
 	} {

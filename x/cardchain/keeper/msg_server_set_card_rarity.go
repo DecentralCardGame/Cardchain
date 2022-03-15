@@ -18,13 +18,13 @@ func (k msgServer) SetCardRarity(goCtx context.Context, msg *types.MsgSetCardRar
 	card := k.GetCard(ctx, msg.CardId)
 	collection := k.GetCollection(ctx, msg.CollectionId)
 
-	if collection.Contributors[0] != msg.Creator || !uintItemInList(msg.CardId, collection.Cards) {
+	if collection.Contributors[0] != msg.Creator || !UintItemInArr(msg.CardId, collection.Cards) {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "Incorrect Creator")
 	}
 
 	cardobj, err := keywords.Unmarshal(card.Content)
 	if err != nil {
-		return nil, err
+		return nil, sdkerrors.Wrap(types.ErrCardobject, err.Error())
 	}
 
 	rarity := cardobject.Rarity(msg.Rarity)
@@ -42,7 +42,7 @@ func (k msgServer) SetCardRarity(goCtx context.Context, msg *types.MsgSetCardRar
 
 	cardbytes, err := json.Marshal(cardobj)
 	if err != nil {
-		return nil, err
+		return nil, sdkerrors.Wrap(types.ErrCardobject, err.Error())
 	}
 	card.Content = cardbytes
 

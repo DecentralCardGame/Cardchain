@@ -14,7 +14,7 @@ done
 
 for i in {0..5}
 do
-Cardchaind tx cardchain commit-council-response 0 Yes $i --from $i
+Cardchaind tx cardchain commit-council-response 0 Yes $i "" --from $i
 done
 
 Cardchaind q cardchain q-council 0

@@ -20,20 +20,22 @@ func ParamKeyTable() paramtypes.KeyTable {
 // NewParams creates a new Params instance
 func NewParams() Params {
 	return Params{
-		VotingRightsExpirationTime: 86000,
-		CollectionSize:             5,
-		CollectionPrice:            sdk.NewInt64Coin("ucredits", 10000000),
-		ActiveCollectionsAmount:    3,
-		CollectionCreationFee:      sdk.NewInt64Coin("ucredits", int64(5000*math.Pow(10, 6))),
-		CollateralDeposit:          sdk.NewInt64Coin("ucredits", int64(50*math.Pow(10, 6))),
-		WinnerReward:               sdk.NewInt64Coin("ucredits", 1),
-		VoterReward:                sdk.NewInt64Coin("ucredits", 1),
-		HourlyFaucet:               sdk.NewInt64Coin("ucredits", int64(50*math.Pow(10, 6))),
-		InflationRate:              "1.1",
-		RaresPerPack:               1,
-		CommonsPerPack:             9,
-		UnCommonsPerPack:           3,
-		TrialPeriod:								14*24*500,
+		VotingRightsExpirationTime:      86000,
+		CollectionSize:                  5,
+		CollectionPrice:                 sdk.NewInt64Coin("ucredits", 10000000),
+		ActiveCollectionsAmount:         3,
+		CollectionCreationFee:           sdk.NewInt64Coin("ucredits", int64(5000*math.Pow(10, 6))),
+		CollateralDeposit:               sdk.NewInt64Coin("ucredits", int64(50*math.Pow(10, 6))),
+		WinnerReward:                    int64(math.Pow(10, 6)),
+		VoterReward:                     int64(math.Pow(10, 6)),
+		HourlyFaucet:                    sdk.NewInt64Coin("ucredits", int64(50*math.Pow(10, 6))),
+		InflationRate:                   "1.1", // TDOD: Also make this a fixed point number
+		RaresPerPack:                    1,
+		CommonsPerPack:                  9,
+		UnCommonsPerPack:                3,
+		TrialPeriod:                     14 * 24 * 500,
+		GameVoteRatio:                   20, // This is a fixed point number and will be devided by 100 when used
+		CardAuctionPriceReductionPeriod: 20,
 	}
 }
 
@@ -59,6 +61,8 @@ func (p *Params) ParamSetPairs() paramtypes.ParamSetPairs {
 		paramtypes.NewParamSetPair([]byte("CommonsPerPack"), &p.CommonsPerPack, validatePerPack),
 		paramtypes.NewParamSetPair([]byte("UnCommonsPerPack"), &p.UnCommonsPerPack, validatePerPack),
 		paramtypes.NewParamSetPair([]byte("TrialPeriod"), &p.TrialPeriod, validateTrialPeriod),
+		paramtypes.NewParamSetPair([]byte("GameVoteRatio"), &p.GameVoteRatio, validateGameVoteRatio),
+		paramtypes.NewParamSetPair([]byte("CardAuctionPriceReductionPeriod"), &p.CardAuctionPriceReductionPeriod, validateCardAuctionPriceReductionPeriod),
 	}
 }
 
@@ -106,7 +110,7 @@ func validateCollectionPrice(i interface{}) error {
 	}
 
 	if v == sdk.NewInt64Coin("ucredits", 0) {
-		return fmt.Errorf("invalid CollectionPrice: %d", v)
+		return fmt.Errorf("invalid CollectionPrice: %v", v)
 	}
 
 	return nil
@@ -151,6 +155,32 @@ func validatePerPack(i interface{}) error {
 	return nil
 }
 
+func validateGameVoteRatio(i interface{}) error {
+	v, ok := i.(int64)
+	if !ok {
+		return fmt.Errorf("invalid parameter type: %T", i)
+	}
+
+	if v == 0 {
+		return fmt.Errorf("invalid GameVoteRatio: %d", v)
+	}
+
+	return nil
+}
+
+func validateCardAuctionPriceReductionPeriod(i interface{}) error {
+	v, ok := i.(int64)
+	if !ok {
+		return fmt.Errorf("invalid parameter type: %T", i)
+	}
+
+	if v == 0 {
+		return fmt.Errorf("invalid CardAuctionPriceReductionPeriod: %d", v)
+	}
+
+	return nil
+}
+
 func validateCollectionCreationFee(i interface{}) error {
 	v, ok := i.(sdk.Coin)
 	if !ok {
@@ -158,7 +188,7 @@ func validateCollectionCreationFee(i interface{}) error {
 	}
 
 	if v == sdk.NewInt64Coin("ucredits", 0) {
-		return fmt.Errorf("invalid CollectionCreationFee: %d", v)
+		return fmt.Errorf("invalid CollectionCreationFee: %v", v)
 	}
 
 	return nil
@@ -171,19 +201,19 @@ func validateCollateralDeposit(i interface{}) error {
 	}
 
 	if v == sdk.NewInt64Coin("ucredits", 0) {
-		return fmt.Errorf("invalid CollateralDeposit: %d", v)
+		return fmt.Errorf("invalid CollateralDeposit: %v", v)
 	}
 
 	return nil
 }
 
 func validateWinnerReward(i interface{}) error {
-	v, ok := i.(sdk.Coin)
+	v, ok := i.(int64)
 	if !ok {
 		return fmt.Errorf("invalid parameter type: %T", i)
 	}
 
-	if v == sdk.NewInt64Coin("ucredits", 0) {
+	if v == 0 {
 		return fmt.Errorf("invalid WinnerReward: %d", v)
 	}
 
@@ -191,12 +221,12 @@ func validateWinnerReward(i interface{}) error {
 }
 
 func validateVoterReward(i interface{}) error {
-	v, ok := i.(sdk.Coin)
+	v, ok := i.(int64)
 	if !ok {
 		return fmt.Errorf("invalid parameter type: %T", i)
 	}
 
-	if v == sdk.NewInt64Coin("ucredits", 0) {
+	if v == 0 {
 		return fmt.Errorf("invalid VoterReward: %d", v)
 	}
 
@@ -210,7 +240,7 @@ func validateHourlyFaucet(i interface{}) error {
 	}
 
 	if v == sdk.NewInt64Coin("ucredits", 0) {
-		return fmt.Errorf("invalid HourlyFaucet: %d", v)
+		return fmt.Errorf("invalid HourlyFaucet: %v", v)
 	}
 
 	return nil
@@ -223,7 +253,7 @@ func validateInflationRate(i interface{}) error {
 	}
 	_, err := strconv.ParseFloat(v, 8)
 	if err != nil {
-		return fmt.Errorf("invalid parameter: %s", err)
+		return fmt.Errorf("invalid parameter: %d", err)
 	}
 	return nil
 }

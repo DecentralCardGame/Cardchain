@@ -14,7 +14,7 @@ func (k msgServer) AddCardToCollection(goCtx context.Context, msg *types.MsgAddC
 	collectionSize := int(k.GetParams(ctx).CollectionSize)
 
 	collection := k.GetCollection(ctx, msg.CollectionId)
-	if !stringItemInList(msg.Creator, collection.Contributors) {
+	if !StringItemInArr(msg.Creator, collection.Contributors) {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "Invalid contributor")
 	}
 	if collection.Status != types.CStatus_design {
@@ -34,13 +34,13 @@ func (k msgServer) AddCardToCollection(goCtx context.Context, msg *types.MsgAddC
 		return nil, sdkerrors.Wrapf(types.ErrCollectionSize, "Max is %d", collectionSize)
 	}
 
-	if uintItemInList(msg.CardId, collection.Cards) {
+	if UintItemInArr(msg.CardId, collection.Cards) {
 		return nil, sdkerrors.Wrapf(types.ErrCardAlreadyInCollection, "Card: %d", msg.CardId)
 	}
 
 	err := k.CollectCollectionConributionFee(ctx, msg.Creator)
 	if err != nil {
-		return nil, err
+		return nil, sdkerrors.Wrap(sdkerrors.ErrInsufficientFunds, err.Error())
 	}
 
 	collection.Cards = append(collection.Cards, msg.CardId)

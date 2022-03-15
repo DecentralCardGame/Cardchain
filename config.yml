@@ -1,6 +1,9 @@
+build:
+  main: "cmd/Cardchaind/"
+
 accounts:
   - name: alice
-    coins: ["20000000000ucredits", "200000000bpf"]
+    coins: ["2000000000000000000000000000000000000000000000000000000ucredits", "200000000bpf"]
   - name: bob
     coins: ["10000000000ucredits", "100000000bpf"]
 validator:

@@ -1,58 +1,54 @@
 package keeper
 
 import (
-  "github.com/DecentralCardGame/Cardchain/x/cardchain/types"
-  sdk "github.com/cosmos/cosmos-sdk/types"
+	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
+	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
-func (k Keeper) GetCard(ctx sdk.Context, cardId uint64) types.Card {
+// GetCard Gets card from store
+func (k Keeper) GetCard(ctx sdk.Context, cardId uint64) (gottenCard types.Card) {
 	store := ctx.KVStore(k.CardsStoreKey)
 	bz := store.Get(sdk.Uint64ToBigEndian(cardId))
 
-	var gottenCard types.Card
 	k.cdc.MustUnmarshal(bz, &gottenCard)
-	return gottenCard
+	return
 }
 
+// SetCard Sets card in store
 func (k Keeper) SetCard(ctx sdk.Context, cardId uint64, newCard types.Card) {
 	store := ctx.KVStore(k.CardsStoreKey)
 	store.Set(sdk.Uint64ToBigEndian(cardId), k.cdc.MustMarshal(&newCard))
 }
 
-// returns the current price of the card scheme auction
-func (k Keeper) GetCardAuctionPrice(ctx sdk.Context) sdk.Coin {
+// GetCardAuctionPrice Returns the current price of the card scheme auction
+func (k Keeper) GetCardAuctionPrice(ctx sdk.Context) (price sdk.Coin) {
 	store := ctx.KVStore(k.InternalStoreKey)
 	bz := store.Get([]byte("currentCardSchemeAuctionPrice"))
-	var price sdk.Coin
 	k.cdc.MustUnmarshal(bz, &price)
-	return price
+	return
 }
 
-// sets the current price of the card scheme auction
+// SetCardAuctionPrice Sets the current price of the card scheme auction
 func (k Keeper) SetCardAuctionPrice(ctx sdk.Context, price sdk.Coin) {
 	store := ctx.KVStore(k.InternalStoreKey)
 	store.Set([]byte("currentCardSchemeAuctionPrice"), k.cdc.MustMarshal(&price))
 }
 
+// AddOwnedCardScheme Adds a cardscheme to a user
 func (k Keeper) AddOwnedCardScheme(ctx sdk.Context, cardId uint64, address sdk.AccAddress) {
-	store := ctx.KVStore(k.UsersStoreKey)
-	bz := store.Get(address)
-
-	var gottenUser types.User
-	k.cdc.MustUnmarshal(bz, &gottenUser)
-
-	gottenUser.OwnedCardSchemes = append(gottenUser.OwnedCardSchemes, cardId)
-
-	store.Set(address, k.cdc.MustMarshal(&gottenUser))
+	user, _ := k.GetUser(ctx, address)
+	user.OwnedCardSchemes = append(user.OwnedCardSchemes, cardId)
+	k.SetUser(ctx, address, user)
 }
 
+// GetCardsIterator Returns an iterator for all cards
 func (k Keeper) GetCardsIterator(ctx sdk.Context) sdk.Iterator {
 	store := ctx.KVStore(k.CardsStoreKey)
 	return sdk.KVStorePrefixIterator(store, nil)
 }
 
-func (k Keeper) GetAllCards(ctx sdk.Context) []*types.Card {
-	var allCards []*types.Card
+// GetAllCards Gets all cards form store
+func (k Keeper) GetAllCards(ctx sdk.Context) (allCards []*types.Card) {
 	iterator := k.GetCardsIterator(ctx)
 	for ; iterator.Valid(); iterator.Next() {
 
@@ -61,14 +57,23 @@ func (k Keeper) GetAllCards(ctx sdk.Context) []*types.Card {
 
 		allCards = append(allCards, &gottenCard)
 	}
-	return allCards
+	return
 }
 
-func (k Keeper) GetCardsNumber(ctx sdk.Context) uint64 {
-	var cardId uint64
+// GetCardsNumber Gets the number of all card in store
+func (k Keeper) GetCardsNumber(ctx sdk.Context) (cardId uint64) {
 	iterator := k.GetCardsIterator(ctx)
 	for ; iterator.Valid(); iterator.Next() {
 		cardId++
 	}
-	return cardId
+	return
+}
+
+// SetCardToTrial Sets a card to trial
+func (k Keeper) SetCardToTrial(ctx sdk.Context, cardId uint64, votePool sdk.Coin) {
+	card := k.GetCard(ctx, cardId)
+	card.ResetVotes()
+	card.VotePool = card.VotePool.Add(votePool)
+	card.Status = types.Status_trial
+	k.SetCard(ctx, cardId, card)
 }

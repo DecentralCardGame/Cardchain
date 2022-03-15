@@ -60,6 +60,8 @@ func GetTxCmd() *cobra.Command {
 	cmd.AddCommand(CmdCreateCouncil())
 	cmd.AddCommand(CmdCommitCouncilResponse())
 	cmd.AddCommand(CmdRevealCouncilResponse())
+	cmd.AddCommand(CmdRestartCouncil())
+	cmd.AddCommand(CmdRewokeCouncilRegistration())
 	// this line is used by starport scaffolding # 1
 
 	return cmd

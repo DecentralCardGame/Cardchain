@@ -5,6 +5,7 @@ import (
 
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 )
@@ -18,7 +19,7 @@ func (k Keeper) QUser(goCtx context.Context, req *types.QueryQUserRequest) (*typ
 
 	user, err := k.GetUserFromString(ctx, req.Address)
 	if err != nil {
-		return nil, err
+		return nil, sdkerrors.Wrap(types.ErrConversion, err.Error())
 	}
 
 	return &user.User, nil

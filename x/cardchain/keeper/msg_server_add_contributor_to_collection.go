@@ -19,13 +19,13 @@ func (k msgServer) AddContributorToCollection(goCtx context.Context, msg *types.
 		return nil, types.ErrCollectionNotInDesign
 	}
 
-	if stringItemInList(msg.User, collection.Contributors) {
+	if StringItemInArr(msg.User, collection.Contributors) {
 		return nil, sdkerrors.Wrap(types.ErrContributor, "Contributor allready Contributor: "+msg.User)
 	}
 
 	err := k.CollectCollectionConributionFee(ctx, msg.Creator)
 	if err != nil {
-		return nil, err
+		return nil, sdkerrors.Wrap(sdkerrors.ErrInsufficientFunds, err.Error())
 	}
 
 	collection.Contributors = append(collection.Contributors, msg.User)

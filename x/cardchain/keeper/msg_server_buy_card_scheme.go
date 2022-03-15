@@ -2,6 +2,7 @@ package keeper
 
 import (
 	"context"
+	"math"
 
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -29,7 +30,9 @@ func (k msgServer) BuyCardScheme(goCtx context.Context, msg *types.MsgBuyCardSch
 	}
 
 	k.AddPoolCredits(ctx, PublicPoolKey, price)
-	k.SetCardAuctionPrice(ctx, price.Add(price))
+	if price.Amount.Mul(sdk.NewInt(2)).LT(sdk.NewInt(int64(math.Pow(10, 12)))) {
+		k.SetCardAuctionPrice(ctx, price.Add(price))
+	}
 
 	newCard := types.NewCard(buyer)
 
