@@ -5,7 +5,7 @@ import json
 
 args = sys.argv
 
-assert len(args) == 3, "error"
+assert len(args) == 3, f"Error: Syntax: {args[0]} [old_genesis] [new_genesis]"
 
 file_path_old = args[1]
 file_path_new = args[2]
