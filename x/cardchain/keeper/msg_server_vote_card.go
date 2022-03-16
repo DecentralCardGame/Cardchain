@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 
+	"golang.org/x/exp/slices"
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
@@ -18,7 +19,7 @@ func (k msgServer) VoteCard(goCtx context.Context, msg *types.MsgVoteCard) (*typ
 	}
 
 	voteRights := k.GetVoteRights(ctx, voter)
-	rightsIndex := IndexOfId(msg.CardId, len(voteRights), func(i int) uint64 {return voteRights[i].CardId})
+	rightsIndex := slices.IndexFunc(voteRights, func(s *types.VoteRight) bool {return s.CardId == msg.CardId})
 
 	// check if voting rights are true
 	if rightsIndex < 0 {

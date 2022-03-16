@@ -6,7 +6,6 @@ import (
 	"sort"
 
 	"github.com/tendermint/tendermint/libs/log"
-
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
 	"github.com/DecentralCardGame/cardobject/cardobject"
 	"github.com/DecentralCardGame/cardobject/keywords"
@@ -87,7 +86,7 @@ func (k Keeper) TransferSchemeToCard(ctx sdk.Context, cardId uint64, address sdk
 		return types.ErrUserDoesNotExist
 	}
 
-	user.OwnedCardSchemes, err = UintPopItemFromArr(cardId, user.OwnedCardSchemes)
+	user.OwnedCardSchemes, err = PopItemFromArr(cardId, user.OwnedCardSchemes)
 	if err != nil {
 		return sdkerrors.ErrUnauthorized
 	}
@@ -196,7 +195,7 @@ func (k Keeper) UpdateBanStatus(ctx sdk.Context, newBannedIds []uint64) {
 			k.SetCard(ctx, uint64(idx), emptyCard)
 
 			// remove the card from the ownedCards of the owner
-			gottenUser.OwnedCardSchemes, err = UintPopItemFromArr(uint64(idx), gottenUser.OwnedCardSchemes)
+			gottenUser.OwnedCardSchemes, err = PopItemFromArr(uint64(idx), gottenUser.OwnedCardSchemes)
 			if err == nil {
 				k.SetUserFromUser(ctx, gottenUser)
 			} else {

@@ -1,6 +1,7 @@
 package keeper
 
 import (
+	"fmt"
 	"context"
 
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
@@ -18,7 +19,7 @@ func (k msgServer) AddArtwork(goCtx context.Context, msg *types.MsgAddArtwork) (
 	}
 
 	if len(msg.Image) > 500000 {
-		return nil, sdkerrors.Wrap(types.ErrImageSizeExceeded, string(len(msg.Image)))
+		return nil, sdkerrors.Wrap(types.ErrImageSizeExceeded, fmt.Sprint(len(msg.Image)))
 	}
 
 	card.FullArt = msg.FullArt

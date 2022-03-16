@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"errors"
 
+	"golang.org/x/exp/slices"
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
 	"github.com/DecentralCardGame/cardobject/cardobject"
 	"github.com/DecentralCardGame/cardobject/keywords"
@@ -18,7 +19,7 @@ func (k msgServer) SetCardRarity(goCtx context.Context, msg *types.MsgSetCardRar
 	card := k.GetCard(ctx, msg.CardId)
 	collection := k.GetCollection(ctx, msg.CollectionId)
 
-	if collection.Contributors[0] != msg.Creator || !UintItemInArr(msg.CardId, collection.Cards) {
+	if collection.Contributors[0] != msg.Creator || !slices.Contains(collection.Cards, msg.CardId) {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "Incorrect Creator")
 	}
 

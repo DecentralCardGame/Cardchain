@@ -3,6 +3,7 @@ package keeper
 import (
 	"context"
 
+	"golang.org/x/exp/slices"
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
@@ -19,7 +20,7 @@ func (k msgServer) CommitCouncilResponse(goCtx context.Context, msg *types.MsgCo
 	}
 
 	council := k.GetCouncil(ctx, msg.CouncilId)
-	if !StringItemInArr(msg.Creator, council.Voters) {
+	if !slices.Contains(council.Voters, msg.Creator) {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "Invalid Voter")
 	}
 
@@ -32,7 +33,7 @@ func (k msgServer) CommitCouncilResponse(goCtx context.Context, msg *types.MsgCo
 		allreadyVoted = append(allreadyVoted, response.User)
 	}
 
-	if StringItemInArr(msg.Creator, allreadyVoted) {
+	if slices.Contains(allreadyVoted, msg.Creator) {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "Allready voted")
 	}
 

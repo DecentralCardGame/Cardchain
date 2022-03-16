@@ -1,6 +1,7 @@
 package keeper
 
 import (
+	"fmt"
 	"context"
 
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
@@ -20,7 +21,7 @@ func (k msgServer) AddArtworkToCollection(goCtx context.Context, msg *types.MsgA
 	}
 
 	if len(msg.Image) > 500000 {
-		return nil, sdkerrors.Wrap(types.ErrImageSizeExceeded, string(len(msg.Image)))
+		return nil, sdkerrors.Wrap(types.ErrImageSizeExceeded, fmt.Sprint(len(msg.Image)))
 	}
 
 	err := k.CollectCollectionConributionFee(ctx, msg.Creator)

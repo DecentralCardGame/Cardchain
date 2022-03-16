@@ -3,6 +3,7 @@ package keeper
 import (
 	"context"
 
+	"golang.org/x/exp/slices"
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
@@ -14,7 +15,7 @@ func (k msgServer) AddCardToCollection(goCtx context.Context, msg *types.MsgAddC
 	collectionSize := int(k.GetParams(ctx).CollectionSize)
 
 	collection := k.GetCollection(ctx, msg.CollectionId)
-	if !StringItemInArr(msg.Creator, collection.Contributors) {
+	if !slices.Contains(collection.Contributors, msg.Creator) {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "Invalid contributor")
 	}
 	if collection.Status != types.CStatus_design {
@@ -34,7 +35,7 @@ func (k msgServer) AddCardToCollection(goCtx context.Context, msg *types.MsgAddC
 		return nil, sdkerrors.Wrapf(types.ErrCollectionSize, "Max is %d", collectionSize)
 	}
 
-	if UintItemInArr(msg.CardId, collection.Cards) {
+	if slices.Contains(collection.Cards, msg.CardId) {
 		return nil, sdkerrors.Wrapf(types.ErrCardAlreadyInCollection, "Card: %d", msg.CardId)
 	}
 
