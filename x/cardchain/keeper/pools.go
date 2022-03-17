@@ -37,7 +37,7 @@ func (k Keeper) GetPool(ctx sdk.Context, poolName string) sdk.Coin {
 	return gottenPool
 }
 
-// SetPool Sets a given pool
+// SetPool Sets a given pool  // Won't be ported ti GTK because of special checks
 func (k Keeper) SetPool(ctx sdk.Context, poolName string, newPool sdk.Coin) {
 	store := ctx.KVStore(k.PoolsStoreKey)
 	if newPool.Amount.LT(sdk.NewInt(0)) {
