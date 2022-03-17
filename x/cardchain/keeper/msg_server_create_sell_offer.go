@@ -31,7 +31,7 @@ func (k msgServer) CreateSellOffer(goCtx context.Context, msg *types.MsgCreateSe
 		Status: types.SellOfferStatus_open,
 	}
 
-	k.SetSellOffer(ctx, sellOfferId, sellOffer)
+	k.SellOffers.Set(ctx, sellOfferId, &sellOffer)
 	k.SetUserFromUser(ctx, creator)
 
 	return &types.MsgCreateSellOfferResponse{}, nil

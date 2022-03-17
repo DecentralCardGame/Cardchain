@@ -20,9 +20,9 @@ package keeper_test
 //     sdk.NewInt64Coin("ucredits", 3),
 //     types.SellOfferStatus_open,
 //   }
-//   k.SetSellOffer(ctx, 1, sellOffer)
+//   k.SellOffers.Set(ctx, 1, sellOffer)
 //
 //   require.EqualValues(t, 1, k.GetSellOffersNumber(ctx))
-// 	require.EqualValues(t, sellOffer, k.GetSellOffer(ctx, 0))
-//   require.EqualValues(t, []*types.SellOffer{&sellOffer}, k.GetAllSellOffers(ctx))
+// 	require.EqualValues(t, sellOffer, k.SellOffers.Get(ctx, 0))
+//   require.EqualValues(t, []*types.SellOffer{&sellOffer}, k.SellOffers.GetAll(ctx))
 // }

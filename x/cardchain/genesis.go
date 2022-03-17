@@ -27,7 +27,7 @@ func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) 
 		k.SetCollection(ctx, uint64(id), *collection)
 	}
 	for id, sellOffer := range genState.SellOffers {
-		k.SetSellOffer(ctx, uint64(id), *sellOffer)
+		k.SellOffers.Set(ctx, uint64(id), sellOffer)
 	}
 	for id, pool := range genState.Pools {
 		k.SetPool(ctx, k.PoolKeys[id], pool)
@@ -56,7 +56,7 @@ func ExportGenesis(ctx sdk.Context, k keeper.Keeper) *types.GenesisState {
 	// this line is used by starport scaffolding # genesis/module/export
 	params := k.GetParams(ctx)
 	cardAuctionPrice := k.GetCardAuctionPrice(ctx)
-	sellOffers := k.GetAllSellOffers(ctx)
+	sellOffers := k.SellOffers.GetAll(ctx)
 	pools := k.GetAllPools(ctx)
 	records := k.Cards.GetAll(ctx)
 	matches := k.GetAllMatches(ctx)
