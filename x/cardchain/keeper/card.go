@@ -71,9 +71,9 @@ func (k Keeper) GetCardsNumber(ctx sdk.Context) (cardId uint64) {
 
 // SetCardToTrial Sets a card to trial
 func (k Keeper) SetCardToTrial(ctx sdk.Context, cardId uint64, votePool sdk.Coin) {
-	card := k.GetCard(ctx, cardId)
+	card := k.Card.Get(ctx, cardId)
 	card.ResetVotes()
 	card.VotePool = card.VotePool.Add(votePool)
 	card.Status = types.Status_trial
-	k.SetCard(ctx, cardId, card)
+	k.Card.Set(ctx, cardId, card)
 }

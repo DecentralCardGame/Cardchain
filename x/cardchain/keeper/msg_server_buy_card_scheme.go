@@ -12,7 +12,7 @@ import (
 func (k msgServer) BuyCardScheme(goCtx context.Context, msg *types.MsgBuyCardScheme) (*types.MsgBuyCardSchemeResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	currId := k.GetCardsNumber(ctx)
+	currId := k.Card.GetNumber(ctx)
 	price := k.GetCardAuctionPrice(ctx)
 
 	buyer, err := sdk.AccAddressFromBech32(msg.Creator)
@@ -36,7 +36,7 @@ func (k msgServer) BuyCardScheme(goCtx context.Context, msg *types.MsgBuyCardSch
 
 	newCard := types.NewCard(buyer)
 
-	k.SetCard(ctx, currId, newCard)
+	k.Card.Set(ctx, currId, &newCard)
 	k.AddOwnedCardScheme(ctx, currId, buyer)
 
 	return &types.MsgBuyCardSchemeResponse{}, nil

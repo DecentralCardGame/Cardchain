@@ -123,7 +123,7 @@ func (k Keeper) CheckTrial(ctx sdk.Context) error {
 	for idx, council := range k.GetAllCouncils(ctx) {
 		if council.Status == types.CouncelingStatus_revealed {
 			if council.TrialStart+k.GetParams(ctx).TrialPeriod <= uint64(ctx.BlockHeight()) {
-				card := k.GetCard(ctx, council.CardId)
+				card := k.Card.Get(ctx, council.CardId)
 
 				var (
 					group []string
@@ -174,7 +174,7 @@ func (k Keeper) CheckTrial(ctx sdk.Context) error {
 				council.Status = types.CouncelingStatus_councilClosed
 
 				k.SetCouncil(ctx, uint64(idx), *council)
-				k.SetCard(ctx, council.CardId, card)
+				k.Card.Set(ctx, council.CardId, card)
 			}
 		}
 	}

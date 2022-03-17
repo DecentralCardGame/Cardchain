@@ -19,7 +19,7 @@ func setUpCard(ctx sdk.Context, k *keeper.Keeper) types.Card {
 	card := types.NewCard(addr)
 	card.Artist = addr.String()
 
-	k.SetCard(ctx, 0, card)
+	k.Card.Set(ctx, 0, card)
 	return card
 }
 
@@ -27,9 +27,9 @@ func TestCard(t *testing.T) {
 	k, ctx := testkeeper.CardchainKeeper(t)
 	card := setUpCard(ctx, k)
 
-	require.EqualValues(t, card, k.GetCard(ctx, 0))
-	require.EqualValues(t, []*types.Card{&card}, k.GetAllCards(ctx))
-	require.EqualValues(t, 1, k.GetCardsNumber(ctx))
+	require.EqualValues(t, card, k.Card.Get(ctx, 0))
+	require.EqualValues(t, []*types.Card{&card}, k.Card.GetAll(ctx))
+	require.EqualValues(t, 1, k.Card.GetNumber(ctx))
 }
 
 func TestCardAuctionPrice(t *testing.T) {
@@ -48,7 +48,7 @@ func TestSetCardToTrial(t *testing.T) {
 
 	votePool := sdk.NewInt64Coin("ucredits", 10000)
 	k.SetCardToTrial(ctx, 0, votePool)
-	card = k.GetCard(ctx, 0)
+	card = k.Card.Get(ctx, 0)
 
 	require.EqualValues(t, votePool, card.VotePool)
 	require.EqualValues(t, types.Status_trial, card.Status)

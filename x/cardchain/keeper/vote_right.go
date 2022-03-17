@@ -53,7 +53,7 @@ func (k Keeper) RemoveVoteRight(ctx sdk.Context, userAddress sdk.AccAddress, rig
 
 // GetVoteRightToAllCards Gets the voterights to all cards
 func (k Keeper) GetVoteRightToAllCards(ctx sdk.Context, expireBlock int64) (votingRights []*types.VoteRight) {
-	allCards := k.GetAllCards(ctx)
+	allCards := k.Card.GetAll(ctx)
 
 	for idx, gottenCard := range allCards {
 		// here only give right if card is not a scheme or banished
@@ -73,12 +73,12 @@ func (k Keeper) GetVoteRights(ctx sdk.Context, voter sdk.AccAddress) []*types.Vo
 
 // ResetAllVotes Resets all cards votes
 func (k Keeper) ResetAllVotes(ctx sdk.Context) {
-	allCards := k.GetAllCards(ctx)
+	allCards := k.Card.GetAll(ctx)
 
 	for idx, resetCard := range allCards {
 		if resetCard.Status != types.Status_trial {
 			resetCard.ResetVotes()
 		}
-		k.SetCard(ctx, uint64(idx), *resetCard)
+		k.Card.Set(ctx, uint64(idx), resetCard)
 	}
 }

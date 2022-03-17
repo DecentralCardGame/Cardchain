@@ -45,7 +45,7 @@ func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) 
 			k.Logger(ctx).Error(fmt.Sprintf("%d :\n\t%s\n\t%s\n-----", currId, err.Error(), record.Content))
 		}
 
-		k.SetCard(ctx, uint64(currId), *record)
+		k.Card.Set(ctx, uint64(currId), record)
 	}
 	k.Logger(ctx).Info("Params", genState.Params)
 	k.SetParams(ctx, genState.Params)
@@ -58,7 +58,7 @@ func ExportGenesis(ctx sdk.Context, k keeper.Keeper) *types.GenesisState {
 	cardAuctionPrice := k.GetCardAuctionPrice(ctx)
 	sellOffers := k.GetAllSellOffers(ctx)
 	pools := k.GetAllPools(ctx)
-	records := k.GetAllCards(ctx)
+	records := k.Card.GetAll(ctx)
 	matches := k.GetAllMatches(ctx)
 	councils := k.GetAllCouncils(ctx)
 	runningAverages := k.GetAllRunningAverages(ctx)

@@ -12,7 +12,7 @@ func (k msgServer) RestartCouncil(goCtx context.Context, msg *types.MsgRestartCo
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
 	council := k.GetCouncil(ctx, msg.CouncilId)
-	card := k.GetCard(ctx, council.CardId)
+	card := k.Card.Get(ctx, council.CardId)
 	if card.Owner != msg.Creator {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "Invalid Owner")
 	}
