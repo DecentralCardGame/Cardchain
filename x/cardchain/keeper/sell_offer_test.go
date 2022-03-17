@@ -21,7 +21,7 @@ func TestSellOffer(t *testing.T) {
 	}
 	k.SellOffers.Set(ctx, 0, sellOffer)
 
-	require.EqualValues(t, 1, k.GetSellOffersNumber(ctx))
+	require.EqualValues(t, 1, k.SellOffers.GetNumber(ctx))
 	require.EqualValues(t, sellOffer, k.SellOffers.Get(ctx, 0))
 	require.EqualValues(t, []*types.SellOffer{&sellOffer}, k.SellOffers.GetAll(ctx))
 }

@@ -23,7 +23,7 @@ func (k Keeper) QCardchainInfo(goCtx context.Context, req *types.QueryQCardchain
 		k.GetActiveCollections(ctx),
 		k.Cards.GetNumber(ctx),
 		k.GetMatchesNumber(ctx),
-		k.GetSellOffersNumber(ctx),
+		k.SellOffers.GetNumber(ctx),
 		k.Councils.GetNumber(ctx),
 	}, nil
 }

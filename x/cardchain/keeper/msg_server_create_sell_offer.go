@@ -22,7 +22,7 @@ func (k msgServer) CreateSellOffer(goCtx context.Context, msg *types.MsgCreateSe
 	}
 	creator.Cards = newCards
 
-	sellOfferId := k.GetSellOffersNumber(ctx)
+	sellOfferId := k.SellOffers.GetNumber(ctx)
 	sellOffer := types.SellOffer{
 		Seller: msg.Creator,
 		Buyer:  "",
