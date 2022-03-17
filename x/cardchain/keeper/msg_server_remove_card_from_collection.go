@@ -12,7 +12,7 @@ import (
 func (k msgServer) RemoveCardFromCollection(goCtx context.Context, msg *types.MsgRemoveCardFromCollection) (*types.MsgRemoveCardFromCollectionResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	collection := k.GetCollection(ctx, msg.CollectionId)
+	collection := k.Collections.Get(ctx, msg.CollectionId)
 	if !slices.Contains(collection.Contributors, msg.Creator) {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "Invalid contributor")
 	}
@@ -27,7 +27,7 @@ func (k msgServer) RemoveCardFromCollection(goCtx context.Context, msg *types.Ms
 
 	collection.Cards = newCards
 
-	k.SetCollection(ctx, msg.CollectionId, collection)
+	k.Collections.Set(ctx, msg.CollectionId, collection)
 
 	return &types.MsgRemoveCardFromCollectionResponse{}, nil
 }

@@ -17,7 +17,7 @@ func (k msgServer) FinalizeCollection(goCtx context.Context, msg *types.MsgFinal
 
 	collectionSize := int(k.GetParams(ctx).CollectionSize)
 
-	collection := k.GetCollection(ctx, msg.CollectionId)
+	collection := k.Collections.Get(ctx, msg.CollectionId)
 	if msg.Creator != collection.Contributors[0] {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "Invalid creator")
 	}
@@ -70,7 +70,7 @@ func (k msgServer) FinalizeCollection(goCtx context.Context, msg *types.MsgFinal
 
 	collection.Status = types.CStatus_finalized
 
-	k.SetCollection(ctx, msg.CollectionId, collection)
+	k.Collections.Set(ctx, msg.CollectionId, collection)
 
 	return &types.MsgFinalizeCollectionResponse{}, nil
 }

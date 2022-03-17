@@ -12,7 +12,7 @@ import (
 func (k msgServer) AddArtworkToCollection(goCtx context.Context, msg *types.MsgAddArtworkToCollection) (*types.MsgAddArtworkToCollectionResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	collection := k.GetCollection(ctx, msg.CollectionId)
+	collection := k.Collections.Get(ctx, msg.CollectionId)
 	if collection.Artist != msg.Creator {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "Incorrect Artist")
 	}
@@ -31,7 +31,7 @@ func (k msgServer) AddArtworkToCollection(goCtx context.Context, msg *types.MsgA
 
 	collection.Artwork = msg.Image
 
-	k.SetCollection(ctx, msg.CollectionId, collection)
+	k.Collections.Set(ctx, msg.CollectionId, collection)
 
 	return &types.MsgAddArtworkToCollectionResponse{}, nil
 }

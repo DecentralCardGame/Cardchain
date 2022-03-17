@@ -12,7 +12,7 @@ import (
 func (k msgServer) AddContributorToCollection(goCtx context.Context, msg *types.MsgAddContributorToCollection) (*types.MsgAddContributorToCollectionResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	collection := k.GetCollection(ctx, msg.CollectionId)
+	collection := k.Collections.Get(ctx, msg.CollectionId)
 	if msg.Creator != collection.Contributors[0] {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "Invalid creator")
 	}
@@ -31,7 +31,7 @@ func (k msgServer) AddContributorToCollection(goCtx context.Context, msg *types.
 
 	collection.Contributors = append(collection.Contributors, msg.User)
 
-	k.SetCollection(ctx, msg.CollectionId, collection)
+	k.Collections.Set(ctx, msg.CollectionId, collection)
 
 	return &types.MsgAddContributorToCollectionResponse{}, nil
 }

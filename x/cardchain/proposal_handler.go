@@ -44,7 +44,7 @@ func handleCopyrightProposal(ctx sdk.Context, k keeper.Keeper, p *types.Copyrigh
 }
 
 func handleCollectionProposal(ctx sdk.Context, k keeper.Keeper, p *types.CollectionProposal) error {
-	collection := k.GetCollection(ctx, p.CollectionId)
+	collection := k.Collections.Get(ctx, p.CollectionId)
 
 	if collection.Status != types.CStatus_finalized {
 		return sdkerrors.Wrapf(types.ErrCollectionNotInDesign, "Collection status is %s but should be finalized", collection.Status)
@@ -54,7 +54,7 @@ func handleCollectionProposal(ctx sdk.Context, k keeper.Keeper, p *types.Collect
 	var activeCollections []sortStruct
 	if len(activeCollections) >= int(k.GetParams(ctx).ActiveCollectionsAmount) {
 		for _, id := range activeCollectionsIds {
-			var collection = k.GetCollection(ctx, id)
+			var collection = k.Collections.Get(ctx, id)
 			activeCollections = append(activeCollections, sortStruct{id, collection})
 		}
 		sort.SliceStable(activeCollections, func(i, j int) bool {
@@ -63,18 +63,18 @@ func handleCollectionProposal(ctx sdk.Context, k keeper.Keeper, p *types.Collect
 		)
 		yeetStruct := activeCollections[0]
 		yeetStruct.Collection.Status = types.CStatus_archived
-		k.SetCollection(ctx, yeetStruct.Id, yeetStruct.Collection)
+		k.Collections.Set(ctx, yeetStruct.Id, yeetStruct.Collection)
 	}
 
 	collection.Status = types.CStatus_active
 	collection.TimeStamp = ctx.BlockHeight()
 
-	k.SetCollection(ctx, p.CollectionId, collection)
+	k.Collections.Set(ctx, p.CollectionId, collection)
 
 	return nil
 }
 
 type sortStruct struct {
 	Id         uint64
-	Collection types.Collection
+	Collection *types.Collection
 }

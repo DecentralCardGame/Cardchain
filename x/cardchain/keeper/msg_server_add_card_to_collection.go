@@ -14,7 +14,7 @@ func (k msgServer) AddCardToCollection(goCtx context.Context, msg *types.MsgAddC
 
 	collectionSize := int(k.GetParams(ctx).CollectionSize)
 
-	collection := k.GetCollection(ctx, msg.CollectionId)
+	collection := k.Collections.Get(ctx, msg.CollectionId)
 	if !slices.Contains(collection.Contributors, msg.Creator) {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "Invalid contributor")
 	}
@@ -46,7 +46,7 @@ func (k msgServer) AddCardToCollection(goCtx context.Context, msg *types.MsgAddC
 
 	collection.Cards = append(collection.Cards, msg.CardId)
 
-	k.SetCollection(ctx, msg.CollectionId, collection)
+	k.Collections.Set(ctx, msg.CollectionId, collection)
 
 	return &types.MsgAddCardToCollectionResponse{}, nil
 }

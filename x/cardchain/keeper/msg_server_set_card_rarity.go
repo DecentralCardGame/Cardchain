@@ -17,7 +17,7 @@ func (k msgServer) SetCardRarity(goCtx context.Context, msg *types.MsgSetCardRar
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
 	card := k.Cards.Get(ctx, msg.CardId)
-	collection := k.GetCollection(ctx, msg.CollectionId)
+	collection := k.Collections.Get(ctx, msg.CollectionId)
 
 	if collection.Contributors[0] != msg.Creator || !slices.Contains(collection.Cards, msg.CardId) {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "Incorrect Creator")

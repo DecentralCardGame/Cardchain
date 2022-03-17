@@ -22,7 +22,7 @@ func (k msgServer) BuyCollection(goCtx context.Context, msg *types.MsgBuyCollect
 		return nil, sdkerrors.Wrap(types.ErrUserDoesNotExist, err.Error())
 	}
 
-	collection := k.GetCollection(ctx, msg.CollectionId)
+	collection := k.Collections.Get(ctx, msg.CollectionId)
 	if collection.Status != types.CStatus_active {
 		return nil, types.ErrNoActiveCollection
 	}
@@ -51,7 +51,7 @@ func (k msgServer) BuyCollection(goCtx context.Context, msg *types.MsgBuyCollect
 	}
 
 	// payment
-	contribs := k.GetAllCollectionContributors(ctx, collection)
+	contribs := k.GetAllCollectionContributors(ctx, *collection)
 	for _, contrib := range contribs {
 		contribAddr, err := sdk.AccAddressFromBech32(contrib)
 		if err != nil {
