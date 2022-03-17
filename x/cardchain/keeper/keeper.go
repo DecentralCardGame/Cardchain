@@ -34,6 +34,7 @@ type Keeper struct {
 	Councils gtk.GenericTypeKeeper[*types.Council]
 	SellOffers gtk.GenericTypeKeeper[*types.SellOffer]
 	Collections gtk.GenericTypeKeeper[*types.Collection]
+	Matches gtk.GenericTypeKeeper[*types.Match]
 
 	PoolKeys           []string
 	RunningAverageKeys []string
@@ -79,6 +80,7 @@ func NewKeeper(
 		Councils: gtk.NewGTK[*types.Council](councilsStoreKey, cdc, gtk.GetEmpty[types.Council]),
 		SellOffers: gtk.NewGTK[*types.SellOffer](sellOffersStoreKey, cdc, gtk.GetEmpty[types.SellOffer]),
 		Collections: gtk.NewGTK[*types.Collection](collectionsStoreKey, cdc, gtk.GetEmpty[types.Collection]),
+		Matches: gtk.NewGTK[*types.Match](collectionsStoreKey, cdc, gtk.GetEmpty[types.Match]),
 
 		PoolKeys:                []string{PublicPoolKey, WinnersPoolKey, BalancersPoolKey},
 		RunningAverageKeys:      []string{Games24ValueKey, Votes24ValueKey},

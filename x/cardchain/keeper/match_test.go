@@ -17,12 +17,12 @@ func TestMatches(t *testing.T) {
 	params := types.DefaultParams()
 
 	k.SetParams(ctx, params)
-	k.SetMatch(ctx, 0, match)
-	k.SetMatch(ctx, 1, match)
+	k.Matches.Set(ctx, 0, match)
+	k.Matches.Set(ctx, 1, match)
 
-	require.EqualValues(t, match, k.GetMatch(ctx, 0))
-	require.EqualValues(t, []*types.Match{&match, &match}, k.GetAllMatches(ctx))
-	require.EqualValues(t, 2, k.GetMatchesNumber(ctx))
+	require.EqualValues(t, match, k.Matches.Get(ctx, 0))
+	require.EqualValues(t, []*types.Match{&match, &match}, k.Matches.GetAll(ctx))
+	require.EqualValues(t, 2, k.Matches.GetNumber(ctx))
 	require.EqualValues(t, sdk.NewInt64Coin("ucredits", 2), k.GetMatchReward(ctx), k.GetMatchReward(ctx).Amount.Int64())
 
 	amountA, amountB := k.CalculateMatchReward(ctx, types.Outcome_AWon)
