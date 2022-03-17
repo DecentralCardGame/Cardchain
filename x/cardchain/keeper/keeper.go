@@ -7,6 +7,7 @@ import (
 
 	"github.com/tendermint/tendermint/libs/log"
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
+	gtk "github.com/DecentralCardGame/Cardchain/x/cardchain/types/generic_type_keeper"
 	"github.com/DecentralCardGame/cardobject/cardobject"
 	"github.com/DecentralCardGame/cardobject/keywords"
 	"github.com/cosmos/cosmos-sdk/codec"
@@ -28,6 +29,8 @@ type Keeper struct {
 	CouncilsStoreKey        sdk.StoreKey
 	RunningAveragesStoreKey sdk.StoreKey
 	paramstore              paramtypes.Subspace
+
+	Cards gtk.GenericTypeKeeper[*types.Card]
 
 	PoolKeys           []string
 	RunningAverageKeys []string
@@ -68,6 +71,9 @@ func NewKeeper(
 		RunningAveragesStoreKey: runningAveragesStoreKey,
 		InternalStoreKey:        internalStoreKey,
 		paramstore:              ps,
+
+		Cards: gtk.NewGTK[*types.Card](cardsStoreKey, cdc),
+
 		PoolKeys:                []string{PublicPoolKey, WinnersPoolKey, BalancersPoolKey},
 		RunningAverageKeys:      []string{Games24ValueKey, Votes24ValueKey},
 		BankKeeper:              bankKeeper,
