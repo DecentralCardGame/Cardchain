@@ -32,13 +32,13 @@ func handleMatchReporterProposal(ctx sdk.Context, k keeper.Keeper, p *types.Matc
 }
 
 func handleCopyrightProposal(ctx sdk.Context, k keeper.Keeper, p *types.CopyrightProposal) error {
-	card := k.Card.Get(ctx, p.CardId)
+	card := k.Cards.Get(ctx, p.CardId)
 
 	card.Image = []byte{}
 	card.Artist = card.Owner
 	card.Status = types.Status_suspended
 
-	k.Card.Set(ctx, p.CardId, card)
+	k.Cards.Set(ctx, p.CardId, card)
 
 	return nil
 }

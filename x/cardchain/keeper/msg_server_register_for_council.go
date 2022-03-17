@@ -20,7 +20,7 @@ func (k msgServer) RegisterForCouncil(goCtx context.Context, msg *types.MsgRegis
 		return nil, sdkerrors.Wrapf(types.ErrInvalidUserStatus, "%s", user.CouncilStatus.String())
 	}
 
-	allCouncils := k.GetAllCouncils(ctx)
+	allCouncils := k.Councils.GetAll(ctx)
 	for i := len(allCouncils) - 1; i >= 0; i-- {
 		var council = allCouncils[i]
 		if council.Status == types.CouncelingStatus_councilOpen {
@@ -40,7 +40,7 @@ func (k msgServer) RegisterForCouncil(goCtx context.Context, msg *types.MsgRegis
 				}
 				k.SetUserFromUser(ctx, usr)
 			}
-			k.SetCouncil(ctx, uint64(i), *council)
+			k.Councils.Set(ctx, uint64(i), council)
 			break
 		}
 	}

@@ -16,7 +16,7 @@ import (
 func (k msgServer) SetCardRarity(goCtx context.Context, msg *types.MsgSetCardRarity) (*types.MsgSetCardRarityResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	card := k.Card.Get(ctx, msg.CardId)
+	card := k.Cards.Get(ctx, msg.CardId)
 	collection := k.GetCollection(ctx, msg.CollectionId)
 
 	if collection.Contributors[0] != msg.Creator || !slices.Contains(collection.Cards, msg.CardId) {
@@ -47,7 +47,7 @@ func (k msgServer) SetCardRarity(goCtx context.Context, msg *types.MsgSetCardRar
 	}
 	card.Content = cardbytes
 
-	k.Card.Set(ctx, msg.CardId, card)
+	k.Cards.Set(ctx, msg.CardId, card)
 
 	return &types.MsgSetCardRarityResponse{}, nil
 }

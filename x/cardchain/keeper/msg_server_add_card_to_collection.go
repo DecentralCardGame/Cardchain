@@ -22,7 +22,7 @@ func (k msgServer) AddCardToCollection(goCtx context.Context, msg *types.MsgAddC
 		return nil, types.ErrCollectionNotInDesign
 	}
 
-	card := k.Card.Get(ctx, msg.CardId)
+	card := k.Cards.Get(ctx, msg.CardId)
 	if card.Status != types.Status_permanent {
 		return nil, sdkerrors.Wrap(types.ErrCardDoesNotExist, "Card is not permanent or does not exist")
 	}

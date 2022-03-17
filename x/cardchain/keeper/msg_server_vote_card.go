@@ -32,7 +32,7 @@ func (k msgServer) VoteCard(goCtx context.Context, msg *types.MsgVoteCard) (*typ
 	}
 
 	// if the vote right is valid, get the Card
-	card := k.Card.Get(ctx, msg.CardId)
+	card := k.Cards.Get(ctx, msg.CardId)
 
 	// check if card status is valid
 	if card.Status != types.Status_permanent && card.Status != types.Status_trial {
@@ -67,7 +67,7 @@ func (k msgServer) VoteCard(goCtx context.Context, msg *types.MsgVoteCard) (*typ
 	k.MintCoinsToAddr(ctx, voter, sdk.Coins{amount})
 	k.SubPoolCredits(ctx, BalancersPoolKey, amount)
 
-	k.Card.Set(ctx, msg.CardId, card)
+	k.Cards.Set(ctx, msg.CardId, card)
 
 	votes := k.GetRunningAverage(ctx, Votes24ValueKey)
 	votes.Arr[len(votes.Arr)-1]++

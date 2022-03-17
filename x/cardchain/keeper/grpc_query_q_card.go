@@ -26,7 +26,7 @@ func (k Keeper) QCard(goCtx context.Context, req *types.QueryQCardRequest) (*typ
 	}
 
 	fmt.Println(cardId)
-	card := k.Card.Get(ctx, cardId)
+	card := k.Cards.Get(ctx, cardId)
 	fmt.Println(card)
 	if card == nil {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrUnknownRequest, "cardId does not represent a card")

@@ -12,7 +12,7 @@ import (
 func (k msgServer) AddArtwork(goCtx context.Context, msg *types.MsgAddArtwork) (*types.MsgAddArtworkResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	card := k.Card.Get(ctx, msg.CardId)
+	card := k.Cards.Get(ctx, msg.CardId)
 
 	if card.Artist != msg.Creator {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "Incorrect Artist")
@@ -29,7 +29,7 @@ func (k msgServer) AddArtwork(goCtx context.Context, msg *types.MsgAddArtwork) (
 		card.Status = types.Status_permanent
 	}
 
-	k.Card.Set(ctx, msg.CardId, card)
+	k.Cards.Set(ctx, msg.CardId, card)
 
 	return &types.MsgAddArtworkResponse{}, nil
 }

@@ -12,7 +12,7 @@ func (k msgServer) TransferCard(goCtx context.Context, msg *types.MsgTransferCar
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
 	// if the vote right is valid, get the Card
-	card := k.Card.Get(ctx, msg.CardId)
+	card := k.Cards.Get(ctx, msg.CardId)
 	creator, err := k.GetUserFromString(ctx, msg.Creator)
 	if err != nil {
 		return nil, sdkerrors.Wrap(types.ErrUserDoesNotExist, err.Error())
@@ -43,7 +43,7 @@ func (k msgServer) TransferCard(goCtx context.Context, msg *types.MsgTransferCar
 	}
 
 	card.Owner = msg.Receiver
-	k.Card.Set(ctx, msg.CardId, card)
+	k.Cards.Set(ctx, msg.CardId, card)
 	k.SetUserFromUser(ctx, creator)
 	k.SetUserFromUser(ctx, receiver)
 

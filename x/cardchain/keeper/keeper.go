@@ -30,7 +30,8 @@ type Keeper struct {
 	RunningAveragesStoreKey sdk.StoreKey
 	paramstore              paramtypes.Subspace
 
-	Card gtk.GenericTypeKeeper[*types.Card]
+	Cards gtk.GenericTypeKeeper[*types.Card]
+	Councils gtk.GenericTypeKeeper[*types.Council]
 
 	PoolKeys           []string
 	RunningAverageKeys []string
@@ -72,7 +73,8 @@ func NewKeeper(
 		InternalStoreKey:        internalStoreKey,
 		paramstore:              ps,
 
-		Card: gtk.NewGTK[*types.Card](cardsStoreKey, cdc, gtk.GetEmpty[types.Card]),
+		Cards: gtk.NewGTK[*types.Card](cardsStoreKey, cdc, gtk.GetEmpty[types.Card]),
+		Councils: gtk.NewGTK[*types.Council](councilsStoreKey, cdc, gtk.GetEmpty[types.Council]),
 
 		PoolKeys:                []string{PublicPoolKey, WinnersPoolKey, BalancersPoolKey},
 		RunningAverageKeys:      []string{Games24ValueKey, Votes24ValueKey},
@@ -191,14 +193,14 @@ func (k Keeper) NerfBuffCards(ctx sdk.Context, cardIds []uint64, buff bool) {
 // UpdateBanStatus Bans cards
 func (k Keeper) UpdateBanStatus(ctx sdk.Context, newBannedIds []uint64) {
 	// go through all cards and find already marked cards
-	allCards := k.Card.GetAll(ctx)
+	allCards := k.Cards.GetAll(ctx)
 	for idx, gottenCard := range allCards {
 		if gottenCard.Status == types.Status_bannedVerySoon {
 			gottenUser, err := k.GetUserFromString(ctx, gottenCard.Owner)
 
 			// remove the card from the Cards store
 			var emptyCard types.Card
-			k.Card.Set(ctx, uint64(idx), &emptyCard)
+			k.Cards.Set(ctx, uint64(idx), &emptyCard)
 
 			// remove the card from the ownedCards of the owner
 			gottenUser.OwnedCardSchemes, err = PopItemFromArr(uint64(idx), gottenUser.OwnedCardSchemes)
@@ -209,7 +211,7 @@ func (k Keeper) UpdateBanStatus(ctx sdk.Context, newBannedIds []uint64) {
 			}
 		} else if gottenCard.Status == types.Status_bannedSoon {
 			gottenCard.Status = types.Status_bannedVerySoon
-			k.Card.Set(ctx, uint64(idx), gottenCard)
+			k.Cards.Set(ctx, uint64(idx), gottenCard)
 		}
 	}
 }
@@ -227,7 +229,7 @@ func (k Keeper) GetOPandUPCards(ctx sdk.Context) (buffbois []uint64, nerfbois []
 	var µOP float64 = 0
 
 	// go through all cards and collect candidates
-	for idx, gottenCard := range k.Card.GetAll(ctx) {
+	for idx, gottenCard := range k.Cards.GetAll(ctx) {
 
 		id := uint64(idx)
 		nettoOP := int64(gottenCard.OverpoweredVotes - gottenCard.FairEnoughVotes - gottenCard.UnderpoweredVotes)

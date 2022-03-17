@@ -17,7 +17,7 @@ func (k msgServer) CreateCouncil(goCtx context.Context, msg *types.MsgCreateCoun
 		return nil, sdkerrors.Wrap(types.ErrUserDoesNotExist, err.Error())
 	}
 
-	card := k.Card.Get(ctx, msg.CardId)
+	card := k.Cards.Get(ctx, msg.CardId)
 	if card.Status != types.Status_prototype {
 		return nil, sdkerrors.Wrapf(types.ErrInvalidCardStatus, "%s", card.Status.String())
 	} else if card.Owner != msg.Creator {
@@ -30,7 +30,7 @@ func (k msgServer) CreateCouncil(goCtx context.Context, msg *types.MsgCreateCoun
 	var status types.CouncelingStatus
 	collateralDeposit := k.GetParams(ctx).CollateralDeposit
 	treasury := MulCoin(collateralDeposit, 10)
-	councilId := k.GetCouncilsNumber(ctx)
+	councilId := k.Councils.GetNumber(ctx)
 	users, addresses := k.GetAllUsers(ctx)
 
 	for idx, user := range users {
@@ -73,7 +73,7 @@ func (k msgServer) CreateCouncil(goCtx context.Context, msg *types.MsgCreateCoun
 		Status:   status,
 	}
 
-	k.SetCouncil(ctx, councilId, council)
+	k.Councils.Set(ctx, councilId, &council)
 
 	return &types.MsgCreateCouncilResponse{}, nil
 }

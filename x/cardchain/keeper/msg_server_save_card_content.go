@@ -11,7 +11,7 @@ import (
 func (k msgServer) SaveCardContent(goCtx context.Context, msg *types.MsgSaveCardContent) (*types.MsgSaveCardContentResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	card := k.Card.Get(ctx, msg.CardId)
+	card := k.Cards.Get(ctx, msg.CardId)
 
 	msgOwner, err := sdk.AccAddressFromBech32(msg.Creator)
 	if err != nil {
@@ -28,7 +28,7 @@ func (k msgServer) SaveCardContent(goCtx context.Context, msg *types.MsgSaveCard
 	card.Status = types.Status_prototype
 	card.Notes = msg.Notes
 	card.Artist = msg.Artist
-	k.Card.Set(ctx, msg.CardId, card)
+	k.Cards.Set(ctx, msg.CardId, card)
 	err = k.TransferSchemeToCard(ctx, msg.CardId, msgOwner)
 	if err != nil {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "An error accured while converting a card to a scheme: "+err.Error())

@@ -34,7 +34,7 @@ func (k msgServer) BuyCollection(goCtx context.Context, msg *types.MsgBuyCollect
 		for i := 0; i < int(num); i++ {
 			var rarityCards []uint64
 			for _, cardId := range collection.Cards {
-				cardobj, err := keywords.Unmarshal(k.Card.Get(ctx, cardId).Content)
+				cardobj, err := keywords.Unmarshal(k.Cards.Get(ctx, cardId).Content)
 				if err != nil {
 					return nil, sdkerrors.Wrap(types.ErrCardobject, err.Error())
 				}

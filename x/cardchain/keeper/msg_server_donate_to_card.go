@@ -16,9 +16,9 @@ func (k msgServer) DonateToCard(goCtx context.Context, msg *types.MsgDonateToCar
 		return nil, sdkerrors.Wrap(sdkerrors.ErrInsufficientFunds, "Donator does not have enough coins")
 	}
 
-	card := k.Card.Get(ctx, msg.CardId)
+	card := k.Cards.Get(ctx, msg.CardId)
 	card.VotePool = card.VotePool.Add(msg.Amount)
-	k.Card.Set(ctx, msg.CardId, card)
+	k.Cards.Set(ctx, msg.CardId, card)
 
 	return &types.MsgDonateToCardResponse{}, nil
 }

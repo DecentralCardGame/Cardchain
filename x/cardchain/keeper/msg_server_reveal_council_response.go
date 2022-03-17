@@ -19,7 +19,7 @@ func (k msgServer) RevealCouncilResponse(goCtx context.Context, msg *types.MsgRe
 		return nil, sdkerrors.Wrap(types.ErrUserDoesNotExist, err.Error())
 	}
 
-	council := k.GetCouncil(ctx, msg.CouncilId)
+	council := k.Councils.Get(ctx, msg.CouncilId)
 	if !slices.Contains(council.Voters, msg.Creator) {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "Invalid Voter")
 	}
@@ -64,9 +64,12 @@ func (k msgServer) RevealCouncilResponse(goCtx context.Context, msg *types.MsgRe
 	}
 	council.Treasury = council.Treasury.Add(collateralDeposit)
 
-	council, err = k.TryEvaluate(ctx, council)
+	err = k.TryEvaluate(ctx, council)
+	if err != nil {
+		return nil, err
+	}
 
-	k.SetCouncil(ctx, msg.CouncilId, council)
+	k.Councils.Set(ctx, msg.CouncilId, council)
 
 	return &types.MsgRevealCouncilResponseResponse{}, nil
 }
