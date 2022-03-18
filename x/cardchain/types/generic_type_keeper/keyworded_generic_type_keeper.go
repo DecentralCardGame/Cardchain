@@ -1,6 +1,7 @@
 package generic_type_keeper
 
 import(
+  "golang.org/x/exp/slices"
   sdk "github.com/cosmos/cosmos-sdk/types"
   "github.com/cosmos/cosmos-sdk/codec"
 )
@@ -21,6 +22,10 @@ func NewKGTK[T codec.ProtoMarshaler](key sdk.StoreKey, cdc codec.BinaryCodec, ge
 
 // Get Gets an object from store
 func (gtk KeywordedGenericTypeKeeper[T]) Get(ctx sdk.Context, keyword string) (T) {
+  if !slices.Contains(gtk.KeyWords, keyword) {
+    panic("Unknown keyword: " + keyword)
+  }
+
   store := ctx.KVStore(gtk.Key)
 	bz := store.Get([]byte(keyword))
 
@@ -31,6 +36,10 @@ func (gtk KeywordedGenericTypeKeeper[T]) Get(ctx sdk.Context, keyword string) (T
 
 // Set Sets an object in store
 func (gtk KeywordedGenericTypeKeeper[T]) Set(ctx sdk.Context, keyword string, new T) {
+  if !slices.Contains(gtk.KeyWords, keyword) {
+    panic("Unknown keyword: " + keyword)
+  }
+
 	store := ctx.KVStore(gtk.Key)
 	store.Set([]byte(keyword), gtk.cdc.MustMarshal(new))
 }
