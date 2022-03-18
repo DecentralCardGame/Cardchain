@@ -28,9 +28,9 @@ func TestCollection(t *testing.T) {
 		contribs = append(contribs, "cosmos15kq043zhu0wjyuw9av0auft06y3v2kxss862qf")
 	}
 
-	k.Collections.Set(ctx, 0, collection)
+	k.Collections.Set(ctx, 0, &collection)
 
-	require.EqualValues(t, collection, k.Collections.Get(ctx, 0))
+	require.EqualValues(t, collection, *k.Collections.Get(ctx, 0))
 	require.EqualValues(t, []*types.Collection{&collection}, k.Collections.GetAll(ctx))
 	require.EqualValues(t, 1, k.Collections.GetNumber(ctx))
 	require.EqualValues(t, []uint64{0}, k.GetActiveCollections(ctx))

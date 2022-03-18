@@ -18,9 +18,9 @@ func TestCouncil(t *testing.T) {
 		Status:   types.CouncelingStatus_councilCreated,
 	}
 
-	k.Councils.Set(ctx, 0, council)
+	k.Councils.Set(ctx, 0, &council)
 
-	require.EqualValues(t, council, k.Councils.Get(ctx, 0))
+	require.EqualValues(t, council, *k.Councils.Get(ctx, 0))
 	require.EqualValues(t, []*types.Council{&council}, k.Councils.GetAll(ctx))
 	require.EqualValues(t, 1, k.Councils.GetNumber(ctx))
 }
