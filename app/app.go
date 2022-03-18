@@ -540,9 +540,6 @@ func (app *App) EndBlocker(ctx sdk.Context, req abci.RequestEndBlock) abci.Respo
 		app.CardchainKeeper.Logger(ctx).Info(fmt.Sprintf(":: CardAuctionPrice: %s", app.CardchainKeeper.GetCardAuctionPrice(ctx)))
 	}
 
-	app.CardchainKeeper.Logger(ctx).Info(fmt.Sprintf("%v", app.CardchainKeeper.Pools.GetAll(ctx)))
-
-
 	// automated nerf/buff happens here
 	if app.LastBlockHeight()%epochBlockTime == 0 {
 		cardchainmodule.UpdateNerfLevels(ctx, app.CardchainKeeper)
@@ -577,6 +574,13 @@ func (app *App) EndBlocker(ctx sdk.Context, req abci.RequestEndBlock) abci.Respo
 	err := app.CardchainKeeper.CheckTrial(ctx)
 	if err != nil {
 		app.CardchainKeeper.Logger(ctx).Error(fmt.Sprintf("%s", err))
+	}
+
+	// Checks for empty pools
+	for idx, coin := range app.CardchainKeeper.Pools.GetAll(ctx) {
+		if coin.IsLT(sdk.NewInt64Coin(coin.Denom, 0)) {
+			app.CardchainKeeper.Logger(ctx).Error(fmt.Sprintf(":: %s: %v", app.CardchainKeeper.Pools.KeyWords[idx], coin))
+		}
 	}
 
 	return app.mm.EndBlock(ctx, req)
