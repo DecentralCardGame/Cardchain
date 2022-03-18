@@ -540,6 +540,9 @@ func (app *App) EndBlocker(ctx sdk.Context, req abci.RequestEndBlock) abci.Respo
 		app.CardchainKeeper.Logger(ctx).Info(fmt.Sprintf(":: CardAuctionPrice: %s", app.CardchainKeeper.GetCardAuctionPrice(ctx)))
 	}
 
+	app.CardchainKeeper.Logger(ctx).Info(fmt.Sprintf("%v", app.CardchainKeeper.Pools.GetAll(ctx)))
+
+
 	// automated nerf/buff happens here
 	if app.LastBlockHeight()%epochBlockTime == 0 {
 		cardchainmodule.UpdateNerfLevels(ctx, app.CardchainKeeper)
@@ -549,14 +552,14 @@ func (app *App) EndBlocker(ctx sdk.Context, req abci.RequestEndBlock) abci.Respo
 	if app.LastBlockHeight()%500 == 0 { //HourlyFaucet
 		app.CardchainKeeper.AddPoolCredits(ctx, cardchainmodulekeeper.PublicPoolKey, app.CardchainKeeper.GetParams(ctx).HourlyFaucet)
 
-		incentives := cardchainmodulekeeper.QuoCoin(app.CardchainKeeper.GetPool(ctx, cardchainmodulekeeper.PublicPoolKey), 10)
+		incentives := cardchainmodulekeeper.QuoCoin(*app.CardchainKeeper.Pools.Get(ctx, cardchainmodulekeeper.PublicPoolKey), 10)
 		app.CardchainKeeper.SubPoolCredits(ctx, cardchainmodulekeeper.PublicPoolKey, incentives)
 		winnersIncentives := cardchainmodulekeeper.MulCoinFloat(incentives, float64(app.CardchainKeeper.GetWinnerIncentives(ctx)))
 		balancersIncentives := cardchainmodulekeeper.MulCoinFloat(incentives, float64(app.CardchainKeeper.GetBalancerIncentives(ctx)))
 		app.CardchainKeeper.Logger(ctx).Info(fmt.Sprintf(":: Incentives (w, b): %s, %s", winnersIncentives, balancersIncentives))
 		app.CardchainKeeper.AddPoolCredits(ctx, cardchainmodulekeeper.WinnersPoolKey, winnersIncentives)
 		app.CardchainKeeper.AddPoolCredits(ctx, cardchainmodulekeeper.BalancersPoolKey, balancersIncentives)
-		app.CardchainKeeper.Logger(ctx).Info(fmt.Sprintf(":: PublicPool: %s", app.CardchainKeeper.GetPool(ctx, cardchainmodulekeeper.PublicPoolKey)))
+		app.CardchainKeeper.Logger(ctx).Info(fmt.Sprintf(":: PublicPool: %s", app.CardchainKeeper.Pools.Get(ctx, cardchainmodulekeeper.PublicPoolKey)))
 	}
 
 	// Setting running averages
@@ -589,8 +592,9 @@ func (app *App) InitChainer(ctx sdk.Context, req abci.RequestInitChain) abci.Res
 	// initialize CardScheme Id, Auction price and public pool
 	app.CardchainKeeper.SetCardAuctionPrice(ctx, sdk.NewInt64Coin("ucredits", 10000000))
 
-	for _, key := range app.CardchainKeeper.PoolKeys {
-		app.CardchainKeeper.SetPool(ctx, key, sdk.NewInt64Coin("ucredits", int64(1000*math.Pow(10, 6))))
+	for _, key := range app.CardchainKeeper.Pools.KeyWords {
+		pool := sdk.NewInt64Coin("ucredits", int64(1000*math.Pow(10, 6)))
+		app.CardchainKeeper.Pools.Set(ctx, key, &pool)
 	}
 
 	app.UpgradeKeeper.SetModuleVersionMap(ctx, app.mm.GetVersionMap())

@@ -10,6 +10,7 @@ import "cardchain/collection.proto";
 import "cardchain/sell_offer.proto";
 import "cardchain/running_average.proto";
 import "cardchain/council.proto";
+import "cosmos/base/v1beta1/coin.proto";
 // this line is used by starport scaffolding # genesis/proto/import
 
 option go_package = "github.com/DecentralCardGame/Cardchain/x/cardchain/types";
@@ -23,7 +24,7 @@ message GenesisState {
   repeated Match matches = 6;
   repeated Collection collections = 7;
   repeated SellOffer sellOffers = 8;
-  repeated string pools = 9 [(gogoproto.nullable) = false, (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Coin"];;
+  repeated cosmos.base.v1beta1.Coin pools = 9;
   string cardAuctionPrice = 11 [(gogoproto.nullable) = false, (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Coin"];;
   repeated Council councils = 12;
   repeated RunningAverage RunningAverages = 13;

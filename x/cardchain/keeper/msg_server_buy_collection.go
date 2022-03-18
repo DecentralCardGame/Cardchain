@@ -69,10 +69,10 @@ func (k msgServer) BuyCollection(goCtx context.Context, msg *types.MsgBuyCollect
 	k.SetUserFromUser(ctx, creator)
 
 	inflationRate, err := strconv.ParseFloat(params.InflationRate, 8)
-	pPool := k.GetPool(ctx, PublicPoolKey)
-	pPool = MulCoinFloat(pPool, inflationRate)
-	k.SetPool(ctx, PublicPoolKey, pPool)
-	k.Logger(ctx).Info(fmt.Sprintf(":: PublicPool: %s", pPool))
+	pPool := k.Pools.Get(ctx, PublicPoolKey)
+	newPool := MulCoinFloat(*pPool, inflationRate)
+	k.Pools.Set(ctx, PublicPoolKey, &newPool)
+	k.Logger(ctx).Info(fmt.Sprintf(":: PublicPool: %s", newPool))
 
 	return &types.MsgBuyCollectionResponse{}, nil
 }

@@ -36,8 +36,7 @@ type Keeper struct {
 	Collections     gtk.GenericTypeKeeper[*types.Collection]
 	Matches         gtk.GenericTypeKeeper[*types.Match]
 	RunningAverages gtk.KeywordedGenericTypeKeeper[*types.RunningAverage]
-
-	PoolKeys           []string
+	Pools           gtk.KeywordedGenericTypeKeeper[*sdk.Coin]
 
 	BankKeeper types.BankKeeper
 }
@@ -76,14 +75,14 @@ func NewKeeper(
 		InternalStoreKey:        internalStoreKey,
 		paramstore:              ps,
 
-		Cards:       gtk.NewGTK[*types.Card](cardsStoreKey, cdc, gtk.GetEmpty[types.Card]),
-		Councils:    gtk.NewGTK[*types.Council](councilsStoreKey, cdc, gtk.GetEmpty[types.Council]),
-		SellOffers:  gtk.NewGTK[*types.SellOffer](sellOffersStoreKey, cdc, gtk.GetEmpty[types.SellOffer]),
-		Collections: gtk.NewGTK[*types.Collection](collectionsStoreKey, cdc, gtk.GetEmpty[types.Collection]),
-		Matches:     gtk.NewGTK[*types.Match](matchesStorekey, cdc, gtk.GetEmpty[types.Match]),
+		Cards:           gtk.NewGTK[*types.Card](cardsStoreKey, cdc, gtk.GetEmpty[types.Card]),
+		Councils:        gtk.NewGTK[*types.Council](councilsStoreKey, cdc, gtk.GetEmpty[types.Council]),
+		SellOffers:      gtk.NewGTK[*types.SellOffer](sellOffersStoreKey, cdc, gtk.GetEmpty[types.SellOffer]),
+		Collections:     gtk.NewGTK[*types.Collection](collectionsStoreKey, cdc, gtk.GetEmpty[types.Collection]),
+		Matches:         gtk.NewGTK[*types.Match](matchesStorekey, cdc, gtk.GetEmpty[types.Match]),
 		RunningAverages: gtk.NewKGTK[*types.RunningAverage](runningAveragesStoreKey, cdc, gtk.GetEmpty[types.RunningAverage], []string{Games24ValueKey, Votes24ValueKey}),
+		Pools:           gtk.NewKGTK[*sdk.Coin](poolsStoreKey, cdc, gtk.GetEmpty[sdk.Coin], []string{PublicPoolKey, WinnersPoolKey, BalancersPoolKey}),
 
-		PoolKeys:                []string{PublicPoolKey, WinnersPoolKey, BalancersPoolKey},
 		BankKeeper:              bankKeeper,
 	}
 }

@@ -30,7 +30,7 @@ func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) 
 		k.SellOffers.Set(ctx, uint64(id), sellOffer)
 	}
 	for id, pool := range genState.Pools {
-		k.SetPool(ctx, k.PoolKeys[id], pool)
+		k.Pools.Set(ctx, k.Pools.KeyWords[id], pool)
 	}
 	for idx, average := range genState.RunningAverages {
 		k.RunningAverages.Set(ctx, k.RunningAverages.KeyWords[idx], average)
@@ -57,7 +57,7 @@ func ExportGenesis(ctx sdk.Context, k keeper.Keeper) *types.GenesisState {
 	params := k.GetParams(ctx)
 	cardAuctionPrice := k.GetCardAuctionPrice(ctx)
 	sellOffers := k.SellOffers.GetAll(ctx)
-	pools := k.GetAllPools(ctx)
+	pools := k.Pools.GetAll(ctx)
 	records := k.Cards.GetAll(ctx)
 	matches := k.Matches.GetAll(ctx)
 	councils := k.Councils.GetAll(ctx)
