@@ -33,7 +33,7 @@ func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) 
 		k.SetPool(ctx, k.PoolKeys[id], pool)
 	}
 	for idx, average := range genState.RunningAverages {
-		k.SetRunningAverage(ctx, k.RunningAverageKeys[idx], *average)
+		k.RunningAverages.Set(ctx, k.RunningAverages.KeyWords[idx], average)
 	}
 	if genState.CardAuctionPrice.Denom != "" {
 		k.SetCardAuctionPrice(ctx, genState.CardAuctionPrice)
@@ -61,7 +61,7 @@ func ExportGenesis(ctx sdk.Context, k keeper.Keeper) *types.GenesisState {
 	records := k.Cards.GetAll(ctx)
 	matches := k.Matches.GetAll(ctx)
 	councils := k.Councils.GetAll(ctx)
-	runningAverages := k.GetAllRunningAverages(ctx)
+	runningAverages := k.RunningAverages.GetAll(ctx)
 	collections := k.Collections.GetAll(ctx)
 	users, accAddresses := k.GetAllUsers(ctx)
 	var addresses []string

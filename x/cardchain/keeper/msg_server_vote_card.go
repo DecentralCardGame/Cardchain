@@ -69,9 +69,9 @@ func (k msgServer) VoteCard(goCtx context.Context, msg *types.MsgVoteCard) (*typ
 
 	k.Cards.Set(ctx, msg.CardId, card)
 
-	votes := k.GetRunningAverage(ctx, Votes24ValueKey)
+	votes := k.RunningAverages.Get(ctx, Votes24ValueKey)
 	votes.Arr[len(votes.Arr)-1]++
-	k.SetRunningAverage(ctx, Votes24ValueKey, votes)
+	k.RunningAverages.Set(ctx, Votes24ValueKey, votes)
 
 	err = k.RemoveVoteRight(ctx, voter, rightsIndex)
 	if err != nil {

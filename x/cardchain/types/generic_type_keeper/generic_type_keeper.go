@@ -1,7 +1,6 @@
 package generic_type_keeper
 
 import(
-  // "github.com/DecentralCardGame/Cardchain/x/cardchain/types"
   sdk "github.com/cosmos/cosmos-sdk/types"
   "github.com/cosmos/cosmos-sdk/codec"
 )

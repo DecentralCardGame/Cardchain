@@ -68,9 +68,9 @@ func (k msgServer) ReportMatch(goCtx context.Context, msg *types.MsgReportMatch)
 		k.SubPoolCredits(ctx, WinnersPoolKey, amounts[idx])
 	}
 
-	games := k.GetRunningAverage(ctx, Games24ValueKey)
+	games := k.RunningAverages.Get(ctx, Games24ValueKey)
 	games.Arr[len(games.Arr)-1]++
-	k.SetRunningAverage(ctx, Games24ValueKey, games)
+	k.RunningAverages.Set(ctx, Games24ValueKey, games)
 
 	return &types.MsgReportMatchResponse{}, nil
 }
