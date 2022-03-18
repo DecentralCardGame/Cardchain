@@ -20,14 +20,7 @@ import (
 type Keeper struct {
 	cdc                     codec.BinaryCodec // The wire codec for binary encoding/decoding.
 	UsersStoreKey           sdk.StoreKey
-	CardsStoreKey           sdk.StoreKey
-	MatchesStoreKey         sdk.StoreKey
-	CollectionsStoreKey     sdk.StoreKey
 	InternalStoreKey        sdk.StoreKey
-	SellOffersStoreKey      sdk.StoreKey
-	PoolsStoreKey           sdk.StoreKey
-	CouncilsStoreKey        sdk.StoreKey
-	RunningAveragesStoreKey sdk.StoreKey
 	paramstore              paramtypes.Subspace
 
 	Cards           gtk.GenericTypeKeeper[*types.Card]
@@ -65,13 +58,6 @@ func NewKeeper(
 	return &Keeper{
 		cdc:                     cdc,
 		UsersStoreKey:           usersStoreKey,
-		CardsStoreKey:           cardsStoreKey,
-		MatchesStoreKey:         matchesStorekey,
-		CollectionsStoreKey:     collectionsStoreKey,
-		SellOffersStoreKey:      sellOffersStoreKey,
-		PoolsStoreKey:           poolsStoreKey,
-		CouncilsStoreKey:        councilsStoreKey,
-		RunningAveragesStoreKey: runningAveragesStoreKey,
 		InternalStoreKey:        internalStoreKey,
 		paramstore:              ps,
 
@@ -130,12 +116,8 @@ func (k Keeper) GetLastVotingResults(ctx sdk.Context) (results types.VotingResul
 
 // NerfBuffCards Nerfes or buffs certain cards
 func (k Keeper) NerfBuffCards(ctx sdk.Context, cardIds []uint64, buff bool) {
-	store := ctx.KVStore(k.CardsStoreKey)
-
 	for _, val := range cardIds {
-		bz := store.Get(sdk.Uint64ToBigEndian(val))
-		var buffCard types.Card
-		k.cdc.MustUnmarshal(bz, &buffCard)
+		buffCard := k.Cards.Get(ctx, val)
 
 		cardobj, err := keywords.Unmarshal(buffCard.Content)
 		if err != nil {
@@ -191,7 +173,7 @@ func (k Keeper) NerfBuffCards(ctx sdk.Context, cardIds []uint64, buff bool) {
 			buffCard.Nerflevel += 1
 		}
 
-		store.Set(sdk.Uint64ToBigEndian(val), k.cdc.MustMarshal(&buffCard))
+		k.Cards.Set(ctx, val, buffCard)
 	}
 }
 
