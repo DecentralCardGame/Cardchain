@@ -3,6 +3,7 @@ package keeper
 import (
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 )
 
 // SetMatchReporter Makes a user a match reporter
@@ -45,4 +46,18 @@ func (k Keeper) GetMatchReward(ctx sdk.Context) sdk.Coin {
 		return sdk.NewInt64Coin(reward.Denom, 1000000)
 	}
 	return reward
+}
+
+func (k Keeper) GetMatchAddresses(ctx sdk.Context, match types.Match) (addresses []sdk.AccAddress, err error) {
+	for _, player := range []string{match.PlayerA, match.PlayerB} {
+		var address sdk.AccAddress
+		address, err = sdk.AccAddressFromBech32(player)
+		if err != nil {
+			err = sdkerrors.Wrap(types.ErrInvalidAccAddress, "Invalid player")
+			return
+		}
+		addresses = append(addresses, address)
+	}
+
+	return
 }

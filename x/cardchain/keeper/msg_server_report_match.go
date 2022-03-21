@@ -34,15 +34,9 @@ func (k msgServer) ReportMatch(goCtx context.Context, msg *types.MsgReportMatch)
 		types.Outcome_Aborted,
 	}
 
-	addresses := []sdk.AccAddress{}
-
-	for _, player := range []string{msg.PlayerA, msg.PlayerB} {
-		var address sdk.AccAddress
-		address, err = sdk.AccAddressFromBech32(player)
-		if err != nil {
-			return nil, sdkerrors.Wrap(types.ErrInvalidAccAddress, "Invalid player")
-		}
-		addresses = append(addresses, address)
+	addresses, err := k.GetMatchAddresses(ctx, match)
+	if err != nil {
+		return nil, err
 	}
 
 	cards := [][]uint64{msg.CardsB, msg.CardsA}
@@ -59,20 +53,6 @@ func (k msgServer) ReportMatch(goCtx context.Context, msg *types.MsgReportMatch)
 	}
 
 	k.Matches.Set(ctx, matchId, &match)
-
-	amountA, amountB := k.CalculateMatchReward(ctx, msg.Outcome)
-	amounts := []sdk.Coin{amountA, amountB}
-	for idx := range addresses {
-		err := k.MintCoinsToAddr(ctx, addresses[idx], sdk.Coins{amounts[idx]})
-		if err != nil {
-			return nil, sdkerrors.Wrap(sdkerrors.ErrInsufficientFunds, err.Error())
-		}
-		k.SubPoolCredits(ctx, WinnersPoolKey, amounts[idx])
-	}
-
-	games := k.RunningAverages.Get(ctx, Games24ValueKey)
-	games.Arr[len(games.Arr)-1]++
-	k.RunningAverages.Set(ctx, Games24ValueKey, games)
 
 	return &types.MsgReportMatchResponse{}, nil
 }
