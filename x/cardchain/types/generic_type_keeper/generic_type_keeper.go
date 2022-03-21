@@ -1,38 +1,38 @@
 package generic_type_keeper
 
-import(
-  sdk "github.com/cosmos/cosmos-sdk/types"
-  "github.com/cosmos/cosmos-sdk/codec"
+import (
+	"github.com/cosmos/cosmos-sdk/codec"
+	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
 // GetEmpty Just returns a empty object of a certain type
-func GetEmpty [A any]() *A {
-  var obj A
-  return &obj
+func GetEmpty[A any]() *A {
+	var obj A
+	return &obj
 }
 
 type GenericTypeKeeper[T codec.ProtoMarshaler] struct {
-  Key sdk.StoreKey
-  cdc codec.BinaryCodec
-  getEmpty func() T  // This is needed because codec.ProtoMarshaler always refers to a pointer, but for cdc.Unmarshal to work the passed pointer can't be nil, but when initializing a pointer it's nil
+	Key      sdk.StoreKey
+	cdc      codec.BinaryCodec
+	getEmpty func() T // This is needed because codec.ProtoMarshaler always refers to a pointer, but for cdc.Unmarshal to work the passed pointer can't be nil, but when initializing a pointer it's nil
 }
 
 // NewGTK Returns a new GenericTypeKeeper
 func NewGTK[T codec.ProtoMarshaler](key sdk.StoreKey, cdc codec.BinaryCodec, getEmpty func() T) GenericTypeKeeper[T] {
-  gtk := GenericTypeKeeper[T] {
-    Key: key,
-    cdc: cdc,
-    getEmpty: getEmpty,
-  }
-  return gtk
+	gtk := GenericTypeKeeper[T]{
+		Key:      key,
+		cdc:      cdc,
+		getEmpty: getEmpty,
+	}
+	return gtk
 }
 
 // Get Gets an object from store
-func (gtk GenericTypeKeeper[T]) Get(ctx sdk.Context, id uint64) (T) {
-  store := ctx.KVStore(gtk.Key)
+func (gtk GenericTypeKeeper[T]) Get(ctx sdk.Context, id uint64) T {
+	store := ctx.KVStore(gtk.Key)
 	bz := store.Get(sdk.Uint64ToBigEndian(id))
 
-  gotten := gtk.getEmpty()
+	gotten := gtk.getEmpty()
 	gtk.cdc.MustUnmarshal(bz, gotten)
 	return gotten
 }

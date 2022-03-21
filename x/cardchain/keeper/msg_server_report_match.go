@@ -30,6 +30,8 @@ func (k msgServer) ReportMatch(goCtx context.Context, msg *types.MsgReportMatch)
 		msg.CardsA,
 		msg.CardsB,
 		msg.Outcome,
+		types.Outcome_Aborted,
+		types.Outcome_Aborted,
 	}
 
 	addresses := []sdk.AccAddress{}

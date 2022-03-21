@@ -1,8 +1,8 @@
 package keeper
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 	"strconv"
 
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
@@ -33,20 +33,20 @@ func (k Keeper) QCard(goCtx context.Context, req *types.QueryQCardRequest) (*typ
 	}
 
 	outpCard := types.OutpCard{
-		Owner: card.Owner,
-		Artist: card.Artist,
-		Content: string(card.Content),
-		Image: string(card.Image),
-		FullArt: card.FullArt,
-		Notes: card.Notes,
-		Status: card.Status,
-		VotePool: card.VotePool,
-		Voters: card.Voters,
-		FairEnoughVotes: card.FairEnoughVotes,
-		OverpoweredVotes: card.OverpoweredVotes,
-		UnderpoweredVotes: card.UnderpoweredVotes,
+		Owner:              card.Owner,
+		Artist:             card.Artist,
+		Content:            string(card.Content),
+		Image:              string(card.Image),
+		FullArt:            card.FullArt,
+		Notes:              card.Notes,
+		Status:             card.Status,
+		VotePool:           card.VotePool,
+		Voters:             card.Voters,
+		FairEnoughVotes:    card.FairEnoughVotes,
+		OverpoweredVotes:   card.OverpoweredVotes,
+		UnderpoweredVotes:  card.UnderpoweredVotes,
 		InappropriateVotes: card.InappropriateVotes,
-		Nerflevel: card.Nerflevel,
+		Nerflevel:          card.Nerflevel,
 	}
 
 	return &outpCard, nil

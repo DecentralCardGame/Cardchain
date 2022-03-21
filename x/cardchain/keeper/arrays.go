@@ -1,8 +1,8 @@
 package keeper
 
 import (
-	"golang.org/x/exp/slices"
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
+	"golang.org/x/exp/slices"
 )
 
 func PopItemFromArr[E comparable](item E, arr []E) ([]E, error) {

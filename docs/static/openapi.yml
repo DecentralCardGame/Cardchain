@@ -12354,6 +12354,22 @@ paths:
                   - Draw
                   - Aborted
                 default: AWon
+              outcomeA:
+                type: string
+                enum:
+                  - AWon
+                  - BWon
+                  - Draw
+                  - Aborted
+                default: AWon
+              outcomeB:
+                type: string
+                enum:
+                  - AWon
+                  - BWon
+                  - Draw
+                  - Aborted
+                default: AWon
         default:
           description: An unexpected error response.
           schema:
@@ -12420,6 +12436,22 @@ paths:
                         type: string
                         format: uint64
                     outcome:
+                      type: string
+                      enum:
+                        - AWon
+                        - BWon
+                        - Draw
+                        - Aborted
+                      default: AWon
+                    outcomeA:
+                      type: string
+                      enum:
+                        - AWon
+                        - BWon
+                        - Draw
+                        - Aborted
+                      default: AWon
+                    outcomeB:
                       type: string
                       enum:
                         - AWon
@@ -20931,6 +20963,22 @@ definitions:
           - Draw
           - Aborted
         default: AWon
+      outcomeA:
+        type: string
+        enum:
+          - AWon
+          - BWon
+          - Draw
+          - Aborted
+        default: AWon
+      outcomeB:
+        type: string
+        enum:
+          - AWon
+          - BWon
+          - Draw
+          - Aborted
+        default: AWon
   DecentralCardGame.cardchain.cardchain.MsgAddArtworkResponse:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgAddArtworkToCollectionResponse:
@@ -20952,6 +21000,8 @@ definitions:
   DecentralCardGame.cardchain.cardchain.MsgChangeArtistResponse:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgCommitCouncilResponseResponse:
+    type: object
+  DecentralCardGame.cardchain.cardchain.MsgConfirmMatchResponse:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgCreateCollectionResponse:
     type: object
@@ -21222,6 +21272,22 @@ definitions:
                 type: string
                 format: uint64
             outcome:
+              type: string
+              enum:
+                - AWon
+                - BWon
+                - Draw
+                - Aborted
+              default: AWon
+            outcomeA:
+              type: string
+              enum:
+                - AWon
+                - BWon
+                - Draw
+                - Aborted
+              default: AWon
+            outcomeB:
               type: string
               enum:
                 - AWon

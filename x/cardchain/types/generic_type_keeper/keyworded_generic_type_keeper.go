@@ -1,44 +1,44 @@
 package generic_type_keeper
 
-import(
-  "golang.org/x/exp/slices"
-  sdk "github.com/cosmos/cosmos-sdk/types"
-  "github.com/cosmos/cosmos-sdk/codec"
+import (
+	"github.com/cosmos/cosmos-sdk/codec"
+	sdk "github.com/cosmos/cosmos-sdk/types"
+	"golang.org/x/exp/slices"
 )
 
 type KeywordedGenericTypeKeeper[T codec.ProtoMarshaler] struct {
-  GenericTypeKeeper[T]
-  KeyWords []string
+	GenericTypeKeeper[T]
+	KeyWords []string
 }
 
 // NewKGTK Returns a new KeywordedGenericTypeKeeper
 func NewKGTK[T codec.ProtoMarshaler](key sdk.StoreKey, cdc codec.BinaryCodec, getEmpty func() T, keywords []string) KeywordedGenericTypeKeeper[T] {
-  gtk := KeywordedGenericTypeKeeper[T] {
-    NewGTK[T](key, cdc, getEmpty),
-    keywords,
-  }
-  return gtk
+	gtk := KeywordedGenericTypeKeeper[T]{
+		NewGTK[T](key, cdc, getEmpty),
+		keywords,
+	}
+	return gtk
 }
 
 // Get Gets an object from store
-func (gtk KeywordedGenericTypeKeeper[T]) Get(ctx sdk.Context, keyword string) (T) {
-  if !slices.Contains(gtk.KeyWords, keyword) {
-    panic("Unknown keyword: " + keyword)
-  }
+func (gtk KeywordedGenericTypeKeeper[T]) Get(ctx sdk.Context, keyword string) T {
+	if !slices.Contains(gtk.KeyWords, keyword) {
+		panic("Unknown keyword: " + keyword)
+	}
 
-  store := ctx.KVStore(gtk.Key)
+	store := ctx.KVStore(gtk.Key)
 	bz := store.Get([]byte(keyword))
 
-  gotten := gtk.getEmpty()
+	gotten := gtk.getEmpty()
 	gtk.cdc.MustUnmarshal(bz, gotten)
 	return gotten
 }
 
 // Set Sets an object in store
 func (gtk KeywordedGenericTypeKeeper[T]) Set(ctx sdk.Context, keyword string, new T) {
-  if !slices.Contains(gtk.KeyWords, keyword) {
-    panic("Unknown keyword: " + keyword)
-  }
+	if !slices.Contains(gtk.KeyWords, keyword) {
+		panic("Unknown keyword: " + keyword)
+	}
 
 	store := ctx.KVStore(gtk.Key)
 	store.Set([]byte(keyword), gtk.cdc.MustMarshal(new))
@@ -54,5 +54,5 @@ func (gtk KeywordedGenericTypeKeeper[T]) GetAll(ctx sdk.Context) (all []T) {
 
 // GetNumber Gets the number of all objs in store
 func (gtk KeywordedGenericTypeKeeper[T]) GetNumber(ctx sdk.Context) (id uint64) {
-  return uint64(len(gtk.KeyWords))
+	return uint64(len(gtk.KeyWords))
 }

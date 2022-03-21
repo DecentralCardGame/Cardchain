@@ -13,4 +13,6 @@ message Match {
   repeated uint64 playerACards = 5;
   repeated uint64 playerBCards = 6;
   Outcome outcome = 7;
+  Outcome outcomeA = 8;
+  Outcome outcomeB = 9;
 }

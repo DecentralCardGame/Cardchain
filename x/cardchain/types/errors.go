@@ -26,6 +26,6 @@ var (
 	ErrBadReveal               = sdkerrors.Register(ModuleName, 15, "Reveal does not fit commit")
 	ErrCouncilStatus           = sdkerrors.Register(ModuleName, 16, "Wrong council status")
 	ErrImageSizeExceeded       = sdkerrors.Register(ModuleName, 17, "Image too big! Max size is 500kb")
-	ErrConversion				       = sdkerrors.Register(ModuleName, 18, "Unable to convert types")
-	ErrCardobject						   = sdkerrors.Register(ModuleName, 19, "Faulty cardobject")
+	ErrConversion              = sdkerrors.Register(ModuleName, 18, "Unable to convert types")
+	ErrCardobject              = sdkerrors.Register(ModuleName, 19, "Faulty cardobject")
 )

@@ -4,9 +4,9 @@ import (
 	"strconv"
 
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
-	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/flags"
+	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/spf13/cast"
 	"github.com/spf13/cobra"
 )
@@ -78,7 +78,7 @@ func CmdQSellOffers() *cobra.Command {
 				PriceUp:   reqPriceUp,
 				Seller:    reqSeller,
 				Buyer:     reqBuyer,
-				Card:			 reqCard,
+				Card:      reqCard,
 				Status:    reqStatus,
 				Ignore:    &ignore,
 			}
