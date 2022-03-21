@@ -549,31 +549,38 @@ func (app *App) EndBlocker(ctx sdk.Context, req abci.RequestEndBlock) abci.Respo
 	if app.LastBlockHeight()%500 == 0 { //HourlyFaucet
 		app.CardchainKeeper.AddPoolCredits(ctx, cardchainmodulekeeper.PublicPoolKey, app.CardchainKeeper.GetParams(ctx).HourlyFaucet)
 
-		incentives := cardchainmodulekeeper.QuoCoin(app.CardchainKeeper.GetPool(ctx, cardchainmodulekeeper.PublicPoolKey), 10)
+		incentives := cardchainmodulekeeper.QuoCoin(*app.CardchainKeeper.Pools.Get(ctx, cardchainmodulekeeper.PublicPoolKey), 10)
 		app.CardchainKeeper.SubPoolCredits(ctx, cardchainmodulekeeper.PublicPoolKey, incentives)
 		winnersIncentives := cardchainmodulekeeper.MulCoinFloat(incentives, float64(app.CardchainKeeper.GetWinnerIncentives(ctx)))
 		balancersIncentives := cardchainmodulekeeper.MulCoinFloat(incentives, float64(app.CardchainKeeper.GetBalancerIncentives(ctx)))
 		app.CardchainKeeper.Logger(ctx).Info(fmt.Sprintf(":: Incentives (w, b): %s, %s", winnersIncentives, balancersIncentives))
 		app.CardchainKeeper.AddPoolCredits(ctx, cardchainmodulekeeper.WinnersPoolKey, winnersIncentives)
 		app.CardchainKeeper.AddPoolCredits(ctx, cardchainmodulekeeper.BalancersPoolKey, balancersIncentives)
-		app.CardchainKeeper.Logger(ctx).Info(fmt.Sprintf(":: PublicPool: %s", app.CardchainKeeper.GetPool(ctx, cardchainmodulekeeper.PublicPoolKey)))
+		app.CardchainKeeper.Logger(ctx).Info(fmt.Sprintf(":: PublicPool: %s", app.CardchainKeeper.Pools.Get(ctx, cardchainmodulekeeper.PublicPoolKey)))
 	}
 
 	// Setting running averages
 	if app.LastBlockHeight()%500 == 0 {
-		averages := app.CardchainKeeper.GetAllRunningAverages(ctx)
+		averages := app.CardchainKeeper.RunningAverages.GetAll(ctx)
 		for idx, average := range averages {
 			average.Arr = append(average.Arr, 0)
 			if len(average.Arr) > 24 {
 				average.Arr = average.Arr[1:]
 			}
-			app.CardchainKeeper.SetRunningAverage(ctx, app.CardchainKeeper.RunningAverageKeys[idx], *average)
+			app.CardchainKeeper.RunningAverages.Set(ctx, app.CardchainKeeper.RunningAverages.KeyWords[idx], average)
 		}
 	}
 
 	err := app.CardchainKeeper.CheckTrial(ctx)
 	if err != nil {
 		app.CardchainKeeper.Logger(ctx).Error(fmt.Sprintf("%s", err))
+	}
+
+	// Checks for empty pools
+	for idx, coin := range app.CardchainKeeper.Pools.GetAll(ctx) {
+		if coin.IsLT(sdk.NewInt64Coin(coin.Denom, 0)) {
+			app.CardchainKeeper.Logger(ctx).Error(fmt.Sprintf(":: %s: %v", app.CardchainKeeper.Pools.KeyWords[idx], coin))
+		}
 	}
 
 	return app.mm.EndBlock(ctx, req)
@@ -589,8 +596,9 @@ func (app *App) InitChainer(ctx sdk.Context, req abci.RequestInitChain) abci.Res
 	// initialize CardScheme Id, Auction price and public pool
 	app.CardchainKeeper.SetCardAuctionPrice(ctx, sdk.NewInt64Coin("ucredits", 10000000))
 
-	for _, key := range app.CardchainKeeper.PoolKeys {
-		app.CardchainKeeper.SetPool(ctx, key, sdk.NewInt64Coin("ucredits", int64(1000*math.Pow(10, 6))))
+	for _, key := range app.CardchainKeeper.Pools.KeyWords {
+		pool := sdk.NewInt64Coin("ucredits", int64(1000*math.Pow(10, 6)))
+		app.CardchainKeeper.Pools.Set(ctx, key, &pool)
 	}
 
 	app.UpgradeKeeper.SetModuleVersionMap(ctx, app.mm.GetVersionMap())

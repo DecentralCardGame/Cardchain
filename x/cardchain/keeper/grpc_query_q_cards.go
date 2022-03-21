@@ -83,7 +83,7 @@ func (k Keeper) QCards(goCtx context.Context, req *types.QueryQCardsRequest) (*t
 		}
 	}
 
-	iterator := k.GetCardsIterator(ctx)
+	iterator := k.Cards.GetIterator(ctx)
 
 	for ; iterator.Valid(); iterator.Next() {
 		var gottenCard types.Card

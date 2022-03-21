@@ -16,13 +16,13 @@ func (k msgServer) CreateSellOffer(goCtx context.Context, msg *types.MsgCreateSe
 		return nil, sdkerrors.Wrap(types.ErrUserDoesNotExist, err.Error())
 	}
 
-	newCards, err := UintPopItemFromArr(msg.Card, creator.Cards)
+	newCards, err := PopItemFromArr(msg.Card, creator.Cards)
 	if err != nil {
 		return nil, sdkerrors.Wrapf(err, "User does not posses Card: %d", msg.Card)
 	}
 	creator.Cards = newCards
 
-	sellOfferId := k.GetSellOffersNumber(ctx)
+	sellOfferId := k.SellOffers.GetNumber(ctx)
 	sellOffer := types.SellOffer{
 		Seller: msg.Creator,
 		Buyer:  "",
@@ -31,7 +31,7 @@ func (k msgServer) CreateSellOffer(goCtx context.Context, msg *types.MsgCreateSe
 		Status: types.SellOfferStatus_open,
 	}
 
-	k.SetSellOffer(ctx, sellOfferId, sellOffer)
+	k.SellOffers.Set(ctx, sellOfferId, &sellOffer)
 	k.SetUserFromUser(ctx, creator)
 
 	return &types.MsgCreateSellOfferResponse{}, nil

@@ -16,7 +16,7 @@ func (k Keeper) QCollection(goCtx context.Context, req *types.QueryQCollectionRe
 
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	collection := k.GetCollection(ctx, req.CollectionId)
+	collection := k.Collections.Get(ctx, req.CollectionId)
 
-	return &collection, nil
+	return collection, nil
 }

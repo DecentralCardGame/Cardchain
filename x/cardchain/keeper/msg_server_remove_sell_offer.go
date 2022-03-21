@@ -16,7 +16,7 @@ func (k msgServer) RemoveSellOffer(goCtx context.Context, msg *types.MsgRemoveSe
 		return nil, sdkerrors.Wrap(types.ErrUserDoesNotExist, err.Error())
 	}
 
-	sellOffer := k.GetSellOffer(ctx, msg.SellOfferId)
+	sellOffer := k.SellOffers.Get(ctx, msg.SellOfferId)
 
 	if sellOffer.Seller != msg.Creator {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "Incorrect Seller")
@@ -29,7 +29,7 @@ func (k msgServer) RemoveSellOffer(goCtx context.Context, msg *types.MsgRemoveSe
 	sellOffer.Status = types.SellOfferStatus_removed
 	creator.Cards = append(creator.Cards, sellOffer.Card)
 
-	k.SetSellOffer(ctx, msg.SellOfferId, sellOffer)
+	k.SellOffers.Set(ctx, msg.SellOfferId, sellOffer)
 	k.SetUserFromUser(ctx, creator)
 
 	return &types.MsgRemoveSellOfferResponse{}, nil

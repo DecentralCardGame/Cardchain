@@ -19,9 +19,9 @@ func TestSellOffer(t *testing.T) {
 		sdk.NewInt64Coin("ucredits", 3),
 		types.SellOfferStatus_open,
 	}
-	k.SetSellOffer(ctx, 0, sellOffer)
+	k.SellOffers.Set(ctx, 0, &sellOffer)
 
-	require.EqualValues(t, 1, k.GetSellOffersNumber(ctx))
-	require.EqualValues(t, sellOffer, k.GetSellOffer(ctx, 0))
-	require.EqualValues(t, []*types.SellOffer{&sellOffer}, k.GetAllSellOffers(ctx))
+	require.EqualValues(t, 1, k.SellOffers.GetNumber(ctx))
+	require.EqualValues(t, sellOffer, *k.SellOffers.Get(ctx, 0))
+	require.EqualValues(t, []*types.SellOffer{&sellOffer}, k.SellOffers.GetAll(ctx))
 }

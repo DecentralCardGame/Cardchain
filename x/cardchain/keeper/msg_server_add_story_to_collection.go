@@ -11,7 +11,7 @@ import (
 func (k msgServer) AddStoryToCollection(goCtx context.Context, msg *types.MsgAddStoryToCollection) (*types.MsgAddStoryToCollectionResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	collection := k.GetCollection(ctx, msg.CollectionId)
+	collection := k.Collections.Get(ctx, msg.CollectionId)
 	if collection.StoryWriter != msg.Creator {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "Incorrect StoryWriter")
 	}
@@ -26,7 +26,7 @@ func (k msgServer) AddStoryToCollection(goCtx context.Context, msg *types.MsgAdd
 
 	collection.Story = msg.Story
 
-	k.SetCollection(ctx, msg.CollectionId, collection)
+	k.Collections.Set(ctx, msg.CollectionId, collection)
 
 	return &types.MsgAddStoryToCollectionResponse{}, nil
 }

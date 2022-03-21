@@ -16,7 +16,7 @@ func (k msgServer) BuyCard(goCtx context.Context, msg *types.MsgBuyCard) (*types
 		return nil, sdkerrors.Wrap(types.ErrUserDoesNotExist, err.Error())
 	}
 
-	sellOffer := k.GetSellOffer(ctx, msg.SellOfferId)
+	sellOffer := k.SellOffers.Get(ctx, msg.SellOfferId)
 
 	sellerAddr, err := sdk.AccAddressFromBech32(sellOffer.Seller)
 	if err != nil {
@@ -36,7 +36,7 @@ func (k msgServer) BuyCard(goCtx context.Context, msg *types.MsgBuyCard) (*types
 	sellOffer.Buyer = msg.Creator
 	sellOffer.Status = types.SellOfferStatus_sold
 
-	k.SetSellOffer(ctx, msg.SellOfferId, sellOffer)
+	k.SellOffers.Set(ctx, msg.SellOfferId, sellOffer)
 	k.SetUserFromUser(ctx, buyer)
 
 	return &types.MsgBuyCardResponse{}, nil

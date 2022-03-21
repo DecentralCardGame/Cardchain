@@ -18,49 +18,6 @@ func GetResponseHash(response types.Response, secret string) string {
 	return hashStringResponse
 }
 
-// GetCouncil Gets a certain council from store
-func (k Keeper) GetCouncil(ctx sdk.Context, councilId uint64) (gottenCouncil types.Council) {
-	store := ctx.KVStore(k.CouncilsStoreKey)
-	bz := store.Get(sdk.Uint64ToBigEndian(councilId))
-
-	k.cdc.MustUnmarshal(bz, &gottenCouncil)
-	return
-}
-
-// SetCouncil Sets a certain council in store
-func (k Keeper) SetCouncil(ctx sdk.Context, councilId uint64, newCouncil types.Council) {
-	store := ctx.KVStore(k.CouncilsStoreKey)
-	store.Set(sdk.Uint64ToBigEndian(councilId), k.cdc.MustMarshal(&newCouncil))
-}
-
-// GetCouncilsIterator Returns an interator for all councils
-func (k Keeper) GetCouncilsIterator(ctx sdk.Context) sdk.Iterator {
-	store := ctx.KVStore(k.CouncilsStoreKey)
-	return sdk.KVStorePrefixIterator(store, nil)
-}
-
-// GetAllCouncils Gets all councils from store
-func (k Keeper) GetAllCouncils(ctx sdk.Context) (allCouncils []*types.Council) {
-	iterator := k.GetCouncilsIterator(ctx)
-	for ; iterator.Valid(); iterator.Next() {
-
-		var gottenCouncil types.Council
-		k.cdc.MustUnmarshal(iterator.Value(), &gottenCouncil)
-
-		allCouncils = append(allCouncils, &gottenCouncil)
-	}
-	return
-}
-
-// GetCouncilsNumber Gets the number of all existing councils
-func (k Keeper) GetCouncilsNumber(ctx sdk.Context) (councilId uint64) {
-	iterator := k.GetCouncilsIterator(ctx)
-	for ; iterator.Valid(); iterator.Next() {
-		councilId++
-	}
-	return
-}
-
 // GetCouncilPartiedVoters Sorts the voters of a council in approvers, deniers and suggestors
 func GetCouncilPartiedVoters(responses []*types.WrapClearResponse) (approvers []string, deniers []string, suggestors []string) {
 	for _, response := range responses {
@@ -77,7 +34,7 @@ func GetCouncilPartiedVoters(responses []*types.WrapClearResponse) (approvers []
 }
 
 // TryEvaluate Tries to evaluate the council decision
-func (k Keeper) TryEvaluate(ctx sdk.Context, council types.Council) (types.Council, error) {
+func (k Keeper) TryEvaluate(ctx sdk.Context, council *types.Council) error {
 	collateralDeposit := k.GetParams(ctx).CollateralDeposit
 	bounty := MulCoin(collateralDeposit, 2)
 	votePool := MulCoin(collateralDeposit, 5)
@@ -88,12 +45,12 @@ func (k Keeper) TryEvaluate(ctx sdk.Context, council types.Council) (types.Counc
 
 		if nrNo == nrYes || nrSuggestion > nrNo || nrSuggestion > nrYes {
 			council.Status = types.CouncelingStatus_suggestionsMade
-			return council, nil
+			return nil
 		} else if nrNo > nrYes {
 			for _, user := range deniers {
 				err := k.TransferFromCoin(ctx, user, &council.Treasury, bounty)
 				if err != nil {
-					return council, err
+					return err
 				}
 			}
 			k.AddPoolCredits(ctx, PublicPoolKey, council.Treasury)
@@ -107,23 +64,23 @@ func (k Keeper) TryEvaluate(ctx sdk.Context, council types.Council) (types.Counc
 		for _, addr := range council.Voters {
 			user, err := k.GetUserFromString(ctx, addr)
 			if err != nil {
-				return council, err
+				return err
 			}
 			user.CouncilStatus = types.CouncilStatus_available
 			user.Cards = append(user.Cards, council.CardId)
 			k.SetUserFromUser(ctx, user)
 		}
 	}
-	return council, nil
+	return nil
 }
 
 // CheckTrial Checks for councils that shouldn't be in trial anymore
 func (k Keeper) CheckTrial(ctx sdk.Context) error {
 	collateralDeposit := k.GetParams(ctx).CollateralDeposit
-	for idx, council := range k.GetAllCouncils(ctx) {
+	for idx, council := range k.Councils.GetAll(ctx) {
 		if council.Status == types.CouncelingStatus_revealed {
 			if council.TrialStart+k.GetParams(ctx).TrialPeriod <= uint64(ctx.BlockHeight()) {
-				card := k.GetCard(ctx, council.CardId)
+				card := k.Cards.Get(ctx, council.CardId)
 
 				var (
 					group []string
@@ -138,7 +95,7 @@ func (k Keeper) CheckTrial(ctx sdk.Context) error {
 				})
 				if votes[len(votes)-1] == 0 {
 					council.TrialStart = uint64(ctx.BlockHeight())
-					k.SetCouncil(ctx, uint64(idx), *council)
+					k.Councils.Set(ctx, uint64(idx), council)
 					continue
 				}
 				if card.FairEnoughVotes == votes[len(votes)-1] {
@@ -173,8 +130,8 @@ func (k Keeper) CheckTrial(ctx sdk.Context) error {
 				card.VotePool = card.VotePool.Sub(card.VotePool)
 				council.Status = types.CouncelingStatus_councilClosed
 
-				k.SetCouncil(ctx, uint64(idx), *council)
-				k.SetCard(ctx, council.CardId, card)
+				k.Councils.Set(ctx, uint64(idx), council)
+				k.Cards.Set(ctx, council.CardId, card)
 			}
 		}
 	}

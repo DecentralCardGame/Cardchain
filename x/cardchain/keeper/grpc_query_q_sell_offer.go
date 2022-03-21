@@ -16,7 +16,7 @@ func (k Keeper) QSellOffer(goCtx context.Context, req *types.QueryQSellOfferRequ
 
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	sellOffer := k.GetSellOffer(ctx, req.SellOfferId)
+	sellOffer := k.SellOffers.Get(ctx, req.SellOfferId)
 
-	return &sellOffer, nil
+	return sellOffer, nil
 }

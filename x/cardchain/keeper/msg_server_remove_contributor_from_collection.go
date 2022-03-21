@@ -11,7 +11,7 @@ import (
 func (k msgServer) RemoveContributorFromCollection(goCtx context.Context, msg *types.MsgRemoveContributorFromCollection) (*types.MsgRemoveContributorFromCollectionResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	collection := k.GetCollection(ctx, msg.CollectionId)
+	collection := k.Collections.Get(ctx, msg.CollectionId)
 	if msg.Creator != collection.Contributors[0] {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "Invalid creator")
 	}
@@ -26,7 +26,7 @@ func (k msgServer) RemoveContributorFromCollection(goCtx context.Context, msg *t
 
 	collection.Contributors = newContributors
 
-	k.SetCollection(ctx, msg.CollectionId, collection)
+	k.Collections.Set(ctx, msg.CollectionId, collection)
 
 	return &types.MsgRemoveContributorFromCollectionResponse{}, nil
 }

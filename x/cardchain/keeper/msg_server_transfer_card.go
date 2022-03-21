@@ -12,7 +12,7 @@ func (k msgServer) TransferCard(goCtx context.Context, msg *types.MsgTransferCar
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
 	// if the vote right is valid, get the Card
-	card := k.GetCard(ctx, msg.CardId)
+	card := k.Cards.Get(ctx, msg.CardId)
 	creator, err := k.GetUserFromString(ctx, msg.Creator)
 	if err != nil {
 		return nil, sdkerrors.Wrap(types.ErrUserDoesNotExist, err.Error())
@@ -29,13 +29,13 @@ func (k msgServer) TransferCard(goCtx context.Context, msg *types.MsgTransferCar
 	}
 
 	if card.Status == types.Status_scheme {
-		creator.OwnedCardSchemes, err = UintPopItemFromArr(msg.CardId, creator.OwnedCardSchemes)
+		creator.OwnedCardSchemes, err = PopItemFromArr(msg.CardId, creator.OwnedCardSchemes)
 		if err != nil {
 			return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, err.Error())
 		}
 		receiver.OwnedCardSchemes = append(receiver.OwnedCardSchemes, msg.CardId)
 	} else {
-		creator.OwnedPrototypes, err = UintPopItemFromArr(msg.CardId, creator.OwnedPrototypes)
+		creator.OwnedPrototypes, err = PopItemFromArr(msg.CardId, creator.OwnedPrototypes)
 		if err != nil {
 			return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, err.Error())
 		}
@@ -43,7 +43,7 @@ func (k msgServer) TransferCard(goCtx context.Context, msg *types.MsgTransferCar
 	}
 
 	card.Owner = msg.Receiver
-	k.SetCard(ctx, msg.CardId, card)
+	k.Cards.Set(ctx, msg.CardId, card)
 	k.SetUserFromUser(ctx, creator)
 	k.SetUserFromUser(ctx, receiver)
 

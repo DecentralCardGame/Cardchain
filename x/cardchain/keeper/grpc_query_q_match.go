@@ -16,7 +16,7 @@ func (k Keeper) QMatch(goCtx context.Context, req *types.QueryQMatchRequest) (*t
 
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	match := k.GetMatch(ctx, req.MatchId)
+	match := k.Matches.Get(ctx, req.MatchId)
 
-	return &match, nil
+	return match, nil
 }

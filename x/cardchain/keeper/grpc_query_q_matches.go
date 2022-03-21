@@ -1,6 +1,7 @@
 package keeper
 
 import (
+	"golang.org/x/exp/slices"
 	"context"
 
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
@@ -23,7 +24,7 @@ func (k Keeper) QMatches(goCtx context.Context, req *types.QueryQMatchesRequest)
 
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	matches := k.GetAllMatches(ctx)
+	matches := k.Matches.GetAll(ctx)
 	for idx, match := range matches {
 		// Checks for timestamp
 		if !req.Ignore.Timestamp {
@@ -41,7 +42,7 @@ func (k Keeper) QMatches(goCtx context.Context, req *types.QueryQMatchesRequest)
 
 		// Checks for users contained in the match
 		for _, user := range req.ContainsUsers {
-			if !StringItemInArr(user, []string{match.PlayerA, match.PlayerB}) {
+			if !slices.Contains([]string{match.PlayerA, match.PlayerB}, user) {
 				allUsersInMatch = false
 			}
 		}
@@ -51,7 +52,7 @@ func (k Keeper) QMatches(goCtx context.Context, req *types.QueryQMatchesRequest)
 
 		// Checks for card contained in the match
 		for _, card := range req.CardsPlayed {
-			if !UintItemInArr(card, append(match.PlayerACards, match.PlayerBCards...)) {
+			if !slices.Contains(append(match.PlayerACards, match.PlayerBCards...), card) {
 				allCardsInMatch = false
 			}
 		}

@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 
+	"golang.org/x/exp/slices"
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
@@ -18,7 +19,7 @@ func (k msgServer) VoteCard(goCtx context.Context, msg *types.MsgVoteCard) (*typ
 	}
 
 	voteRights := k.GetVoteRights(ctx, voter)
-	rightsIndex := IndexOfId(msg.CardId, len(voteRights), func(i int) uint64 {return voteRights[i].CardId})
+	rightsIndex := slices.IndexFunc(voteRights, func(s *types.VoteRight) bool {return s.CardId == msg.CardId})
 
 	// check if voting rights are true
 	if rightsIndex < 0 {
@@ -31,7 +32,7 @@ func (k msgServer) VoteCard(goCtx context.Context, msg *types.MsgVoteCard) (*typ
 	}
 
 	// if the vote right is valid, get the Card
-	card := k.GetCard(ctx, msg.CardId)
+	card := k.Cards.Get(ctx, msg.CardId)
 
 	// check if card status is valid
 	if card.Status != types.Status_permanent && card.Status != types.Status_trial {
@@ -66,11 +67,11 @@ func (k msgServer) VoteCard(goCtx context.Context, msg *types.MsgVoteCard) (*typ
 	k.MintCoinsToAddr(ctx, voter, sdk.Coins{amount})
 	k.SubPoolCredits(ctx, BalancersPoolKey, amount)
 
-	k.SetCard(ctx, msg.CardId, card)
+	k.Cards.Set(ctx, msg.CardId, card)
 
-	votes := k.GetRunningAverage(ctx, Votes24ValueKey)
+	votes := k.RunningAverages.Get(ctx, Votes24ValueKey)
 	votes.Arr[len(votes.Arr)-1]++
-	k.SetRunningAverage(ctx, Votes24ValueKey, votes)
+	k.RunningAverages.Set(ctx, Votes24ValueKey, votes)
 
 	err = k.RemoveVoteRight(ctx, voter, rightsIndex)
 	if err != nil {

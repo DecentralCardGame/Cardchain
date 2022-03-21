@@ -18,22 +18,22 @@ func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) 
 		k.SetUser(ctx, address, *genState.Users[id])
 	}
 	for id, match := range genState.Matches {
-		k.SetMatch(ctx, uint64(id), *match)
+		k.Matches.Set(ctx, uint64(id), match)
 	}
 	for id, council := range genState.Councils {
-		k.SetCouncil(ctx, uint64(id), *council)
+		k.Councils.Set(ctx, uint64(id), council)
 	}
 	for id, collection := range genState.Collections {
-		k.SetCollection(ctx, uint64(id), *collection)
+		k.Collections.Set(ctx, uint64(id), collection)
 	}
 	for id, sellOffer := range genState.SellOffers {
-		k.SetSellOffer(ctx, uint64(id), *sellOffer)
+		k.SellOffers.Set(ctx, uint64(id), sellOffer)
 	}
 	for id, pool := range genState.Pools {
-		k.SetPool(ctx, k.PoolKeys[id], pool)
+		k.Pools.Set(ctx, k.Pools.KeyWords[id], pool)
 	}
 	for idx, average := range genState.RunningAverages {
-		k.SetRunningAverage(ctx, k.RunningAverageKeys[idx], *average)
+		k.RunningAverages.Set(ctx, k.RunningAverages.KeyWords[idx], average)
 	}
 	if genState.CardAuctionPrice.Denom != "" {
 		k.SetCardAuctionPrice(ctx, genState.CardAuctionPrice)
@@ -45,7 +45,7 @@ func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) 
 			k.Logger(ctx).Error(fmt.Sprintf("%d :\n\t%s\n\t%s\n-----", currId, err.Error(), record.Content))
 		}
 
-		k.SetCard(ctx, uint64(currId), *record)
+		k.Cards.Set(ctx, uint64(currId), record)
 	}
 	k.Logger(ctx).Info("Params", genState.Params)
 	k.SetParams(ctx, genState.Params)
@@ -56,13 +56,13 @@ func ExportGenesis(ctx sdk.Context, k keeper.Keeper) *types.GenesisState {
 	// this line is used by starport scaffolding # genesis/module/export
 	params := k.GetParams(ctx)
 	cardAuctionPrice := k.GetCardAuctionPrice(ctx)
-	sellOffers := k.GetAllSellOffers(ctx)
-	pools := k.GetAllPools(ctx)
-	records := k.GetAllCards(ctx)
-	matches := k.GetAllMatches(ctx)
-	councils := k.GetAllCouncils(ctx)
-	runningAverages := k.GetAllRunningAverages(ctx)
-	collections := k.GetAllCollections(ctx)
+	sellOffers := k.SellOffers.GetAll(ctx)
+	pools := k.Pools.GetAll(ctx)
+	records := k.Cards.GetAll(ctx)
+	matches := k.Matches.GetAll(ctx)
+	councils := k.Councils.GetAll(ctx)
+	runningAverages := k.RunningAverages.GetAll(ctx)
+	collections := k.Collections.GetAll(ctx)
 	users, accAddresses := k.GetAllUsers(ctx)
 	var addresses []string
 	for _, addr := range accAddresses {

@@ -20,7 +20,7 @@ func (k msgServer) ReportMatch(goCtx context.Context, msg *types.MsgReportMatch)
 		return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "Incorrect Reporter")
 	}
 
-	matchId := k.GetMatchesNumber(ctx)
+	matchId := k.Matches.GetNumber(ctx)
 
 	match := types.Match{
 		uint64(time.Now().Unix()),
@@ -56,7 +56,7 @@ func (k msgServer) ReportMatch(goCtx context.Context, msg *types.MsgReportMatch)
 		}
 	}
 
-	k.SetMatch(ctx, matchId, match)
+	k.Matches.Set(ctx, matchId, &match)
 
 	amountA, amountB := k.CalculateMatchReward(ctx, msg.Outcome)
 	amounts := []sdk.Coin{amountA, amountB}
@@ -68,9 +68,9 @@ func (k msgServer) ReportMatch(goCtx context.Context, msg *types.MsgReportMatch)
 		k.SubPoolCredits(ctx, WinnersPoolKey, amounts[idx])
 	}
 
-	games := k.GetRunningAverage(ctx, Games24ValueKey)
+	games := k.RunningAverages.Get(ctx, Games24ValueKey)
 	games.Arr[len(games.Arr)-1]++
-	k.SetRunningAverage(ctx, Games24ValueKey, games)
+	k.RunningAverages.Set(ctx, Games24ValueKey, games)
 
 	return &types.MsgReportMatchResponse{}, nil
 }

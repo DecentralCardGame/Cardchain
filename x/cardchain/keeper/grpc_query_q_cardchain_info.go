@@ -21,9 +21,9 @@ func (k Keeper) QCardchainInfo(goCtx context.Context, req *types.QueryQCardchain
 	return &types.QueryQCardchainInfoResponse{
 		price,
 		k.GetActiveCollections(ctx),
-		k.GetCardsNumber(ctx),
-		k.GetMatchesNumber(ctx),
-		k.GetSellOffersNumber(ctx),
-		k.GetCouncilsNumber(ctx),
+		k.Cards.GetNumber(ctx),
+		k.Matches.GetNumber(ctx),
+		k.SellOffers.GetNumber(ctx),
+		k.Councils.GetNumber(ctx),
 	}, nil
 }

@@ -11,7 +11,7 @@ import (
 func (k msgServer) ChangeArtist(goCtx context.Context, msg *types.MsgChangeArtist) (*types.MsgChangeArtistResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	card := k.GetCard(ctx, msg.CardID)
+	card := k.Cards.Get(ctx, msg.CardID)
 
 	if card.Owner != msg.Creator {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "Incorrect Owner")
@@ -24,7 +24,7 @@ func (k msgServer) ChangeArtist(goCtx context.Context, msg *types.MsgChangeArtis
 
 	card.Artist = newArtist.String()
 
-	k.SetCard(ctx, msg.CardID, card)
+	k.Cards.Set(ctx, msg.CardID, card)
 
 	return &types.MsgChangeArtistResponse{}, nil
 }

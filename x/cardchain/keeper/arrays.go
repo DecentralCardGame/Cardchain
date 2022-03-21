@@ -1,42 +1,15 @@
 package keeper
 
 import (
+	"golang.org/x/exp/slices"
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
 )
 
-
-func UintItemInArr(item uint64, list []uint64) bool {
-	for _, i := range list {
-		if i == item {
-			return true
-		}
+func PopItemFromArr[E comparable](item E, arr []E) ([]E, error) {
+	idx := slices.Index(arr, item)
+	if idx == -1 {
+		return arr, types.ErrCardNotThere
 	}
-	return false
-}
-
-func StringItemInArr(item string, list []string) bool {
-	for _, i := range list {
-		if i == item {
-			return true
-		}
-	}
-	return false
-}
-
-func IndexOfId(id uint64, length int, f func(int) uint64) int {
-	for i := 0; i < length; i++ {
-		if f(i) == id {
-			return i
-		}
-	}
-	return -1
-}
-
-func UintPopItemFromArr(element uint64, arr []uint64) ([]uint64, error) {
-	for idx, val := range arr {
-		if element == val {
-			return append(arr[:idx], arr[idx+1:]...), nil
-		}
-	}
-	return []uint64{}, types.ErrCardNotThere
+	arr = slices.Delete(arr, idx, idx+1)
+	return arr, nil
 }

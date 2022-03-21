@@ -6,8 +6,8 @@ import (
 	"sort"
 
 	"github.com/tendermint/tendermint/libs/log"
-
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
+	gtk "github.com/DecentralCardGame/Cardchain/x/cardchain/types/generic_type_keeper"
 	"github.com/DecentralCardGame/cardobject/cardobject"
 	"github.com/DecentralCardGame/cardobject/keywords"
 	"github.com/cosmos/cosmos-sdk/codec"
@@ -20,18 +20,16 @@ import (
 type Keeper struct {
 	cdc                     codec.BinaryCodec // The wire codec for binary encoding/decoding.
 	UsersStoreKey           sdk.StoreKey
-	CardsStoreKey           sdk.StoreKey
-	MatchesStoreKey         sdk.StoreKey
-	CollectionsStoreKey     sdk.StoreKey
 	InternalStoreKey        sdk.StoreKey
-	SellOffersStoreKey      sdk.StoreKey
-	PoolsStoreKey           sdk.StoreKey
-	CouncilsStoreKey        sdk.StoreKey
-	RunningAveragesStoreKey sdk.StoreKey
 	paramstore              paramtypes.Subspace
 
-	PoolKeys           []string
-	RunningAverageKeys []string
+	Cards           gtk.GenericTypeKeeper[*types.Card]
+	Councils        gtk.GenericTypeKeeper[*types.Council]
+	SellOffers      gtk.GenericTypeKeeper[*types.SellOffer]
+	Collections     gtk.GenericTypeKeeper[*types.Collection]
+	Matches         gtk.GenericTypeKeeper[*types.Match]
+	RunningAverages gtk.KeywordedGenericTypeKeeper[*types.RunningAverage]
+	Pools           gtk.KeywordedGenericTypeKeeper[*sdk.Coin]
 
 	BankKeeper types.BankKeeper
 }
@@ -60,17 +58,17 @@ func NewKeeper(
 	return &Keeper{
 		cdc:                     cdc,
 		UsersStoreKey:           usersStoreKey,
-		CardsStoreKey:           cardsStoreKey,
-		MatchesStoreKey:         matchesStorekey,
-		CollectionsStoreKey:     collectionsStoreKey,
-		SellOffersStoreKey:      sellOffersStoreKey,
-		PoolsStoreKey:           poolsStoreKey,
-		CouncilsStoreKey:        councilsStoreKey,
-		RunningAveragesStoreKey: runningAveragesStoreKey,
 		InternalStoreKey:        internalStoreKey,
 		paramstore:              ps,
-		PoolKeys:                []string{PublicPoolKey, WinnersPoolKey, BalancersPoolKey},
-		RunningAverageKeys:      []string{Games24ValueKey, Votes24ValueKey},
+
+		Cards:           gtk.NewGTK[*types.Card](cardsStoreKey, cdc, gtk.GetEmpty[types.Card]),
+		Councils:        gtk.NewGTK[*types.Council](councilsStoreKey, cdc, gtk.GetEmpty[types.Council]),
+		SellOffers:      gtk.NewGTK[*types.SellOffer](sellOffersStoreKey, cdc, gtk.GetEmpty[types.SellOffer]),
+		Collections:     gtk.NewGTK[*types.Collection](collectionsStoreKey, cdc, gtk.GetEmpty[types.Collection]),
+		Matches:         gtk.NewGTK[*types.Match](matchesStorekey, cdc, gtk.GetEmpty[types.Match]),
+		RunningAverages: gtk.NewKGTK[*types.RunningAverage](runningAveragesStoreKey, cdc, gtk.GetEmpty[types.RunningAverage], []string{Games24ValueKey, Votes24ValueKey}),
+		Pools:           gtk.NewKGTK[*sdk.Coin](poolsStoreKey, cdc, gtk.GetEmpty[sdk.Coin], []string{PublicPoolKey, WinnersPoolKey, BalancersPoolKey}),
+
 		BankKeeper:              bankKeeper,
 	}
 }
@@ -87,7 +85,7 @@ func (k Keeper) TransferSchemeToCard(ctx sdk.Context, cardId uint64, address sdk
 		return types.ErrUserDoesNotExist
 	}
 
-	user.OwnedCardSchemes, err = UintPopItemFromArr(cardId, user.OwnedCardSchemes)
+	user.OwnedCardSchemes, err = PopItemFromArr(cardId, user.OwnedCardSchemes)
 	if err != nil {
 		return sdkerrors.ErrUnauthorized
 	}
@@ -118,12 +116,8 @@ func (k Keeper) GetLastVotingResults(ctx sdk.Context) (results types.VotingResul
 
 // NerfBuffCards Nerfes or buffs certain cards
 func (k Keeper) NerfBuffCards(ctx sdk.Context, cardIds []uint64, buff bool) {
-	store := ctx.KVStore(k.CardsStoreKey)
-
 	for _, val := range cardIds {
-		bz := store.Get(sdk.Uint64ToBigEndian(val))
-		var buffCard types.Card
-		k.cdc.MustUnmarshal(bz, &buffCard)
+		buffCard := k.Cards.Get(ctx, val)
 
 		cardobj, err := keywords.Unmarshal(buffCard.Content)
 		if err != nil {
@@ -179,24 +173,24 @@ func (k Keeper) NerfBuffCards(ctx sdk.Context, cardIds []uint64, buff bool) {
 			buffCard.Nerflevel += 1
 		}
 
-		store.Set(sdk.Uint64ToBigEndian(val), k.cdc.MustMarshal(&buffCard))
+		k.Cards.Set(ctx, val, buffCard)
 	}
 }
 
 // UpdateBanStatus Bans cards
 func (k Keeper) UpdateBanStatus(ctx sdk.Context, newBannedIds []uint64) {
 	// go through all cards and find already marked cards
-	allCards := k.GetAllCards(ctx)
+	allCards := k.Cards.GetAll(ctx)
 	for idx, gottenCard := range allCards {
 		if gottenCard.Status == types.Status_bannedVerySoon {
 			gottenUser, err := k.GetUserFromString(ctx, gottenCard.Owner)
 
 			// remove the card from the Cards store
 			var emptyCard types.Card
-			k.SetCard(ctx, uint64(idx), emptyCard)
+			k.Cards.Set(ctx, uint64(idx), &emptyCard)
 
 			// remove the card from the ownedCards of the owner
-			gottenUser.OwnedCardSchemes, err = UintPopItemFromArr(uint64(idx), gottenUser.OwnedCardSchemes)
+			gottenUser.OwnedCardSchemes, err = PopItemFromArr(uint64(idx), gottenUser.OwnedCardSchemes)
 			if err == nil {
 				k.SetUserFromUser(ctx, gottenUser)
 			} else {
@@ -204,7 +198,7 @@ func (k Keeper) UpdateBanStatus(ctx sdk.Context, newBannedIds []uint64) {
 			}
 		} else if gottenCard.Status == types.Status_bannedSoon {
 			gottenCard.Status = types.Status_bannedVerySoon
-			k.SetCard(ctx, uint64(idx), *gottenCard)
+			k.Cards.Set(ctx, uint64(idx), gottenCard)
 		}
 	}
 }
@@ -222,7 +216,7 @@ func (k Keeper) GetOPandUPCards(ctx sdk.Context) (buffbois []uint64, nerfbois []
 	var µOP float64 = 0
 
 	// go through all cards and collect candidates
-	for idx, gottenCard := range k.GetAllCards(ctx) {
+	for idx, gottenCard := range k.Cards.GetAll(ctx) {
 
 		id := uint64(idx)
 		nettoOP := int64(gottenCard.OverpoweredVotes - gottenCard.FairEnoughVotes - gottenCard.UnderpoweredVotes)

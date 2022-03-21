@@ -3,6 +3,7 @@ package keeper
 import (
 	"context"
 
+	"golang.org/x/exp/slices"
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
@@ -18,8 +19,8 @@ func (k msgServer) CommitCouncilResponse(goCtx context.Context, msg *types.MsgCo
 		return nil, sdkerrors.Wrap(types.ErrUserDoesNotExist, err.Error())
 	}
 
-	council := k.GetCouncil(ctx, msg.CouncilId)
-	if !StringItemInArr(msg.Creator, council.Voters) {
+	council := k.Councils.Get(ctx, msg.CouncilId)
+	if !slices.Contains(council.Voters, msg.Creator) {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "Invalid Voter")
 	}
 
@@ -32,7 +33,7 @@ func (k msgServer) CommitCouncilResponse(goCtx context.Context, msg *types.MsgCo
 		allreadyVoted = append(allreadyVoted, response.User)
 	}
 
-	if StringItemInArr(msg.Creator, allreadyVoted) {
+	if slices.Contains(allreadyVoted, msg.Creator) {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "Allready voted")
 	}
 
@@ -53,9 +54,12 @@ func (k msgServer) CommitCouncilResponse(goCtx context.Context, msg *types.MsgCo
 	}
 	council.Treasury = council.Treasury.Add(collateralDeposit)
 
-	council, err = k.TryEvaluate(ctx, council)
+	err = k.TryEvaluate(ctx, council)
+	if err != nil {
+		return nil, err
+	}
 
-	k.SetCouncil(ctx, msg.CouncilId, council)
+	k.Councils.Set(ctx, msg.CouncilId, council)
 
 	return &types.MsgCommitCouncilResponseResponse{}, nil
 }

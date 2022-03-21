@@ -7,8 +7,8 @@ import (
 
 // GetVoteReward Calculates winner rewards
 func (k Keeper) GetVoteReward(ctx sdk.Context) sdk.Coin {
-	pool := k.GetPool(ctx, BalancersPoolKey)
-	reward := QuoCoin(pool, k.GetParams(ctx).VoterReward)
+	pool := k.Pools.Get(ctx, BalancersPoolKey)
+	reward := QuoCoin(*pool, k.GetParams(ctx).VoterReward)
 	if reward.Amount.Int64() > 1000000 {
 		return sdk.NewInt64Coin(reward.Denom, 1000000)
 	}
@@ -53,7 +53,7 @@ func (k Keeper) RemoveVoteRight(ctx sdk.Context, userAddress sdk.AccAddress, rig
 
 // GetVoteRightToAllCards Gets the voterights to all cards
 func (k Keeper) GetVoteRightToAllCards(ctx sdk.Context, expireBlock int64) (votingRights []*types.VoteRight) {
-	allCards := k.GetAllCards(ctx)
+	allCards := k.Cards.GetAll(ctx)
 
 	for idx, gottenCard := range allCards {
 		// here only give right if card is not a scheme or banished
@@ -73,12 +73,12 @@ func (k Keeper) GetVoteRights(ctx sdk.Context, voter sdk.AccAddress) []*types.Vo
 
 // ResetAllVotes Resets all cards votes
 func (k Keeper) ResetAllVotes(ctx sdk.Context) {
-	allCards := k.GetAllCards(ctx)
+	allCards := k.Cards.GetAll(ctx)
 
 	for idx, resetCard := range allCards {
 		if resetCard.Status != types.Status_trial {
 			resetCard.ResetVotes()
 		}
-		k.SetCard(ctx, uint64(idx), *resetCard)
+		k.Cards.Set(ctx, uint64(idx), resetCard)
 	}
 }

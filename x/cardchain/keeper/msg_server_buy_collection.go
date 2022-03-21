@@ -22,7 +22,7 @@ func (k msgServer) BuyCollection(goCtx context.Context, msg *types.MsgBuyCollect
 		return nil, sdkerrors.Wrap(types.ErrUserDoesNotExist, err.Error())
 	}
 
-	collection := k.GetCollection(ctx, msg.CollectionId)
+	collection := k.Collections.Get(ctx, msg.CollectionId)
 	if collection.Status != types.CStatus_active {
 		return nil, types.ErrNoActiveCollection
 	}
@@ -34,7 +34,7 @@ func (k msgServer) BuyCollection(goCtx context.Context, msg *types.MsgBuyCollect
 		for i := 0; i < int(num); i++ {
 			var rarityCards []uint64
 			for _, cardId := range collection.Cards {
-				cardobj, err := keywords.Unmarshal(k.GetCard(ctx, cardId).Content)
+				cardobj, err := keywords.Unmarshal(k.Cards.Get(ctx, cardId).Content)
 				if err != nil {
 					return nil, sdkerrors.Wrap(types.ErrCardobject, err.Error())
 				}
@@ -51,7 +51,7 @@ func (k msgServer) BuyCollection(goCtx context.Context, msg *types.MsgBuyCollect
 	}
 
 	// payment
-	contribs := k.GetAllCollectionContributors(ctx, collection)
+	contribs := k.GetAllCollectionContributors(ctx, *collection)
 	for _, contrib := range contribs {
 		contribAddr, err := sdk.AccAddressFromBech32(contrib)
 		if err != nil {
@@ -69,10 +69,10 @@ func (k msgServer) BuyCollection(goCtx context.Context, msg *types.MsgBuyCollect
 	k.SetUserFromUser(ctx, creator)
 
 	inflationRate, err := strconv.ParseFloat(params.InflationRate, 8)
-	pPool := k.GetPool(ctx, PublicPoolKey)
-	pPool = MulCoinFloat(pPool, inflationRate)
-	k.SetPool(ctx, PublicPoolKey, pPool)
-	k.Logger(ctx).Info(fmt.Sprintf(":: PublicPool: %s", pPool))
+	pPool := k.Pools.Get(ctx, PublicPoolKey)
+	newPool := MulCoinFloat(*pPool, inflationRate)
+	k.Pools.Set(ctx, PublicPoolKey, &newPool)
+	k.Logger(ctx).Info(fmt.Sprintf(":: PublicPool: %s", newPool))
 
 	return &types.MsgBuyCollectionResponse{}, nil
 }

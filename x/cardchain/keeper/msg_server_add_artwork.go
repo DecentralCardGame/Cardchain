@@ -1,6 +1,7 @@
 package keeper
 
 import (
+	"fmt"
 	"context"
 
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
@@ -11,14 +12,14 @@ import (
 func (k msgServer) AddArtwork(goCtx context.Context, msg *types.MsgAddArtwork) (*types.MsgAddArtworkResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	card := k.GetCard(ctx, msg.CardId)
+	card := k.Cards.Get(ctx, msg.CardId)
 
 	if card.Artist != msg.Creator {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "Incorrect Artist")
 	}
 
 	if len(msg.Image) > 500000 {
-		return nil, sdkerrors.Wrap(types.ErrImageSizeExceeded, string(len(msg.Image)))
+		return nil, sdkerrors.Wrap(types.ErrImageSizeExceeded, fmt.Sprint(len(msg.Image)))
 	}
 
 	card.FullArt = msg.FullArt
@@ -28,7 +29,7 @@ func (k msgServer) AddArtwork(goCtx context.Context, msg *types.MsgAddArtwork) (
 		card.Status = types.Status_permanent
 	}
 
-	k.SetCard(ctx, msg.CardId, card)
+	k.Cards.Set(ctx, msg.CardId, card)
 
 	return &types.MsgAddArtworkResponse{}, nil
 }
