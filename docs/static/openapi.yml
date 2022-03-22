@@ -12370,6 +12370,8 @@ paths:
                   - Draw
                   - Aborted
                 default: AWon
+              coinsDistributed:
+                type: boolean
         default:
           description: An unexpected error response.
           schema:
@@ -12459,6 +12461,8 @@ paths:
                         - Draw
                         - Aborted
                       default: AWon
+                    coinsDistributed:
+                      type: boolean
         default:
           description: An unexpected error response.
           schema:
@@ -20979,6 +20983,8 @@ definitions:
           - Draw
           - Aborted
         default: AWon
+      coinsDistributed:
+        type: boolean
   DecentralCardGame.cardchain.cardchain.MsgAddArtworkResponse:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgAddArtworkToCollectionResponse:
@@ -21295,6 +21301,8 @@ definitions:
                 - Draw
                 - Aborted
               default: AWon
+            coinsDistributed:
+              type: boolean
   DecentralCardGame.cardchain.cardchain.QueryQSellOffersResponse:
     type: object
     properties:

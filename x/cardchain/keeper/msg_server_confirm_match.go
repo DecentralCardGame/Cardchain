@@ -48,14 +48,17 @@ func (k msgServer) ConfirmMatch(goCtx context.Context, msg *types.MsgConfirmMatc
 		outcome = outcomes[3]
 	} else {
 		outcome = types.Outcome_Aborted
+		return &types.MsgConfirmMatchResponse{}, nil
+	}
+
+	if match.CoinsDistributed {  // Ensures that money isn't dropped twice
+		return &types.MsgConfirmMatchResponse{}, nil
 	}
 
 	addresses, err := k.GetMatchAddresses(ctx, *match)
 	if err != nil {
 		return nil, err
 	}
-
-	// TODO: Ensure that money isn't dropped twice
 
 	amountA, amountB := k.CalculateMatchReward(ctx, outcome)
 	amounts := []sdk.Coin{amountA, amountB}
@@ -70,6 +73,10 @@ func (k msgServer) ConfirmMatch(goCtx context.Context, msg *types.MsgConfirmMatc
 	games := k.RunningAverages.Get(ctx, Games24ValueKey)
 	games.Arr[len(games.Arr)-1]++
 	k.RunningAverages.Set(ctx, Games24ValueKey, games)
+
+	match.CoinsDistributed = true
+
+	k.Matches.Set(ctx, msg.MatchId, match)
 
 	return &types.MsgConfirmMatchResponse{}, nil
 }

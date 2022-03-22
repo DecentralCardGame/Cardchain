@@ -32,6 +32,7 @@ func (k msgServer) ReportMatch(goCtx context.Context, msg *types.MsgReportMatch)
 		msg.Outcome,
 		types.Outcome_Aborted,
 		types.Outcome_Aborted,
+		false,
 	}
 
 	addresses, err := k.GetMatchAddresses(ctx, match)
