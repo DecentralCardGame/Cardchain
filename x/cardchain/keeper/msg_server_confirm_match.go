@@ -6,13 +6,14 @@ import (
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+	"golang.org/x/exp/slices"
 )
 
 func (k msgServer) ConfirmMatch(goCtx context.Context, msg *types.MsgConfirmMatch) (*types.MsgConfirmMatchResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
 	var (
-		player  *types.MatchPlayer
+		player *types.MatchPlayer
 	)
 
 	match := k.Matches.Get(ctx, msg.MatchId)
@@ -37,10 +38,23 @@ func (k msgServer) ConfirmMatch(goCtx context.Context, msg *types.MsgConfirmMatc
 	player.Confirmed = true
 	k.Matches.Set(ctx, msg.MatchId, match)
 
+	// Report bulshit servers
+	if match.PlayerA.Confirmed && match.PlayerB.Confirmed {
+		outcomes := []types.Outcome{match.Outcome, match.PlayerA.Outcome, match.PlayerB.Outcome}
+		slices.Sort(outcomes)
+		outcomes = slices.Compact(outcomes)
+		switch i := uint64(len(outcomes)); i {
+		case 1:
+			k.ReportServerMatch(ctx, match.Reporter, 1, true)
+		default:
+			k.ReportServerMatch(ctx, match.Reporter, i-1, false)
+		}
+	}
+
 	outcome, err := k.GetOutcome(ctx, *match)
 
 	// Distribute coins
-	if match.CoinsDistributed || err != nil {  // Ensures that money isn't dropped twice
+	if match.CoinsDistributed || err != nil { // Ensures that money isn't dropped twice
 		return &types.MsgConfirmMatchResponse{}, nil
 	}
 

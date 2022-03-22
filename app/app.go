@@ -268,7 +268,7 @@ func New(
 		cardchainmoduletypes.MatchesStoreKey, cardchainmoduletypes.CollectionsStoreKey,
 		cardchainmoduletypes.SellOffersStoreKey, cardchainmoduletypes.PoolsStoreKey,
 		cardchainmoduletypes.RunningAveragesStoreKey, cardchainmoduletypes.CouncilsStoreKey,
-		cardchainmoduletypes.InternalStoreKey, authzkeeper.StoreKey,
+		cardchainmoduletypes.InternalStoreKey, authzkeeper.StoreKey, cardchainmoduletypes.ServersStoreKey,
 		// this line is used by starport scaffolding # stargate/app/storeKey
 	)
 	tkeys := sdk.NewTransientStoreKeys(paramstypes.TStoreKey)
@@ -366,6 +366,7 @@ func New(
 		keys[cardchainmoduletypes.PoolsStoreKey],
 		keys[cardchainmoduletypes.CouncilsStoreKey],
 		keys[cardchainmoduletypes.RunningAveragesStoreKey],
+		keys[cardchainmoduletypes.ServersStoreKey],
 		keys[cardchainmoduletypes.InternalStoreKey],
 		app.GetSubspace(cardchainmoduletypes.ModuleName),
 

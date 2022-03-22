@@ -4,7 +4,6 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
-
 func NewMatchPlayer(addr string, cards []uint64) *MatchPlayer {
 	return &MatchPlayer{
 		Addr:        addr,

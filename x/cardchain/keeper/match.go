@@ -2,10 +2,10 @@ package keeper
 
 import (
 	"fmt"
-	"golang.org/x/exp/slices"
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+	"golang.org/x/exp/slices"
 )
 
 // SetMatchReporter Makes a user a match reporter
@@ -114,7 +114,6 @@ func (k Keeper) GetOutcome(ctx sdk.Context, match types.Match) (outcome types.Ou
 		outcome = outcomes[1]
 	default:
 		if match.PlayerA.Confirmed && match.PlayerB.Confirmed {
-			// TODO: Report bullshit server goes here <==
 			outcome = types.Outcome_Aborted
 		} else {
 			err = fmt.Errorf("Not enought votes for decision")

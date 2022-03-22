@@ -12713,6 +12713,50 @@ paths:
           type: boolean
       tags:
         - Query
+  '/DecentralCardGame/cardchain/cardchain/q_server/{id}':
+    get:
+      summary: Queries a list of QServer items.
+      operationId: DecentralCardGameCardchainCardchainQServer
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              reporter:
+                type: string
+              invalidReports:
+                type: string
+                format: uint64
+              validReports:
+                type: string
+                format: uint64
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+          format: uint64
+      tags:
+        - Query
   '/DecentralCardGame/cardchain/cardchain/q_user/{address}':
     get:
       summary: Queries a list of QUser items.
@@ -21488,6 +21532,17 @@ definitions:
       - sold
       - removed
     default: open
+  DecentralCardGame.cardchain.cardchain.Server:
+    type: object
+    properties:
+      reporter:
+        type: string
+      invalidReports:
+        type: string
+        format: uint64
+      validReports:
+        type: string
+        format: uint64
   DecentralCardGame.cardchain.cardchain.Status:
     type: string
     enum:

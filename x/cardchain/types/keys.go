@@ -13,6 +13,7 @@ const (
 	SellOffersStoreKey      = "SellOffers"
 	PoolsStoreKey           = "Pools"
 	CouncilsStoreKey        = "Councils"
+	ServersStoreKey         = "Servers"
 	InternalStoreKey        = "Internal"
 	RunningAveragesStoreKey = "RunningAverages"
 
