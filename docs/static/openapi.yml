@@ -12333,36 +12333,46 @@ paths:
               reporter:
                 type: string
               playerA:
-                type: string
+                type: object
+                properties:
+                  addr:
+                    type: string
+                  playedCards:
+                    type: array
+                    items:
+                      type: string
+                      format: uint64
+                  confirmed:
+                    type: boolean
+                  outcome:
+                    type: string
+                    enum:
+                      - AWon
+                      - BWon
+                      - Draw
+                      - Aborted
+                    default: AWon
               playerB:
-                type: string
-              playerACards:
-                type: array
-                items:
-                  type: string
-                  format: uint64
-              playerBCards:
-                type: array
-                items:
-                  type: string
-                  format: uint64
+                type: object
+                properties:
+                  addr:
+                    type: string
+                  playedCards:
+                    type: array
+                    items:
+                      type: string
+                      format: uint64
+                  confirmed:
+                    type: boolean
+                  outcome:
+                    type: string
+                    enum:
+                      - AWon
+                      - BWon
+                      - Draw
+                      - Aborted
+                    default: AWon
               outcome:
-                type: string
-                enum:
-                  - AWon
-                  - BWon
-                  - Draw
-                  - Aborted
-                default: AWon
-              outcomeA:
-                type: string
-                enum:
-                  - AWon
-                  - BWon
-                  - Draw
-                  - Aborted
-                default: AWon
-              outcomeB:
                 type: string
                 enum:
                   - AWon
@@ -12424,36 +12434,46 @@ paths:
                     reporter:
                       type: string
                     playerA:
-                      type: string
+                      type: object
+                      properties:
+                        addr:
+                          type: string
+                        playedCards:
+                          type: array
+                          items:
+                            type: string
+                            format: uint64
+                        confirmed:
+                          type: boolean
+                        outcome:
+                          type: string
+                          enum:
+                            - AWon
+                            - BWon
+                            - Draw
+                            - Aborted
+                          default: AWon
                     playerB:
-                      type: string
-                    playerACards:
-                      type: array
-                      items:
-                        type: string
-                        format: uint64
-                    playerBCards:
-                      type: array
-                      items:
-                        type: string
-                        format: uint64
+                      type: object
+                      properties:
+                        addr:
+                          type: string
+                        playedCards:
+                          type: array
+                          items:
+                            type: string
+                            format: uint64
+                        confirmed:
+                          type: boolean
+                        outcome:
+                          type: string
+                          enum:
+                            - AWon
+                            - BWon
+                            - Draw
+                            - Aborted
+                          default: AWon
                     outcome:
-                      type: string
-                      enum:
-                        - AWon
-                        - BWon
-                        - Draw
-                        - Aborted
-                      default: AWon
-                    outcomeA:
-                      type: string
-                      enum:
-                        - AWon
-                        - BWon
-                        - Draw
-                        - Aborted
-                      default: AWon
-                    outcomeB:
                       type: string
                       enum:
                         - AWon
@@ -20946,36 +20966,46 @@ definitions:
       reporter:
         type: string
       playerA:
-        type: string
+        type: object
+        properties:
+          addr:
+            type: string
+          playedCards:
+            type: array
+            items:
+              type: string
+              format: uint64
+          confirmed:
+            type: boolean
+          outcome:
+            type: string
+            enum:
+              - AWon
+              - BWon
+              - Draw
+              - Aborted
+            default: AWon
       playerB:
-        type: string
-      playerACards:
-        type: array
-        items:
-          type: string
-          format: uint64
-      playerBCards:
-        type: array
-        items:
-          type: string
-          format: uint64
+        type: object
+        properties:
+          addr:
+            type: string
+          playedCards:
+            type: array
+            items:
+              type: string
+              format: uint64
+          confirmed:
+            type: boolean
+          outcome:
+            type: string
+            enum:
+              - AWon
+              - BWon
+              - Draw
+              - Aborted
+            default: AWon
       outcome:
-        type: string
-        enum:
-          - AWon
-          - BWon
-          - Draw
-          - Aborted
-        default: AWon
-      outcomeA:
-        type: string
-        enum:
-          - AWon
-          - BWon
-          - Draw
-          - Aborted
-        default: AWon
-      outcomeB:
         type: string
         enum:
           - AWon
@@ -20985,6 +21015,26 @@ definitions:
         default: AWon
       coinsDistributed:
         type: boolean
+  DecentralCardGame.cardchain.cardchain.MatchPlayer:
+    type: object
+    properties:
+      addr:
+        type: string
+      playedCards:
+        type: array
+        items:
+          type: string
+          format: uint64
+      confirmed:
+        type: boolean
+      outcome:
+        type: string
+        enum:
+          - AWon
+          - BWon
+          - Draw
+          - Aborted
+        default: AWon
   DecentralCardGame.cardchain.cardchain.MsgAddArtworkResponse:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgAddArtworkToCollectionResponse:
@@ -21264,36 +21314,46 @@ definitions:
             reporter:
               type: string
             playerA:
-              type: string
+              type: object
+              properties:
+                addr:
+                  type: string
+                playedCards:
+                  type: array
+                  items:
+                    type: string
+                    format: uint64
+                confirmed:
+                  type: boolean
+                outcome:
+                  type: string
+                  enum:
+                    - AWon
+                    - BWon
+                    - Draw
+                    - Aborted
+                  default: AWon
             playerB:
-              type: string
-            playerACards:
-              type: array
-              items:
-                type: string
-                format: uint64
-            playerBCards:
-              type: array
-              items:
-                type: string
-                format: uint64
+              type: object
+              properties:
+                addr:
+                  type: string
+                playedCards:
+                  type: array
+                  items:
+                    type: string
+                    format: uint64
+                confirmed:
+                  type: boolean
+                outcome:
+                  type: string
+                  enum:
+                    - AWon
+                    - BWon
+                    - Draw
+                    - Aborted
+                  default: AWon
             outcome:
-              type: string
-              enum:
-                - AWon
-                - BWon
-                - Draw
-                - Aborted
-              default: AWon
-            outcomeA:
-              type: string
-              enum:
-                - AWon
-                - BWon
-                - Draw
-                - Aborted
-              default: AWon
-            outcomeB:
               type: string
               enum:
                 - AWon

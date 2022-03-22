@@ -23,34 +23,21 @@ func (k msgServer) ReportMatch(goCtx context.Context, msg *types.MsgReportMatch)
 	matchId := k.Matches.GetNumber(ctx)
 
 	match := types.Match{
-		uint64(time.Now().Unix()),
-		msg.Creator,
-		msg.PlayerA,
-		msg.PlayerB,
-		msg.CardsA,
-		msg.CardsB,
-		msg.Outcome,
-		types.Outcome_Aborted,
-		types.Outcome_Aborted,
-		false,
+		Timestamp:        uint64(time.Now().Unix()),
+		Reporter:         msg.Creator,
+		PlayerA:          types.NewMatchPlayer(msg.PlayerA, msg.CardsA),
+		PlayerB:          types.NewMatchPlayer(msg.PlayerB, msg.CardsB),
+		Outcome:          msg.Outcome,
+		CoinsDistributed: false,
 	}
 
-	addresses, err := k.GetMatchAddresses(ctx, match)
+	_, err = k.GetMatchAddresses(ctx, match)
 	if err != nil {
 		return nil, err
 	}
 
-	cards := [][]uint64{msg.CardsB, msg.CardsA}
-
-	if msg.Outcome != types.Outcome_Aborted {
-		for idx := range addresses {
-			for _, cardId := range cards[idx] {
-				err = k.AddVoteRight(ctx, addresses[idx], cardId)
-				if err != nil {
-					return nil, sdkerrors.Wrap(types.ErrUserDoesNotExist, err.Error())
-				}
-			}
-		}
+	if msg.Outcome == types.Outcome_Aborted {
+		k.DistributeCoins(ctx, &match, msg.Outcome)
 	}
 
 	k.Matches.Set(ctx, matchId, &match)

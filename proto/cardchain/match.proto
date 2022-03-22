@@ -8,12 +8,15 @@ message Match {
 
   uint64 timestamp = 1;
   string reporter = 2;
-  string playerA = 3;
-  string playerB = 4;
-  repeated uint64 playerACards = 5;
-  repeated uint64 playerBCards = 6;
+  MatchPlayer playerA = 3;
+  MatchPlayer playerB = 4;
   Outcome outcome = 7;
-  Outcome outcomeA = 8;
-  Outcome outcomeB = 9;
-  bool coinsDistributed = 10; 
+  bool coinsDistributed = 10;
+}
+
+message MatchPlayer {
+  string addr = 1;
+  repeated uint64 playedCards = 2;
+  bool confirmed = 3;
+  Outcome outcome = 4;
 }
