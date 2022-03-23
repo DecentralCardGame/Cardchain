@@ -26,6 +26,7 @@ func CardchainKeeper(t testing.TB) (*keeper.Keeper, sdk.Context) {
 	internalStoreKey := sdk.NewKVStoreKey(types.InternalStoreKey)
 	sellOffersStoreKey := sdk.NewKVStoreKey(types.SellOffersStoreKey)
 	poolsStoreKey := sdk.NewKVStoreKey(types.PoolsStoreKey)
+	serversStoreKey := sdk.NewKVStoreKey(types.ServersStoreKey)
 	runningAveragesStoreKey := sdk.NewKVStoreKey(types.RunningAveragesStoreKey)
 	councilsStoreKey := sdk.NewKVStoreKey(types.CouncilsStoreKey)
 
@@ -39,6 +40,7 @@ func CardchainKeeper(t testing.TB) (*keeper.Keeper, sdk.Context) {
 	stateStore.MountStoreWithDB(internalStoreKey, sdk.StoreTypeIAVL, db)
 	stateStore.MountStoreWithDB(sellOffersStoreKey, sdk.StoreTypeIAVL, db)
 	stateStore.MountStoreWithDB(poolsStoreKey, sdk.StoreTypeIAVL, db)
+	stateStore.MountStoreWithDB(serversStoreKey, sdk.StoreTypeIAVL, db)
 	stateStore.MountStoreWithDB(councilsStoreKey, sdk.StoreTypeIAVL, db)
 	stateStore.MountStoreWithDB(runningAveragesStoreKey, sdk.StoreTypeIAVL, db)
 	require.NoError(t, stateStore.LoadLatestVersion())
@@ -62,6 +64,7 @@ func CardchainKeeper(t testing.TB) (*keeper.Keeper, sdk.Context) {
 		poolsStoreKey,
 		councilsStoreKey,
 		runningAveragesStoreKey,
+		serversStoreKey,
 		internalStoreKey,
 		paramsSubspace,
 		nil, // That's why minting fails
