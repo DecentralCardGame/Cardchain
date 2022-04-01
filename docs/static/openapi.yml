@@ -12333,19 +12333,45 @@ paths:
               reporter:
                 type: string
               playerA:
-                type: string
+                type: object
+                properties:
+                  addr:
+                    type: string
+                  playedCards:
+                    type: array
+                    items:
+                      type: string
+                      format: uint64
+                  confirmed:
+                    type: boolean
+                  outcome:
+                    type: string
+                    enum:
+                      - AWon
+                      - BWon
+                      - Draw
+                      - Aborted
+                    default: AWon
               playerB:
-                type: string
-              playerACards:
-                type: array
-                items:
-                  type: string
-                  format: uint64
-              playerBCards:
-                type: array
-                items:
-                  type: string
-                  format: uint64
+                type: object
+                properties:
+                  addr:
+                    type: string
+                  playedCards:
+                    type: array
+                    items:
+                      type: string
+                      format: uint64
+                  confirmed:
+                    type: boolean
+                  outcome:
+                    type: string
+                    enum:
+                      - AWon
+                      - BWon
+                      - Draw
+                      - Aborted
+                    default: AWon
               outcome:
                 type: string
                 enum:
@@ -12354,6 +12380,8 @@ paths:
                   - Draw
                   - Aborted
                 default: AWon
+              coinsDistributed:
+                type: boolean
         default:
           description: An unexpected error response.
           schema:
@@ -12406,19 +12434,45 @@ paths:
                     reporter:
                       type: string
                     playerA:
-                      type: string
+                      type: object
+                      properties:
+                        addr:
+                          type: string
+                        playedCards:
+                          type: array
+                          items:
+                            type: string
+                            format: uint64
+                        confirmed:
+                          type: boolean
+                        outcome:
+                          type: string
+                          enum:
+                            - AWon
+                            - BWon
+                            - Draw
+                            - Aborted
+                          default: AWon
                     playerB:
-                      type: string
-                    playerACards:
-                      type: array
-                      items:
-                        type: string
-                        format: uint64
-                    playerBCards:
-                      type: array
-                      items:
-                        type: string
-                        format: uint64
+                      type: object
+                      properties:
+                        addr:
+                          type: string
+                        playedCards:
+                          type: array
+                          items:
+                            type: string
+                            format: uint64
+                        confirmed:
+                          type: boolean
+                        outcome:
+                          type: string
+                          enum:
+                            - AWon
+                            - BWon
+                            - Draw
+                            - Aborted
+                          default: AWon
                     outcome:
                       type: string
                       enum:
@@ -12427,6 +12481,8 @@ paths:
                         - Draw
                         - Aborted
                       default: AWon
+                    coinsDistributed:
+                      type: boolean
         default:
           description: An unexpected error response.
           schema:
@@ -12655,6 +12711,50 @@ paths:
           in: query
           required: false
           type: boolean
+      tags:
+        - Query
+  '/DecentralCardGame/cardchain/cardchain/q_server/{id}':
+    get:
+      summary: Queries a list of QServer items.
+      operationId: DecentralCardGameCardchainCardchainQServer
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              reporter:
+                type: string
+              invalidReports:
+                type: string
+                format: uint64
+              validReports:
+                type: string
+                format: uint64
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+          format: uint64
       tags:
         - Query
   '/DecentralCardGame/cardchain/cardchain/q_user/{address}':
@@ -20910,19 +21010,67 @@ definitions:
       reporter:
         type: string
       playerA:
-        type: string
+        type: object
+        properties:
+          addr:
+            type: string
+          playedCards:
+            type: array
+            items:
+              type: string
+              format: uint64
+          confirmed:
+            type: boolean
+          outcome:
+            type: string
+            enum:
+              - AWon
+              - BWon
+              - Draw
+              - Aborted
+            default: AWon
       playerB:
+        type: object
+        properties:
+          addr:
+            type: string
+          playedCards:
+            type: array
+            items:
+              type: string
+              format: uint64
+          confirmed:
+            type: boolean
+          outcome:
+            type: string
+            enum:
+              - AWon
+              - BWon
+              - Draw
+              - Aborted
+            default: AWon
+      outcome:
         type: string
-      playerACards:
+        enum:
+          - AWon
+          - BWon
+          - Draw
+          - Aborted
+        default: AWon
+      coinsDistributed:
+        type: boolean
+  DecentralCardGame.cardchain.cardchain.MatchPlayer:
+    type: object
+    properties:
+      addr:
+        type: string
+      playedCards:
         type: array
         items:
           type: string
           format: uint64
-      playerBCards:
-        type: array
-        items:
-          type: string
-          format: uint64
+      confirmed:
+        type: boolean
       outcome:
         type: string
         enum:
@@ -20952,6 +21100,8 @@ definitions:
   DecentralCardGame.cardchain.cardchain.MsgChangeArtistResponse:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgCommitCouncilResponseResponse:
+    type: object
+  DecentralCardGame.cardchain.cardchain.MsgConfirmMatchResponse:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgCreateCollectionResponse:
     type: object
@@ -21208,19 +21358,45 @@ definitions:
             reporter:
               type: string
             playerA:
-              type: string
+              type: object
+              properties:
+                addr:
+                  type: string
+                playedCards:
+                  type: array
+                  items:
+                    type: string
+                    format: uint64
+                confirmed:
+                  type: boolean
+                outcome:
+                  type: string
+                  enum:
+                    - AWon
+                    - BWon
+                    - Draw
+                    - Aborted
+                  default: AWon
             playerB:
-              type: string
-            playerACards:
-              type: array
-              items:
-                type: string
-                format: uint64
-            playerBCards:
-              type: array
-              items:
-                type: string
-                format: uint64
+              type: object
+              properties:
+                addr:
+                  type: string
+                playedCards:
+                  type: array
+                  items:
+                    type: string
+                    format: uint64
+                confirmed:
+                  type: boolean
+                outcome:
+                  type: string
+                  enum:
+                    - AWon
+                    - BWon
+                    - Draw
+                    - Aborted
+                  default: AWon
             outcome:
               type: string
               enum:
@@ -21229,6 +21405,8 @@ definitions:
                 - Draw
                 - Aborted
               default: AWon
+            coinsDistributed:
+              type: boolean
   DecentralCardGame.cardchain.cardchain.QueryQSellOffersResponse:
     type: object
     properties:
@@ -21354,6 +21532,17 @@ definitions:
       - sold
       - removed
     default: open
+  DecentralCardGame.cardchain.cardchain.Server:
+    type: object
+    properties:
+      reporter:
+        type: string
+      invalidReports:
+        type: string
+        format: uint64
+      validReports:
+        type: string
+        format: uint64
   DecentralCardGame.cardchain.cardchain.Status:
     type: string
     enum:

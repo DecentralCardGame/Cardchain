@@ -22,9 +22,6 @@ import (
 	"github.com/cosmos/cosmos-sdk/types/module"
 	"github.com/cosmos/cosmos-sdk/version"
 
-	"github.com/cosmos/cosmos-sdk/x/authz"
-	authzkeeper "github.com/cosmos/cosmos-sdk/x/authz/keeper"
-	authzmodule "github.com/cosmos/cosmos-sdk/x/authz/module"
 	"github.com/cosmos/cosmos-sdk/x/auth"
 	"github.com/cosmos/cosmos-sdk/x/auth/ante"
 	authrest "github.com/cosmos/cosmos-sdk/x/auth/client/rest"
@@ -33,6 +30,9 @@ import (
 	authtx "github.com/cosmos/cosmos-sdk/x/auth/tx"
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
 	"github.com/cosmos/cosmos-sdk/x/auth/vesting"
+	"github.com/cosmos/cosmos-sdk/x/authz"
+	authzkeeper "github.com/cosmos/cosmos-sdk/x/authz/keeper"
+	authzmodule "github.com/cosmos/cosmos-sdk/x/authz/module"
 	"github.com/cosmos/cosmos-sdk/x/bank"
 	bankkeeper "github.com/cosmos/cosmos-sdk/x/bank/keeper"
 	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
@@ -268,7 +268,7 @@ func New(
 		cardchainmoduletypes.MatchesStoreKey, cardchainmoduletypes.CollectionsStoreKey,
 		cardchainmoduletypes.SellOffersStoreKey, cardchainmoduletypes.PoolsStoreKey,
 		cardchainmoduletypes.RunningAveragesStoreKey, cardchainmoduletypes.CouncilsStoreKey,
-		cardchainmoduletypes.InternalStoreKey, authzkeeper.StoreKey,
+		cardchainmoduletypes.InternalStoreKey, authzkeeper.StoreKey, cardchainmoduletypes.ServersStoreKey,
 		// this line is used by starport scaffolding # stargate/app/storeKey
 	)
 	tkeys := sdk.NewTransientStoreKeys(paramstypes.TStoreKey)
@@ -366,6 +366,7 @@ func New(
 		keys[cardchainmoduletypes.PoolsStoreKey],
 		keys[cardchainmoduletypes.CouncilsStoreKey],
 		keys[cardchainmoduletypes.RunningAveragesStoreKey],
+		keys[cardchainmoduletypes.ServersStoreKey],
 		keys[cardchainmoduletypes.InternalStoreKey],
 		app.GetSubspace(cardchainmoduletypes.ModuleName),
 

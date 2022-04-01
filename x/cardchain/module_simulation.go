@@ -152,6 +152,10 @@ const (
 	// TODO: Determine the simulation weight value
 	defaultWeightMsgRewokeCouncilRegistration int = 100
 
+	opWeightMsgConfirmMatch = "op_weight_msg_create_chain"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgConfirmMatch int = 100
+
 	// this line is used by starport scaffolding # simapp/module/const
 )
 
@@ -535,6 +539,17 @@ func (am AppModule) WeightedOperations(simState module.SimulationState) []simtyp
 	operations = append(operations, simulation.NewWeightedOperation(
 		weightMsgRewokeCouncilRegistration,
 		cardchainsimulation.SimulateMsgRewokeCouncilRegistration(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
+	var weightMsgConfirmMatch int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgConfirmMatch, &weightMsgConfirmMatch, nil,
+		func(_ *rand.Rand) {
+			weightMsgConfirmMatch = defaultWeightMsgConfirmMatch
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgConfirmMatch,
+		cardchainsimulation.SimulateMsgConfirmMatch(am.accountKeeper, am.bankKeeper, am.keeper),
 	))
 
 	// this line is used by starport scaffolding # simapp/module/operation

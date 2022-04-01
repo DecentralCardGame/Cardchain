@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"sort"
 
-	"github.com/tendermint/tendermint/libs/log"
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
 	gtk "github.com/DecentralCardGame/Cardchain/x/cardchain/types/generic_type_keeper"
 	"github.com/DecentralCardGame/cardobject/cardobject"
@@ -14,20 +13,22 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	paramtypes "github.com/cosmos/cosmos-sdk/x/params/types"
+	"github.com/tendermint/tendermint/libs/log"
 )
 
 // Keeper Yeah the keeper
 type Keeper struct {
-	cdc                     codec.BinaryCodec // The wire codec for binary encoding/decoding.
-	UsersStoreKey           sdk.StoreKey
-	InternalStoreKey        sdk.StoreKey
-	paramstore              paramtypes.Subspace
+	cdc              codec.BinaryCodec // The wire codec for binary encoding/decoding.
+	UsersStoreKey    sdk.StoreKey
+	InternalStoreKey sdk.StoreKey
+	paramstore       paramtypes.Subspace
 
 	Cards           gtk.GenericTypeKeeper[*types.Card]
 	Councils        gtk.GenericTypeKeeper[*types.Council]
 	SellOffers      gtk.GenericTypeKeeper[*types.SellOffer]
 	Collections     gtk.GenericTypeKeeper[*types.Collection]
 	Matches         gtk.GenericTypeKeeper[*types.Match]
+	Servers         gtk.GenericTypeKeeper[*types.Server]
 	RunningAverages gtk.KeywordedGenericTypeKeeper[*types.RunningAverage]
 	Pools           gtk.KeywordedGenericTypeKeeper[*sdk.Coin]
 
@@ -45,6 +46,7 @@ func NewKeeper(
 	poolsStoreKey sdk.StoreKey,
 	councilsStoreKey sdk.StoreKey,
 	runningAveragesStoreKey sdk.StoreKey,
+	serversStoreKey sdk.StoreKey,
 	internalStoreKey sdk.StoreKey,
 	ps paramtypes.Subspace,
 
@@ -56,20 +58,21 @@ func NewKeeper(
 	}
 
 	return &Keeper{
-		cdc:                     cdc,
-		UsersStoreKey:           usersStoreKey,
-		InternalStoreKey:        internalStoreKey,
-		paramstore:              ps,
+		cdc:              cdc,
+		UsersStoreKey:    usersStoreKey,
+		InternalStoreKey: internalStoreKey,
+		paramstore:       ps,
 
 		Cards:           gtk.NewGTK[*types.Card](cardsStoreKey, cdc, gtk.GetEmpty[types.Card]),
 		Councils:        gtk.NewGTK[*types.Council](councilsStoreKey, cdc, gtk.GetEmpty[types.Council]),
 		SellOffers:      gtk.NewGTK[*types.SellOffer](sellOffersStoreKey, cdc, gtk.GetEmpty[types.SellOffer]),
 		Collections:     gtk.NewGTK[*types.Collection](collectionsStoreKey, cdc, gtk.GetEmpty[types.Collection]),
 		Matches:         gtk.NewGTK[*types.Match](matchesStorekey, cdc, gtk.GetEmpty[types.Match]),
+		Servers:         gtk.NewGTK[*types.Server](serversStoreKey, cdc, gtk.GetEmpty[types.Server]),
 		RunningAverages: gtk.NewKGTK[*types.RunningAverage](runningAveragesStoreKey, cdc, gtk.GetEmpty[types.RunningAverage], []string{Games24ValueKey, Votes24ValueKey}),
 		Pools:           gtk.NewKGTK[*sdk.Coin](poolsStoreKey, cdc, gtk.GetEmpty[sdk.Coin], []string{PublicPoolKey, WinnersPoolKey, BalancersPoolKey}),
 
-		BankKeeper:              bankKeeper,
+		BankKeeper: bankKeeper,
 	}
 }
 
@@ -310,7 +313,7 @@ func (k Keeper) GetOPandUPCards(ctx sdk.Context) (buffbois []uint64, nerfbois []
 	}
 
 	// add the result to the voting log
-	allBois :=  [][]uint64{buffbois, nerfbois, banbois}
+	allBois := [][]uint64{buffbois, nerfbois, banbois}
 	boisCodes := []string{"buff", "nerf", "ban"}
 
 	for i := 0; i < len(votingResults.CardResults); i++ {

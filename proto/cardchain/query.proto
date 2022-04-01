@@ -13,6 +13,7 @@ import "cardchain/match.proto";
 import "cardchain/collection.proto";
 import "cardchain/sell_offer.proto";
 import "cardchain/council.proto";
+import "cardchain/server.proto";
 import "cardchain/tx.proto";
 
 // this line is used by starport scaffolding # 1
@@ -88,6 +89,11 @@ service Query {
 // Queries a list of QSellOffers items.
 	rpc QSellOffers(QueryQSellOffersRequest) returns (QueryQSellOffersResponse) {
 		option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/q_sell_offers/{priceDown}/{priceUp}/{seller}/{buyer}/{status}";
+	}
+
+// Queries a list of QServer items.
+	rpc QServer(QueryQServerRequest) returns (Server) {
+		option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/q_server/{id}";
 	}
 
 // this line is used by starport scaffolding # 2
@@ -220,6 +226,13 @@ message IgnoreSellOffers {
 message QueryQSellOffersResponse {
   repeated uint64 sellOffersIds = 1;
   repeated SellOffer sellOffers = 2;
+}
+
+message QueryQServerRequest {
+  uint64 id = 1;
+}
+
+message QueryQServerResponse {
 }
 
 // this line is used by starport scaffolding # 3

@@ -3,10 +3,10 @@ package keeper
 import (
 	"context"
 
-	"golang.org/x/exp/slices"
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+	"golang.org/x/exp/slices"
 )
 
 func (k msgServer) AddContributorToCollection(goCtx context.Context, msg *types.MsgAddContributorToCollection) (*types.MsgAddContributorToCollectionResponse, error) {
