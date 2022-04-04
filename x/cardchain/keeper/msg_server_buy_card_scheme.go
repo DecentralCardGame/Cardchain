@@ -15,12 +15,14 @@ func (k msgServer) BuyCardScheme(goCtx context.Context, msg *types.MsgBuyCardSch
 	currId := k.Cards.GetNumber(ctx)
 	price := k.GetCardAuctionPrice(ctx)
 
+	bid := sdk.NewInt64Coin("ucredits", int64(msg.Bid))
+
 	buyer, err := sdk.AccAddressFromBech32(msg.Creator)
 	if err != nil {
 		return nil, sdkerrors.Wrap(types.ErrInvalidAccAddress, "Unable to convert to AccAddress")
 	}
 
-	if msg.Bid.IsLT(price) { // Checks if the bid is less than price
+	if bid.IsLT(price) { // Checks if the bid is less than price
 		return nil, sdkerrors.Wrap(sdkerrors.ErrInsufficientFunds, "Bid not high enough")
 	}
 

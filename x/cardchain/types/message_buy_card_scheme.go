@@ -9,7 +9,7 @@ const TypeMsgBuyCardScheme = "buy_card_scheme"
 
 var _ sdk.Msg = &MsgBuyCardScheme{}
 
-func NewMsgBuyCardScheme(creator string, bid *sdk.Coin) *MsgBuyCardScheme {
+func NewMsgBuyCardScheme(creator string, bid uint64) *MsgBuyCardScheme {
 	return &MsgBuyCardScheme{
 		Creator: creator,
 		Bid:     bid,

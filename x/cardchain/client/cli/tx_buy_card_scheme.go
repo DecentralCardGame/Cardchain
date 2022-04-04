@@ -7,8 +7,8 @@ import (
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/flags"
 	"github.com/cosmos/cosmos-sdk/client/tx"
-	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/spf13/cobra"
+	"github.com/spf13/cast"
 )
 
 var _ = strconv.Itoa(0)
@@ -19,7 +19,7 @@ func CmdBuyCardScheme() *cobra.Command {
 		Short: "Broadcast message BuyCardScheme",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
-			argBid, err := sdk.ParseCoinNormalized(args[0])
+			argBid, err := cast.ToUint64E(args[0])
 			if err != nil {
 				return err
 			}
@@ -31,7 +31,7 @@ func CmdBuyCardScheme() *cobra.Command {
 
 			msg := types.NewMsgBuyCardScheme(
 				clientCtx.GetFromAddress().String(),
-				&argBid,
+				argBid,
 			)
 			if err := msg.ValidateBasic(); err != nil {
 				return err
