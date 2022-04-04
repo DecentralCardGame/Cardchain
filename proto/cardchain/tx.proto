@@ -3,6 +3,7 @@ package DecentralCardGame.cardchain.cardchain;
 
 import "gogoproto/gogo.proto";
 import "cardchain/council.proto";
+import "cosmos/base/v1beta1/coin.proto";
 
 // this line is used by starport scaffolding # proto/tx/import
 
@@ -56,7 +57,7 @@ message MsgCreateuserResponse {
 
 message MsgBuyCardScheme {
   string creator = 1;
-  string bid = 2 [(gogoproto.nullable) = false, (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Coin"];;
+  cosmos.base.v1beta1.Coin bid = 2;
 }
 
 message MsgBuyCardSchemeResponse {

@@ -31,7 +31,7 @@ func CmdBuyCardScheme() *cobra.Command {
 
 			msg := types.NewMsgBuyCardScheme(
 				clientCtx.GetFromAddress().String(),
-				argBid,
+				&argBid,
 			)
 			if err := msg.ValidateBasic(); err != nil {
 				return err
