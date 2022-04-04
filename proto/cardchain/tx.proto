@@ -58,7 +58,7 @@ message MsgCreateuserResponse {
 message MsgBuyCardScheme {
   string creator = 1;
   /* cosmos.base.v1beta1.Coin bid = 2; */
-  uint64 bid = 2;
+  string bid = 2;
 }
 
 message MsgBuyCardSchemeResponse {
