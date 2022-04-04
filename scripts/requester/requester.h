@@ -70,7 +70,7 @@ extern "C" {
 
 extern void make_add_artwork_request(char* creator, GoInt cardId, char* image, GoUint8 fullArt);
 extern void make_save_card_content_request(char* creator, GoInt cardId, char* content, char* notes, char* artist);
-extern void make_buy_card_scheme_request(char* creator, char* price);
+extern void make_buy_card_scheme_request(char* creator, GoUint64 price);
 extern void make_create_user_request(char* creator, char* alias);
 extern void make_transfer_card_request(char* creator, GoInt cardId, char* receiver);
 

@@ -113,7 +113,7 @@ func make_save_card_content_request(creator *C.char, cardId int, content *C.char
 }
 
 //export make_buy_card_scheme_request
-func make_buy_card_scheme_request(creator *C.char, price *C.char) {
+func make_buy_card_scheme_request(creator *C.char, price uint64) {
   logger := getLogger("make_buy_card_scheme_request")
   cosmos, err := getClient()
 	if err != nil {
@@ -122,14 +122,14 @@ func make_buy_card_scheme_request(creator *C.char, price *C.char) {
 
   address := getAddr(logger, cosmos, C.GoString(creator))
 
-  bid, err := sdktypes.ParseCoinNormalized(C.GoString(price))
-  if err != nil {
-    logger.Fatal(err)
-  }
+  // bid, err := sdktypes.ParseCoinNormalized(C.GoString(price))
+  // if err != nil {
+  //   logger.Fatal(err)
+  // }
 
   msg := types.NewMsgBuyCardScheme(
     address.String(),
-    bid,
+    price,
 	)
 
   broadcastMsg(logger, cosmos, C.GoString(creator), msg)
