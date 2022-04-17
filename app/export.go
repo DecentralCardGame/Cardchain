@@ -40,13 +40,11 @@ func (app *App) ExportAppStateAndValidators(
 	if err != nil {
 		return servertypes.ExportedApp{}, err
 	}
-	consensusParams := app.BaseApp.GetConsensusParams(ctx)
-	consensusParams.Block.MaxGas = 0
 	return servertypes.ExportedApp{
 		AppState:        appState,
 		Validators:      validators,
 		Height:          height,
-		ConsensusParams: consensusParams,
+		ConsensusParams: app.BaseApp.GetConsensusParams(ctx),
 	}, nil
 }
 
