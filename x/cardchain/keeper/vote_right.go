@@ -57,7 +57,7 @@ func (k Keeper) GetVoteRightToAllCards(ctx sdk.Context, expireBlock int64) (voti
 
 	for idx, gottenCard := range allCards {
 		// here only give right if card is not a scheme or banished
-		if gottenCard.Status == types.Status_permanent || gottenCard.Status == types.Status_trial || gottenCard.Status == types.Status_prototype {
+		if gottenCard.Status == types.Status_permanent || gottenCard.Status == types.Status_trial {
 			right := types.NewVoteRight(uint64(idx), expireBlock)
 			votingRights = append(votingRights, &right)
 		}
