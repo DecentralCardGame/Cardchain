@@ -13,7 +13,7 @@ from requester import requester
 def register_cards(card_records, address_records):
     # artist = "Cooler Artist".encode("utf-8")
     creator = "Cooler Typ".encode("utf-8")
-    bid = ctypes.c_ulonglong(80000000000000000000000000000000)
+    bid = "80000000000000000000000000000000ucredits".encode("utf-8")
     cards = [c for c in card_records if c["Content"] not in ["", "e30=", None] and c["Image"] not in ["", None]]
     for i, card in enumerate(cards):
         artist = address_records[card["Owner"]].strip().encode("utf-8")

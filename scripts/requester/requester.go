@@ -113,7 +113,7 @@ func make_save_card_content_request(creator *C.char, cardId int, content *C.char
 }
 
 //export make_buy_card_scheme_request
-func make_buy_card_scheme_request(creator *C.char, price uint64) {
+func make_buy_card_scheme_request(creator *C.char, price *C.char) {
   logger := getLogger("make_buy_card_scheme_request")
   cosmos, err := getClient()
 	if err != nil {
@@ -129,7 +129,7 @@ func make_buy_card_scheme_request(creator *C.char, price uint64) {
 
   msg := types.NewMsgBuyCardScheme(
     address.String(),
-    price,
+    C.GoString(price),
 	)
 
   broadcastMsg(logger, cosmos, C.GoString(creator), msg)
