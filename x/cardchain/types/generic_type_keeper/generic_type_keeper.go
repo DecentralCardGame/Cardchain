@@ -5,6 +5,28 @@ import(
   "github.com/cosmos/cosmos-sdk/codec"
 )
 
+type ItemIterator[T codec.ProtoMarshaler] struct {
+  iter sdk.Iterator
+  gtk *GenericTypeKeeper[T]
+  idx uint64
+}
+
+func (i ItemIterator[T]) Valid() bool {
+  return i.iter.Valid()
+}
+
+func (i ItemIterator[T]) Next() {
+  i.iter.Next()
+  i.idx++
+}
+
+func (i ItemIterator[T]) Value() (uint64, T) {
+  var gotten T = i.gtk.getEmpty()
+  i.gtk.cdc.MustUnmarshal(i.iter.Value(), gotten)
+
+  return i.idx, gotten
+}
+
 // GetEmpty Just returns a empty object of a certain type
 func GetEmpty [A any]() *A {
   var obj A
@@ -60,6 +82,15 @@ func (gtk GenericTypeKeeper[T]) GetAll(ctx sdk.Context) (all []T) {
 		all = append(all, gotten)
 	}
 	return
+}
+
+// GetAll Gets all objs from store
+func (gtk GenericTypeKeeper[T]) GetItemIterator(ctx sdk.Context) ItemIterator[T] {
+	iterator := gtk.GetIterator(ctx)
+	return ItemIterator[T] {
+    iter: iterator,
+    gtk: &gtk,
+  }
 }
 
 // GetNumber Gets the number of all objs in store
