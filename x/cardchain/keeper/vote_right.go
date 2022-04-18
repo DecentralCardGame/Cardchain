@@ -57,8 +57,9 @@ func (k Keeper) GetVoteRightToAllCards(ctx sdk.Context, expireBlock int64) (voti
 
 	for ; iter.Valid(); iter.Next() {
 		// here only give right if card is not a scheme or banished
-		var idx, gottenCard = iter.Value()
-		if gottenCard.Status == types.Status_permanent || gottenCard.Status == types.Status_trial {
+		idx, gottenCard := iter.Value()
+		switch gottenCard.Status {
+		case types.Status_permanent, gottenCard.Status:
 			right := types.NewVoteRight(idx, expireBlock)
 			votingRights = append(votingRights, &right)
 		}
@@ -74,9 +75,10 @@ func (k Keeper) GetVoteRights(ctx sdk.Context, voter sdk.AccAddress) []*types.Vo
 
 // ResetAllVotes Resets all cards votes
 func (k Keeper) ResetAllVotes(ctx sdk.Context) {
-	allCards := k.Cards.GetAll(ctx)
+	iter := k.Cards.GetItemIterator(ctx)
 
-	for idx, resetCard := range allCards {
+	for ; iter.Valid(); iter.Next() {
+		idx, resetCard := iter.Value()
 		if resetCard.Status != types.Status_trial {
 			resetCard.ResetVotes()
 		}

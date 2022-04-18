@@ -33,7 +33,7 @@ func (k Keeper) InitUser(ctx sdk.Context, address sdk.AccAddress, alias string) 
 	newUser.Alias = alias
 	k.MintCoinsToAddr(ctx, address, sdk.Coins{sdk.NewInt64Coin("ucredits", 10000000000)})
 	newUser.VoteRights = k.GetVoteRightToAllCards(ctx, ctx.BlockHeight()+k.GetParams(ctx).VotingRightsExpirationTime) // TODO this might be a good thing to remove later, so that sybil voting is not possible
-	// Yes yes remove later, this is pretty heavy on tthe chain and gas prices
+	// Yes yes remove later, this is pretty heavy on the chain and gas prices
 
 	k.SetUser(ctx, address, newUser)
 }
