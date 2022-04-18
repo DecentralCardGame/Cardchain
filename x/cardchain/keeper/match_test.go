@@ -13,7 +13,7 @@ func TestMatches(t *testing.T) {
 	k, ctx := testkeeper.CardchainKeeper(t)
 	setUpCard(ctx, k)
 	SetUpPools(ctx, *k)
-	match := types.Match{0, "cosmos15kq043zhu0wjyuw9av0auft06y3v2kxss862qf", "cosmos15kq043zhu0wjyuw9av0auft06y3v2kxss862qf", "cosmos15kq043zhu0wjyuw9av0auft06y3v2kxss862qf", []uint64{1, 2, 3}, []uint64{5,6,7}, types.Outcome_AWon}
+	match := types.Match{0, "cosmos15kq043zhu0wjyuw9av0auft06y3v2kxss862qf", "cosmos15kq043zhu0wjyuw9av0auft06y3v2kxss862qf", "cosmos15kq043zhu0wjyuw9av0auft06y3v2kxss862qf", []uint64{1, 2, 3}, []uint64{5, 6, 7}, types.Outcome_AWon}
 	params := types.DefaultParams()
 
 	k.SetParams(ctx, params)

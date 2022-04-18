@@ -29,6 +29,9 @@ func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) 
 	for id, sellOffer := range genState.SellOffers {
 		k.SellOffers.Set(ctx, uint64(id), sellOffer)
 	}
+	for id, image := range genState.Images {
+		k.Images.Set(ctx, uint64(id), image)
+	}
 	for id, pool := range genState.Pools {
 		k.Pools.Set(ctx, k.Pools.KeyWords[id], pool)
 	}
@@ -63,6 +66,7 @@ func ExportGenesis(ctx sdk.Context, k keeper.Keeper) *types.GenesisState {
 	councils := k.Councils.GetAll(ctx)
 	runningAverages := k.RunningAverages.GetAll(ctx)
 	collections := k.Collections.GetAll(ctx)
+	images := k.Images.GetAll(ctx)
 	users, accAddresses := k.GetAllUsers(ctx)
 	var addresses []string
 	for _, addr := range accAddresses {
@@ -79,6 +83,7 @@ func ExportGenesis(ctx sdk.Context, k keeper.Keeper) *types.GenesisState {
 		Councils:         councils,
 		Addresses:        addresses,
 		CardAuctionPrice: cardAuctionPrice,
+		Images:						images,
 		RunningAverages:  runningAverages,
 	}
 }

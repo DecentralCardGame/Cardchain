@@ -1,60 +1,60 @@
 package generic_type_keeper
 
-import(
-  sdk "github.com/cosmos/cosmos-sdk/types"
-  "github.com/cosmos/cosmos-sdk/codec"
+import (
+	"github.com/cosmos/cosmos-sdk/codec"
+	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
 type ItemIterator[T codec.ProtoMarshaler] struct {
-  iter sdk.Iterator
-  gtk *GenericTypeKeeper[T]
-  idx uint64
+	iter sdk.Iterator
+	gtk  *GenericTypeKeeper[T]
+	idx  uint64
 }
 
 func (i ItemIterator[T]) Valid() bool {
-  return i.iter.Valid()
+	return i.iter.Valid()
 }
 
 func (i ItemIterator[T]) Next() {
-  i.iter.Next()
-  i.idx++
+	i.iter.Next()
+	i.idx++
 }
 
 func (i ItemIterator[T]) Value() (uint64, T) {
-  var gotten T = i.gtk.getEmpty()
-  i.gtk.cdc.MustUnmarshal(i.iter.Value(), gotten)
+	var gotten T = i.gtk.getEmpty()
+	i.gtk.cdc.MustUnmarshal(i.iter.Value(), gotten)
 
-  return i.idx, gotten
+	return i.idx, gotten
 }
 
 // GetEmpty Just returns a empty object of a certain type
-func GetEmpty [A any]() *A {
-  var obj A
-  return &obj
+func GetEmpty[A any]() *A {
+	var obj A
+	return &obj
 }
 
 type GenericTypeKeeper[T codec.ProtoMarshaler] struct {
-  Key sdk.StoreKey
-  cdc codec.BinaryCodec
-  getEmpty func() T  // This is needed because codec.ProtoMarshaler always refers to a pointer, but for cdc.Unmarshal to work the passed pointer can't be nil, but when initializing a pointer it's nil
+	Key      sdk.StoreKey
+	cdc      codec.BinaryCodec
+	getEmpty func() T // This is needed because codec.ProtoMarshaler always refers to a pointer, but for cdc.Unmarshal to work the passed pointer can't be nil, but when initializing a pointer it's nil
 }
 
 // NewGTK Returns a new GenericTypeKeeper
 func NewGTK[T codec.ProtoMarshaler](key sdk.StoreKey, cdc codec.BinaryCodec, getEmpty func() T) GenericTypeKeeper[T] {
-  gtk := GenericTypeKeeper[T] {
-    Key: key,
-    cdc: cdc,
-    getEmpty: getEmpty,
-  }
-  return gtk
+	gtk := GenericTypeKeeper[T]{
+		Key:      key,
+		cdc:      cdc,
+		getEmpty: getEmpty,
+	}
+	return gtk
 }
 
 // Get Gets an object from store
-func (gtk GenericTypeKeeper[T]) Get(ctx sdk.Context, id uint64) (T) {
-  store := ctx.KVStore(gtk.Key)
+func (gtk GenericTypeKeeper[T]) Get(ctx sdk.Context, id uint64) T {
+	store := ctx.KVStore(gtk.Key)
 	bz := store.Get(sdk.Uint64ToBigEndian(id))
 
-  gotten := gtk.getEmpty()
+	gotten := gtk.getEmpty()
 	gtk.cdc.MustUnmarshal(bz, gotten)
 	return gotten
 }
@@ -87,10 +87,10 @@ func (gtk GenericTypeKeeper[T]) GetAll(ctx sdk.Context) (all []T) {
 // GetAll Gets all objs from store
 func (gtk GenericTypeKeeper[T]) GetItemIterator(ctx sdk.Context) ItemIterator[T] {
 	iterator := gtk.GetIterator(ctx)
-	return ItemIterator[T] {
-    iter: iterator,
-    gtk: &gtk,
-  }
+	return ItemIterator[T]{
+		iter: iterator,
+		gtk:  &gtk,
+	}
 }
 
 // GetNumber Gets the number of all objs in store

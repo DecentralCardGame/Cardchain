@@ -10,7 +10,7 @@ message Card {
   string owner = 1;
   string artist = 2;
   bytes content = 3;
-  bytes image = 4;
+  uint64 image_id = 4;
   bool fullArt = 5;
   string notes = 6;
   Status status = 7;

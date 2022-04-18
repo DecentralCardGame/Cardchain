@@ -1,8 +1,8 @@
 package keeper
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -13,6 +13,7 @@ func (k msgServer) AddArtwork(goCtx context.Context, msg *types.MsgAddArtwork) (
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
 	card := k.Cards.Get(ctx, msg.CardId)
+	image := k.Images.Get(ctx, card.ImageId)
 
 	if card.Artist != msg.Creator {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "Incorrect Artist")
@@ -23,13 +24,14 @@ func (k msgServer) AddArtwork(goCtx context.Context, msg *types.MsgAddArtwork) (
 	}
 
 	card.FullArt = msg.FullArt
-	card.Image = msg.Image
+	image.Image = msg.Image
 
 	if card.Status == types.Status_suspended {
 		card.Status = types.Status_permanent
 	}
 
 	k.Cards.Set(ctx, msg.CardId, card)
+	k.Images.Set(ctx, card.ImageId, image)
 
 	return &types.MsgAddArtworkResponse{}, nil
 }
