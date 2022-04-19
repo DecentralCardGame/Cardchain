@@ -25,7 +25,8 @@ func (k msgServer) SaveCardContent(goCtx context.Context, msg *types.MsgSaveCard
 	}
 
 	card.Content = []byte(msg.Content)
-	card.Status = types.Status_prototype
+	// card.Status = types.Status_prototype
+	card.Status = types.Status_permanent // TODO: remove later
 	card.Notes = msg.Notes
 	card.Artist = msg.Artist
 	k.Cards.Set(ctx, msg.CardId, card)
