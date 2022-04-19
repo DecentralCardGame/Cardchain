@@ -7,21 +7,25 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
+// ItemIterator is a generic wrapper for sdk.KVStorePrefixIterator that provides unmarshaling of objects
 type ItemIterator[T codec.ProtoMarshaler] struct {
 	iter sdk.Iterator
 	gtk  *GenericTypeKeeper[T]
 	idx  *uint64
 }
 
+// Valid is a wrapper for sdk.KVStorePrefixIterator.Valid
 func (i ItemIterator[T]) Valid() bool {
 	return i.iter.Valid()
 }
 
+// Next is a wrapper for sdk.KVStorePrefixIterator.Next
 func (i ItemIterator[T]) Next() {
 	i.iter.Next()
 	*i.idx++
 }
 
+// Value is a wrapper for sdk.KVStorePrefixIterator.Value but returns object and index
 func (i ItemIterator[T]) Value() (uint64, T) {
 	var gotten T = i.gtk.getEmpty()
 	i.gtk.cdc.MustUnmarshal(i.iter.Value(), gotten)
@@ -29,11 +33,13 @@ func (i ItemIterator[T]) Value() (uint64, T) {
 	return *i.idx, gotten
 }
 
+
 // GetEmpty Just returns a empty object of a certain type
 func GetEmpty[A any]() *A {
 	var obj A
 	return &obj
 }
+
 
 type GenericTypeKeeper[T codec.ProtoMarshaler] struct {
 	Key      sdk.StoreKey
@@ -71,11 +77,11 @@ func (gtk GenericTypeKeeper[T]) Set(ctx sdk.Context, id uint64, new T) {
 	store.Set(sdk.Uint64ToBigEndian(id), gtk.cdc.MustMarshal(new))
 	num := gtk.GetNum(ctx)
 	if id == num {
-		gtk.SetNum(ctx, num+1)
+		gtk.setNum(ctx, num+1)
 	}
 }
 
-// GetCardAuctionPrice Returns the current price of the card scheme auction
+// GetNum Returns the number of items stored, way more performant than GetNumber
 func (gtk GenericTypeKeeper[T]) GetNum(ctx sdk.Context) uint64 {
 	store := ctx.KVStore(gtk.InternalKey)
 	bz := store.Get([]byte(gtk.name))
@@ -84,8 +90,8 @@ func (gtk GenericTypeKeeper[T]) GetNum(ctx sdk.Context) uint64 {
 	return num.Num
 }
 
-// SetCardAuctionPrice Sets the current price of the card scheme auction
-func (gtk GenericTypeKeeper[T]) SetNum(ctx sdk.Context, _num uint64) {
+// setNum Sets thenumber of items stored
+func (gtk GenericTypeKeeper[T]) setNum(ctx sdk.Context, _num uint64) {
 	store := ctx.KVStore(gtk.InternalKey)
 	var num = types.Num{Num: _num}
 	store.Set([]byte(gtk.name), gtk.cdc.MustMarshal(&num))
@@ -97,7 +103,7 @@ func (gtk GenericTypeKeeper[T]) GetIterator(ctx sdk.Context) sdk.Iterator {
 	return sdk.KVStorePrefixIterator(store, nil)
 }
 
-// GetAll Gets all objs from store
+// GetAll Gets all objs from store -- use GetItemIterator instead
 func (gtk GenericTypeKeeper[T]) GetAll(ctx sdk.Context) (all []T) {
 	iterator := gtk.GetIterator(ctx)
 	for ; iterator.Valid(); iterator.Next() {
@@ -121,7 +127,7 @@ func (gtk GenericTypeKeeper[T]) GetItemIterator(ctx sdk.Context) ItemIterator[T]
 	}
 }
 
-// GetNumber Gets the number of all objs in store
+// GetNumber Gets the number of all objs in store -- deprecated, don't use
 func (gtk GenericTypeKeeper[T]) GetNumber(ctx sdk.Context) (id uint64) {
 	iterator := gtk.GetIterator(ctx)
 	for ; iterator.Valid(); iterator.Next() {
