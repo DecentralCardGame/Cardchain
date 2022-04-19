@@ -12,7 +12,7 @@ import (
 func (k msgServer) BuyCardScheme(goCtx context.Context, msg *types.MsgBuyCardScheme) (*types.MsgBuyCardSchemeResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	currId := k.Cards.GetNumber(ctx)
+	currId := k.Cards.GetNum(ctx)
 	price := k.GetCardAuctionPrice(ctx)
 
 	bid, err := sdk.ParseCoinNormalized(msg.Bid)
@@ -40,7 +40,7 @@ func (k msgServer) BuyCardScheme(goCtx context.Context, msg *types.MsgBuyCardSch
 	}
 
 	newCard := types.NewCard(buyer)
-	newCard.ImageId = k.Images.GetNumber(ctx)
+	newCard.ImageId = k.Images.GetNum(ctx)
 	image := types.Image{}
 
 	k.Cards.Set(ctx, currId, &newCard)

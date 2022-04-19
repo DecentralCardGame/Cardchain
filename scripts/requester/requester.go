@@ -39,13 +39,13 @@ func getClient() (cosmosclient.Client, error) {
 }
 
 func broadcastMsg(logger *log.Logger, cosmos cosmosclient.Client, creator string, msg sdktypes.Msg) {
-  go logger.Println("Message:", msg)
+  logger.Println("Message:", msg)
 
   txResp, err := cosmos.BroadcastTx(creator, msg)
   if err != nil {
     logger.Fatal("Error:", err)
   }
-  go logger.Println("Response:", txResp)
+  logger.Println("Response:", txResp)
 }
 
 func getCardContent(rawContent string) []byte {
@@ -109,6 +109,7 @@ func make_save_card_content_request(creator *C.char, cardId int, content *C.char
     artistAddr.String(),
 	)
 
+  logger = getLogger("make_save_card_content_request")
   broadcastMsg(logger, cosmos, C.GoString(creator), msg)
 }
 
@@ -122,14 +123,14 @@ func make_buy_card_scheme_request(creator *C.char, price *C.char) {
 
   address := getAddr(logger, cosmos, C.GoString(creator))
 
-  // bid, err := sdktypes.ParseCoinNormalized(C.GoString(price))
-  // if err != nil {
-  //   logger.Fatal(err)
-  // }
+  bid, err := sdktypes.ParseCoinNormalized(C.GoString(price))
+  if err != nil {
+    logger.Fatal(err)
+  }
 
   msg := types.NewMsgBuyCardScheme(
     address.String(),
-    C.GoString(price),
+    bid.String(),
 	)
 
   broadcastMsg(logger, cosmos, C.GoString(creator), msg)

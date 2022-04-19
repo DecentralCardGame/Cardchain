@@ -12,9 +12,9 @@ type KeywordedGenericTypeKeeper[T codec.ProtoMarshaler] struct {
 }
 
 // NewKGTK Returns a new KeywordedGenericTypeKeeper
-func NewKGTK[T codec.ProtoMarshaler](key sdk.StoreKey, cdc codec.BinaryCodec, getEmpty func() T, keywords []string) KeywordedGenericTypeKeeper[T] {
+func NewKGTK[T codec.ProtoMarshaler](key sdk.StoreKey, internalKey sdk.StoreKey, cdc codec.BinaryCodec, getEmpty func() T, keywords []string) KeywordedGenericTypeKeeper[T] {
 	gtk := KeywordedGenericTypeKeeper[T]{
-		NewGTK[T](key, cdc, getEmpty),
+		NewGTK[T](key, internalKey, cdc, getEmpty),
 		keywords,
 	}
 	return gtk

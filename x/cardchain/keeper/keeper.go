@@ -30,7 +30,7 @@ type Keeper struct {
 	Matches         gtk.GenericTypeKeeper[*types.Match]
 	RunningAverages gtk.KeywordedGenericTypeKeeper[*types.RunningAverage]
 	Pools           gtk.KeywordedGenericTypeKeeper[*sdk.Coin]
-	Images 	        gtk.GenericTypeKeeper[*types.Image]
+	Images          gtk.GenericTypeKeeper[*types.Image]
 
 	BankKeeper types.BankKeeper
 }
@@ -63,14 +63,14 @@ func NewKeeper(
 		InternalStoreKey: internalStoreKey,
 		paramstore:       ps,
 
-		Cards:           gtk.NewGTK[*types.Card](cardsStoreKey, cdc, gtk.GetEmpty[types.Card]),
-		Councils:        gtk.NewGTK[*types.Council](councilsStoreKey, cdc, gtk.GetEmpty[types.Council]),
-		SellOffers:      gtk.NewGTK[*types.SellOffer](sellOffersStoreKey, cdc, gtk.GetEmpty[types.SellOffer]),
-		Collections:     gtk.NewGTK[*types.Collection](collectionsStoreKey, cdc, gtk.GetEmpty[types.Collection]),
-		Matches:         gtk.NewGTK[*types.Match](matchesStorekey, cdc, gtk.GetEmpty[types.Match]),
-		RunningAverages: gtk.NewKGTK[*types.RunningAverage](runningAveragesStoreKey, cdc, gtk.GetEmpty[types.RunningAverage], []string{Games24ValueKey, Votes24ValueKey}),
-		Pools:           gtk.NewKGTK[*sdk.Coin](poolsStoreKey, cdc, gtk.GetEmpty[sdk.Coin], []string{PublicPoolKey, WinnersPoolKey, BalancersPoolKey}),
-		Images:					 gtk.NewGTK[*types.Image](imagesStorekey, cdc, gtk.GetEmpty[types.Image]),
+		Cards:           gtk.NewGTK[*types.Card](cardsStoreKey, internalStoreKey, cdc, gtk.GetEmpty[types.Card]),
+		Councils:        gtk.NewGTK[*types.Council](councilsStoreKey, internalStoreKey, cdc, gtk.GetEmpty[types.Council]),
+		SellOffers:      gtk.NewGTK[*types.SellOffer](sellOffersStoreKey, internalStoreKey, cdc, gtk.GetEmpty[types.SellOffer]),
+		Collections:     gtk.NewGTK[*types.Collection](collectionsStoreKey, internalStoreKey, cdc, gtk.GetEmpty[types.Collection]),
+		Matches:         gtk.NewGTK[*types.Match](matchesStorekey, internalStoreKey, cdc, gtk.GetEmpty[types.Match]),
+		RunningAverages: gtk.NewKGTK[*types.RunningAverage](runningAveragesStoreKey, internalStoreKey, cdc, gtk.GetEmpty[types.RunningAverage], []string{Games24ValueKey, Votes24ValueKey}),
+		Pools:           gtk.NewKGTK[*sdk.Coin](poolsStoreKey, internalStoreKey, cdc, gtk.GetEmpty[sdk.Coin], []string{PublicPoolKey, WinnersPoolKey, BalancersPoolKey}),
+		Images:          gtk.NewGTK[*types.Image](imagesStorekey, internalStoreKey, cdc, gtk.GetEmpty[types.Image]),
 
 		BankKeeper: bankKeeper,
 	}

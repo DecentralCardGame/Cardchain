@@ -10,7 +10,7 @@ import (
 
 func (k msgServer) CreateCollection(goCtx context.Context, msg *types.MsgCreateCollection) (*types.MsgCreateCollectionResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
-	collectionId := k.Collections.GetNumber(ctx)
+	collectionId := k.Collections.GetNum(ctx)
 
 	err := k.CollectCollectionCreationFee(ctx, msg.Creator)
 	if err != nil {

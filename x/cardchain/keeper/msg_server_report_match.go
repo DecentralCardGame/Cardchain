@@ -20,7 +20,7 @@ func (k msgServer) ReportMatch(goCtx context.Context, msg *types.MsgReportMatch)
 		return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "Incorrect Reporter")
 	}
 
-	matchId := k.Matches.GetNumber(ctx)
+	matchId := k.Matches.GetNum(ctx)
 
 	match := types.Match{
 		uint64(time.Now().Unix()),

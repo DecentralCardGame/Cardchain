@@ -30,7 +30,7 @@ func (k msgServer) CreateCouncil(goCtx context.Context, msg *types.MsgCreateCoun
 	var status types.CouncelingStatus
 	collateralDeposit := k.GetParams(ctx).CollateralDeposit
 	treasury := MulCoin(collateralDeposit, 10)
-	councilId := k.Councils.GetNumber(ctx)
+	councilId := k.Councils.GetNum(ctx)
 	users, addresses := k.GetAllUsers(ctx)
 
 	for idx, user := range users {
