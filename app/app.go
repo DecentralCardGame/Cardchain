@@ -603,6 +603,11 @@ func (app *App) InitChainer(ctx sdk.Context, req abci.RequestInitChain) abci.Res
 		app.CardchainKeeper.Pools.Set(ctx, key, &pool)
 	}
 
+	for _, key := range app.CardchainKeeper.RunningAverages.KeyWords {
+		avg := cardchainmoduletypes.RunningAverage{[]int64{0}}
+		app.CardchainKeeper.RunningAverages.Set(ctx, key, &avg)
+	}
+
 	app.UpgradeKeeper.SetModuleVersionMap(ctx, app.mm.GetVersionMap())
 	return app.mm.InitGenesis(ctx, app.appCodec, genesisState)
 }
