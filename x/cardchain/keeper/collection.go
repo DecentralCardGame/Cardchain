@@ -39,9 +39,11 @@ func (k Keeper) GetAllCollectionContributors(ctx sdk.Context, collection types.C
 
 // GetActiveCollections Return a list of all active collections ids
 func (k Keeper) GetActiveCollections(ctx sdk.Context) (activeCollections []uint64) {
-	for idx, collection := range k.Collections.GetAll(ctx) {
+	iter := k.Collections.GetItemIterator(ctx)
+	for ; iter.Valid(); iter.Next() {
+		idx, collection := iter.Value()
 		if collection.Status == types.CStatus_active {
-			activeCollections = append(activeCollections, uint64(idx))
+			activeCollections = append(activeCollections, idx)
 		}
 	}
 	return

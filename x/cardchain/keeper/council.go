@@ -77,7 +77,9 @@ func (k Keeper) TryEvaluate(ctx sdk.Context, council *types.Council) error {
 // CheckTrial Checks for councils that shouldn't be in trial anymore
 func (k Keeper) CheckTrial(ctx sdk.Context) error {
 	collateralDeposit := k.GetParams(ctx).CollateralDeposit
-	for idx, council := range k.Councils.GetAll(ctx) {
+	iter := k.Councils.GetItemIterator(ctx)
+	for ; iter.Valid(); iter.Next() {
+		idx, council := iter.Value()
 		if council.Status == types.CouncelingStatus_revealed {
 			if council.TrialStart+k.GetParams(ctx).TrialPeriod <= uint64(ctx.BlockHeight()) {
 				card := k.Cards.Get(ctx, council.CardId)

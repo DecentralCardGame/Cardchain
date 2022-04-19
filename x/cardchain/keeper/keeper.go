@@ -183,8 +183,9 @@ func (k Keeper) NerfBuffCards(ctx sdk.Context, cardIds []uint64, buff bool) {
 // UpdateBanStatus Bans cards
 func (k Keeper) UpdateBanStatus(ctx sdk.Context, newBannedIds []uint64) {
 	// go through all cards and find already marked cards
-	allCards := k.Cards.GetAll(ctx)
-	for idx, gottenCard := range allCards {
+	iter := k.Cards.GetItemIterator(ctx)
+	for ; iter.Valid(); iter.Next() {
+		idx, gottenCard := iter.Value()
 		if gottenCard.Status == types.Status_bannedVerySoon {
 			gottenUser, err := k.GetUserFromString(ctx, gottenCard.Owner)
 
@@ -219,9 +220,10 @@ func (k Keeper) GetOPandUPCards(ctx sdk.Context) (buffbois []uint64, nerfbois []
 	var µOP float64 = 0
 
 	// go through all cards and collect candidates
-	for idx, gottenCard := range k.Cards.GetAll(ctx) {
-
-		id := uint64(idx)
+	iter := k.Cards.GetItemIterator(ctx)
+	for ; iter.Valid(); iter.Next() {
+		id, gottenCard := iter.Value()
+		
 		nettoOP := int64(gottenCard.OverpoweredVotes - gottenCard.FairEnoughVotes - gottenCard.UnderpoweredVotes)
 		nettoUP := int64(gottenCard.UnderpoweredVotes - gottenCard.FairEnoughVotes - gottenCard.OverpoweredVotes)
 		nettoIA := int64(gottenCard.InappropriateVotes - gottenCard.FairEnoughVotes - gottenCard.OverpoweredVotes - gottenCard.UnderpoweredVotes)

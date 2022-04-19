@@ -24,9 +24,10 @@ func (k Keeper) QMatches(goCtx context.Context, req *types.QueryQMatchesRequest)
 
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	matches := k.Matches.GetAll(ctx)
-	for idx, match := range matches {
+	iter := k.Matches.GetItemIterator(ctx)
+	for ; iter.Valid(); iter.Next() {
 		// Checks for timestamp
+		idx, match := iter.Value()
 		if !req.Ignore.Timestamp {
 			if !(req.TimestampDown <= match.Timestamp && match.Timestamp <= req.TimestampUp) {
 				continue

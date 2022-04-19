@@ -22,8 +22,9 @@ func (k Keeper) QSellOffers(goCtx context.Context, req *types.QueryQSellOffersRe
 		sellOffersList []*types.SellOffer
 	)
 
-	sellOffers := k.SellOffers.GetAll(ctx)
-	for idx, sellOffer := range sellOffers {
+	iter := k.SellOffers.GetItemIterator(ctx)
+	for ; iter.Valid(); iter.Next() {
+		idx, sellOffer := iter.Value()
 		// Checks for price
 		if !req.Ignore.Price {
 			// Conversion to coins

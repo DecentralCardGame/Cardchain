@@ -562,8 +562,9 @@ func (app *App) EndBlocker(ctx sdk.Context, req abci.RequestEndBlock) abci.Respo
 
 	// Setting running averages
 	if app.LastBlockHeight()%500 == 0 {
-		averages := app.CardchainKeeper.RunningAverages.GetAll(ctx)
-		for idx, average := range averages {
+		iter := app.CardchainKeeper.RunningAverages.GetItemIterator(ctx)
+		for ; iter.Valid(); iter.Next() {
+			idx, average := iter.Value()
 			average.Arr = append(average.Arr, 0)
 			if len(average.Arr) > 24 {
 				average.Arr = average.Arr[1:]

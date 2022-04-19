@@ -20,9 +20,9 @@ func (k msgServer) RegisterForCouncil(goCtx context.Context, msg *types.MsgRegis
 		return nil, sdkerrors.Wrapf(types.ErrInvalidUserStatus, "%s", user.CouncilStatus.String())
 	}
 
-	allCouncils := k.Councils.GetAll(ctx)
-	for i := len(allCouncils) - 1; i >= 0; i-- {
-		var council = allCouncils[i]
+	iter := k.Councils.GetItemIterator(ctx)
+	for ; iter.Valid(); iter.Next() {
+		idx, council := iter.Value()
 		if council.Status == types.CouncelingStatus_councilOpen {
 			council.Voters = append(council.Voters, msg.Creator)
 			if len(council.Voters) == 5 {
@@ -40,7 +40,7 @@ func (k msgServer) RegisterForCouncil(goCtx context.Context, msg *types.MsgRegis
 				}
 				k.SetUserFromUser(ctx, usr)
 			}
-			k.Councils.Set(ctx, uint64(i), council)
+			k.Councils.Set(ctx, idx, council)
 			break
 		}
 	}
