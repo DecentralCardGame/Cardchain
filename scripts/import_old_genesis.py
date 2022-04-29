@@ -11,12 +11,12 @@ import ctypes
 from requester import requester
 
 def register_cards(card_records, address_records):
-    # artist = "Cooler Artist".encode("utf-8")
+    artist = "Cooler Artist".encode("utf-8")
     creator = "Cooler Typ".encode("utf-8")
     bid = "80000000000000000000000000000000ucredits".encode("utf-8")
     cards = [c for c in card_records if c["Content"] not in ["", "e30=", None] and c["Image"] not in ["", None]]
     for i, card in enumerate(cards):
-        artist = address_records[card["Owner"]].strip().encode("utf-8")
+        # artist = address_records[card["Owner"]].strip().encode("utf-8")
         requester.make_buy_card_scheme_request(creator, bid)
 
         content = card["Content"].encode('utf-8')
@@ -28,7 +28,7 @@ def register_cards(card_records, address_records):
         full_art = card["FullArt"]
         requester.make_add_artwork_request(artist, i+1, artwork, full_art)
 
-        requester.make_transfer_card_request(creator, i+1, artist)
+        # requester.make_transfer_card_request(creator, i+1, artist)
 
 
 def register_users(user_records, address_records):
@@ -52,5 +52,5 @@ if __name__ == "__main__":
     address_records = records["addresses"]
     user_dict = {address_records[i]: user["Alias"] for i, user in enumerate(user_records)}
 
-    register_users(user_records, address_records)
+    #register_users(user_records, address_records)
     register_cards(card_records, user_dict)
