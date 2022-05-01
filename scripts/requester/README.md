@@ -12,3 +12,14 @@ Note that "Cooler" Typ needs to have enought funds
 ```
 Cardchaind tx bank send alice $(Cardchaind keys show "Cooler Typ" --address) 2000000000000000000000000000000000000000000000000000000ucredits
 ```
+
+## Full setup for new chain
+```
+cd ./requester
+go build -buildmode=c-shared -o ./requester.so ./requester.go
+cd ../
+./test_setup.sh
+Cardchaind tx bank send alice $(Cardchaind keys show "Cooler Typ" --address) 2000000000000000000000000000000000000000000000000000000ucredits
+# Now replace the accountaddresses in import_old_genesis.py
+./import_old_genesis.py <path/to/genesis.json>
+```
