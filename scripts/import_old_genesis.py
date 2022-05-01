@@ -14,8 +14,8 @@ artist = "Cooler Artist".encode("utf-8")
 creator = "Cooler Typ".encode("utf-8")
 
 noah_jannik = {
-     "cosmos1aka9p2tc2td923044ve0508xnn8zuaftc2knxd": "cc177f0qykjh0xdzthgzswrhhwu9yc5nxydkc250n".encode("utf-8"), # noah
-     "cosmos15ymvugyn9r0h5e44627aclzp9se3dstnwm9syg": "cc1ehxqxmsp2vekgyw0ce5wj7m5j9x35jxy0z6erh".encode("utf-8")  # jannik
+     "cosmos1aka9p2tc2td923044ve0508xnn8zuaftc2knxd": "cc1yecctk6sgg26z25dqnumd8g898t2rug3fafhz5".encode("utf-8"), # noah
+     "cosmos15ymvugyn9r0h5e44627aclzp9se3dstnwm9syg": "cc1v5j65vzq96uwts5mxyn5vc4flacng2ejnhc4sp".encode("utf-8")  # jannik
 }
 
 def register_cards(card_records, address_records):

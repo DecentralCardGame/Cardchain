@@ -9,7 +9,7 @@ import (
 
   sdktypes "github.com/cosmos/cosmos-sdk/types"
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
-	"github.com/tendermint/starport/starport/pkg/cosmosclient"
+	"github.com/ignite-hq/cli/ignite/pkg/cosmosclient"
   "github.com/DecentralCardGame/cardobject/keywords"
 )
 
@@ -35,7 +35,7 @@ func getClient() (cosmosclient.Client, error) {
   config := sdktypes.GetConfig()
 	config.SetBech32PrefixForAccount("cc", "ccpub")
 
-  return cosmosclient.New(context.Background(), cosmosclient.WithAddressPrefix("cc"))
+  return cosmosclient.New(context.Background(), cosmosclient.WithAddressPrefix("cc"), cosmosclient.WithNodeAddress("http://localhost:26659"))
 }
 
 func broadcastMsg(logger *log.Logger, cosmos cosmosclient.Client, creator string, msg sdktypes.Msg) {
