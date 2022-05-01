@@ -165,12 +165,11 @@ func make_transfer_card_request(creator *C.char, cardId int, receiver *C.char) {
 	}
 
   address := getAddr(logger, cosmos, C.GoString(creator))
-  receiverAddr := getAddr(logger, cosmos, C.GoString(receiver))
 
   msg := types.NewMsgTransferCard(
     address.String(),
     uint64(cardId),
-    receiverAddr.String(),
+    C.GoString(receiver),
 	)
 
   broadcastMsg(logger, cosmos, C.GoString(creator), msg)

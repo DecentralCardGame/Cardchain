@@ -10,9 +10,15 @@ import os
 import ctypes
 from requester import requester
 
+artist = "Cooler Artist".encode("utf-8")
+creator = "Cooler Typ".encode("utf-8")
+
+noah_jannik = {
+     "cosmos1aka9p2tc2td923044ve0508xnn8zuaftc2knxd": "cc177f0qykjh0xdzthgzswrhhwu9yc5nxydkc250n".encode("utf-8"), # noah
+     "cosmos15ymvugyn9r0h5e44627aclzp9se3dstnwm9syg": "cc1ehxqxmsp2vekgyw0ce5wj7m5j9x35jxy0z6erh".encode("utf-8")  # jannik
+}
+
 def register_cards(card_records, address_records):
-    artist = "Cooler Artist".encode("utf-8")
-    creator = "Cooler Typ".encode("utf-8")
     bid = "80000000000000000000000000000000ucredits".encode("utf-8")
     cards = [c for c in card_records if c["Content"] not in ["", "e30=", None] and c["Image"] not in ["", None]]
     for i, card in enumerate(cards):
@@ -27,6 +33,11 @@ def register_cards(card_records, address_records):
         artwork = card["Image"].encode("utf-8")
         full_art = card["FullArt"]
         requester.make_add_artwork_request(artist, i+1, artwork, full_art)
+
+        transfer_user = noah_jannik.get(card["Owner"])
+
+        if transfer_user is not None:
+            requester.make_transfer_card_request(creator, i+1, transfer_user)
 
         # requester.make_transfer_card_request(creator, i+1, artist)
 
