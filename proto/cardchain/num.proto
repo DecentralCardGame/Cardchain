@@ -1,0 +1,9 @@
+syntax = "proto3";
+package DecentralCardGame.cardchain.cardchain;
+
+option go_package = "github.com/DecentralCardGame/Cardchain/x/cardchain/types";
+
+message Num {
+  
+  uint64 num = 1; 
+}

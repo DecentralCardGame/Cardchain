@@ -1,0 +1,36 @@
+syntax = "proto3";
+package DecentralCardGame.cardchain.cardchain;
+
+import "gogoproto/gogo.proto";
+import "cardchain/params.proto";
+import "cardchain/card.proto";
+import "cardchain/user.proto";
+import "cardchain/match.proto";
+import "cardchain/collection.proto";
+import "cardchain/sell_offer.proto";
+import "cardchain/running_average.proto";
+import "cardchain/council.proto";
+import "cardchain/image.proto";
+import "cardchain/server.proto";
+import "cosmos/base/v1beta1/coin.proto";
+// this line is used by starport scaffolding # genesis/proto/import
+
+option go_package = "github.com/DecentralCardGame/Cardchain/x/cardchain/types";
+
+// GenesisState defines the cardchain module's genesis state.
+message GenesisState {
+  Params params = 1 [(gogoproto.nullable) = false];
+  repeated Card cardRecords = 2;
+  repeated User users = 3;
+  repeated string addresses = 4;
+  repeated Match matches = 6;
+  repeated Collection collections = 7;
+  repeated SellOffer sellOffers = 8;
+  repeated cosmos.base.v1beta1.Coin pools = 9;
+  string cardAuctionPrice = 11 [(gogoproto.nullable) = false, (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Coin"];;
+  repeated Council councils = 12;
+  repeated RunningAverage RunningAverages = 13;
+  repeated Image images = 14;
+  repeated Server Servers = 15;
+  // this line is used by starport scaffolding # genesis/proto/state
+}

@@ -1,0 +1,360 @@
+syntax = "proto3";
+package DecentralCardGame.cardchain.cardchain;
+
+import "gogoproto/gogo.proto";
+import "cardchain/council.proto";
+import "cosmos/base/v1beta1/coin.proto";
+
+// this line is used by starport scaffolding # proto/tx/import
+
+option go_package = "github.com/DecentralCardGame/Cardchain/x/cardchain/types";
+
+// Msg defines the Msg service.
+service Msg {
+  rpc Createuser(MsgCreateuser) returns (MsgCreateuserResponse);
+  rpc BuyCardScheme(MsgBuyCardScheme) returns (MsgBuyCardSchemeResponse);
+  rpc VoteCard(MsgVoteCard) returns (MsgVoteCardResponse);
+  rpc SaveCardContent(MsgSaveCardContent) returns (MsgSaveCardContentResponse);
+  rpc TransferCard(MsgTransferCard) returns (MsgTransferCardResponse);
+  rpc DonateToCard(MsgDonateToCard) returns (MsgDonateToCardResponse);
+  rpc AddArtwork(MsgAddArtwork) returns (MsgAddArtworkResponse);
+  rpc SubmitCopyrightProposal(MsgSubmitCopyrightProposal) returns (MsgSubmitCopyrightProposalResponse);
+  rpc ChangeArtist(MsgChangeArtist) returns (MsgChangeArtistResponse);
+  rpc RegisterForCouncil(MsgRegisterForCouncil) returns (MsgRegisterForCouncilResponse);
+  rpc ReportMatch(MsgReportMatch) returns (MsgReportMatchResponse);
+  rpc SubmitMatchReporterProposal(MsgSubmitMatchReporterProposal) returns (MsgSubmitMatchReporterProposalResponse);
+  rpc ApointMatchReporter(MsgApointMatchReporter) returns (MsgApointMatchReporterResponse);
+  rpc CreateCollection(MsgCreateCollection) returns (MsgCreateCollectionResponse);
+  rpc AddCardToCollection(MsgAddCardToCollection) returns (MsgAddCardToCollectionResponse);
+  rpc FinalizeCollection(MsgFinalizeCollection) returns (MsgFinalizeCollectionResponse);
+  rpc BuyCollection(MsgBuyCollection) returns (MsgBuyCollectionResponse);
+  rpc RemoveCardFromCollection(MsgRemoveCardFromCollection) returns (MsgRemoveCardFromCollectionResponse);
+  rpc RemoveContributorFromCollection(MsgRemoveContributorFromCollection) returns (MsgRemoveContributorFromCollectionResponse);
+  rpc AddContributorToCollection(MsgAddContributorToCollection) returns (MsgAddContributorToCollectionResponse);
+  rpc SubmitCollectionProposal(MsgSubmitCollectionProposal) returns (MsgSubmitCollectionProposalResponse);
+  rpc CreateSellOffer(MsgCreateSellOffer) returns (MsgCreateSellOfferResponse);
+  rpc BuyCard(MsgBuyCard) returns (MsgBuyCardResponse);
+  rpc RemoveSellOffer(MsgRemoveSellOffer) returns (MsgRemoveSellOfferResponse);
+  rpc AddArtworkToCollection(MsgAddArtworkToCollection) returns (MsgAddArtworkToCollectionResponse);
+  rpc AddStoryToCollection(MsgAddStoryToCollection) returns (MsgAddStoryToCollectionResponse);
+  rpc SetCardRarity(MsgSetCardRarity) returns (MsgSetCardRarityResponse);
+  rpc CreateCouncil(MsgCreateCouncil) returns (MsgCreateCouncilResponse);
+  rpc CommitCouncilResponse(MsgCommitCouncilResponse) returns (MsgCommitCouncilResponseResponse);
+  rpc RevealCouncilResponse(MsgRevealCouncilResponse) returns (MsgRevealCouncilResponseResponse);
+  rpc RestartCouncil(MsgRestartCouncil) returns (MsgRestartCouncilResponse);
+  rpc RewokeCouncilRegistration(MsgRewokeCouncilRegistration) returns (MsgRewokeCouncilRegistrationResponse);
+  rpc ConfirmMatch(MsgConfirmMatch) returns (MsgConfirmMatchResponse);
+// this line is used by starport scaffolding # proto/tx/rpc
+}
+
+message MsgCreateuser {
+  string creator = 1;
+  string newUser = 2;
+  string alias = 3;
+}
+
+message MsgCreateuserResponse {
+}
+
+message MsgBuyCardScheme {
+  string creator = 1;
+  /* cosmos.base.v1beta1.Coin bid = 2; */
+  string bid = 2;
+}
+
+message MsgBuyCardSchemeResponse {
+}
+
+message MsgVoteCard {
+  string creator = 1;
+  uint64 cardId = 2;
+  string voteType = 3;
+}
+
+message MsgVoteCardResponse {
+}
+
+message MsgSaveCardContent {
+  string creator = 1;
+  uint64 cardId = 2;
+  bytes content = 3;
+//  bytes image = 4;
+//  string fullArt = 5;
+  string notes = 4;
+  string artist = 5;
+}
+
+message MsgSaveCardContentResponse {
+}
+
+message MsgTransferCard {
+  string creator = 1;
+  uint64 cardId = 2;
+  string receiver = 4;
+}
+
+message MsgTransferCardResponse {
+}
+
+message MsgDonateToCard {
+  string creator = 1;
+  uint64 cardId = 2;
+  string amount = 3 [(gogoproto.nullable) = false, (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Coin"];;
+}
+
+message MsgDonateToCardResponse {
+}
+
+message MsgAddArtwork {
+  string creator = 1;
+  uint64 cardId = 2;
+  bytes image = 3;
+  bool fullArt = 4;
+}
+
+message MsgAddArtworkResponse {
+}
+
+message MsgSubmitCopyrightProposal {
+  string creator = 1;
+  uint64 cardId = 2;
+  string description = 3;
+  string link = 4;
+}
+
+message MsgSubmitCopyrightProposalResponse {
+}
+
+message MsgChangeArtist {
+  string creator = 1;
+  uint64 cardID = 2;
+  string artist = 3;
+}
+
+message MsgChangeArtistResponse {
+}
+
+message MsgRegisterForCouncil {
+  string creator = 1;
+}
+
+message MsgRegisterForCouncilResponse {
+}
+
+message MsgReportMatch {
+  string creator = 1;
+  string playerA = 2;
+  string playerB = 3;
+  repeated uint64 cardsA = 5;
+  repeated uint64 cardsB = 6;
+  Outcome outcome = 7;
+}
+
+enum Outcome {
+  AWon = 0;
+  BWon = 1;
+  Draw = 2;
+  Aborted = 3;
+}
+
+message MsgReportMatchResponse {
+  uint64 matchId = 1;
+}
+
+message MsgSubmitMatchReporterProposal {
+  string creator = 1;
+  string reporter = 2;
+  string deposit = 3;
+  string description = 4;
+}
+
+message MsgSubmitMatchReporterProposalResponse {
+}
+
+message MsgApointMatchReporter {
+  string creator = 1;
+  string reporter = 2;
+}
+
+message MsgApointMatchReporterResponse {
+}
+
+message MsgCreateCollection {
+  string creator = 1;
+  string name = 2;
+  string artist = 3;
+  string storyWriter = 4;
+  repeated string contributors = 5;
+}
+
+message MsgCreateCollectionResponse {
+}
+
+message MsgAddCardToCollection {
+  string creator = 1;
+  uint64 collectionId = 2;
+  uint64 cardId = 3;
+}
+
+message MsgAddCardToCollectionResponse {
+}
+
+message MsgFinalizeCollection {
+  string creator = 1;
+  uint64 collectionId = 2;
+}
+
+message MsgFinalizeCollectionResponse {
+}
+
+message MsgBuyCollection {
+  string creator = 1;
+  uint64 collectionId = 2;
+}
+
+message MsgBuyCollectionResponse {
+}
+
+message MsgRemoveCardFromCollection {
+  string creator = 1;
+  uint64 collectionId = 2;
+  uint64 cardId = 3;
+}
+
+message MsgRemoveCardFromCollectionResponse {
+}
+
+message MsgRemoveContributorFromCollection {
+  string creator = 1;
+  uint64 collectionId = 2;
+  string user = 3;
+}
+
+message MsgRemoveContributorFromCollectionResponse {
+}
+
+message MsgAddContributorToCollection {
+  string creator = 1;
+  uint64 collectionId = 2;
+  string user = 3;
+}
+
+message MsgAddContributorToCollectionResponse {
+}
+
+message MsgSubmitCollectionProposal {
+  string creator = 1;
+  uint64 collectionId = 2;
+}
+
+message MsgSubmitCollectionProposalResponse {
+}
+
+message MsgCreateSellOffer {
+  string creator = 1;
+  uint64 card = 2;
+  string price = 3 [(gogoproto.nullable) = false, (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Coin"];;
+}
+
+message MsgCreateSellOfferResponse {
+}
+
+message MsgBuyCard {
+  string creator = 1;
+  uint64 sellOfferId = 2;
+}
+
+message MsgBuyCardResponse {
+}
+
+message MsgRemoveSellOffer {
+  string creator = 1;
+  uint64 sellOfferId = 2;
+}
+
+message MsgRemoveSellOfferResponse {
+}
+
+message MsgAddArtworkToCollection {
+  string creator = 1;
+  uint64 collectionId = 2;
+  bytes image = 3;
+}
+
+message MsgAddArtworkToCollectionResponse {
+}
+
+message MsgAddStoryToCollection {
+  string creator = 1;
+  uint64 collectionId = 2;
+  string story = 3;
+}
+
+message MsgAddStoryToCollectionResponse {
+}
+
+message MsgSetCardRarity {
+  string creator = 1;
+  uint64 cardId = 2;
+  uint64 collectionId = 3;
+  string rarity = 4;
+}
+
+message MsgSetCardRarityResponse {
+}
+
+message MsgCreateCouncil {
+  string creator = 1;
+  uint64 cardId = 2;
+}
+
+message MsgCreateCouncilResponse {
+}
+
+// Add revision
+
+message MsgCommitCouncilResponse {
+  string creator = 1;
+  string response = 2;
+  uint64 councilId = 3;
+  string suggestion = 4;
+}
+
+message MsgCommitCouncilResponseResponse {
+}
+
+message MsgRevealCouncilResponse {
+  string creator = 1;
+  Response response = 2;
+  string secret = 3;
+  uint64 councilId = 4;
+}
+
+message MsgRevealCouncilResponseResponse {
+}
+
+message MsgRestartCouncil {
+  string creator = 1;
+  uint64 councilId = 2;
+}
+
+message MsgRestartCouncilResponse {
+}
+
+message MsgRewokeCouncilRegistration {
+  string creator = 1;
+}
+
+message MsgRewokeCouncilRegistrationResponse {
+}
+
+message MsgConfirmMatch {
+  string creator = 1;
+  uint64 matchId = 2;
+  Outcome outcome = 3;
+}
+
+message MsgConfirmMatchResponse {
+}
+
+// this line is used by starport scaffolding # proto/tx/message

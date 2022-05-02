@@ -1,0 +1,16 @@
+syntax = "proto3";
+package DecentralCardGame.cardchain.cardchain;
+
+option go_package = "github.com/DecentralCardGame/Cardchain/x/cardchain/types";
+import "cardchain/voting_result.proto";
+
+message VotingResults {
+
+  uint64 totalVotes = 1;
+  uint64 totalFairEnoughVotes = 2;
+  uint64 totalOverpoweredVotes = 3;
+  uint64 totalUnderpoweredVotes = 4;
+  uint64 totalInappropriateVotes = 5;
+  repeated VotingResult cardResults = 6;
+  string notes = 7;
+}

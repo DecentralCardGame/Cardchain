@@ -1,0 +1,54 @@
+syntax = "proto3";
+package DecentralCardGame.cardchain.cardchain;
+
+import "gogoproto/gogo.proto";
+
+option go_package = "github.com/DecentralCardGame/Cardchain/x/cardchain/types";
+
+message Card {
+
+  string owner = 1;
+  string artist = 2;
+  bytes content = 3;
+  uint64 image_id = 4;
+  bool fullArt = 5;
+  string notes = 6;
+  Status status = 7;
+  string votePool = 8 [(gogoproto.nullable) = false, (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Coin"];;
+  repeated string voters = 14;
+  uint64 fairEnoughVotes = 9;
+  uint64 overpoweredVotes = 10;
+  uint64 underpoweredVotes = 11;
+  uint64 inappropriateVotes = 12;
+  int64 nerflevel = 13;
+}
+
+message OutpCard {
+
+  string owner = 1;
+  string artist = 2;
+  string content = 3;
+  string image = 4;
+  bool fullArt = 5;
+  string notes = 6;
+  Status status = 7;
+  string votePool = 8 [(gogoproto.nullable) = false, (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Coin"];;
+  repeated string voters = 14;
+  uint64 fairEnoughVotes = 9;
+  uint64 overpoweredVotes = 10;
+  uint64 underpoweredVotes = 11;
+  uint64 inappropriateVotes = 12;
+  int64 nerflevel = 13;
+}
+
+enum Status {
+  scheme = 0;
+  prototype = 1;
+  trial = 2;
+  permanent = 3;
+  suspended = 4;
+  banned = 5;
+  bannedSoon = 6;
+  bannedVerySoon = 7;
+  none = 8;
+}

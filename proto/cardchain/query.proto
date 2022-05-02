@@ -1,0 +1,238 @@
+syntax = "proto3";
+package DecentralCardGame.cardchain.cardchain;
+
+import "gogoproto/gogo.proto";
+import "google/api/annotations.proto";
+import "cosmos/base/query/v1beta1/pagination.proto";
+import "cardchain/params.proto";
+import "cardchain/vote_right.proto";
+import "cardchain/voting_results.proto";
+import "cardchain/card.proto";
+import "cardchain/user.proto";
+import "cardchain/match.proto";
+import "cardchain/collection.proto";
+import "cardchain/sell_offer.proto";
+import "cardchain/council.proto";
+import "cardchain/server.proto";
+import "cardchain/tx.proto";
+
+// this line is used by starport scaffolding # 1
+
+option go_package = "github.com/DecentralCardGame/Cardchain/x/cardchain/types";
+
+// Query defines the gRPC querier service.
+service Query {
+  // Parameters queries the parameters of the module.
+  rpc Params(QueryParamsRequest) returns (QueryParamsResponse) {
+    option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/params";
+  }
+  // Queries a list of QCard items.
+	rpc QCard(QueryQCardRequest) returns (OutpCard) {
+		option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/q_card/{cardId}";
+	}
+
+// Queries a list of QCardContent items.
+	rpc QCardContent(QueryQCardContentRequest) returns (QueryQCardContentResponse) {
+		option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/q_card_content/{cardId}";
+	}
+
+// Queries a list of QUser items.
+	rpc QUser(QueryQUserRequest) returns (User) {
+		option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/q_user/{address}";
+	}
+
+// Queries a list of QCardchainInfo items.
+	rpc QCardchainInfo(QueryQCardchainInfoRequest) returns (QueryQCardchainInfoResponse) {
+		option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/q_cardchain_info";
+	}
+
+// Queries a list of QVotingResults items.
+	rpc QVotingResults(QueryQVotingResultsRequest) returns (QueryQVotingResultsResponse) {
+		option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/q_voting_results";
+	}
+
+// Queries a list of QVotableCards items.
+	rpc QVotableCards(QueryQVotableCardsRequest) returns (QueryQVotableCardsResponse) {
+		option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/q_votable_cards/{address}";
+	}
+
+// Queries a list of QCards items.
+	rpc QCards(QueryQCardsRequest) returns (QueryQCardsResponse) {
+		option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/q_cards/{owner}/{status}/{cardType}/{classes}/{sortBy}/{nameContains}/{keywordsContains}/{notesContains}";
+	}
+
+// Queries a list of QMatch items.
+	rpc QMatch(QueryQMatchRequest) returns (Match) {
+		option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/q_match/{matchId}";
+	}
+
+// Queries a list of QCollection items.
+	rpc QCollection(QueryQCollectionRequest) returns (Collection) {
+		option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/q_collection/{collectionId}";
+	}
+
+// Queries a list of QSellOffer items.
+	rpc QSellOffer(QueryQSellOfferRequest) returns (SellOffer) {
+		option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/q_sell_offer/{sellOfferId}";
+	}
+
+// Queries a list of QCouncil items.
+	rpc QCouncil(QueryQCouncilRequest) returns (Council) {
+		option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/q_council/{councilId}";
+	}
+
+// Queries a list of QMatches items.
+	rpc QMatches(QueryQMatchesRequest) returns (QueryQMatchesResponse) {
+		option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/q_matches/{timestampDown}/{timestampUp}/{containsUsers}/{outcome}";
+	}
+
+// Queries a list of QSellOffers items.
+	rpc QSellOffers(QueryQSellOffersRequest) returns (QueryQSellOffersResponse) {
+		option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/q_sell_offers/{priceDown}/{priceUp}/{seller}/{buyer}/{status}";
+	}
+
+// Queries a list of QServer items.
+	rpc QServer(QueryQServerRequest) returns (Server) {
+		option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/q_server/{id}";
+	}
+
+// this line is used by starport scaffolding # 2
+}
+
+// QueryParamsRequest is request type for the Query/Params RPC method.
+message QueryParamsRequest {}
+
+// QueryParamsResponse is response type for the Query/Params RPC method.
+message QueryParamsResponse {
+  // params holds all the parameters of this module.
+  Params params = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryQCardRequest {
+  string cardId = 1;
+}
+
+message QueryQCardContentRequest {
+  string cardId = 1;
+}
+
+message QueryQCardContentResponse {
+  string content = 1;
+}
+
+message QueryQUserRequest {
+  string address = 1;
+}
+
+message QueryQCardchainInfoRequest {
+}
+
+message QueryQCardchainInfoResponse {
+  string cardAuctionPrice = 1 [(gogoproto.nullable) = false, (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Coin"];;
+  repeated uint64 activeCollections = 2;
+  uint64 cardsNumber = 3;
+  uint64 matchesNumber = 4;
+  uint64 sellOffersNumber = 5;
+  uint64 councilsNumber = 6;
+}
+
+message QueryQVotingResultsRequest {
+}
+
+message QueryQVotingResultsResponse {
+  VotingResults lastVotingResults = 1;
+}
+
+message QueryQVotableCardsRequest {
+  string address = 1;
+}
+
+message QueryQVotableCardsResponse {
+  bool unregistered = 1;
+  bool noVoteRights = 2;
+  repeated VoteRight voteRights = 3;
+}
+
+message QueryQCardsRequest {
+  string owner = 1;
+  Status status = 2;
+  string cardType = 3;
+  string classes = 4;
+  string sortBy = 5;
+  string nameContains = 6;
+  string keywordsContains = 7;
+  string notesContains = 8;
+}
+
+message QueryQCardsResponse {
+  repeated uint64 cardsList = 1;
+}
+
+message QueryQMatchRequest {
+  uint64 matchId = 1;
+}
+
+message QueryQCollectionRequest {
+  uint64 collectionId = 1;
+}
+
+message QueryQSellOfferRequest {
+  uint64 sellOfferId = 1;
+}
+
+message QueryQCouncilRequest {
+  uint64 councilId = 1;
+}
+
+message QueryQMatchesRequest {
+  uint64 timestampDown = 1;
+  uint64 timestampUp = 2;
+  repeated string containsUsers = 3;
+  string reporter = 4;
+  Outcome outcome = 5;
+  repeated uint64 cardsPlayed = 6;
+  IgnoreMatches ignore = 7;
+}
+
+message IgnoreMatches {
+  bool outcome = 1;
+  bool timestamp = 2;
+  bool reporter = 3;
+}
+
+message QueryQMatchesResponse {
+  repeated uint64 matchesList = 1;
+  repeated Match matches = 2;
+}
+
+message QueryQSellOffersRequest {
+  string priceDown = 1;
+  string priceUp = 2;
+  string seller = 3;
+  string buyer = 4;
+  uint64 card = 5;
+  SellOfferStatus status = 6;
+  IgnoreSellOffers ignore = 7;
+}
+
+message IgnoreSellOffers {
+  bool status = 1;
+  bool price = 2;
+  bool seller = 3;
+  bool buyer = 4;
+  bool card = 5;
+}
+
+message QueryQSellOffersResponse {
+  repeated uint64 sellOffersIds = 1;
+  repeated SellOffer sellOffers = 2;
+}
+
+message QueryQServerRequest {
+  uint64 id = 1;
+}
+
+message QueryQServerResponse {
+}
+
+// this line is used by starport scaffolding # 3

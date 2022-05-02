@@ -1,0 +1,27 @@
+syntax = "proto3";
+package DecentralCardGame.cardchain.cardchain;
+
+import "gogoproto/gogo.proto";
+
+option go_package = "github.com/DecentralCardGame/Cardchain/x/cardchain/types";
+
+// Params defines the parameters for the module.
+message Params {
+  option (gogoproto.goproto_stringer) = false;
+  int64 votingRightsExpirationTime = 1;
+  uint64 collectionSize = 2;
+  string collectionPrice = 3 [(gogoproto.nullable) = false, (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Coin"];;
+  uint64 activeCollectionsAmount = 4;
+  string collectionCreationFee = 5 [(gogoproto.nullable) = false, (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Coin"];;
+  string collateralDeposit = 6 [(gogoproto.nullable) = false, (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Coin"];;
+  int64 winnerReward = 7;
+  int64 voterReward = 8;
+  string hourlyFaucet = 9 [(gogoproto.nullable) = false, (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Coin"];;
+  string inflationRate = 10;
+  uint64 raresPerPack = 11;
+  uint64 commonsPerPack = 12;
+  uint64 unCommonsPerPack = 13;
+  uint64 trialPeriod = 14;
+  int64 gameVoteRatio = 15;
+  int64 cardAuctionPriceReductionPeriod = 16;
+}

@@ -1,0 +1,25 @@
+build:
+  main: "cmd/Cardchaind/"
+
+accounts:
+  - name: alice
+    coins: ["2000000000000000000000000000000000000000000000000000000ucredits", "200000000bpf"]
+  - name: bob
+    coins: ["10000000000ucredits", "100000000bpf"]
+validator:
+  name: alice
+  staked: "100000000bpf"
+client:
+  openapi:
+    path: "docs/static/openapi.yml"
+  vuex:
+    path: "vue/src/store"
+faucet:
+  name: bob
+  coins: ["5000000ucredits", "100000bpf"]
+host:
+  rpc: "0.0.0.0:26659"
+  p2p: "0.0.0.0:26658"
+  prof: ":6061"
+  grpc: ":9092"
+  api: "0.0.0.0:1318"

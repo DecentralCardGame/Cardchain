@@ -1,37 +1,7 @@
-# OS
-.DS_Store
-*.swp
-*.swo
-.vscode
-.idea
-
-# Build
-vendor
-.vendor-new
-build
-
-# IDE
+vue/node_modules
+vue/dist
+/vue
+release/
 .idea/
-*.iml
-
-# Tests
-/scripts/nohup.out
-/scripts/signedTx.json
-/scripts/unsignedTx.json
-/tests/signedTx.json
-/tests/unsignedTx.json
-
-# data
-/blockchain-data/
-genesis.json
-genesis.merged.json
-
-# scripts
-/scripts/node_modules/
-/scripts/genesis.*
-
-# misc
-signedTx.json
-unsignedTx.json
-nohup.out
-keysAliceBob.log
+.vscode/
+.DS_Store
