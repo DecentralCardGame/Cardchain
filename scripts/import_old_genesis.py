@@ -27,17 +27,17 @@ def register_cards(card_records, address_records):
 
         content = card["Content"].encode('utf-8')
         notes = card['Notes'].encode("utf-8")
-        id = i+1
-        requester.make_save_card_content_request(creator, i+1, content, notes, artist)
+        id = i+8
+        requester.make_save_card_content_request(creator, id, content, notes, artist)
 
         artwork = card["Image"].encode("utf-8")
         full_art = card["FullArt"]
-        requester.make_add_artwork_request(artist, i+1, artwork, full_art)
+        requester.make_add_artwork_request(artist, id, artwork, full_art)
 
         transfer_user = noah_jannik.get(card["Owner"])
 
         if transfer_user is not None:
-            requester.make_transfer_card_request(creator, i+1, transfer_user)
+            requester.make_transfer_card_request(creator, id, transfer_user)
 
         # requester.make_transfer_card_request(creator, i+1, artist)
 
