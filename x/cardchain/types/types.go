@@ -4,13 +4,14 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
-// Here can constructors for types be placed, sice the files containing those
-// types shall not be edited
-
-// type Ignore struct {
-// 	bool Outcome
-// 	bool Timestamp
-// }
+func NewMatchPlayer(addr string, cards []uint64) *MatchPlayer {
+	return &MatchPlayer{
+		Addr:        addr,
+		PlayedCards: cards,
+		Confirmed:   false,
+		Outcome:     Outcome_Aborted,
+	}
+}
 
 func NewIgnoreMatches() IgnoreMatches {
 	return IgnoreMatches{

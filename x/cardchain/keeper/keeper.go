@@ -28,6 +28,7 @@ type Keeper struct {
 	SellOffers      gtk.GenericTypeKeeper[*types.SellOffer]
 	Collections     gtk.GenericTypeKeeper[*types.Collection]
 	Matches         gtk.GenericTypeKeeper[*types.Match]
+	Servers         gtk.GenericTypeKeeper[*types.Server]
 	RunningAverages gtk.KeywordedGenericTypeKeeper[*types.RunningAverage]
 	Pools           gtk.KeywordedGenericTypeKeeper[*sdk.Coin]
 	Images          gtk.GenericTypeKeeper[*types.Image]
@@ -47,6 +48,7 @@ func NewKeeper(
 	councilsStoreKey sdk.StoreKey,
 	runningAveragesStoreKey sdk.StoreKey,
 	imagesStorekey sdk.StoreKey,
+	serversStoreKey sdk.StoreKey,
 	internalStoreKey sdk.StoreKey,
 	ps paramtypes.Subspace,
 
@@ -71,6 +73,7 @@ func NewKeeper(
 		RunningAverages: gtk.NewKGTK[*types.RunningAverage](runningAveragesStoreKey, internalStoreKey, cdc, gtk.GetEmpty[types.RunningAverage], []string{Games24ValueKey, Votes24ValueKey}),
 		Pools:           gtk.NewKGTK[*sdk.Coin](poolsStoreKey, internalStoreKey, cdc, gtk.GetEmpty[sdk.Coin], []string{PublicPoolKey, WinnersPoolKey, BalancersPoolKey}),
 		Images:          gtk.NewGTK[*types.Image](imagesStorekey, internalStoreKey, cdc, gtk.GetEmpty[types.Image]),
+		Servers:         gtk.NewGTK[*types.Server](serversStoreKey, internalStoreKey, cdc, gtk.GetEmpty[types.Server]),
 
 		BankKeeper: bankKeeper,
 	}
@@ -223,7 +226,7 @@ func (k Keeper) GetOPandUPCards(ctx sdk.Context) (buffbois []uint64, nerfbois []
 	iter := k.Cards.GetItemIterator(ctx)
 	for ; iter.Valid(); iter.Next() {
 		id, gottenCard := iter.Value()
-		
+
 		nettoOP := int64(gottenCard.OverpoweredVotes - gottenCard.FairEnoughVotes - gottenCard.UnderpoweredVotes)
 		nettoUP := int64(gottenCard.UnderpoweredVotes - gottenCard.FairEnoughVotes - gottenCard.OverpoweredVotes)
 		nettoIA := int64(gottenCard.InappropriateVotes - gottenCard.FairEnoughVotes - gottenCard.OverpoweredVotes - gottenCard.UnderpoweredVotes)

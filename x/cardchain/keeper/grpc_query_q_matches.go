@@ -43,7 +43,7 @@ func (k Keeper) QMatches(goCtx context.Context, req *types.QueryQMatchesRequest)
 
 		// Checks for users contained in the match
 		for _, user := range req.ContainsUsers {
-			if !slices.Contains([]string{match.PlayerA, match.PlayerB}, user) {
+			if !slices.Contains([]string{match.PlayerA.Addr, match.PlayerB.Addr}, user) {
 				allUsersInMatch = false
 			}
 		}
@@ -53,7 +53,7 @@ func (k Keeper) QMatches(goCtx context.Context, req *types.QueryQMatchesRequest)
 
 		// Checks for card contained in the match
 		for _, card := range req.CardsPlayed {
-			if !slices.Contains(append(match.PlayerACards, match.PlayerBCards...), card) {
+			if !slices.Contains(append(match.PlayerA.PlayedCards, match.PlayerB.PlayedCards...), card) {
 				allCardsInMatch = false
 			}
 		}

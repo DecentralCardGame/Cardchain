@@ -43,6 +43,7 @@ service Msg {
   rpc RevealCouncilResponse(MsgRevealCouncilResponse) returns (MsgRevealCouncilResponseResponse);
   rpc RestartCouncil(MsgRestartCouncil) returns (MsgRestartCouncilResponse);
   rpc RewokeCouncilRegistration(MsgRewokeCouncilRegistration) returns (MsgRewokeCouncilRegistrationResponse);
+  rpc ConfirmMatch(MsgConfirmMatch) returns (MsgConfirmMatchResponse);
 // this line is used by starport scaffolding # proto/tx/rpc
 }
 
@@ -345,6 +346,15 @@ message MsgRewokeCouncilRegistration {
 }
 
 message MsgRewokeCouncilRegistrationResponse {
+}
+
+message MsgConfirmMatch {
+  string creator = 1;
+  uint64 matchId = 2;
+  Outcome outcome = 3;
+}
+
+message MsgConfirmMatchResponse {
 }
 
 // this line is used by starport scaffolding # proto/tx/message

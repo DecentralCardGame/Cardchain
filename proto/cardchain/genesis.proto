@@ -11,6 +11,7 @@ import "cardchain/sell_offer.proto";
 import "cardchain/running_average.proto";
 import "cardchain/council.proto";
 import "cardchain/image.proto";
+import "cardchain/server.proto";
 import "cosmos/base/v1beta1/coin.proto";
 // this line is used by starport scaffolding # genesis/proto/import
 
@@ -30,5 +31,6 @@ message GenesisState {
   repeated Council councils = 12;
   repeated RunningAverage RunningAverages = 13;
   repeated Image images = 14;
+  repeated Server Servers = 15;
   // this line is used by starport scaffolding # genesis/proto/state
 }

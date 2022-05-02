@@ -107,6 +107,9 @@ func NewHandler(k keeper.Keeper) sdk.Handler {
 		case *types.MsgRewokeCouncilRegistration:
 			res, err := msgServer.RewokeCouncilRegistration(sdk.WrapSDKContext(ctx), msg)
 			return sdk.WrapServiceResult(ctx, res, err)
+		case *types.MsgConfirmMatch:
+			res, err := msgServer.ConfirmMatch(sdk.WrapSDKContext(ctx), msg)
+			return sdk.WrapServiceResult(ctx, res, err)
 			// this line is used by starport scaffolding # 1
 		default:
 			errMsg := fmt.Sprintf("unrecognized %s message type: %T", types.ModuleName, msg)

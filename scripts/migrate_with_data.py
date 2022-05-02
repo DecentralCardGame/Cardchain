@@ -16,7 +16,7 @@ with open(file_path_old, "r") as file:
 with open(file_path_new, "r") as file:
     new_dict = json.load(file)
 
-new_dict["app_state"]["cardchain"] = old_dict["app_state"]["cardchain"]
+new_dict["app_state"]["cardchain"] = old_dict["app_state"]["cardchain"].copy()
 new_dict["app_state"]["cardchain"]["addresses"] = []
 new_dict["app_state"]["cardchain"]["users"] = []
 for idx, addr in enumerate(old_dict["app_state"]["cardchain"]["addresses"]):
