@@ -7,8 +7,11 @@ services:
     volumes:
        - ./blockchain-data/:/var/blockchain/
     ports:
+      - 26658:26658
       - 26659:26659
       - 1318:1318
+      - 9092:9092
+      - 4500:4500
 
   herd:
     image: nginx:latest
