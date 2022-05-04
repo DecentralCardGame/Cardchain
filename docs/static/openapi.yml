@@ -9584,7 +9584,7 @@ paths:
                   additionalProperties: {}
       tags:
         - Query
-  '/DecentralCardGame/cardchain/cardchain/q_cards/{owner}/{status}/{cardType}/{classes}/{sortBy}/{nameContains}/{keywordsContains}/{notesContains}':
+  '/DecentralCardGame/cardchain/cardchain/q_cards/{status}':
     get:
       summary: Queries a list of QCards items.
       operationId: DecentralCardGameCardchainCardchainQCards
@@ -9618,10 +9618,6 @@ paths:
                       type: string
                   additionalProperties: {}
       parameters:
-        - name: owner
-          in: path
-          required: true
-          type: string
         - name: status
           in: path
           required: true
@@ -9636,30 +9632,43 @@ paths:
             - bannedSoon
             - bannedVerySoon
             - none
+        - name: owner
+          in: query
+          required: false
+          type: string
         - name: cardType
-          in: path
-          required: true
+          in: query
+          required: false
           type: string
         - name: classes
-          in: path
-          required: true
+          in: query
+          required: false
           type: string
         - name: sortBy
-          in: path
-          required: true
+          in: query
+          required: false
           type: string
         - name: nameContains
-          in: path
-          required: true
+          in: query
+          required: false
           type: string
         - name: keywordsContains
-          in: path
-          required: true
+          in: query
+          required: false
           type: string
         - name: notesContains
-          in: path
-          required: true
+          in: query
+          required: false
           type: string
+        - name: playable
+          in: query
+          required: false
+          type: string
+          enum:
+            - Idc
+            - 'Yes'
+            - 'No'
+          default: Idc
       tags:
         - Query
   '/DecentralCardGame/cardchain/cardchain/q_collection/{collectionId}':
@@ -30921,6 +30930,13 @@ definitions:
       councilsNumber:
         type: string
         format: uint64
+  DecentralCardGame.cardchain.cardchain.QueryQCardsRequest.Playable:
+    type: string
+    enum:
+      - Idc
+      - 'Yes'
+      - 'No'
+    default: Idc
   DecentralCardGame.cardchain.cardchain.QueryQCardsResponse:
     type: object
     properties:

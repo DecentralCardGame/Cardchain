@@ -2,7 +2,6 @@ package keeper
 
 import (
 	"context"
-	"encoding/binary"
 	"encoding/json"
 	"sort"
 	"strings"
@@ -83,11 +82,10 @@ func (k Keeper) QCards(goCtx context.Context, req *types.QueryQCardsRequest) (*t
 		}
 	}
 
-	iterator := k.Cards.GetIterator(ctx)
+	iterator := k.Cards.GetItemIterator(ctx)
 
 	for ; iterator.Valid(); iterator.Next() {
-		var gottenCard types.Card
-		k.cdc.MustUnmarshal(iterator.Value(), &gottenCard)
+		idx, gottenCard := iterator.Value()
 
 		// first skip all cards with irrelevant status
 		if gottenCard.Status == types.Status_none || gottenCard.Status == types.Status_scheme {
@@ -98,6 +96,17 @@ func (k Keeper) QCards(goCtx context.Context, req *types.QueryQCardsRequest) (*t
 			if gottenCard.Status != req.Status {
 				continue
 			}
+		}
+		// Checks for playability
+		switch req.Playable {
+			case types.QueryQCardsRequest_Yes:
+				if gottenCard.Status != types.Status_trial && gottenCard.Status != types.Status_permanent {
+					continue
+				}
+			case types.QueryQCardsRequest_No:
+				if gottenCard.Status == types.Status_trial || gottenCard.Status == types.Status_permanent {
+					continue
+				}
 		}
 		// then check if an owner constrain was given and skip the card if it has the wrong owner
 		if req.Owner != "" {
@@ -136,11 +145,11 @@ func (k Keeper) QCards(goCtx context.Context, req *types.QueryQCardsRequest) (*t
 					}
 				}
 				if req.SortBy == "Name" {
-					results = append(results, Result{binary.BigEndian.Uint64(iterator.Key()), string(cardobj.Action.CardName), 0})
+					results = append(results, Result{idx, string(cardobj.Action.CardName), 0})
 				} else if req.SortBy == "CastingCost" {
-					results = append(results, Result{binary.BigEndian.Uint64(iterator.Key()), "", int(cardobj.Action.CastingCost)})
+					results = append(results, Result{idx, "", int(cardobj.Action.CastingCost)})
 				} else if req.SortBy == "Id" {
-					cardsList = append(cardsList, binary.BigEndian.Uint64(iterator.Key()))
+					cardsList = append(cardsList, idx)
 				}
 			}
 			if cardobj.Entity != nil {
@@ -160,11 +169,11 @@ func (k Keeper) QCards(goCtx context.Context, req *types.QueryQCardsRequest) (*t
 					}
 				}
 				if req.SortBy == "Name" {
-					results = append(results, Result{binary.BigEndian.Uint64(iterator.Key()), string(cardobj.Entity.CardName), 0})
+					results = append(results, Result{idx, string(cardobj.Entity.CardName), 0})
 				} else if req.SortBy == "CastingCost" {
-					results = append(results, Result{binary.BigEndian.Uint64(iterator.Key()), "", int(cardobj.Entity.CastingCost)})
+					results = append(results, Result{idx, "", int(cardobj.Entity.CastingCost)})
 				} else if req.SortBy == "Id" {
-					cardsList = append(cardsList, binary.BigEndian.Uint64(iterator.Key()))
+					cardsList = append(cardsList, idx)
 				}
 			}
 			if cardobj.Headquarter != nil {
@@ -184,11 +193,11 @@ func (k Keeper) QCards(goCtx context.Context, req *types.QueryQCardsRequest) (*t
 					}
 				}
 				if req.SortBy == "Name" {
-					results = append(results, Result{binary.BigEndian.Uint64(iterator.Key()), string(cardobj.Headquarter.CardName), 0})
+					results = append(results, Result{idx, string(cardobj.Headquarter.CardName), 0})
 				} else if req.SortBy == "CastingCost" {
-					results = append(results, Result{binary.BigEndian.Uint64(iterator.Key()), "", int(cardobj.Headquarter.Delay)})
+					results = append(results, Result{idx, "", int(cardobj.Headquarter.Delay)})
 				} else if req.SortBy == "Id" {
-					cardsList = append(cardsList, binary.BigEndian.Uint64(iterator.Key()))
+					cardsList = append(cardsList, idx)
 				}
 			}
 			if cardobj.Place != nil {
@@ -208,17 +217,17 @@ func (k Keeper) QCards(goCtx context.Context, req *types.QueryQCardsRequest) (*t
 					}
 				}
 				if req.SortBy == "Name" {
-					results = append(results, Result{binary.BigEndian.Uint64(iterator.Key()), string(cardobj.Place.CardName), 0})
+					results = append(results, Result{idx, string(cardobj.Place.CardName), 0})
 				} else if req.SortBy == "CastingCost" {
-					results = append(results, Result{binary.BigEndian.Uint64(iterator.Key()), "", int(cardobj.Place.CastingCost)})
+					results = append(results, Result{idx, "", int(cardobj.Place.CastingCost)})
 				} else if req.SortBy == "Id" {
-					cardsList = append(cardsList, binary.BigEndian.Uint64(iterator.Key()))
+					cardsList = append(cardsList, idx)
 				}
 			}
 		}
 		// finally if all checks were passed and unsorted, add the card
 		if req.SortBy == "" {
-			cardsList = append(cardsList, binary.BigEndian.Uint64(iterator.Key()))
+			cardsList = append(cardsList, idx)
 		}
 	}
 
