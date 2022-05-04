@@ -25,9 +25,6 @@ func NewIgnoreSellOffers() IgnoreSellOffers {
 	return IgnoreSellOffers{
 		false,
 		false,
-		false,
-		false,
-		false,
 	}
 }
 

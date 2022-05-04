@@ -10102,7 +10102,7 @@ paths:
           format: uint64
       tags:
         - Query
-  '/DecentralCardGame/cardchain/cardchain/q_sell_offers/{priceDown}/{priceUp}/{seller}/{buyer}/{status}':
+  '/DecentralCardGame/cardchain/cardchain/q_sell_offers/{status}':
     get:
       summary: Queries a list of QSellOffers items.
       operationId: DecentralCardGameCardchainCardchainQSellOffers
@@ -10157,22 +10157,6 @@ paths:
                       type: string
                   additionalProperties: {}
       parameters:
-        - name: priceDown
-          in: path
-          required: true
-          type: string
-        - name: priceUp
-          in: path
-          required: true
-          type: string
-        - name: seller
-          in: path
-          required: true
-          type: string
-        - name: buyer
-          in: path
-          required: true
-          type: string
         - name: status
           in: path
           required: true
@@ -10181,24 +10165,28 @@ paths:
             - open
             - sold
             - removed
+        - name: priceDown
+          in: query
+          required: false
+          type: string
+        - name: priceUp
+          in: query
+          required: false
+          type: string
+        - name: seller
+          in: query
+          required: false
+          type: string
+        - name: buyer
+          in: query
+          required: false
+          type: string
         - name: card
           in: query
           required: false
           type: string
           format: uint64
         - name: ignore.status
-          in: query
-          required: false
-          type: boolean
-        - name: ignore.price
-          in: query
-          required: false
-          type: boolean
-        - name: ignore.seller
-          in: query
-          required: false
-          type: boolean
-        - name: ignore.buyer
           in: query
           required: false
           type: boolean
@@ -30600,12 +30588,6 @@ definitions:
     type: object
     properties:
       status:
-        type: boolean
-      price:
-        type: boolean
-      seller:
-        type: boolean
-      buyer:
         type: boolean
       card:
         type: boolean

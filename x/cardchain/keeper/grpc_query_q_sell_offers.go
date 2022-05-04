@@ -1,6 +1,7 @@
 package keeper
 
 import (
+	"fmt"
 	"context"
 
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
@@ -15,6 +16,7 @@ func (k Keeper) QSellOffers(goCtx context.Context, req *types.QueryQSellOffersRe
 		return nil, status.Error(codes.InvalidArgument, "invalid request")
 	}
 
+	fmt.Println(req)
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
 	var (
@@ -26,7 +28,7 @@ func (k Keeper) QSellOffers(goCtx context.Context, req *types.QueryQSellOffersRe
 	for ; iter.Valid(); iter.Next() {
 		idx, sellOffer := iter.Value()
 		// Checks for price
-		if !req.Ignore.Price {
+		if req.PriceUp != "" && req.PriceDown != "" {
 			// Conversion to coins
 			priceUp, err := sdk.ParseCoinNormalized(req.PriceUp)
 			if err != nil {
@@ -43,15 +45,15 @@ func (k Keeper) QSellOffers(goCtx context.Context, req *types.QueryQSellOffersRe
 		}
 
 		// Checks for seller
-		if !req.Ignore.Seller {
+		if req.Seller != "" {
 			if req.Seller != sellOffer.Seller {
 				continue
 			}
 		}
 
 		// Checks for buyer
-		if !req.Ignore.Buyer {
-			if req.Seller != sellOffer.Buyer {
+		if req.Buyer != "" {
+			if req.Buyer != sellOffer.Buyer {
 				continue
 			}
 		}

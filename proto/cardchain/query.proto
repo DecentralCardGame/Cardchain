@@ -88,7 +88,7 @@ service Query {
 
 // Queries a list of QSellOffers items.
 	rpc QSellOffers(QueryQSellOffersRequest) returns (QueryQSellOffersResponse) {
-		option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/q_sell_offers/{priceDown}/{priceUp}/{seller}/{buyer}/{status}";
+		option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/q_sell_offers/{status}";
 	}
 
 // Queries a list of QServer items.
@@ -205,6 +205,18 @@ message QueryQMatchesResponse {
   repeated Match matches = 2;
 }
 
+/* message QueryQSellOffersRequest {
+  message Query {
+    string priceDown = 1;
+    string priceUp = 2;
+    string seller = 3;
+    string buyer = 4;
+    uint64 card = 5;
+    SellOfferStatus status = 6;
+  }
+  Query query = 1;
+} */
+
 message QueryQSellOffersRequest {
   string priceDown = 1;
   string priceUp = 2;
@@ -217,10 +229,7 @@ message QueryQSellOffersRequest {
 
 message IgnoreSellOffers {
   bool status = 1;
-  bool price = 2;
-  bool seller = 3;
-  bool buyer = 4;
-  bool card = 5;
+  bool card = 2 ;
 }
 
 message QueryQSellOffersResponse {

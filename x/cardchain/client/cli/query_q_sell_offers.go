@@ -26,9 +26,7 @@ func CmdQSellOffers() *cobra.Command {
 				reqCard uint64
 			)
 
-			if args[0] == "" && args[1] == "" {
-				ignore.Price = true
-			} else {
+			if args[0] != "" && args[1] != "" {
 				reqPriceDownRaw, err := sdk.ParseCoinNormalized(args[0])
 				if err != nil {
 					return err
@@ -42,14 +40,7 @@ func CmdQSellOffers() *cobra.Command {
 			}
 
 			reqSeller := args[2]
-			if reqSeller == "" {
-				ignore.Seller = true
-			}
-
 			reqBuyer := args[3]
-			if reqBuyer == "" {
-				ignore.Buyer = true
-			}
 
 			if args[4] == "" {
 				ignore.Card = true
