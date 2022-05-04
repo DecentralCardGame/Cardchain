@@ -4,7 +4,7 @@ EXPOSE 1318
 EXPOSE 26659
 
 WORKDIR .
-COPY . .
+COPY --chown=tendermint:tendermint . .
 
 RUN ignite chain build
 
