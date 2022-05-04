@@ -8,5 +8,4 @@ COPY --chown=tendermint:tendermint . .
 
 RUN ignite chain build
 
-
-CMD ./docker-run.sh
+ENTRYPOINT ./docker-run.sh
