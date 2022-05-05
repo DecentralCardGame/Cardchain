@@ -16,8 +16,6 @@ func NewMatchPlayer(addr string, cards []uint64) *MatchPlayer {
 func NewIgnoreMatches() IgnoreMatches {
 	return IgnoreMatches{
 		false,
-		false,
-		false,
 	}
 }
 

@@ -1,7 +1,6 @@
 package keeper
 
 import (
-	"fmt"
 	"context"
 
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
@@ -16,13 +15,17 @@ func (k Keeper) QSellOffers(goCtx context.Context, req *types.QueryQSellOffersRe
 		return nil, status.Error(codes.InvalidArgument, "invalid request")
 	}
 
-	fmt.Println(req)
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
 	var (
 		sellOfferIds   []uint64
 		sellOffersList []*types.SellOffer
 	)
+
+	if req.Ignore == nil {
+		newIgnore := types.NewIgnoreSellOffers()
+		req.Ignore = &newIgnore
+	}
 
 	iter := k.SellOffers.GetItemIterator(ctx)
 	for ; iter.Valid(); iter.Next() {

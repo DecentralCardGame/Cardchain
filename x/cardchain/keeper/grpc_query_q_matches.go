@@ -22,13 +22,18 @@ func (k Keeper) QMatches(goCtx context.Context, req *types.QueryQMatchesRequest)
 	allUsersInMatch := true
 	allCardsInMatch := true
 
+	if req.Ignore == nil {
+		newIgnore := types.NewIgnoreMatches()
+		req.Ignore = &newIgnore
+	}
+
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
 	iter := k.Matches.GetItemIterator(ctx)
 	for ; iter.Valid(); iter.Next() {
 		// Checks for timestamp
 		idx, match := iter.Value()
-		if !req.Ignore.Timestamp {
+		if req.TimestampUp != 0 || req.TimestampDown != 0 {
 			if !(req.TimestampDown <= match.Timestamp && match.Timestamp <= req.TimestampUp) {
 				continue
 			}
@@ -62,7 +67,7 @@ func (k Keeper) QMatches(goCtx context.Context, req *types.QueryQMatchesRequest)
 		}
 
 		// Checks for reporter
-		if !req.Ignore.Reporter {
+		if req.Reporter != "" {
 			if match.Reporter != req.Reporter {
 				continue
 			}

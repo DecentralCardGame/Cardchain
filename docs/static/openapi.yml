@@ -9912,7 +9912,7 @@ paths:
           format: uint64
       tags:
         - Query
-  '/DecentralCardGame/cardchain/cardchain/q_matches/{timestampDown}/{timestampUp}/{containsUsers}/{outcome}':
+  /DecentralCardGame/cardchain/cardchain/q_matches:
     get:
       summary: Queries a list of QMatches items.
       operationId: DecentralCardGameCardchainCardchainQMatches
@@ -10007,36 +10007,36 @@ paths:
                   additionalProperties: {}
       parameters:
         - name: timestampDown
-          in: path
-          required: true
+          in: query
+          required: false
           type: string
           format: uint64
         - name: timestampUp
-          in: path
-          required: true
+          in: query
+          required: false
           type: string
           format: uint64
         - name: containsUsers
-          in: path
-          required: true
+          in: query
+          required: false
           type: array
           items:
             type: string
-          collectionFormat: csv
-          minItems: 1
+          collectionFormat: multi
+        - name: reporter
+          in: query
+          required: false
+          type: string
         - name: outcome
-          in: path
-          required: true
+          in: query
+          required: false
           type: string
           enum:
             - AWon
             - BWon
             - Draw
             - Aborted
-        - name: reporter
-          in: query
-          required: false
-          type: string
+          default: AWon
         - name: cardsPlayed
           in: query
           required: false
@@ -10046,14 +10046,6 @@ paths:
             format: uint64
           collectionFormat: multi
         - name: ignore.outcome
-          in: query
-          required: false
-          type: boolean
-        - name: ignore.timestamp
-          in: query
-          required: false
-          type: boolean
-        - name: ignore.reporter
           in: query
           required: false
           type: boolean
@@ -30588,10 +30580,6 @@ definitions:
     type: object
     properties:
       outcome:
-        type: boolean
-      timestamp:
-        type: boolean
-      reporter:
         type: boolean
   DecentralCardGame.cardchain.cardchain.IgnoreSellOffers:
     type: object

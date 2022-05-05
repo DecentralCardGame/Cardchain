@@ -83,7 +83,7 @@ service Query {
 
 // Queries a list of QMatches items.
 	rpc QMatches(QueryQMatchesRequest) returns (QueryQMatchesResponse) {
-		option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/q_matches/{timestampDown}/{timestampUp}/{containsUsers}/{outcome}";
+		option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/q_matches";
 	}
 
 // Queries a list of QSellOffers items.
@@ -202,8 +202,6 @@ message QueryQMatchesRequest {
 
 message IgnoreMatches {
   bool outcome = 1;
-  bool timestamp = 2;
-  bool reporter = 3;
 }
 
 message QueryQMatchesResponse {
