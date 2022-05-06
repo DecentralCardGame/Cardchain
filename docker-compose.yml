@@ -5,7 +5,7 @@ services:
     build: .
     command: ./docker-run.sh
     volumes:
-       - ./blockchain-data/:/home/tendermint/.ignite/local-chains/Cardchain/
+       - /home/wieth:/home/tendermint/
     ports:
       - 26658:26658
       - 26659:26659
