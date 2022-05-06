@@ -5,7 +5,7 @@ services:
     build: .
     command: ./docker-run.sh
     volumes:
-       - ./blockchain-data/:/var/blockchain/
+       - ./blockchain-data/:/home/tendermint/.ignite/local-chains/Cardchain/
     ports:
       - 26658:26658
       - 26659:26659
@@ -26,6 +26,8 @@ services:
       - 81:81
       - 443:443
     command: /bin/bash -c "exec nginx -g 'daemon off;'"
+    depends_on: 
+      - blockchain
 
 volumes:
   database-data: # named volumes can be managed easier using docker-compose
