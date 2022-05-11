@@ -324,13 +324,13 @@ func request_Query_QCards_0(ctx context.Context, marshaler runtime.Marshaler, cl
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "status")
 	}
 
-	e, err = runtime.Enum(val, Status_value)
+	e, err = runtime.Enum(val, QueryQCardsRequest_Status_value)
 
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "status", err)
 	}
 
-	protoReq.Status = Status(e)
+	protoReq.Status = QueryQCardsRequest_Status(e)
 
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
@@ -361,13 +361,13 @@ func local_request_Query_QCards_0(ctx context.Context, marshaler runtime.Marshal
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "status")
 	}
 
-	e, err = runtime.Enum(val, Status_value)
+	e, err = runtime.Enum(val, QueryQCardsRequest_Status_value)
 
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "status", err)
 	}
 
-	protoReq.Status = Status(e)
+	protoReq.Status = QueryQCardsRequest_Status(e)
 
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)

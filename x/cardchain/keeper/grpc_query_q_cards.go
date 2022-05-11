@@ -13,6 +13,7 @@ import (
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
+	"golang.org/x/exp/slices"
 )
 
 type Result struct {
@@ -22,6 +23,12 @@ type Result struct {
 }
 
 func (k Keeper) QCards(goCtx context.Context, req *types.QueryQCardsRequest) (*types.QueryQCardsResponse, error) {
+	var (
+		states []types.Status
+		cardsList []uint64
+		results []Result
+	)
+
 	if req == nil {
 		return nil, status.Error(codes.InvalidArgument, "invalid request")
 	}
@@ -35,8 +42,21 @@ func (k Keeper) QCards(goCtx context.Context, req *types.QueryQCardsRequest) (*t
 		}
 	}
 
-	var cardsList []uint64
-	var results []Result
+	switch req.Status {
+	case types.QueryQCardsRequest_playable:
+		states = []types.Status{types.Status_trial, types.Status_permanent}
+	case types.QueryQCardsRequest_unplayable:
+		states = []types.Status{
+			types.Status_scheme,
+			types.Status_prototype,
+			types.Status_suspended,
+			types.Status_banned,
+			types.Status_bannedSoon,
+			types.Status_bannedVerySoon,
+		}
+	default:
+		states = []types.Status{types.Status(types.Status_value[req.Status.String()])}
+	}
 
 	checkName := func(cardName cardobject.CardName) bool {
 		if req.NameContains != "" && !strings.Contains(strings.ToLower(string(cardName)), strings.ToLower(req.NameContains)) {
@@ -92,21 +112,10 @@ func (k Keeper) QCards(goCtx context.Context, req *types.QueryQCardsRequest) (*t
 			continue
 		}
 		// then check if a status constrain was given and skip the card if it has the wrong status
-		if req.Status != types.Status_none {
-			if gottenCard.Status != req.Status {
+		if req.Status != types.QueryQCardsRequest_none {
+			if !slices.Contains(states, gottenCard.Status) {
 				continue
 			}
-		}
-		// Checks for playability
-		switch req.Playable {
-			case types.QueryQCardsRequest_Yes:
-				if gottenCard.Status != types.Status_trial && gottenCard.Status != types.Status_permanent {
-					continue
-				}
-			case types.QueryQCardsRequest_No:
-				if gottenCard.Status == types.Status_trial || gottenCard.Status == types.Status_permanent {
-					continue
-				}
 		}
 		// then check if an owner constrain was given and skip the card if it has the wrong owner
 		if req.Owner != "" {
