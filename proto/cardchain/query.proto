@@ -58,7 +58,7 @@ service Query {
 
 // Queries a list of QCards items.
 	rpc QCards(QueryQCardsRequest) returns (QueryQCardsResponse) {
-		option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/q_cards/{owner}/{status}/{cardType}/{classes}/{sortBy}/{nameContains}/{keywordsContains}/{notesContains}";
+		option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/q_cards/{status}";
 	}
 
 // Queries a list of QMatch items.
@@ -83,12 +83,12 @@ service Query {
 
 // Queries a list of QMatches items.
 	rpc QMatches(QueryQMatchesRequest) returns (QueryQMatchesResponse) {
-		option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/q_matches/{timestampDown}/{timestampUp}/{containsUsers}/{outcome}";
+		option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/q_matches";
 	}
 
 // Queries a list of QSellOffers items.
 	rpc QSellOffers(QueryQSellOffersRequest) returns (QueryQSellOffersResponse) {
-		option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/q_sell_offers/{priceDown}/{priceUp}/{seller}/{buyer}/{status}";
+		option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/q_sell_offers/{status}";
 	}
 
 // Queries a list of QServer items.
@@ -154,6 +154,11 @@ message QueryQVotableCardsResponse {
 }
 
 message QueryQCardsRequest {
+  enum Playable {
+    Idc = 0;
+    Yes = 1;
+    No = 2;
+  }
   string owner = 1;
   Status status = 2;
   string cardType = 3;
@@ -162,6 +167,7 @@ message QueryQCardsRequest {
   string nameContains = 6;
   string keywordsContains = 7;
   string notesContains = 8;
+  Playable playable = 9;
 }
 
 message QueryQCardsResponse {
@@ -196,14 +202,24 @@ message QueryQMatchesRequest {
 
 message IgnoreMatches {
   bool outcome = 1;
-  bool timestamp = 2;
-  bool reporter = 3;
 }
 
 message QueryQMatchesResponse {
   repeated uint64 matchesList = 1;
   repeated Match matches = 2;
 }
+
+/* message QueryQSellOffersRequest {
+  message Query {
+    string priceDown = 1;
+    string priceUp = 2;
+    string seller = 3;
+    string buyer = 4;
+    uint64 card = 5;
+    SellOfferStatus status = 6;
+  }
+  Query query = 1;
+} */
 
 message QueryQSellOffersRequest {
   string priceDown = 1;
@@ -217,10 +233,7 @@ message QueryQSellOffersRequest {
 
 message IgnoreSellOffers {
   bool status = 1;
-  bool price = 2;
-  bool seller = 3;
-  bool buyer = 4;
-  bool card = 5;
+  bool card = 2 ;
 }
 
 message QueryQSellOffersResponse {

@@ -303,6 +303,10 @@ func local_request_Query_QVotableCards_0(ctx context.Context, marshaler runtime.
 
 }
 
+var (
+	filter_Query_QCards_0 = &utilities.DoubleArray{Encoding: map[string]int{"status": 0}, Base: []int{1, 1, 0}, Check: []int{0, 1, 2}}
+)
+
 func request_Query_QCards_0(ctx context.Context, marshaler runtime.Marshaler, client QueryClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq QueryQCardsRequest
 	var metadata runtime.ServerMetadata
@@ -314,17 +318,6 @@ func request_Query_QCards_0(ctx context.Context, marshaler runtime.Marshaler, cl
 		err error
 		_   = err
 	)
-
-	val, ok = pathParams["owner"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "owner")
-	}
-
-	protoReq.Owner, err = runtime.String(val)
-
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "owner", err)
-	}
 
 	val, ok = pathParams["status"]
 	if !ok {
@@ -339,70 +332,11 @@ func request_Query_QCards_0(ctx context.Context, marshaler runtime.Marshaler, cl
 
 	protoReq.Status = Status(e)
 
-	val, ok = pathParams["cardType"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "cardType")
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
-	protoReq.CardType, err = runtime.String(val)
-
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "cardType", err)
-	}
-
-	val, ok = pathParams["classes"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "classes")
-	}
-
-	protoReq.Classes, err = runtime.String(val)
-
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "classes", err)
-	}
-
-	val, ok = pathParams["sortBy"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "sortBy")
-	}
-
-	protoReq.SortBy, err = runtime.String(val)
-
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "sortBy", err)
-	}
-
-	val, ok = pathParams["nameContains"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "nameContains")
-	}
-
-	protoReq.NameContains, err = runtime.String(val)
-
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "nameContains", err)
-	}
-
-	val, ok = pathParams["keywordsContains"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "keywordsContains")
-	}
-
-	protoReq.KeywordsContains, err = runtime.String(val)
-
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "keywordsContains", err)
-	}
-
-	val, ok = pathParams["notesContains"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "notesContains")
-	}
-
-	protoReq.NotesContains, err = runtime.String(val)
-
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "notesContains", err)
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Query_QCards_0); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
 	msg, err := client.QCards(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -422,17 +356,6 @@ func local_request_Query_QCards_0(ctx context.Context, marshaler runtime.Marshal
 		_   = err
 	)
 
-	val, ok = pathParams["owner"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "owner")
-	}
-
-	protoReq.Owner, err = runtime.String(val)
-
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "owner", err)
-	}
-
 	val, ok = pathParams["status"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "status")
@@ -446,70 +369,11 @@ func local_request_Query_QCards_0(ctx context.Context, marshaler runtime.Marshal
 
 	protoReq.Status = Status(e)
 
-	val, ok = pathParams["cardType"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "cardType")
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
-	protoReq.CardType, err = runtime.String(val)
-
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "cardType", err)
-	}
-
-	val, ok = pathParams["classes"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "classes")
-	}
-
-	protoReq.Classes, err = runtime.String(val)
-
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "classes", err)
-	}
-
-	val, ok = pathParams["sortBy"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "sortBy")
-	}
-
-	protoReq.SortBy, err = runtime.String(val)
-
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "sortBy", err)
-	}
-
-	val, ok = pathParams["nameContains"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "nameContains")
-	}
-
-	protoReq.NameContains, err = runtime.String(val)
-
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "nameContains", err)
-	}
-
-	val, ok = pathParams["keywordsContains"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "keywordsContains")
-	}
-
-	protoReq.KeywordsContains, err = runtime.String(val)
-
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "keywordsContains", err)
-	}
-
-	val, ok = pathParams["notesContains"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "notesContains")
-	}
-
-	protoReq.NotesContains, err = runtime.String(val)
-
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "notesContains", err)
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Query_QCards_0); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
 	msg, err := server.QCards(ctx, &protoReq)
@@ -734,66 +598,12 @@ func local_request_Query_QCouncil_0(ctx context.Context, marshaler runtime.Marsh
 }
 
 var (
-	filter_Query_QMatches_0 = &utilities.DoubleArray{Encoding: map[string]int{"timestampDown": 0, "timestampUp": 1, "containsUsers": 2, "outcome": 3}, Base: []int{1, 1, 2, 3, 4, 0, 0, 0, 0}, Check: []int{0, 1, 1, 1, 1, 2, 3, 4, 5}}
+	filter_Query_QMatches_0 = &utilities.DoubleArray{Encoding: map[string]int{}, Base: []int(nil), Check: []int(nil)}
 )
 
 func request_Query_QMatches_0(ctx context.Context, marshaler runtime.Marshaler, client QueryClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq QueryQMatchesRequest
 	var metadata runtime.ServerMetadata
-
-	var (
-		val string
-		e   int32
-		ok  bool
-		err error
-		_   = err
-	)
-
-	val, ok = pathParams["timestampDown"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "timestampDown")
-	}
-
-	protoReq.TimestampDown, err = runtime.Uint64(val)
-
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "timestampDown", err)
-	}
-
-	val, ok = pathParams["timestampUp"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "timestampUp")
-	}
-
-	protoReq.TimestampUp, err = runtime.Uint64(val)
-
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "timestampUp", err)
-	}
-
-	val, ok = pathParams["containsUsers"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "containsUsers")
-	}
-
-	protoReq.ContainsUsers, err = runtime.StringSlice(val, ",")
-
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "containsUsers", err)
-	}
-
-	val, ok = pathParams["outcome"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "outcome")
-	}
-
-	e, err = runtime.Enum(val, Outcome_value)
-
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "outcome", err)
-	}
-
-	protoReq.Outcome = Outcome(e)
 
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
@@ -811,60 +621,6 @@ func local_request_Query_QMatches_0(ctx context.Context, marshaler runtime.Marsh
 	var protoReq QueryQMatchesRequest
 	var metadata runtime.ServerMetadata
 
-	var (
-		val string
-		e   int32
-		ok  bool
-		err error
-		_   = err
-	)
-
-	val, ok = pathParams["timestampDown"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "timestampDown")
-	}
-
-	protoReq.TimestampDown, err = runtime.Uint64(val)
-
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "timestampDown", err)
-	}
-
-	val, ok = pathParams["timestampUp"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "timestampUp")
-	}
-
-	protoReq.TimestampUp, err = runtime.Uint64(val)
-
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "timestampUp", err)
-	}
-
-	val, ok = pathParams["containsUsers"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "containsUsers")
-	}
-
-	protoReq.ContainsUsers, err = runtime.StringSlice(val, ",")
-
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "containsUsers", err)
-	}
-
-	val, ok = pathParams["outcome"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "outcome")
-	}
-
-	e, err = runtime.Enum(val, Outcome_value)
-
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "outcome", err)
-	}
-
-	protoReq.Outcome = Outcome(e)
-
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
@@ -878,7 +634,7 @@ func local_request_Query_QMatches_0(ctx context.Context, marshaler runtime.Marsh
 }
 
 var (
-	filter_Query_QSellOffers_0 = &utilities.DoubleArray{Encoding: map[string]int{"priceDown": 0, "priceUp": 1, "seller": 2, "buyer": 3, "status": 4}, Base: []int{1, 1, 2, 3, 4, 5, 0, 0, 0, 0, 0}, Check: []int{0, 1, 1, 1, 1, 1, 2, 3, 4, 5, 6}}
+	filter_Query_QSellOffers_0 = &utilities.DoubleArray{Encoding: map[string]int{"status": 0}, Base: []int{1, 1, 0}, Check: []int{0, 1, 2}}
 )
 
 func request_Query_QSellOffers_0(ctx context.Context, marshaler runtime.Marshaler, client QueryClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
@@ -892,50 +648,6 @@ func request_Query_QSellOffers_0(ctx context.Context, marshaler runtime.Marshale
 		err error
 		_   = err
 	)
-
-	val, ok = pathParams["priceDown"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "priceDown")
-	}
-
-	protoReq.PriceDown, err = runtime.String(val)
-
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "priceDown", err)
-	}
-
-	val, ok = pathParams["priceUp"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "priceUp")
-	}
-
-	protoReq.PriceUp, err = runtime.String(val)
-
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "priceUp", err)
-	}
-
-	val, ok = pathParams["seller"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "seller")
-	}
-
-	protoReq.Seller, err = runtime.String(val)
-
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "seller", err)
-	}
-
-	val, ok = pathParams["buyer"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "buyer")
-	}
-
-	protoReq.Buyer, err = runtime.String(val)
-
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "buyer", err)
-	}
 
 	val, ok = pathParams["status"]
 	if !ok {
@@ -973,50 +685,6 @@ func local_request_Query_QSellOffers_0(ctx context.Context, marshaler runtime.Ma
 		err error
 		_   = err
 	)
-
-	val, ok = pathParams["priceDown"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "priceDown")
-	}
-
-	protoReq.PriceDown, err = runtime.String(val)
-
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "priceDown", err)
-	}
-
-	val, ok = pathParams["priceUp"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "priceUp")
-	}
-
-	protoReq.PriceUp, err = runtime.String(val)
-
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "priceUp", err)
-	}
-
-	val, ok = pathParams["seller"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "seller")
-	}
-
-	protoReq.Seller, err = runtime.String(val)
-
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "seller", err)
-	}
-
-	val, ok = pathParams["buyer"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "buyer")
-	}
-
-	protoReq.Buyer, err = runtime.String(val)
-
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "buyer", err)
-	}
 
 	val, ok = pathParams["status"]
 	if !ok {
@@ -1807,7 +1475,7 @@ var (
 
 	pattern_Query_QVotableCards_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"DecentralCardGame", "cardchain", "q_votable_cards", "address"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_QCards_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 1, 0, 4, 1, 5, 4, 1, 0, 4, 1, 5, 5, 1, 0, 4, 1, 5, 6, 1, 0, 4, 1, 5, 7, 1, 0, 4, 1, 5, 8, 1, 0, 4, 1, 5, 9, 1, 0, 4, 1, 5, 10}, []string{"DecentralCardGame", "cardchain", "q_cards", "owner", "status", "cardType", "classes", "sortBy", "nameContains", "keywordsContains", "notesContains"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_QCards_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"DecentralCardGame", "cardchain", "q_cards", "status"}, "", runtime.AssumeColonVerbOpt(true)))
 
 	pattern_Query_QMatch_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"DecentralCardGame", "cardchain", "q_match", "matchId"}, "", runtime.AssumeColonVerbOpt(true)))
 
@@ -1817,9 +1485,9 @@ var (
 
 	pattern_Query_QCouncil_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"DecentralCardGame", "cardchain", "q_council", "councilId"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_QMatches_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 1, 0, 4, 1, 5, 4, 1, 0, 4, 1, 5, 5, 1, 0, 4, 1, 5, 6}, []string{"DecentralCardGame", "cardchain", "q_matches", "timestampDown", "timestampUp", "containsUsers", "outcome"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_QMatches_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 1, 2, 2}, []string{"DecentralCardGame", "cardchain", "q_matches"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_QSellOffers_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 1, 0, 4, 1, 5, 4, 1, 0, 4, 1, 5, 5, 1, 0, 4, 1, 5, 6, 1, 0, 4, 1, 5, 7}, []string{"DecentralCardGame", "cardchain", "q_sell_offers", "priceDown", "priceUp", "seller", "buyer", "status"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_QSellOffers_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"DecentralCardGame", "cardchain", "q_sell_offers", "status"}, "", runtime.AssumeColonVerbOpt(true)))
 
 	pattern_Query_QServer_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"DecentralCardGame", "cardchain", "q_server", "id"}, "", runtime.AssumeColonVerbOpt(true)))
 )

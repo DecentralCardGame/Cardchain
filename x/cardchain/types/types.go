@@ -16,16 +16,11 @@ func NewMatchPlayer(addr string, cards []uint64) *MatchPlayer {
 func NewIgnoreMatches() IgnoreMatches {
 	return IgnoreMatches{
 		false,
-		false,
-		false,
 	}
 }
 
 func NewIgnoreSellOffers() IgnoreSellOffers {
 	return IgnoreSellOffers{
-		false,
-		false,
-		false,
 		false,
 		false,
 	}

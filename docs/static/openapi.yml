@@ -9584,7 +9584,7 @@ paths:
                   additionalProperties: {}
       tags:
         - Query
-  '/DecentralCardGame/cardchain/cardchain/q_cards/{owner}/{status}/{cardType}/{classes}/{sortBy}/{nameContains}/{keywordsContains}/{notesContains}':
+  '/DecentralCardGame/cardchain/cardchain/q_cards/{status}':
     get:
       summary: Queries a list of QCards items.
       operationId: DecentralCardGameCardchainCardchainQCards
@@ -9618,10 +9618,6 @@ paths:
                       type: string
                   additionalProperties: {}
       parameters:
-        - name: owner
-          in: path
-          required: true
-          type: string
         - name: status
           in: path
           required: true
@@ -9636,30 +9632,43 @@ paths:
             - bannedSoon
             - bannedVerySoon
             - none
+        - name: owner
+          in: query
+          required: false
+          type: string
         - name: cardType
-          in: path
-          required: true
+          in: query
+          required: false
           type: string
         - name: classes
-          in: path
-          required: true
+          in: query
+          required: false
           type: string
         - name: sortBy
-          in: path
-          required: true
+          in: query
+          required: false
           type: string
         - name: nameContains
-          in: path
-          required: true
+          in: query
+          required: false
           type: string
         - name: keywordsContains
-          in: path
-          required: true
+          in: query
+          required: false
           type: string
         - name: notesContains
-          in: path
-          required: true
+          in: query
+          required: false
           type: string
+        - name: playable
+          in: query
+          required: false
+          type: string
+          enum:
+            - Idc
+            - 'Yes'
+            - 'No'
+          default: Idc
       tags:
         - Query
   '/DecentralCardGame/cardchain/cardchain/q_collection/{collectionId}':
@@ -9903,7 +9912,7 @@ paths:
           format: uint64
       tags:
         - Query
-  '/DecentralCardGame/cardchain/cardchain/q_matches/{timestampDown}/{timestampUp}/{containsUsers}/{outcome}':
+  /DecentralCardGame/cardchain/cardchain/q_matches:
     get:
       summary: Queries a list of QMatches items.
       operationId: DecentralCardGameCardchainCardchainQMatches
@@ -9998,36 +10007,36 @@ paths:
                   additionalProperties: {}
       parameters:
         - name: timestampDown
-          in: path
-          required: true
+          in: query
+          required: false
           type: string
           format: uint64
         - name: timestampUp
-          in: path
-          required: true
+          in: query
+          required: false
           type: string
           format: uint64
         - name: containsUsers
-          in: path
-          required: true
+          in: query
+          required: false
           type: array
           items:
             type: string
-          collectionFormat: csv
-          minItems: 1
+          collectionFormat: multi
+        - name: reporter
+          in: query
+          required: false
+          type: string
         - name: outcome
-          in: path
-          required: true
+          in: query
+          required: false
           type: string
           enum:
             - AWon
             - BWon
             - Draw
             - Aborted
-        - name: reporter
-          in: query
-          required: false
-          type: string
+          default: AWon
         - name: cardsPlayed
           in: query
           required: false
@@ -10037,14 +10046,6 @@ paths:
             format: uint64
           collectionFormat: multi
         - name: ignore.outcome
-          in: query
-          required: false
-          type: boolean
-        - name: ignore.timestamp
-          in: query
-          required: false
-          type: boolean
-        - name: ignore.reporter
           in: query
           required: false
           type: boolean
@@ -10102,7 +10103,7 @@ paths:
           format: uint64
       tags:
         - Query
-  '/DecentralCardGame/cardchain/cardchain/q_sell_offers/{priceDown}/{priceUp}/{seller}/{buyer}/{status}':
+  '/DecentralCardGame/cardchain/cardchain/q_sell_offers/{status}':
     get:
       summary: Queries a list of QSellOffers items.
       operationId: DecentralCardGameCardchainCardchainQSellOffers
@@ -10157,22 +10158,6 @@ paths:
                       type: string
                   additionalProperties: {}
       parameters:
-        - name: priceDown
-          in: path
-          required: true
-          type: string
-        - name: priceUp
-          in: path
-          required: true
-          type: string
-        - name: seller
-          in: path
-          required: true
-          type: string
-        - name: buyer
-          in: path
-          required: true
-          type: string
         - name: status
           in: path
           required: true
@@ -10181,24 +10166,28 @@ paths:
             - open
             - sold
             - removed
+        - name: priceDown
+          in: query
+          required: false
+          type: string
+        - name: priceUp
+          in: query
+          required: false
+          type: string
+        - name: seller
+          in: query
+          required: false
+          type: string
+        - name: buyer
+          in: query
+          required: false
+          type: string
         - name: card
           in: query
           required: false
           type: string
           format: uint64
         - name: ignore.status
-          in: query
-          required: false
-          type: boolean
-        - name: ignore.price
-          in: query
-          required: false
-          type: boolean
-        - name: ignore.seller
-          in: query
-          required: false
-          type: boolean
-        - name: ignore.buyer
           in: query
           required: false
           type: boolean
@@ -30592,20 +30581,10 @@ definitions:
     properties:
       outcome:
         type: boolean
-      timestamp:
-        type: boolean
-      reporter:
-        type: boolean
   DecentralCardGame.cardchain.cardchain.IgnoreSellOffers:
     type: object
     properties:
       status:
-        type: boolean
-      price:
-        type: boolean
-      seller:
-        type: boolean
-      buyer:
         type: boolean
       card:
         type: boolean
@@ -30939,6 +30918,13 @@ definitions:
       councilsNumber:
         type: string
         format: uint64
+  DecentralCardGame.cardchain.cardchain.QueryQCardsRequest.Playable:
+    type: string
+    enum:
+      - Idc
+      - 'Yes'
+      - 'No'
+    default: Idc
   DecentralCardGame.cardchain.cardchain.QueryQCardsResponse:
     type: object
     properties:

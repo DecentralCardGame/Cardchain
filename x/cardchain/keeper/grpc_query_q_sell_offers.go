@@ -22,11 +22,16 @@ func (k Keeper) QSellOffers(goCtx context.Context, req *types.QueryQSellOffersRe
 		sellOffersList []*types.SellOffer
 	)
 
+	if req.Ignore == nil {
+		newIgnore := types.NewIgnoreSellOffers()
+		req.Ignore = &newIgnore
+	}
+
 	iter := k.SellOffers.GetItemIterator(ctx)
 	for ; iter.Valid(); iter.Next() {
 		idx, sellOffer := iter.Value()
 		// Checks for price
-		if !req.Ignore.Price {
+		if req.PriceUp != "" && req.PriceDown != "" {
 			// Conversion to coins
 			priceUp, err := sdk.ParseCoinNormalized(req.PriceUp)
 			if err != nil {
@@ -43,15 +48,15 @@ func (k Keeper) QSellOffers(goCtx context.Context, req *types.QueryQSellOffersRe
 		}
 
 		// Checks for seller
-		if !req.Ignore.Seller {
+		if req.Seller != "" {
 			if req.Seller != sellOffer.Seller {
 				continue
 			}
 		}
 
 		// Checks for buyer
-		if !req.Ignore.Buyer {
-			if req.Seller != sellOffer.Buyer {
+		if req.Buyer != "" {
+			if req.Buyer != sellOffer.Buyer {
 				continue
 			}
 		}

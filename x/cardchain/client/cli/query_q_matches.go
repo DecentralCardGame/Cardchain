@@ -28,9 +28,7 @@ func CmdQMatches() *cobra.Command {
 				reqContainsUsers                 []string
 			)
 
-			if args[0] == "" && args[1] == "" {
-				ignore.Timestamp = true
-			} else {
+			if args[0] != "" && args[1] != "" {
 				reqTimestampDown, err = cast.ToUint64E(args[0])
 				if err != nil {
 					return err
@@ -54,9 +52,6 @@ func CmdQMatches() *cobra.Command {
 				return err
 			}
 
-			if args[4] == "" {
-				ignore.Reporter = true
-			}
 			reqReporter := args[4]
 
 			if args[5] == "" {
