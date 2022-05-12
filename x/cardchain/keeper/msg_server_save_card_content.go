@@ -25,15 +25,17 @@ func (k msgServer) SaveCardContent(goCtx context.Context, msg *types.MsgSaveCard
 	}
 
 	card.Content = []byte(msg.Content)
-	// card.Status = types.Status_prototype
-	card.Status = types.Status_permanent // TODO: remove later
 	card.Notes = msg.Notes
 	card.Artist = msg.Artist
-	k.Cards.Set(ctx, msg.CardId, card)
-	err = k.TransferSchemeToCard(ctx, msg.CardId, msgOwner)
-	if err != nil {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "An error accured while converting a card to a scheme: "+err.Error())
+	if card.Status == types.Status_scheme {
+		err = k.TransferSchemeToCard(ctx, msg.CardId, msgOwner)
+		if err != nil {
+			return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "An error accured while converting a card to a scheme: "+err.Error())
+		}
 	}
+	// card.Status = types.Status_prototype
+	card.Status = types.Status_permanent // TODO: remove later
+	k.Cards.Set(ctx, msg.CardId, card)
 
 	return &types.MsgSaveCardContentResponse{}, nil
 }
