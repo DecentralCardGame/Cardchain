@@ -154,10 +154,18 @@ message QueryQVotableCardsResponse {
 }
 
 message QueryQCardsRequest {
-  enum Playable {
-    Idc = 0;
-    Yes = 1;
-    No = 2;
+  enum Status {
+    scheme = 0;
+    prototype = 1;
+    trial = 2;
+    permanent = 3;
+    suspended = 4;
+    banned = 5;
+    bannedSoon = 6;
+    bannedVerySoon = 7;
+    none = 8;
+    playable = 9;
+    unplayable = 10;
   }
   string owner = 1;
   Status status = 2;
@@ -167,7 +175,6 @@ message QueryQCardsRequest {
   string nameContains = 6;
   string keywordsContains = 7;
   string notesContains = 8;
-  Playable playable = 9;
 }
 
 message QueryQCardsResponse {

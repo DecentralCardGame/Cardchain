@@ -9632,6 +9632,8 @@ paths:
             - bannedSoon
             - bannedVerySoon
             - none
+            - playable
+            - unplayable
         - name: owner
           in: query
           required: false
@@ -9660,15 +9662,6 @@ paths:
           in: query
           required: false
           type: string
-        - name: playable
-          in: query
-          required: false
-          type: string
-          enum:
-            - Idc
-            - 'Yes'
-            - 'No'
-          default: Idc
       tags:
         - Query
   '/DecentralCardGame/cardchain/cardchain/q_collection/{collectionId}':
@@ -30918,13 +30911,21 @@ definitions:
       councilsNumber:
         type: string
         format: uint64
-  DecentralCardGame.cardchain.cardchain.QueryQCardsRequest.Playable:
+  DecentralCardGame.cardchain.cardchain.QueryQCardsRequest.Status:
     type: string
     enum:
-      - Idc
-      - 'Yes'
-      - 'No'
-    default: Idc
+      - scheme
+      - prototype
+      - trial
+      - permanent
+      - suspended
+      - banned
+      - bannedSoon
+      - bannedVerySoon
+      - none
+      - playable
+      - unplayable
+    default: scheme
   DecentralCardGame.cardchain.cardchain.QueryQCardsResponse:
     type: object
     properties:
