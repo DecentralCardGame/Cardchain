@@ -13,5 +13,5 @@ const (
 func RegisterNativeCoinUnits() {
 	_ = sdk.RegisterDenom(bpf, sdk.OneDec())
 	_ = sdk.RegisterDenom(mbpf, sdk.NewDecWithPrec(1, 3))
-	_ = sdk.RegisterDenom(mbpf, sdk.NewDecWithPrec(1, 6))
+	_ = sdk.RegisterDenom(ubpf, sdk.NewDecWithPrec(1, 6))
 }

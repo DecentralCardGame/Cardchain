@@ -32,10 +32,10 @@ func (BankModule) DefaultGenesis(cdc codec.JSONCodec) json.RawMessage {
 		DenomUnits: []*banktypes.DenomUnit{
 			{"ubpf", uint32(0), []string{"microbpf"}},
 			{"mbpf", uint32(3), []string{"millibpf"}},
-			{BondDenom, uint32(6), nil},
+			{"bpf", uint32(6), nil},
 		},
 		Base:    "ubpf",
-		Display: BondDenom,
+		Display: "bpf",
 	}
 
 	genState := banktypes.DefaultGenesisState()
