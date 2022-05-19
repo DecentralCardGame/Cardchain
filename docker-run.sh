@@ -10,9 +10,7 @@ if false && test -f "/var/blockchain/exported_genesis.json"; then
   cp /var/blockchain/source_checksum.txt ~/.ignite/local-chains/Cardchain/
 fi
 
-ignite chain serve
+Cardchaind start --consensus.create_empty_blocks false
 
-#/go/bin/csd start --rpc.laddr tcp://0.0.0.0:26657
 # the following line is evaluated if csd is terminated via pkill (docker-stop-and-export.sh)
-#csd export --for-zero-height > /var/blockchain/genesis.json
-#.ignite/local-chains/Cardchain ?
+Cardchaind export > ~/.ignite/local-chains/Cardchain/exported_genesis.json
