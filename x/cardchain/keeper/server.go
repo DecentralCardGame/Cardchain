@@ -1,7 +1,7 @@
 package keeper
 
 import (
-  "github.com/DecentralCardGame/Cardchain/x/cardchain/types"
+	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
@@ -12,9 +12,9 @@ func (k Keeper) GetServerId(ctx sdk.Context, addr string) uint64 {
 			return uint64(idx)
 		}
 	}
-  id := k.Servers.GetNumber(ctx)
-  server := types.Server{Reporter: addr}
-  k.Servers.Set(ctx, id, &server)
+	id := k.Servers.GetNumber(ctx)
+	server := types.Server{Reporter: addr}
+	k.Servers.Set(ctx, id, &server)
 	return id
 }
 

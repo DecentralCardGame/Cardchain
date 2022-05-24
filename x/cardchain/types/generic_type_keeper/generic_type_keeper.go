@@ -33,30 +33,28 @@ func (i ItemIterator[T]) Value() (uint64, T) {
 	return *i.idx, gotten
 }
 
-
 // GetEmpty Just returns a empty object of a certain type
 func GetEmpty[A any]() *A {
 	var obj A
 	return &obj
 }
 
-
 type GenericTypeKeeper[T codec.ProtoMarshaler] struct {
-	Key      sdk.StoreKey
-  InternalKey      sdk.StoreKey
-	cdc      codec.BinaryCodec
-	name     string
-	getEmpty func() T // This is needed because codec.ProtoMarshaler always refers to a pointer, but for cdc.Unmarshal to work the passed pointer can't be nil, but when initializing a pointer it's nil
+	Key         sdk.StoreKey
+	InternalKey sdk.StoreKey
+	cdc         codec.BinaryCodec
+	name        string
+	getEmpty    func() T // This is needed because codec.ProtoMarshaler always refers to a pointer, but for cdc.Unmarshal to work the passed pointer can't be nil, but when initializing a pointer it's nil
 }
 
 // NewGTK Returns a new GenericTypeKeeper
 func NewGTK[T codec.ProtoMarshaler](key sdk.StoreKey, internalKey sdk.StoreKey, cdc codec.BinaryCodec, getEmpty func() T) GenericTypeKeeper[T] {
 	gtk := GenericTypeKeeper[T]{
-		Key:      key,
-    InternalKey: internalKey,
-		cdc:      cdc,
-		name:     fmt.Sprintf("%T", getEmpty()),
-		getEmpty: getEmpty,
+		Key:         key,
+		InternalKey: internalKey,
+		cdc:         cdc,
+		name:        fmt.Sprintf("%T", getEmpty()),
+		getEmpty:    getEmpty,
 	}
 	return gtk
 }
@@ -119,11 +117,11 @@ func (gtk GenericTypeKeeper[T]) GetAll(ctx sdk.Context) (all []T) {
 // GetAll Gets all objs from store
 func (gtk GenericTypeKeeper[T]) GetItemIterator(ctx sdk.Context) ItemIterator[T] {
 	iterator := gtk.GetIterator(ctx)
-  var num uint64 = 0
+	var num uint64 = 0
 	return ItemIterator[T]{
 		iter: iterator,
 		gtk:  &gtk,
-    idx: &num,
+		idx:  &num,
 	}
 }
 
