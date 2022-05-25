@@ -10282,6 +10282,9 @@ paths:
                 default: available
               ReportMatches:
                 type: boolean
+              profileCard:
+                type: string
+                format: uint64
         default:
           description: An unexpected error response.
           schema:
@@ -30719,6 +30722,8 @@ definitions:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgSetCardRarityResponse:
     type: object
+  DecentralCardGame.cardchain.cardchain.MsgSetProfileCardResponse:
+    type: object
   DecentralCardGame.cardchain.cardchain.MsgSubmitCollectionProposalResponse:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgSubmitCopyrightProposalResponse:
@@ -31192,6 +31197,9 @@ definitions:
         default: available
       ReportMatches:
         type: boolean
+      profileCard:
+        type: string
+        format: uint64
   DecentralCardGame.cardchain.cardchain.VoteRight:
     type: object
     properties:

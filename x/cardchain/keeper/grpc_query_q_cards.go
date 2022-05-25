@@ -11,9 +11,9 @@ import (
 	"github.com/DecentralCardGame/cardobject/keywords"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+	"golang.org/x/exp/slices"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
-	"golang.org/x/exp/slices"
 )
 
 type Result struct {
@@ -24,9 +24,9 @@ type Result struct {
 
 func (k Keeper) QCards(goCtx context.Context, req *types.QueryQCardsRequest) (*types.QueryQCardsResponse, error) {
 	var (
-		states []types.Status
+		states    []types.Status
 		cardsList []uint64
-		results []Result
+		results   []Result
 	)
 
 	if req == nil {

@@ -1,8 +1,10 @@
 package keeper
 
 import (
+	"encoding/json"
 	"context"
 
+	"github.com/DecentralCardGame/cardobject/keywords"
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
@@ -24,7 +26,17 @@ func (k msgServer) SaveCardContent(goCtx context.Context, msg *types.MsgSaveCard
 		return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "Incorrect Owner")
 	}
 
-	card.Content = []byte(msg.Content)
+	cardobj, err := keywords.Unmarshal([]byte(msg.Content))
+	if err != nil {
+		return nil, sdkerrors.Wrap(err, "Invalid Cardobject")
+
+	}
+
+	card.Content, err = json.Marshal(cardobj)
+	if err != nil {
+		return nil, sdkerrors.Wrap(err, "Invalid Cardobject")
+	}
+
 	card.Notes = msg.Notes
 	card.Artist = msg.Artist
 	if card.Status == types.Status_scheme {

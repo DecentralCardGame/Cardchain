@@ -45,6 +45,7 @@ func RegisterCodec(cdc *codec.LegacyAmino) {
 	cdc.RegisterConcrete(&MsgRestartCouncil{}, "cardchain/RestartCouncil", nil)
 	cdc.RegisterConcrete(&MsgRewokeCouncilRegistration{}, "cardchain/RewokeCouncilRegistration", nil)
 	cdc.RegisterConcrete(&MsgConfirmMatch{}, "cardchain/ConfirmMatch", nil)
+	cdc.RegisterConcrete(&MsgSetProfileCard{}, "cardchain/SetProfileCard", nil)
 	// this line is used by starport scaffolding # 2
 }
 
@@ -156,6 +157,9 @@ func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {
 	)
 	registry.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgConfirmMatch{},
+	)
+	registry.RegisterImplementations((*sdk.Msg)(nil),
+		&MsgSetProfileCard{},
 	)
 	// this line is used by starport scaffolding # 3
 
