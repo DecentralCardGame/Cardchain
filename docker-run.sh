@@ -13,7 +13,7 @@ fi
 # empty blocks would be nice, but this doesn't start the faucet
 #Cardchaind start --consensus.create_empty_blocks false
 
-ignite chain serve
+ignite chain serve -v
 
 # the following line is evaluated if csd is terminated via pkill (docker-stop-and-export.sh)
 Cardchaind export > ~/.ignite/local-chains/Cardchain/exported_genesis.json
