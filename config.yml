@@ -23,3 +23,40 @@ host:
   prof: ":6061"
   grpc: ":9092"
   api: "0.0.0.0:1318"
+
+genesis:
+  app_state:
+    staking:
+      params:
+        bond_denom: "ubpf"
+    mint:
+      params:
+        mint_denom: "ubpf"
+    gov:
+      deposit_params:
+        min_deposit:
+        - amount: '10000000'
+          denom: ubpf
+    crisis:
+      constant_fee:
+        amount: '1000'
+        denom: ubpf
+    bank:
+      denom_metadata:
+      - base: ubpf
+        denom_units:
+        - aliases:
+          - microbpf
+          denom: ubpf
+          exponent: 0
+        - aliases:
+          - millibpf
+          denom: mbpf
+          exponent: 3
+        - aliases: []
+          denom: bpf
+          exponent: 6
+        description: The native staking token of the CrowdControlNetwork.
+        display: bpf
+        name: Burning Pitchfork
+        symbol: BPF
