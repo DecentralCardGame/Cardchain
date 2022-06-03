@@ -19354,6 +19354,17 @@ paths:
               profileCard:
                 type: string
                 format: uint64
+              airDrops:
+                type: object
+                properties:
+                  vote:
+                    type: boolean
+                  create:
+                    type: boolean
+                  buy:
+                    type: boolean
+                  play:
+                    type: boolean
         default:
           description: An unexpected error response.
           schema:
@@ -44661,6 +44672,17 @@ definitions:
     description: >-
       MsgCreateVestingAccountResponse defines the Msg/CreateVestingAccount
       response type.
+  DecentralCardGame.cardchain.cardchain.AirDrops:
+    type: object
+    properties:
+      vote:
+        type: boolean
+      create:
+        type: boolean
+      buy:
+        type: boolean
+      play:
+        type: boolean
   DecentralCardGame.cardchain.cardchain.CStatus:
     type: string
     enum:
@@ -45399,6 +45421,17 @@ definitions:
       profileCard:
         type: string
         format: uint64
+      airDrops:
+        type: object
+        properties:
+          vote:
+            type: boolean
+          create:
+            type: boolean
+          buy:
+            type: boolean
+          play:
+            type: boolean
   DecentralCardGame.cardchain.cardchain.VoteRight:
     type: object
     properties:
