@@ -36,6 +36,7 @@ func NewUser() User {
 		VoteRights:       []*VoteRight{},
 		CouncilStatus:    CouncilStatus_unavailable,
 		ReportMatches:    false,
+		AirDrops:					&AirDrops{},
 	}
 }
 

@@ -44901,6 +44901,9 @@ definitions:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgBuyCollectionResponse:
     type: object
+    properties:
+      airdropClaimed:
+        type: boolean
   DecentralCardGame.cardchain.cardchain.MsgChangeArtistResponse:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgCommitCouncilResponseResponse:
@@ -44941,6 +44944,9 @@ definitions:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgSaveCardContentResponse:
     type: object
+    properties:
+      airdropClaimed:
+        type: boolean
   DecentralCardGame.cardchain.cardchain.MsgSetCardRarityResponse:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgSetProfileCardResponse:
@@ -44955,6 +44961,9 @@ definitions:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgVoteCardResponse:
     type: object
+    properties:
+      airdropClaimed:
+        type: boolean
   DecentralCardGame.cardchain.cardchain.Outcome:
     type: string
     enum:

@@ -13,12 +13,12 @@ import (
 func (k msgServer) VoteCard(goCtx context.Context, msg *types.MsgVoteCard) (*types.MsgVoteCardResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	voter, err := sdk.AccAddressFromBech32(msg.Creator)
+	voter, err := k.GetUserFromString(ctx, msg.Creator)
 	if err != nil {
 		return nil, sdkerrors.Wrap(types.ErrInvalidAccAddress, "Unable to convert to AccAddress")
 	}
 
-	voteRights := k.GetVoteRights(ctx, voter)
+	voteRights := voter.VoteRights
 	rightsIndex := slices.IndexFunc(voteRights, func(s *types.VoteRight) bool { return s.CardId == msg.CardId })
 
 	// check if voting rights are true
@@ -56,7 +56,7 @@ func (k msgServer) VoteCard(goCtx context.Context, msg *types.MsgVoteCard) (*typ
 
 	// check for specific bounty on the card
 	if !card.VotePool.IsZero() {
-		err := k.MintCoinsToAddr(ctx, voter, sdk.Coins{sdk.NewInt64Coin("ucredits", 1000000)})
+		err := k.MintCoinsToAddr(ctx, voter.Addr, sdk.Coins{sdk.NewInt64Coin("ucredits", 1000000)})
 		if err != nil {
 			return nil, sdkerrors.Wrap(sdkerrors.ErrInsufficientFunds, err.Error())
 		}
@@ -64,7 +64,7 @@ func (k msgServer) VoteCard(goCtx context.Context, msg *types.MsgVoteCard) (*typ
 	}
 
 	amount := k.GetVoteReward(ctx)
-	k.MintCoinsToAddr(ctx, voter, sdk.Coins{amount})
+	k.MintCoinsToAddr(ctx, voter.Addr, sdk.Coins{amount})
 	k.SubPoolCredits(ctx, BalancersPoolKey, amount)
 
 	k.Cards.Set(ctx, msg.CardId, card)
@@ -73,10 +73,10 @@ func (k msgServer) VoteCard(goCtx context.Context, msg *types.MsgVoteCard) (*typ
 	votes.Arr[len(votes.Arr)-1]++
 	k.RunningAverages.Set(ctx, Votes24ValueKey, votes)
 
-	err = k.RemoveVoteRight(ctx, voter, rightsIndex)
-	if err != nil {
-		return nil, sdkerrors.Wrap(types.ErrUserDoesNotExist, err.Error())
-	}
+	k.RemoveVoteRight(ctx, &voter, rightsIndex)
 
-	return &types.MsgVoteCardResponse{}, nil
+	claimedAirdrop := k.ClaimAirDrop(ctx, &voter, types.AirDrop_vote)
+	k.SetUserFromUser(ctx, voter)
+
+	return &types.MsgVoteCardResponse{claimedAirdrop}, nil
 }

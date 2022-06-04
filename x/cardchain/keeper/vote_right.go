@@ -39,16 +39,10 @@ func (k Keeper) AddVoteRightsToAllUsers(ctx sdk.Context, expireBlock int64) {
 }
 
 // RemoveVoteRight Removes a voteright from a user
-func (k Keeper) RemoveVoteRight(ctx sdk.Context, userAddress sdk.AccAddress, rightsIndex int) error {
-	user, err := k.GetUser(ctx, userAddress)
-	if err != nil {
-		return err
-	}
+func (k Keeper) RemoveVoteRight(ctx sdk.Context, user *User, rightsIndex int) {
 	user.VoteRights[rightsIndex] = user.VoteRights[len(user.VoteRights)-1]
 	//user.VoteRights[len(user.VoteRights)-1] = null
 	user.VoteRights = user.VoteRights[:len(user.VoteRights)-1]
-	k.SetUser(ctx, userAddress, user)
-	return nil
 }
 
 // GetVoteRightToAllCards Gets the voterights to all cards

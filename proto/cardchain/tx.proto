@@ -73,6 +73,7 @@ message MsgVoteCard {
 }
 
 message MsgVoteCardResponse {
+  bool airdropClaimed = 1;
 }
 
 message MsgSaveCardContent {
@@ -86,6 +87,7 @@ message MsgSaveCardContent {
 }
 
 message MsgSaveCardContentResponse {
+  bool airdropClaimed = 1;
 }
 
 message MsgTransferCard {
@@ -214,6 +216,7 @@ message MsgBuyCollection {
 }
 
 message MsgBuyCollectionResponse {
+  bool airdropClaimed = 1;
 }
 
 message MsgRemoveCardFromCollection {

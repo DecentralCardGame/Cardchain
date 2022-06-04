@@ -15,7 +15,7 @@ func (k msgServer) SaveCardContent(goCtx context.Context, msg *types.MsgSaveCard
 
 	card := k.Cards.Get(ctx, msg.CardId)
 
-	msgOwner, err := sdk.AccAddressFromBech32(msg.Creator)
+	msgOwner, err := k.GetUserFromString(ctx, msg.Creator)
 	if err != nil {
 		return nil, sdkerrors.Wrap(types.ErrInvalidAccAddress, err.Error())
 	}
@@ -40,14 +40,18 @@ func (k msgServer) SaveCardContent(goCtx context.Context, msg *types.MsgSaveCard
 	card.Notes = msg.Notes
 	card.Artist = msg.Artist
 	if card.Status == types.Status_scheme {
-		err = k.TransferSchemeToCard(ctx, msg.CardId, msgOwner)
+		err = k.TransferSchemeToCard(ctx, msg.CardId, &msgOwner)
 		if err != nil {
 			return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "An error accured while converting a card to a scheme: "+err.Error())
 		}
 	}
+
+	claimedAirdrop := k.ClaimAirDrop(ctx, &msgOwner, types.AirDrop_create)
+	k.SetUserFromUser(ctx, msgOwner)
+
 	// card.Status = types.Status_prototype
 	card.Status = types.Status_permanent // TODO: remove later
 	k.Cards.Set(ctx, msg.CardId, card)
 
-	return &types.MsgSaveCardContentResponse{}, nil
+	return &types.MsgSaveCardContentResponse{claimedAirdrop}, nil
 }

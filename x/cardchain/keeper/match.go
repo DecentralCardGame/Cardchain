@@ -74,13 +74,21 @@ func (k Keeper) DistributeCoins(ctx sdk.Context, match *types.Match, outcome typ
 
 	amountA, amountB := k.CalculateMatchReward(ctx, outcome)
 	amounts := []sdk.Coin{amountA, amountB}
-	for idx := range addresses {
+	for idx, address := range addresses {
 		if !amounts[idx].IsZero() {
-			err := k.MintCoinsToAddr(ctx, addresses[idx], sdk.Coins{amounts[idx]})
+			err := k.MintCoinsToAddr(ctx, address, sdk.Coins{amounts[idx]})
 			if err != nil {
 				return sdkerrors.Wrap(sdkerrors.ErrInsufficientFunds, err.Error())
 			}
 			k.SubPoolCredits(ctx, WinnersPoolKey, amounts[idx])
+
+			user, err := k.GetUser(ctx, address)
+			if err != nil {
+				return err
+			}
+			userObj := User{Addr: address, User: user}
+			k.ClaimAirDrop(ctx, &userObj, types.AirDrop_play)
+			k.SetUserFromUser(ctx, userObj)
 		}
 	}
 
@@ -91,9 +99,9 @@ func (k Keeper) DistributeCoins(ctx sdk.Context, match *types.Match, outcome typ
 	match.CoinsDistributed = true
 
 	if outcome != types.Outcome_Aborted {
-		for idx := range addresses {
+		for idx, address := range addresses {
 			for _, cardId := range [][]uint64{match.PlayerA.PlayedCards, match.PlayerB.PlayedCards}[idx] {
-				err = k.AddVoteRight(ctx, addresses[idx], cardId)
+				err = k.AddVoteRight(ctx, address, cardId)
 				if err != nil {
 					return sdkerrors.Wrap(types.ErrUserDoesNotExist, err.Error())
 				}
