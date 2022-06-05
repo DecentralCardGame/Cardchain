@@ -24,4 +24,6 @@ message Params {
   uint64 trialPeriod = 14;
   int64 gameVoteRatio = 15;
   int64 cardAuctionPriceReductionPeriod = 16;
+  string airDropValue = 17 [(gogoproto.nullable) = false, (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Coin"];;
+  int64 airDropMaxBlockHeight = 18;
 }

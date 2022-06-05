@@ -54,6 +54,11 @@ func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) 
 		k.Cards.Set(ctx, uint64(currId), record)
 	}
 	k.Logger(ctx).Info("Params", genState.Params)
+	if genState.Params.AirDropValue.Denom == "" {
+		defaultParams := types.DefaultParams()
+		genState.Params.AirDropValue = defaultParams.AirDropValue
+		genState.Params.AirDropMaxBlockHeight = defaultParams.AirDropMaxBlockHeight
+	}
 	k.SetParams(ctx, genState.Params)
 }
 
@@ -61,6 +66,7 @@ func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) 
 func ExportGenesis(ctx sdk.Context, k keeper.Keeper) *types.GenesisState {
 	// this line is used by starport scaffolding # genesis/module/export
 	params := k.GetParams(ctx)
+	// params := types.DefaultParams()
 	cardAuctionPrice := k.GetCardAuctionPrice(ctx)
 	sellOffers := k.SellOffers.GetAll(ctx)
 	pools := k.Pools.GetAll(ctx)

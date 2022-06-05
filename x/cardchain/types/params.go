@@ -36,6 +36,8 @@ func NewParams() Params {
 		TrialPeriod:                     14 * 24 * 500,
 		GameVoteRatio:                   20, // This is a fixed point number and will be devided by 100 when used
 		CardAuctionPriceReductionPeriod: 20,
+		AirDropValue:										 sdk.NewInt64Coin("ucredits", int64(50*math.Pow(10, 6))),
+		AirDropMaxBlockHeight:					 500,
 	}
 }
 
@@ -63,6 +65,8 @@ func (p *Params) ParamSetPairs() paramtypes.ParamSetPairs {
 		paramtypes.NewParamSetPair([]byte("TrialPeriod"), &p.TrialPeriod, validateTrialPeriod),
 		paramtypes.NewParamSetPair([]byte("GameVoteRatio"), &p.GameVoteRatio, validateGameVoteRatio),
 		paramtypes.NewParamSetPair([]byte("CardAuctionPriceReductionPeriod"), &p.CardAuctionPriceReductionPeriod, validateCardAuctionPriceReductionPeriod),
+		paramtypes.NewParamSetPair([]byte("AirDropValue"), &p.AirDropValue, validateAirDropValue),
+		paramtypes.NewParamSetPair([]byte("AirDropMaxBlockHeight"), &p.AirDropMaxBlockHeight, validateAirDropMaxBlockHeight),
 	}
 }
 
@@ -194,6 +198,19 @@ func validateCollectionCreationFee(i interface{}) error {
 	return nil
 }
 
+func validateAirDropValue(i interface{}) error {
+	v, ok := i.(sdk.Coin)
+	if !ok {
+		return fmt.Errorf("invalid parameter type: %T", i)
+	}
+
+	if v == sdk.NewInt64Coin("ucredits", 0) {
+		return fmt.Errorf("invalid AirDropValue: %v", v)
+	}
+
+	return nil
+}
+
 func validateCollateralDeposit(i interface{}) error {
 	v, ok := i.(sdk.Coin)
 	if !ok {
@@ -228,6 +245,19 @@ func validateVoterReward(i interface{}) error {
 
 	if v == 0 {
 		return fmt.Errorf("invalid VoterReward: %d", v)
+	}
+
+	return nil
+}
+
+func validateAirDropMaxBlockHeight(i interface{}) error {
+	v, ok := i.(int64)
+	if !ok {
+		return fmt.Errorf("invalid parameter type: %T", i)
+	}
+
+	if v < 0 {
+		return fmt.Errorf("invalid AirDropMaxBlockHeight: %d", v)
 	}
 
 	return nil
