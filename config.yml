@@ -3,9 +3,9 @@ build:
 
 accounts:
   - name: alice
-    coins: ["2000000000000000000000000000000000000000000000000000000ucredits", "200000000ubpf"]
+    coins: ["2000000000000000000000000000000000000000000000000000000ucredits", "200000000000000ubpf"]
   - name: bob
-    coins: ["10000000000ucredits", "100000000ubpf"]
+    coins: ["10000000000ucredits", "10000000000000000ubpf"]
 validator:
   name: alice
   staked: "100000000ubpf"
@@ -16,7 +16,7 @@ client:
     path: "vue/src/store"
 faucet:
   name: bob
-  coins: ["5000000ucredits", "100000ubpf"]
+  coins: ["5000000ucredits", "1000000ubpf"]
 host:
   rpc: "0.0.0.0:26659"
   p2p: "0.0.0.0:26658"
