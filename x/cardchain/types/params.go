@@ -36,8 +36,8 @@ func NewParams() Params {
 		TrialPeriod:                     14 * 24 * 500,
 		GameVoteRatio:                   20, // This is a fixed point number and will be devided by 100 when used
 		CardAuctionPriceReductionPeriod: 20,
-		AirDropValue:										 sdk.NewInt64Coin("ucredits", int64(50*math.Pow(10, 6))),
-		AirDropMaxBlockHeight:					 5000,
+		AirDropValue:										 sdk.NewInt64Coin("ubpf", int64(5*math.Pow(10, 6))),
+		AirDropMaxBlockHeight:					 5000000,
 	}
 }
 
