@@ -19370,6 +19370,8 @@ paths:
                     type: boolean
                   play:
                     type: boolean
+                  user:
+                    type: boolean
         default:
           description: An unexpected error response.
           schema:
@@ -44688,6 +44690,8 @@ definitions:
         type: boolean
       play:
         type: boolean
+      user:
+        type: boolean
   DecentralCardGame.cardchain.cardchain.CStatus:
     type: string
     enum:
@@ -45455,6 +45459,8 @@ definitions:
           buy:
             type: boolean
           play:
+            type: boolean
+          user:
             type: boolean
   DecentralCardGame.cardchain.cardchain.VoteRight:
     type: object

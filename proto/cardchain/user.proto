@@ -29,6 +29,7 @@ message AirDrops {
   bool create = 2;
   bool buy = 3;
   bool play = 4;
+  bool user = 5;
 }
 
 enum AirDrop {
@@ -36,4 +37,5 @@ enum AirDrop {
   vote = 1;
   create = 2;
   buy = 3;
+  user = 4;
 }

@@ -29,7 +29,7 @@ func NewParams() Params {
 		WinnerReward:                    int64(math.Pow(10, 6)),
 		VoterReward:                     int64(math.Pow(10, 6)),
 		HourlyFaucet:                    sdk.NewInt64Coin("ucredits", int64(50*math.Pow(10, 6))),
-		InflationRate:                   "1.1", // TDOD: Also make this a fixed point number
+		InflationRate:                   "1.1", // TODO: Also make this a fixed point number
 		RaresPerPack:                    1,
 		CommonsPerPack:                  9,
 		UnCommonsPerPack:                3,
@@ -37,7 +37,7 @@ func NewParams() Params {
 		GameVoteRatio:                   20, // This is a fixed point number and will be devided by 100 when used
 		CardAuctionPriceReductionPeriod: 20,
 		AirDropValue:										 sdk.NewInt64Coin("ucredits", int64(50*math.Pow(10, 6))),
-		AirDropMaxBlockHeight:					 500,
+		AirDropMaxBlockHeight:					 5000,
 	}
 }
 

@@ -18,7 +18,8 @@ func (k Keeper) ClaimAirDrop(ctx sdk.Context, user *User, airdrop types.AirDrop)
 	}
 
   airdrops := []*bool{
-    &user.AirDrops.Play, &user.AirDrops.Vote, &user.AirDrops.Create, &user.AirDrops.Buy,
+    &user.AirDrops.Play, &user.AirDrops.Vote, &user.AirDrops.Create,
+		&user.AirDrops.Buy, &user.AirDrops.User,
   }
 
   choosen := airdrops[int(airdrop)]
