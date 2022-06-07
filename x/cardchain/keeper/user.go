@@ -35,7 +35,9 @@ func (k Keeper) InitUser(ctx sdk.Context, address sdk.AccAddress, alias string) 
 	newUser.VoteRights = k.GetVoteRightToAllCards(ctx, ctx.BlockHeight()+k.GetParams(ctx).VotingRightsExpirationTime) // TODO this might be a good thing to remove later, so that sybil voting is not possible
 	// Yes yes remove later, this is pretty heavy on the chain and gas prices
 
-	k.SetUser(ctx, address, newUser)
+	userObj := User{newUser, address}
+	k.ClaimAirDrop(ctx, &userObj, types.AirDrop_user)
+	k.SetUserFromUser(ctx, userObj)
 }
 
 // GetUser Gets a user from store

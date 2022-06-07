@@ -65,6 +65,7 @@ func (k msgServer) BuyCollection(goCtx context.Context, msg *types.MsgBuyCollect
 	}
 
 	creator.Cards = append(creator.Cards, cardsList...)
+	claimedAirdrop := k.ClaimAirDrop(ctx, &creator, types.AirDrop_buy)
 
 	k.SetUserFromUser(ctx, creator)
 
@@ -74,5 +75,5 @@ func (k msgServer) BuyCollection(goCtx context.Context, msg *types.MsgBuyCollect
 	k.Pools.Set(ctx, PublicPoolKey, &newPool)
 	k.Logger(ctx).Info(fmt.Sprintf(":: PublicPool: %s", newPool))
 
-	return &types.MsgBuyCollectionResponse{}, nil
+	return &types.MsgBuyCollectionResponse{claimedAirdrop}, nil
 }

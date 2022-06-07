@@ -85,19 +85,13 @@ func (k Keeper) Logger(ctx sdk.Context) log.Logger {
 }
 
 // TransferSchemeToCard Makes a users cardscheme a card
-func (k Keeper) TransferSchemeToCard(ctx sdk.Context, cardId uint64, address sdk.AccAddress) (err error) {
-	user, err := k.GetUser(ctx, address)
-	if err != nil {
-		return types.ErrUserDoesNotExist
-	}
-
+func (k Keeper) TransferSchemeToCard(ctx sdk.Context, cardId uint64, user *User) (err error) {
 	user.OwnedCardSchemes, err = PopItemFromArr(cardId, user.OwnedCardSchemes)
 	if err != nil {
 		return sdkerrors.ErrUnauthorized
 	}
 
 	user.OwnedPrototypes = append(user.OwnedPrototypes, cardId)
-	k.SetUser(ctx, address, user)
 	return nil
 }
 

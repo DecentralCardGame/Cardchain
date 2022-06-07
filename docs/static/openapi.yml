@@ -18463,6 +18463,11 @@ paths:
                   cardAuctionPriceReductionPeriod:
                     type: string
                     format: int64
+                  airDropValue:
+                    type: string
+                  airDropMaxBlockHeight:
+                    type: string
+                    format: int64
             description: >-
               QueryParamsResponse is response type for the Query/Params RPC
               method.
@@ -19354,6 +19359,19 @@ paths:
               profileCard:
                 type: string
                 format: uint64
+              airDrops:
+                type: object
+                properties:
+                  vote:
+                    type: boolean
+                  create:
+                    type: boolean
+                  buy:
+                    type: boolean
+                  play:
+                    type: boolean
+                  user:
+                    type: boolean
         default:
           description: An unexpected error response.
           schema:
@@ -44661,6 +44679,19 @@ definitions:
     description: >-
       MsgCreateVestingAccountResponse defines the Msg/CreateVestingAccount
       response type.
+  DecentralCardGame.cardchain.cardchain.AirDrops:
+    type: object
+    properties:
+      vote:
+        type: boolean
+      create:
+        type: boolean
+      buy:
+        type: boolean
+      play:
+        type: boolean
+      user:
+        type: boolean
   DecentralCardGame.cardchain.cardchain.CStatus:
     type: string
     enum:
@@ -44879,6 +44910,9 @@ definitions:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgBuyCollectionResponse:
     type: object
+    properties:
+      airdropClaimed:
+        type: boolean
   DecentralCardGame.cardchain.cardchain.MsgChangeArtistResponse:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgCommitCouncilResponseResponse:
@@ -44919,6 +44953,9 @@ definitions:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgSaveCardContentResponse:
     type: object
+    properties:
+      airdropClaimed:
+        type: boolean
   DecentralCardGame.cardchain.cardchain.MsgSetCardRarityResponse:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgSetProfileCardResponse:
@@ -44933,6 +44970,9 @@ definitions:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgVoteCardResponse:
     type: object
+    properties:
+      airdropClaimed:
+        type: boolean
   DecentralCardGame.cardchain.cardchain.Outcome:
     type: string
     enum:
@@ -45036,6 +45076,11 @@ definitions:
       cardAuctionPriceReductionPeriod:
         type: string
         format: int64
+      airDropValue:
+        type: string
+      airDropMaxBlockHeight:
+        type: string
+        format: int64
     description: Params defines the parameters for the module.
   DecentralCardGame.cardchain.cardchain.QueryParamsResponse:
     type: object
@@ -45085,6 +45130,11 @@ definitions:
             type: string
             format: int64
           cardAuctionPriceReductionPeriod:
+            type: string
+            format: int64
+          airDropValue:
+            type: string
+          airDropMaxBlockHeight:
             type: string
             format: int64
     description: QueryParamsResponse is response type for the Query/Params RPC method.
@@ -45399,6 +45449,19 @@ definitions:
       profileCard:
         type: string
         format: uint64
+      airDrops:
+        type: object
+        properties:
+          vote:
+            type: boolean
+          create:
+            type: boolean
+          buy:
+            type: boolean
+          play:
+            type: boolean
+          user:
+            type: boolean
   DecentralCardGame.cardchain.cardchain.VoteRight:
     type: object
     properties:
