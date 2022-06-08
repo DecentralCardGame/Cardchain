@@ -5,6 +5,7 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
+// ClaimAirDrop claims a given airdrop
 func (k Keeper) ClaimAirDrop(ctx sdk.Context, user *User, airdrop types.AirDrop) (ret bool) {
 	params := k.GetParams(ctx)
 
