@@ -202,6 +202,13 @@ func (k Keeper) UpdateBanStatus(ctx sdk.Context, newBannedIds []uint64) {
 			k.Cards.Set(ctx, uint64(idx), gottenCard)
 		}
 	}
+
+	// mark freshly banned cards
+	for _, id := range newBannedIds {
+		banCard := k.Cards.Get(ctx, id)
+		banCard.Status = types.Status_bannedSoon
+		k.Cards.Set(ctx, id, banCard)
+	}
 }
 
 // GetOPandUPCards Gets OP and UP cards
