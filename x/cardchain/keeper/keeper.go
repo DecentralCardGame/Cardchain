@@ -179,19 +179,20 @@ func (k Keeper) NerfBuffCards(ctx sdk.Context, cardIds []uint64, buff bool) {
 
 // UpdateBanStatus Bans cards
 func (k Keeper) UpdateBanStatus(ctx sdk.Context, newBannedIds []uint64) {
+	var err error
 	// go through all cards and find already marked cards
 	iter := k.Cards.GetItemIterator(ctx)
 	for ; iter.Valid(); iter.Next() {
 		idx, gottenCard := iter.Value()
 		if gottenCard.Status == types.Status_bannedVerySoon {
-			gottenUser, err := k.GetUserFromString(ctx, gottenCard.Owner)
+			gottenUser, _ := k.GetUserFromString(ctx, gottenCard.Owner)
 
 			// remove the card from the Cards store
 			var emptyCard types.Card
-			k.Cards.Set(ctx, uint64(idx), &emptyCard)
+			k.Cards.Set(ctx, idx, &emptyCard)
 
 			// remove the card from the ownedCards of the owner
-			gottenUser.OwnedCardSchemes, err = PopItemFromArr(uint64(idx), gottenUser.OwnedCardSchemes)
+			gottenUser.OwnedPrototypes, err = PopItemFromArr(idx, gottenUser.OwnedPrototypes)
 			if err == nil {
 				k.SetUserFromUser(ctx, gottenUser)
 			} else {
@@ -199,7 +200,7 @@ func (k Keeper) UpdateBanStatus(ctx sdk.Context, newBannedIds []uint64) {
 			}
 		} else if gottenCard.Status == types.Status_bannedSoon {
 			gottenCard.Status = types.Status_bannedVerySoon
-			k.Cards.Set(ctx, uint64(idx), gottenCard)
+			k.Cards.Set(ctx, idx, gottenCard)
 		}
 	}
 
