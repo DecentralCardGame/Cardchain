@@ -12,5 +12,7 @@ COPY --chown=tendermint:tendermint . .
 RUN chmod +x ./docker-run.sh
 
 RUN ignite chain build
+#RUN ignite chain init
+#RUN python3 ./scripts/migrate_with_data.py ./blockchain-data/exported_genesis.json ~/.Cardchain/config/genesis.json
 
 ENTRYPOINT ./docker-run.sh

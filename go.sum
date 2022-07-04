@@ -75,8 +75,8 @@ github.com/DataDog/datadog-go v3.2.0+incompatible/go.mod h1:LButxg5PwREeZtORoXG3
 github.com/DataDog/zstd v1.4.1/go.mod h1:1jcaCB/ufaK+sKp1NBhlGmpz41jOoPQ35bpF36t7BBo=
 github.com/DataDog/zstd v1.4.5 h1:EndNeuB0l9syBZhut0wns3gV1hL8zX8LIu6ZiVHWLIQ=
 github.com/DataDog/zstd v1.4.5/go.mod h1:1jcaCB/ufaK+sKp1NBhlGmpz41jOoPQ35bpF36t7BBo=
-github.com/DecentralCardGame/cardobject v0.4.10 h1:OU/10V+S4dnkl68WswEF+Yj+mlS5Vkz/louzXnEH+WI=
-github.com/DecentralCardGame/cardobject v0.4.10/go.mod h1:waAoRvDCDVTBlPjEroIIfXpX2PQnJvgUssRN4Ji4VFM=
+github.com/DecentralCardGame/cardobject v0.4.11 h1:EBMvRxz/oG6pwJcqWqOK6JlC36Xfgi5C9ez1Aj0rQ7Q=
+github.com/DecentralCardGame/cardobject v0.4.11/go.mod h1:waAoRvDCDVTBlPjEroIIfXpX2PQnJvgUssRN4Ji4VFM=
 github.com/Djarvur/go-err113 v0.0.0-20210108212216-aea10b59be24/go.mod h1:4UJr5HIiMZrwgkSPdsjy2uOQExX/WEILpIrO9UPGuXs=
 github.com/Knetic/govaluate v3.0.1-0.20171022003610-9aa49832a739+incompatible/go.mod h1:r7JcOSlj0wfOMncg0iLm8Leh48TZaKVeNIfJntJ2wa0=
 github.com/Masterminds/goutils v1.1.0/go.mod h1:8cTjp+g8YejhMuvIA5y2vz3BpJxksy863GQaJW2MFNU=
