@@ -3,7 +3,7 @@ module github.com/DecentralCardGame/Cardchain
 go 1.18
 
 require (
-	github.com/DecentralCardGame/cardobject v0.4.11
+	github.com/DecentralCardGame/cardobject v0.4.12
 	github.com/cosmos/cosmos-sdk v0.44.5
 	github.com/cosmos/ibc-go v1.2.2
 	github.com/gogo/protobuf v1.3.3
