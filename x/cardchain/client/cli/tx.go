@@ -65,6 +65,7 @@ func GetTxCmd() *cobra.Command {
 	cmd.AddCommand(CmdConfirmMatch())
 	cmd.AddCommand(CmdSetProfileCard())
 	cmd.AddCommand(CmdOpenBoosterPack())
+	cmd.AddCommand(CmdTransferBoosterPack())
 	// this line is used by starport scaffolding # 1
 
 	return cmd

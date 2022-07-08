@@ -45000,6 +45000,8 @@ definitions:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgSubmitMatchReporterProposalResponse:
     type: object
+  DecentralCardGame.cardchain.cardchain.MsgTransferBoosterPackResponse:
+    type: object
   DecentralCardGame.cardchain.cardchain.MsgTransferCardResponse:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgVoteCardResponse:

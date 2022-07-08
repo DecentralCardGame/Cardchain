@@ -46,6 +46,7 @@ service Msg {
   rpc ConfirmMatch(MsgConfirmMatch) returns (MsgConfirmMatchResponse);
   rpc SetProfileCard(MsgSetProfileCard) returns (MsgSetProfileCardResponse);
   rpc OpenBoosterPack(MsgOpenBoosterPack) returns (MsgOpenBoosterPackResponse);
+  rpc TransferBoosterPack(MsgTransferBoosterPack) returns (MsgTransferBoosterPackResponse);
 // this line is used by starport scaffolding # proto/tx/rpc
 }
 
@@ -376,6 +377,15 @@ message MsgOpenBoosterPack {
 }
 
 message MsgOpenBoosterPackResponse {
+}
+
+message MsgTransferBoosterPack {
+  string creator = 1;
+  uint64 boosterPackId = 2;
+  string receiver = 3;
+}
+
+message MsgTransferBoosterPackResponse {
 }
 
 // this line is used by starport scaffolding # proto/tx/message
