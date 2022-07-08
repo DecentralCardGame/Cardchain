@@ -18,18 +18,18 @@ func (k Keeper) ClaimAirDrop(ctx sdk.Context, user *User, airdrop types.AirDrop)
 		return
 	}
 
-  airdrops := []*bool{
-    &user.AirDrops.Play, &user.AirDrops.Vote, &user.AirDrops.Create,
+	airdrops := []*bool{
+		&user.AirDrops.Play, &user.AirDrops.Vote, &user.AirDrops.Create,
 		&user.AirDrops.Buy, &user.AirDrops.User,
-  }
+	}
 
-  choosen := airdrops[int(airdrop)]
-  if !*choosen {
+	choosen := airdrops[int(airdrop)]
+	if !*choosen {
 		// Coin transfer happens here
 		k.MintCoinsToAddr(ctx, user.Addr, sdk.Coins{params.AirDropValue})
-    ret = true
-    *choosen = true
-  }
+		ret = true
+		*choosen = true
+	}
 
-  return
+	return
 }

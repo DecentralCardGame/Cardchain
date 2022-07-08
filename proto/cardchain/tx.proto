@@ -45,6 +45,7 @@ service Msg {
   rpc RewokeCouncilRegistration(MsgRewokeCouncilRegistration) returns (MsgRewokeCouncilRegistrationResponse);
   rpc ConfirmMatch(MsgConfirmMatch) returns (MsgConfirmMatchResponse);
   rpc SetProfileCard(MsgSetProfileCard) returns (MsgSetProfileCardResponse);
+  rpc OpenBoosterPack(MsgOpenBoosterPack) returns (MsgOpenBoosterPackResponse);
 // this line is used by starport scaffolding # proto/tx/rpc
 }
 
@@ -367,6 +368,14 @@ message MsgSetProfileCard {
 }
 
 message MsgSetProfileCardResponse {
+}
+
+message MsgOpenBoosterPack {
+  string creator = 1;
+  uint64 boosterPackId = 2;
+}
+
+message MsgOpenBoosterPackResponse {
 }
 
 // this line is used by starport scaffolding # proto/tx/message

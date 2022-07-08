@@ -18586,7 +18586,6 @@ paths:
                 type: string
               hash:
                 type: string
-                format: byte
         default:
           description: An unexpected error response.
           schema:
@@ -19375,6 +19374,22 @@ paths:
                     type: boolean
                   user:
                     type: boolean
+              boosterPacks:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    collectionId:
+                      type: string
+                      format: uint64
+                    timeStamp:
+                      type: string
+                      format: int64
+                    raritiesPerPack:
+                      type: array
+                      items:
+                        type: string
+                        format: uint64
         default:
           description: An unexpected error response.
           schema:
@@ -44695,6 +44710,20 @@ definitions:
         type: boolean
       user:
         type: boolean
+  DecentralCardGame.cardchain.cardchain.BoosterPack:
+    type: object
+    properties:
+      collectionId:
+        type: string
+        format: uint64
+      timeStamp:
+        type: string
+        format: int64
+      raritiesPerPack:
+        type: array
+        items:
+          type: string
+          format: uint64
   DecentralCardGame.cardchain.cardchain.CStatus:
     type: string
     enum:
@@ -44934,6 +44963,8 @@ definitions:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgFinalizeCollectionResponse:
     type: object
+  DecentralCardGame.cardchain.cardchain.MsgOpenBoosterPackResponse:
+    type: object
   DecentralCardGame.cardchain.cardchain.MsgRegisterForCouncilResponse:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgRemoveCardFromCollectionResponse:
@@ -45148,7 +45179,6 @@ definitions:
         type: string
       hash:
         type: string
-        format: byte
   DecentralCardGame.cardchain.cardchain.QueryQCardchainInfoResponse:
     type: object
     properties:
@@ -45468,6 +45498,22 @@ definitions:
             type: boolean
           user:
             type: boolean
+      boosterPacks:
+        type: array
+        items:
+          type: object
+          properties:
+            collectionId:
+              type: string
+              format: uint64
+            timeStamp:
+              type: string
+              format: int64
+            raritiesPerPack:
+              type: array
+              items:
+                type: string
+                format: uint64
   DecentralCardGame.cardchain.cardchain.VoteRight:
     type: object
     properties:

@@ -13,6 +13,14 @@ func NewMatchPlayer(addr string, cards []uint64) *MatchPlayer {
 	}
 }
 
+func NewBoosterPack(ctx sdk.Context, collectionId uint64, raritiesPerPack []uint64) BoosterPack {
+	return BoosterPack{
+		CollectionId:    collectionId,
+		RaritiesPerPack: raritiesPerPack,
+		TimeStamp:       ctx.BlockHeight(),
+	}
+}
+
 func NewIgnoreMatches() IgnoreMatches {
 	return IgnoreMatches{
 		false,
@@ -36,7 +44,7 @@ func NewUser() User {
 		VoteRights:       []*VoteRight{},
 		CouncilStatus:    CouncilStatus_unavailable,
 		ReportMatches:    false,
-		AirDrops:					&AirDrops{},
+		AirDrops:         &AirDrops{},
 	}
 }
 

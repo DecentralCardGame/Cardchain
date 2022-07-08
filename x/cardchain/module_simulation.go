@@ -160,6 +160,10 @@ const (
 	// TODO: Determine the simulation weight value
 	defaultWeightMsgSetProfileCard int = 100
 
+	opWeightMsgOpenBoosterPack = "op_weight_msg_open_booster_pack"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgOpenBoosterPack int = 100
+
 	// this line is used by starport scaffolding # simapp/module/const
 )
 
@@ -565,6 +569,17 @@ func (am AppModule) WeightedOperations(simState module.SimulationState) []simtyp
 	operations = append(operations, simulation.NewWeightedOperation(
 		weightMsgSetProfileCard,
 		cardchainsimulation.SimulateMsgSetProfileCard(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
+	var weightMsgOpenBoosterPack int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgOpenBoosterPack, &weightMsgOpenBoosterPack, nil,
+		func(_ *rand.Rand) {
+			weightMsgOpenBoosterPack = defaultWeightMsgOpenBoosterPack
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgOpenBoosterPack,
+		cardchainsimulation.SimulateMsgOpenBoosterPack(am.accountKeeper, am.bankKeeper, am.keeper),
 	))
 
 	// this line is used by starport scaffolding # simapp/module/operation
