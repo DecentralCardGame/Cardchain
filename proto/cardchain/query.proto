@@ -118,6 +118,7 @@ message QueryQCardContentRequest {
 
 message QueryQCardContentResponse {
   string content = 1;
+  string hash = 2;
 }
 
 message QueryQUserRequest {
