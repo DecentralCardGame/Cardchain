@@ -18406,6 +18406,55 @@ paths:
           format: int64
       tags:
         - Query
+  '/DecentralCardGame/Cardchain/cardchain/q_collections/{status}/{ignoreStatus}':
+    get:
+      summary: Queries a list of QCollections items.
+      operationId: DecentralCardGameCardchainCardchainQCollections
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              collectionIds:
+                type: array
+                items:
+                  type: string
+                  format: uint64
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: status
+          in: path
+          required: true
+          type: string
+          enum:
+            - design
+            - finalized
+            - active
+            - archived
+        - name: ignoreStatus
+          in: path
+          required: true
+          type: boolean
+      tags:
+        - Query
   /DecentralCardGame/cardchain/cardchain/params:
     get:
       summary: Parameters queries the parameters of the module.
@@ -45222,6 +45271,14 @@ definitions:
     type: object
     properties:
       cardsList:
+        type: array
+        items:
+          type: string
+          format: uint64
+  DecentralCardGame.cardchain.cardchain.QueryQCollectionsResponse:
+    type: object
+    properties:
+      collectionIds:
         type: array
         items:
           type: string

@@ -96,6 +96,11 @@ service Query {
 		option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/q_server/{id}";
 	}
 
+// Queries a list of QCollections items.
+	rpc QCollections(QueryQCollectionsRequest) returns (QueryQCollectionsResponse) {
+		option (google.api.http).get = "/DecentralCardGame/Cardchain/cardchain/q_collections/{status}/{ignoreStatus}";
+	}
+
 // this line is used by starport scaffolding # 2
 }
 
@@ -254,6 +259,15 @@ message QueryQServerRequest {
 }
 
 message QueryQServerResponse {
+}
+
+message QueryQCollectionsRequest {
+   CStatus status = 1;
+   bool ignoreStatus = 2;
+}
+
+message QueryQCollectionsResponse {
+   repeated uint64 collectionIds = 1;
 }
 
 // this line is used by starport scaffolding # 3
