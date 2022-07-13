@@ -67,7 +67,7 @@ service Query {
 	}
 
 // Queries a list of QCollection items.
-	rpc QCollection(QueryQCollectionRequest) returns (Collection) {
+	rpc QCollection(QueryQCollectionRequest) returns (OutpCollection) {
 		option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/q_collection/{collectionId}";
 	}
 

@@ -18818,7 +18818,6 @@ paths:
                 type: string
               artwork:
                 type: string
-                format: byte
               status:
                 type: string
                 enum:
@@ -44781,40 +44780,6 @@ definitions:
       - active
       - archived
     default: design
-  DecentralCardGame.cardchain.cardchain.Collection:
-    type: object
-    properties:
-      name:
-        type: string
-      cards:
-        type: array
-        items:
-          type: string
-          format: uint64
-      artist:
-        type: string
-      storyWriter:
-        type: string
-      contributors:
-        type: array
-        items:
-          type: string
-      story:
-        type: string
-      artwork:
-        type: string
-        format: byte
-      status:
-        type: string
-        enum:
-          - design
-          - finalized
-          - active
-          - archived
-        default: design
-      timeStamp:
-        type: string
-        format: int64
   DecentralCardGame.cardchain.cardchain.CouncelingStatus:
     type: string
     enum:
@@ -45113,6 +45078,39 @@ definitions:
         type: string
         format: uint64
       nerflevel:
+        type: string
+        format: int64
+  DecentralCardGame.cardchain.cardchain.OutpCollection:
+    type: object
+    properties:
+      name:
+        type: string
+      cards:
+        type: array
+        items:
+          type: string
+          format: uint64
+      artist:
+        type: string
+      storyWriter:
+        type: string
+      contributors:
+        type: array
+        items:
+          type: string
+      story:
+        type: string
+      artwork:
+        type: string
+      status:
+        type: string
+        enum:
+          - design
+          - finalized
+          - active
+          - archived
+        default: design
+      timeStamp:
         type: string
         format: int64
   DecentralCardGame.cardchain.cardchain.Params:
