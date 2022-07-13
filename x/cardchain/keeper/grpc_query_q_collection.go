@@ -18,6 +18,8 @@ func (k Keeper) QCollection(goCtx context.Context, req *types.QueryQCollectionRe
 
 	collection := k.Collections.Get(ctx, req.CollectionId)
 
+	image := k.Images.Get(ctx, collection.ArtworkId)
+
 	return &types.OutpCollection{
 		collection.Name,
 		collection.Cards,
@@ -25,7 +27,7 @@ func (k Keeper) QCollection(goCtx context.Context, req *types.QueryQCollectionRe
 		collection.StoryWriter,
 		collection.Contributors,
 		collection.Story,
-		string(collection.Artwork),
+		string(image.Image),
 		collection.Status,
 		collection.TimeStamp,
 	}, nil

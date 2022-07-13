@@ -25,8 +25,12 @@ func (k msgServer) CreateCollection(goCtx context.Context, msg *types.MsgCreateC
 		StoryWriter:  msg.StoryWriter,
 		Status:       types.CStatus_design,
 		TimeStamp:    0,
+		ArtworkId:    k.Images.GetNum(ctx),
 	}
 
+	image := types.Image{}
+
+	k.Images.Set(ctx, collection.ArtworkId, &image)
 	k.Collections.Set(ctx, collectionId, &collection)
 
 	return &types.MsgCreateCollectionResponse{}, nil
