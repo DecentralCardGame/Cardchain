@@ -18453,6 +18453,13 @@ paths:
           in: path
           required: true
           type: boolean
+        - name: contributors
+          in: query
+          required: false
+          type: array
+          items:
+            type: string
+          collectionFormat: multi
       tags:
         - Query
   /DecentralCardGame/cardchain/cardchain/params:

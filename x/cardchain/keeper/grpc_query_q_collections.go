@@ -5,6 +5,7 @@ import (
 
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	"golang.org/x/exp/slices"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 )
@@ -15,7 +16,8 @@ func (k Keeper) QCollections(goCtx context.Context, req *types.QueryQCollections
 	}
 
 	var (
-		collectionIds []uint64
+		collectionIds        []uint64
+		allUsersInCollection bool = true
 	)
 
 	ctx := sdk.UnwrapSDKContext(goCtx)
@@ -29,6 +31,16 @@ func (k Keeper) QCollections(goCtx context.Context, req *types.QueryQCollections
 			if req.Status != collection.Status {
 				continue
 			}
+		}
+
+		// Checks for users contained in the contributors
+		for _, user := range req.Contributors {
+			if !slices.Contains(collection.Contributors, user) {
+				allUsersInCollection = false
+			}
+		}
+		if !allUsersInCollection {
+			continue
 		}
 
 		collectionIds = append(collectionIds, idx)
