@@ -22,6 +22,14 @@ func (k msgServer) AddCardToCollection(goCtx context.Context, msg *types.MsgAddC
 		return nil, types.ErrCollectionNotInDesign
 	}
 
+	iter := k.Collections.GetItemIterator(ctx)
+	for ; iter.Valid(); iter.Next() {
+		idx, coll := iter.Value()
+		if coll.Status != types.CStatus_archived && slices.Contains(coll.Cards, msg.CardId) {
+			return nil, sdkerrors.Wrapf(types.ErrCardAlreadyInCollection, "Collection: %d", idx)
+		}
+	}
+
 	card := k.Cards.Get(ctx, msg.CardId)
 	if card.Status != types.Status_permanent {
 		return nil, sdkerrors.Wrap(types.ErrCardDoesNotExist, "Card is not permanent or does not exist")
