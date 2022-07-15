@@ -18,6 +18,7 @@ func (k Keeper) QCollections(goCtx context.Context, req *types.QueryQCollections
 	var (
 		collectionIds        []uint64
 		allUsersInCollection bool = true
+		allCardsInCollection bool = true
 	)
 
 	ctx := sdk.UnwrapSDKContext(goCtx)
@@ -40,6 +41,16 @@ func (k Keeper) QCollections(goCtx context.Context, req *types.QueryQCollections
 			}
 		}
 		if !allUsersInCollection {
+			continue
+		}
+
+		// Checks for card contained in the collection
+		for _, card := range req.ContainsCards {
+			if !slices.Contains(collection.Cards, card) {
+				allCardsInCollection = false
+			}
+		}
+		if !allCardsInCollection {
 			continue
 		}
 

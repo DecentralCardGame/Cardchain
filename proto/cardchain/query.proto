@@ -265,6 +265,7 @@ message QueryQCollectionsRequest {
    CStatus status = 1;
    bool ignoreStatus = 2;
    repeated string contributors = 3;
+   repeated uint64 containsCards = 4;
 }
 
 message QueryQCollectionsResponse {
