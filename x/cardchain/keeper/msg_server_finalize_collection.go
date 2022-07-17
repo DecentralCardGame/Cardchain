@@ -2,12 +2,9 @@ package keeper
 
 import (
 	"context"
-	"errors"
 	"fmt"
 
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
-	"github.com/DecentralCardGame/cardobject/cardobject"
-	"github.com/DecentralCardGame/cardobject/keywords"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 )
@@ -35,37 +32,13 @@ func (k msgServer) FinalizeCollection(goCtx context.Context, msg *types.MsgFinal
 		return nil, sdkerrors.Wrap(sdkerrors.ErrInsufficientFunds, err.Error())
 	}
 
-	unCommonsAll := int(collectionSize / 3)
-	raresAll := int(collectionSize / 3)
-	commonsAll := collectionSize - raresAll - unCommonsAll
-
-	var (
-		unCommons, rares, commons int
-	)
-
-	for _, cardId := range collection.Cards {
-		cardobj, err := keywords.Unmarshal(k.Cards.Get(ctx, cardId).Content)
-		if err != nil {
-			return nil, sdkerrors.Wrap(types.ErrCardobject, err.Error())
-		}
-		rarity, err := GetCardRarity(cardobj)
-		if err != nil {
-			return nil, sdkerrors.Wrap(types.ErrCardobject, err.Error())
-		}
-		switch *rarity {
-		case cardobject.Rarity("COMMON"):
-			commons++
-		case cardobject.Rarity("UNCOMMON"):
-			unCommons++
-		case cardobject.Rarity("RARE"):
-			rares++
-		default:
-			return nil, fmt.Errorf("Card '%d' has no type", cardId)
-		}
+	dist, err := k.GetRarityDistribution(ctx, *collection, uint64(collectionSize))
+	if err != nil {
+		return nil, err
 	}
 
-	if unCommons != unCommonsAll || commons != commonsAll || rares != raresAll {
-		return nil, fmt.Errorf("Collections should contain (c,u,r) %d, %d, %d but contains %d, %d, %d", commonsAll, unCommonsAll, raresAll, commons, unCommons, rares)
+	if dist[0] != dist[1] {
+		return nil, fmt.Errorf("Collections should contain (c,u,r) %d, %d, %d but contains %d, %d, %d", dist[1][0], dist[1][1], dist[1][2], dist[0][0], dist[0][1], dist[0][2])
 	}
 
 	collection.Status = types.CStatus_finalized
@@ -73,17 +46,4 @@ func (k msgServer) FinalizeCollection(goCtx context.Context, msg *types.MsgFinal
 	k.Collections.Set(ctx, msg.CollectionId, collection)
 
 	return &types.MsgFinalizeCollectionResponse{}, nil
-}
-
-func GetCardRarity(card *keywords.Card) (*cardobject.Rarity, error) {
-	if card.Action != nil {
-		return card.Action.Rarity, nil
-	} else if card.Place != nil {
-		return card.Place.Rarity, nil
-	} else if card.Entity != nil {
-		return card.Entity.Rarity, nil
-	} else if card.Headquarter != nil {
-		return card.Headquarter.Rarity, nil
-	}
-	return nil, errors.New("No card-attributes")
 }

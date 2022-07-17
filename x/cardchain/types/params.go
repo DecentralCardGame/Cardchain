@@ -21,7 +21,7 @@ func ParamKeyTable() paramtypes.KeyTable {
 func NewParams() Params {
 	return Params{
 		VotingRightsExpirationTime:      86000,
-		CollectionSize:                  5,
+		CollectionSize:                  24,
 		CollectionPrice:                 sdk.NewInt64Coin("ucredits", 10000000),
 		ActiveCollectionsAmount:         3,
 		CollectionCreationFee:           sdk.NewInt64Coin("ucredits", int64(5000*math.Pow(10, 6))),

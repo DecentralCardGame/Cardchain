@@ -54,6 +54,12 @@ func (k Keeper) QCollections(goCtx context.Context, req *types.QueryQCollections
 			continue
 		}
 
+		if req.Owner != "" {
+			if req.Owner != collection.Contributors[0] {
+				continue
+			}
+		}
+
 		collectionIds = append(collectionIds, idx)
 	}
 

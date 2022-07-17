@@ -18468,6 +18468,56 @@ paths:
             type: string
             format: uint64
           collectionFormat: multi
+        - name: owner
+          in: query
+          required: false
+          type: string
+      tags:
+        - Query
+  '/DecentralCardGame/Cardchain/cardchain/rarity_distribution/{collectionId}':
+    get:
+      summary: Queries a list of RarityDistribution items.
+      operationId: DecentralCardGameCardchainCardchainRarityDistribution
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              current:
+                type: array
+                items:
+                  type: string
+                  format: uint64
+              wanted:
+                type: array
+                items:
+                  type: string
+                  format: uint64
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: collectionId
+          in: path
+          required: true
+          type: string
+          format: uint64
       tags:
         - Query
   /DecentralCardGame/cardchain/cardchain/params:
@@ -45456,6 +45506,19 @@ definitions:
                   type: string
           notes:
             type: string
+  DecentralCardGame.cardchain.cardchain.QueryRarityDistributionResponse:
+    type: object
+    properties:
+      current:
+        type: array
+        items:
+          type: string
+          format: uint64
+      wanted:
+        type: array
+        items:
+          type: string
+          format: uint64
   DecentralCardGame.cardchain.cardchain.Response:
     type: string
     enum:
