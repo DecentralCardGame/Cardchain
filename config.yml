@@ -3,20 +3,28 @@ build:
 
 accounts:
   - name: alice
-    coins: ["2000000000000000000000000000000000000000000000000000000ucredits", "200000000000000ubpf"]
+    coins: ["1000000000ucredits", "1000000000ubpf"]
   - name: bob
-    coins: ["10000000000ucredits", "10000000000000000ubpf"]
+    coins: ["10000000000ucredits", "10000000000ubpf"]
 validator:
   name: alice
-  staked: "100000000ubpf"
+  staked: "5000000ubpf"
 client:
   openapi:
     path: "docs/static/openapi.yml"
   vuex:
     path: "vue/src/store"
+init:
+  config:
+    moniker: "yesyoulikeCC"
+    timeout_commit: "5s"
+    create_empty_blocks: "true"
+  app:
+    minimum-gas-prices: "1ubpf;1ucredits"
 faucet:
   name: bob
-  coins: ["5000000ucredits", "1000000ubpf"]
+  coins: ["5000000ucredits", "5000000ubpf"]
+  coins_max: ["5000000ucredits", "5000000ubpf"]
 host:
   rpc: "0.0.0.0:26659"
   p2p: "0.0.0.0:26658"
