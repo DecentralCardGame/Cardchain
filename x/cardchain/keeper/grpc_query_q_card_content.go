@@ -2,6 +2,8 @@ package keeper
 
 import (
 	"context"
+	"crypto/md5"
+	"encoding/hex"
 	"fmt"
 	"strconv"
 
@@ -29,7 +31,14 @@ func (k Keeper) QCardContent(goCtx context.Context, req *types.QueryQCardContent
 		return nil, sdkerrors.Wrap(sdkerrors.ErrUnknownRequest, "cardId does not represent a card")
 	}
 
+	image := k.Images.Get(ctx, card.ImageId)
+	sum := md5.Sum(image.Image)
+	hash := hex.EncodeToString(sum[:])
+
 	k.Logger(ctx).Info(fmt.Sprintf("%v", card.Content) + " " + string(card.Content))
 
-	return &types.QueryQCardContentResponse{string(card.Content)}, nil
+	return &types.QueryQCardContentResponse{
+		string(card.Content),
+		hash,
+	}, nil
 }
