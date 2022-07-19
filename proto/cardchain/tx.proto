@@ -48,6 +48,7 @@ service Msg {
   rpc OpenBoosterPack(MsgOpenBoosterPack) returns (MsgOpenBoosterPackResponse);
   rpc TransferBoosterPack(MsgTransferBoosterPack) returns (MsgTransferBoosterPackResponse);
   rpc SetCollectionStoryWriter(MsgSetCollectionStoryWriter) returns (MsgSetCollectionStoryWriterResponse);
+  rpc SetCollectionArtist(MsgSetCollectionArtist) returns (MsgSetCollectionArtistResponse);
 // this line is used by starport scaffolding # proto/tx/rpc
 }
 
@@ -396,6 +397,15 @@ message MsgSetCollectionStoryWriter {
 }
 
 message MsgSetCollectionStoryWriterResponse {
+}
+
+message MsgSetCollectionArtist {
+  string creator = 1;
+  uint64 collectionId = 2;
+  string artist = 3;
+}
+
+message MsgSetCollectionArtistResponse {
 }
 
 // this line is used by starport scaffolding # proto/tx/message
