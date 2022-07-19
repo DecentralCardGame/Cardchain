@@ -168,6 +168,10 @@ const (
 	// TODO: Determine the simulation weight value
 	defaultWeightMsgTransferBoosterPack int = 100
 
+	opWeightMsgSetCollectionStoryWriter = "op_weight_msg_set_collection_story_writer"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgSetCollectionStoryWriter int = 100
+
 	// this line is used by starport scaffolding # simapp/module/const
 )
 
@@ -595,6 +599,17 @@ func (am AppModule) WeightedOperations(simState module.SimulationState) []simtyp
 	operations = append(operations, simulation.NewWeightedOperation(
 		weightMsgTransferBoosterPack,
 		cardchainsimulation.SimulateMsgTransferBoosterPack(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
+	var weightMsgSetCollectionStoryWriter int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgSetCollectionStoryWriter, &weightMsgSetCollectionStoryWriter, nil,
+		func(_ *rand.Rand) {
+			weightMsgSetCollectionStoryWriter = defaultWeightMsgSetCollectionStoryWriter
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgSetCollectionStoryWriter,
+		cardchainsimulation.SimulateMsgSetCollectionStoryWriter(am.accountKeeper, am.bankKeeper, am.keeper),
 	))
 
 	// this line is used by starport scaffolding # simapp/module/operation
