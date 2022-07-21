@@ -114,6 +114,7 @@ func (k Keeper) GetLastVotingResults(ctx sdk.Context) (results types.VotingResul
 	return
 }
 
+// TODO maybe the whole auto balancing stuff should be moved into its own file 
 // NerfBuffCards Nerfes or buffs certain cards
 func (k Keeper) NerfBuffCards(ctx sdk.Context, cardIds []uint64, buff bool) {
 	for _, val := range cardIds {
@@ -251,7 +252,7 @@ func (k Keeper) GetOPandUPCards(ctx sdk.Context) (buffbois []uint64, nerfbois []
 			})
 
 			// sort candidates into the specific arrays
-			if nettoIA > 0 {
+			if nettoIA > 1 {
 				IAcandidates = append(IAcandidates, candidate{id: id, votes: nettoIA})
 			} else if nettoOP > 0 {
 				µOP += float64(nettoOP)

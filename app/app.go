@@ -108,7 +108,7 @@ const (
 	Name                 = "Cardchain"
 	BondDenom            = "ubpf"
 	// epochBlockTime defines how many blocks are one buffnerf epoch
-	epochBlockTime = 86000 // this is 1 week with 7s block time
+	epochBlockTime = 121000 // this is 1 week with 7s block time
 	// epochBlockTime = 5		// this is great for debugging
 )
 
