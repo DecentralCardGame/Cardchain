@@ -26,11 +26,11 @@ faucet:
   coins: ["5000000ucredits", "5000000ubpf"]
   coins_max: ["5000000ucredits", "5000000ubpf"]
 host:
-  rpc: "0.0.0.0:26659"
+  rpc: "0.0.0.0:26657"
   p2p: "0.0.0.0:26658"
   prof: ":6061"
-  grpc: ":9092"
-  api: "0.0.0.0:1318"
+  grpc: ":9090"
+  api: "0.0.0.0:1317"
 
 genesis:
   app_state:
@@ -39,7 +39,8 @@ genesis:
         bond_denom: "ubpf"
     slashing:
       params:
-        signed_blocks_window: 500 
+        signed_blocks_window: '30000'
+        min_signed_per_window: '0.05' 
     mint:
       params:
         mint_denom: "ubpf"
