@@ -17,8 +17,9 @@ client:
 init:
   config:
     moniker: "yesyoulikeCC"
-    timeout_commit: "5s"
-    create_empty_blocks: "false"
+    consensus:
+      timeout_commit: "5s"
+      create_empty_blocks: "false"
   app:
     #minimum-gas-prices: "0.1ubpf, 0.1ucredits"
 faucet:
