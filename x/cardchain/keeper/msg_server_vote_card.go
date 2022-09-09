@@ -28,6 +28,7 @@ func (k msgServer) VoteCard(goCtx context.Context, msg *types.MsgVoteCard) (*typ
 
 	//check if voting rights are timed out
 	if ctx.BlockHeight() > voteRights[rightsIndex].ExpireBlock {
+		k.RemoveVoteRight(ctx, &voter, rightsIndex)
 		return nil, sdkerrors.Wrap(types.ErrVoteRightIsExpired, "Voting Right has expired")
 	}
 

@@ -41,7 +41,6 @@ func (k Keeper) AddVoteRightsToAllUsers(ctx sdk.Context, expireBlock int64) {
 // RemoveVoteRight Removes a voteright from a user
 func (k Keeper) RemoveVoteRight(ctx sdk.Context, user *User, rightsIndex int) {
 	user.VoteRights[rightsIndex] = user.VoteRights[len(user.VoteRights)-1]
-	//user.VoteRights[len(user.VoteRights)-1] = null
 	user.VoteRights = user.VoteRights[:len(user.VoteRights)-1]
 }
 
@@ -65,6 +64,23 @@ func (k Keeper) GetVoteRightToAllCards(ctx sdk.Context, expireBlock int64) (voti
 func (k Keeper) GetVoteRights(ctx sdk.Context, voter sdk.AccAddress) []*types.VoteRight {
 	user, _ := k.GetUser(ctx, voter)
 	return user.VoteRights
+}
+
+// RemoveExpiredVoteRights Removes all expied voteRights
+func (k Keeper) RemoveExpiredVoteRights(ctx sdk.Context) {
+	allUsers, allAddrs := k.GetAllUsers(ctx)
+
+	for idx, user := range allUsers {
+		var validVoteRights []*types.VoteRight
+
+		for _, voteRight := range user.VoteRights {
+			if voteRight.ExpireBlock > ctx.BlockHeight() {
+					validVoteRights = append(validVoteRights, voteRight)
+			}
+		}
+		user.VoteRights = validVoteRights
+		k.SetUser(ctx, allAddrs[idx], *user)
+	}
 }
 
 // ResetAllVotes Resets all cards votes

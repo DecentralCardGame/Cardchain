@@ -130,6 +130,7 @@ func UpdateNerfLevels(ctx sdk.Context, keeper keeper.Keeper) sdk.Result {
 	keeper.UpdateBanStatus(ctx, banbois)
 
 	keeper.ResetAllVotes(ctx)
+	keeper.RemoveExpiredVoteRights(ctx)
 
 	return sdk.Result{}
 }
