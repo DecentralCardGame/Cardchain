@@ -18586,7 +18586,6 @@ paths:
                 type: string
               hash:
                 type: string
-                format: byte
         default:
           description: An unexpected error response.
           schema:
@@ -45148,7 +45147,6 @@ definitions:
         type: string
       hash:
         type: string
-        format: byte
   DecentralCardGame.cardchain.cardchain.QueryQCardchainInfoResponse:
     type: object
     properties:
