@@ -45,6 +45,10 @@ service Msg {
   rpc RewokeCouncilRegistration(MsgRewokeCouncilRegistration) returns (MsgRewokeCouncilRegistrationResponse);
   rpc ConfirmMatch(MsgConfirmMatch) returns (MsgConfirmMatchResponse);
   rpc SetProfileCard(MsgSetProfileCard) returns (MsgSetProfileCardResponse);
+  rpc OpenBoosterPack(MsgOpenBoosterPack) returns (MsgOpenBoosterPackResponse);
+  rpc TransferBoosterPack(MsgTransferBoosterPack) returns (MsgTransferBoosterPackResponse);
+  rpc SetCollectionStoryWriter(MsgSetCollectionStoryWriter) returns (MsgSetCollectionStoryWriterResponse);
+  rpc SetCollectionArtist(MsgSetCollectionArtist) returns (MsgSetCollectionArtistResponse);
 // this line is used by starport scaffolding # proto/tx/rpc
 }
 
@@ -367,6 +371,41 @@ message MsgSetProfileCard {
 }
 
 message MsgSetProfileCardResponse {
+}
+
+message MsgOpenBoosterPack {
+  string creator = 1;
+  uint64 boosterPackId = 2;
+}
+
+message MsgOpenBoosterPackResponse {
+}
+
+message MsgTransferBoosterPack {
+  string creator = 1;
+  uint64 boosterPackId = 2;
+  string receiver = 3;
+}
+
+message MsgTransferBoosterPackResponse {
+}
+
+message MsgSetCollectionStoryWriter {
+  string creator = 1;
+  uint64 collectionId = 2;
+  string storyWriter = 3;
+}
+
+message MsgSetCollectionStoryWriterResponse {
+}
+
+message MsgSetCollectionArtist {
+  string creator = 1;
+  uint64 collectionId = 2;
+  string artist = 3;
+}
+
+message MsgSetCollectionArtistResponse {
 }
 
 // this line is used by starport scaffolding # proto/tx/message

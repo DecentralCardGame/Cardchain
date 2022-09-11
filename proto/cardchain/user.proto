@@ -15,6 +15,7 @@ message User {
   bool ReportMatches = 7;
   uint64 profileCard = 8;
   AirDrops airDrops = 9;
+  repeated BoosterPack boosterPacks = 10;
 }
 
 enum CouncilStatus {
@@ -22,6 +23,12 @@ enum CouncilStatus {
   unavailable = 1;
   openCouncil = 2;
   startedCouncil = 3;
+}
+
+message BoosterPack {
+  uint64 collectionId = 1;
+  int64 timeStamp = 2;
+  repeated uint64 raritiesPerPack = 3;
 }
 
 message AirDrops {

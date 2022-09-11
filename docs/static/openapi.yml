@@ -18406,6 +18406,120 @@ paths:
           format: int64
       tags:
         - Query
+  '/DecentralCardGame/Cardchain/cardchain/q_collections/{status}/{ignoreStatus}':
+    get:
+      summary: Queries a list of QCollections items.
+      operationId: DecentralCardGameCardchainCardchainQCollections
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              collectionIds:
+                type: array
+                items:
+                  type: string
+                  format: uint64
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: status
+          in: path
+          required: true
+          type: string
+          enum:
+            - design
+            - finalized
+            - active
+            - archived
+        - name: ignoreStatus
+          in: path
+          required: true
+          type: boolean
+        - name: contributors
+          in: query
+          required: false
+          type: array
+          items:
+            type: string
+          collectionFormat: multi
+        - name: containsCards
+          in: query
+          required: false
+          type: array
+          items:
+            type: string
+            format: uint64
+          collectionFormat: multi
+        - name: owner
+          in: query
+          required: false
+          type: string
+      tags:
+        - Query
+  '/DecentralCardGame/Cardchain/cardchain/rarity_distribution/{collectionId}':
+    get:
+      summary: Queries a list of RarityDistribution items.
+      operationId: DecentralCardGameCardchainCardchainRarityDistribution
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              current:
+                type: array
+                items:
+                  type: string
+                  format: uint64
+              wanted:
+                type: array
+                items:
+                  type: string
+                  format: uint64
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: collectionId
+          in: path
+          required: true
+          type: string
+          format: uint64
+      tags:
+        - Query
   /DecentralCardGame/cardchain/cardchain/params:
     get:
       summary: Parameters queries the parameters of the module.
@@ -18769,7 +18883,6 @@ paths:
                 type: string
               artwork:
                 type: string
-                format: byte
               status:
                 type: string
                 enum:
@@ -19374,6 +19487,22 @@ paths:
                     type: boolean
                   user:
                     type: boolean
+              boosterPacks:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    collectionId:
+                      type: string
+                      format: uint64
+                    timeStamp:
+                      type: string
+                      format: int64
+                    raritiesPerPack:
+                      type: array
+                      items:
+                        type: string
+                        format: uint64
         default:
           description: An unexpected error response.
           schema:
@@ -44694,6 +44823,20 @@ definitions:
         type: boolean
       user:
         type: boolean
+  DecentralCardGame.cardchain.cardchain.BoosterPack:
+    type: object
+    properties:
+      collectionId:
+        type: string
+        format: uint64
+      timeStamp:
+        type: string
+        format: int64
+      raritiesPerPack:
+        type: array
+        items:
+          type: string
+          format: uint64
   DecentralCardGame.cardchain.cardchain.CStatus:
     type: string
     enum:
@@ -44702,40 +44845,6 @@ definitions:
       - active
       - archived
     default: design
-  DecentralCardGame.cardchain.cardchain.Collection:
-    type: object
-    properties:
-      name:
-        type: string
-      cards:
-        type: array
-        items:
-          type: string
-          format: uint64
-      artist:
-        type: string
-      storyWriter:
-        type: string
-      contributors:
-        type: array
-        items:
-          type: string
-      story:
-        type: string
-      artwork:
-        type: string
-        format: byte
-      status:
-        type: string
-        enum:
-          - design
-          - finalized
-          - active
-          - archived
-        default: design
-      timeStamp:
-        type: string
-        format: int64
   DecentralCardGame.cardchain.cardchain.CouncelingStatus:
     type: string
     enum:
@@ -44933,6 +45042,8 @@ definitions:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgFinalizeCollectionResponse:
     type: object
+  DecentralCardGame.cardchain.cardchain.MsgOpenBoosterPackResponse:
+    type: object
   DecentralCardGame.cardchain.cardchain.MsgRegisterForCouncilResponse:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgRemoveCardFromCollectionResponse:
@@ -44960,6 +45071,10 @@ definitions:
         type: boolean
   DecentralCardGame.cardchain.cardchain.MsgSetCardRarityResponse:
     type: object
+  DecentralCardGame.cardchain.cardchain.MsgSetCollectionArtistResponse:
+    type: object
+  DecentralCardGame.cardchain.cardchain.MsgSetCollectionStoryWriterResponse:
+    type: object
   DecentralCardGame.cardchain.cardchain.MsgSetProfileCardResponse:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgSubmitCollectionProposalResponse:
@@ -44967,6 +45082,8 @@ definitions:
   DecentralCardGame.cardchain.cardchain.MsgSubmitCopyrightProposalResponse:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgSubmitMatchReporterProposalResponse:
+    type: object
+  DecentralCardGame.cardchain.cardchain.MsgTransferBoosterPackResponse:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgTransferCardResponse:
     type: object
@@ -45030,6 +45147,39 @@ definitions:
         type: string
         format: uint64
       nerflevel:
+        type: string
+        format: int64
+  DecentralCardGame.cardchain.cardchain.OutpCollection:
+    type: object
+    properties:
+      name:
+        type: string
+      cards:
+        type: array
+        items:
+          type: string
+          format: uint64
+      artist:
+        type: string
+      storyWriter:
+        type: string
+      contributors:
+        type: array
+        items:
+          type: string
+      story:
+        type: string
+      artwork:
+        type: string
+      status:
+        type: string
+        enum:
+          - design
+          - finalized
+          - active
+          - archived
+        default: design
+      timeStamp:
         type: string
         format: int64
   DecentralCardGame.cardchain.cardchain.Params:
@@ -45188,6 +45338,14 @@ definitions:
     type: object
     properties:
       cardsList:
+        type: array
+        items:
+          type: string
+          format: uint64
+  DecentralCardGame.cardchain.cardchain.QueryQCollectionsResponse:
+    type: object
+    properties:
+      collectionIds:
         type: array
         items:
           type: string
@@ -45352,6 +45510,19 @@ definitions:
                   type: string
           notes:
             type: string
+  DecentralCardGame.cardchain.cardchain.QueryRarityDistributionResponse:
+    type: object
+    properties:
+      current:
+        type: array
+        items:
+          type: string
+          format: uint64
+      wanted:
+        type: array
+        items:
+          type: string
+          format: uint64
   DecentralCardGame.cardchain.cardchain.Response:
     type: string
     enum:
@@ -45466,6 +45637,22 @@ definitions:
             type: boolean
           user:
             type: boolean
+      boosterPacks:
+        type: array
+        items:
+          type: object
+          properties:
+            collectionId:
+              type: string
+              format: uint64
+            timeStamp:
+              type: string
+              format: int64
+            raritiesPerPack:
+              type: array
+              items:
+                type: string
+                format: uint64
   DecentralCardGame.cardchain.cardchain.VoteRight:
     type: object
     properties:

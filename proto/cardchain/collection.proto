@@ -10,7 +10,19 @@ message Collection {
   string storyWriter = 4;
   repeated string contributors = 5;
   string story = 6;
-  bytes artwork = 7;
+  uint64 artworkId = 7;
+  CStatus status = 8;
+  int64 timeStamp = 9;
+}
+
+message OutpCollection {
+  string name = 1;
+  repeated uint64 cards = 2;
+  string artist = 3;
+  string storyWriter = 4;
+  repeated string contributors = 5;
+  string story = 6;
+  string artwork = 7;
   CStatus status = 8;
   int64 timeStamp = 9;
 }

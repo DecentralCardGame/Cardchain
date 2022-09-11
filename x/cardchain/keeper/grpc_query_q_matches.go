@@ -2,6 +2,7 @@ package keeper
 
 import (
 	"context"
+
 	"golang.org/x/exp/slices"
 
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
@@ -73,7 +74,7 @@ func (k Keeper) QMatches(goCtx context.Context, req *types.QueryQMatchesRequest)
 			}
 		}
 
-		matchIds = append(matchIds, uint64(idx))
+		matchIds = append(matchIds, idx)
 		matchesList = append(matchesList, match)
 	}
 

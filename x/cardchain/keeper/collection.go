@@ -1,8 +1,13 @@
 package keeper
 
 import (
+	"errors"
+
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
+	"github.com/DecentralCardGame/cardobject/cardobject"
+	"github.com/DecentralCardGame/cardobject/keywords"
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 )
 
 // CollectCollectionFee Collects a fee from a user
@@ -47,4 +52,57 @@ func (k Keeper) GetActiveCollections(ctx sdk.Context) (activeCollections []uint6
 		}
 	}
 	return
+}
+
+func (k Keeper) GetRarityDistribution(ctx sdk.Context, collection types.Collection, collectionSize uint64) (dist [2][4]uint64, err error) {
+	var (
+		unCommons, rares, commons, others, commonsAll, unCommonsAll, raresAll uint64
+	)
+
+	unCommonsAll = uint64(collectionSize / 3)
+	raresAll = uint64(collectionSize / 3)
+	commonsAll = uint64(collectionSize - raresAll - unCommonsAll)
+
+	for _, cardId := range collection.Cards {
+		cardobj, err := keywords.Unmarshal(k.Cards.Get(ctx, cardId).Content)
+		if err != nil {
+			return dist, sdkerrors.Wrap(types.ErrCardobject, err.Error())
+		}
+		rarity, err := GetCardRarity(cardobj)
+		if err != nil {
+			return dist, sdkerrors.Wrap(types.ErrCardobject, err.Error())
+		}
+		if rarity == nil {
+			others++
+		} else {
+			switch *rarity {
+			case cardobject.Rarity("COMMON"):
+				commons++
+			case cardobject.Rarity("UNCOMMON"):
+				unCommons++
+			case cardobject.Rarity("RARE"):
+				rares++
+			default:
+				others++
+			}
+		}
+	}
+
+	return [2][4]uint64{
+		[4]uint64{commons, unCommons, rares, others},
+		[4]uint64{commonsAll, unCommonsAll, raresAll, 0},
+	}, nil
+}
+
+func GetCardRarity(card *keywords.Card) (*cardobject.Rarity, error) {
+	if card.Action != nil {
+		return card.Action.Rarity, nil
+	} else if card.Place != nil {
+		return card.Place.Rarity, nil
+	} else if card.Entity != nil {
+		return card.Entity.Rarity, nil
+	} else if card.Headquarter != nil {
+		return card.Headquarter.Rarity, nil
+	}
+	return nil, errors.New("No card-attributes")
 }

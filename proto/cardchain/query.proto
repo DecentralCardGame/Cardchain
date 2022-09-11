@@ -67,33 +67,43 @@ service Query {
 	}
 
 // Queries a list of QCollection items.
-	rpc QCollection(QueryQCollectionRequest) returns (Collection) {
-		option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/q_collection/{collectionId}";
-	}
+	rpc QCollection(QueryQCollectionRequest) returns (OutpCollection) {
+option (google.api.http).get =
+"/DecentralCardGame/cardchain/cardchain/q_collection/{collectionId}"; }
 
 // Queries a list of QSellOffer items.
-	rpc QSellOffer(QueryQSellOfferRequest) returns (SellOffer) {
-		option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/q_sell_offer/{sellOfferId}";
-	}
+	rpc QSellOffer(QueryQSellOfferRequest) returns (SellOffer) { option
+(google.api.http).get =
+"/DecentralCardGame/cardchain/cardchain/q_sell_offer/{sellOfferId}"; }
 
 // Queries a list of QCouncil items.
-	rpc QCouncil(QueryQCouncilRequest) returns (Council) {
-		option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/q_council/{councilId}";
-	}
+	rpc QCouncil(QueryQCouncilRequest) returns (Council) { option
+(google.api.http).get =
+"/DecentralCardGame/cardchain/cardchain/q_council/{councilId}"; }
 
 // Queries a list of QMatches items.
 	rpc QMatches(QueryQMatchesRequest) returns (QueryQMatchesResponse) {
-		option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/q_matches";
-	}
+option (google.api.http).get =
+"/DecentralCardGame/cardchain/cardchain/q_matches"; }
 
 // Queries a list of QSellOffers items.
-	rpc QSellOffers(QueryQSellOffersRequest) returns (QueryQSellOffersResponse) {
-		option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/q_sell_offers/{status}";
-	}
+	rpc QSellOffers(QueryQSellOffersRequest) returns
+(QueryQSellOffersResponse) { option (google.api.http).get =
+"/DecentralCardGame/cardchain/cardchain/q_sell_offers/{status}"; }
 
 // Queries a list of QServer items.
-	rpc QServer(QueryQServerRequest) returns (Server) {
-		option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/q_server/{id}";
+	rpc QServer(QueryQServerRequest) returns (Server) { option
+(google.api.http).get = "/DecentralCardGame/cardchain/cardchain/q_server/{id}";
+}
+
+// Queries a list of QCollections items.
+	rpc QCollections(QueryQCollectionsRequest) returns (QueryQCollectionsResponse) {
+		option (google.api.http).get = "/DecentralCardGame/Cardchain/cardchain/q_collections/{status}/{ignoreStatus}";
+	}
+
+// Queries a list of RarityDistribution items.
+	rpc RarityDistribution(QueryRarityDistributionRequest) returns (QueryRarityDistributionResponse) {
+		option (google.api.http).get = "/DecentralCardGame/Cardchain/cardchain/rarity_distribution/{collectionId}";
 	}
 
 // this line is used by starport scaffolding # 2
@@ -254,6 +264,27 @@ message QueryQServerRequest {
 }
 
 message QueryQServerResponse {
+}
+
+message QueryQCollectionsRequest {
+   CStatus status = 1;
+   bool ignoreStatus = 2;
+   repeated string contributors = 3;
+   repeated uint64 containsCards = 4;
+   string owner = 5;
+}
+
+message QueryQCollectionsResponse {
+   repeated uint64 collectionIds = 1;
+}
+
+message QueryRarityDistributionRequest {
+   uint64 collectionId = 1;
+}
+
+message QueryRarityDistributionResponse {
+   repeated uint64 current = 1;
+   repeated uint64 wanted = 2;
 }
 
 // this line is used by starport scaffolding # 3
