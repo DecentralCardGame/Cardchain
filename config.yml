@@ -3,32 +3,45 @@ build:
 
 accounts:
   - name: alice
-    coins: ["2000000000000000000000000000000000000000000000000000000ucredits", "200000000000000ubpf"]
+    coins: ["1000000000ucredits", "1000000000ubpf"]
   - name: bob
-    coins: ["10000000000ucredits", "10000000000000000ubpf"]
+    coins: ["10000000000ucredits", "10000000000ubpf"]
 validator:
   name: alice
-  staked: "100000000ubpf"
+  staked: "5000000ubpf"
 client:
   openapi:
     path: "docs/static/openapi.yml"
   vuex:
     path: "vue/src/store"
+init:
+  config:
+    moniker: "yesyoulikeCC"
+    consensus:
+      timeout_commit: "5s"
+      create_empty_blocks: "false"
+  app:
+    #minimum-gas-prices: "0.1ubpf, 0.1ucredits"
 faucet:
   name: bob
-  coins: ["5000000ucredits", "1000000ubpf"]
+  coins: ["5000000ucredits", "5000000ubpf"]
+  coins_max: ["5000000ucredits", "5000000ubpf"]
 host:
-  rpc: "0.0.0.0:26659"
+  rpc: "0.0.0.0:26657"
   p2p: "0.0.0.0:26658"
   prof: ":6061"
-  grpc: ":9092"
-  api: "0.0.0.0:1318"
+  grpc: ":9090"
+  api: "0.0.0.0:1317"
 
 genesis:
   app_state:
     staking:
       params:
         bond_denom: "ubpf"
+    slashing:
+      params:
+        signed_blocks_window: '30000'
+        min_signed_per_window: '0.05' 
     mint:
       params:
         mint_denom: "ubpf"

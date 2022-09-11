@@ -60,7 +60,7 @@ func (k msgServer) VoteCard(goCtx context.Context, msg *types.MsgVoteCard) (*typ
 		if err != nil {
 			return nil, sdkerrors.Wrap(sdkerrors.ErrInsufficientFunds, err.Error())
 		}
-		card.VotePool.Sub(sdk.NewInt64Coin("ucredits", 1000000))
+		card.VotePool.Sub(sdk.NewInt64Coin("ucredits", 1000000)) // TODO actually if there is less than 1cr then it should be adjusted
 	}
 
 	amount := k.GetVoteReward(ctx)
