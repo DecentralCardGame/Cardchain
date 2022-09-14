@@ -21,7 +21,7 @@ func ParamKeyTable() paramtypes.KeyTable {
 func NewParams() Params {
 	return Params{
 		VotingRightsExpirationTime:      86000,
-		CollectionSize:                  5,
+		CollectionSize:                  24,
 		CollectionPrice:                 sdk.NewInt64Coin("ucredits", 10000000),
 		ActiveCollectionsAmount:         3,
 		CollectionCreationFee:           sdk.NewInt64Coin("ucredits", int64(5000*math.Pow(10, 6))),
@@ -36,8 +36,8 @@ func NewParams() Params {
 		TrialPeriod:                     14 * 24 * 500,
 		GameVoteRatio:                   20, // This is a fixed point number and will be devided by 100 when used
 		CardAuctionPriceReductionPeriod: 20,
-		AirDropValue:										 sdk.NewInt64Coin("ubpf", int64(5*math.Pow(10, 6))),
-		AirDropMaxBlockHeight:					 5000000,
+		AirDropValue:                    sdk.NewInt64Coin("ubpf", int64(5*math.Pow(10, 6))),
+		AirDropMaxBlockHeight:           5000000,
 	}
 }
 

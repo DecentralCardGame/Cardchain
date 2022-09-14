@@ -28,4 +28,5 @@ var (
 	ErrImageSizeExceeded       = sdkerrors.Register(ModuleName, 17, "Image too big! Max size is 500kb")
 	ErrConversion              = sdkerrors.Register(ModuleName, 18, "Unable to convert types")
 	ErrCardobject              = sdkerrors.Register(ModuleName, 19, "Faulty cardobject")
+	ErrBoosterPack             = sdkerrors.Register(ModuleName, 20, "Unable to open Boosterpack")
 )
