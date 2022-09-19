@@ -13,6 +13,10 @@ func (k msgServer) ChangeArtist(goCtx context.Context, msg *types.MsgChangeArtis
 
 	card := k.Cards.Get(ctx, msg.CardID)
 
+	if card.Status != types.Status_prototype {
+		return nil, sdkerrors.Wrap(types.ErrInvalidCardStatus, "Card has to be a prototype to be changeable")
+	}
+
 	if card.Owner != msg.Creator {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "Incorrect Owner")
 	}
