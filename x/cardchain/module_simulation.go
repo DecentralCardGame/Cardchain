@@ -176,6 +176,14 @@ const (
 	// TODO: Determine the simulation weight value
 	defaultWeightMsgSetCollectionArtist int = 100
 
+	opWeightMsgSetUserWebsite = "op_weight_msg_set_user_website"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgSetUserWebsite int = 100
+
+	opWeightMsgSetUserBiography = "op_weight_msg_set_user_biography"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgSetUserBiography int = 100
+
 	// this line is used by starport scaffolding # simapp/module/const
 )
 
@@ -625,6 +633,28 @@ func (am AppModule) WeightedOperations(simState module.SimulationState) []simtyp
 	operations = append(operations, simulation.NewWeightedOperation(
 		weightMsgSetCollectionArtist,
 		cardchainsimulation.SimulateMsgSetCollectionArtist(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
+	var weightMsgSetUserWebsite int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgSetUserWebsite, &weightMsgSetUserWebsite, nil,
+		func(_ *rand.Rand) {
+			weightMsgSetUserWebsite = defaultWeightMsgSetUserWebsite
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgSetUserWebsite,
+		cardchainsimulation.SimulateMsgSetUserWebsite(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
+	var weightMsgSetUserBiography int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgSetUserBiography, &weightMsgSetUserBiography, nil,
+		func(_ *rand.Rand) {
+			weightMsgSetUserBiography = defaultWeightMsgSetUserBiography
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgSetUserBiography,
+		cardchainsimulation.SimulateMsgSetUserBiography(am.accountKeeper, am.bankKeeper, am.keeper),
 	))
 
 	// this line is used by starport scaffolding # simapp/module/operation

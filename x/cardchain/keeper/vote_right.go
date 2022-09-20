@@ -75,7 +75,7 @@ func (k Keeper) RemoveExpiredVoteRights(ctx sdk.Context) {
 
 		for _, voteRight := range user.VoteRights {
 			if voteRight.ExpireBlock > ctx.BlockHeight() {
-					validVoteRights = append(validVoteRights, voteRight)
+				validVoteRights = append(validVoteRights, voteRight)
 			}
 		}
 		user.VoteRights = validVoteRights

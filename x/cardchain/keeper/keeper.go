@@ -114,7 +114,7 @@ func (k Keeper) GetLastVotingResults(ctx sdk.Context) (results types.VotingResul
 	return
 }
 
-// TODO maybe the whole auto balancing stuff should be moved into its own file 
+// TODO maybe the whole auto balancing stuff should be moved into its own file
 // NerfBuffCards Nerfes or buffs certain cards
 func (k Keeper) NerfBuffCards(ctx sdk.Context, cardIds []uint64, buff bool) {
 	for _, val := range cardIds {

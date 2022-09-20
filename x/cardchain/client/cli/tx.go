@@ -68,6 +68,8 @@ func GetTxCmd() *cobra.Command {
 	cmd.AddCommand(CmdTransferBoosterPack())
 	cmd.AddCommand(CmdSetCollectionStoryWriter())
 	cmd.AddCommand(CmdSetCollectionArtist())
+	cmd.AddCommand(CmdSetUserWebsite())
+	cmd.AddCommand(CmdSetUserBiography())
 	// this line is used by starport scaffolding # 1
 
 	return cmd

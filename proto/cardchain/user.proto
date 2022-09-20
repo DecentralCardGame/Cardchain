@@ -16,6 +16,8 @@ message User {
   uint64 profileCard = 8;
   AirDrops airDrops = 9;
   repeated BoosterPack boosterPacks = 10;
+  string website = 11;
+  string biography = 12;
 }
 
 enum CouncilStatus {
