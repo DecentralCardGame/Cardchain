@@ -20,6 +20,11 @@ func (k msgServer) SaveCardContent(goCtx context.Context, msg *types.MsgSaveCard
 		return nil, sdkerrors.Wrap(types.ErrInvalidAccAddress, err.Error())
 	}
 
+	// TODO
+	//if card.Status != types.Status_prototype {
+	//	return nil, sdkerrors.Wrap(types.ErrInvalidCardStatus, "Card has to be a prototype to be changeable")
+	//}
+
 	if card.Owner == "" {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "Card has no owner")
 	} else if msg.Creator != card.Owner { // Checks if the the msg sender is the same as the current owner
