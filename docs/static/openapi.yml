@@ -16273,9 +16273,6 @@ paths:
                         }
       parameters:
         - name: body
-          description: |-
-            SimulateRequest is the request type for the Service.Simulate
-            RPC method.
           in: body
           required: true
           schema:
@@ -17075,11 +17072,6 @@ paths:
                         }
       parameters:
         - name: body
-          description: >-
-            BroadcastTxRequest is the request type for the
-            Service.BroadcastTxRequest
-
-            RPC method.
           in: body
           required: true
           schema:
@@ -19511,6 +19503,10 @@ paths:
                       items:
                         type: string
                         format: uint64
+              website:
+                type: string
+              biography:
+                type: string
         default:
           description: An unexpected error response.
           schema:
@@ -45085,6 +45081,10 @@ definitions:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgSetProfileCardResponse:
     type: object
+  DecentralCardGame.cardchain.cardchain.MsgSetUserBiographyResponse:
+    type: object
+  DecentralCardGame.cardchain.cardchain.MsgSetUserWebsiteResponse:
+    type: object
   DecentralCardGame.cardchain.cardchain.MsgSubmitCollectionProposalResponse:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgSubmitCopyrightProposalResponse:
@@ -45661,6 +45661,10 @@ definitions:
               items:
                 type: string
                 format: uint64
+      website:
+        type: string
+      biography:
+        type: string
   DecentralCardGame.cardchain.cardchain.VoteRight:
     type: object
     properties:

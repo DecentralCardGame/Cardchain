@@ -43,7 +43,7 @@ func (k Keeper) MintCoinsToAddr(ctx sdk.Context, addr sdk.AccAddress, amounts sd
 	return nil
 }
 
-//  BurnCoinsFromAddr removes Coins from an Account
+// BurnCoinsFromAddr removes Coins from an Account
 func (k Keeper) BurnCoinsFromAddr(ctx sdk.Context, addr sdk.AccAddress, amounts sdk.Coins) error {
 	coinMint := types.CoinsIssuerName
 	// send coins to the module
