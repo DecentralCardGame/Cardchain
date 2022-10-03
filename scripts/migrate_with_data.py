@@ -33,6 +33,9 @@ for idx, addr in enumerate(old_dict["app_state"]["cardchain"]["addresses"]):
             break
     for i in old_dict["app_state"]["bank"]["balances"]:
         if i["address"] == addr :
+            for idx, coin in enumerate(i["coins"]):
+                if coin["denom"] == "ubpf":
+                    i["coins"][idx]["amount"] = "5000000"
             new_dict["app_state"]["bank"]["balances"].append(i)
             break
 
