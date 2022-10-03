@@ -7,6 +7,8 @@ args = sys.argv
 
 assert len(args) == 3, f"Error: Syntax: {args[0]} [old_genesis] [new_genesis]"
 
+del_cards = [370, 346, 258]
+
 file_path_old = args[1]
 file_path_new = args[2]
 
@@ -19,6 +21,9 @@ with open(file_path_new, "r") as file:
 new_dict["app_state"]["cardchain"] = old_dict["app_state"]["cardchain"].copy()
 new_dict["app_state"]["cardchain"]["addresses"] = []
 new_dict["app_state"]["cardchain"]["users"] = []
+for card in del_cards:
+    new_dict["app_state"]["cardchain"]["cardRecords"][card] = {}
+
 for idx, addr in enumerate(old_dict["app_state"]["cardchain"]["addresses"]):
     new_dict["app_state"]["cardchain"]["addresses"].append(addr)
     new_dict["app_state"]["cardchain"]["users"].append(old_dict["app_state"]["cardchain"]["users"][idx])
