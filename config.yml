@@ -3,12 +3,12 @@ build:
 
 accounts:
   - name: alice
-    coins: ["1000000000ucredits", "1000000000ubpf"]
+    coins: ["10000000000ucredits", "10000000000ubpf"]
   - name: bob
     coins: ["10000000000ucredits", "10000000000ubpf"]
 validator:
   name: alice
-  staked: "5000000ubpf"
+  staked: "100000000ubpf"
 client:
   openapi:
     path: "docs/static/openapi.yml"
