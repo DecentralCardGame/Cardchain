@@ -34,22 +34,37 @@ host:
   api: "0.0.0.0:1317"
 
 genesis:
+  chain_id: "Testnet3"
   app_state:
+    cardchain:
+      params:
+        airDropMaxBlockHeight: "10000000"
     staking:
       params:
         bond_denom: "ubpf"
     slashing:
       params:
         signed_blocks_window: '30000'
-        min_signed_per_window: '0.05' 
+        min_signed_per_window: '0.05'
+        slash_fraction_downtime: '0'
     mint:
       params:
         mint_denom: "ubpf"
     gov:
       deposit_params:
+        max_deposit_period: "172800s" #2 days
         min_deposit:
         - amount: '10000000'
           denom: ubpf
+      tally_params:
+        quorum: "0.100000000000000000"
+        threshold: "0.500000000000000000"
+        veto_threshold: "0.334000000000000000"
+      voting_params:
+        voting_period: "172800s" #2 days
+    distribution:
+      params:
+        community_tax: "0.020000000000000000"
     crisis:
       constant_fee:
         amount: '1000'
