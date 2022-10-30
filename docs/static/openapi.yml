@@ -18762,6 +18762,7 @@ paths:
                   - bannedSoon
                   - bannedVerySoon
                   - none
+                  - inCouncil
                 default: scheme
               votePool:
                 type: string
@@ -45285,6 +45286,7 @@ definitions:
           - bannedSoon
           - bannedVerySoon
           - none
+          - inCouncil
         default: scheme
       votePool:
         type: string
@@ -45797,6 +45799,7 @@ definitions:
       - bannedSoon
       - bannedVerySoon
       - none
+      - inCouncil
     default: scheme
   DecentralCardGame.cardchain.cardchain.User:
     type: object

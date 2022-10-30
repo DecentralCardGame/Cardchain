@@ -77,5 +77,8 @@ func (k msgServer) CreateCouncil(goCtx context.Context, msg *types.MsgCreateCoun
 
 	k.Councils.Set(ctx, councilId, &council)
 
+	card.Status = types.Status_inCouncil
+	k.Cards.Set(ctx, msg.CardId, card)
+
 	return &types.MsgCreateCouncilResponse{}, nil
 }

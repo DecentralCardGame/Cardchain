@@ -51,4 +51,5 @@ enum Status {
   bannedSoon = 6;
   bannedVerySoon = 7;
   none = 8;
+  inCouncil = 9;
 }
