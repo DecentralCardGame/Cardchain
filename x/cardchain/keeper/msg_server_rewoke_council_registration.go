@@ -16,11 +16,11 @@ func (k msgServer) RewokeCouncilRegistration(goCtx context.Context, msg *types.M
 		return nil, sdkerrors.Wrap(types.ErrUserDoesNotExist, err.Error())
 	}
 
-	if user.CouncilStatus != types.CouncilStatus_available {
-		return nil, sdkerrors.Wrapf(types.ErrInvalidUserStatus, "%s", user.CouncilStatus.String())
+	if user.CouncilParticipation.Status != types.CouncilStatus_available {
+		return nil, sdkerrors.Wrapf(types.ErrInvalidUserStatus, "%s", user.CouncilParticipation.Status.String())
 	}
 
-	user.CouncilStatus = types.CouncilStatus_unavailable
+	user.CouncilParticipation.Status = types.CouncilStatus_unavailable
 
 	k.SetUserFromUser(ctx, user)
 

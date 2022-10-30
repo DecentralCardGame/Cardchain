@@ -66,7 +66,8 @@ func (k Keeper) TryEvaluate(ctx sdk.Context, council *types.Council) error {
 			if err != nil {
 				return err
 			}
-			user.CouncilStatus = types.CouncilStatus_available
+			user.CouncilParticipation.Status = types.CouncilStatus_available
+			user.CouncilParticipation.Council = 0
 			user.Cards = append(user.Cards, council.CardId)
 			k.SetUserFromUser(ctx, user)
 		}

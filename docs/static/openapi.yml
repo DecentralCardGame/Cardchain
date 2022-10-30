@@ -19584,14 +19584,20 @@ paths:
                     expireBlock:
                       type: string
                       format: int64
-              CouncilStatus:
-                type: string
-                enum:
-                  - available
-                  - unavailable
-                  - openCouncil
-                  - startedCouncil
-                default: available
+              councilParticipation:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    enum:
+                      - available
+                      - unavailable
+                      - openCouncil
+                      - startedCouncil
+                    default: available
+                  council:
+                    type: string
+                    format: uint64
               ReportMatches:
                 type: boolean
               profileCard:
@@ -45032,6 +45038,20 @@ definitions:
       trialStart:
         type: string
         format: uint64
+  DecentralCardGame.cardchain.cardchain.CouncilParticipation:
+    type: object
+    properties:
+      status:
+        type: string
+        enum:
+          - available
+          - unavailable
+          - openCouncil
+          - startedCouncil
+        default: available
+      council:
+        type: string
+        format: uint64
   DecentralCardGame.cardchain.cardchain.CouncilStatus:
     type: string
     enum:
@@ -45809,14 +45829,20 @@ definitions:
             expireBlock:
               type: string
               format: int64
-      CouncilStatus:
-        type: string
-        enum:
-          - available
-          - unavailable
-          - openCouncil
-          - startedCouncil
-        default: available
+      councilParticipation:
+        type: object
+        properties:
+          status:
+            type: string
+            enum:
+              - available
+              - unavailable
+              - openCouncil
+              - startedCouncil
+            default: available
+          council:
+            type: string
+            format: uint64
       ReportMatches:
         type: boolean
       profileCard:

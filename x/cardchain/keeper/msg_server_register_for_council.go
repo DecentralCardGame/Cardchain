@@ -16,8 +16,8 @@ func (k msgServer) RegisterForCouncil(goCtx context.Context, msg *types.MsgRegis
 		return nil, sdkerrors.Wrap(types.ErrUserDoesNotExist, err.Error())
 	}
 
-	if user.CouncilStatus != types.CouncilStatus_unavailable {
-		return nil, sdkerrors.Wrapf(types.ErrInvalidUserStatus, "%s", user.CouncilStatus.String())
+	if user.CouncilParticipation.Status != types.CouncilStatus_unavailable {
+		return nil, sdkerrors.Wrapf(types.ErrInvalidUserStatus, "%s", user.CouncilParticipation.Status.String())
 	}
 
 	iter := k.Councils.GetItemIterator(ctx)
@@ -33,10 +33,11 @@ func (k msgServer) RegisterForCouncil(goCtx context.Context, msg *types.MsgRegis
 				if err != nil {
 					return nil, sdkerrors.Wrap(types.ErrUserDoesNotExist, err.Error())
 				}
+				usr.CouncilParticipation.Council = idx
 				if len(council.Voters) == 5 {
-					usr.CouncilStatus = types.CouncilStatus_startedCouncil
+					usr.CouncilParticipation.Status = types.CouncilStatus_startedCouncil
 				} else {
-					usr.CouncilStatus = types.CouncilStatus_openCouncil
+					usr.CouncilParticipation.Status = types.CouncilStatus_openCouncil
 				}
 				k.SetUserFromUser(ctx, usr)
 			}
@@ -49,8 +50,8 @@ func (k msgServer) RegisterForCouncil(goCtx context.Context, msg *types.MsgRegis
 	if err != nil {
 		return nil, sdkerrors.Wrap(types.ErrUserDoesNotExist, err.Error())
 	}
-	if user.CouncilStatus == types.CouncilStatus_unavailable {
-		user.CouncilStatus = types.CouncilStatus_available
+	if user.CouncilParticipation.Status == types.CouncilStatus_unavailable {
+		user.CouncilParticipation.Status = types.CouncilStatus_available
 	}
 	k.SetUserFromUser(ctx, user)
 

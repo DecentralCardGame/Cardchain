@@ -51,6 +51,9 @@ func (k Keeper) GetUser(ctx sdk.Context, address sdk.AccAddress) (types.User, er
 	}
 
 	k.cdc.MustUnmarshal(bz, &gottenUser)
+	if gottenUser.CouncilParticipation == nil {
+		gottenUser.CouncilParticipation = types.NewCouncilParticipation()
+	}
 	return gottenUser, nil
 }
 

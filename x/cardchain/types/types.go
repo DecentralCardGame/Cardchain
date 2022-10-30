@@ -44,14 +44,21 @@ func NewIgnoreCouncils() IgnoreCouncils {
 // NewUser Constructor for User
 func NewUser() User {
 	return User{
-		Alias:            "newPlayer",
-		Cards:            []uint64{},
-		OwnedCardSchemes: []uint64{},
-		OwnedPrototypes:  []uint64{},
-		VoteRights:       []*VoteRight{},
-		CouncilStatus:    CouncilStatus_unavailable,
-		ReportMatches:    false,
-		AirDrops:         &AirDrops{},
+		Alias:                "newPlayer",
+		Cards:                []uint64{},
+		OwnedCardSchemes:     []uint64{},
+		OwnedPrototypes:      []uint64{},
+		VoteRights:           []*VoteRight{},
+		CouncilParticipation: NewCouncilParticipation(),
+		ReportMatches:        false,
+		AirDrops:             &AirDrops{},
+	}
+}
+
+func NewCouncilParticipation() *CouncilParticipation {
+	return &CouncilParticipation{
+		Status:  CouncilStatus_unavailable,
+		Council: 0,
 	}
 }
 
