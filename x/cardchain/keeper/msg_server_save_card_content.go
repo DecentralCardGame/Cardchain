@@ -54,8 +54,8 @@ func (k msgServer) SaveCardContent(goCtx context.Context, msg *types.MsgSaveCard
 	claimedAirdrop := k.ClaimAirDrop(ctx, &msgOwner, types.AirDrop_create)
 	k.SetUserFromUser(ctx, msgOwner)
 
-	// card.Status = types.Status_prototype
-	card.Status = types.Status_permanent // TODO: remove later
+	card.Status = types.Status_prototype
+	//card.Status = types.Status_permanent // TODO: remove later
 	k.Cards.Set(ctx, msg.CardId, card)
 
 	return &types.MsgSaveCardContentResponse{claimedAirdrop}, nil
