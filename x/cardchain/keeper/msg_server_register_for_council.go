@@ -6,6 +6,7 @@ import (
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+	"golang.org/x/exp/slices"
 )
 
 func (k msgServer) RegisterForCouncil(goCtx context.Context, msg *types.MsgRegisterForCouncil) (*types.MsgRegisterForCouncilResponse, error) {
@@ -24,7 +25,11 @@ func (k msgServer) RegisterForCouncil(goCtx context.Context, msg *types.MsgRegis
 	for ; iter.Valid(); iter.Next() {
 		idx, council := iter.Value()
 		if council.Status == types.CouncelingStatus_councilOpen {
-			council.Voters = append(council.Voters, msg.Creator)
+			if slices.Contains(user.OwnedPrototypes, council.CardId) {
+				council.Voters = append(council.Voters, msg.Creator)
+			} else {
+				continue
+			}
 			if len(council.Voters) == 5 {
 				council.Status = types.CouncelingStatus_councilCreated
 			}

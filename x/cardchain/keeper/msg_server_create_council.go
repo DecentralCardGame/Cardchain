@@ -7,6 +7,7 @@ import (
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+	"golang.org/x/exp/slices"
 )
 
 func (k msgServer) CreateCouncil(goCtx context.Context, msg *types.MsgCreateCouncil) (*types.MsgCreateCouncilResponse, error) {
@@ -34,7 +35,7 @@ func (k msgServer) CreateCouncil(goCtx context.Context, msg *types.MsgCreateCoun
 	users, addresses := k.GetAllUsers(ctx)
 
 	for idx, user := range users {
-		if user.CouncilParticipation.Status == types.CouncilStatus_available {
+		if user.CouncilParticipation.Status == types.CouncilStatus_available && !slices.Contains(user.OwnedPrototypes, msg.CardId) {
 			possibleVoters = append(possibleVoters, User{*user, addresses[idx]})
 		}
 	}
