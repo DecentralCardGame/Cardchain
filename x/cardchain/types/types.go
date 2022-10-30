@@ -34,6 +34,13 @@ func NewIgnoreSellOffers() IgnoreSellOffers {
 	}
 }
 
+func NewIgnoreCouncils() IgnoreCouncils {
+	return IgnoreCouncils{
+		false,
+		false,
+	}
+}
+
 // NewUser Constructor for User
 func NewUser() User {
 	return User{

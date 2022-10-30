@@ -459,7 +459,7 @@ paths:
           type: boolean
       tags:
         - Query
-  '/cosmos/auth/v1beta1/accounts/{address}':
+  /cosmos/auth/v1beta1/accounts/{address}:
     get:
       summary: Account returns account details based on address.
       operationId: CosmosAuthV1Beta1Account
@@ -1055,7 +1055,7 @@ paths:
         - Query
   /cosmos/authz/v1beta1/grants:
     get:
-      summary: 'Returns list of `Authorization`, granted to the grantee by the granter.'
+      summary: Returns list of `Authorization`, granted to the grantee by the granter.
       operationId: CosmosAuthzV1Beta1Grants
       responses:
         '200':
@@ -1532,7 +1532,7 @@ paths:
           type: boolean
       tags:
         - Query
-  '/cosmos/bank/v1beta1/balances/{address}':
+  /cosmos/bank/v1beta1/balances/{address}:
     get:
       summary: AllBalances queries the balance of all coins for a single account.
       operationId: CosmosBankV1Beta1AllBalances
@@ -1665,7 +1665,7 @@ paths:
           type: boolean
       tags:
         - Query
-  '/cosmos/bank/v1beta1/balances/{address}/by_denom':
+  /cosmos/bank/v1beta1/balances/{address}/by_denom:
     get:
       summary: Balance queries the balance of a single coin for a single account.
       operationId: CosmosBankV1Beta1Balance
@@ -1912,7 +1912,7 @@ paths:
           type: boolean
       tags:
         - Query
-  '/cosmos/bank/v1beta1/denoms_metadata/{denom}':
+  /cosmos/bank/v1beta1/denoms_metadata/{denom}:
     get:
       summary: DenomsMetadata queries the client metadata of a given coin denomination.
       operationId: CosmosBankV1Beta1DenomMetadata
@@ -2208,7 +2208,7 @@ paths:
           type: boolean
       tags:
         - Query
-  '/cosmos/bank/v1beta1/supply/{denom}':
+  /cosmos/bank/v1beta1/supply/{denom}:
     get:
       summary: SupplyOf queries the supply of a single coin.
       operationId: CosmosBankV1Beta1SupplyOf
@@ -3016,7 +3016,7 @@ paths:
                         }
       tags:
         - Service
-  '/cosmos/base/tendermint/v1beta1/blocks/{height}':
+  /cosmos/base/tendermint/v1beta1/blocks/{height}:
     get:
       summary: GetBlockByHeight queries block for given height.
       operationId: CosmosBaseTendermintV1Beta1GetBlockByHeight
@@ -4714,7 +4714,7 @@ paths:
           type: boolean
       tags:
         - Service
-  '/cosmos/base/tendermint/v1beta1/validatorsets/{height}':
+  /cosmos/base/tendermint/v1beta1/validatorsets/{height}:
     get:
       summary: GetValidatorSetByHeight queries validator-set at a given height.
       operationId: CosmosBaseTendermintV1Beta1GetValidatorSetByHeight
@@ -5240,7 +5240,7 @@ paths:
                   additionalProperties: {}
       tags:
         - Query
-  '/cosmos/distribution/v1beta1/delegators/{delegator_address}/rewards':
+  /cosmos/distribution/v1beta1/delegators/{delegator_address}/rewards:
     get:
       summary: |-
         DelegationTotalRewards queries the total rewards accrued by a each
@@ -5329,7 +5329,7 @@ paths:
           type: string
       tags:
         - Query
-  '/cosmos/distribution/v1beta1/delegators/{delegator_address}/rewards/{validator_address}':
+  /cosmos/distribution/v1beta1/delegators/{delegator_address}/rewards/{validator_address}:
     get:
       summary: DelegationRewards queries the total rewards accrued by a delegation.
       operationId: CosmosDistributionV1Beta1DelegationRewards
@@ -5392,7 +5392,7 @@ paths:
           type: string
       tags:
         - Query
-  '/cosmos/distribution/v1beta1/delegators/{delegator_address}/validators':
+  /cosmos/distribution/v1beta1/delegators/{delegator_address}/validators:
     get:
       summary: DelegatorValidators queries the validators of a delegator.
       operationId: CosmosDistributionV1Beta1DelegatorValidators
@@ -5438,7 +5438,7 @@ paths:
           type: string
       tags:
         - Query
-  '/cosmos/distribution/v1beta1/delegators/{delegator_address}/withdraw_address':
+  /cosmos/distribution/v1beta1/delegators/{delegator_address}/withdraw_address:
     get:
       summary: DelegatorWithdrawAddress queries withdraw address of a delegator.
       operationId: CosmosDistributionV1Beta1DelegatorWithdrawAddress
@@ -5525,7 +5525,7 @@ paths:
                   additionalProperties: {}
       tags:
         - Query
-  '/cosmos/distribution/v1beta1/validators/{validator_address}/commission':
+  /cosmos/distribution/v1beta1/validators/{validator_address}/commission:
     get:
       summary: ValidatorCommission queries accumulated commission for a validator.
       operationId: CosmosDistributionV1Beta1ValidatorCommission
@@ -5586,7 +5586,7 @@ paths:
           type: string
       tags:
         - Query
-  '/cosmos/distribution/v1beta1/validators/{validator_address}/outstanding_rewards':
+  /cosmos/distribution/v1beta1/validators/{validator_address}/outstanding_rewards:
     get:
       summary: ValidatorOutstandingRewards queries rewards of a validator address.
       operationId: CosmosDistributionV1Beta1ValidatorOutstandingRewards
@@ -5654,7 +5654,7 @@ paths:
           type: string
       tags:
         - Query
-  '/cosmos/distribution/v1beta1/validators/{validator_address}/slashes':
+  /cosmos/distribution/v1beta1/validators/{validator_address}/slashes:
     get:
       summary: ValidatorSlashes queries slash events of a validator.
       operationId: CosmosDistributionV1Beta1ValidatorSlashes
@@ -6257,7 +6257,7 @@ paths:
           type: boolean
       tags:
         - Query
-  '/cosmos/evidence/v1beta1/evidence/{evidence_hash}':
+  /cosmos/evidence/v1beta1/evidence/{evidence_hash}:
     get:
       summary: Evidence queries evidence based on evidence hash.
       operationId: CosmosEvidenceV1Beta1Evidence
@@ -6633,7 +6633,7 @@ paths:
           format: byte
       tags:
         - Query
-  '/cosmos/feegrant/v1beta1/allowance/{granter}/{grantee}':
+  /cosmos/feegrant/v1beta1/allowance/{granter}/{grantee}:
     get:
       summary: Allowance returns fee granted to the grantee by the granter.
       operationId: CosmosFeegrantV1Beta1Allowance
@@ -6928,7 +6928,7 @@ paths:
           type: string
       tags:
         - Query
-  '/cosmos/feegrant/v1beta1/allowances/{grantee}':
+  /cosmos/feegrant/v1beta1/allowances/{grantee}:
     get:
       summary: Allowances returns all the grants for address.
       operationId: CosmosFeegrantV1Beta1Allowances
@@ -7291,7 +7291,7 @@ paths:
           type: boolean
       tags:
         - Query
-  '/cosmos/gov/v1beta1/params/{params_type}':
+  /cosmos/gov/v1beta1/params/{params_type}:
     get:
       summary: Params queries all parameters of the gov module.
       operationId: CosmosGovV1Beta1Params
@@ -8128,7 +8128,7 @@ paths:
           type: boolean
       tags:
         - Query
-  '/cosmos/gov/v1beta1/proposals/{proposal_id}':
+  /cosmos/gov/v1beta1/proposals/{proposal_id}:
     get:
       summary: Proposal queries proposal details based on ProposalID.
       operationId: CosmosGovV1Beta1Proposal
@@ -8585,7 +8585,7 @@ paths:
           format: uint64
       tags:
         - Query
-  '/cosmos/gov/v1beta1/proposals/{proposal_id}/deposits':
+  /cosmos/gov/v1beta1/proposals/{proposal_id}/deposits:
     get:
       summary: Deposits queries all deposits of a single proposal.
       operationId: CosmosGovV1Beta1Deposits
@@ -8899,7 +8899,7 @@ paths:
           type: boolean
       tags:
         - Query
-  '/cosmos/gov/v1beta1/proposals/{proposal_id}/deposits/{depositor}':
+  /cosmos/gov/v1beta1/proposals/{proposal_id}/deposits/{depositor}:
     get:
       summary: >-
         Deposit queries single deposit information based proposalID,
@@ -9143,7 +9143,7 @@ paths:
           type: string
       tags:
         - Query
-  '/cosmos/gov/v1beta1/proposals/{proposal_id}/tally':
+  /cosmos/gov/v1beta1/proposals/{proposal_id}/tally:
     get:
       summary: TallyResult queries the tally of a proposal vote.
       operationId: CosmosGovV1Beta1TallyResult
@@ -9364,7 +9364,7 @@ paths:
           format: uint64
       tags:
         - Query
-  '/cosmos/gov/v1beta1/proposals/{proposal_id}/votes':
+  /cosmos/gov/v1beta1/proposals/{proposal_id}/votes:
     get:
       summary: Votes queries votes of a given proposal.
       operationId: CosmosGovV1Beta1Votes
@@ -9711,9 +9711,9 @@ paths:
           type: boolean
       tags:
         - Query
-  '/cosmos/gov/v1beta1/proposals/{proposal_id}/votes/{voter}':
+  /cosmos/gov/v1beta1/proposals/{proposal_id}/votes/{voter}:
     get:
-      summary: 'Vote queries voted information based on proposalID, voterAddr.'
+      summary: Vote queries voted information based on proposalID, voterAddr.
       operationId: CosmosGovV1Beta1Vote
       responses:
         '200':
@@ -10401,7 +10401,7 @@ paths:
           type: boolean
       tags:
         - Query
-  '/cosmos/slashing/v1beta1/signing_infos/{cons_address}':
+  /cosmos/slashing/v1beta1/signing_infos/{cons_address}:
     get:
       summary: SigningInfo queries the signing info of given cons address
       operationId: CosmosSlashingV1Beta1SigningInfo
@@ -10495,7 +10495,7 @@ paths:
           type: string
       tags:
         - Query
-  '/cosmos/staking/v1beta1/delegations/{delegator_addr}':
+  /cosmos/staking/v1beta1/delegations/{delegator_addr}:
     get:
       summary: >-
         DelegatorDelegations queries all delegations of a given delegator
@@ -10830,7 +10830,7 @@ paths:
           type: boolean
       tags:
         - Query
-  '/cosmos/staking/v1beta1/delegators/{delegator_addr}/redelegations':
+  /cosmos/staking/v1beta1/delegators/{delegator_addr}/redelegations:
     get:
       summary: Redelegations queries redelegations of given address.
       operationId: CosmosStakingV1Beta1Redelegations
@@ -11235,7 +11235,7 @@ paths:
           type: boolean
       tags:
         - Query
-  '/cosmos/staking/v1beta1/delegators/{delegator_addr}/unbonding_delegations':
+  /cosmos/staking/v1beta1/delegators/{delegator_addr}/unbonding_delegations:
     get:
       summary: >-
         DelegatorUnbondingDelegations queries all unbonding delegations of a
@@ -11572,7 +11572,7 @@ paths:
           type: boolean
       tags:
         - Query
-  '/cosmos/staking/v1beta1/delegators/{delegator_addr}/validators':
+  /cosmos/staking/v1beta1/delegators/{delegator_addr}/validators:
     get:
       summary: |-
         DelegatorValidators queries all validators info for given delegator
@@ -12165,7 +12165,7 @@ paths:
           type: boolean
       tags:
         - Query
-  '/cosmos/staking/v1beta1/delegators/{delegator_addr}/validators/{validator_addr}':
+  /cosmos/staking/v1beta1/delegators/{delegator_addr}/validators/{validator_addr}:
     get:
       summary: |-
         DelegatorValidator queries validator info for given delegator validator
@@ -12683,7 +12683,7 @@ paths:
           type: string
       tags:
         - Query
-  '/cosmos/staking/v1beta1/historical_info/{height}':
+  /cosmos/staking/v1beta1/historical_info/{height}:
     get:
       summary: HistoricalInfo queries the historical info for given height.
       operationId: CosmosStakingV1Beta1HistoricalInfo
@@ -14308,7 +14308,7 @@ paths:
           type: boolean
       tags:
         - Query
-  '/cosmos/staking/v1beta1/validators/{validator_addr}':
+  /cosmos/staking/v1beta1/validators/{validator_addr}:
     get:
       summary: Validator queries validator info for given validator address.
       operationId: CosmosStakingV1Beta1Validator
@@ -14819,7 +14819,7 @@ paths:
           type: string
       tags:
         - Query
-  '/cosmos/staking/v1beta1/validators/{validator_addr}/delegations':
+  /cosmos/staking/v1beta1/validators/{validator_addr}/delegations:
     get:
       summary: ValidatorDelegations queries delegate info for given validator.
       operationId: CosmosStakingV1Beta1ValidatorDelegations
@@ -15149,7 +15149,7 @@ paths:
           type: boolean
       tags:
         - Query
-  '/cosmos/staking/v1beta1/validators/{validator_addr}/delegations/{delegator_addr}':
+  /cosmos/staking/v1beta1/validators/{validator_addr}/delegations/{delegator_addr}:
     get:
       summary: Delegation queries delegate info for given validator delegator pair.
       operationId: CosmosStakingV1Beta1Delegation
@@ -15408,7 +15408,7 @@ paths:
           type: string
       tags:
         - Query
-  '/cosmos/staking/v1beta1/validators/{validator_addr}/delegations/{delegator_addr}/unbonding_delegation':
+  /cosmos/staking/v1beta1/validators/{validator_addr}/delegations/{delegator_addr}/unbonding_delegation:
     get:
       summary: |-
         UnbondingDelegation queries unbonding info for given validator delegator
@@ -15670,7 +15670,7 @@ paths:
           type: string
       tags:
         - Query
-  '/cosmos/staking/v1beta1/validators/{validator_addr}/unbonding_delegations':
+  /cosmos/staking/v1beta1/validators/{validator_addr}/unbonding_delegations:
     get:
       summary: >-
         ValidatorUnbondingDelegations queries unbonding delegations of a
@@ -16581,7 +16581,7 @@ paths:
                     description: Response code.
                   data:
                     type: string
-                    description: 'Result bytes, if any.'
+                    description: Result bytes, if any.
                   raw_log:
                     type: string
                     description: >-
@@ -17107,7 +17107,7 @@ paths:
               RPC method.
       tags:
         - Service
-  '/cosmos/tx/v1beta1/txs/{hash}':
+  /cosmos/tx/v1beta1/txs/{hash}:
     get:
       summary: GetTx fetches a tx by hash.
       operationId: CosmosTxV1Beta1GetTx
@@ -17303,13 +17303,13 @@ paths:
                         }
       parameters:
         - name: hash
-          description: 'hash is the tx hash to query, encoded as a hex string.'
+          description: hash is the tx hash to query, encoded as a hex string.
           in: path
           required: true
           type: string
       tags:
         - Service
-  '/cosmos/upgrade/v1beta1/applied_plan/{name}':
+  /cosmos/upgrade/v1beta1/applied_plan/{name}:
     get:
       summary: AppliedPlan queries a previously applied upgrade plan by its name.
       operationId: CosmosUpgradeV1Beta1AppliedPlan
@@ -18180,7 +18180,7 @@ paths:
           type: string
       tags:
         - Query
-  '/cosmos/upgrade/v1beta1/upgraded_consensus_state/{last_height}':
+  /cosmos/upgrade/v1beta1/upgraded_consensus_state/{last_height}:
     get:
       summary: >-
         UpgradedConsensusState queries the consensus state that will serve
@@ -18406,7 +18406,7 @@ paths:
           format: int64
       tags:
         - Query
-  '/DecentralCardGame/Cardchain/cardchain/q_collections/{status}/{ignoreStatus}':
+  /DecentralCardGame/Cardchain/cardchain/q_collections/{status}/{ignoreStatus}:
     get:
       summary: Queries a list of QCollections items.
       operationId: DecentralCardGameCardchainCardchainQCollections
@@ -18474,7 +18474,130 @@ paths:
           type: string
       tags:
         - Query
-  '/DecentralCardGame/Cardchain/cardchain/rarity_distribution/{collectionId}':
+  /DecentralCardGame/Cardchain/cardchain/q_councils/{status}:
+    get:
+      summary: Queries a list of QCouncils items.
+      operationId: DecentralCardGameCardchainCardchainQCouncils
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              councilssIds:
+                type: array
+                items:
+                  type: string
+                  format: uint64
+              councils:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    cardId:
+                      type: string
+                      format: uint64
+                    voters:
+                      type: array
+                      items:
+                        type: string
+                    hashResponses:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          user:
+                            type: string
+                          hash:
+                            type: string
+                    clearResponses:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          user:
+                            type: string
+                          response:
+                            type: string
+                            enum:
+                              - 'Yes'
+                              - 'No'
+                              - Suggestion
+                            default: 'Yes'
+                          suggestion:
+                            type: string
+                    treasury:
+                      type: string
+                    status:
+                      type: string
+                      enum:
+                        - councilOpen
+                        - councilCreated
+                        - councilClosed
+                        - commited
+                        - revealed
+                        - suggestionsMade
+                      default: councilOpen
+                    trialStart:
+                      type: string
+                      format: uint64
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: status
+          in: path
+          required: true
+          type: string
+          enum:
+            - councilOpen
+            - councilCreated
+            - councilClosed
+            - commited
+            - revealed
+            - suggestionsMade
+        - name: voters
+          in: query
+          required: false
+          type: array
+          items:
+            type: string
+          collectionFormat: multi
+        - name: card
+          in: query
+          required: false
+          type: string
+          format: uint64
+        - name: creator
+          in: query
+          required: false
+          type: string
+        - name: ignore.status
+          in: query
+          required: false
+          type: boolean
+        - name: ignore.card
+          in: query
+          required: false
+          type: boolean
+      tags:
+        - Query
+  /DecentralCardGame/Cardchain/cardchain/rarity_distribution/{collectionId}:
     get:
       summary: Queries a list of RarityDistribution items.
       operationId: DecentralCardGameCardchainCardchainRarityDistribution
@@ -18531,7 +18654,6 @@ paths:
             type: object
             properties:
               params:
-                description: params holds all the parameters of this module.
                 type: object
                 properties:
                   votingRightsExpirationTime:
@@ -18582,6 +18704,7 @@ paths:
                   airDropMaxBlockHeight:
                     type: string
                     format: int64
+                description: Params defines the parameters for the module.
             description: >-
               QueryParamsResponse is response type for the Query/Params RPC
               method.
@@ -18605,7 +18728,7 @@ paths:
                   additionalProperties: {}
       tags:
         - Query
-  '/DecentralCardGame/cardchain/cardchain/q_card/{cardId}':
+  /DecentralCardGame/cardchain/cardchain/q_card/{cardId}:
     get:
       summary: Queries a list of QCard items.
       operationId: DecentralCardGameCardchainCardchainQCard
@@ -18686,7 +18809,7 @@ paths:
           type: string
       tags:
         - Query
-  '/DecentralCardGame/cardchain/cardchain/q_card_content/{cardId}':
+  /DecentralCardGame/cardchain/cardchain/q_card_content/{cardId}:
     get:
       summary: Queries a list of QCardContent items.
       operationId: DecentralCardGameCardchainCardchainQCardContent
@@ -18774,7 +18897,7 @@ paths:
                   additionalProperties: {}
       tags:
         - Query
-  '/DecentralCardGame/cardchain/cardchain/q_cards/{status}':
+  /DecentralCardGame/cardchain/cardchain/q_cards/{status}:
     get:
       summary: Queries a list of QCards items.
       operationId: DecentralCardGameCardchainCardchainQCards
@@ -18854,7 +18977,7 @@ paths:
           type: string
       tags:
         - Query
-  '/DecentralCardGame/cardchain/cardchain/q_collection/{collectionId}':
+  /DecentralCardGame/cardchain/cardchain/q_collection/{collectionId}:
     get:
       summary: Queries a list of QCollection items.
       operationId: DecentralCardGameCardchainCardchainQCollection
@@ -18920,7 +19043,7 @@ paths:
           format: uint64
       tags:
         - Query
-  '/DecentralCardGame/cardchain/cardchain/q_council/{councilId}':
+  /DecentralCardGame/cardchain/cardchain/q_council/{councilId}:
     get:
       summary: Queries a list of QCouncil items.
       operationId: DecentralCardGameCardchainCardchainQCouncil
@@ -19003,7 +19126,7 @@ paths:
           format: uint64
       tags:
         - Query
-  '/DecentralCardGame/cardchain/cardchain/q_match/{matchId}':
+  /DecentralCardGame/cardchain/cardchain/q_match/{matchId}:
     get:
       summary: Queries a list of QMatch items.
       operationId: DecentralCardGameCardchainCardchainQMatch
@@ -19233,7 +19356,7 @@ paths:
           type: boolean
       tags:
         - Query
-  '/DecentralCardGame/cardchain/cardchain/q_sell_offer/{sellOfferId}':
+  /DecentralCardGame/cardchain/cardchain/q_sell_offer/{sellOfferId}:
     get:
       summary: Queries a list of QSellOffer items.
       operationId: DecentralCardGameCardchainCardchainQSellOffer
@@ -19285,7 +19408,7 @@ paths:
           format: uint64
       tags:
         - Query
-  '/DecentralCardGame/cardchain/cardchain/q_sell_offers/{status}':
+  /DecentralCardGame/cardchain/cardchain/q_sell_offers/{status}:
     get:
       summary: Queries a list of QSellOffers items.
       operationId: DecentralCardGameCardchainCardchainQSellOffers
@@ -19379,7 +19502,7 @@ paths:
           type: boolean
       tags:
         - Query
-  '/DecentralCardGame/cardchain/cardchain/q_server/{id}':
+  /DecentralCardGame/cardchain/cardchain/q_server/{id}:
     get:
       summary: Queries a list of QServer items.
       operationId: DecentralCardGameCardchainCardchainQServer
@@ -19423,7 +19546,7 @@ paths:
           format: uint64
       tags:
         - Query
-  '/DecentralCardGame/cardchain/cardchain/q_user/{address}':
+  /DecentralCardGame/cardchain/cardchain/q_user/{address}:
     get:
       summary: Queries a list of QUser items.
       operationId: DecentralCardGameCardchainCardchainQUser
@@ -19532,7 +19655,7 @@ paths:
           type: string
       tags:
         - Query
-  '/DecentralCardGame/cardchain/cardchain/q_votable_cards/{address}':
+  /DecentralCardGame/cardchain/cardchain/q_votable_cards/{address}:
     get:
       summary: Queries a list of QVotableCards items.
       operationId: DecentralCardGameCardchainCardchainQVotableCards
@@ -19942,7 +20065,7 @@ paths:
           type: boolean
       tags:
         - Query
-  '/ibc/apps/transfer/v1/denom_traces/{hash}':
+  /ibc/apps/transfer/v1/denom_traces/{hash}:
     get:
       summary: DenomTrace queries a denomination trace information.
       operationId: IbcApplicationsTransferV1DenomTrace
@@ -20770,7 +20893,7 @@ paths:
           type: boolean
       tags:
         - Query
-  '/ibc/core/channel/v1/channels/{channel_id}/ports/{port_id}':
+  /ibc/core/channel/v1/channels/{channel_id}/ports/{port_id}:
     get:
       summary: Channel queries an IBC Channel.
       operationId: IbcCoreChannelV1Channel
@@ -21093,7 +21216,7 @@ paths:
           type: string
       tags:
         - Query
-  '/ibc/core/channel/v1/channels/{channel_id}/ports/{port_id}/client_state':
+  /ibc/core/channel/v1/channels/{channel_id}/ports/{port_id}/client_state:
     get:
       summary: >-
         ChannelClientState queries for the client state for the channel
@@ -21527,7 +21650,7 @@ paths:
           type: string
       tags:
         - Query
-  '/ibc/core/channel/v1/channels/{channel_id}/ports/{port_id}/consensus_state/revision/{revision_number}/height/{revision_height}':
+  /ibc/core/channel/v1/channels/{channel_id}/ports/{port_id}/consensus_state/revision/{revision_number}/height/{revision_height}:
     get:
       summary: |-
         ChannelConsensusState queries for the consensus state for the channel
@@ -21958,7 +22081,7 @@ paths:
           format: uint64
       tags:
         - Query
-  '/ibc/core/channel/v1/channels/{channel_id}/ports/{port_id}/next_sequence':
+  /ibc/core/channel/v1/channels/{channel_id}/ports/{port_id}/next_sequence:
     get:
       summary: >-
         NextSequenceReceive returns the next receive sequence for a given
@@ -22208,7 +22331,7 @@ paths:
           type: string
       tags:
         - Query
-  '/ibc/core/channel/v1/channels/{channel_id}/ports/{port_id}/packet_acknowledgements':
+  /ibc/core/channel/v1/channels/{channel_id}/ports/{port_id}/packet_acknowledgements:
     get:
       summary: >-
         PacketAcknowledgements returns all the packet acknowledgements
@@ -22564,7 +22687,7 @@ paths:
           collectionFormat: multi
       tags:
         - Query
-  '/ibc/core/channel/v1/channels/{channel_id}/ports/{port_id}/packet_acks/{sequence}':
+  /ibc/core/channel/v1/channels/{channel_id}/ports/{port_id}/packet_acks/{sequence}:
     get:
       summary: PacketAcknowledgement queries a stored packet acknowledgement hash.
       operationId: IbcCoreChannelV1PacketAcknowledgement
@@ -22822,7 +22945,7 @@ paths:
           format: uint64
       tags:
         - Query
-  '/ibc/core/channel/v1/channels/{channel_id}/ports/{port_id}/packet_commitments':
+  /ibc/core/channel/v1/channels/{channel_id}/ports/{port_id}/packet_commitments:
     get:
       summary: |-
         PacketCommitments returns all the packet commitments hashes associated
@@ -23167,7 +23290,7 @@ paths:
           type: boolean
       tags:
         - Query
-  '/ibc/core/channel/v1/channels/{channel_id}/ports/{port_id}/packet_commitments/{packet_ack_sequences}/unreceived_acks':
+  /ibc/core/channel/v1/channels/{channel_id}/ports/{port_id}/packet_commitments/{packet_ack_sequences}/unreceived_acks:
     get:
       summary: >-
         UnreceivedAcks returns all the unreceived IBC acknowledgements
@@ -23427,7 +23550,7 @@ paths:
           minItems: 1
       tags:
         - Query
-  '/ibc/core/channel/v1/channels/{channel_id}/ports/{port_id}/packet_commitments/{packet_commitment_sequences}/unreceived_packets':
+  /ibc/core/channel/v1/channels/{channel_id}/ports/{port_id}/packet_commitments/{packet_commitment_sequences}/unreceived_packets:
     get:
       summary: >-
         UnreceivedPackets returns all the unreceived IBC packets associated with
@@ -23687,7 +23810,7 @@ paths:
           minItems: 1
       tags:
         - Query
-  '/ibc/core/channel/v1/channels/{channel_id}/ports/{port_id}/packet_commitments/{sequence}':
+  /ibc/core/channel/v1/channels/{channel_id}/ports/{port_id}/packet_commitments/{sequence}:
     get:
       summary: PacketCommitment queries a stored packet commitment hash.
       operationId: IbcCoreChannelV1PacketCommitment
@@ -23946,7 +24069,7 @@ paths:
           format: uint64
       tags:
         - Query
-  '/ibc/core/channel/v1/channels/{channel_id}/ports/{port_id}/packet_receipts/{sequence}':
+  /ibc/core/channel/v1/channels/{channel_id}/ports/{port_id}/packet_receipts/{sequence}:
     get:
       summary: >-
         PacketReceipt queries if a given packet sequence has been received on
@@ -24208,7 +24331,7 @@ paths:
           format: uint64
       tags:
         - Query
-  '/ibc/core/channel/v1/connections/{connection}/channels':
+  /ibc/core/channel/v1/connections/{connection}/channels:
     get:
       summary: |-
         ConnectionChannels queries all the channels associated with a connection
@@ -25279,7 +25402,7 @@ paths:
           type: boolean
       tags:
         - Query
-  '/ibc/core/client/v1/client_states/{client_id}':
+  /ibc/core/client/v1/client_states/{client_id}:
     get:
       summary: ClientState queries an IBC light client.
       operationId: IbcCoreClientV1ClientState
@@ -25693,7 +25816,7 @@ paths:
           type: string
       tags:
         - Query
-  '/ibc/core/client/v1/client_status/{client_id}':
+  /ibc/core/client/v1/client_status/{client_id}:
     get:
       summary: Status queries the status of an IBC client.
       operationId: IbcCoreClientV1ClientStatus
@@ -25903,7 +26026,7 @@ paths:
           type: string
       tags:
         - Query
-  '/ibc/core/client/v1/consensus_states/{client_id}':
+  /ibc/core/client/v1/consensus_states/{client_id}:
     get:
       summary: |-
         ConsensusStates queries all the consensus state associated with a given
@@ -26401,7 +26524,7 @@ paths:
           type: boolean
       tags:
         - Query
-  '/ibc/core/client/v1/consensus_states/{client_id}/revision/{revision_number}/height/{revision_height}':
+  /ibc/core/client/v1/consensus_states/{client_id}/revision/{revision_number}/height/{revision_height}:
     get:
       summary: >-
         ConsensusState queries a consensus state associated with a client state
@@ -27579,7 +27702,7 @@ paths:
                         }
       tags:
         - Query
-  '/ibc/core/connection/v1/client_connections/{client_id}':
+  /ibc/core/connection/v1/client_connections/{client_id}:
     get:
       summary: |-
         ClientConnections queries the connection paths associated with a client
@@ -28218,7 +28341,7 @@ paths:
           type: boolean
       tags:
         - Query
-  '/ibc/core/connection/v1/connections/{connection_id}':
+  /ibc/core/connection/v1/connections/{connection_id}:
     get:
       summary: Connection queries an IBC connection end.
       operationId: IbcCoreConnectionV1Connection
@@ -28555,7 +28678,7 @@ paths:
           type: string
       tags:
         - Query
-  '/ibc/core/connection/v1/connections/{connection_id}/client_state':
+  /ibc/core/connection/v1/connections/{connection_id}/client_state:
     get:
       summary: |-
         ConnectionClientState queries the client state associated with the
@@ -28982,7 +29105,7 @@ paths:
           type: string
       tags:
         - Query
-  '/ibc/core/connection/v1/connections/{connection_id}/consensus_state/revision/{revision_number}/height/{revision_height}':
+  /ibc/core/connection/v1/connections/{connection_id}/consensus_state/revision/{revision_number}/height/{revision_height}:
     get:
       summary: |-
         ConnectionConsensusState queries the consensus state associated with the
@@ -37904,7 +38027,7 @@ definitions:
         properties:
           rate:
             type: string
-            description: 'rate is the commission rate charged to delegators, as a fraction.'
+            description: rate is the commission rate charged to delegators, as a fraction.
           max_rate:
             type: string
             description: >-
@@ -37925,7 +38048,7 @@ definitions:
     properties:
       rate:
         type: string
-        description: 'rate is the commission rate charged to delegators, as a fraction.'
+        description: rate is the commission rate charged to delegators, as a fraction.
       max_rate:
         type: string
         description: >-
@@ -41313,7 +41436,7 @@ definitions:
         description: Response code.
       data:
         type: string
-        description: 'Result bytes, if any.'
+        description: Result bytes, if any.
       raw_log:
         type: string
         description: |-
@@ -41778,7 +41901,7 @@ definitions:
             description: Response code.
           data:
             type: string
-            description: 'Result bytes, if any.'
+            description: Result bytes, if any.
           raw_log:
             type: string
             description: |-
@@ -42148,7 +42271,7 @@ definitions:
             description: Response code.
           data:
             type: string
-            description: 'Result bytes, if any.'
+            description: Result bytes, if any.
           raw_log:
             type: string
             description: |-
@@ -42466,7 +42589,7 @@ definitions:
               description: Response code.
             data:
               type: string
-              description: 'Result bytes, if any.'
+              description: Result bytes, if any.
             raw_log:
               type: string
               description: |-
@@ -44297,7 +44420,7 @@ definitions:
               format: byte
             index:
               type: boolean
-          description: 'EventAttribute is a single key-value pair, associated with an event.'
+          description: EventAttribute is a single key-value pair, associated with an event.
     description: >-
       Event allows application developers to attach additional information to
 
@@ -44316,7 +44439,7 @@ definitions:
         format: byte
       index:
         type: boolean
-    description: 'EventAttribute is a single key-value pair, associated with an event.'
+    description: EventAttribute is a single key-value pair, associated with an event.
   cosmos.upgrade.v1beta1.ModuleVersion:
     type: object
     properties:
@@ -44917,6 +45040,13 @@ definitions:
       - openCouncil
       - startedCouncil
     default: available
+  DecentralCardGame.cardchain.cardchain.IgnoreCouncils:
+    type: object
+    properties:
+      status:
+        type: boolean
+      card:
+        type: boolean
   DecentralCardGame.cardchain.cardchain.IgnoreMatches:
     type: object
     properties:
@@ -45246,7 +45376,6 @@ definitions:
     type: object
     properties:
       params:
-        description: params holds all the parameters of this module.
         type: object
         properties:
           votingRightsExpirationTime:
@@ -45297,6 +45426,7 @@ definitions:
           airDropMaxBlockHeight:
             type: string
             format: int64
+        description: Params defines the parameters for the module.
     description: QueryParamsResponse is response type for the Query/Params RPC method.
   DecentralCardGame.cardchain.cardchain.QueryQCardContentResponse:
     type: object
@@ -45358,6 +45488,66 @@ definitions:
         items:
           type: string
           format: uint64
+  DecentralCardGame.cardchain.cardchain.QueryQCouncilsResponse:
+    type: object
+    properties:
+      councilssIds:
+        type: array
+        items:
+          type: string
+          format: uint64
+      councils:
+        type: array
+        items:
+          type: object
+          properties:
+            cardId:
+              type: string
+              format: uint64
+            voters:
+              type: array
+              items:
+                type: string
+            hashResponses:
+              type: array
+              items:
+                type: object
+                properties:
+                  user:
+                    type: string
+                  hash:
+                    type: string
+            clearResponses:
+              type: array
+              items:
+                type: object
+                properties:
+                  user:
+                    type: string
+                  response:
+                    type: string
+                    enum:
+                      - 'Yes'
+                      - 'No'
+                      - Suggestion
+                    default: 'Yes'
+                  suggestion:
+                    type: string
+            treasury:
+              type: string
+            status:
+              type: string
+              enum:
+                - councilOpen
+                - councilCreated
+                - councilClosed
+                - commited
+                - revealed
+                - suggestionsMade
+              default: councilOpen
+            trialStart:
+              type: string
+              format: uint64
   DecentralCardGame.cardchain.cardchain.QueryQMatchesResponse:
     type: object
     properties:
@@ -45980,7 +46170,7 @@ definitions:
           this channel will travel
       version:
         type: string
-        title: 'opaque channel version, which is agreed upon during the handshake'
+        title: opaque channel version, which is agreed upon during the handshake
     description: |-
       Channel defines pipeline for exactly-once packet delivery between specific
       modules on separate blockchains, which has at least one end capable of
@@ -46055,7 +46245,7 @@ definitions:
           this channel will travel
       version:
         type: string
-        title: 'opaque channel version, which is agreed upon during the handshake'
+        title: opaque channel version, which is agreed upon during the handshake
       port_id:
         type: string
         title: port identifier
@@ -46677,7 +46867,7 @@ definitions:
               this channel will travel
           version:
             type: string
-            title: 'opaque channel version, which is agreed upon during the handshake'
+            title: opaque channel version, which is agreed upon during the handshake
         description: >-
           Channel defines pipeline for exactly-once packet delivery between
           specific

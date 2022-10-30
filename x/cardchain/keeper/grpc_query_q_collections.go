@@ -17,8 +17,8 @@ func (k Keeper) QCollections(goCtx context.Context, req *types.QueryQCollections
 
 	var (
 		collectionIds        []uint64
-		allUsersInCollection bool = true
-		allCardsInCollection bool = true
+		allUsersInCollection bool
+		allCardsInCollection bool
 	)
 
 	ctx := sdk.UnwrapSDKContext(goCtx)
@@ -26,6 +26,9 @@ func (k Keeper) QCollections(goCtx context.Context, req *types.QueryQCollections
 	iter := k.Collections.GetItemIterator(ctx)
 	for ; iter.Valid(); iter.Next() {
 		idx, collection := iter.Value()
+
+		allUsersInCollection = true
+		allCardsInCollection = true
 
 		// Checks for status
 		if !req.IgnoreStatus {
