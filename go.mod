@@ -1,6 +1,6 @@
 module github.com/DecentralCardGame/Cardchain
 
-go 1.18
+go 1.19
 
 require (
 	github.com/DecentralCardGame/cardobject v0.4.13
