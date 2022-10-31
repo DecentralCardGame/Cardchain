@@ -3,6 +3,7 @@ package generic_type_keeper
 import (
 	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	storetypes "github.com/cosmos/cosmos-sdk/store/types"
 	"golang.org/x/exp/slices"
 )
 
@@ -12,7 +13,7 @@ type KeywordedGenericTypeKeeper[T codec.ProtoMarshaler] struct {
 }
 
 // NewKGTK Returns a new KeywordedGenericTypeKeeper
-func NewKGTK[T codec.ProtoMarshaler](key sdk.StoreKey, internalKey sdk.StoreKey, cdc codec.BinaryCodec, getEmpty func() T, keywords []string) KeywordedGenericTypeKeeper[T] {
+func NewKGTK[T codec.ProtoMarshaler](key storetypes.StoreKey, internalKey storetypes.StoreKey, cdc codec.BinaryCodec, getEmpty func() T, keywords []string) KeywordedGenericTypeKeeper[T] {
 	gtk := KeywordedGenericTypeKeeper[T]{
 		NewGTK[T](key, internalKey, cdc, getEmpty),
 		keywords,

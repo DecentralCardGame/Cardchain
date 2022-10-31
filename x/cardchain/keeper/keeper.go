@@ -11,6 +11,7 @@ import (
 	"github.com/DecentralCardGame/cardobject/keywords"
 	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	storetypes "github.com/cosmos/cosmos-sdk/store/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	paramtypes "github.com/cosmos/cosmos-sdk/x/params/types"
 	"github.com/tendermint/tendermint/libs/log"
@@ -19,8 +20,8 @@ import (
 // Keeper Yeah the keeper
 type Keeper struct {
 	cdc              codec.BinaryCodec // The wire codec for binary encoding/decoding.
-	UsersStoreKey    sdk.StoreKey
-	InternalStoreKey sdk.StoreKey
+	UsersStoreKey    storetypes.StoreKey
+	InternalStoreKey storetypes.StoreKey
 	paramstore       paramtypes.Subspace
 
 	Cards           gtk.GenericTypeKeeper[*types.Card]
@@ -40,16 +41,16 @@ type Keeper struct {
 func NewKeeper(
 	cdc codec.BinaryCodec,
 	usersStoreKey,
-	cardsStoreKey sdk.StoreKey,
-	matchesStorekey sdk.StoreKey,
-	collectionsStoreKey sdk.StoreKey,
-	sellOffersStoreKey sdk.StoreKey,
-	poolsStoreKey sdk.StoreKey,
-	councilsStoreKey sdk.StoreKey,
-	runningAveragesStoreKey sdk.StoreKey,
-	imagesStorekey sdk.StoreKey,
-	serversStoreKey sdk.StoreKey,
-	internalStoreKey sdk.StoreKey,
+	cardsStoreKey storetypes.StoreKey,
+	matchesStorekey storetypes.StoreKey,
+	collectionsStoreKey storetypes.StoreKey,
+	sellOffersStoreKey storetypes.StoreKey,
+	poolsStoreKey storetypes.StoreKey,
+	councilsStoreKey storetypes.StoreKey,
+	runningAveragesStoreKey storetypes.StoreKey,
+	imagesStorekey storetypes.StoreKey,
+	serversStoreKey storetypes.StoreKey,
+	internalStoreKey storetypes.StoreKey,
 	ps paramtypes.Subspace,
 
 	bankKeeper types.BankKeeper,

@@ -5,6 +5,7 @@ import (
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
 	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	storetypes "github.com/cosmos/cosmos-sdk/store/types"
 )
 
 // ItemIterator is a generic wrapper for sdk.KVStorePrefixIterator that provides unmarshaling of objects
@@ -40,15 +41,15 @@ func GetEmpty[A any]() *A {
 }
 
 type GenericTypeKeeper[T codec.ProtoMarshaler] struct {
-	Key         sdk.StoreKey
-	InternalKey sdk.StoreKey
+	Key         storetypes.StoreKey
+	InternalKey storetypes.StoreKey
 	cdc         codec.BinaryCodec
 	name        string
 	getEmpty    func() T // This is needed because codec.ProtoMarshaler always refers to a pointer, but for cdc.Unmarshal to work the passed pointer can't be nil, but when initializing a pointer it's nil
 }
 
 // NewGTK Returns a new GenericTypeKeeper
-func NewGTK[T codec.ProtoMarshaler](key sdk.StoreKey, internalKey sdk.StoreKey, cdc codec.BinaryCodec, getEmpty func() T) GenericTypeKeeper[T] {
+func NewGTK[T codec.ProtoMarshaler](key storetypes.StoreKey, internalKey storetypes.StoreKey, cdc codec.BinaryCodec, getEmpty func() T) GenericTypeKeeper[T] {
 	gtk := GenericTypeKeeper[T]{
 		Key:         key,
 		InternalKey: internalKey,
