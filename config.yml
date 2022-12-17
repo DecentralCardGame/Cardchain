@@ -1,74 +1,36 @@
+version: 1
 build:
-  main: "cmd/Cardchaind/"
-
+  main: cmd/Cardchaind/
+  proto:
+    path: proto
+    third_party_paths:
+    - third_party/proto
+    - proto_vendor
 accounts:
-  - name: alice
-    coins: ["1000000000ucredits", "1000000000ubpf"]
-  - name: bob
-    coins: ["10000000000ucredits", "10000000000ubpf"]
-validator:
-  name: alice
-  staked: "5000000ubpf"
-client:
-  openapi:
-    path: "docs/static/openapi.yml"
-  vuex:
-    path: "vue/src/store"
-init:
-  config:
-    moniker: "yesyoulikeCC"
-    consensus:
-      timeout_commit: "5s"
-      create_empty_blocks: "false"
-  app:
-    #minimum-gas-prices: "0.1ubpf, 0.1ucredits"
+- name: alice
+  coins:
+  - 1000000000ucredits
+  - 1000000000ubpf
+- name: bob
+  coins:
+  - 10000000000ucredits
+  - 10000000000ubpf
 faucet:
   name: bob
-  coins: ["5000000ucredits", "5000000ubpf"]
-  coins_max: ["5000000ucredits", "5000000ubpf"]
-host:
-  rpc: "0.0.0.0:26657"
-  p2p: "0.0.0.0:26658"
-  prof: ":6061"
-  grpc: ":9090"
-  api: "0.0.0.0:1317"
-
+  coins:
+  - 5000000ucredits
+  - 5000000ubpf
+  coins_max:
+  - 5000000ucredits
+  - 5000000ubpf
+  host: 0.0.0.0:4500
+client:
+  vuex:
+    path: vue/src/store
+  openapi:
+    path: docs/static/openapi.yml
 genesis:
-  chain_id: "Testnet3"
   app_state:
-    cardchain:
-      params:
-        airDropMaxBlockHeight: "10000000"
-    staking:
-      params:
-        bond_denom: "ubpf"
-    slashing:
-      params:
-        signed_blocks_window: '30000'
-        min_signed_per_window: '0.05'
-        slash_fraction_downtime: '0'
-    mint:
-      params:
-        mint_denom: "ubpf"
-    gov:
-      deposit_params:
-        max_deposit_period: "172800s" #2 days
-        min_deposit:
-        - amount: '10000000'
-          denom: ubpf
-      tally_params:
-        quorum: "0.100000000000000000"
-        threshold: "0.500000000000000000"
-        veto_threshold: "0.334000000000000000"
-      voting_params:
-        voting_period: "172800s" #2 days
-    distribution:
-      params:
-        community_tax: "0.020000000000000000"
-    crisis:
-      constant_fee:
-        amount: '1000'
-        denom: ubpf
     bank:
       denom_metadata:
       - base: ubpf
@@ -88,3 +50,55 @@ genesis:
         display: bpf
         name: Burning Pitchfork
         symbol: BPF
+    cardchain:
+      params:
+        airDropMaxBlockHeight: "10000000"
+    crisis:
+      constant_fee:
+        amount: "1000"
+        denom: ubpf
+    distribution:
+      params:
+        community_tax: "0.020000000000000000"
+    gov:
+      deposit_params:
+        max_deposit_period: 172800s
+        min_deposit:
+        - amount: "10000000"
+          denom: ubpf
+      tally_params:
+        quorum: "0.100000000000000000"
+        threshold: "0.500000000000000000"
+        veto_threshold: "0.334000000000000000"
+      voting_params:
+        voting_period: 172800s
+    mint:
+      params:
+        mint_denom: ubpf
+    slashing:
+      params:
+        min_signed_per_window: "0.05"
+        signed_blocks_window: "30000"
+        slash_fraction_downtime: "0"
+    staking:
+      params:
+        bond_denom: ubpf
+  chain_id: Testnet3
+validators:
+- name: alice
+  bonded: 5000000ubpf
+  app:
+    api:
+      address: 0.0.0.0:1317
+    grpc:
+      address: :9090
+  config:
+    consensus:
+      create_empty_blocks: "false"
+      timeout_commit: 5s
+    moniker: yesyoulikeCC
+    p2p:
+      laddr: 0.0.0.0:26658
+    rpc:
+      laddr: 0.0.0.0:26657
+      pprof_laddr: :6061
