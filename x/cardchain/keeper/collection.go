@@ -104,5 +104,5 @@ func GetCardRarity(card *keywords.Card) (*cardobject.Rarity, error) {
 	} else if card.Headquarter != nil {
 		return card.Headquarter.Rarity, nil
 	}
-	return nil, errors.New("No card-attributes")
+	return nil, errors.New("no card-attributes")
 }

@@ -9,7 +9,10 @@ import (
 
 // MulCoin multiplies a Coin with an int
 func MulCoin(coin sdk.Coin, amt int64) sdk.Coin {
-	return sdk.Coin{coin.Denom, coin.Amount.Mul(sdk.NewInt(amt))}
+	return sdk.Coin{
+        Denom: coin.Denom,
+        Amount: coin.Amount.Mul(sdk.NewInt(amt)),
+    }
 }
 
 // MulCoinFloat multiplies a Coin with a float
@@ -19,12 +22,18 @@ func MulCoinFloat(coin sdk.Coin, amt float64) sdk.Coin {
 	oldAmount.Mul(amount, oldAmount)
 	var newAmount big.Int
 	oldAmount.Int(&newAmount)
-	return sdk.Coin{coin.Denom, sdk.NewIntFromBigInt(&newAmount)}
+	return sdk.Coin{
+        Denom: coin.Denom,
+        Amount: sdk.NewIntFromBigInt(&newAmount),
+    }
 }
 
 // QuoCoin devides a Coin with by int
 func QuoCoin(coin sdk.Coin, amt int64) sdk.Coin {
-	return sdk.Coin{coin.Denom, coin.Amount.Quo(sdk.NewInt(amt))}
+	return sdk.Coin{
+        Denom: coin.Denom,
+        Amount: coin.Amount.Quo(sdk.NewInt(amt)),
+    }
 }
 
 // MintCoinsToAddr adds coins to an Account

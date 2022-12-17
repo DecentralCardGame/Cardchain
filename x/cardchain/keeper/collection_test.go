@@ -23,7 +23,7 @@ func TestCollection(t *testing.T) {
 		TimeStamp:    100,
 	}
 
-	contribs := []string{}
+	var contribs []string
 	for i := 0; i < 10; i++ {
 		contribs = append(contribs, "cosmos15kq043zhu0wjyuw9av0auft06y3v2kxss862qf")
 	}

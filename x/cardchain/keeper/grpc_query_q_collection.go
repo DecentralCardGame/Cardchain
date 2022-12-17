@@ -21,14 +21,14 @@ func (k Keeper) QCollection(goCtx context.Context, req *types.QueryQCollectionRe
 	image := k.Images.Get(ctx, collection.ArtworkId)
 
 	return &types.OutpCollection{
-		collection.Name,
-		collection.Cards,
-		collection.Artist,
-		collection.StoryWriter,
-		collection.Contributors,
-		collection.Story,
-		string(image.Image),
-		collection.Status,
-		collection.TimeStamp,
+		Name:         collection.Name,
+		Cards:        collection.Cards,
+		Artist:       collection.Artist,
+		StoryWriter:  collection.StoryWriter,
+		Contributors: collection.Contributors,
+		Story:        collection.Story,
+		Artwork:      string(image.Image),
+		Status:       collection.Status,
+		TimeStamp:    collection.TimeStamp,
 	}, nil
 }

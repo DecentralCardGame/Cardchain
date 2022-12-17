@@ -10,7 +10,7 @@ import (
 	govtypes "github.com/cosmos/cosmos-sdk/x/gov/types/v1beta1"
 )
 
-// NewParamChangeProposalHandler creates a new governance Handler for a ParamChangeProposal
+// NewProposalHandler creates a new governance Handler for a ParamChangeProposal
 func NewProposalHandler(k keeper.Keeper) govtypes.Handler {
 	return func(ctx sdk.Context, content govtypes.Content) error {
 		switch c := content.(type) {

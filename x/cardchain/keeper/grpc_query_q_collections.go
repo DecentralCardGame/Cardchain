@@ -63,5 +63,5 @@ func (k Keeper) QCollections(goCtx context.Context, req *types.QueryQCollections
 		collectionIds = append(collectionIds, idx)
 	}
 
-	return &types.QueryQCollectionsResponse{collectionIds}, nil
+	return &types.QueryQCollectionsResponse{CollectionIds: collectionIds}, nil
 }

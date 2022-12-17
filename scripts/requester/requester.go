@@ -1,16 +1,16 @@
 package main
 
 import (
-  "context"
-  "log"
-  "encoding/json"
-  "fmt"
-  "C"
+	"C"
+	"context"
+	"encoding/json"
+	"fmt"
+	"log"
 
-  sdktypes "github.com/cosmos/cosmos-sdk/types"
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
+	"github.com/DecentralCardGame/cardobject/keywords"
+	sdktypes "github.com/cosmos/cosmos-sdk/types"
 	"github.com/ignite-hq/cli/ignite/pkg/cosmosclient"
-  "github.com/DecentralCardGame/cardobject/keywords"
 )
 
 type Content struct {

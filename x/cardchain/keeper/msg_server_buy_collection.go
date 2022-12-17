@@ -56,5 +56,5 @@ func (k msgServer) BuyCollection(goCtx context.Context, msg *types.MsgBuyCollect
 	k.Pools.Set(ctx, PublicPoolKey, &newPool)
 	k.Logger(ctx).Info(fmt.Sprintf(":: PublicPool: %s", newPool))
 
-	return &types.MsgBuyCollectionResponse{claimedAirdrop}, nil
+	return &types.MsgBuyCollectionResponse{AirdropClaimed: claimedAirdrop}, nil
 }
