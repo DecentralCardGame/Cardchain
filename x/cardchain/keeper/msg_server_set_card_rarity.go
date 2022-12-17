@@ -38,7 +38,7 @@ func (k msgServer) SetCardRarity(goCtx context.Context, msg *types.MsgSetCardRar
 	} else if cardobj.Headquarter != nil {
 		cardobj.Headquarter.Rarity = &rarity
 	} else {
-		return nil, errors.New("No card-attributes")
+		return nil, errors.New("no card-attributes")
 	}
 
 	cardbytes, err := json.Marshal(cardobj)

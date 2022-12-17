@@ -30,7 +30,7 @@ func (k msgServer) OpenBoosterPack(goCtx context.Context, msg *types.MsgOpenBoos
 		)
 	}
 
-	cardsList := []uint64{}
+	var cardsList []uint64
 	rarities := []string{"COMMON", "UNCOMMON", "RARE"}
 
 	collection := k.Collections.Get(ctx, creator.BoosterPacks[msg.BoosterPackId].CollectionId)
