@@ -97,13 +97,14 @@ func (k Keeper) CheckTrial(ctx sdk.Context) error {
 				})
 				if votes[len(votes)-1] == 0 {
 					council.TrialStart = uint64(ctx.BlockHeight())
-					k.Councils.Set(ctx, uint64(idx), council)
+					k.Councils.Set(ctx, idx, council)
 					continue
 				}
 				if card.FairEnoughVotes == votes[len(votes)-1] {
 					card.Status = types.Status_permanent
 					group = approvers
 					amt = 2
+                    k.SetLastCardModifiedNow(ctx)
 				} else {
 					card.Status = types.Status_prototype
 					group = deniers
@@ -132,7 +133,7 @@ func (k Keeper) CheckTrial(ctx sdk.Context) error {
 				card.VotePool = card.VotePool.Sub(card.VotePool)
 				council.Status = types.CouncelingStatus_councilClosed
 
-				k.Councils.Set(ctx, uint64(idx), council)
+				k.Councils.Set(ctx, idx, council)
 				k.Cards.Set(ctx, council.CardId, card)
 			}
 		}

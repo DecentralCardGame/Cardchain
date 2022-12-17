@@ -18754,6 +18754,9 @@ paths:
               councilsNumber:
                 type: string
                 format: uint64
+              lastCardModified:
+                type: string
+                format: uint64
         default:
           description: An unexpected error response.
           schema:
@@ -45325,6 +45328,9 @@ definitions:
         type: string
         format: uint64
       councilsNumber:
+        type: string
+        format: uint64
+      lastCardModified:
         type: string
         format: uint64
   DecentralCardGame.cardchain.cardchain.QueryQCardsRequest.Status:

@@ -145,6 +145,7 @@ message QueryQCardchainInfoResponse {
   uint64 matchesNumber = 4;
   uint64 sellOffersNumber = 5;
   uint64 councilsNumber = 6;
+  uint64 lastCardModified = 7;
 }
 
 message QueryQVotingResultsRequest {
