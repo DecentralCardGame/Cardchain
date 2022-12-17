@@ -124,7 +124,7 @@ func (k Keeper) GetOutcome(ctx sdk.Context, match types.Match) (outcome types.Ou
 		if match.PlayerA.Confirmed && match.PlayerB.Confirmed {
 			outcome = types.Outcome_Aborted
 		} else {
-			err = fmt.Errorf("Not enought votes for decision")
+			err = fmt.Errorf("not enought votes for decision")
 		}
 	}
 	return

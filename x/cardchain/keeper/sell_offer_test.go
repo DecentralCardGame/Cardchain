@@ -13,11 +13,9 @@ func TestSellOffer(t *testing.T) {
 	k, ctx := testkeeper.CardchainKeeper(t)
 	setUpCard(ctx, k)
 	sellOffer := types.SellOffer{
-		"cosmos15kq043zhu0wjyuw9av0auft06y3v2kxss862qf",
-		"",
-		0,
-		sdk.NewInt64Coin("ucredits", 3),
-		types.SellOfferStatus_open,
+		Seller: "cosmos15kq043zhu0wjyuw9av0auft06y3v2kxss862qf",
+		Price:  sdk.NewInt64Coin("ucredits", 3),
+		Status: types.SellOfferStatus_open,
 	}
 	k.SellOffers.Set(ctx, 0, &sellOffer)
 

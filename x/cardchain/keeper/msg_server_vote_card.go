@@ -79,5 +79,5 @@ func (k msgServer) VoteCard(goCtx context.Context, msg *types.MsgVoteCard) (*typ
 	claimedAirdrop := k.ClaimAirDrop(ctx, &voter, types.AirDrop_vote)
 	k.SetUserFromUser(ctx, voter)
 
-	return &types.MsgVoteCardResponse{claimedAirdrop}, nil
+	return &types.MsgVoteCardResponse{AirdropClaimed: claimedAirdrop}, nil
 }

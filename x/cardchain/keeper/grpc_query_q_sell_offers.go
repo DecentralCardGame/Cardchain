@@ -76,8 +76,8 @@ func (k Keeper) QSellOffers(goCtx context.Context, req *types.QueryQSellOffersRe
 		}
 
 		sellOffersList = append(sellOffersList, sellOffer)
-		sellOfferIds = append(sellOfferIds, uint64(idx))
+		sellOfferIds = append(sellOfferIds, idx)
 	}
 
-	return &types.QueryQSellOffersResponse{sellOfferIds, sellOffersList}, nil
+	return &types.QueryQSellOffersResponse{SellOffersIds: sellOfferIds, SellOffers: sellOffersList}, nil
 }

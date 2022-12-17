@@ -114,7 +114,7 @@ func (gtk GenericTypeKeeper[T]) GetAll(ctx sdk.Context) (all []T) {
 	return
 }
 
-// GetAll Gets all objs from store
+// GetItemIterator Gets all objs from store
 func (gtk GenericTypeKeeper[T]) GetItemIterator(ctx sdk.Context) ItemIterator[T] {
 	iterator := gtk.GetIterator(ctx)
 	var num uint64 = 0

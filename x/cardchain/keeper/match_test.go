@@ -14,12 +14,10 @@ func TestMatches(t *testing.T) {
 	setUpCard(ctx, k)
 	SetUpPools(ctx, *k)
 	match := types.Match{
-		0,
-		"cosmos15kq043zhu0wjyuw9av0auft06y3v2kxss862qf",
-		types.NewMatchPlayer("cosmos15kq043zhu0wjyuw9av0auft06y3v2kxss862qf", []uint64{1, 2, 3}),
-		types.NewMatchPlayer("cosmos15kq043zhu0wjyuw9av0auft06y3v2kxss862qf", []uint64{5, 6, 7}),
-		types.Outcome_AWon,
-		false,
+		Reporter: "cosmos15kq043zhu0wjyuw9av0auft06y3v2kxss862qf",
+		PlayerA:  types.NewMatchPlayer("cosmos15kq043zhu0wjyuw9av0auft06y3v2kxss862qf", []uint64{1, 2, 3}),
+		PlayerB:  types.NewMatchPlayer("cosmos15kq043zhu0wjyuw9av0auft06y3v2kxss862qf", []uint64{5, 6, 7}),
+		Outcome:  types.Outcome_AWon,
 	}
 	params := types.DefaultParams()
 

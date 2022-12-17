@@ -32,12 +32,12 @@ func TestResponseHash(t *testing.T) {
 
 func TestGetCouncilPartiedVoters(t *testing.T) {
 	responses := []*types.WrapClearResponse{
-		&types.WrapClearResponse{"abc", types.Response_Yes, ""},
-		&types.WrapClearResponse{"def", types.Response_Yes, ""},
-		&types.WrapClearResponse{"ghi", types.Response_No, ""},
-		&types.WrapClearResponse{"jkl", types.Response_No, ""},
-		&types.WrapClearResponse{"mno", types.Response_Yes, ""},
-		&types.WrapClearResponse{"pqr", types.Response_Suggestion, "bla"},
+		{"abc", types.Response_Yes, ""},
+		{"def", types.Response_Yes, ""},
+		{"ghi", types.Response_No, ""},
+		{"jkl", types.Response_No, ""},
+		{"mno", types.Response_Yes, ""},
+		{"pqr", types.Response_Suggestion, "bla"},
 	}
 	a, d, s := keeper.GetCouncilPartiedVoters(responses)
 	require.EqualValues(t, []string{"abc", "def", "mno"}, a)

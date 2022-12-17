@@ -32,7 +32,7 @@ func CmdCommitCouncilResponse() *cobra.Command {
 
 			if responseEnum == types.Response_Suggestion {
 				if len(args) > 4 {
-					return fmt.Errorf("You have to make a suggestion wen voting suggestion!")
+					return fmt.Errorf("you have to make a suggestion wen voting suggestion!")
 				}
 				suggestion = args[3]
 			}

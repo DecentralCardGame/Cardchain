@@ -78,5 +78,5 @@ func (k Keeper) QMatches(goCtx context.Context, req *types.QueryQMatchesRequest)
 		matchesList = append(matchesList, match)
 	}
 
-	return &types.QueryQMatchesResponse{matchIds, matchesList}, nil
+	return &types.QueryQMatchesResponse{MatchesList: matchIds, Matches: matchesList}, nil
 }
