@@ -24,7 +24,7 @@ func (k Keeper) QVotableCards(goCtx context.Context, req *types.QueryQVotableCar
 
 	unreg := true
 	noRights := true
-	voteRights := []*types.VoteRight{}
+	var voteRights []*types.VoteRight
 
 	user, err := k.GetUser(ctx, address)
 	if err == nil {
@@ -33,5 +33,5 @@ func (k Keeper) QVotableCards(goCtx context.Context, req *types.QueryQVotableCar
 		voteRights = user.VoteRights
 	}
 
-	return &types.QueryQVotableCardsResponse{unreg, noRights, voteRights}, nil
+	return &types.QueryQVotableCardsResponse{Unregistered: unreg, NoVoteRights: noRights, VoteRights: voteRights}, nil
 }

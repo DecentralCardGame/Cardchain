@@ -58,5 +58,5 @@ func (k msgServer) SaveCardContent(goCtx context.Context, msg *types.MsgSaveCard
 	//card.Status = types.Status_permanent // TODO: remove later
 	k.Cards.Set(ctx, msg.CardId, card)
 
-	return &types.MsgSaveCardContentResponse{claimedAirdrop}, nil
+	return &types.MsgSaveCardContentResponse{AirdropClaimed: claimedAirdrop}, nil
 }

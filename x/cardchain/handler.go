@@ -140,6 +140,7 @@ func NewHandler(k keeper.Keeper) sdk.Handler {
 }
 
 // apply nerf levels and remove inappropriate cards
+
 func UpdateNerfLevels(ctx sdk.Context, keeper keeper.Keeper) sdk.Result {
 
 	buffbois, nerfbois, _, banbois := keeper.GetOPandUPCards(ctx)

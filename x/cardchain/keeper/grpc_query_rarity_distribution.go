@@ -20,5 +20,5 @@ func (k Keeper) RarityDistribution(goCtx context.Context, req *types.QueryRarity
 	collection := k.Collections.Get(ctx, req.CollectionId)
 	dist, err := k.GetRarityDistribution(ctx, *collection, collectionSize)
 
-	return &types.QueryRarityDistributionResponse{dist[0][:], dist[1][:]}, err
+	return &types.QueryRarityDistributionResponse{Current: dist[0][:], Wanted: dist[1][:]}, err
 }

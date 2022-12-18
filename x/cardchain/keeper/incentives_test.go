@@ -6,13 +6,12 @@ import (
 	testkeeper "github.com/DecentralCardGame/Cardchain/testutil/keeper"
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/keeper"
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
-	// sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/stretchr/testify/require"
 )
 
 func TestIncentives(t *testing.T) {
 	k, ctx := testkeeper.CardchainKeeper(t)
-	runningAverage := types.RunningAverage{[]int64{1, 5, 7}}
+	runningAverage := types.RunningAverage{Arr: []int64{1, 5, 7}}
 	var clearRunningAverage types.RunningAverage
 	params := types.DefaultParams()
 

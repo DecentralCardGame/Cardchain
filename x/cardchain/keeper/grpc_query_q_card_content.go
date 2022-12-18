@@ -21,8 +21,8 @@ func (k Keeper) QCardContent(goCtx context.Context, req *types.QueryQCardContent
 
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	cardId, error := strconv.ParseUint(req.CardId, 10, 64)
-	if error != nil {
+	cardId, err := strconv.ParseUint(req.CardId, 10, 64)
+	if err != nil {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrUnknownRequest, "could not parse cardId")
 	}
 
@@ -38,7 +38,7 @@ func (k Keeper) QCardContent(goCtx context.Context, req *types.QueryQCardContent
 	k.Logger(ctx).Info(fmt.Sprintf("%v", card.Content) + " " + string(card.Content))
 
 	return &types.QueryQCardContentResponse{
-		string(card.Content),
-		hash,
+		Content: string(card.Content),
+		Hash:    hash,
 	}, nil
 }

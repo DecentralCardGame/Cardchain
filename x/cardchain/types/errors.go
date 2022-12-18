@@ -8,7 +8,6 @@ import (
 
 // x/cardchain module sentinel errors
 var (
-	ErrSample                  = sdkerrors.Register(ModuleName, 1100, "sample error")
 	ErrCardDoesNotExist        = sdkerrors.Register(ModuleName, 1, "card does not exist")
 	ErrVoterHasNoVotingRights  = sdkerrors.Register(ModuleName, 2, "The voter doesn't have any voting rights")
 	ErrVoteRightIsExpired      = sdkerrors.Register(ModuleName, 3, "The right to vote on the card has expired")
@@ -30,4 +29,5 @@ var (
 	ErrCardobject              = sdkerrors.Register(ModuleName, 19, "Faulty cardobject")
 	ErrBoosterPack             = sdkerrors.Register(ModuleName, 20, "Unable to open Boosterpack")
 	ErrStringLength            = sdkerrors.Register(ModuleName, 21, "String literal too long")
+    ErrUserAlreadyExists       = sdkerrors.Register(ModuleName, 22, "User already exists")
 )

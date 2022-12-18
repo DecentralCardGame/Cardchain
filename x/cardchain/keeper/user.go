@@ -13,15 +13,15 @@ type User struct {
 }
 
 // CreateUser Creates a new user
-func (k Keeper) CreateUser(ctx sdk.Context, addr sdk.AccAddress, alias string) types.User {
+func (k Keeper) CreateUser(ctx sdk.Context, addr sdk.AccAddress, alias string) error {
 	// check if user already exists
 	_, err := k.GetUser(ctx, addr)
 	if err != nil {
 		k.InitUser(ctx, addr, alias)
-	}
-
-	user, _ := k.GetUser(ctx, addr)
-	return user
+	} else {
+        return types.ErrUserAlreadyExists
+    }
+    return nil
 }
 
 // InitUser Initializes a new user

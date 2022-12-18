@@ -44,7 +44,7 @@ func CmdQMatches() *cobra.Command {
 				return err
 			}
 			if len(reqContainsUsers) > 2 {
-				return fmt.Errorf("There can only be 2 players involved in a match, not %d", len(reqContainsUsers))
+				return fmt.Errorf("there can only be 2 players involved in a match, not %d", len(reqContainsUsers))
 			}
 
 			err = json.Unmarshal([]byte(args[3]), &argCards)

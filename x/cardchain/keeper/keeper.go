@@ -100,7 +100,7 @@ type candidate struct {
 	votes int64
 }
 
-// SetLastCardScheme Sets the current id of the last bought card scheme
+// SetLastVotingResults Sets the last voting results
 func (k Keeper) SetLastVotingResults(ctx sdk.Context, results types.VotingResults) {
 	store := ctx.KVStore(k.InternalStoreKey)
 	store.Set([]byte("lastVotingResults"), k.cdc.MustMarshal(&results))
@@ -114,8 +114,8 @@ func (k Keeper) GetLastVotingResults(ctx sdk.Context) (results types.VotingResul
 	return
 }
 
-// TODO maybe the whole auto balancing stuff should be moved into its own file
 // NerfBuffCards Nerfes or buffs certain cards
+// TODO maybe the whole auto balancing stuff should be moved into its own file
 func (k Keeper) NerfBuffCards(ctx sdk.Context, cardIds []uint64, buff bool) {
 	for _, val := range cardIds {
 		buffCard := k.Cards.Get(ctx, val)
@@ -222,8 +222,8 @@ func (k Keeper) GetOPandUPCards(ctx sdk.Context) (buffbois []uint64, nerfbois []
 	//var votingResults VotingResults
 	votingResults := types.NewVotingResults()
 
-	var µUP float64 = 0
-	var µOP float64 = 0
+	var uUP float64 = 0
+	var uOP float64 = 0
 
 	// go through all cards and collect candidates
 	iter := k.Cards.GetItemIterator(ctx)
@@ -255,10 +255,10 @@ func (k Keeper) GetOPandUPCards(ctx sdk.Context) (buffbois []uint64, nerfbois []
 			if nettoIA > 1 {
 				IAcandidates = append(IAcandidates, candidate{id: id, votes: nettoIA})
 			} else if nettoOP > 0 {
-				µOP += float64(nettoOP)
+				uOP += float64(nettoOP)
 				OPcandidates = append(OPcandidates, candidate{id: id, votes: nettoOP})
 			} else if nettoUP > 0 {
-				µUP += float64(nettoUP)
+				uUP += float64(nettoUP)
 				UPcandidates = append(UPcandidates, candidate{id: id, votes: nettoUP})
 			}
 		}
@@ -267,7 +267,7 @@ func (k Keeper) GetOPandUPCards(ctx sdk.Context) (buffbois []uint64, nerfbois []
 	// go through all OP candidates and calculate the cutoff value and collect all above this value
 	if len(OPcandidates) > 0 {
 		// µ is the average, so it must be divided by n, but we can do this only after all cards are counted
-		µOP /= float64(len(OPcandidates))
+		uOP /= float64(len(OPcandidates))
 
 		sort.Slice(OPcandidates, func(i, j int) bool {
 			return OPcandidates[i].votes < OPcandidates[j].votes
@@ -278,7 +278,7 @@ func (k Keeper) GetOPandUPCards(ctx sdk.Context) (buffbois []uint64, nerfbois []
 			giniOPsum += float64(OPcandidates[i-1].votes) * float64(2*i-len(OPcandidates)-1)
 		}
 
-		giniOP := giniOPsum / float64(len(OPcandidates)*len(OPcandidates)) / µOP
+		giniOP := giniOPsum / float64(len(OPcandidates)*len(OPcandidates)) / uOP
 		cutvalue := giniOP * float64(OPcandidates[len(OPcandidates)-1].votes)
 
 		for i := 0; i < len(OPcandidates); i++ {
@@ -291,7 +291,7 @@ func (k Keeper) GetOPandUPCards(ctx sdk.Context) (buffbois []uint64, nerfbois []
 	}
 	// go through all UP candidates and calculate the cutoff value and collect all above this value
 	if len(UPcandidates) > 0 {
-		µUP /= float64(len(UPcandidates))
+		uUP /= float64(len(UPcandidates))
 
 		sort.Slice(UPcandidates, func(i, j int) bool {
 			return UPcandidates[i].votes < UPcandidates[j].votes
@@ -302,7 +302,7 @@ func (k Keeper) GetOPandUPCards(ctx sdk.Context) (buffbois []uint64, nerfbois []
 			giniUPsum += float64(UPcandidates[i-1].votes) * float64(2*i-len(UPcandidates)-1)
 		}
 
-		giniUP := giniUPsum / float64(len(UPcandidates)*len(UPcandidates)) / µUP
+		giniUP := giniUPsum / float64(len(UPcandidates)*len(UPcandidates)) / uUP
 		cutvalue := giniUP * float64(UPcandidates[len(UPcandidates)-1].votes)
 
 		for i := 0; i < len(UPcandidates); i++ {

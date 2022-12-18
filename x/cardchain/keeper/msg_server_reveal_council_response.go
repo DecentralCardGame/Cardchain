@@ -51,7 +51,7 @@ func (k msgServer) RevealCouncilResponse(goCtx context.Context, msg *types.MsgRe
 		return nil, types.ErrBadReveal
 	}
 
-	resp := types.WrapClearResponse{msg.Creator, msg.Response, ""}
+	resp := types.WrapClearResponse{User: msg.Creator, Response: msg.Response}
 	council.ClearResponses = append(council.ClearResponses, &resp)
 
 	if len(council.ClearResponses) == 5 {

@@ -18,5 +18,5 @@ func (k Keeper) QVotingResults(goCtx context.Context, req *types.QueryQVotingRes
 
 	vResults := k.GetLastVotingResults(ctx)
 
-	return &types.QueryQVotingResultsResponse{&vResults}, nil
+	return &types.QueryQVotingResultsResponse{LastVotingResults: &vResults}, nil
 }
