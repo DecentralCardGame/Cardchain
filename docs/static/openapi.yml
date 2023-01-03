@@ -18552,9 +18552,6 @@ paths:
                   winnerReward:
                     type: string
                     format: int64
-                  voterReward:
-                    type: string
-                    format: int64
                   hourlyFaucet:
                     type: string
                   inflationRate:
@@ -18580,6 +18577,14 @@ paths:
                   airDropValue:
                     type: string
                   airDropMaxBlockHeight:
+                    type: string
+                    format: int64
+                  trialVoteReward:
+                    type: string
+                  votePoolFraction:
+                    type: string
+                    format: int64
+                  votingRewardCap:
                     type: string
                     format: int64
             description: >-
@@ -45211,9 +45216,6 @@ definitions:
       winnerReward:
         type: string
         format: int64
-      voterReward:
-        type: string
-        format: int64
       hourlyFaucet:
         type: string
       inflationRate:
@@ -45239,6 +45241,14 @@ definitions:
       airDropValue:
         type: string
       airDropMaxBlockHeight:
+        type: string
+        format: int64
+      trialVoteReward:
+        type: string
+      votePoolFraction:
+        type: string
+        format: int64
+      votingRewardCap:
         type: string
         format: int64
     description: Params defines the parameters for the module.
@@ -45267,9 +45277,6 @@ definitions:
           winnerReward:
             type: string
             format: int64
-          voterReward:
-            type: string
-            format: int64
           hourlyFaucet:
             type: string
           inflationRate:
@@ -45295,6 +45302,14 @@ definitions:
           airDropValue:
             type: string
           airDropMaxBlockHeight:
+            type: string
+            format: int64
+          trialVoteReward:
+            type: string
+          votePoolFraction:
+            type: string
+            format: int64
+          votingRewardCap:
             type: string
             format: int64
     description: QueryParamsResponse is response type for the Query/Params RPC method.

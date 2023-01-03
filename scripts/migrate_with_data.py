@@ -13,31 +13,37 @@ file_path_old = args[1]
 file_path_new = args[2]
 
 with open(file_path_old, "r") as file:
-    old_dict = json.load(file)
+	old_dict = json.load(file)
 
 with open(file_path_new, "r") as file:
-    new_dict = json.load(file)
+	new_dict = json.load(file)
 
+params = new_dict["app_state"]["cardchain"]["params"]
 new_dict["app_state"]["cardchain"] = old_dict["app_state"]["cardchain"].copy()
 new_dict["app_state"]["cardchain"]["addresses"] = []
 new_dict["app_state"]["cardchain"]["users"] = []
 for card in del_cards:
-    new_dict["app_state"]["cardchain"]["cardRecords"][card] = {}
+	new_dict["app_state"]["cardchain"]["cardRecords"][card] = {}
+
+for param in params:
+	if param in old_dict["app_state"]["cardchain"]["params"]:
+		params[param] = old_dict["app_state"]["cardchain"]["params"][param]
+new_dict["app_state"]["cardchain"]["params"] = params
 
 for idx, addr in enumerate(old_dict["app_state"]["cardchain"]["addresses"]):
-    new_dict["app_state"]["cardchain"]["addresses"].append(addr)
-    new_dict["app_state"]["cardchain"]["users"].append(old_dict["app_state"]["cardchain"]["users"][idx])
-    for i in old_dict["app_state"]["auth"]["accounts"]:
-        if i.get("address") == addr :
-            new_dict["app_state"]["auth"]["accounts"].append(i)
-            break
-    for i in old_dict["app_state"]["bank"]["balances"]:
-        if i["address"] == addr :
-            for idx, coin in enumerate(i["coins"]):
-                if coin["denom"] == "ubpf":
-                    i["coins"][idx]["amount"] = "5000000"
-            new_dict["app_state"]["bank"]["balances"].append(i)
-            break
+	new_dict["app_state"]["cardchain"]["addresses"].append(addr)
+	new_dict["app_state"]["cardchain"]["users"].append(old_dict["app_state"]["cardchain"]["users"][idx])
+	for i in old_dict["app_state"]["auth"]["accounts"]:
+		if i.get("address") == addr:
+			new_dict["app_state"]["auth"]["accounts"].append(i)
+			break
+	for i in old_dict["app_state"]["bank"]["balances"]:
+		if i["address"] == addr:
+			for idx, coin in enumerate(i["coins"]):
+				if coin["denom"] == "ubpf":
+					i["coins"][idx]["amount"] = "5000000"
+			new_dict["app_state"]["bank"]["balances"].append(i)
+			break
 
 with open(file_path_new, "w") as file:
-    json.dump(new_dict, file, indent=2)
+	json.dump(new_dict, file, indent=2)
