@@ -1,0 +1,17 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.Header = exports.Block = exports.ProofOps = exports.ProofOp = exports.Module = exports.VersionInfo = exports.Validator = void 0;
+const query_1 = require("./types/cosmos/base/tendermint/v1beta1/query");
+Object.defineProperty(exports, "Validator", { enumerable: true, get: function () { return query_1.Validator; } });
+const query_2 = require("./types/cosmos/base/tendermint/v1beta1/query");
+Object.defineProperty(exports, "VersionInfo", { enumerable: true, get: function () { return query_2.VersionInfo; } });
+const query_3 = require("./types/cosmos/base/tendermint/v1beta1/query");
+Object.defineProperty(exports, "Module", { enumerable: true, get: function () { return query_3.Module; } });
+const query_4 = require("./types/cosmos/base/tendermint/v1beta1/query");
+Object.defineProperty(exports, "ProofOp", { enumerable: true, get: function () { return query_4.ProofOp; } });
+const query_5 = require("./types/cosmos/base/tendermint/v1beta1/query");
+Object.defineProperty(exports, "ProofOps", { enumerable: true, get: function () { return query_5.ProofOps; } });
+const types_1 = require("./types/cosmos/base/tendermint/v1beta1/types");
+Object.defineProperty(exports, "Block", { enumerable: true, get: function () { return types_1.Block; } });
+const types_2 = require("./types/cosmos/base/tendermint/v1beta1/types");
+Object.defineProperty(exports, "Header", { enumerable: true, get: function () { return types_2.Header; } });

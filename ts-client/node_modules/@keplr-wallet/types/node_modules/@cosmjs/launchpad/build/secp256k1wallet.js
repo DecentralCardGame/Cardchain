@@ -1,0 +1,55 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.Secp256k1Wallet = void 0;
+const crypto_1 = require("@cosmjs/crypto");
+const address_1 = require("./address");
+const encoding_1 = require("./encoding");
+const signature_1 = require("./signature");
+/**
+ * A wallet that holds a single secp256k1 keypair.
+ *
+ * If you want to work with BIP39 mnemonics and multiple accounts, use Secp256k1HdWallet.
+ */
+class Secp256k1Wallet {
+    constructor(privkey, pubkey, prefix) {
+        this.privkey = privkey;
+        this.pubkey = pubkey;
+        this.prefix = prefix;
+    }
+    /**
+     * Creates a Secp256k1Wallet from the given private key
+     *
+     * @param privkey The private key.
+     * @param prefix The bech32 address prefix (human readable part). Defaults to "cosmos".
+     */
+    static async fromKey(privkey, prefix = "cosmos") {
+        const uncompressed = (await crypto_1.Secp256k1.makeKeypair(privkey)).pubkey;
+        return new Secp256k1Wallet(privkey, crypto_1.Secp256k1.compressPubkey(uncompressed), prefix);
+    }
+    get address() {
+        return address_1.rawSecp256k1PubkeyToAddress(this.pubkey, this.prefix);
+    }
+    async getAccounts() {
+        return [
+            {
+                algo: "secp256k1",
+                address: this.address,
+                pubkey: this.pubkey,
+            },
+        ];
+    }
+    async signAmino(signerAddress, signDoc) {
+        if (signerAddress !== this.address) {
+            throw new Error(`Address ${signerAddress} not found in wallet`);
+        }
+        const message = new crypto_1.Sha256(encoding_1.serializeSignDoc(signDoc)).digest();
+        const signature = await crypto_1.Secp256k1.createSignature(message, this.privkey);
+        const signatureBytes = new Uint8Array([...signature.r(32), ...signature.s(32)]);
+        return {
+            signed: signDoc,
+            signature: signature_1.encodeSecp256k1Signature(this.pubkey, signatureBytes),
+        };
+    }
+}
+exports.Secp256k1Wallet = Secp256k1Wallet;
+//# sourceMappingURL=secp256k1wallet.js.map

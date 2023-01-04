@@ -1,0 +1,11 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.Grant = exports.AllowedMsgAllowance = exports.PeriodicAllowance = exports.BasicAllowance = void 0;
+const feegrant_1 = require("./types/cosmos/feegrant/v1beta1/feegrant");
+Object.defineProperty(exports, "BasicAllowance", { enumerable: true, get: function () { return feegrant_1.BasicAllowance; } });
+const feegrant_2 = require("./types/cosmos/feegrant/v1beta1/feegrant");
+Object.defineProperty(exports, "PeriodicAllowance", { enumerable: true, get: function () { return feegrant_2.PeriodicAllowance; } });
+const feegrant_3 = require("./types/cosmos/feegrant/v1beta1/feegrant");
+Object.defineProperty(exports, "AllowedMsgAllowance", { enumerable: true, get: function () { return feegrant_3.AllowedMsgAllowance; } });
+const feegrant_4 = require("./types/cosmos/feegrant/v1beta1/feegrant");
+Object.defineProperty(exports, "Grant", { enumerable: true, get: function () { return feegrant_4.Grant; } });

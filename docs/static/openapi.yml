@@ -18654,6 +18654,7 @@ paths:
             type: object
             properties:
               params:
+                description: params holds all the parameters of this module.
                 type: object
                 properties:
                   votingRightsExpirationTime:
@@ -18672,9 +18673,6 @@ paths:
                   collateralDeposit:
                     type: string
                   winnerReward:
-                    type: string
-                    format: int64
-                  voterReward:
                     type: string
                     format: int64
                   hourlyFaucet:
@@ -18704,7 +18702,14 @@ paths:
                   airDropMaxBlockHeight:
                     type: string
                     format: int64
-                description: Params defines the parameters for the module.
+                  trialVoteReward:
+                    type: string
+                  votePoolFraction:
+                    type: string
+                    format: int64
+                  votingRewardCap:
+                    type: string
+                    format: int64
             description: >-
               QueryParamsResponse is response type for the Query/Params RPC
               method.
@@ -45363,9 +45368,6 @@ definitions:
       winnerReward:
         type: string
         format: int64
-      voterReward:
-        type: string
-        format: int64
       hourlyFaucet:
         type: string
       inflationRate:
@@ -45393,11 +45395,20 @@ definitions:
       airDropMaxBlockHeight:
         type: string
         format: int64
+      trialVoteReward:
+        type: string
+      votePoolFraction:
+        type: string
+        format: int64
+      votingRewardCap:
+        type: string
+        format: int64
     description: Params defines the parameters for the module.
   DecentralCardGame.cardchain.cardchain.QueryParamsResponse:
     type: object
     properties:
       params:
+        description: params holds all the parameters of this module.
         type: object
         properties:
           votingRightsExpirationTime:
@@ -45416,9 +45427,6 @@ definitions:
           collateralDeposit:
             type: string
           winnerReward:
-            type: string
-            format: int64
-          voterReward:
             type: string
             format: int64
           hourlyFaucet:
@@ -45448,7 +45456,14 @@ definitions:
           airDropMaxBlockHeight:
             type: string
             format: int64
-        description: Params defines the parameters for the module.
+          trialVoteReward:
+            type: string
+          votePoolFraction:
+            type: string
+            format: int64
+          votingRewardCap:
+            type: string
+            format: int64
     description: QueryParamsResponse is response type for the Query/Params RPC method.
   DecentralCardGame.cardchain.cardchain.QueryQCardContentResponse:
     type: object

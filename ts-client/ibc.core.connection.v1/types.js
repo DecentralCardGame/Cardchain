@@ -1,0 +1,17 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.Params = exports.Version = exports.ConnectionPaths = exports.ClientPaths = exports.Counterparty = exports.IdentifiedConnection = exports.ConnectionEnd = void 0;
+const connection_1 = require("./types/ibc/core/connection/v1/connection");
+Object.defineProperty(exports, "ConnectionEnd", { enumerable: true, get: function () { return connection_1.ConnectionEnd; } });
+const connection_2 = require("./types/ibc/core/connection/v1/connection");
+Object.defineProperty(exports, "IdentifiedConnection", { enumerable: true, get: function () { return connection_2.IdentifiedConnection; } });
+const connection_3 = require("./types/ibc/core/connection/v1/connection");
+Object.defineProperty(exports, "Counterparty", { enumerable: true, get: function () { return connection_3.Counterparty; } });
+const connection_4 = require("./types/ibc/core/connection/v1/connection");
+Object.defineProperty(exports, "ClientPaths", { enumerable: true, get: function () { return connection_4.ClientPaths; } });
+const connection_5 = require("./types/ibc/core/connection/v1/connection");
+Object.defineProperty(exports, "ConnectionPaths", { enumerable: true, get: function () { return connection_5.ConnectionPaths; } });
+const connection_6 = require("./types/ibc/core/connection/v1/connection");
+Object.defineProperty(exports, "Version", { enumerable: true, get: function () { return connection_6.Version; } });
+const connection_7 = require("./types/ibc/core/connection/v1/connection");
+Object.defineProperty(exports, "Params", { enumerable: true, get: function () { return connection_7.Params; } });
