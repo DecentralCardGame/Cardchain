@@ -18531,13 +18531,14 @@ paths:
                     status:
                       type: string
                       enum:
+                        - councilDoesNotExist
                         - councilOpen
                         - councilCreated
                         - councilClosed
                         - commited
                         - revealed
                         - suggestionsMade
-                      default: councilOpen
+                      default: councilDoesNotExist
                     trialStart:
                       type: string
                       format: uint64
@@ -18565,6 +18566,7 @@ paths:
           required: true
           type: string
           enum:
+            - councilDoesNotExist
             - councilOpen
             - councilCreated
             - councilClosed
@@ -19096,13 +19098,14 @@ paths:
               status:
                 type: string
                 enum:
+                  - councilDoesNotExist
                   - councilOpen
                   - councilCreated
                   - councilClosed
                   - commited
                   - revealed
                   - suggestionsMade
-                default: councilOpen
+                default: councilDoesNotExist
               trialStart:
                 type: string
                 format: uint64
@@ -44987,13 +44990,14 @@ definitions:
   DecentralCardGame.cardchain.cardchain.CouncelingStatus:
     type: string
     enum:
+      - councilDoesNotExist
       - councilOpen
       - councilCreated
       - councilClosed
       - commited
       - revealed
       - suggestionsMade
-    default: councilOpen
+    default: councilDoesNotExist
   DecentralCardGame.cardchain.cardchain.Council:
     type: object
     properties:
@@ -45034,13 +45038,14 @@ definitions:
       status:
         type: string
         enum:
+          - councilDoesNotExist
           - councilOpen
           - councilCreated
           - councilClosed
           - commited
           - revealed
           - suggestionsMade
-        default: councilOpen
+        default: councilDoesNotExist
       trialStart:
         type: string
         format: uint64
@@ -45575,13 +45580,14 @@ definitions:
             status:
               type: string
               enum:
+                - councilDoesNotExist
                 - councilOpen
                 - councilCreated
                 - councilClosed
                 - commited
                 - revealed
                 - suggestionsMade
-              default: councilOpen
+              default: councilDoesNotExist
             trialStart:
               type: string
               format: uint64

@@ -1692,7 +1692,7 @@ func (m *QueryQCouncilsRequest) GetStatus() CouncelingStatus {
 	if m != nil {
 		return m.Status
 	}
-	return CouncelingStatus_councilOpen
+	return CouncelingStatus_councilDoesNotExist
 }
 
 func (m *QueryQCouncilsRequest) GetVoters() []string {
