@@ -1,13 +1,15 @@
 ./test_setup.sh
 
-ARGS="--node tcp://localhost:26659 --gas 8000000"
+ARGS="--node tcp://localhost:26657 --chain-id Testnet3 --gas 8000000"
 
 for i in {0..5}
 do
 ./createUser.sh $i
 done
 
-Cardchaind tx cardchain create-council 0 --from "Cooler Typ" $ARGS
+Cardchaind tx cardchain create-council 1 --from "Cooler Typ" $ARGS
+
+exit
 
 for i in {0..5}
 do

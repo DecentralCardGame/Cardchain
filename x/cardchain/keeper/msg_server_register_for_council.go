@@ -25,7 +25,7 @@ func (k msgServer) RegisterForCouncil(goCtx context.Context, msg *types.MsgRegis
 	for ; iter.Valid(); iter.Next() {
 		idx, council := iter.Value()
 		if council.Status == types.CouncelingStatus_councilOpen {
-			if slices.Contains(user.OwnedPrototypes, council.CardId) {
+			if !slices.Contains(user.OwnedPrototypes, council.CardId) {
 				council.Voters = append(council.Voters, msg.Creator)
 			} else {
 				continue
