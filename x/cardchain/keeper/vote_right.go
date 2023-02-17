@@ -7,10 +7,12 @@ import (
 
 // GetVoteReward Calculates winner rewards
 func (k Keeper) GetVoteReward(ctx sdk.Context) sdk.Coin {
+    params := k.GetParams(ctx)
+
 	pool := k.Pools.Get(ctx, BalancersPoolKey)
-	reward := QuoCoin(*pool, k.GetParams(ctx).VoterReward)
-	if reward.Amount.Int64() > 1000000 {
-		return sdk.NewInt64Coin(reward.Denom, 1000000)
+    reward := QuoCoin(*pool, params.VotePoolFraction)
+    if reward.Amount.Int64() > params.VotingRewardCap {
+        return sdk.NewInt64Coin(reward.Denom, params.VotingRewardCap)
 	}
 	return reward
 }

@@ -10,7 +10,7 @@ import (
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
 	"github.com/DecentralCardGame/cardobject/keywords"
 	sdktypes "github.com/cosmos/cosmos-sdk/types"
-	"github.com/ignite-hq/cli/ignite/pkg/cosmosclient"
+	"github.com/ignite/cli/ignite/pkg/cosmosclient"
 )
 
 type Content struct {
