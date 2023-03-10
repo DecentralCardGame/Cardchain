@@ -14,11 +14,7 @@ func (k msgServer) BuyCardScheme(goCtx context.Context, msg *types.MsgBuyCardSch
 
 	currId := k.Cards.GetNum(ctx)
 	price := k.GetCardAuctionPrice(ctx)
-
-	bid, err := sdk.ParseCoinNormalized(msg.Bid)
-	if err != nil {
-		return nil, err
-	}
+	bid := msg.Bid
 
 	buyer, err := sdk.AccAddressFromBech32(msg.Creator)
 	if err != nil {

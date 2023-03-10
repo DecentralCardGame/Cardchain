@@ -64,9 +64,12 @@ message MsgCreateuserResponse {
 }
 
 message MsgBuyCardScheme {
+	option (gogoproto.equal)           = false;
+  option (gogoproto.goproto_getters) = false;
+
   string creator = 1;
-  /* cosmos.base.v1beta1.Coin bid = 2; */
-  string bid = 2;
+  cosmos.base.v1beta1.Coin bid = 2 [(gogoproto.nullable) = false, (gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coin"];;
+  /* string bid = 2; */
 }
 
 message MsgBuyCardSchemeResponse {
