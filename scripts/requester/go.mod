@@ -11,7 +11,7 @@ replace github.com/tendermint/tendermint => github.com/informalsystems/tendermin
 require (
 	github.com/DecentralCardGame/Cardchain v0.0.0-00010101000000-000000000000
 	github.com/DecentralCardGame/cardobject v0.4.13
-	github.com/cosmos/cosmos-sdk v0.46.11
+	github.com/cosmos/cosmos-sdk v0.46.12
 	github.com/ignite/cli v0.26.1
 )
 
