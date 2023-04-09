@@ -4,7 +4,7 @@ go 1.20
 
 require (
 	github.com/DecentralCardGame/cardobject v0.4.13
-	github.com/cosmos/cosmos-sdk v0.46.11
+	github.com/cosmos/cosmos-sdk v0.46.12
 	github.com/cosmos/ibc-go/v5 v5.0.0
 	github.com/gogo/protobuf v1.3.3
 	github.com/golang/protobuf v1.5.3

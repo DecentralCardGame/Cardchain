@@ -17856,6 +17856,7 @@ paths:
             type: object
             properties:
               info:
+                description: info is the GroupInfo for the group.
                 type: object
                 properties:
                   id:
@@ -17894,9 +17895,6 @@ paths:
                     description: >-
                       created_at is a timestamp specifying when a group was
                       created.
-                description: >-
-                  GroupInfo represents the high-level on-chain information for a
-                  group.
             description: QueryGroupInfoResponse is the Query/GroupInfo response type.
         default:
           description: An unexpected error response.
@@ -18112,6 +18110,7 @@ paths:
                       format: uint64
                       description: group_id is the unique ID of the group.
                     member:
+                      description: member is the member data.
                       type: object
                       properties:
                         address:
@@ -18133,16 +18132,12 @@ paths:
                           description: >-
                             added_at is a timestamp specifying when a member was
                             added.
-                      description: >-
-                        Member represents a group member with an account
-                        address,
-
-                        non-zero weight, metadata and added_at timestamp.
                   description: >-
                     GroupMember represents the relationship between a group and
                     a member.
                 description: members are the members of the group with given group_id.
               pagination:
+                description: pagination defines the pagination in the response.
                 type: object
                 properties:
                   next_key:
@@ -18160,16 +18155,6 @@ paths:
                       PageRequest.count_total
 
                       was set, its value is undefined otherwise
-                description: >-
-                  PageResponse is to be embedded in gRPC response messages where
-                  the
-
-                  corresponding request message has used PageRequest.
-
-                   message SomeResponse {
-                           repeated Bar results = 1;
-                           PageResponse page = 2;
-                   }
             description: >-
               QueryGroupMembersResponse is the Query/GroupMembersResponse
               response type.
@@ -18462,6 +18447,9 @@ paths:
 
                         would create a different result on a running proposal.
                     decision_policy:
+                      description: >-
+                        decision_policy specifies the group policy's decision
+                        policy.
                       type: object
                       properties:
                         '@type':
@@ -18523,119 +18511,6 @@ paths:
 
                             used with implementation specific semantics.
                       additionalProperties: {}
-                      description: >-
-                        `Any` contains an arbitrary serialized protocol buffer
-                        message along with a
-
-                        URL that describes the type of the serialized message.
-
-
-                        Protobuf library provides support to pack/unpack Any
-                        values in the form
-
-                        of utility functions or additional generated methods of
-                        the Any type.
-
-
-                        Example 1: Pack and unpack a message in C++.
-
-                            Foo foo = ...;
-                            Any any;
-                            any.PackFrom(foo);
-                            ...
-                            if (any.UnpackTo(&foo)) {
-                              ...
-                            }
-
-                        Example 2: Pack and unpack a message in Java.
-
-                            Foo foo = ...;
-                            Any any = Any.pack(foo);
-                            ...
-                            if (any.is(Foo.class)) {
-                              foo = any.unpack(Foo.class);
-                            }
-
-                         Example 3: Pack and unpack a message in Python.
-
-                            foo = Foo(...)
-                            any = Any()
-                            any.Pack(foo)
-                            ...
-                            if any.Is(Foo.DESCRIPTOR):
-                              any.Unpack(foo)
-                              ...
-
-                         Example 4: Pack and unpack a message in Go
-
-                             foo := &pb.Foo{...}
-                             any, err := anypb.New(foo)
-                             if err != nil {
-                               ...
-                             }
-                             ...
-                             foo := &pb.Foo{}
-                             if err := any.UnmarshalTo(foo); err != nil {
-                               ...
-                             }
-
-                        The pack methods provided by protobuf library will by
-                        default use
-
-                        'type.googleapis.com/full.type.name' as the type URL and
-                        the unpack
-
-                        methods only use the fully qualified type name after the
-                        last '/'
-
-                        in the type URL, for example "foo.bar.com/x/y.z" will
-                        yield type
-
-                        name "y.z".
-
-
-
-                        JSON
-
-                        ====
-
-                        The JSON representation of an `Any` value uses the
-                        regular
-
-                        representation of the deserialized, embedded message,
-                        with an
-
-                        additional field `@type` which contains the type URL.
-                        Example:
-
-                            package google.profile;
-                            message Person {
-                              string first_name = 1;
-                              string last_name = 2;
-                            }
-
-                            {
-                              "@type": "type.googleapis.com/google.profile.Person",
-                              "firstName": <string>,
-                              "lastName": <string>
-                            }
-
-                        If the embedded message type is well-known and has a
-                        custom JSON
-
-                        representation, that representation will be embedded
-                        adding a field
-
-                        `value` which holds the custom JSON in addition to the
-                        `@type`
-
-                        field. Example (for message
-                        [google.protobuf.Duration][]):
-
-                            {
-                              "@type": "type.googleapis.com/google.protobuf.Duration",
-                              "value": "1.212s"
-                            }
                     created_at:
                       type: string
                       format: date-time
@@ -18649,6 +18524,7 @@ paths:
                   group_policies are the group policies info with provided
                   admin.
               pagination:
+                description: pagination defines the pagination in the response.
                 type: object
                 properties:
                   next_key:
@@ -18666,16 +18542,6 @@ paths:
                       PageRequest.count_total
 
                       was set, its value is undefined otherwise
-                description: >-
-                  PageResponse is to be embedded in gRPC response messages where
-                  the
-
-                  corresponding request message has used PageRequest.
-
-                   message SomeResponse {
-                           repeated Bar results = 1;
-                           PageResponse page = 2;
-                   }
             description: >-
               QueryGroupPoliciesByAdminResponse is the
               Query/GroupPoliciesByAdmin response type.
@@ -18967,6 +18833,9 @@ paths:
 
                         would create a different result on a running proposal.
                     decision_policy:
+                      description: >-
+                        decision_policy specifies the group policy's decision
+                        policy.
                       type: object
                       properties:
                         '@type':
@@ -19028,119 +18897,6 @@ paths:
 
                             used with implementation specific semantics.
                       additionalProperties: {}
-                      description: >-
-                        `Any` contains an arbitrary serialized protocol buffer
-                        message along with a
-
-                        URL that describes the type of the serialized message.
-
-
-                        Protobuf library provides support to pack/unpack Any
-                        values in the form
-
-                        of utility functions or additional generated methods of
-                        the Any type.
-
-
-                        Example 1: Pack and unpack a message in C++.
-
-                            Foo foo = ...;
-                            Any any;
-                            any.PackFrom(foo);
-                            ...
-                            if (any.UnpackTo(&foo)) {
-                              ...
-                            }
-
-                        Example 2: Pack and unpack a message in Java.
-
-                            Foo foo = ...;
-                            Any any = Any.pack(foo);
-                            ...
-                            if (any.is(Foo.class)) {
-                              foo = any.unpack(Foo.class);
-                            }
-
-                         Example 3: Pack and unpack a message in Python.
-
-                            foo = Foo(...)
-                            any = Any()
-                            any.Pack(foo)
-                            ...
-                            if any.Is(Foo.DESCRIPTOR):
-                              any.Unpack(foo)
-                              ...
-
-                         Example 4: Pack and unpack a message in Go
-
-                             foo := &pb.Foo{...}
-                             any, err := anypb.New(foo)
-                             if err != nil {
-                               ...
-                             }
-                             ...
-                             foo := &pb.Foo{}
-                             if err := any.UnmarshalTo(foo); err != nil {
-                               ...
-                             }
-
-                        The pack methods provided by protobuf library will by
-                        default use
-
-                        'type.googleapis.com/full.type.name' as the type URL and
-                        the unpack
-
-                        methods only use the fully qualified type name after the
-                        last '/'
-
-                        in the type URL, for example "foo.bar.com/x/y.z" will
-                        yield type
-
-                        name "y.z".
-
-
-
-                        JSON
-
-                        ====
-
-                        The JSON representation of an `Any` value uses the
-                        regular
-
-                        representation of the deserialized, embedded message,
-                        with an
-
-                        additional field `@type` which contains the type URL.
-                        Example:
-
-                            package google.profile;
-                            message Person {
-                              string first_name = 1;
-                              string last_name = 2;
-                            }
-
-                            {
-                              "@type": "type.googleapis.com/google.profile.Person",
-                              "firstName": <string>,
-                              "lastName": <string>
-                            }
-
-                        If the embedded message type is well-known and has a
-                        custom JSON
-
-                        representation, that representation will be embedded
-                        adding a field
-
-                        `value` which holds the custom JSON in addition to the
-                        `@type`
-
-                        field. Example (for message
-                        [google.protobuf.Duration][]):
-
-                            {
-                              "@type": "type.googleapis.com/google.protobuf.Duration",
-                              "value": "1.212s"
-                            }
                     created_at:
                       type: string
                       format: date-time
@@ -19154,6 +18910,7 @@ paths:
                   group_policies are the group policies info associated with the
                   provided group.
               pagination:
+                description: pagination defines the pagination in the response.
                 type: object
                 properties:
                   next_key:
@@ -19171,16 +18928,6 @@ paths:
                       PageRequest.count_total
 
                       was set, its value is undefined otherwise
-                description: >-
-                  PageResponse is to be embedded in gRPC response messages where
-                  the
-
-                  corresponding request message has used PageRequest.
-
-                   message SomeResponse {
-                           repeated Bar results = 1;
-                           PageResponse page = 2;
-                   }
             description: >-
               QueryGroupPoliciesByGroupResponse is the
               Query/GroupPoliciesByGroup response type.
@@ -19447,6 +19194,7 @@ paths:
             type: object
             properties:
               info:
+                description: info is the GroupPolicyInfo for the group policy.
                 type: object
                 properties:
                   address:
@@ -19473,6 +19221,9 @@ paths:
 
                       would create a different result on a running proposal.
                   decision_policy:
+                    description: >-
+                      decision_policy specifies the group policy's decision
+                      policy.
                     type: object
                     properties:
                       '@type':
@@ -19534,126 +19285,12 @@ paths:
 
                           used with implementation specific semantics.
                     additionalProperties: {}
-                    description: >-
-                      `Any` contains an arbitrary serialized protocol buffer
-                      message along with a
-
-                      URL that describes the type of the serialized message.
-
-
-                      Protobuf library provides support to pack/unpack Any
-                      values in the form
-
-                      of utility functions or additional generated methods of
-                      the Any type.
-
-
-                      Example 1: Pack and unpack a message in C++.
-
-                          Foo foo = ...;
-                          Any any;
-                          any.PackFrom(foo);
-                          ...
-                          if (any.UnpackTo(&foo)) {
-                            ...
-                          }
-
-                      Example 2: Pack and unpack a message in Java.
-
-                          Foo foo = ...;
-                          Any any = Any.pack(foo);
-                          ...
-                          if (any.is(Foo.class)) {
-                            foo = any.unpack(Foo.class);
-                          }
-
-                       Example 3: Pack and unpack a message in Python.
-
-                          foo = Foo(...)
-                          any = Any()
-                          any.Pack(foo)
-                          ...
-                          if any.Is(Foo.DESCRIPTOR):
-                            any.Unpack(foo)
-                            ...
-
-                       Example 4: Pack and unpack a message in Go
-
-                           foo := &pb.Foo{...}
-                           any, err := anypb.New(foo)
-                           if err != nil {
-                             ...
-                           }
-                           ...
-                           foo := &pb.Foo{}
-                           if err := any.UnmarshalTo(foo); err != nil {
-                             ...
-                           }
-
-                      The pack methods provided by protobuf library will by
-                      default use
-
-                      'type.googleapis.com/full.type.name' as the type URL and
-                      the unpack
-
-                      methods only use the fully qualified type name after the
-                      last '/'
-
-                      in the type URL, for example "foo.bar.com/x/y.z" will
-                      yield type
-
-                      name "y.z".
-
-
-
-                      JSON
-
-                      ====
-
-                      The JSON representation of an `Any` value uses the regular
-
-                      representation of the deserialized, embedded message, with
-                      an
-
-                      additional field `@type` which contains the type URL.
-                      Example:
-
-                          package google.profile;
-                          message Person {
-                            string first_name = 1;
-                            string last_name = 2;
-                          }
-
-                          {
-                            "@type": "type.googleapis.com/google.profile.Person",
-                            "firstName": <string>,
-                            "lastName": <string>
-                          }
-
-                      If the embedded message type is well-known and has a
-                      custom JSON
-
-                      representation, that representation will be embedded
-                      adding a field
-
-                      `value` which holds the custom JSON in addition to the
-                      `@type`
-
-                      field. Example (for message [google.protobuf.Duration][]):
-
-                          {
-                            "@type": "type.googleapis.com/google.protobuf.Duration",
-                            "value": "1.212s"
-                          }
                   created_at:
                     type: string
                     format: date-time
                     description: >-
                       created_at is a timestamp specifying when a group policy
                       was created.
-                description: >-
-                  GroupPolicyInfo represents the high-level on-chain information
-                  for a group policy.
             description: >-
               QueryGroupPolicyInfoResponse is the Query/GroupPolicyInfo response
               type.
@@ -19850,6 +19487,329 @@ paths:
           type: string
       tags:
         - Query
+  /cosmos/group/v1/groups:
+    get:
+      summary: Groups queries all groups in state.
+      description: 'Since: cosmos-sdk 0.47.1'
+      operationId: CosmosGroupV1Groups
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              groups:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      format: uint64
+                      description: id is the unique ID of the group.
+                    admin:
+                      type: string
+                      description: admin is the account address of the group's admin.
+                    metadata:
+                      type: string
+                      description: >-
+                        metadata is any arbitrary metadata to attached to the
+                        group.
+                    version:
+                      type: string
+                      format: uint64
+                      title: >-
+                        version is used to track changes to a group's membership
+                        structure that
+
+                        would break existing proposals. Whenever any members
+                        weight is changed,
+
+                        or any member is added or removed this version is
+                        incremented and will
+
+                        cause proposals based on older versions of this group to
+                        fail
+                    total_weight:
+                      type: string
+                      description: total_weight is the sum of the group members' weights.
+                    created_at:
+                      type: string
+                      format: date-time
+                      description: >-
+                        created_at is a timestamp specifying when a group was
+                        created.
+                  description: >-
+                    GroupInfo represents the high-level on-chain information for
+                    a group.
+                description: '`groups` is all the groups present in state.'
+              pagination:
+                description: pagination defines the pagination in the response.
+                type: object
+                properties:
+                  next_key:
+                    type: string
+                    format: byte
+                    description: |-
+                      next_key is the key to be passed to PageRequest.key to
+                      query the next page most efficiently. It will be empty if
+                      there are no more results.
+                  total:
+                    type: string
+                    format: uint64
+                    title: >-
+                      total is total number of results available if
+                      PageRequest.count_total
+
+                      was set, its value is undefined otherwise
+            description: |-
+              QueryGroupsResponse is the Query/Groups response type.
+
+              Since: cosmos-sdk 0.47.1
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                      description: >-
+                        A URL/resource name that uniquely identifies the type of
+                        the serialized
+
+                        protocol buffer message. This string must contain at
+                        least
+
+                        one "/" character. The last segment of the URL's path
+                        must represent
+
+                        the fully qualified name of the type (as in
+
+                        `path/google.protobuf.Duration`). The name should be in
+                        a canonical form
+
+                        (e.g., leading "." is not accepted).
+
+
+                        In practice, teams usually precompile into the binary
+                        all types that they
+
+                        expect it to use in the context of Any. However, for
+                        URLs which use the
+
+                        scheme `http`, `https`, or no scheme, one can optionally
+                        set up a type
+
+                        server that maps type URLs to message definitions as
+                        follows:
+
+
+                        * If no scheme is provided, `https` is assumed.
+
+                        * An HTTP GET on the URL must yield a
+                        [google.protobuf.Type][]
+                          value in binary format, or produce an error.
+                        * Applications are allowed to cache lookup results based
+                        on the
+                          URL, or have them precompiled into a binary to avoid any
+                          lookup. Therefore, binary compatibility needs to be preserved
+                          on changes to types. (Use versioned type names to manage
+                          breaking changes.)
+
+                        Note: this functionality is not currently available in
+                        the official
+
+                        protobuf release, and it is not used for type URLs
+                        beginning with
+
+                        type.googleapis.com.
+
+
+                        Schemes other than `http`, `https` (or the empty scheme)
+                        might be
+
+                        used with implementation specific semantics.
+                  additionalProperties: {}
+                  description: >-
+                    `Any` contains an arbitrary serialized protocol buffer
+                    message along with a
+
+                    URL that describes the type of the serialized message.
+
+
+                    Protobuf library provides support to pack/unpack Any values
+                    in the form
+
+                    of utility functions or additional generated methods of the
+                    Any type.
+
+
+                    Example 1: Pack and unpack a message in C++.
+
+                        Foo foo = ...;
+                        Any any;
+                        any.PackFrom(foo);
+                        ...
+                        if (any.UnpackTo(&foo)) {
+                          ...
+                        }
+
+                    Example 2: Pack and unpack a message in Java.
+
+                        Foo foo = ...;
+                        Any any = Any.pack(foo);
+                        ...
+                        if (any.is(Foo.class)) {
+                          foo = any.unpack(Foo.class);
+                        }
+
+                     Example 3: Pack and unpack a message in Python.
+
+                        foo = Foo(...)
+                        any = Any()
+                        any.Pack(foo)
+                        ...
+                        if any.Is(Foo.DESCRIPTOR):
+                          any.Unpack(foo)
+                          ...
+
+                     Example 4: Pack and unpack a message in Go
+
+                         foo := &pb.Foo{...}
+                         any, err := anypb.New(foo)
+                         if err != nil {
+                           ...
+                         }
+                         ...
+                         foo := &pb.Foo{}
+                         if err := any.UnmarshalTo(foo); err != nil {
+                           ...
+                         }
+
+                    The pack methods provided by protobuf library will by
+                    default use
+
+                    'type.googleapis.com/full.type.name' as the type URL and the
+                    unpack
+
+                    methods only use the fully qualified type name after the
+                    last '/'
+
+                    in the type URL, for example "foo.bar.com/x/y.z" will yield
+                    type
+
+                    name "y.z".
+
+
+
+                    JSON
+
+                    ====
+
+                    The JSON representation of an `Any` value uses the regular
+
+                    representation of the deserialized, embedded message, with
+                    an
+
+                    additional field `@type` which contains the type URL.
+                    Example:
+
+                        package google.profile;
+                        message Person {
+                          string first_name = 1;
+                          string last_name = 2;
+                        }
+
+                        {
+                          "@type": "type.googleapis.com/google.profile.Person",
+                          "firstName": <string>,
+                          "lastName": <string>
+                        }
+
+                    If the embedded message type is well-known and has a custom
+                    JSON
+
+                    representation, that representation will be embedded adding
+                    a field
+
+                    `value` which holds the custom JSON in addition to the
+                    `@type`
+
+                    field. Example (for message [google.protobuf.Duration][]):
+
+                        {
+                          "@type": "type.googleapis.com/google.protobuf.Duration",
+                          "value": "1.212s"
+                        }
+      parameters:
+        - name: pagination.key
+          description: |-
+            key is a value returned in PageResponse.next_key to begin
+            querying the next page most efficiently. Only one of offset or key
+            should be set.
+          in: query
+          required: false
+          type: string
+          format: byte
+        - name: pagination.offset
+          description: >-
+            offset is a numeric offset that can be used when key is unavailable.
+
+            It is less efficient than using key. Only one of offset or key
+            should
+
+            be set.
+          in: query
+          required: false
+          type: string
+          format: uint64
+        - name: pagination.limit
+          description: >-
+            limit is the total number of results to be returned in the result
+            page.
+
+            If left empty it will default to a value to be set by each app.
+          in: query
+          required: false
+          type: string
+          format: uint64
+        - name: pagination.count_total
+          description: >-
+            count_total is set to true  to indicate that the result set should
+            include
+
+            a count of the total number of items available for pagination in
+            UIs.
+
+            count_total is only respected when offset is used. It is ignored
+            when key
+
+            is set.
+          in: query
+          required: false
+          type: boolean
+        - name: pagination.reverse
+          description: >-
+            reverse is set to true if results are to be returned in the
+            descending order.
+
+
+            Since: cosmos-sdk 0.43
+          in: query
+          required: false
+          type: boolean
+      tags:
+        - Query
   /cosmos/group/v1/groups_by_admin/{admin}:
     get:
       summary: GroupsByAdmin queries groups by admin address.
@@ -19906,6 +19866,7 @@ paths:
                     a group.
                 description: groups are the groups info with the provided admin.
               pagination:
+                description: pagination defines the pagination in the response.
                 type: object
                 properties:
                   next_key:
@@ -19923,16 +19884,6 @@ paths:
                       PageRequest.count_total
 
                       was set, its value is undefined otherwise
-                description: >-
-                  PageResponse is to be embedded in gRPC response messages where
-                  the
-
-                  corresponding request message has used PageRequest.
-
-                   message SomeResponse {
-                           repeated Bar results = 1;
-                           PageResponse page = 2;
-                   }
             description: >-
               QueryGroupsByAdminResponse is the Query/GroupsByAdminResponse
               response type.
@@ -20241,6 +20192,7 @@ paths:
                     a group.
                 description: groups are the groups info with the provided group member.
               pagination:
+                description: pagination defines the pagination in the response.
                 type: object
                 properties:
                   next_key:
@@ -20258,16 +20210,6 @@ paths:
                       PageRequest.count_total
 
                       was set, its value is undefined otherwise
-                description: >-
-                  PageResponse is to be embedded in gRPC response messages where
-                  the
-
-                  corresponding request message has used PageRequest.
-
-                   message SomeResponse {
-                           repeated Bar results = 1;
-                           PageResponse page = 2;
-                   }
             description: >-
               QueryGroupsByMemberResponse is the Query/GroupsByMember response
               type.
@@ -20531,6 +20473,7 @@ paths:
             type: object
             properties:
               proposal:
+                description: proposal is the proposal info.
                 type: object
                 properties:
                   id:
@@ -20580,6 +20523,9 @@ paths:
 
                       This field is here for informational purposes only.
                   status:
+                    description: >-
+                      status represents the high level position in the life
+                      cycle of the proposal. Initial value is Submitted.
                     type: string
                     enum:
                       - PROPOSAL_STATUS_UNSPECIFIED
@@ -20589,20 +20535,18 @@ paths:
                       - PROPOSAL_STATUS_ABORTED
                       - PROPOSAL_STATUS_WITHDRAWN
                     default: PROPOSAL_STATUS_UNSPECIFIED
-                    description: |-
-                      ProposalStatus defines proposal statuses.
-
-                       - PROPOSAL_STATUS_UNSPECIFIED: An empty value is invalid and not allowed.
-                       - PROPOSAL_STATUS_SUBMITTED: Initial status of a proposal when submitted.
-                       - PROPOSAL_STATUS_ACCEPTED: Final status of a proposal when the final tally is done and the outcome
-                      passes the group policy's decision policy.
-                       - PROPOSAL_STATUS_REJECTED: Final status of a proposal when the final tally is done and the outcome
-                      is rejected by the group policy's decision policy.
-                       - PROPOSAL_STATUS_ABORTED: Final status of a proposal when the group policy is modified before the
-                      final tally.
-                       - PROPOSAL_STATUS_WITHDRAWN: A proposal can be withdrawn before the voting start time by the owner.
-                      When this happens the final status is Withdrawn.
                   final_tally_result:
+                    description: >-
+                      final_tally_result contains the sums of all weighted votes
+                      for this
+
+                      proposal for each vote option. It is empty at submission,
+                      and only
+
+                      populated after tallying, at voting period end or at
+                      proposal execution,
+
+                      whichever happens first.
                     type: object
                     properties:
                       yes_count:
@@ -20617,9 +20561,6 @@ paths:
                       no_with_veto_count:
                         type: string
                         description: no_with_veto_count is the weighted sum of veto.
-                    description: >-
-                      TallyResult represents the sum of weighted votes for each
-                      vote option.
                   voting_period_end:
                     type: string
                     format: date-time
@@ -20638,6 +20579,9 @@ paths:
 
                       accordingly updated.
                   executor_result:
+                    description: >-
+                      executor_result is the final result of the proposal
+                      execution. Initial value is NotRun.
                     type: string
                     enum:
                       - PROPOSAL_EXECUTOR_RESULT_UNSPECIFIED
@@ -20645,14 +20589,6 @@ paths:
                       - PROPOSAL_EXECUTOR_RESULT_SUCCESS
                       - PROPOSAL_EXECUTOR_RESULT_FAILURE
                     default: PROPOSAL_EXECUTOR_RESULT_UNSPECIFIED
-                    description: >-
-                      ProposalExecutorResult defines types of proposal executor
-                      results.
-
-                       - PROPOSAL_EXECUTOR_RESULT_UNSPECIFIED: An empty value is not allowed.
-                       - PROPOSAL_EXECUTOR_RESULT_NOT_RUN: We have not yet run the executor.
-                       - PROPOSAL_EXECUTOR_RESULT_SUCCESS: The executor was successful and proposed action updated state.
-                       - PROPOSAL_EXECUTOR_RESULT_FAILURE: The executor returned an error and proposed action didn't update state.
                   messages:
                     type: array
                     items:
@@ -20833,17 +20769,6 @@ paths:
                     description: >-
                       messages is a list of `sdk.Msg`s that will be executed if
                       the proposal passes.
-                description: >-
-                  Proposal defines a group proposal. Any member of a group can
-                  submit a proposal
-
-                  for a group policy to decide upon.
-
-                  A proposal consists of a set of `sdk.Msg`s that will be
-                  executed if the proposal
-
-                  passes as well as some optional metadata associated with the
-                  proposal.
             description: QueryProposalResponse is the Query/Proposal response type.
         default:
           description: An unexpected error response.
@@ -21060,6 +20985,7 @@ paths:
             type: object
             properties:
               tally:
+                description: tally defines the requested tally.
                 type: object
                 properties:
                   yes_count:
@@ -21074,9 +21000,6 @@ paths:
                   no_with_veto_count:
                     type: string
                     description: no_with_veto_count is the weighted sum of veto.
-                description: >-
-                  TallyResult represents the sum of weighted votes for each vote
-                  option.
             description: QueryTallyResultResponse is the Query/TallyResult response type.
         default:
           description: An unexpected error response.
@@ -21336,6 +21259,9 @@ paths:
 
                         This field is here for informational purposes only.
                     status:
+                      description: >-
+                        status represents the high level position in the life
+                        cycle of the proposal. Initial value is Submitted.
                       type: string
                       enum:
                         - PROPOSAL_STATUS_UNSPECIFIED
@@ -21345,20 +21271,18 @@ paths:
                         - PROPOSAL_STATUS_ABORTED
                         - PROPOSAL_STATUS_WITHDRAWN
                       default: PROPOSAL_STATUS_UNSPECIFIED
-                      description: |-
-                        ProposalStatus defines proposal statuses.
-
-                         - PROPOSAL_STATUS_UNSPECIFIED: An empty value is invalid and not allowed.
-                         - PROPOSAL_STATUS_SUBMITTED: Initial status of a proposal when submitted.
-                         - PROPOSAL_STATUS_ACCEPTED: Final status of a proposal when the final tally is done and the outcome
-                        passes the group policy's decision policy.
-                         - PROPOSAL_STATUS_REJECTED: Final status of a proposal when the final tally is done and the outcome
-                        is rejected by the group policy's decision policy.
-                         - PROPOSAL_STATUS_ABORTED: Final status of a proposal when the group policy is modified before the
-                        final tally.
-                         - PROPOSAL_STATUS_WITHDRAWN: A proposal can be withdrawn before the voting start time by the owner.
-                        When this happens the final status is Withdrawn.
                     final_tally_result:
+                      description: >-
+                        final_tally_result contains the sums of all weighted
+                        votes for this
+
+                        proposal for each vote option. It is empty at
+                        submission, and only
+
+                        populated after tallying, at voting period end or at
+                        proposal execution,
+
+                        whichever happens first.
                       type: object
                       properties:
                         yes_count:
@@ -21373,9 +21297,6 @@ paths:
                         no_with_veto_count:
                           type: string
                           description: no_with_veto_count is the weighted sum of veto.
-                      description: >-
-                        TallyResult represents the sum of weighted votes for
-                        each vote option.
                     voting_period_end:
                       type: string
                       format: date-time
@@ -21394,6 +21315,9 @@ paths:
 
                         accordingly updated.
                     executor_result:
+                      description: >-
+                        executor_result is the final result of the proposal
+                        execution. Initial value is NotRun.
                       type: string
                       enum:
                         - PROPOSAL_EXECUTOR_RESULT_UNSPECIFIED
@@ -21401,14 +21325,6 @@ paths:
                         - PROPOSAL_EXECUTOR_RESULT_SUCCESS
                         - PROPOSAL_EXECUTOR_RESULT_FAILURE
                       default: PROPOSAL_EXECUTOR_RESULT_UNSPECIFIED
-                      description: >-
-                        ProposalExecutorResult defines types of proposal
-                        executor results.
-
-                         - PROPOSAL_EXECUTOR_RESULT_UNSPECIFIED: An empty value is not allowed.
-                         - PROPOSAL_EXECUTOR_RESULT_NOT_RUN: We have not yet run the executor.
-                         - PROPOSAL_EXECUTOR_RESULT_SUCCESS: The executor was successful and proposed action updated state.
-                         - PROPOSAL_EXECUTOR_RESULT_FAILURE: The executor returned an error and proposed action didn't update state.
                     messages:
                       type: array
                       items:
@@ -21602,6 +21518,7 @@ paths:
                     proposal.
                 description: proposals are the proposals with given group policy.
               pagination:
+                description: pagination defines the pagination in the response.
                 type: object
                 properties:
                   next_key:
@@ -21619,16 +21536,6 @@ paths:
                       PageRequest.count_total
 
                       was set, its value is undefined otherwise
-                description: >-
-                  PageResponse is to be embedded in gRPC response messages where
-                  the
-
-                  corresponding request message has used PageRequest.
-
-                   message SomeResponse {
-                           repeated Bar results = 1;
-                           PageResponse page = 2;
-                   }
             description: >-
               QueryProposalsByGroupPolicyResponse is the
               Query/ProposalByGroupPolicy response type.
@@ -21894,6 +21801,7 @@ paths:
             type: object
             properties:
               vote:
+                description: vote is the vote with given proposal_id and voter.
                 type: object
                 properties:
                   proposal_id:
@@ -21904,6 +21812,7 @@ paths:
                     type: string
                     description: voter is the account address of the voter.
                   option:
+                    description: option is the voter's choice on the proposal.
                     type: string
                     enum:
                       - VOTE_OPTION_UNSPECIFIED
@@ -21912,16 +21821,6 @@ paths:
                       - VOTE_OPTION_NO
                       - VOTE_OPTION_NO_WITH_VETO
                     default: VOTE_OPTION_UNSPECIFIED
-                    description: >-
-                      VoteOption enumerates the valid vote options for a given
-                      proposal.
-
-                       - VOTE_OPTION_UNSPECIFIED: VOTE_OPTION_UNSPECIFIED defines an unspecified vote option which will
-                      return an error.
-                       - VOTE_OPTION_YES: VOTE_OPTION_YES defines a yes vote option.
-                       - VOTE_OPTION_ABSTAIN: VOTE_OPTION_ABSTAIN defines an abstain vote option.
-                       - VOTE_OPTION_NO: VOTE_OPTION_NO defines a no vote option.
-                       - VOTE_OPTION_NO_WITH_VETO: VOTE_OPTION_NO_WITH_VETO defines a no with veto vote option.
                   metadata:
                     type: string
                     description: >-
@@ -21931,7 +21830,6 @@ paths:
                     type: string
                     format: date-time
                     description: submit_time is the timestamp when the vote was submitted.
-                description: Vote represents a vote for a proposal.
             description: >-
               QueryVoteByProposalVoterResponse is the Query/VoteByProposalVoter
               response type.
@@ -22157,6 +22055,7 @@ paths:
                       type: string
                       description: voter is the account address of the voter.
                     option:
+                      description: option is the voter's choice on the proposal.
                       type: string
                       enum:
                         - VOTE_OPTION_UNSPECIFIED
@@ -22165,16 +22064,6 @@ paths:
                         - VOTE_OPTION_NO
                         - VOTE_OPTION_NO_WITH_VETO
                       default: VOTE_OPTION_UNSPECIFIED
-                      description: >-
-                        VoteOption enumerates the valid vote options for a given
-                        proposal.
-
-                         - VOTE_OPTION_UNSPECIFIED: VOTE_OPTION_UNSPECIFIED defines an unspecified vote option which will
-                        return an error.
-                         - VOTE_OPTION_YES: VOTE_OPTION_YES defines a yes vote option.
-                         - VOTE_OPTION_ABSTAIN: VOTE_OPTION_ABSTAIN defines an abstain vote option.
-                         - VOTE_OPTION_NO: VOTE_OPTION_NO defines a no vote option.
-                         - VOTE_OPTION_NO_WITH_VETO: VOTE_OPTION_NO_WITH_VETO defines a no with veto vote option.
                     metadata:
                       type: string
                       description: >-
@@ -22189,6 +22078,7 @@ paths:
                   description: Vote represents a vote for a proposal.
                 description: votes are the list of votes for given proposal_id.
               pagination:
+                description: pagination defines the pagination in the response.
                 type: object
                 properties:
                   next_key:
@@ -22206,16 +22096,6 @@ paths:
                       PageRequest.count_total
 
                       was set, its value is undefined otherwise
-                description: >-
-                  PageResponse is to be embedded in gRPC response messages where
-                  the
-
-                  corresponding request message has used PageRequest.
-
-                   message SomeResponse {
-                           repeated Bar results = 1;
-                           PageResponse page = 2;
-                   }
             description: >-
               QueryVotesByProposalResponse is the Query/VotesByProposal response
               type.
@@ -22492,6 +22372,7 @@ paths:
                       type: string
                       description: voter is the account address of the voter.
                     option:
+                      description: option is the voter's choice on the proposal.
                       type: string
                       enum:
                         - VOTE_OPTION_UNSPECIFIED
@@ -22500,16 +22381,6 @@ paths:
                         - VOTE_OPTION_NO
                         - VOTE_OPTION_NO_WITH_VETO
                       default: VOTE_OPTION_UNSPECIFIED
-                      description: >-
-                        VoteOption enumerates the valid vote options for a given
-                        proposal.
-
-                         - VOTE_OPTION_UNSPECIFIED: VOTE_OPTION_UNSPECIFIED defines an unspecified vote option which will
-                        return an error.
-                         - VOTE_OPTION_YES: VOTE_OPTION_YES defines a yes vote option.
-                         - VOTE_OPTION_ABSTAIN: VOTE_OPTION_ABSTAIN defines an abstain vote option.
-                         - VOTE_OPTION_NO: VOTE_OPTION_NO defines a no vote option.
-                         - VOTE_OPTION_NO_WITH_VETO: VOTE_OPTION_NO_WITH_VETO defines a no with veto vote option.
                     metadata:
                       type: string
                       description: >-
@@ -22524,6 +22395,7 @@ paths:
                   description: Vote represents a vote for a proposal.
                 description: votes are the list of votes by given voter.
               pagination:
+                description: pagination defines the pagination in the response.
                 type: object
                 properties:
                   next_key:
@@ -22541,16 +22413,6 @@ paths:
                       PageRequest.count_total
 
                       was set, its value is undefined otherwise
-                description: >-
-                  PageResponse is to be embedded in gRPC response messages where
-                  the
-
-                  corresponding request message has used PageRequest.
-
-                   message SomeResponse {
-                           repeated Bar results = 1;
-                           PageResponse page = 2;
-                   }
             description: QueryVotesByVoterResponse is the Query/VotesByVoter response type.
         default:
           description: An unexpected error response.
@@ -31461,6 +31323,7 @@ paths:
             type: object
             properties:
               gas_info:
+                description: gas_info is the information about gas used in the simulation.
                 type: object
                 properties:
                   gas_wanted:
@@ -31473,8 +31336,8 @@ paths:
                     type: string
                     format: uint64
                     description: GasUsed is the amount of gas actually consumed.
-                description: GasInfo defines tx execution gas context.
               result:
+                description: result is the result of the simulation.
                 type: object
                 properties:
                   data:
@@ -31516,6 +31379,7 @@ paths:
                                 format: byte
                               index:
                                 type: boolean
+                                title: nondeterministic
                             description: >-
                               EventAttribute is a single key-value pair,
                               associated with an event.
@@ -31715,7 +31579,6 @@ paths:
 
 
                       Since: cosmos-sdk 0.46
-                description: Result is the union of ResponseFormat and ResponseCheckTx.
             description: |-
               SimulateResponse is the response type for the
               Service.SimulateRPC method.
@@ -32217,6 +32080,7 @@ paths:
             type: object
             properties:
               tx_response:
+                description: tx_response is the queried TxResponses.
                 type: object
                 properties:
                   height:
@@ -32303,6 +32167,7 @@ paths:
                     format: int64
                     description: Amount of gas consumed by transaction.
                   tx:
+                    description: The request transaction bytes.
                     type: object
                     properties:
                       '@type':
@@ -32364,117 +32229,6 @@ paths:
 
                           used with implementation specific semantics.
                     additionalProperties: {}
-                    description: >-
-                      `Any` contains an arbitrary serialized protocol buffer
-                      message along with a
-
-                      URL that describes the type of the serialized message.
-
-
-                      Protobuf library provides support to pack/unpack Any
-                      values in the form
-
-                      of utility functions or additional generated methods of
-                      the Any type.
-
-
-                      Example 1: Pack and unpack a message in C++.
-
-                          Foo foo = ...;
-                          Any any;
-                          any.PackFrom(foo);
-                          ...
-                          if (any.UnpackTo(&foo)) {
-                            ...
-                          }
-
-                      Example 2: Pack and unpack a message in Java.
-
-                          Foo foo = ...;
-                          Any any = Any.pack(foo);
-                          ...
-                          if (any.is(Foo.class)) {
-                            foo = any.unpack(Foo.class);
-                          }
-
-                       Example 3: Pack and unpack a message in Python.
-
-                          foo = Foo(...)
-                          any = Any()
-                          any.Pack(foo)
-                          ...
-                          if any.Is(Foo.DESCRIPTOR):
-                            any.Unpack(foo)
-                            ...
-
-                       Example 4: Pack and unpack a message in Go
-
-                           foo := &pb.Foo{...}
-                           any, err := anypb.New(foo)
-                           if err != nil {
-                             ...
-                           }
-                           ...
-                           foo := &pb.Foo{}
-                           if err := any.UnmarshalTo(foo); err != nil {
-                             ...
-                           }
-
-                      The pack methods provided by protobuf library will by
-                      default use
-
-                      'type.googleapis.com/full.type.name' as the type URL and
-                      the unpack
-
-                      methods only use the fully qualified type name after the
-                      last '/'
-
-                      in the type URL, for example "foo.bar.com/x/y.z" will
-                      yield type
-
-                      name "y.z".
-
-
-
-                      JSON
-
-                      ====
-
-                      The JSON representation of an `Any` value uses the regular
-
-                      representation of the deserialized, embedded message, with
-                      an
-
-                      additional field `@type` which contains the type URL.
-                      Example:
-
-                          package google.profile;
-                          message Person {
-                            string first_name = 1;
-                            string last_name = 2;
-                          }
-
-                          {
-                            "@type": "type.googleapis.com/google.profile.Person",
-                            "firstName": <string>,
-                            "lastName": <string>
-                          }
-
-                      If the embedded message type is well-known and has a
-                      custom JSON
-
-                      representation, that representation will be embedded
-                      adding a field
-
-                      `value` which holds the custom JSON in addition to the
-                      `@type`
-
-                      field. Example (for message [google.protobuf.Duration][]):
-
-                          {
-                            "@type": "type.googleapis.com/google.protobuf.Duration",
-                            "value": "1.212s"
-                          }
                   timestamp:
                     type: string
                     description: >-
@@ -32505,6 +32259,7 @@ paths:
                                 format: byte
                               index:
                                 type: boolean
+                                title: nondeterministic
                             description: >-
                               EventAttribute is a single key-value pair,
                               associated with an event.
@@ -32531,11 +32286,6 @@ paths:
 
 
                       Since: cosmos-sdk 0.42.11, 0.44.5, 0.45
-                description: >-
-                  TxResponse defines a structure containing relevant tx data and
-                  metadata. The
-
-                  tags are stringified and the log is JSON decoded.
             description: |-
               BroadcastTxResponse is the response type for the
               Service.BroadcastTx method.
@@ -53304,6 +53054,7 @@ definitions:
               application's
 
               state transition machine.
+            title: basic block info
           chain_id:
             type: string
           height:
@@ -53333,32 +53084,41 @@ definitions:
             type: string
             format: byte
             title: hashes of block data
+            description: commit from validators from the last block
           data_hash:
             type: string
             format: byte
+            title: transactions
           validators_hash:
             type: string
             format: byte
             title: hashes from the app output from the prev block
+            description: validators for the current block
           next_validators_hash:
             type: string
             format: byte
+            title: validators for the next block
           consensus_hash:
             type: string
             format: byte
+            title: consensus params for current block
           app_hash:
             type: string
             format: byte
+            title: state after txs from the previous block
           last_results_hash:
             type: string
             format: byte
+            title: root hash of all results from the txs from the previous block
           evidence_hash:
             type: string
             format: byte
             title: consensus info
+            description: evidence included in the block
           proposer_address:
             type: string
             format: byte
+            title: original proposer of the block
         description: Header defines the structure of a Tendermint block header.
       data:
         type: object
@@ -53427,6 +53187,7 @@ definitions:
                                   format: byte
                               title: PartsetHeader
                           title: BlockID
+                          description: zero if vote is nil.
                         timestamp:
                           type: string
                           format: date-time
@@ -53484,6 +53245,7 @@ definitions:
                                   format: byte
                               title: PartsetHeader
                           title: BlockID
+                          description: zero if vote is nil.
                         timestamp:
                           type: string
                           format: date-time
@@ -53542,6 +53304,7 @@ definitions:
                                     the rules of the application's
 
                                     state transition machine.
+                                  title: basic block info
                                 chain_id:
                                   type: string
                                 height:
@@ -53571,34 +53334,45 @@ definitions:
                                   type: string
                                   format: byte
                                   title: hashes of block data
+                                  description: commit from validators from the last block
                                 data_hash:
                                   type: string
                                   format: byte
+                                  title: transactions
                                 validators_hash:
                                   type: string
                                   format: byte
                                   title: >-
                                     hashes from the app output from the prev
                                     block
+                                  description: validators for the current block
                                 next_validators_hash:
                                   type: string
                                   format: byte
+                                  title: validators for the next block
                                 consensus_hash:
                                   type: string
                                   format: byte
+                                  title: consensus params for current block
                                 app_hash:
                                   type: string
                                   format: byte
+                                  title: state after txs from the previous block
                                 last_results_hash:
                                   type: string
                                   format: byte
+                                  title: >-
+                                    root hash of all results from the txs from
+                                    the previous block
                                 evidence_hash:
                                   type: string
                                   format: byte
                                   title: consensus info
+                                  description: evidence included in the block
                                 proposer_address:
                                   type: string
                                   format: byte
+                                  title: original proposer of the block
                               description: >-
                                 Header defines the structure of a Tendermint
                                 block header.
@@ -53965,6 +53739,7 @@ definitions:
                     format: byte
                 title: PartsetHeader
             title: BlockID
+            description: zero if vote is nil.
           timestamp:
             type: string
             format: date-time
@@ -54021,6 +53796,7 @@ definitions:
                     format: byte
                 title: PartsetHeader
             title: BlockID
+            description: zero if vote is nil.
           timestamp:
             type: string
             format: date-time
@@ -54095,6 +53871,7 @@ definitions:
                         format: byte
                     title: PartsetHeader
                 title: BlockID
+                description: zero if vote is nil.
               timestamp:
                 type: string
                 format: date-time
@@ -54151,6 +53928,7 @@ definitions:
                         format: byte
                     title: PartsetHeader
                 title: BlockID
+                description: zero if vote is nil.
               timestamp:
                 type: string
                 format: date-time
@@ -54209,6 +53987,7 @@ definitions:
                           of the application's
 
                           state transition machine.
+                        title: basic block info
                       chain_id:
                         type: string
                       height:
@@ -54238,32 +54017,43 @@ definitions:
                         type: string
                         format: byte
                         title: hashes of block data
+                        description: commit from validators from the last block
                       data_hash:
                         type: string
                         format: byte
+                        title: transactions
                       validators_hash:
                         type: string
                         format: byte
                         title: hashes from the app output from the prev block
+                        description: validators for the current block
                       next_validators_hash:
                         type: string
                         format: byte
+                        title: validators for the next block
                       consensus_hash:
                         type: string
                         format: byte
+                        title: consensus params for current block
                       app_hash:
                         type: string
                         format: byte
+                        title: state after txs from the previous block
                       last_results_hash:
                         type: string
                         format: byte
+                        title: >-
+                          root hash of all results from the txs from the
+                          previous block
                       evidence_hash:
                         type: string
                         format: byte
                         title: consensus info
+                        description: evidence included in the block
                       proposer_address:
                         type: string
                         format: byte
+                        title: original proposer of the block
                     description: Header defines the structure of a Tendermint block header.
                   commit:
                     type: object
@@ -54467,6 +54257,7 @@ definitions:
                               format: byte
                           title: PartsetHeader
                       title: BlockID
+                      description: zero if vote is nil.
                     timestamp:
                       type: string
                       format: date-time
@@ -54524,6 +54315,7 @@ definitions:
                               format: byte
                           title: PartsetHeader
                       title: BlockID
+                      description: zero if vote is nil.
                     timestamp:
                       type: string
                       format: date-time
@@ -54582,6 +54374,7 @@ definitions:
                                 rules of the application's
 
                                 state transition machine.
+                              title: basic block info
                             chain_id:
                               type: string
                             height:
@@ -54611,32 +54404,43 @@ definitions:
                               type: string
                               format: byte
                               title: hashes of block data
+                              description: commit from validators from the last block
                             data_hash:
                               type: string
                               format: byte
+                              title: transactions
                             validators_hash:
                               type: string
                               format: byte
                               title: hashes from the app output from the prev block
+                              description: validators for the current block
                             next_validators_hash:
                               type: string
                               format: byte
+                              title: validators for the next block
                             consensus_hash:
                               type: string
                               format: byte
+                              title: consensus params for current block
                             app_hash:
                               type: string
                               format: byte
+                              title: state after txs from the previous block
                             last_results_hash:
                               type: string
                               format: byte
+                              title: >-
+                                root hash of all results from the txs from the
+                                previous block
                             evidence_hash:
                               type: string
                               format: byte
                               title: consensus info
+                              description: evidence included in the block
                             proposer_address:
                               type: string
                               format: byte
+                              title: original proposer of the block
                           description: >-
                             Header defines the structure of a Tendermint block
                             header.
@@ -54811,6 +54615,7 @@ definitions:
           application's
 
           state transition machine.
+        title: basic block info
       chain_id:
         type: string
       height:
@@ -54840,32 +54645,41 @@ definitions:
         type: string
         format: byte
         title: hashes of block data
+        description: commit from validators from the last block
       data_hash:
         type: string
         format: byte
+        title: transactions
       validators_hash:
         type: string
         format: byte
         title: hashes from the app output from the prev block
+        description: validators for the current block
       next_validators_hash:
         type: string
         format: byte
+        title: validators for the next block
       consensus_hash:
         type: string
         format: byte
+        title: consensus params for current block
       app_hash:
         type: string
         format: byte
+        title: state after txs from the previous block
       last_results_hash:
         type: string
         format: byte
+        title: root hash of all results from the txs from the previous block
       evidence_hash:
         type: string
         format: byte
         title: consensus info
+        description: evidence included in the block
       proposer_address:
         type: string
         format: byte
+        title: original proposer of the block
     description: Header defines the structure of a Tendermint block header.
   tendermint.types.LightBlock:
     type: object
@@ -54893,6 +54707,7 @@ definitions:
                   application's
 
                   state transition machine.
+                title: basic block info
               chain_id:
                 type: string
               height:
@@ -54922,32 +54737,41 @@ definitions:
                 type: string
                 format: byte
                 title: hashes of block data
+                description: commit from validators from the last block
               data_hash:
                 type: string
                 format: byte
+                title: transactions
               validators_hash:
                 type: string
                 format: byte
                 title: hashes from the app output from the prev block
+                description: validators for the current block
               next_validators_hash:
                 type: string
                 format: byte
+                title: validators for the next block
               consensus_hash:
                 type: string
                 format: byte
+                title: consensus params for current block
               app_hash:
                 type: string
                 format: byte
+                title: state after txs from the previous block
               last_results_hash:
                 type: string
                 format: byte
+                title: root hash of all results from the txs from the previous block
               evidence_hash:
                 type: string
                 format: byte
                 title: consensus info
+                description: evidence included in the block
               proposer_address:
                 type: string
                 format: byte
+                title: original proposer of the block
             description: Header defines the structure of a Tendermint block header.
           commit:
             type: object
@@ -55087,6 +54911,7 @@ definitions:
                       the application's
 
                       state transition machine.
+                    title: basic block info
                   chain_id:
                     type: string
                   height:
@@ -55116,32 +54941,43 @@ definitions:
                     type: string
                     format: byte
                     title: hashes of block data
+                    description: commit from validators from the last block
                   data_hash:
                     type: string
                     format: byte
+                    title: transactions
                   validators_hash:
                     type: string
                     format: byte
                     title: hashes from the app output from the prev block
+                    description: validators for the current block
                   next_validators_hash:
                     type: string
                     format: byte
+                    title: validators for the next block
                   consensus_hash:
                     type: string
                     format: byte
+                    title: consensus params for current block
                   app_hash:
                     type: string
                     format: byte
+                    title: state after txs from the previous block
                   last_results_hash:
                     type: string
                     format: byte
+                    title: >-
+                      root hash of all results from the txs from the previous
+                      block
                   evidence_hash:
                     type: string
                     format: byte
                     title: consensus info
+                    description: evidence included in the block
                   proposer_address:
                     type: string
                     format: byte
+                    title: original proposer of the block
                 description: Header defines the structure of a Tendermint block header.
               commit:
                 type: object
@@ -55325,6 +55161,7 @@ definitions:
               application's
 
               state transition machine.
+            title: basic block info
           chain_id:
             type: string
           height:
@@ -55354,32 +55191,41 @@ definitions:
             type: string
             format: byte
             title: hashes of block data
+            description: commit from validators from the last block
           data_hash:
             type: string
             format: byte
+            title: transactions
           validators_hash:
             type: string
             format: byte
             title: hashes from the app output from the prev block
+            description: validators for the current block
           next_validators_hash:
             type: string
             format: byte
+            title: validators for the next block
           consensus_hash:
             type: string
             format: byte
+            title: consensus params for current block
           app_hash:
             type: string
             format: byte
+            title: state after txs from the previous block
           last_results_hash:
             type: string
             format: byte
+            title: root hash of all results from the txs from the previous block
           evidence_hash:
             type: string
             format: byte
             title: consensus info
+            description: evidence included in the block
           proposer_address:
             type: string
             format: byte
+            title: original proposer of the block
         description: Header defines the structure of a Tendermint block header.
       commit:
         type: object
@@ -55566,6 +55412,7 @@ definitions:
                 format: byte
             title: PartsetHeader
         title: BlockID
+        description: zero if vote is nil.
       timestamp:
         type: string
         format: date-time
@@ -59806,6 +59653,7 @@ definitions:
         format: uint64
         description: group_id is the unique ID of the group.
       member:
+        description: member is the member data.
         type: object
         properties:
           address:
@@ -59823,9 +59671,6 @@ definitions:
             type: string
             format: date-time
             description: added_at is a timestamp specifying when a member was added.
-        description: |-
-          Member represents a group member with an account address,
-          non-zero weight, metadata and added_at timestamp.
     description: GroupMember represents the relationship between a group and a member.
   cosmos.group.v1.GroupPolicyInfo:
     type: object
@@ -59852,6 +59697,7 @@ definitions:
 
           would create a different result on a running proposal.
       decision_policy:
+        description: decision_policy specifies the group policy's decision policy.
         type: object
         properties:
           '@type':
@@ -59907,107 +59753,6 @@ definitions:
 
               used with implementation specific semantics.
         additionalProperties: {}
-        description: >-
-          `Any` contains an arbitrary serialized protocol buffer message along
-          with a
-
-          URL that describes the type of the serialized message.
-
-
-          Protobuf library provides support to pack/unpack Any values in the
-          form
-
-          of utility functions or additional generated methods of the Any type.
-
-
-          Example 1: Pack and unpack a message in C++.
-
-              Foo foo = ...;
-              Any any;
-              any.PackFrom(foo);
-              ...
-              if (any.UnpackTo(&foo)) {
-                ...
-              }
-
-          Example 2: Pack and unpack a message in Java.
-
-              Foo foo = ...;
-              Any any = Any.pack(foo);
-              ...
-              if (any.is(Foo.class)) {
-                foo = any.unpack(Foo.class);
-              }
-
-           Example 3: Pack and unpack a message in Python.
-
-              foo = Foo(...)
-              any = Any()
-              any.Pack(foo)
-              ...
-              if any.Is(Foo.DESCRIPTOR):
-                any.Unpack(foo)
-                ...
-
-           Example 4: Pack and unpack a message in Go
-
-               foo := &pb.Foo{...}
-               any, err := anypb.New(foo)
-               if err != nil {
-                 ...
-               }
-               ...
-               foo := &pb.Foo{}
-               if err := any.UnmarshalTo(foo); err != nil {
-                 ...
-               }
-
-          The pack methods provided by protobuf library will by default use
-
-          'type.googleapis.com/full.type.name' as the type URL and the unpack
-
-          methods only use the fully qualified type name after the last '/'
-
-          in the type URL, for example "foo.bar.com/x/y.z" will yield type
-
-          name "y.z".
-
-
-
-          JSON
-
-          ====
-
-          The JSON representation of an `Any` value uses the regular
-
-          representation of the deserialized, embedded message, with an
-
-          additional field `@type` which contains the type URL. Example:
-
-              package google.profile;
-              message Person {
-                string first_name = 1;
-                string last_name = 2;
-              }
-
-              {
-                "@type": "type.googleapis.com/google.profile.Person",
-                "firstName": <string>,
-                "lastName": <string>
-              }
-
-          If the embedded message type is well-known and has a custom JSON
-
-          representation, that representation will be embedded adding a field
-
-          `value` which holds the custom JSON in addition to the `@type`
-
-          field. Example (for message [google.protobuf.Duration][]):
-
-              {
-                "@type": "type.googleapis.com/google.protobuf.Duration",
-                "value": "1.212s"
-              }
       created_at:
         type: string
         format: date-time
@@ -60084,6 +59829,7 @@ definitions:
     type: object
     properties:
       result:
+        description: result is the final result of the proposal execution.
         type: string
         enum:
           - PROPOSAL_EXECUTOR_RESULT_UNSPECIFIED
@@ -60091,13 +59837,6 @@ definitions:
           - PROPOSAL_EXECUTOR_RESULT_SUCCESS
           - PROPOSAL_EXECUTOR_RESULT_FAILURE
         default: PROPOSAL_EXECUTOR_RESULT_UNSPECIFIED
-        description: |-
-          ProposalExecutorResult defines types of proposal executor results.
-
-           - PROPOSAL_EXECUTOR_RESULT_UNSPECIFIED: An empty value is not allowed.
-           - PROPOSAL_EXECUTOR_RESULT_NOT_RUN: We have not yet run the executor.
-           - PROPOSAL_EXECUTOR_RESULT_SUCCESS: The executor was successful and proposed action updated state.
-           - PROPOSAL_EXECUTOR_RESULT_FAILURE: The executor returned an error and proposed action didn't update state.
     description: MsgExecResponse is the Msg/Exec request type.
   cosmos.group.v1.MsgLeaveGroupResponse:
     type: object
@@ -60184,6 +59923,9 @@ definitions:
 
           This field is here for informational purposes only.
       status:
+        description: >-
+          status represents the high level position in the life cycle of the
+          proposal. Initial value is Submitted.
         type: string
         enum:
           - PROPOSAL_STATUS_UNSPECIFIED
@@ -60193,20 +59935,16 @@ definitions:
           - PROPOSAL_STATUS_ABORTED
           - PROPOSAL_STATUS_WITHDRAWN
         default: PROPOSAL_STATUS_UNSPECIFIED
-        description: |-
-          ProposalStatus defines proposal statuses.
-
-           - PROPOSAL_STATUS_UNSPECIFIED: An empty value is invalid and not allowed.
-           - PROPOSAL_STATUS_SUBMITTED: Initial status of a proposal when submitted.
-           - PROPOSAL_STATUS_ACCEPTED: Final status of a proposal when the final tally is done and the outcome
-          passes the group policy's decision policy.
-           - PROPOSAL_STATUS_REJECTED: Final status of a proposal when the final tally is done and the outcome
-          is rejected by the group policy's decision policy.
-           - PROPOSAL_STATUS_ABORTED: Final status of a proposal when the group policy is modified before the
-          final tally.
-           - PROPOSAL_STATUS_WITHDRAWN: A proposal can be withdrawn before the voting start time by the owner.
-          When this happens the final status is Withdrawn.
       final_tally_result:
+        description: >-
+          final_tally_result contains the sums of all weighted votes for this
+
+          proposal for each vote option. It is empty at submission, and only
+
+          populated after tallying, at voting period end or at proposal
+          execution,
+
+          whichever happens first.
         type: object
         properties:
           yes_count:
@@ -60221,7 +59959,6 @@ definitions:
           no_with_veto_count:
             type: string
             description: no_with_veto_count is the weighted sum of veto.
-        description: TallyResult represents the sum of weighted votes for each vote option.
       voting_period_end:
         type: string
         format: date-time
@@ -60238,6 +59975,9 @@ definitions:
 
           accordingly updated.
       executor_result:
+        description: >-
+          executor_result is the final result of the proposal execution. Initial
+          value is NotRun.
         type: string
         enum:
           - PROPOSAL_EXECUTOR_RESULT_UNSPECIFIED
@@ -60245,13 +59985,6 @@ definitions:
           - PROPOSAL_EXECUTOR_RESULT_SUCCESS
           - PROPOSAL_EXECUTOR_RESULT_FAILURE
         default: PROPOSAL_EXECUTOR_RESULT_UNSPECIFIED
-        description: |-
-          ProposalExecutorResult defines types of proposal executor results.
-
-           - PROPOSAL_EXECUTOR_RESULT_UNSPECIFIED: An empty value is not allowed.
-           - PROPOSAL_EXECUTOR_RESULT_NOT_RUN: We have not yet run the executor.
-           - PROPOSAL_EXECUTOR_RESULT_SUCCESS: The executor was successful and proposed action updated state.
-           - PROPOSAL_EXECUTOR_RESULT_FAILURE: The executor returned an error and proposed action didn't update state.
       messages:
         type: array
         items:
@@ -60469,6 +60202,7 @@ definitions:
     type: object
     properties:
       info:
+        description: info is the GroupInfo for the group.
         type: object
         properties:
           id:
@@ -60502,7 +60236,6 @@ definitions:
             type: string
             format: date-time
             description: created_at is a timestamp specifying when a group was created.
-        description: GroupInfo represents the high-level on-chain information for a group.
     description: QueryGroupInfoResponse is the Query/GroupInfo response type.
   cosmos.group.v1.QueryGroupMembersResponse:
     type: object
@@ -60517,6 +60250,7 @@ definitions:
               format: uint64
               description: group_id is the unique ID of the group.
             member:
+              description: member is the member data.
               type: object
               properties:
                 address:
@@ -60534,14 +60268,12 @@ definitions:
                   type: string
                   format: date-time
                   description: added_at is a timestamp specifying when a member was added.
-              description: |-
-                Member represents a group member with an account address,
-                non-zero weight, metadata and added_at timestamp.
           description: >-
             GroupMember represents the relationship between a group and a
             member.
         description: members are the members of the group with given group_id.
       pagination:
+        description: pagination defines the pagination in the response.
         type: object
         properties:
           next_key:
@@ -60559,14 +60291,6 @@ definitions:
               PageRequest.count_total
 
               was set, its value is undefined otherwise
-        description: |-
-          PageResponse is to be embedded in gRPC response messages where the
-          corresponding request message has used PageRequest.
-
-           message SomeResponse {
-                   repeated Bar results = 1;
-                   PageResponse page = 2;
-           }
     description: QueryGroupMembersResponse is the Query/GroupMembersResponse response type.
   cosmos.group.v1.QueryGroupPoliciesByAdminResponse:
     type: object
@@ -60600,6 +60324,7 @@ definitions:
 
                 would create a different result on a running proposal.
             decision_policy:
+              description: decision_policy specifies the group policy's decision policy.
               type: object
               properties:
                 '@type':
@@ -60660,112 +60385,6 @@ definitions:
 
                     used with implementation specific semantics.
               additionalProperties: {}
-              description: >-
-                `Any` contains an arbitrary serialized protocol buffer message
-                along with a
-
-                URL that describes the type of the serialized message.
-
-
-                Protobuf library provides support to pack/unpack Any values in
-                the form
-
-                of utility functions or additional generated methods of the Any
-                type.
-
-
-                Example 1: Pack and unpack a message in C++.
-
-                    Foo foo = ...;
-                    Any any;
-                    any.PackFrom(foo);
-                    ...
-                    if (any.UnpackTo(&foo)) {
-                      ...
-                    }
-
-                Example 2: Pack and unpack a message in Java.
-
-                    Foo foo = ...;
-                    Any any = Any.pack(foo);
-                    ...
-                    if (any.is(Foo.class)) {
-                      foo = any.unpack(Foo.class);
-                    }
-
-                 Example 3: Pack and unpack a message in Python.
-
-                    foo = Foo(...)
-                    any = Any()
-                    any.Pack(foo)
-                    ...
-                    if any.Is(Foo.DESCRIPTOR):
-                      any.Unpack(foo)
-                      ...
-
-                 Example 4: Pack and unpack a message in Go
-
-                     foo := &pb.Foo{...}
-                     any, err := anypb.New(foo)
-                     if err != nil {
-                       ...
-                     }
-                     ...
-                     foo := &pb.Foo{}
-                     if err := any.UnmarshalTo(foo); err != nil {
-                       ...
-                     }
-
-                The pack methods provided by protobuf library will by default
-                use
-
-                'type.googleapis.com/full.type.name' as the type URL and the
-                unpack
-
-                methods only use the fully qualified type name after the last
-                '/'
-
-                in the type URL, for example "foo.bar.com/x/y.z" will yield type
-
-                name "y.z".
-
-
-
-                JSON
-
-                ====
-
-                The JSON representation of an `Any` value uses the regular
-
-                representation of the deserialized, embedded message, with an
-
-                additional field `@type` which contains the type URL. Example:
-
-                    package google.profile;
-                    message Person {
-                      string first_name = 1;
-                      string last_name = 2;
-                    }
-
-                    {
-                      "@type": "type.googleapis.com/google.profile.Person",
-                      "firstName": <string>,
-                      "lastName": <string>
-                    }
-
-                If the embedded message type is well-known and has a custom JSON
-
-                representation, that representation will be embedded adding a
-                field
-
-                `value` which holds the custom JSON in addition to the `@type`
-
-                field. Example (for message [google.protobuf.Duration][]):
-
-                    {
-                      "@type": "type.googleapis.com/google.protobuf.Duration",
-                      "value": "1.212s"
-                    }
             created_at:
               type: string
               format: date-time
@@ -60777,6 +60396,7 @@ definitions:
             group policy.
         description: group_policies are the group policies info with provided admin.
       pagination:
+        description: pagination defines the pagination in the response.
         type: object
         properties:
           next_key:
@@ -60794,14 +60414,6 @@ definitions:
               PageRequest.count_total
 
               was set, its value is undefined otherwise
-        description: |-
-          PageResponse is to be embedded in gRPC response messages where the
-          corresponding request message has used PageRequest.
-
-           message SomeResponse {
-                   repeated Bar results = 1;
-                   PageResponse page = 2;
-           }
     description: >-
       QueryGroupPoliciesByAdminResponse is the Query/GroupPoliciesByAdmin
       response type.
@@ -60837,6 +60449,7 @@ definitions:
 
                 would create a different result on a running proposal.
             decision_policy:
+              description: decision_policy specifies the group policy's decision policy.
               type: object
               properties:
                 '@type':
@@ -60897,112 +60510,6 @@ definitions:
 
                     used with implementation specific semantics.
               additionalProperties: {}
-              description: >-
-                `Any` contains an arbitrary serialized protocol buffer message
-                along with a
-
-                URL that describes the type of the serialized message.
-
-
-                Protobuf library provides support to pack/unpack Any values in
-                the form
-
-                of utility functions or additional generated methods of the Any
-                type.
-
-
-                Example 1: Pack and unpack a message in C++.
-
-                    Foo foo = ...;
-                    Any any;
-                    any.PackFrom(foo);
-                    ...
-                    if (any.UnpackTo(&foo)) {
-                      ...
-                    }
-
-                Example 2: Pack and unpack a message in Java.
-
-                    Foo foo = ...;
-                    Any any = Any.pack(foo);
-                    ...
-                    if (any.is(Foo.class)) {
-                      foo = any.unpack(Foo.class);
-                    }
-
-                 Example 3: Pack and unpack a message in Python.
-
-                    foo = Foo(...)
-                    any = Any()
-                    any.Pack(foo)
-                    ...
-                    if any.Is(Foo.DESCRIPTOR):
-                      any.Unpack(foo)
-                      ...
-
-                 Example 4: Pack and unpack a message in Go
-
-                     foo := &pb.Foo{...}
-                     any, err := anypb.New(foo)
-                     if err != nil {
-                       ...
-                     }
-                     ...
-                     foo := &pb.Foo{}
-                     if err := any.UnmarshalTo(foo); err != nil {
-                       ...
-                     }
-
-                The pack methods provided by protobuf library will by default
-                use
-
-                'type.googleapis.com/full.type.name' as the type URL and the
-                unpack
-
-                methods only use the fully qualified type name after the last
-                '/'
-
-                in the type URL, for example "foo.bar.com/x/y.z" will yield type
-
-                name "y.z".
-
-
-
-                JSON
-
-                ====
-
-                The JSON representation of an `Any` value uses the regular
-
-                representation of the deserialized, embedded message, with an
-
-                additional field `@type` which contains the type URL. Example:
-
-                    package google.profile;
-                    message Person {
-                      string first_name = 1;
-                      string last_name = 2;
-                    }
-
-                    {
-                      "@type": "type.googleapis.com/google.profile.Person",
-                      "firstName": <string>,
-                      "lastName": <string>
-                    }
-
-                If the embedded message type is well-known and has a custom JSON
-
-                representation, that representation will be embedded adding a
-                field
-
-                `value` which holds the custom JSON in addition to the `@type`
-
-                field. Example (for message [google.protobuf.Duration][]):
-
-                    {
-                      "@type": "type.googleapis.com/google.protobuf.Duration",
-                      "value": "1.212s"
-                    }
             created_at:
               type: string
               format: date-time
@@ -61016,6 +60523,7 @@ definitions:
           group_policies are the group policies info associated with the
           provided group.
       pagination:
+        description: pagination defines the pagination in the response.
         type: object
         properties:
           next_key:
@@ -61033,14 +60541,6 @@ definitions:
               PageRequest.count_total
 
               was set, its value is undefined otherwise
-        description: |-
-          PageResponse is to be embedded in gRPC response messages where the
-          corresponding request message has used PageRequest.
-
-           message SomeResponse {
-                   repeated Bar results = 1;
-                   PageResponse page = 2;
-           }
     description: >-
       QueryGroupPoliciesByGroupResponse is the Query/GroupPoliciesByGroup
       response type.
@@ -61048,6 +60548,7 @@ definitions:
     type: object
     properties:
       info:
+        description: info is the GroupPolicyInfo for the group policy.
         type: object
         properties:
           address:
@@ -61074,6 +60575,7 @@ definitions:
 
               would create a different result on a running proposal.
           decision_policy:
+            description: decision_policy specifies the group policy's decision policy.
             type: object
             properties:
               '@type':
@@ -61132,119 +60634,12 @@ definitions:
 
                   used with implementation specific semantics.
             additionalProperties: {}
-            description: >-
-              `Any` contains an arbitrary serialized protocol buffer message
-              along with a
-
-              URL that describes the type of the serialized message.
-
-
-              Protobuf library provides support to pack/unpack Any values in the
-              form
-
-              of utility functions or additional generated methods of the Any
-              type.
-
-
-              Example 1: Pack and unpack a message in C++.
-
-                  Foo foo = ...;
-                  Any any;
-                  any.PackFrom(foo);
-                  ...
-                  if (any.UnpackTo(&foo)) {
-                    ...
-                  }
-
-              Example 2: Pack and unpack a message in Java.
-
-                  Foo foo = ...;
-                  Any any = Any.pack(foo);
-                  ...
-                  if (any.is(Foo.class)) {
-                    foo = any.unpack(Foo.class);
-                  }
-
-               Example 3: Pack and unpack a message in Python.
-
-                  foo = Foo(...)
-                  any = Any()
-                  any.Pack(foo)
-                  ...
-                  if any.Is(Foo.DESCRIPTOR):
-                    any.Unpack(foo)
-                    ...
-
-               Example 4: Pack and unpack a message in Go
-
-                   foo := &pb.Foo{...}
-                   any, err := anypb.New(foo)
-                   if err != nil {
-                     ...
-                   }
-                   ...
-                   foo := &pb.Foo{}
-                   if err := any.UnmarshalTo(foo); err != nil {
-                     ...
-                   }
-
-              The pack methods provided by protobuf library will by default use
-
-              'type.googleapis.com/full.type.name' as the type URL and the
-              unpack
-
-              methods only use the fully qualified type name after the last '/'
-
-              in the type URL, for example "foo.bar.com/x/y.z" will yield type
-
-              name "y.z".
-
-
-
-              JSON
-
-              ====
-
-              The JSON representation of an `Any` value uses the regular
-
-              representation of the deserialized, embedded message, with an
-
-              additional field `@type` which contains the type URL. Example:
-
-                  package google.profile;
-                  message Person {
-                    string first_name = 1;
-                    string last_name = 2;
-                  }
-
-                  {
-                    "@type": "type.googleapis.com/google.profile.Person",
-                    "firstName": <string>,
-                    "lastName": <string>
-                  }
-
-              If the embedded message type is well-known and has a custom JSON
-
-              representation, that representation will be embedded adding a
-              field
-
-              `value` which holds the custom JSON in addition to the `@type`
-
-              field. Example (for message [google.protobuf.Duration][]):
-
-                  {
-                    "@type": "type.googleapis.com/google.protobuf.Duration",
-                    "value": "1.212s"
-                  }
           created_at:
             type: string
             format: date-time
             description: >-
               created_at is a timestamp specifying when a group policy was
               created.
-        description: >-
-          GroupPolicyInfo represents the high-level on-chain information for a
-          group policy.
     description: QueryGroupPolicyInfoResponse is the Query/GroupPolicyInfo response type.
   cosmos.group.v1.QueryGroupsByAdminResponse:
     type: object
@@ -61290,6 +60685,7 @@ definitions:
             group.
         description: groups are the groups info with the provided admin.
       pagination:
+        description: pagination defines the pagination in the response.
         type: object
         properties:
           next_key:
@@ -61307,14 +60703,6 @@ definitions:
               PageRequest.count_total
 
               was set, its value is undefined otherwise
-        description: |-
-          PageResponse is to be embedded in gRPC response messages where the
-          corresponding request message has used PageRequest.
-
-           message SomeResponse {
-                   repeated Bar results = 1;
-                   PageResponse page = 2;
-           }
     description: >-
       QueryGroupsByAdminResponse is the Query/GroupsByAdminResponse response
       type.
@@ -61362,6 +60750,7 @@ definitions:
             group.
         description: groups are the groups info with the provided group member.
       pagination:
+        description: pagination defines the pagination in the response.
         type: object
         properties:
           next_key:
@@ -61379,19 +60768,78 @@ definitions:
               PageRequest.count_total
 
               was set, its value is undefined otherwise
-        description: |-
-          PageResponse is to be embedded in gRPC response messages where the
-          corresponding request message has used PageRequest.
-
-           message SomeResponse {
-                   repeated Bar results = 1;
-                   PageResponse page = 2;
-           }
     description: QueryGroupsByMemberResponse is the Query/GroupsByMember response type.
+  cosmos.group.v1.QueryGroupsResponse:
+    type: object
+    properties:
+      groups:
+        type: array
+        items:
+          type: object
+          properties:
+            id:
+              type: string
+              format: uint64
+              description: id is the unique ID of the group.
+            admin:
+              type: string
+              description: admin is the account address of the group's admin.
+            metadata:
+              type: string
+              description: metadata is any arbitrary metadata to attached to the group.
+            version:
+              type: string
+              format: uint64
+              title: >-
+                version is used to track changes to a group's membership
+                structure that
+
+                would break existing proposals. Whenever any members weight is
+                changed,
+
+                or any member is added or removed this version is incremented
+                and will
+
+                cause proposals based on older versions of this group to fail
+            total_weight:
+              type: string
+              description: total_weight is the sum of the group members' weights.
+            created_at:
+              type: string
+              format: date-time
+              description: created_at is a timestamp specifying when a group was created.
+          description: >-
+            GroupInfo represents the high-level on-chain information for a
+            group.
+        description: '`groups` is all the groups present in state.'
+      pagination:
+        description: pagination defines the pagination in the response.
+        type: object
+        properties:
+          next_key:
+            type: string
+            format: byte
+            description: |-
+              next_key is the key to be passed to PageRequest.key to
+              query the next page most efficiently. It will be empty if
+              there are no more results.
+          total:
+            type: string
+            format: uint64
+            title: >-
+              total is total number of results available if
+              PageRequest.count_total
+
+              was set, its value is undefined otherwise
+    description: |-
+      QueryGroupsResponse is the Query/Groups response type.
+
+      Since: cosmos-sdk 0.47.1
   cosmos.group.v1.QueryProposalResponse:
     type: object
     properties:
       proposal:
+        description: proposal is the proposal info.
         type: object
         properties:
           id:
@@ -61437,6 +60885,9 @@ definitions:
 
               This field is here for informational purposes only.
           status:
+            description: >-
+              status represents the high level position in the life cycle of the
+              proposal. Initial value is Submitted.
             type: string
             enum:
               - PROPOSAL_STATUS_UNSPECIFIED
@@ -61446,20 +60897,17 @@ definitions:
               - PROPOSAL_STATUS_ABORTED
               - PROPOSAL_STATUS_WITHDRAWN
             default: PROPOSAL_STATUS_UNSPECIFIED
-            description: |-
-              ProposalStatus defines proposal statuses.
-
-               - PROPOSAL_STATUS_UNSPECIFIED: An empty value is invalid and not allowed.
-               - PROPOSAL_STATUS_SUBMITTED: Initial status of a proposal when submitted.
-               - PROPOSAL_STATUS_ACCEPTED: Final status of a proposal when the final tally is done and the outcome
-              passes the group policy's decision policy.
-               - PROPOSAL_STATUS_REJECTED: Final status of a proposal when the final tally is done and the outcome
-              is rejected by the group policy's decision policy.
-               - PROPOSAL_STATUS_ABORTED: Final status of a proposal when the group policy is modified before the
-              final tally.
-               - PROPOSAL_STATUS_WITHDRAWN: A proposal can be withdrawn before the voting start time by the owner.
-              When this happens the final status is Withdrawn.
           final_tally_result:
+            description: >-
+              final_tally_result contains the sums of all weighted votes for
+              this
+
+              proposal for each vote option. It is empty at submission, and only
+
+              populated after tallying, at voting period end or at proposal
+              execution,
+
+              whichever happens first.
             type: object
             properties:
               yes_count:
@@ -61474,9 +60922,6 @@ definitions:
               no_with_veto_count:
                 type: string
                 description: no_with_veto_count is the weighted sum of veto.
-            description: >-
-              TallyResult represents the sum of weighted votes for each vote
-              option.
           voting_period_end:
             type: string
             format: date-time
@@ -61495,6 +60940,9 @@ definitions:
 
               accordingly updated.
           executor_result:
+            description: >-
+              executor_result is the final result of the proposal execution.
+              Initial value is NotRun.
             type: string
             enum:
               - PROPOSAL_EXECUTOR_RESULT_UNSPECIFIED
@@ -61502,13 +60950,6 @@ definitions:
               - PROPOSAL_EXECUTOR_RESULT_SUCCESS
               - PROPOSAL_EXECUTOR_RESULT_FAILURE
             default: PROPOSAL_EXECUTOR_RESULT_UNSPECIFIED
-            description: |-
-              ProposalExecutorResult defines types of proposal executor results.
-
-               - PROPOSAL_EXECUTOR_RESULT_UNSPECIFIED: An empty value is not allowed.
-               - PROPOSAL_EXECUTOR_RESULT_NOT_RUN: We have not yet run the executor.
-               - PROPOSAL_EXECUTOR_RESULT_SUCCESS: The executor was successful and proposed action updated state.
-               - PROPOSAL_EXECUTOR_RESULT_FAILURE: The executor returned an error and proposed action didn't update state.
           messages:
             type: array
             items:
@@ -61681,16 +61122,6 @@ definitions:
             description: >-
               messages is a list of `sdk.Msg`s that will be executed if the
               proposal passes.
-        description: >-
-          Proposal defines a group proposal. Any member of a group can submit a
-          proposal
-
-          for a group policy to decide upon.
-
-          A proposal consists of a set of `sdk.Msg`s that will be executed if
-          the proposal
-
-          passes as well as some optional metadata associated with the proposal.
     description: QueryProposalResponse is the Query/Proposal response type.
   cosmos.group.v1.QueryProposalsByGroupPolicyResponse:
     type: object
@@ -61743,6 +61174,9 @@ definitions:
 
                 This field is here for informational purposes only.
             status:
+              description: >-
+                status represents the high level position in the life cycle of
+                the proposal. Initial value is Submitted.
               type: string
               enum:
                 - PROPOSAL_STATUS_UNSPECIFIED
@@ -61752,20 +61186,18 @@ definitions:
                 - PROPOSAL_STATUS_ABORTED
                 - PROPOSAL_STATUS_WITHDRAWN
               default: PROPOSAL_STATUS_UNSPECIFIED
-              description: |-
-                ProposalStatus defines proposal statuses.
-
-                 - PROPOSAL_STATUS_UNSPECIFIED: An empty value is invalid and not allowed.
-                 - PROPOSAL_STATUS_SUBMITTED: Initial status of a proposal when submitted.
-                 - PROPOSAL_STATUS_ACCEPTED: Final status of a proposal when the final tally is done and the outcome
-                passes the group policy's decision policy.
-                 - PROPOSAL_STATUS_REJECTED: Final status of a proposal when the final tally is done and the outcome
-                is rejected by the group policy's decision policy.
-                 - PROPOSAL_STATUS_ABORTED: Final status of a proposal when the group policy is modified before the
-                final tally.
-                 - PROPOSAL_STATUS_WITHDRAWN: A proposal can be withdrawn before the voting start time by the owner.
-                When this happens the final status is Withdrawn.
             final_tally_result:
+              description: >-
+                final_tally_result contains the sums of all weighted votes for
+                this
+
+                proposal for each vote option. It is empty at submission, and
+                only
+
+                populated after tallying, at voting period end or at proposal
+                execution,
+
+                whichever happens first.
               type: object
               properties:
                 yes_count:
@@ -61780,9 +61212,6 @@ definitions:
                 no_with_veto_count:
                   type: string
                   description: no_with_veto_count is the weighted sum of veto.
-              description: >-
-                TallyResult represents the sum of weighted votes for each vote
-                option.
             voting_period_end:
               type: string
               format: date-time
@@ -61801,6 +61230,9 @@ definitions:
 
                 accordingly updated.
             executor_result:
+              description: >-
+                executor_result is the final result of the proposal execution.
+                Initial value is NotRun.
               type: string
               enum:
                 - PROPOSAL_EXECUTOR_RESULT_UNSPECIFIED
@@ -61808,14 +61240,6 @@ definitions:
                 - PROPOSAL_EXECUTOR_RESULT_SUCCESS
                 - PROPOSAL_EXECUTOR_RESULT_FAILURE
               default: PROPOSAL_EXECUTOR_RESULT_UNSPECIFIED
-              description: >-
-                ProposalExecutorResult defines types of proposal executor
-                results.
-
-                 - PROPOSAL_EXECUTOR_RESULT_UNSPECIFIED: An empty value is not allowed.
-                 - PROPOSAL_EXECUTOR_RESULT_NOT_RUN: We have not yet run the executor.
-                 - PROPOSAL_EXECUTOR_RESULT_SUCCESS: The executor was successful and proposed action updated state.
-                 - PROPOSAL_EXECUTOR_RESULT_FAILURE: The executor returned an error and proposed action didn't update state.
             messages:
               type: array
               items:
@@ -62003,6 +61427,7 @@ definitions:
             proposal.
         description: proposals are the proposals with given group policy.
       pagination:
+        description: pagination defines the pagination in the response.
         type: object
         properties:
           next_key:
@@ -62020,14 +61445,6 @@ definitions:
               PageRequest.count_total
 
               was set, its value is undefined otherwise
-        description: |-
-          PageResponse is to be embedded in gRPC response messages where the
-          corresponding request message has used PageRequest.
-
-           message SomeResponse {
-                   repeated Bar results = 1;
-                   PageResponse page = 2;
-           }
     description: >-
       QueryProposalsByGroupPolicyResponse is the Query/ProposalByGroupPolicy
       response type.
@@ -62035,6 +61452,7 @@ definitions:
     type: object
     properties:
       tally:
+        description: tally defines the requested tally.
         type: object
         properties:
           yes_count:
@@ -62049,12 +61467,12 @@ definitions:
           no_with_veto_count:
             type: string
             description: no_with_veto_count is the weighted sum of veto.
-        description: TallyResult represents the sum of weighted votes for each vote option.
     description: QueryTallyResultResponse is the Query/TallyResult response type.
   cosmos.group.v1.QueryVoteByProposalVoterResponse:
     type: object
     properties:
       vote:
+        description: vote is the vote with given proposal_id and voter.
         type: object
         properties:
           proposal_id:
@@ -62065,6 +61483,7 @@ definitions:
             type: string
             description: voter is the account address of the voter.
           option:
+            description: option is the voter's choice on the proposal.
             type: string
             enum:
               - VOTE_OPTION_UNSPECIFIED
@@ -62073,15 +61492,6 @@ definitions:
               - VOTE_OPTION_NO
               - VOTE_OPTION_NO_WITH_VETO
             default: VOTE_OPTION_UNSPECIFIED
-            description: |-
-              VoteOption enumerates the valid vote options for a given proposal.
-
-               - VOTE_OPTION_UNSPECIFIED: VOTE_OPTION_UNSPECIFIED defines an unspecified vote option which will
-              return an error.
-               - VOTE_OPTION_YES: VOTE_OPTION_YES defines a yes vote option.
-               - VOTE_OPTION_ABSTAIN: VOTE_OPTION_ABSTAIN defines an abstain vote option.
-               - VOTE_OPTION_NO: VOTE_OPTION_NO defines a no vote option.
-               - VOTE_OPTION_NO_WITH_VETO: VOTE_OPTION_NO_WITH_VETO defines a no with veto vote option.
           metadata:
             type: string
             description: metadata is any arbitrary metadata to attached to the vote.
@@ -62089,7 +61499,6 @@ definitions:
             type: string
             format: date-time
             description: submit_time is the timestamp when the vote was submitted.
-        description: Vote represents a vote for a proposal.
     description: >-
       QueryVoteByProposalVoterResponse is the Query/VoteByProposalVoter response
       type.
@@ -62109,6 +61518,7 @@ definitions:
               type: string
               description: voter is the account address of the voter.
             option:
+              description: option is the voter's choice on the proposal.
               type: string
               enum:
                 - VOTE_OPTION_UNSPECIFIED
@@ -62117,16 +61527,6 @@ definitions:
                 - VOTE_OPTION_NO
                 - VOTE_OPTION_NO_WITH_VETO
               default: VOTE_OPTION_UNSPECIFIED
-              description: >-
-                VoteOption enumerates the valid vote options for a given
-                proposal.
-
-                 - VOTE_OPTION_UNSPECIFIED: VOTE_OPTION_UNSPECIFIED defines an unspecified vote option which will
-                return an error.
-                 - VOTE_OPTION_YES: VOTE_OPTION_YES defines a yes vote option.
-                 - VOTE_OPTION_ABSTAIN: VOTE_OPTION_ABSTAIN defines an abstain vote option.
-                 - VOTE_OPTION_NO: VOTE_OPTION_NO defines a no vote option.
-                 - VOTE_OPTION_NO_WITH_VETO: VOTE_OPTION_NO_WITH_VETO defines a no with veto vote option.
             metadata:
               type: string
               description: metadata is any arbitrary metadata to attached to the vote.
@@ -62137,6 +61537,7 @@ definitions:
           description: Vote represents a vote for a proposal.
         description: votes are the list of votes for given proposal_id.
       pagination:
+        description: pagination defines the pagination in the response.
         type: object
         properties:
           next_key:
@@ -62154,14 +61555,6 @@ definitions:
               PageRequest.count_total
 
               was set, its value is undefined otherwise
-        description: |-
-          PageResponse is to be embedded in gRPC response messages where the
-          corresponding request message has used PageRequest.
-
-           message SomeResponse {
-                   repeated Bar results = 1;
-                   PageResponse page = 2;
-           }
     description: QueryVotesByProposalResponse is the Query/VotesByProposal response type.
   cosmos.group.v1.QueryVotesByVoterResponse:
     type: object
@@ -62179,6 +61572,7 @@ definitions:
               type: string
               description: voter is the account address of the voter.
             option:
+              description: option is the voter's choice on the proposal.
               type: string
               enum:
                 - VOTE_OPTION_UNSPECIFIED
@@ -62187,16 +61581,6 @@ definitions:
                 - VOTE_OPTION_NO
                 - VOTE_OPTION_NO_WITH_VETO
               default: VOTE_OPTION_UNSPECIFIED
-              description: >-
-                VoteOption enumerates the valid vote options for a given
-                proposal.
-
-                 - VOTE_OPTION_UNSPECIFIED: VOTE_OPTION_UNSPECIFIED defines an unspecified vote option which will
-                return an error.
-                 - VOTE_OPTION_YES: VOTE_OPTION_YES defines a yes vote option.
-                 - VOTE_OPTION_ABSTAIN: VOTE_OPTION_ABSTAIN defines an abstain vote option.
-                 - VOTE_OPTION_NO: VOTE_OPTION_NO defines a no vote option.
-                 - VOTE_OPTION_NO_WITH_VETO: VOTE_OPTION_NO_WITH_VETO defines a no with veto vote option.
             metadata:
               type: string
               description: metadata is any arbitrary metadata to attached to the vote.
@@ -62207,6 +61591,7 @@ definitions:
           description: Vote represents a vote for a proposal.
         description: votes are the list of votes by given voter.
       pagination:
+        description: pagination defines the pagination in the response.
         type: object
         properties:
           next_key:
@@ -62224,14 +61609,6 @@ definitions:
               PageRequest.count_total
 
               was set, its value is undefined otherwise
-        description: |-
-          PageResponse is to be embedded in gRPC response messages where the
-          corresponding request message has used PageRequest.
-
-           message SomeResponse {
-                   repeated Bar results = 1;
-                   PageResponse page = 2;
-           }
     description: QueryVotesByVoterResponse is the Query/VotesByVoter response type.
   cosmos.group.v1.TallyResult:
     type: object
@@ -62260,6 +61637,7 @@ definitions:
         type: string
         description: voter is the account address of the voter.
       option:
+        description: option is the voter's choice on the proposal.
         type: string
         enum:
           - VOTE_OPTION_UNSPECIFIED
@@ -62268,15 +61646,6 @@ definitions:
           - VOTE_OPTION_NO
           - VOTE_OPTION_NO_WITH_VETO
         default: VOTE_OPTION_UNSPECIFIED
-        description: |-
-          VoteOption enumerates the valid vote options for a given proposal.
-
-           - VOTE_OPTION_UNSPECIFIED: VOTE_OPTION_UNSPECIFIED defines an unspecified vote option which will
-          return an error.
-           - VOTE_OPTION_YES: VOTE_OPTION_YES defines a yes vote option.
-           - VOTE_OPTION_ABSTAIN: VOTE_OPTION_ABSTAIN defines an abstain vote option.
-           - VOTE_OPTION_NO: VOTE_OPTION_NO defines a no vote option.
-           - VOTE_OPTION_NO_WITH_VETO: VOTE_OPTION_NO_WITH_VETO defines a no with veto vote option.
       metadata:
         type: string
         description: metadata is any arbitrary metadata to attached to the vote.
@@ -67426,6 +66795,7 @@ definitions:
                     format: byte
                   index:
                     type: boolean
+                    title: nondeterministic
                 description: >-
                   EventAttribute is a single key-value pair, associated with an
                   event.
@@ -67713,6 +67083,7 @@ definitions:
         format: int64
         description: Amount of gas consumed by transaction.
       tx:
+        description: The request transaction bytes.
         type: object
         properties:
           '@type':
@@ -67768,107 +67139,6 @@ definitions:
 
               used with implementation specific semantics.
         additionalProperties: {}
-        description: >-
-          `Any` contains an arbitrary serialized protocol buffer message along
-          with a
-
-          URL that describes the type of the serialized message.
-
-
-          Protobuf library provides support to pack/unpack Any values in the
-          form
-
-          of utility functions or additional generated methods of the Any type.
-
-
-          Example 1: Pack and unpack a message in C++.
-
-              Foo foo = ...;
-              Any any;
-              any.PackFrom(foo);
-              ...
-              if (any.UnpackTo(&foo)) {
-                ...
-              }
-
-          Example 2: Pack and unpack a message in Java.
-
-              Foo foo = ...;
-              Any any = Any.pack(foo);
-              ...
-              if (any.is(Foo.class)) {
-                foo = any.unpack(Foo.class);
-              }
-
-           Example 3: Pack and unpack a message in Python.
-
-              foo = Foo(...)
-              any = Any()
-              any.Pack(foo)
-              ...
-              if any.Is(Foo.DESCRIPTOR):
-                any.Unpack(foo)
-                ...
-
-           Example 4: Pack and unpack a message in Go
-
-               foo := &pb.Foo{...}
-               any, err := anypb.New(foo)
-               if err != nil {
-                 ...
-               }
-               ...
-               foo := &pb.Foo{}
-               if err := any.UnmarshalTo(foo); err != nil {
-                 ...
-               }
-
-          The pack methods provided by protobuf library will by default use
-
-          'type.googleapis.com/full.type.name' as the type URL and the unpack
-
-          methods only use the fully qualified type name after the last '/'
-
-          in the type URL, for example "foo.bar.com/x/y.z" will yield type
-
-          name "y.z".
-
-
-
-          JSON
-
-          ====
-
-          The JSON representation of an `Any` value uses the regular
-
-          representation of the deserialized, embedded message, with an
-
-          additional field `@type` which contains the type URL. Example:
-
-              package google.profile;
-              message Person {
-                string first_name = 1;
-                string last_name = 2;
-              }
-
-              {
-                "@type": "type.googleapis.com/google.profile.Person",
-                "firstName": <string>,
-                "lastName": <string>
-              }
-
-          If the embedded message type is well-known and has a custom JSON
-
-          representation, that representation will be embedded adding a field
-
-          `value` which holds the custom JSON in addition to the `@type`
-
-          field. Example (for message [google.protobuf.Duration][]):
-
-              {
-                "@type": "type.googleapis.com/google.protobuf.Duration",
-                "value": "1.212s"
-              }
       timestamp:
         type: string
         description: >-
@@ -67899,6 +67169,7 @@ definitions:
                     format: byte
                   index:
                     type: boolean
+                    title: nondeterministic
                 description: >-
                   EventAttribute is a single key-value pair, associated with an
                   event.
@@ -67993,6 +67264,7 @@ definitions:
       signer_infos:
         type: array
         items:
+          type: object
           $ref: '#/definitions/cosmos.tx.v1beta1.SignerInfo'
         description: >-
           signer_infos defines the signing modes for the required signers. The
@@ -68005,6 +67277,17 @@ definitions:
 
           the fee.
       fee:
+        description: >-
+          Fee is the fee and gas limit for the transaction. The first signer is
+          the
+
+          primary signer and the one which pays the fee. The fee can be
+          calculated
+
+          based on the cost of evaluating the body and doing signature
+          verification
+
+          of the signers. This can be estimated via simulation.
         type: object
         properties:
           amount:
@@ -68054,14 +67337,19 @@ definitions:
               appropriate fee grant does not exist or the chain does
 
               not support fee grants, this will fail
-        description: >-
-          Fee includes the amount of coins paid in fees and the maximum
-
-          gas to be used by the transaction. The ratio yields an effective
-          "gasprice",
-
-          which must be above some miminum to be accepted into the mempool.
       tip:
+        description: >-
+          Tip is the optional tip used for transactions fees paid in another
+          denom.
+
+
+          This field is ignored if the chain didn't enable tips, i.e. didn't add
+          the
+
+          `TipDecorator` in its posthandler.
+
+
+          Since: cosmos-sdk 0.46
         type: object
         properties:
           amount:
@@ -68085,10 +67373,6 @@ definitions:
           tipper:
             type: string
             title: tipper is the address of the account paying for the tip
-        description: |-
-          Tip is the tip used for meta-transactions.
-
-          Since: cosmos-sdk 0.46
     description: |-
       AuthInfo describes the fee and signer modes that are used to sign a
       transaction.
@@ -68144,6 +67428,7 @@ definitions:
     type: object
     properties:
       tx_response:
+        description: tx_response is the queried TxResponses.
         type: object
         properties:
           height:
@@ -68228,6 +67513,7 @@ definitions:
             format: int64
             description: Amount of gas consumed by transaction.
           tx:
+            description: The request transaction bytes.
             type: object
             properties:
               '@type':
@@ -68286,110 +67572,6 @@ definitions:
 
                   used with implementation specific semantics.
             additionalProperties: {}
-            description: >-
-              `Any` contains an arbitrary serialized protocol buffer message
-              along with a
-
-              URL that describes the type of the serialized message.
-
-
-              Protobuf library provides support to pack/unpack Any values in the
-              form
-
-              of utility functions or additional generated methods of the Any
-              type.
-
-
-              Example 1: Pack and unpack a message in C++.
-
-                  Foo foo = ...;
-                  Any any;
-                  any.PackFrom(foo);
-                  ...
-                  if (any.UnpackTo(&foo)) {
-                    ...
-                  }
-
-              Example 2: Pack and unpack a message in Java.
-
-                  Foo foo = ...;
-                  Any any = Any.pack(foo);
-                  ...
-                  if (any.is(Foo.class)) {
-                    foo = any.unpack(Foo.class);
-                  }
-
-               Example 3: Pack and unpack a message in Python.
-
-                  foo = Foo(...)
-                  any = Any()
-                  any.Pack(foo)
-                  ...
-                  if any.Is(Foo.DESCRIPTOR):
-                    any.Unpack(foo)
-                    ...
-
-               Example 4: Pack and unpack a message in Go
-
-                   foo := &pb.Foo{...}
-                   any, err := anypb.New(foo)
-                   if err != nil {
-                     ...
-                   }
-                   ...
-                   foo := &pb.Foo{}
-                   if err := any.UnmarshalTo(foo); err != nil {
-                     ...
-                   }
-
-              The pack methods provided by protobuf library will by default use
-
-              'type.googleapis.com/full.type.name' as the type URL and the
-              unpack
-
-              methods only use the fully qualified type name after the last '/'
-
-              in the type URL, for example "foo.bar.com/x/y.z" will yield type
-
-              name "y.z".
-
-
-
-              JSON
-
-              ====
-
-              The JSON representation of an `Any` value uses the regular
-
-              representation of the deserialized, embedded message, with an
-
-              additional field `@type` which contains the type URL. Example:
-
-                  package google.profile;
-                  message Person {
-                    string first_name = 1;
-                    string last_name = 2;
-                  }
-
-                  {
-                    "@type": "type.googleapis.com/google.profile.Person",
-                    "firstName": <string>,
-                    "lastName": <string>
-                  }
-
-              If the embedded message type is well-known and has a custom JSON
-
-              representation, that representation will be embedded adding a
-              field
-
-              `value` which holds the custom JSON in addition to the `@type`
-
-              field. Example (for message [google.protobuf.Duration][]):
-
-                  {
-                    "@type": "type.googleapis.com/google.protobuf.Duration",
-                    "value": "1.212s"
-                  }
           timestamp:
             type: string
             description: >-
@@ -68420,6 +67602,7 @@ definitions:
                         format: byte
                       index:
                         type: boolean
+                        title: nondeterministic
                     description: >-
                       EventAttribute is a single key-value pair, associated with
                       an event.
@@ -68444,11 +67627,6 @@ definitions:
 
 
               Since: cosmos-sdk 0.42.11, 0.44.5, 0.45
-        description: >-
-          TxResponse defines a structure containing relevant tx data and
-          metadata. The
-
-          tags are stringified and the log is JSON decoded.
     description: |-
       BroadcastTxResponse is the response type for the
       Service.BroadcastTx method.
@@ -68512,6 +67690,7 @@ definitions:
       txs:
         type: array
         items:
+          type: object
           $ref: '#/definitions/cosmos.tx.v1beta1.Tx'
         description: txs are the transactions in the block.
       block_id:
@@ -68538,6 +67717,7 @@ definitions:
             type: object
             properties:
               version:
+                title: basic block info
                 type: object
                 properties:
                   block:
@@ -68582,34 +67762,43 @@ definitions:
               last_commit_hash:
                 type: string
                 format: byte
+                description: commit from validators from the last block
                 title: hashes of block data
               data_hash:
                 type: string
                 format: byte
+                title: transactions
               validators_hash:
                 type: string
                 format: byte
+                description: validators for the current block
                 title: hashes from the app output from the prev block
               next_validators_hash:
                 type: string
                 format: byte
+                title: validators for the next block
               consensus_hash:
                 type: string
                 format: byte
+                title: consensus params for current block
               app_hash:
                 type: string
                 format: byte
+                title: state after txs from the previous block
               last_results_hash:
                 type: string
                 format: byte
+                title: root hash of all results from the txs from the previous block
               evidence_hash:
                 type: string
                 format: byte
+                description: evidence included in the block
                 title: consensus info
               proposer_address:
                 type: string
                 format: byte
-            description: Header defines the structure of a Tendermint block header.
+                title: original proposer of the block
+            description: Header defines the structure of a block header.
           data:
             type: object
             properties:
@@ -68677,6 +67866,7 @@ definitions:
                                       format: byte
                                   title: PartsetHeader
                               title: BlockID
+                              description: zero if vote is nil.
                             timestamp:
                               type: string
                               format: date-time
@@ -68734,6 +67924,7 @@ definitions:
                                       format: byte
                                   title: PartsetHeader
                               title: BlockID
+                              description: zero if vote is nil.
                             timestamp:
                               type: string
                               format: date-time
@@ -68776,6 +67967,7 @@ definitions:
                                   type: object
                                   properties:
                                     version:
+                                      title: basic block info
                                       type: object
                                       properties:
                                         block:
@@ -68821,38 +68013,51 @@ definitions:
                                     last_commit_hash:
                                       type: string
                                       format: byte
+                                      description: >-
+                                        commit from validators from the last
+                                        block
                                       title: hashes of block data
                                     data_hash:
                                       type: string
                                       format: byte
+                                      title: transactions
                                     validators_hash:
                                       type: string
                                       format: byte
+                                      description: validators for the current block
                                       title: >-
                                         hashes from the app output from the prev
                                         block
                                     next_validators_hash:
                                       type: string
                                       format: byte
+                                      title: validators for the next block
                                     consensus_hash:
                                       type: string
                                       format: byte
+                                      title: consensus params for current block
                                     app_hash:
                                       type: string
                                       format: byte
+                                      title: state after txs from the previous block
                                     last_results_hash:
                                       type: string
                                       format: byte
+                                      title: >-
+                                        root hash of all results from the txs
+                                        from the previous block
                                     evidence_hash:
                                       type: string
                                       format: byte
+                                      description: evidence included in the block
                                       title: consensus info
                                     proposer_address:
                                       type: string
                                       format: byte
+                                      title: original proposer of the block
                                   description: >-
-                                    Header defines the structure of a Tendermint
-                                    block header.
+                                    Header defines the structure of a block
+                                    header.
                                 commit:
                                   type: object
                                   properties:
@@ -68932,7 +68137,7 @@ definitions:
                                             format: byte
                                         title: >-
                                           PublicKey defines the keys available for
-                                          use with Tendermint Validators
+                                          use with Validators
                                       voting_power:
                                         type: string
                                         format: int64
@@ -68956,7 +68161,7 @@ definitions:
                                           format: byte
                                       title: >-
                                         PublicKey defines the keys available for
-                                        use with Tendermint Validators
+                                        use with Validators
                                     voting_power:
                                       type: string
                                       format: int64
@@ -68988,7 +68193,7 @@ definitions:
                                     format: byte
                                 title: >-
                                   PublicKey defines the keys available for use
-                                  with Tendermint Validators
+                                  with Validators
                               voting_power:
                                 type: string
                                 format: int64
@@ -69058,6 +68263,7 @@ definitions:
               Commit contains the evidence that a block was committed by a set
               of validators.
       pagination:
+        description: pagination defines a pagination for the response.
         type: object
         properties:
           next_key:
@@ -69075,14 +68281,6 @@ definitions:
               PageRequest.count_total
 
               was set, its value is undefined otherwise
-        description: |-
-          PageResponse is to be embedded in gRPC response messages where the
-          corresponding request message has used PageRequest.
-
-           message SomeResponse {
-                   repeated Bar results = 1;
-                   PageResponse page = 2;
-           }
     description: >-
       GetBlockWithTxsResponse is the response type for the
       Service.GetBlockWithTxs method.
@@ -69094,7 +68292,9 @@ definitions:
     properties:
       tx:
         $ref: '#/definitions/cosmos.tx.v1beta1.Tx'
+        description: tx is the queried transaction.
       tx_response:
+        description: tx_response is the queried TxResponses.
         type: object
         properties:
           height:
@@ -69179,6 +68379,7 @@ definitions:
             format: int64
             description: Amount of gas consumed by transaction.
           tx:
+            description: The request transaction bytes.
             type: object
             properties:
               '@type':
@@ -69237,110 +68438,6 @@ definitions:
 
                   used with implementation specific semantics.
             additionalProperties: {}
-            description: >-
-              `Any` contains an arbitrary serialized protocol buffer message
-              along with a
-
-              URL that describes the type of the serialized message.
-
-
-              Protobuf library provides support to pack/unpack Any values in the
-              form
-
-              of utility functions or additional generated methods of the Any
-              type.
-
-
-              Example 1: Pack and unpack a message in C++.
-
-                  Foo foo = ...;
-                  Any any;
-                  any.PackFrom(foo);
-                  ...
-                  if (any.UnpackTo(&foo)) {
-                    ...
-                  }
-
-              Example 2: Pack and unpack a message in Java.
-
-                  Foo foo = ...;
-                  Any any = Any.pack(foo);
-                  ...
-                  if (any.is(Foo.class)) {
-                    foo = any.unpack(Foo.class);
-                  }
-
-               Example 3: Pack and unpack a message in Python.
-
-                  foo = Foo(...)
-                  any = Any()
-                  any.Pack(foo)
-                  ...
-                  if any.Is(Foo.DESCRIPTOR):
-                    any.Unpack(foo)
-                    ...
-
-               Example 4: Pack and unpack a message in Go
-
-                   foo := &pb.Foo{...}
-                   any, err := anypb.New(foo)
-                   if err != nil {
-                     ...
-                   }
-                   ...
-                   foo := &pb.Foo{}
-                   if err := any.UnmarshalTo(foo); err != nil {
-                     ...
-                   }
-
-              The pack methods provided by protobuf library will by default use
-
-              'type.googleapis.com/full.type.name' as the type URL and the
-              unpack
-
-              methods only use the fully qualified type name after the last '/'
-
-              in the type URL, for example "foo.bar.com/x/y.z" will yield type
-
-              name "y.z".
-
-
-
-              JSON
-
-              ====
-
-              The JSON representation of an `Any` value uses the regular
-
-              representation of the deserialized, embedded message, with an
-
-              additional field `@type` which contains the type URL. Example:
-
-                  package google.profile;
-                  message Person {
-                    string first_name = 1;
-                    string last_name = 2;
-                  }
-
-                  {
-                    "@type": "type.googleapis.com/google.profile.Person",
-                    "firstName": <string>,
-                    "lastName": <string>
-                  }
-
-              If the embedded message type is well-known and has a custom JSON
-
-              representation, that representation will be embedded adding a
-              field
-
-              `value` which holds the custom JSON in addition to the `@type`
-
-              field. Example (for message [google.protobuf.Duration][]):
-
-                  {
-                    "@type": "type.googleapis.com/google.protobuf.Duration",
-                    "value": "1.212s"
-                  }
           timestamp:
             type: string
             description: >-
@@ -69371,6 +68468,7 @@ definitions:
                         format: byte
                       index:
                         type: boolean
+                        title: nondeterministic
                     description: >-
                       EventAttribute is a single key-value pair, associated with
                       an event.
@@ -69395,11 +68493,6 @@ definitions:
 
 
               Since: cosmos-sdk 0.42.11, 0.44.5, 0.45
-        description: >-
-          TxResponse defines a structure containing relevant tx data and
-          metadata. The
-
-          tags are stringified and the log is JSON decoded.
     description: GetTxResponse is the response type for the Service.GetTx method.
   cosmos.tx.v1beta1.GetTxsEventResponse:
     type: object
@@ -69407,6 +68500,7 @@ definitions:
       txs:
         type: array
         items:
+          type: object
           $ref: '#/definitions/cosmos.tx.v1beta1.Tx'
         description: txs is the list of queried transactions.
       tx_responses:
@@ -69496,6 +68590,7 @@ definitions:
               format: int64
               description: Amount of gas consumed by transaction.
             tx:
+              description: The request transaction bytes.
               type: object
               properties:
                 '@type':
@@ -69556,112 +68651,6 @@ definitions:
 
                     used with implementation specific semantics.
               additionalProperties: {}
-              description: >-
-                `Any` contains an arbitrary serialized protocol buffer message
-                along with a
-
-                URL that describes the type of the serialized message.
-
-
-                Protobuf library provides support to pack/unpack Any values in
-                the form
-
-                of utility functions or additional generated methods of the Any
-                type.
-
-
-                Example 1: Pack and unpack a message in C++.
-
-                    Foo foo = ...;
-                    Any any;
-                    any.PackFrom(foo);
-                    ...
-                    if (any.UnpackTo(&foo)) {
-                      ...
-                    }
-
-                Example 2: Pack and unpack a message in Java.
-
-                    Foo foo = ...;
-                    Any any = Any.pack(foo);
-                    ...
-                    if (any.is(Foo.class)) {
-                      foo = any.unpack(Foo.class);
-                    }
-
-                 Example 3: Pack and unpack a message in Python.
-
-                    foo = Foo(...)
-                    any = Any()
-                    any.Pack(foo)
-                    ...
-                    if any.Is(Foo.DESCRIPTOR):
-                      any.Unpack(foo)
-                      ...
-
-                 Example 4: Pack and unpack a message in Go
-
-                     foo := &pb.Foo{...}
-                     any, err := anypb.New(foo)
-                     if err != nil {
-                       ...
-                     }
-                     ...
-                     foo := &pb.Foo{}
-                     if err := any.UnmarshalTo(foo); err != nil {
-                       ...
-                     }
-
-                The pack methods provided by protobuf library will by default
-                use
-
-                'type.googleapis.com/full.type.name' as the type URL and the
-                unpack
-
-                methods only use the fully qualified type name after the last
-                '/'
-
-                in the type URL, for example "foo.bar.com/x/y.z" will yield type
-
-                name "y.z".
-
-
-
-                JSON
-
-                ====
-
-                The JSON representation of an `Any` value uses the regular
-
-                representation of the deserialized, embedded message, with an
-
-                additional field `@type` which contains the type URL. Example:
-
-                    package google.profile;
-                    message Person {
-                      string first_name = 1;
-                      string last_name = 2;
-                    }
-
-                    {
-                      "@type": "type.googleapis.com/google.profile.Person",
-                      "firstName": <string>,
-                      "lastName": <string>
-                    }
-
-                If the embedded message type is well-known and has a custom JSON
-
-                representation, that representation will be embedded adding a
-                field
-
-                `value` which holds the custom JSON in addition to the `@type`
-
-                field. Example (for message [google.protobuf.Duration][]):
-
-                    {
-                      "@type": "type.googleapis.com/google.protobuf.Duration",
-                      "value": "1.212s"
-                    }
             timestamp:
               type: string
               description: >-
@@ -69692,6 +68681,7 @@ definitions:
                           format: byte
                         index:
                           type: boolean
+                          title: nondeterministic
                       description: >-
                         EventAttribute is a single key-value pair, associated
                         with an event.
@@ -69723,6 +68713,9 @@ definitions:
             tags are stringified and the log is JSON decoded.
         description: tx_responses is the list of queried TxResponses.
       pagination:
+        description: |-
+          pagination defines a pagination for the response.
+          Deprecated post v0.46.x: use total instead.
         type: object
         properties:
           next_key:
@@ -69740,14 +68733,6 @@ definitions:
               PageRequest.count_total
 
               was set, its value is undefined otherwise
-        description: |-
-          PageResponse is to be embedded in gRPC response messages where the
-          corresponding request message has used PageRequest.
-
-           message SomeResponse {
-                   repeated Bar results = 1;
-                   PageResponse page = 2;
-           }
       total:
         type: string
         format: uint64
@@ -69759,9 +68744,11 @@ definitions:
     type: object
     properties:
       single:
+        title: single represents a single signer
         type: object
         properties:
           mode:
+            title: mode is the signing mode of the single signer
             type: string
             enum:
               - SIGN_MODE_UNSPECIFIED
@@ -69829,21 +68816,15 @@ definitions:
 
 
               Since: cosmos-sdk 0.45.2
-        title: >-
-          Single is the mode info for a single signer. It is structured as a
-          message
-
-          to allow for additional fields such as locale for SIGN_MODE_TEXTUAL in
-          the
-
-          future
       multi:
         $ref: '#/definitions/cosmos.tx.v1beta1.ModeInfo.Multi'
+        title: multi represents a nested multisig signer
     description: ModeInfo describes the signing mode of a single or nested multisig signer.
   cosmos.tx.v1beta1.ModeInfo.Multi:
     type: object
     properties:
       bitarray:
+        title: bitarray specifies which keys within the multisig are signing
         type: object
         properties:
           extra_bits_stored:
@@ -69864,6 +68845,7 @@ definitions:
       mode_infos:
         type: array
         items:
+          type: object
           $ref: '#/definitions/cosmos.tx.v1beta1.ModeInfo'
         title: |-
           mode_infos is the corresponding modes of the signers of the multisig
@@ -69873,6 +68855,7 @@ definitions:
     type: object
     properties:
       mode:
+        title: mode is the signing mode of the single signer
         type: string
         enum:
           - SIGN_MODE_UNSPECIFIED
@@ -69958,6 +68941,14 @@ definitions:
     type: object
     properties:
       public_key:
+        description: >-
+          public_key is the public key of the signer. It is optional for
+          accounts
+
+          that already exist in state. If unset, the verifier can use the
+          required \
+
+          signer address for this position and lookup the public key.
         type: object
         properties:
           '@type':
@@ -70013,109 +69004,11 @@ definitions:
 
               used with implementation specific semantics.
         additionalProperties: {}
-        description: >-
-          `Any` contains an arbitrary serialized protocol buffer message along
-          with a
-
-          URL that describes the type of the serialized message.
-
-
-          Protobuf library provides support to pack/unpack Any values in the
-          form
-
-          of utility functions or additional generated methods of the Any type.
-
-
-          Example 1: Pack and unpack a message in C++.
-
-              Foo foo = ...;
-              Any any;
-              any.PackFrom(foo);
-              ...
-              if (any.UnpackTo(&foo)) {
-                ...
-              }
-
-          Example 2: Pack and unpack a message in Java.
-
-              Foo foo = ...;
-              Any any = Any.pack(foo);
-              ...
-              if (any.is(Foo.class)) {
-                foo = any.unpack(Foo.class);
-              }
-
-           Example 3: Pack and unpack a message in Python.
-
-              foo = Foo(...)
-              any = Any()
-              any.Pack(foo)
-              ...
-              if any.Is(Foo.DESCRIPTOR):
-                any.Unpack(foo)
-                ...
-
-           Example 4: Pack and unpack a message in Go
-
-               foo := &pb.Foo{...}
-               any, err := anypb.New(foo)
-               if err != nil {
-                 ...
-               }
-               ...
-               foo := &pb.Foo{}
-               if err := any.UnmarshalTo(foo); err != nil {
-                 ...
-               }
-
-          The pack methods provided by protobuf library will by default use
-
-          'type.googleapis.com/full.type.name' as the type URL and the unpack
-
-          methods only use the fully qualified type name after the last '/'
-
-          in the type URL, for example "foo.bar.com/x/y.z" will yield type
-
-          name "y.z".
-
-
-
-          JSON
-
-          ====
-
-          The JSON representation of an `Any` value uses the regular
-
-          representation of the deserialized, embedded message, with an
-
-          additional field `@type` which contains the type URL. Example:
-
-              package google.profile;
-              message Person {
-                string first_name = 1;
-                string last_name = 2;
-              }
-
-              {
-                "@type": "type.googleapis.com/google.profile.Person",
-                "firstName": <string>,
-                "lastName": <string>
-              }
-
-          If the embedded message type is well-known and has a custom JSON
-
-          representation, that representation will be embedded adding a field
-
-          `value` which holds the custom JSON in addition to the `@type`
-
-          field. Example (for message [google.protobuf.Duration][]):
-
-              {
-                "@type": "type.googleapis.com/google.protobuf.Duration",
-                "value": "1.212s"
-              }
       mode_info:
         $ref: '#/definitions/cosmos.tx.v1beta1.ModeInfo'
+        title: |-
+          mode_info describes the signing mode of the signer and is a nested
+          structure to support nested multisig pubkey's
       sequence:
         type: string
         format: uint64
@@ -70134,6 +69027,9 @@ definitions:
     properties:
       tx:
         $ref: '#/definitions/cosmos.tx.v1beta1.Tx'
+        description: |-
+          tx is the transaction to simulate.
+          Deprecated. Send raw tx bytes instead.
       tx_bytes:
         type: string
         format: byte
@@ -70148,6 +69044,7 @@ definitions:
     type: object
     properties:
       gas_info:
+        description: gas_info is the information about gas used in the simulation.
         type: object
         properties:
           gas_wanted:
@@ -70160,8 +69057,8 @@ definitions:
             type: string
             format: uint64
             description: GasUsed is the amount of gas actually consumed.
-        description: GasInfo defines tx execution gas context.
       result:
+        description: result is the result of the simulation.
         type: object
         properties:
           data:
@@ -70203,6 +69100,7 @@ definitions:
                         format: byte
                       index:
                         type: boolean
+                        title: nondeterministic
                     description: >-
                       EventAttribute is a single key-value pair, associated with
                       an event.
@@ -70394,7 +69292,6 @@ definitions:
 
 
               Since: cosmos-sdk 0.46
-        description: Result is the union of ResponseFormat and ResponseCheckTx.
     description: |-
       SimulateResponse is the response type for the
       Service.SimulateRPC method.
@@ -70427,6 +69324,7 @@ definitions:
     type: object
     properties:
       body:
+        title: body is the processable content of the transaction
         type: object
         properties:
           messages:
@@ -70990,6 +69888,9 @@ definitions:
         description: TxBody is the body of a transaction that all signers sign over.
       auth_info:
         $ref: '#/definitions/cosmos.tx.v1beta1.AuthInfo'
+        title: |-
+          auth_info is the authorization related content of the transaction,
+          specifically signers, signer modes and fee
       signatures:
         type: array
         items:
@@ -71558,6 +70459,7 @@ definitions:
               format: byte
             index:
               type: boolean
+              title: nondeterministic
           description: EventAttribute is a single key-value pair, associated with an event.
     description: >-
       Event allows application developers to attach additional information to
@@ -71577,6 +70479,7 @@ definitions:
         format: byte
       index:
         type: boolean
+        title: nondeterministic
     description: EventAttribute is a single key-value pair, associated with an event.
   cosmos.upgrade.v1beta1.ModuleVersion:
     type: object
@@ -72120,6 +71023,7 @@ definitions:
       length:
         type: string
         format: int64
+        description: Period duration in seconds.
       amount:
         type: array
         items:
