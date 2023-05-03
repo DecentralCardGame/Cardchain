@@ -26,7 +26,7 @@ faucet:
   host: 0.0.0.0:4500
 client:
   typescript:
-    path: ts-client
+    path: ../decentralcardgame-cardchain-client-ts
   vuex:
     path: vue/src/store
   composables:
