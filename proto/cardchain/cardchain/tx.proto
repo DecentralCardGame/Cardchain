@@ -52,9 +52,10 @@ service Msg {
   rpc SetCollectionArtist             (MsgSetCollectionArtist            ) returns (MsgSetCollectionArtistResponse            );
   rpc SetUserWebsite                  (MsgSetUserWebsite                 ) returns (MsgSetUserWebsiteResponse                 );
   rpc SetUserBiography                (MsgSetUserBiography               ) returns (MsgSetUserBiographyResponse               );
-  // this line is used by starport scaffolding # proto/tx/rpc
-}
 
+  // this line is used by starport scaffolding # proto/tx/rpc
+  rpc MultiVoteCard (MsgMultiVoteCard) returns (MsgMultiVoteCardResponse);
+}
 message MsgCreateuser {
   string creator = 1;
   string newUser = 2;
@@ -70,7 +71,7 @@ message MsgBuyCardScheme {
   cosmos.base.v1beta1.Coin bid     = 2 [(gogoproto.nullable) = false, (gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coin"];
 
   /*
-               string bid = 2;
+                       string bid = 2;
    */}
 
 message MsgBuyCardSchemeResponse {}
@@ -394,4 +395,17 @@ message MsgSetUserBiography {
 
 message MsgSetUserBiographyResponse {}
 
+
+message SingleVote {
+  uint64 cardId   = 1;
+  string voteType = 2;
+}
+
 // this line is used by starport scaffolding # proto/tx/message
+message MsgMultiVoteCard {
+  string creator = 1;
+  repeated SingleVote votes = 2;
+}
+
+message MsgMultiVoteCardResponse {}
+

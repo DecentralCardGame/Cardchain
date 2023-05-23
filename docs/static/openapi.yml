@@ -35566,7 +35566,174 @@ paths:
                   properties:
                     '@type':
                       type: string
+                      description: >-
+                        A URL/resource name that uniquely identifies the type of
+                        the serialized
+
+                        protocol buffer message. This string must contain at
+                        least
+
+                        one "/" character. The last segment of the URL's path
+                        must represent
+
+                        the fully qualified name of the type (as in
+
+                        `path/google.protobuf.Duration`). The name should be in
+                        a canonical form
+
+                        (e.g., leading "." is not accepted).
+
+
+                        In practice, teams usually precompile into the binary
+                        all types that they
+
+                        expect it to use in the context of Any. However, for
+                        URLs which use the
+
+                        scheme `http`, `https`, or no scheme, one can optionally
+                        set up a type
+
+                        server that maps type URLs to message definitions as
+                        follows:
+
+
+                        * If no scheme is provided, `https` is assumed.
+
+                        * An HTTP GET on the URL must yield a
+                        [google.protobuf.Type][]
+                          value in binary format, or produce an error.
+                        * Applications are allowed to cache lookup results based
+                        on the
+                          URL, or have them precompiled into a binary to avoid any
+                          lookup. Therefore, binary compatibility needs to be preserved
+                          on changes to types. (Use versioned type names to manage
+                          breaking changes.)
+
+                        Note: this functionality is not currently available in
+                        the official
+
+                        protobuf release, and it is not used for type URLs
+                        beginning with
+
+                        type.googleapis.com.
+
+
+                        Schemes other than `http`, `https` (or the empty scheme)
+                        might be
+
+                        used with implementation specific semantics.
                   additionalProperties: {}
+                  description: >-
+                    `Any` contains an arbitrary serialized protocol buffer
+                    message along with a
+
+                    URL that describes the type of the serialized message.
+
+
+                    Protobuf library provides support to pack/unpack Any values
+                    in the form
+
+                    of utility functions or additional generated methods of the
+                    Any type.
+
+
+                    Example 1: Pack and unpack a message in C++.
+
+                        Foo foo = ...;
+                        Any any;
+                        any.PackFrom(foo);
+                        ...
+                        if (any.UnpackTo(&foo)) {
+                          ...
+                        }
+
+                    Example 2: Pack and unpack a message in Java.
+
+                        Foo foo = ...;
+                        Any any = Any.pack(foo);
+                        ...
+                        if (any.is(Foo.class)) {
+                          foo = any.unpack(Foo.class);
+                        }
+
+                     Example 3: Pack and unpack a message in Python.
+
+                        foo = Foo(...)
+                        any = Any()
+                        any.Pack(foo)
+                        ...
+                        if any.Is(Foo.DESCRIPTOR):
+                          any.Unpack(foo)
+                          ...
+
+                     Example 4: Pack and unpack a message in Go
+
+                         foo := &pb.Foo{...}
+                         any, err := anypb.New(foo)
+                         if err != nil {
+                           ...
+                         }
+                         ...
+                         foo := &pb.Foo{}
+                         if err := any.UnmarshalTo(foo); err != nil {
+                           ...
+                         }
+
+                    The pack methods provided by protobuf library will by
+                    default use
+
+                    'type.googleapis.com/full.type.name' as the type URL and the
+                    unpack
+
+                    methods only use the fully qualified type name after the
+                    last '/'
+
+                    in the type URL, for example "foo.bar.com/x/y.z" will yield
+                    type
+
+                    name "y.z".
+
+
+
+                    JSON
+
+                    ====
+
+                    The JSON representation of an `Any` value uses the regular
+
+                    representation of the deserialized, embedded message, with
+                    an
+
+                    additional field `@type` which contains the type URL.
+                    Example:
+
+                        package google.profile;
+                        message Person {
+                          string first_name = 1;
+                          string last_name = 2;
+                        }
+
+                        {
+                          "@type": "type.googleapis.com/google.profile.Person",
+                          "firstName": <string>,
+                          "lastName": <string>
+                        }
+
+                    If the embedded message type is well-known and has a custom
+                    JSON
+
+                    representation, that representation will be embedded adding
+                    a field
+
+                    `value` which holds the custom JSON in addition to the
+                    `@type`
+
+                    field. Example (for message [google.protobuf.Duration][]):
+
+                        {
+                          "@type": "type.googleapis.com/google.protobuf.Duration",
+                          "value": "1.212s"
+                        }
       parameters:
         - name: owner
           in: path
@@ -35589,6 +35756,7 @@ paths:
             type: object
             properties:
               params:
+                description: params defines the parameters of the module.
                 type: object
                 properties:
                   controller_enabled:
@@ -35596,12 +35764,6 @@ paths:
                     description: >-
                       controller_enabled enables or disables the controller
                       submodule.
-                description: >-
-                  Params defines the set of on-chain interchain accounts
-                  parameters.
-
-                  The following parameters may be used to disable the controller
-                  submodule.
             description: >-
               QueryParamsResponse is the response type for the Query/Params RPC
               method.
@@ -35622,7 +35784,174 @@ paths:
                   properties:
                     '@type':
                       type: string
+                      description: >-
+                        A URL/resource name that uniquely identifies the type of
+                        the serialized
+
+                        protocol buffer message. This string must contain at
+                        least
+
+                        one "/" character. The last segment of the URL's path
+                        must represent
+
+                        the fully qualified name of the type (as in
+
+                        `path/google.protobuf.Duration`). The name should be in
+                        a canonical form
+
+                        (e.g., leading "." is not accepted).
+
+
+                        In practice, teams usually precompile into the binary
+                        all types that they
+
+                        expect it to use in the context of Any. However, for
+                        URLs which use the
+
+                        scheme `http`, `https`, or no scheme, one can optionally
+                        set up a type
+
+                        server that maps type URLs to message definitions as
+                        follows:
+
+
+                        * If no scheme is provided, `https` is assumed.
+
+                        * An HTTP GET on the URL must yield a
+                        [google.protobuf.Type][]
+                          value in binary format, or produce an error.
+                        * Applications are allowed to cache lookup results based
+                        on the
+                          URL, or have them precompiled into a binary to avoid any
+                          lookup. Therefore, binary compatibility needs to be preserved
+                          on changes to types. (Use versioned type names to manage
+                          breaking changes.)
+
+                        Note: this functionality is not currently available in
+                        the official
+
+                        protobuf release, and it is not used for type URLs
+                        beginning with
+
+                        type.googleapis.com.
+
+
+                        Schemes other than `http`, `https` (or the empty scheme)
+                        might be
+
+                        used with implementation specific semantics.
                   additionalProperties: {}
+                  description: >-
+                    `Any` contains an arbitrary serialized protocol buffer
+                    message along with a
+
+                    URL that describes the type of the serialized message.
+
+
+                    Protobuf library provides support to pack/unpack Any values
+                    in the form
+
+                    of utility functions or additional generated methods of the
+                    Any type.
+
+
+                    Example 1: Pack and unpack a message in C++.
+
+                        Foo foo = ...;
+                        Any any;
+                        any.PackFrom(foo);
+                        ...
+                        if (any.UnpackTo(&foo)) {
+                          ...
+                        }
+
+                    Example 2: Pack and unpack a message in Java.
+
+                        Foo foo = ...;
+                        Any any = Any.pack(foo);
+                        ...
+                        if (any.is(Foo.class)) {
+                          foo = any.unpack(Foo.class);
+                        }
+
+                     Example 3: Pack and unpack a message in Python.
+
+                        foo = Foo(...)
+                        any = Any()
+                        any.Pack(foo)
+                        ...
+                        if any.Is(Foo.DESCRIPTOR):
+                          any.Unpack(foo)
+                          ...
+
+                     Example 4: Pack and unpack a message in Go
+
+                         foo := &pb.Foo{...}
+                         any, err := anypb.New(foo)
+                         if err != nil {
+                           ...
+                         }
+                         ...
+                         foo := &pb.Foo{}
+                         if err := any.UnmarshalTo(foo); err != nil {
+                           ...
+                         }
+
+                    The pack methods provided by protobuf library will by
+                    default use
+
+                    'type.googleapis.com/full.type.name' as the type URL and the
+                    unpack
+
+                    methods only use the fully qualified type name after the
+                    last '/'
+
+                    in the type URL, for example "foo.bar.com/x/y.z" will yield
+                    type
+
+                    name "y.z".
+
+
+
+                    JSON
+
+                    ====
+
+                    The JSON representation of an `Any` value uses the regular
+
+                    representation of the deserialized, embedded message, with
+                    an
+
+                    additional field `@type` which contains the type URL.
+                    Example:
+
+                        package google.profile;
+                        message Person {
+                          string first_name = 1;
+                          string last_name = 2;
+                        }
+
+                        {
+                          "@type": "type.googleapis.com/google.profile.Person",
+                          "firstName": <string>,
+                          "lastName": <string>
+                        }
+
+                    If the embedded message type is well-known and has a custom
+                    JSON
+
+                    representation, that representation will be embedded adding
+                    a field
+
+                    `value` which holds the custom JSON in addition to the
+                    `@type`
+
+                    field. Example (for message [google.protobuf.Duration][]):
+
+                        {
+                          "@type": "type.googleapis.com/google.protobuf.Duration",
+                          "value": "1.212s"
+                        }
       tags:
         - Query
   /ibc/apps/interchain_accounts/host/v1/params:
@@ -35636,6 +35965,7 @@ paths:
             type: object
             properties:
               params:
+                description: params defines the parameters of the module.
                 type: object
                 properties:
                   host_enabled:
@@ -35648,12 +35978,6 @@ paths:
                     description: >-
                       allow_messages defines a list of sdk message typeURLs
                       allowed to be executed on a host chain.
-                description: >-
-                  Params defines the set of on-chain interchain accounts
-                  parameters.
-
-                  The following parameters may be used to disable the host
-                  submodule.
             description: >-
               QueryParamsResponse is the response type for the Query/Params RPC
               method.
@@ -36136,6 +36460,7 @@ paths:
                     source tracing information path.
                 description: denom_traces returns all denominations trace information.
               pagination:
+                description: pagination defines the pagination in the response.
                 type: object
                 properties:
                   next_key:
@@ -36153,16 +36478,6 @@ paths:
                       PageRequest.count_total
 
                       was set, its value is undefined otherwise
-                description: >-
-                  PageResponse is to be embedded in gRPC response messages where
-                  the
-
-                  corresponding request message has used PageRequest.
-
-                   message SomeResponse {
-                           repeated Bar results = 1;
-                           PageResponse page = 2;
-                   }
             description: >-
               QueryConnectionsResponse is the response type for the
               Query/DenomTraces RPC
@@ -36651,6 +36966,7 @@ paths:
             type: object
             properties:
               params:
+                description: params defines the parameters of the module.
                 type: object
                 properties:
                   send_enabled:
@@ -36667,16 +36983,6 @@ paths:
                       transfers to this
 
                       chain.
-                description: >-
-                  Params defines the set of IBC transfer parameters.
-
-                  NOTE: To prevent a single token from being transferred, set
-                  the
-
-                  TransfersEnabled parameter to true and then set the bank
-                  module's SendEnabled
-
-                  parameter for the denomination to false.
             description: >-
               QueryParamsResponse is the response type for the Query/Params RPC
               method.
@@ -36883,6 +37189,7 @@ paths:
                   type: object
                   properties:
                     state:
+                      title: current state of the channel end
                       type: string
                       enum:
                         - STATE_UNINITIALIZED_UNSPECIFIED
@@ -36905,6 +37212,7 @@ paths:
                          - STATE_CLOSED: A channel has been closed and can no longer be used to send or receive
                         packets.
                     ordering:
+                      title: whether the channel is ordered or unordered
                       type: string
                       enum:
                         - ORDER_NONE_UNSPECIFIED
@@ -36917,8 +37225,8 @@ paths:
                          - ORDER_UNORDERED: packets can be delivered in any order, which may differ from the order in
                         which they were sent.
                          - ORDER_ORDERED: packets are delivered exactly in the order which they were sent
-                      title: Order defines if a channel is ORDERED or UNORDERED
                     counterparty:
+                      title: counterparty channel end
                       type: object
                       properties:
                         port_id:
@@ -36929,7 +37237,6 @@ paths:
                         channel_id:
                           type: string
                           title: channel end on the counterparty chain
-                      title: Counterparty defines a channel end counterparty
                     connection_hops:
                       type: array
                       items:
@@ -36957,6 +37264,7 @@ paths:
                     identifier fields.
                 description: list of stored channels of the chain.
               pagination:
+                title: pagination response
                 type: object
                 properties:
                   next_key:
@@ -36985,6 +37293,7 @@ paths:
                            PageResponse page = 2;
                    }
               height:
+                title: query block height
                 type: object
                 properties:
                   revision_number:
@@ -37012,13 +37321,6 @@ paths:
                   RevisionHeight
 
                   gets reset
-                title: >-
-                  Height is a monotonically increasing data type
-
-                  that can be compared against another Height for the purposes
-                  of updating and
-
-                  freezing clients
             description: >-
               QueryChannelsResponse is the response type for the Query/Channels
               RPC method.
@@ -37277,9 +37579,11 @@ paths:
             type: object
             properties:
               channel:
+                title: channel associated with the request identifiers
                 type: object
                 properties:
                   state:
+                    title: current state of the channel end
                     type: string
                     enum:
                       - STATE_UNINITIALIZED_UNSPECIFIED
@@ -37302,6 +37606,7 @@ paths:
                        - STATE_CLOSED: A channel has been closed and can no longer be used to send or receive
                       packets.
                   ordering:
+                    title: whether the channel is ordered or unordered
                     type: string
                     enum:
                       - ORDER_NONE_UNSPECIFIED
@@ -37313,8 +37618,8 @@ paths:
                        - ORDER_UNORDERED: packets can be delivered in any order, which may differ from the order in
                       which they were sent.
                        - ORDER_ORDERED: packets are delivered exactly in the order which they were sent
-                    title: Order defines if a channel is ORDERED or UNORDERED
                   counterparty:
+                    title: counterparty channel end
                     type: object
                     properties:
                       port_id:
@@ -37325,7 +37630,6 @@ paths:
                       channel_id:
                         type: string
                         title: channel end on the counterparty chain
-                    title: Counterparty defines a channel end counterparty
                   connection_hops:
                     type: array
                     items:
@@ -37353,6 +37657,7 @@ paths:
                 format: byte
                 title: merkle proof of existence
               proof_height:
+                title: height at which the proof was retrieved
                 type: object
                 properties:
                   revision_number:
@@ -37380,13 +37685,6 @@ paths:
                   RevisionHeight
 
                   gets reset
-                title: >-
-                  Height is a monotonically increasing data type
-
-                  that can be compared against another Height for the purposes
-                  of updating and
-
-                  freezing clients
             description: >-
               QueryChannelResponse is the response type for the Query/Channel
               RPC method.
@@ -37608,6 +37906,7 @@ paths:
             type: object
             properties:
               identified_client_state:
+                title: client state associated with the channel
                 type: object
                 properties:
                   client_id:
@@ -37786,6 +38085,7 @@ paths:
                             "@type": "type.googleapis.com/google.protobuf.Duration",
                             "value": "1.212s"
                           }
+                    title: client state
                 description: >-
                   IdentifiedClientState defines a client state with an
                   additional client
@@ -37796,6 +38096,7 @@ paths:
                 format: byte
                 title: merkle proof of existence
               proof_height:
+                title: height at which the proof was retrieved
                 type: object
                 properties:
                   revision_number:
@@ -37823,13 +38124,6 @@ paths:
                   RevisionHeight
 
                   gets reset
-                title: >-
-                  Height is a monotonically increasing data type
-
-                  that can be compared against another Height for the purposes
-                  of updating and
-
-                  freezing clients
             title: |-
               QueryChannelClientStateResponse is the Response type for the
               Query/QueryChannelClientState RPC method
@@ -38212,6 +38506,7 @@ paths:
                         "@type": "type.googleapis.com/google.protobuf.Duration",
                         "value": "1.212s"
                       }
+                title: consensus state associated with the channel
               client_id:
                 type: string
                 title: client ID associated with the consensus state
@@ -38220,6 +38515,7 @@ paths:
                 format: byte
                 title: merkle proof of existence
               proof_height:
+                title: height at which the proof was retrieved
                 type: object
                 properties:
                   revision_number:
@@ -38247,13 +38543,6 @@ paths:
                   RevisionHeight
 
                   gets reset
-                title: >-
-                  Height is a monotonically increasing data type
-
-                  that can be compared against another Height for the purposes
-                  of updating and
-
-                  freezing clients
             title: |-
               QueryChannelClientStateResponse is the Response type for the
               Query/QueryChannelClientState RPC method
@@ -38488,6 +38777,7 @@ paths:
                 format: byte
                 title: merkle proof of existence
               proof_height:
+                title: height at which the proof was retrieved
                 type: object
                 properties:
                   revision_number:
@@ -38515,13 +38805,6 @@ paths:
                   RevisionHeight
 
                   gets reset
-                title: >-
-                  Height is a monotonically increasing data type
-
-                  that can be compared against another Height for the purposes
-                  of updating and
-
-                  freezing clients
             title: |-
               QuerySequenceResponse is the request type for the
               Query/QueryNextSequenceReceiveResponse RPC method
@@ -38767,6 +39050,7 @@ paths:
 
                     state as a commitment, acknowledgement, or a receipt.
               pagination:
+                title: pagination response
                 type: object
                 properties:
                   next_key:
@@ -38795,6 +39079,7 @@ paths:
                            PageResponse page = 2;
                    }
               height:
+                title: query block height
                 type: object
                 properties:
                   revision_number:
@@ -38822,13 +39107,6 @@ paths:
                   RevisionHeight
 
                   gets reset
-                title: >-
-                  Height is a monotonically increasing data type
-
-                  that can be compared against another Height for the purposes
-                  of updating and
-
-                  freezing clients
             title: |-
               QueryPacketAcknowledgemetsResponse is the request type for the
               Query/QueryPacketAcknowledgements RPC method
@@ -39114,6 +39392,7 @@ paths:
                 format: byte
                 title: merkle proof of existence
               proof_height:
+                title: height at which the proof was retrieved
                 type: object
                 properties:
                   revision_number:
@@ -39141,13 +39420,6 @@ paths:
                   RevisionHeight
 
                   gets reset
-                title: >-
-                  Height is a monotonically increasing data type
-
-                  that can be compared against another Height for the purposes
-                  of updating and
-
-                  freezing clients
             title: >-
               QueryPacketAcknowledgementResponse defines the client query
               response for a
@@ -39401,6 +39673,7 @@ paths:
 
                     state as a commitment, acknowledgement, or a receipt.
               pagination:
+                title: pagination response
                 type: object
                 properties:
                   next_key:
@@ -39429,6 +39702,7 @@ paths:
                            PageResponse page = 2;
                    }
               height:
+                title: query block height
                 type: object
                 properties:
                   revision_number:
@@ -39456,13 +39730,6 @@ paths:
                   RevisionHeight
 
                   gets reset
-                title: >-
-                  Height is a monotonically increasing data type
-
-                  that can be compared against another Height for the purposes
-                  of updating and
-
-                  freezing clients
             title: |-
               QueryPacketCommitmentsResponse is the request type for the
               Query/QueryPacketCommitments RPC method
@@ -39741,6 +40008,7 @@ paths:
                   format: uint64
                 title: list of unreceived acknowledgement sequences
               height:
+                title: query block height
                 type: object
                 properties:
                   revision_number:
@@ -39768,13 +40036,6 @@ paths:
                   RevisionHeight
 
                   gets reset
-                title: >-
-                  Height is a monotonically increasing data type
-
-                  that can be compared against another Height for the purposes
-                  of updating and
-
-                  freezing clients
             title: |-
               QueryUnreceivedAcksResponse is the response type for the
               Query/UnreceivedAcks RPC method
@@ -40007,6 +40268,7 @@ paths:
                   format: uint64
                 title: list of unreceived packet sequences
               height:
+                title: query block height
                 type: object
                 properties:
                   revision_number:
@@ -40034,13 +40296,6 @@ paths:
                   RevisionHeight
 
                   gets reset
-                title: >-
-                  Height is a monotonically increasing data type
-
-                  that can be compared against another Height for the purposes
-                  of updating and
-
-                  freezing clients
             title: |-
               QueryUnreceivedPacketsResponse is the response type for the
               Query/UnreceivedPacketCommitments RPC method
@@ -40271,6 +40526,7 @@ paths:
                 format: byte
                 title: merkle proof of existence
               proof_height:
+                title: height at which the proof was retrieved
                 type: object
                 properties:
                   revision_number:
@@ -40298,13 +40554,6 @@ paths:
                   RevisionHeight
 
                   gets reset
-                title: >-
-                  Height is a monotonically increasing data type
-
-                  that can be compared against another Height for the purposes
-                  of updating and
-
-                  freezing clients
             title: >-
               QueryPacketCommitmentResponse defines the client query response
               for a packet
@@ -40539,6 +40788,7 @@ paths:
                 format: byte
                 title: merkle proof of existence
               proof_height:
+                title: height at which the proof was retrieved
                 type: object
                 properties:
                   revision_number:
@@ -40566,13 +40816,6 @@ paths:
                   RevisionHeight
 
                   gets reset
-                title: >-
-                  Height is a monotonically increasing data type
-
-                  that can be compared against another Height for the purposes
-                  of updating and
-
-                  freezing clients
             title: >-
               QueryPacketReceiptResponse defines the client query response for a
               packet
@@ -40803,6 +41046,7 @@ paths:
                   type: object
                   properties:
                     state:
+                      title: current state of the channel end
                       type: string
                       enum:
                         - STATE_UNINITIALIZED_UNSPECIFIED
@@ -40825,6 +41069,7 @@ paths:
                          - STATE_CLOSED: A channel has been closed and can no longer be used to send or receive
                         packets.
                     ordering:
+                      title: whether the channel is ordered or unordered
                       type: string
                       enum:
                         - ORDER_NONE_UNSPECIFIED
@@ -40837,8 +41082,8 @@ paths:
                          - ORDER_UNORDERED: packets can be delivered in any order, which may differ from the order in
                         which they were sent.
                          - ORDER_ORDERED: packets are delivered exactly in the order which they were sent
-                      title: Order defines if a channel is ORDERED or UNORDERED
                     counterparty:
+                      title: counterparty channel end
                       type: object
                       properties:
                         port_id:
@@ -40849,7 +41094,6 @@ paths:
                         channel_id:
                           type: string
                           title: channel end on the counterparty chain
-                      title: Counterparty defines a channel end counterparty
                     connection_hops:
                       type: array
                       items:
@@ -40877,6 +41121,7 @@ paths:
                     identifier fields.
                 description: list of channels associated with a connection.
               pagination:
+                title: pagination response
                 type: object
                 properties:
                   next_key:
@@ -40905,6 +41150,7 @@ paths:
                            PageResponse page = 2;
                    }
               height:
+                title: query block height
                 type: object
                 properties:
                   revision_number:
@@ -40932,13 +41178,6 @@ paths:
                   RevisionHeight
 
                   gets reset
-                title: >-
-                  Height is a monotonically increasing data type
-
-                  that can be compared against another Height for the purposes
-                  of updating and
-
-                  freezing clients
             title: |-
               QueryConnectionChannelsResponse is the Response type for the
               Query/QueryConnectionChannels RPC method
@@ -41191,219 +41430,6 @@ paths:
           type: boolean
       tags:
         - Query
-  /ibc/client/v1/params:
-    get:
-      summary: ClientParams queries all parameters of the ibc client.
-      operationId: IbcCoreClientV1ClientParams
-      responses:
-        '200':
-          description: A successful response.
-          schema:
-            type: object
-            properties:
-              params:
-                type: object
-                properties:
-                  allowed_clients:
-                    type: array
-                    items:
-                      type: string
-                    description: >-
-                      allowed_clients defines the list of allowed client state
-                      types.
-                description: Params defines the set of IBC light client parameters.
-            description: >-
-              QueryClientParamsResponse is the response type for the
-              Query/ClientParams RPC
-
-              method.
-        default:
-          description: An unexpected error response.
-          schema:
-            type: object
-            properties:
-              code:
-                type: integer
-                format: int32
-              message:
-                type: string
-              details:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    '@type':
-                      type: string
-                      description: >-
-                        A URL/resource name that uniquely identifies the type of
-                        the serialized
-
-                        protocol buffer message. This string must contain at
-                        least
-
-                        one "/" character. The last segment of the URL's path
-                        must represent
-
-                        the fully qualified name of the type (as in
-
-                        `path/google.protobuf.Duration`). The name should be in
-                        a canonical form
-
-                        (e.g., leading "." is not accepted).
-
-
-                        In practice, teams usually precompile into the binary
-                        all types that they
-
-                        expect it to use in the context of Any. However, for
-                        URLs which use the
-
-                        scheme `http`, `https`, or no scheme, one can optionally
-                        set up a type
-
-                        server that maps type URLs to message definitions as
-                        follows:
-
-
-                        * If no scheme is provided, `https` is assumed.
-
-                        * An HTTP GET on the URL must yield a
-                        [google.protobuf.Type][]
-                          value in binary format, or produce an error.
-                        * Applications are allowed to cache lookup results based
-                        on the
-                          URL, or have them precompiled into a binary to avoid any
-                          lookup. Therefore, binary compatibility needs to be preserved
-                          on changes to types. (Use versioned type names to manage
-                          breaking changes.)
-
-                        Note: this functionality is not currently available in
-                        the official
-
-                        protobuf release, and it is not used for type URLs
-                        beginning with
-
-                        type.googleapis.com.
-
-
-                        Schemes other than `http`, `https` (or the empty scheme)
-                        might be
-
-                        used with implementation specific semantics.
-                  additionalProperties: {}
-                  description: >-
-                    `Any` contains an arbitrary serialized protocol buffer
-                    message along with a
-
-                    URL that describes the type of the serialized message.
-
-
-                    Protobuf library provides support to pack/unpack Any values
-                    in the form
-
-                    of utility functions or additional generated methods of the
-                    Any type.
-
-
-                    Example 1: Pack and unpack a message in C++.
-
-                        Foo foo = ...;
-                        Any any;
-                        any.PackFrom(foo);
-                        ...
-                        if (any.UnpackTo(&foo)) {
-                          ...
-                        }
-
-                    Example 2: Pack and unpack a message in Java.
-
-                        Foo foo = ...;
-                        Any any = Any.pack(foo);
-                        ...
-                        if (any.is(Foo.class)) {
-                          foo = any.unpack(Foo.class);
-                        }
-
-                     Example 3: Pack and unpack a message in Python.
-
-                        foo = Foo(...)
-                        any = Any()
-                        any.Pack(foo)
-                        ...
-                        if any.Is(Foo.DESCRIPTOR):
-                          any.Unpack(foo)
-                          ...
-
-                     Example 4: Pack and unpack a message in Go
-
-                         foo := &pb.Foo{...}
-                         any, err := anypb.New(foo)
-                         if err != nil {
-                           ...
-                         }
-                         ...
-                         foo := &pb.Foo{}
-                         if err := any.UnmarshalTo(foo); err != nil {
-                           ...
-                         }
-
-                    The pack methods provided by protobuf library will by
-                    default use
-
-                    'type.googleapis.com/full.type.name' as the type URL and the
-                    unpack
-
-                    methods only use the fully qualified type name after the
-                    last '/'
-
-                    in the type URL, for example "foo.bar.com/x/y.z" will yield
-                    type
-
-                    name "y.z".
-
-
-
-                    JSON
-
-                    ====
-
-                    The JSON representation of an `Any` value uses the regular
-
-                    representation of the deserialized, embedded message, with
-                    an
-
-                    additional field `@type` which contains the type URL.
-                    Example:
-
-                        package google.profile;
-                        message Person {
-                          string first_name = 1;
-                          string last_name = 2;
-                        }
-
-                        {
-                          "@type": "type.googleapis.com/google.profile.Person",
-                          "firstName": <string>,
-                          "lastName": <string>
-                        }
-
-                    If the embedded message type is well-known and has a custom
-                    JSON
-
-                    representation, that representation will be embedded adding
-                    a field
-
-                    `value` which holds the custom JSON in addition to the
-                    `@type`
-
-                    field. Example (for message [google.protobuf.Duration][]):
-
-                        {
-                          "@type": "type.googleapis.com/google.protobuf.Duration",
-                          "value": "1.212s"
-                        }
-      tags:
-        - Query
   /ibc/core/client/v1/client_states:
     get:
       summary: ClientStates queries all the IBC light clients of a chain.
@@ -41423,6 +41449,7 @@ paths:
                       type: string
                       title: client identifier
                     client_state:
+                      title: client state
                       type: object
                       properties:
                         '@type':
@@ -41604,6 +41631,7 @@ paths:
                     identifier field.
                 description: list of stored ClientStates of the chain.
               pagination:
+                title: pagination response
                 type: object
                 properties:
                   next_key:
@@ -42059,11 +42087,13 @@ paths:
                         "@type": "type.googleapis.com/google.protobuf.Duration",
                         "value": "1.212s"
                       }
+                title: client state associated with the request identifier
               proof:
                 type: string
                 format: byte
                 title: merkle proof of existence
               proof_height:
+                title: height at which the proof was retrieved
                 type: object
                 properties:
                   revision_number:
@@ -42091,13 +42121,6 @@ paths:
                   RevisionHeight
 
                   gets reset
-                title: >-
-                  Height is a monotonically increasing data type
-
-                  that can be compared against another Height for the purposes
-                  of updating and
-
-                  freezing clients
             description: >-
               QueryClientStateResponse is the response type for the
               Query/ClientState RPC
@@ -42527,6 +42550,7 @@ paths:
                   type: object
                   properties:
                     height:
+                      title: consensus state height
                       type: object
                       properties:
                         revision_number:
@@ -42554,13 +42578,6 @@ paths:
                         the RevisionHeight
 
                         gets reset
-                      title: >-
-                        Height is a monotonically increasing data type
-
-                        that can be compared against another Height for the
-                        purposes of updating and
-
-                        freezing clients
                     consensus_state:
                       type: object
                       properties:
@@ -42736,6 +42753,7 @@ paths:
                               "@type": "type.googleapis.com/google.protobuf.Duration",
                               "value": "1.212s"
                             }
+                      title: consensus state
                   description: >-
                     ConsensusStateWithHeight defines a consensus state with an
                     additional height
@@ -42743,6 +42761,7 @@ paths:
                     field.
                 title: consensus states associated with the identifier
               pagination:
+                title: pagination response
                 type: object
                 properties:
                   next_key:
@@ -43073,6 +43092,7 @@ paths:
                     freezing clients
                 title: consensus state heights
               pagination:
+                title: pagination response
                 type: object
                 properties:
                   next_key:
@@ -43535,6 +43555,9 @@ paths:
                         "@type": "type.googleapis.com/google.protobuf.Duration",
                         "value": "1.212s"
                       }
+                title: >-
+                  consensus state associated with the client identifier at the
+                  given height
               proof:
                 type: string
                 format: byte
@@ -43793,6 +43816,219 @@ paths:
           type: boolean
       tags:
         - Query
+  /ibc/core/client/v1/params:
+    get:
+      summary: ClientParams queries all parameters of the ibc client submodule.
+      operationId: IbcCoreClientV1ClientParams
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              params:
+                description: params defines the parameters of the module.
+                type: object
+                properties:
+                  allowed_clients:
+                    type: array
+                    items:
+                      type: string
+                    description: >-
+                      allowed_clients defines the list of allowed client state
+                      types.
+            description: >-
+              QueryClientParamsResponse is the response type for the
+              Query/ClientParams RPC
+
+              method.
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                      description: >-
+                        A URL/resource name that uniquely identifies the type of
+                        the serialized
+
+                        protocol buffer message. This string must contain at
+                        least
+
+                        one "/" character. The last segment of the URL's path
+                        must represent
+
+                        the fully qualified name of the type (as in
+
+                        `path/google.protobuf.Duration`). The name should be in
+                        a canonical form
+
+                        (e.g., leading "." is not accepted).
+
+
+                        In practice, teams usually precompile into the binary
+                        all types that they
+
+                        expect it to use in the context of Any. However, for
+                        URLs which use the
+
+                        scheme `http`, `https`, or no scheme, one can optionally
+                        set up a type
+
+                        server that maps type URLs to message definitions as
+                        follows:
+
+
+                        * If no scheme is provided, `https` is assumed.
+
+                        * An HTTP GET on the URL must yield a
+                        [google.protobuf.Type][]
+                          value in binary format, or produce an error.
+                        * Applications are allowed to cache lookup results based
+                        on the
+                          URL, or have them precompiled into a binary to avoid any
+                          lookup. Therefore, binary compatibility needs to be preserved
+                          on changes to types. (Use versioned type names to manage
+                          breaking changes.)
+
+                        Note: this functionality is not currently available in
+                        the official
+
+                        protobuf release, and it is not used for type URLs
+                        beginning with
+
+                        type.googleapis.com.
+
+
+                        Schemes other than `http`, `https` (or the empty scheme)
+                        might be
+
+                        used with implementation specific semantics.
+                  additionalProperties: {}
+                  description: >-
+                    `Any` contains an arbitrary serialized protocol buffer
+                    message along with a
+
+                    URL that describes the type of the serialized message.
+
+
+                    Protobuf library provides support to pack/unpack Any values
+                    in the form
+
+                    of utility functions or additional generated methods of the
+                    Any type.
+
+
+                    Example 1: Pack and unpack a message in C++.
+
+                        Foo foo = ...;
+                        Any any;
+                        any.PackFrom(foo);
+                        ...
+                        if (any.UnpackTo(&foo)) {
+                          ...
+                        }
+
+                    Example 2: Pack and unpack a message in Java.
+
+                        Foo foo = ...;
+                        Any any = Any.pack(foo);
+                        ...
+                        if (any.is(Foo.class)) {
+                          foo = any.unpack(Foo.class);
+                        }
+
+                     Example 3: Pack and unpack a message in Python.
+
+                        foo = Foo(...)
+                        any = Any()
+                        any.Pack(foo)
+                        ...
+                        if any.Is(Foo.DESCRIPTOR):
+                          any.Unpack(foo)
+                          ...
+
+                     Example 4: Pack and unpack a message in Go
+
+                         foo := &pb.Foo{...}
+                         any, err := anypb.New(foo)
+                         if err != nil {
+                           ...
+                         }
+                         ...
+                         foo := &pb.Foo{}
+                         if err := any.UnmarshalTo(foo); err != nil {
+                           ...
+                         }
+
+                    The pack methods provided by protobuf library will by
+                    default use
+
+                    'type.googleapis.com/full.type.name' as the type URL and the
+                    unpack
+
+                    methods only use the fully qualified type name after the
+                    last '/'
+
+                    in the type URL, for example "foo.bar.com/x/y.z" will yield
+                    type
+
+                    name "y.z".
+
+
+
+                    JSON
+
+                    ====
+
+                    The JSON representation of an `Any` value uses the regular
+
+                    representation of the deserialized, embedded message, with
+                    an
+
+                    additional field `@type` which contains the type URL.
+                    Example:
+
+                        package google.profile;
+                        message Person {
+                          string first_name = 1;
+                          string last_name = 2;
+                        }
+
+                        {
+                          "@type": "type.googleapis.com/google.profile.Person",
+                          "firstName": <string>,
+                          "lastName": <string>
+                        }
+
+                    If the embedded message type is well-known and has a custom
+                    JSON
+
+                    representation, that representation will be embedded adding
+                    a field
+
+                    `value` which holds the custom JSON in addition to the
+                    `@type`
+
+                    field. Example (for message [google.protobuf.Duration][]):
+
+                        {
+                          "@type": "type.googleapis.com/google.protobuf.Duration",
+                          "value": "1.212s"
+                        }
+      tags:
+        - Query
   /ibc/core/client/v1/upgraded_client_states:
     get:
       summary: UpgradedClientState queries an Upgraded IBC light client.
@@ -43972,6 +44208,7 @@ paths:
                         "@type": "type.googleapis.com/google.protobuf.Duration",
                         "value": "1.212s"
                       }
+                title: client state associated with the request identifier
             description: |-
               QueryUpgradedClientStateResponse is the response type for the
               Query/UpgradedClientState RPC method.
@@ -44341,6 +44578,7 @@ paths:
                         "@type": "type.googleapis.com/google.protobuf.Duration",
                         "value": "1.212s"
                       }
+                title: Consensus state associated with the request identifier
             description: |-
               QueryUpgradedConsensusStateResponse is the response type for the
               Query/UpgradedConsensusState RPC method.
@@ -44553,6 +44791,7 @@ paths:
                 format: byte
                 title: merkle proof of existence
               proof_height:
+                title: height at which the proof was generated
                 type: object
                 properties:
                   revision_number:
@@ -44580,13 +44819,6 @@ paths:
                   RevisionHeight
 
                   gets reset
-                title: >-
-                  Height is a monotonically increasing data type
-
-                  that can be compared against another Height for the purposes
-                  of updating and
-
-                  freezing clients
             title: |-
               QueryClientConnectionsResponse is the response type for the
               Query/ClientConnections RPC method
@@ -44830,6 +45062,7 @@ paths:
 
                         channels or packets utilising this connection
                     state:
+                      description: current state of the connection end.
                       type: string
                       enum:
                         - STATE_UNINITIALIZED_UNSPECIFIED
@@ -44837,18 +45070,8 @@ paths:
                         - STATE_TRYOPEN
                         - STATE_OPEN
                       default: STATE_UNINITIALIZED_UNSPECIFIED
-                      description: >-
-                        State defines if a connection is in one of the following
-                        states:
-
-                        INIT, TRYOPEN, OPEN or UNINITIALIZED.
-
-                         - STATE_UNINITIALIZED_UNSPECIFIED: Default State
-                         - STATE_INIT: A connection end has just started the opening handshake.
-                         - STATE_TRYOPEN: A connection end has acknowledged the handshake step on the counterparty
-                        chain.
-                         - STATE_OPEN: A connection end has completed the handshake.
                     counterparty:
+                      description: counterparty chain associated with this connection.
                       type: object
                       properties:
                         client_id:
@@ -44866,6 +45089,7 @@ paths:
 
                             given connection.
                         prefix:
+                          description: commitment merkle prefix of the counterparty chain.
                           type: object
                           properties:
                             key_prefix:
@@ -44878,9 +45102,6 @@ paths:
                             be append(Path.KeyPath,
 
                             append(Path.KeyPrefix, key...))
-                      description: >-
-                        Counterparty defines the counterparty chain associated
-                        with a connection end.
                     delay_period:
                       type: string
                       format: uint64
@@ -44892,6 +45113,7 @@ paths:
                     identifier field.
                 description: list of stored connections of the chain.
               pagination:
+                title: pagination response
                 type: object
                 properties:
                   next_key:
@@ -44920,6 +45142,7 @@ paths:
                            PageResponse page = 2;
                    }
               height:
+                title: query block height
                 type: object
                 properties:
                   revision_number:
@@ -44947,13 +45170,6 @@ paths:
                   RevisionHeight
 
                   gets reset
-                title: >-
-                  Height is a monotonically increasing data type
-
-                  that can be compared against another Height for the purposes
-                  of updating and
-
-                  freezing clients
             description: >-
               QueryConnectionsResponse is the response type for the
               Query/Connections RPC
@@ -45214,6 +45430,7 @@ paths:
             type: object
             properties:
               connection:
+                title: connection associated with the request identifier
                 type: object
                 properties:
                   client_id:
@@ -45245,6 +45462,7 @@ paths:
 
                       channels or packets utilising this connection.
                   state:
+                    description: current state of the connection end.
                     type: string
                     enum:
                       - STATE_UNINITIALIZED_UNSPECIFIED
@@ -45252,18 +45470,8 @@ paths:
                       - STATE_TRYOPEN
                       - STATE_OPEN
                     default: STATE_UNINITIALIZED_UNSPECIFIED
-                    description: >-
-                      State defines if a connection is in one of the following
-                      states:
-
-                      INIT, TRYOPEN, OPEN or UNINITIALIZED.
-
-                       - STATE_UNINITIALIZED_UNSPECIFIED: Default State
-                       - STATE_INIT: A connection end has just started the opening handshake.
-                       - STATE_TRYOPEN: A connection end has acknowledged the handshake step on the counterparty
-                      chain.
-                       - STATE_OPEN: A connection end has completed the handshake.
                   counterparty:
+                    description: counterparty chain associated with this connection.
                     type: object
                     properties:
                       client_id:
@@ -45281,6 +45489,7 @@ paths:
 
                           given connection.
                       prefix:
+                        description: commitment merkle prefix of the counterparty chain.
                         type: object
                         properties:
                           key_prefix:
@@ -45293,9 +45502,6 @@ paths:
                           append(Path.KeyPath,
 
                           append(Path.KeyPrefix, key...))
-                    description: >-
-                      Counterparty defines the counterparty chain associated
-                      with a connection end.
                   delay_period:
                     type: string
                     format: uint64
@@ -45321,6 +45527,7 @@ paths:
                 format: byte
                 title: merkle proof of existence
               proof_height:
+                title: height at which the proof was retrieved
                 type: object
                 properties:
                   revision_number:
@@ -45348,13 +45555,6 @@ paths:
                   RevisionHeight
 
                   gets reset
-                title: >-
-                  Height is a monotonically increasing data type
-
-                  that can be compared against another Height for the purposes
-                  of updating and
-
-                  freezing clients
             description: >-
               QueryConnectionResponse is the response type for the
               Query/Connection RPC
@@ -45569,6 +45769,7 @@ paths:
             type: object
             properties:
               identified_client_state:
+                title: client state associated with the channel
                 type: object
                 properties:
                   client_id:
@@ -45747,6 +45948,7 @@ paths:
                             "@type": "type.googleapis.com/google.protobuf.Duration",
                             "value": "1.212s"
                           }
+                    title: client state
                 description: >-
                   IdentifiedClientState defines a client state with an
                   additional client
@@ -45757,6 +45959,7 @@ paths:
                 format: byte
                 title: merkle proof of existence
               proof_height:
+                title: height at which the proof was retrieved
                 type: object
                 properties:
                   revision_number:
@@ -45784,13 +45987,6 @@ paths:
                   RevisionHeight
 
                   gets reset
-                title: >-
-                  Height is a monotonically increasing data type
-
-                  that can be compared against another Height for the purposes
-                  of updating and
-
-                  freezing clients
             title: |-
               QueryConnectionClientStateResponse is the response type for the
               Query/ConnectionClientState RPC method
@@ -46168,6 +46364,7 @@ paths:
                         "@type": "type.googleapis.com/google.protobuf.Duration",
                         "value": "1.212s"
                       }
+                title: consensus state associated with the channel
               client_id:
                 type: string
                 title: client ID associated with the consensus state
@@ -46176,6 +46373,7 @@ paths:
                 format: byte
                 title: merkle proof of existence
               proof_height:
+                title: height at which the proof was retrieved
                 type: object
                 properties:
                   revision_number:
@@ -46203,13 +46401,6 @@ paths:
                   RevisionHeight
 
                   gets reset
-                title: >-
-                  Height is a monotonically increasing data type
-
-                  that can be compared against another Height for the purposes
-                  of updating and
-
-                  freezing clients
             title: |-
               QueryConnectionConsensusStateResponse is the response type for the
               Query/ConnectionConsensusState RPC method
@@ -46414,6 +46605,222 @@ paths:
           required: true
           type: string
           format: uint64
+      tags:
+        - Query
+  /ibc/core/connection/v1/params:
+    get:
+      summary: ConnectionParams queries all parameters of the ibc connection submodule.
+      operationId: IbcCoreConnectionV1ConnectionParams
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              params:
+                description: params defines the parameters of the module.
+                type: object
+                properties:
+                  max_expected_time_per_block:
+                    type: string
+                    format: uint64
+                    description: >-
+                      maximum expected time per block (in nanoseconds), used to
+                      enforce block delay. This parameter should reflect the
+
+                      largest amount of time that the chain might reasonably
+                      take to produce the next block under normal operating
+
+                      conditions. A safe choice is 3-5x the expected time per
+                      block.
+            description: >-
+              QueryConnectionParamsResponse is the response type for the
+              Query/ConnectionParams RPC method.
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                      description: >-
+                        A URL/resource name that uniquely identifies the type of
+                        the serialized
+
+                        protocol buffer message. This string must contain at
+                        least
+
+                        one "/" character. The last segment of the URL's path
+                        must represent
+
+                        the fully qualified name of the type (as in
+
+                        `path/google.protobuf.Duration`). The name should be in
+                        a canonical form
+
+                        (e.g., leading "." is not accepted).
+
+
+                        In practice, teams usually precompile into the binary
+                        all types that they
+
+                        expect it to use in the context of Any. However, for
+                        URLs which use the
+
+                        scheme `http`, `https`, or no scheme, one can optionally
+                        set up a type
+
+                        server that maps type URLs to message definitions as
+                        follows:
+
+
+                        * If no scheme is provided, `https` is assumed.
+
+                        * An HTTP GET on the URL must yield a
+                        [google.protobuf.Type][]
+                          value in binary format, or produce an error.
+                        * Applications are allowed to cache lookup results based
+                        on the
+                          URL, or have them precompiled into a binary to avoid any
+                          lookup. Therefore, binary compatibility needs to be preserved
+                          on changes to types. (Use versioned type names to manage
+                          breaking changes.)
+
+                        Note: this functionality is not currently available in
+                        the official
+
+                        protobuf release, and it is not used for type URLs
+                        beginning with
+
+                        type.googleapis.com.
+
+
+                        Schemes other than `http`, `https` (or the empty scheme)
+                        might be
+
+                        used with implementation specific semantics.
+                  additionalProperties: {}
+                  description: >-
+                    `Any` contains an arbitrary serialized protocol buffer
+                    message along with a
+
+                    URL that describes the type of the serialized message.
+
+
+                    Protobuf library provides support to pack/unpack Any values
+                    in the form
+
+                    of utility functions or additional generated methods of the
+                    Any type.
+
+
+                    Example 1: Pack and unpack a message in C++.
+
+                        Foo foo = ...;
+                        Any any;
+                        any.PackFrom(foo);
+                        ...
+                        if (any.UnpackTo(&foo)) {
+                          ...
+                        }
+
+                    Example 2: Pack and unpack a message in Java.
+
+                        Foo foo = ...;
+                        Any any = Any.pack(foo);
+                        ...
+                        if (any.is(Foo.class)) {
+                          foo = any.unpack(Foo.class);
+                        }
+
+                     Example 3: Pack and unpack a message in Python.
+
+                        foo = Foo(...)
+                        any = Any()
+                        any.Pack(foo)
+                        ...
+                        if any.Is(Foo.DESCRIPTOR):
+                          any.Unpack(foo)
+                          ...
+
+                     Example 4: Pack and unpack a message in Go
+
+                         foo := &pb.Foo{...}
+                         any, err := anypb.New(foo)
+                         if err != nil {
+                           ...
+                         }
+                         ...
+                         foo := &pb.Foo{}
+                         if err := any.UnmarshalTo(foo); err != nil {
+                           ...
+                         }
+
+                    The pack methods provided by protobuf library will by
+                    default use
+
+                    'type.googleapis.com/full.type.name' as the type URL and the
+                    unpack
+
+                    methods only use the fully qualified type name after the
+                    last '/'
+
+                    in the type URL, for example "foo.bar.com/x/y.z" will yield
+                    type
+
+                    name "y.z".
+
+
+
+                    JSON
+
+                    ====
+
+                    The JSON representation of an `Any` value uses the regular
+
+                    representation of the deserialized, embedded message, with
+                    an
+
+                    additional field `@type` which contains the type URL.
+                    Example:
+
+                        package google.profile;
+                        message Person {
+                          string first_name = 1;
+                          string last_name = 2;
+                        }
+
+                        {
+                          "@type": "type.googleapis.com/google.profile.Person",
+                          "firstName": <string>,
+                          "lastName": <string>
+                        }
+
+                    If the embedded message type is well-known and has a custom
+                    JSON
+
+                    representation, that representation will be embedded adding
+                    a field
+
+                    `value` which holds the custom JSON in addition to the
+                    `@type`
+
+                    field. Example (for message [google.protobuf.Duration][]):
+
+                        {
+                          "@type": "type.googleapis.com/google.protobuf.Duration",
+                          "value": "1.212s"
+                        }
       tags:
         - Query
 definitions:
@@ -71271,6 +71678,8 @@ definitions:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgFinalizeCollectionResponse:
     type: object
+  DecentralCardGame.cardchain.cardchain.MsgMultiVoteCardResponse:
+    type: object
   DecentralCardGame.cardchain.cardchain.MsgOpenBoosterPackResponse:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgRegisterForCouncilResponse:
@@ -71810,6 +72219,14 @@ definitions:
       validReports:
         type: string
         format: uint64
+  DecentralCardGame.cardchain.cardchain.SingleVote:
+    type: object
+    properties:
+      cardId:
+        type: string
+        format: uint64
+      voteType:
+        type: string
   DecentralCardGame.cardchain.cardchain.Status:
     type: string
     enum:
@@ -71992,6 +72409,21 @@ definitions:
         type: string
       hash:
         type: string
+  ibc.applications.interchain_accounts.controller.v1.MsgRegisterInterchainAccountResponse:
+    type: object
+    properties:
+      channel_id:
+        type: string
+    title: >-
+      MsgRegisterInterchainAccountResponse defines the response for
+      Msg/MsgRegisterInterchainAccountResponse
+  ibc.applications.interchain_accounts.controller.v1.MsgSendTxResponse:
+    type: object
+    properties:
+      sequence:
+        type: string
+        format: uint64
+    title: MsgSendTxResponse defines the response for MsgSendTx
   ibc.applications.interchain_accounts.controller.v1.Params:
     type: object
     properties:
@@ -72013,17 +72445,52 @@ definitions:
     type: object
     properties:
       params:
+        description: params defines the parameters of the module.
         type: object
         properties:
           controller_enabled:
             type: boolean
             description: controller_enabled enables or disables the controller submodule.
-        description: >-
-          Params defines the set of on-chain interchain accounts parameters.
-
-          The following parameters may be used to disable the controller
-          submodule.
     description: QueryParamsResponse is the response type for the Query/Params RPC method.
+  ibc.applications.interchain_accounts.v1.InterchainAccountPacketData:
+    type: object
+    properties:
+      type:
+        type: string
+        enum:
+          - TYPE_UNSPECIFIED
+          - TYPE_EXECUTE_TX
+        default: TYPE_UNSPECIFIED
+        description: |-
+          - TYPE_UNSPECIFIED: Default zero value enumeration
+           - TYPE_EXECUTE_TX: Execute a transaction on an interchain accounts host chain
+        title: >-
+          Type defines a classification of message issued from a controller
+          chain to its associated interchain accounts
+
+          host
+      data:
+        type: string
+        format: byte
+      memo:
+        type: string
+    description: >-
+      InterchainAccountPacketData is comprised of a raw transaction, type of
+      transaction and optional memo field.
+  ibc.applications.interchain_accounts.v1.Type:
+    type: string
+    enum:
+      - TYPE_UNSPECIFIED
+      - TYPE_EXECUTE_TX
+    default: TYPE_UNSPECIFIED
+    description: |-
+      - TYPE_UNSPECIFIED: Default zero value enumeration
+       - TYPE_EXECUTE_TX: Execute a transaction on an interchain accounts host chain
+    title: >-
+      Type defines a classification of message issued from a controller chain to
+      its associated interchain accounts
+
+      host
   ibc.applications.interchain_accounts.host.v1.Params:
     type: object
     properties:
@@ -72044,6 +72511,7 @@ definitions:
     type: object
     properties:
       params:
+        description: params defines the parameters of the module.
         type: object
         properties:
           host_enabled:
@@ -72056,9 +72524,6 @@ definitions:
             description: >-
               allow_messages defines a list of sdk message typeURLs allowed to
               be executed on a host chain.
-        description: |-
-          Params defines the set of on-chain interchain accounts parameters.
-          The following parameters may be used to disable the host submodule.
     description: QueryParamsResponse is the response type for the Query/Params RPC method.
   ibc.applications.transfer.v1.DenomTrace:
     type: object
@@ -72080,6 +72545,11 @@ definitions:
       source tracing information path.
   ibc.applications.transfer.v1.MsgTransferResponse:
     type: object
+    properties:
+      sequence:
+        type: string
+        format: uint64
+        title: sequence number of the transfer packet sent
     description: MsgTransferResponse defines the Msg/Transfer response type.
   ibc.applications.transfer.v1.Params:
     type: object
@@ -72165,6 +72635,7 @@ definitions:
             source tracing information path.
         description: denom_traces returns all denominations trace information.
       pagination:
+        description: pagination defines the pagination in the response.
         type: object
         properties:
           next_key:
@@ -72182,14 +72653,6 @@ definitions:
               PageRequest.count_total
 
               was set, its value is undefined otherwise
-        description: |-
-          PageResponse is to be embedded in gRPC response messages where the
-          corresponding request message has used PageRequest.
-
-           message SomeResponse {
-                   repeated Bar results = 1;
-                   PageResponse page = 2;
-           }
     description: >-
       QueryConnectionsResponse is the response type for the Query/DenomTraces
       RPC
@@ -72208,6 +72671,7 @@ definitions:
     type: object
     properties:
       params:
+        description: params defines the parameters of the module.
         type: object
         properties:
           send_enabled:
@@ -72224,15 +72688,6 @@ definitions:
               transfers to this
 
               chain.
-        description: >-
-          Params defines the set of IBC transfer parameters.
-
-          NOTE: To prevent a single token from being transferred, set the
-
-          TransfersEnabled parameter to true and then set the bank module's
-          SendEnabled
-
-          parameter for the denomination to false.
     description: QueryParamsResponse is the response type for the Query/Params RPC method.
   ibc.core.client.v1.Height:
     type: object
@@ -72263,6 +72718,7 @@ definitions:
     type: object
     properties:
       state:
+        title: current state of the channel end
         type: string
         enum:
           - STATE_UNINITIALIZED_UNSPECIFIED
@@ -72283,6 +72739,7 @@ definitions:
            - STATE_CLOSED: A channel has been closed and can no longer be used to send or receive
           packets.
       ordering:
+        title: whether the channel is ordered or unordered
         type: string
         enum:
           - ORDER_NONE_UNSPECIFIED
@@ -72294,8 +72751,8 @@ definitions:
            - ORDER_UNORDERED: packets can be delivered in any order, which may differ from the order in
           which they were sent.
            - ORDER_ORDERED: packets are delivered exactly in the order which they were sent
-        title: Order defines if a channel is ORDERED or UNORDERED
       counterparty:
+        title: counterparty channel end
         type: object
         properties:
           port_id:
@@ -72306,7 +72763,6 @@ definitions:
           channel_id:
             type: string
             title: channel end on the counterparty chain
-        title: Counterparty defines a channel end counterparty
       connection_hops:
         type: array
         items:
@@ -72337,6 +72793,7 @@ definitions:
     type: object
     properties:
       state:
+        title: current state of the channel end
         type: string
         enum:
           - STATE_UNINITIALIZED_UNSPECIFIED
@@ -72357,6 +72814,7 @@ definitions:
            - STATE_CLOSED: A channel has been closed and can no longer be used to send or receive
           packets.
       ordering:
+        title: whether the channel is ordered or unordered
         type: string
         enum:
           - ORDER_NONE_UNSPECIFIED
@@ -72368,8 +72826,8 @@ definitions:
            - ORDER_UNORDERED: packets can be delivered in any order, which may differ from the order in
           which they were sent.
            - ORDER_ORDERED: packets are delivered exactly in the order which they were sent
-        title: Order defines if a channel is ORDERED or UNORDERED
       counterparty:
+        title: counterparty channel end
         type: object
         properties:
           port_id:
@@ -72380,7 +72838,6 @@ definitions:
           channel_id:
             type: string
             title: channel end on the counterparty chain
-        title: Counterparty defines a channel end counterparty
       connection_hops:
         type: array
         items:
@@ -72549,6 +73006,7 @@ definitions:
         format: byte
         title: actual opaque bytes transferred directly to the application module
       timeout_height:
+        title: block height after which the packet times out
         type: object
         properties:
           revision_number:
@@ -72575,13 +73033,6 @@ definitions:
           RevisionHeight
 
           gets reset
-        title: >-
-          Height is a monotonically increasing data type
-
-          that can be compared against another Height for the purposes of
-          updating and
-
-          freezing clients
       timeout_timestamp:
         type: string
         format: uint64
@@ -72615,6 +73066,7 @@ definitions:
     type: object
     properties:
       identified_client_state:
+        title: client state associated with the channel
         type: object
         properties:
           client_id:
@@ -72783,6 +73235,7 @@ definitions:
                     "@type": "type.googleapis.com/google.protobuf.Duration",
                     "value": "1.212s"
                   }
+            title: client state
         description: |-
           IdentifiedClientState defines a client state with an additional client
           identifier field.
@@ -72791,6 +73244,7 @@ definitions:
         format: byte
         title: merkle proof of existence
       proof_height:
+        title: height at which the proof was retrieved
         type: object
         properties:
           revision_number:
@@ -72817,13 +73271,6 @@ definitions:
           RevisionHeight
 
           gets reset
-        title: >-
-          Height is a monotonically increasing data type
-
-          that can be compared against another Height for the purposes of
-          updating and
-
-          freezing clients
     title: |-
       QueryChannelClientStateResponse is the Response type for the
       Query/QueryChannelClientState RPC method
@@ -72987,6 +73434,7 @@ definitions:
                 "@type": "type.googleapis.com/google.protobuf.Duration",
                 "value": "1.212s"
               }
+        title: consensus state associated with the channel
       client_id:
         type: string
         title: client ID associated with the consensus state
@@ -72995,6 +73443,7 @@ definitions:
         format: byte
         title: merkle proof of existence
       proof_height:
+        title: height at which the proof was retrieved
         type: object
         properties:
           revision_number:
@@ -73021,13 +73470,6 @@ definitions:
           RevisionHeight
 
           gets reset
-        title: >-
-          Height is a monotonically increasing data type
-
-          that can be compared against another Height for the purposes of
-          updating and
-
-          freezing clients
     title: |-
       QueryChannelClientStateResponse is the Response type for the
       Query/QueryChannelClientState RPC method
@@ -73035,9 +73477,11 @@ definitions:
     type: object
     properties:
       channel:
+        title: channel associated with the request identifiers
         type: object
         properties:
           state:
+            title: current state of the channel end
             type: string
             enum:
               - STATE_UNINITIALIZED_UNSPECIFIED
@@ -73058,6 +73502,7 @@ definitions:
                - STATE_CLOSED: A channel has been closed and can no longer be used to send or receive
               packets.
           ordering:
+            title: whether the channel is ordered or unordered
             type: string
             enum:
               - ORDER_NONE_UNSPECIFIED
@@ -73069,8 +73514,8 @@ definitions:
                - ORDER_UNORDERED: packets can be delivered in any order, which may differ from the order in
               which they were sent.
                - ORDER_ORDERED: packets are delivered exactly in the order which they were sent
-            title: Order defines if a channel is ORDERED or UNORDERED
           counterparty:
+            title: counterparty channel end
             type: object
             properties:
               port_id:
@@ -73081,7 +73526,6 @@ definitions:
               channel_id:
                 type: string
                 title: channel end on the counterparty chain
-            title: Counterparty defines a channel end counterparty
           connection_hops:
             type: array
             items:
@@ -73106,6 +73550,7 @@ definitions:
         format: byte
         title: merkle proof of existence
       proof_height:
+        title: height at which the proof was retrieved
         type: object
         properties:
           revision_number:
@@ -73132,13 +73577,6 @@ definitions:
           RevisionHeight
 
           gets reset
-        title: >-
-          Height is a monotonically increasing data type
-
-          that can be compared against another Height for the purposes of
-          updating and
-
-          freezing clients
     description: >-
       QueryChannelResponse is the response type for the Query/Channel RPC
       method.
@@ -73155,6 +73593,7 @@ definitions:
           type: object
           properties:
             state:
+              title: current state of the channel end
               type: string
               enum:
                 - STATE_UNINITIALIZED_UNSPECIFIED
@@ -73175,6 +73614,7 @@ definitions:
                  - STATE_CLOSED: A channel has been closed and can no longer be used to send or receive
                 packets.
             ordering:
+              title: whether the channel is ordered or unordered
               type: string
               enum:
                 - ORDER_NONE_UNSPECIFIED
@@ -73186,8 +73626,8 @@ definitions:
                  - ORDER_UNORDERED: packets can be delivered in any order, which may differ from the order in
                 which they were sent.
                  - ORDER_ORDERED: packets are delivered exactly in the order which they were sent
-              title: Order defines if a channel is ORDERED or UNORDERED
             counterparty:
+              title: counterparty channel end
               type: object
               properties:
                 port_id:
@@ -73198,7 +73638,6 @@ definitions:
                 channel_id:
                   type: string
                   title: channel end on the counterparty chain
-              title: Counterparty defines a channel end counterparty
             connection_hops:
               type: array
               items:
@@ -73224,6 +73663,7 @@ definitions:
             identifier fields.
         description: list of stored channels of the chain.
       pagination:
+        title: pagination response
         type: object
         properties:
           next_key:
@@ -73250,6 +73690,7 @@ definitions:
                    PageResponse page = 2;
            }
       height:
+        title: query block height
         type: object
         properties:
           revision_number:
@@ -73276,13 +73717,6 @@ definitions:
           RevisionHeight
 
           gets reset
-        title: >-
-          Height is a monotonically increasing data type
-
-          that can be compared against another Height for the purposes of
-          updating and
-
-          freezing clients
     description: >-
       QueryChannelsResponse is the response type for the Query/Channels RPC
       method.
@@ -73295,6 +73729,7 @@ definitions:
           type: object
           properties:
             state:
+              title: current state of the channel end
               type: string
               enum:
                 - STATE_UNINITIALIZED_UNSPECIFIED
@@ -73315,6 +73750,7 @@ definitions:
                  - STATE_CLOSED: A channel has been closed and can no longer be used to send or receive
                 packets.
             ordering:
+              title: whether the channel is ordered or unordered
               type: string
               enum:
                 - ORDER_NONE_UNSPECIFIED
@@ -73326,8 +73762,8 @@ definitions:
                  - ORDER_UNORDERED: packets can be delivered in any order, which may differ from the order in
                 which they were sent.
                  - ORDER_ORDERED: packets are delivered exactly in the order which they were sent
-              title: Order defines if a channel is ORDERED or UNORDERED
             counterparty:
+              title: counterparty channel end
               type: object
               properties:
                 port_id:
@@ -73338,7 +73774,6 @@ definitions:
                 channel_id:
                   type: string
                   title: channel end on the counterparty chain
-              title: Counterparty defines a channel end counterparty
             connection_hops:
               type: array
               items:
@@ -73364,6 +73799,7 @@ definitions:
             identifier fields.
         description: list of channels associated with a connection.
       pagination:
+        title: pagination response
         type: object
         properties:
           next_key:
@@ -73390,6 +73826,7 @@ definitions:
                    PageResponse page = 2;
            }
       height:
+        title: query block height
         type: object
         properties:
           revision_number:
@@ -73416,13 +73853,6 @@ definitions:
           RevisionHeight
 
           gets reset
-        title: >-
-          Height is a monotonically increasing data type
-
-          that can be compared against another Height for the purposes of
-          updating and
-
-          freezing clients
     title: |-
       QueryConnectionChannelsResponse is the Response type for the
       Query/QueryConnectionChannels RPC method
@@ -73438,6 +73868,7 @@ definitions:
         format: byte
         title: merkle proof of existence
       proof_height:
+        title: height at which the proof was retrieved
         type: object
         properties:
           revision_number:
@@ -73464,13 +73895,6 @@ definitions:
           RevisionHeight
 
           gets reset
-        title: >-
-          Height is a monotonically increasing data type
-
-          that can be compared against another Height for the purposes of
-          updating and
-
-          freezing clients
     title: |-
       QuerySequenceResponse is the request type for the
       Query/QueryNextSequenceReceiveResponse RPC method
@@ -73486,6 +73910,7 @@ definitions:
         format: byte
         title: merkle proof of existence
       proof_height:
+        title: height at which the proof was retrieved
         type: object
         properties:
           revision_number:
@@ -73512,13 +73937,6 @@ definitions:
           RevisionHeight
 
           gets reset
-        title: >-
-          Height is a monotonically increasing data type
-
-          that can be compared against another Height for the purposes of
-          updating and
-
-          freezing clients
     title: |-
       QueryPacketAcknowledgementResponse defines the client query response for a
       packet which also includes a proof and the height from which the
@@ -73555,6 +73973,7 @@ definitions:
 
             state as a commitment, acknowledgement, or a receipt.
       pagination:
+        title: pagination response
         type: object
         properties:
           next_key:
@@ -73581,6 +74000,7 @@ definitions:
                    PageResponse page = 2;
            }
       height:
+        title: query block height
         type: object
         properties:
           revision_number:
@@ -73607,13 +74027,6 @@ definitions:
           RevisionHeight
 
           gets reset
-        title: >-
-          Height is a monotonically increasing data type
-
-          that can be compared against another Height for the purposes of
-          updating and
-
-          freezing clients
     title: |-
       QueryPacketAcknowledgemetsResponse is the request type for the
       Query/QueryPacketAcknowledgements RPC method
@@ -73629,6 +74042,7 @@ definitions:
         format: byte
         title: merkle proof of existence
       proof_height:
+        title: height at which the proof was retrieved
         type: object
         properties:
           revision_number:
@@ -73655,13 +74069,6 @@ definitions:
           RevisionHeight
 
           gets reset
-        title: >-
-          Height is a monotonically increasing data type
-
-          that can be compared against another Height for the purposes of
-          updating and
-
-          freezing clients
     title: >-
       QueryPacketCommitmentResponse defines the client query response for a
       packet
@@ -73701,6 +74108,7 @@ definitions:
 
             state as a commitment, acknowledgement, or a receipt.
       pagination:
+        title: pagination response
         type: object
         properties:
           next_key:
@@ -73727,6 +74135,7 @@ definitions:
                    PageResponse page = 2;
            }
       height:
+        title: query block height
         type: object
         properties:
           revision_number:
@@ -73753,13 +74162,6 @@ definitions:
           RevisionHeight
 
           gets reset
-        title: >-
-          Height is a monotonically increasing data type
-
-          that can be compared against another Height for the purposes of
-          updating and
-
-          freezing clients
     title: |-
       QueryPacketCommitmentsResponse is the request type for the
       Query/QueryPacketCommitments RPC method
@@ -73774,6 +74176,7 @@ definitions:
         format: byte
         title: merkle proof of existence
       proof_height:
+        title: height at which the proof was retrieved
         type: object
         properties:
           revision_number:
@@ -73800,13 +74203,6 @@ definitions:
           RevisionHeight
 
           gets reset
-        title: >-
-          Height is a monotonically increasing data type
-
-          that can be compared against another Height for the purposes of
-          updating and
-
-          freezing clients
     title: >-
       QueryPacketReceiptResponse defines the client query response for a packet
 
@@ -73824,6 +74220,7 @@ definitions:
           format: uint64
         title: list of unreceived acknowledgement sequences
       height:
+        title: query block height
         type: object
         properties:
           revision_number:
@@ -73850,13 +74247,6 @@ definitions:
           RevisionHeight
 
           gets reset
-        title: >-
-          Height is a monotonically increasing data type
-
-          that can be compared against another Height for the purposes of
-          updating and
-
-          freezing clients
     title: |-
       QueryUnreceivedAcksResponse is the response type for the
       Query/UnreceivedAcks RPC method
@@ -73870,6 +74260,7 @@ definitions:
           format: uint64
         title: list of unreceived packet sequences
       height:
+        title: query block height
         type: object
         properties:
           revision_number:
@@ -73896,13 +74287,6 @@ definitions:
           RevisionHeight
 
           gets reset
-        title: >-
-          Height is a monotonically increasing data type
-
-          that can be compared against another Height for the purposes of
-          updating and
-
-          freezing clients
     title: |-
       QueryUnreceivedPacketsResponse is the response type for the
       Query/UnreceivedPacketCommitments RPC method
@@ -74103,6 +74487,7 @@ definitions:
                 "@type": "type.googleapis.com/google.protobuf.Duration",
                 "value": "1.212s"
               }
+        title: client state
     description: |-
       IdentifiedClientState defines a client state with an additional client
       identifier field.
@@ -74110,6 +74495,7 @@ definitions:
     type: object
     properties:
       height:
+        title: consensus state height
         type: object
         properties:
           revision_number:
@@ -74136,13 +74522,6 @@ definitions:
           RevisionHeight
 
           gets reset
-        title: >-
-          Height is a monotonically increasing data type
-
-          that can be compared against another Height for the purposes of
-          updating and
-
-          freezing clients
       consensus_state:
         type: object
         properties:
@@ -74300,6 +74679,7 @@ definitions:
                 "@type": "type.googleapis.com/google.protobuf.Duration",
                 "value": "1.212s"
               }
+        title: consensus state
     description: >-
       ConsensusStateWithHeight defines a consensus state with an additional
       height
@@ -74332,6 +74712,7 @@ definitions:
     type: object
     properties:
       params:
+        description: params defines the parameters of the module.
         type: object
         properties:
           allowed_clients:
@@ -74339,7 +74720,6 @@ definitions:
             items:
               type: string
             description: allowed_clients defines the list of allowed client state types.
-        description: Params defines the set of IBC light client parameters.
     description: >-
       QueryClientParamsResponse is the response type for the Query/ClientParams
       RPC
@@ -74505,11 +74885,13 @@ definitions:
                 "@type": "type.googleapis.com/google.protobuf.Duration",
                 "value": "1.212s"
               }
+        title: client state associated with the request identifier
       proof:
         type: string
         format: byte
         title: merkle proof of existence
       proof_height:
+        title: height at which the proof was retrieved
         type: object
         properties:
           revision_number:
@@ -74536,13 +74918,6 @@ definitions:
           RevisionHeight
 
           gets reset
-        title: >-
-          Height is a monotonically increasing data type
-
-          that can be compared against another Height for the purposes of
-          updating and
-
-          freezing clients
     description: >-
       QueryClientStateResponse is the response type for the Query/ClientState
       RPC
@@ -74562,6 +74937,7 @@ definitions:
               type: string
               title: client identifier
             client_state:
+              title: client state
               type: object
               properties:
                 '@type':
@@ -74735,6 +75111,7 @@ definitions:
             identifier field.
         description: list of stored ClientStates of the chain.
       pagination:
+        title: pagination response
         type: object
         properties:
           next_key:
@@ -74817,6 +75194,7 @@ definitions:
             freezing clients
         title: consensus state heights
       pagination:
+        title: pagination response
         type: object
         properties:
           next_key:
@@ -75005,6 +75383,9 @@ definitions:
                 "@type": "type.googleapis.com/google.protobuf.Duration",
                 "value": "1.212s"
               }
+        title: >-
+          consensus state associated with the client identifier at the given
+          height
       proof:
         type: string
         format: byte
@@ -75057,6 +75438,7 @@ definitions:
           type: object
           properties:
             height:
+              title: consensus state height
               type: object
               properties:
                 revision_number:
@@ -75084,13 +75466,6 @@ definitions:
                 RevisionHeight
 
                 gets reset
-              title: >-
-                Height is a monotonically increasing data type
-
-                that can be compared against another Height for the purposes of
-                updating and
-
-                freezing clients
             consensus_state:
               type: object
               properties:
@@ -75258,6 +75633,7 @@ definitions:
                       "@type": "type.googleapis.com/google.protobuf.Duration",
                       "value": "1.212s"
                     }
+              title: consensus state
           description: >-
             ConsensusStateWithHeight defines a consensus state with an
             additional height
@@ -75265,6 +75641,7 @@ definitions:
             field.
         title: consensus states associated with the identifier
       pagination:
+        title: pagination response
         type: object
         properties:
           next_key:
@@ -75453,6 +75830,7 @@ definitions:
                 "@type": "type.googleapis.com/google.protobuf.Duration",
                 "value": "1.212s"
               }
+        title: client state associated with the request identifier
     description: |-
       QueryUpgradedClientStateResponse is the response type for the
       Query/UpgradedClientState RPC method.
@@ -75616,6 +75994,7 @@ definitions:
                 "@type": "type.googleapis.com/google.protobuf.Duration",
                 "value": "1.212s"
               }
+        title: Consensus state associated with the request identifier
     description: |-
       QueryUpgradedConsensusStateResponse is the response type for the
       Query/UpgradedConsensusState RPC method.
@@ -75659,6 +76038,7 @@ definitions:
 
           channels or packets utilising this connection.
       state:
+        description: current state of the connection end.
         type: string
         enum:
           - STATE_UNINITIALIZED_UNSPECIFIED
@@ -75666,16 +76046,8 @@ definitions:
           - STATE_TRYOPEN
           - STATE_OPEN
         default: STATE_UNINITIALIZED_UNSPECIFIED
-        description: |-
-          State defines if a connection is in one of the following states:
-          INIT, TRYOPEN, OPEN or UNINITIALIZED.
-
-           - STATE_UNINITIALIZED_UNSPECIFIED: Default State
-           - STATE_INIT: A connection end has just started the opening handshake.
-           - STATE_TRYOPEN: A connection end has acknowledged the handshake step on the counterparty
-          chain.
-           - STATE_OPEN: A connection end has completed the handshake.
       counterparty:
+        description: counterparty chain associated with this connection.
         type: object
         properties:
           client_id:
@@ -75693,6 +76065,7 @@ definitions:
 
               given connection.
           prefix:
+            description: commitment merkle prefix of the counterparty chain.
             type: object
             properties:
               key_prefix:
@@ -75705,9 +76078,6 @@ definitions:
               append(Path.KeyPath,
 
               append(Path.KeyPrefix, key...))
-        description: >-
-          Counterparty defines the counterparty chain associated with a
-          connection end.
       delay_period:
         type: string
         format: uint64
@@ -75741,6 +76111,7 @@ definitions:
 
           given connection.
       prefix:
+        description: commitment merkle prefix of the counterparty chain.
         type: object
         properties:
           key_prefix:
@@ -75789,6 +76160,7 @@ definitions:
 
           channels or packets utilising this connection
       state:
+        description: current state of the connection end.
         type: string
         enum:
           - STATE_UNINITIALIZED_UNSPECIFIED
@@ -75796,16 +76168,8 @@ definitions:
           - STATE_TRYOPEN
           - STATE_OPEN
         default: STATE_UNINITIALIZED_UNSPECIFIED
-        description: |-
-          State defines if a connection is in one of the following states:
-          INIT, TRYOPEN, OPEN or UNINITIALIZED.
-
-           - STATE_UNINITIALIZED_UNSPECIFIED: Default State
-           - STATE_INIT: A connection end has just started the opening handshake.
-           - STATE_TRYOPEN: A connection end has acknowledged the handshake step on the counterparty
-          chain.
-           - STATE_OPEN: A connection end has completed the handshake.
       counterparty:
+        description: counterparty chain associated with this connection.
         type: object
         properties:
           client_id:
@@ -75823,6 +76187,7 @@ definitions:
 
               given connection.
           prefix:
+            description: commitment merkle prefix of the counterparty chain.
             type: object
             properties:
               key_prefix:
@@ -75835,9 +76200,6 @@ definitions:
               append(Path.KeyPath,
 
               append(Path.KeyPrefix, key...))
-        description: >-
-          Counterparty defines the counterparty chain associated with a
-          connection end.
       delay_period:
         type: string
         format: uint64
@@ -75865,6 +76227,21 @@ definitions:
     description: >-
       MsgConnectionOpenTryResponse defines the Msg/ConnectionOpenTry response
       type.
+  ibc.core.connection.v1.Params:
+    type: object
+    properties:
+      max_expected_time_per_block:
+        type: string
+        format: uint64
+        description: >-
+          maximum expected time per block (in nanoseconds), used to enforce
+          block delay. This parameter should reflect the
+
+          largest amount of time that the chain might reasonably take to produce
+          the next block under normal operating
+
+          conditions. A safe choice is 3-5x the expected time per block.
+    description: Params defines the set of Connection parameters.
   ibc.core.connection.v1.QueryClientConnectionsResponse:
     type: object
     properties:
@@ -75878,6 +76255,7 @@ definitions:
         format: byte
         title: merkle proof of existence
       proof_height:
+        title: height at which the proof was generated
         type: object
         properties:
           revision_number:
@@ -75904,13 +76282,6 @@ definitions:
           RevisionHeight
 
           gets reset
-        title: >-
-          Height is a monotonically increasing data type
-
-          that can be compared against another Height for the purposes of
-          updating and
-
-          freezing clients
     title: |-
       QueryClientConnectionsResponse is the response type for the
       Query/ClientConnections RPC method
@@ -75918,6 +76289,7 @@ definitions:
     type: object
     properties:
       identified_client_state:
+        title: client state associated with the channel
         type: object
         properties:
           client_id:
@@ -76086,6 +76458,7 @@ definitions:
                     "@type": "type.googleapis.com/google.protobuf.Duration",
                     "value": "1.212s"
                   }
+            title: client state
         description: |-
           IdentifiedClientState defines a client state with an additional client
           identifier field.
@@ -76094,6 +76467,7 @@ definitions:
         format: byte
         title: merkle proof of existence
       proof_height:
+        title: height at which the proof was retrieved
         type: object
         properties:
           revision_number:
@@ -76120,13 +76494,6 @@ definitions:
           RevisionHeight
 
           gets reset
-        title: >-
-          Height is a monotonically increasing data type
-
-          that can be compared against another Height for the purposes of
-          updating and
-
-          freezing clients
     title: |-
       QueryConnectionClientStateResponse is the response type for the
       Query/ConnectionClientState RPC method
@@ -76290,6 +76657,7 @@ definitions:
                 "@type": "type.googleapis.com/google.protobuf.Duration",
                 "value": "1.212s"
               }
+        title: consensus state associated with the channel
       client_id:
         type: string
         title: client ID associated with the consensus state
@@ -76298,6 +76666,7 @@ definitions:
         format: byte
         title: merkle proof of existence
       proof_height:
+        title: height at which the proof was retrieved
         type: object
         properties:
           revision_number:
@@ -76324,20 +76693,35 @@ definitions:
           RevisionHeight
 
           gets reset
-        title: >-
-          Height is a monotonically increasing data type
-
-          that can be compared against another Height for the purposes of
-          updating and
-
-          freezing clients
     title: |-
       QueryConnectionConsensusStateResponse is the response type for the
       Query/ConnectionConsensusState RPC method
+  ibc.core.connection.v1.QueryConnectionParamsResponse:
+    type: object
+    properties:
+      params:
+        description: params defines the parameters of the module.
+        type: object
+        properties:
+          max_expected_time_per_block:
+            type: string
+            format: uint64
+            description: >-
+              maximum expected time per block (in nanoseconds), used to enforce
+              block delay. This parameter should reflect the
+
+              largest amount of time that the chain might reasonably take to
+              produce the next block under normal operating
+
+              conditions. A safe choice is 3-5x the expected time per block.
+    description: >-
+      QueryConnectionParamsResponse is the response type for the
+      Query/ConnectionParams RPC method.
   ibc.core.connection.v1.QueryConnectionResponse:
     type: object
     properties:
       connection:
+        title: connection associated with the request identifier
         type: object
         properties:
           client_id:
@@ -76367,6 +76751,7 @@ definitions:
 
               channels or packets utilising this connection.
           state:
+            description: current state of the connection end.
             type: string
             enum:
               - STATE_UNINITIALIZED_UNSPECIFIED
@@ -76374,16 +76759,8 @@ definitions:
               - STATE_TRYOPEN
               - STATE_OPEN
             default: STATE_UNINITIALIZED_UNSPECIFIED
-            description: |-
-              State defines if a connection is in one of the following states:
-              INIT, TRYOPEN, OPEN or UNINITIALIZED.
-
-               - STATE_UNINITIALIZED_UNSPECIFIED: Default State
-               - STATE_INIT: A connection end has just started the opening handshake.
-               - STATE_TRYOPEN: A connection end has acknowledged the handshake step on the counterparty
-              chain.
-               - STATE_OPEN: A connection end has completed the handshake.
           counterparty:
+            description: counterparty chain associated with this connection.
             type: object
             properties:
               client_id:
@@ -76401,6 +76778,7 @@ definitions:
 
                   given connection.
               prefix:
+                description: commitment merkle prefix of the counterparty chain.
                 type: object
                 properties:
                   key_prefix:
@@ -76413,9 +76791,6 @@ definitions:
                   append(Path.KeyPath,
 
                   append(Path.KeyPrefix, key...))
-            description: >-
-              Counterparty defines the counterparty chain associated with a
-              connection end.
           delay_period:
             type: string
             format: uint64
@@ -76441,6 +76816,7 @@ definitions:
         format: byte
         title: merkle proof of existence
       proof_height:
+        title: height at which the proof was retrieved
         type: object
         properties:
           revision_number:
@@ -76467,13 +76843,6 @@ definitions:
           RevisionHeight
 
           gets reset
-        title: >-
-          Height is a monotonically increasing data type
-
-          that can be compared against another Height for the purposes of
-          updating and
-
-          freezing clients
     description: >-
       QueryConnectionResponse is the response type for the Query/Connection RPC
 
@@ -76519,6 +76888,7 @@ definitions:
 
                 channels or packets utilising this connection
             state:
+              description: current state of the connection end.
               type: string
               enum:
                 - STATE_UNINITIALIZED_UNSPECIFIED
@@ -76526,16 +76896,8 @@ definitions:
                 - STATE_TRYOPEN
                 - STATE_OPEN
               default: STATE_UNINITIALIZED_UNSPECIFIED
-              description: |-
-                State defines if a connection is in one of the following states:
-                INIT, TRYOPEN, OPEN or UNINITIALIZED.
-
-                 - STATE_UNINITIALIZED_UNSPECIFIED: Default State
-                 - STATE_INIT: A connection end has just started the opening handshake.
-                 - STATE_TRYOPEN: A connection end has acknowledged the handshake step on the counterparty
-                chain.
-                 - STATE_OPEN: A connection end has completed the handshake.
             counterparty:
+              description: counterparty chain associated with this connection.
               type: object
               properties:
                 client_id:
@@ -76553,6 +76915,7 @@ definitions:
 
                     given connection.
                 prefix:
+                  description: commitment merkle prefix of the counterparty chain.
                   type: object
                   properties:
                     key_prefix:
@@ -76565,9 +76928,6 @@ definitions:
                     append(Path.KeyPath,
 
                     append(Path.KeyPrefix, key...))
-              description: >-
-                Counterparty defines the counterparty chain associated with a
-                connection end.
             delay_period:
               type: string
               format: uint64
@@ -76577,6 +76937,7 @@ definitions:
             identifier field.
         description: list of stored connections of the chain.
       pagination:
+        title: pagination response
         type: object
         properties:
           next_key:
@@ -76603,6 +76964,7 @@ definitions:
                    PageResponse page = 2;
            }
       height:
+        title: query block height
         type: object
         properties:
           revision_number:
@@ -76629,13 +76991,6 @@ definitions:
           RevisionHeight
 
           gets reset
-        title: >-
-          Height is a monotonically increasing data type
-
-          that can be compared against another Height for the purposes of
-          updating and
-
-          freezing clients
     description: >-
       QueryConnectionsResponse is the response type for the Query/Connections
       RPC
