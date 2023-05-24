@@ -44,6 +44,7 @@ func (k msgServer) SaveCardContent(goCtx context.Context, msg *types.MsgSaveCard
 
 	card.Notes = msg.Notes
 	card.Artist = msg.Artist
+	card.BalanceAnchor = msg.BalanceAnchor
 	if card.Status == types.Status_scheme {
 		err = k.TransferSchemeToCard(ctx, msg.CardId, &msgOwner)
 		if err != nil {

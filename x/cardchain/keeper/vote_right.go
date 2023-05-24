@@ -7,10 +7,12 @@ import (
 
 // GetVoteReward Calculates winner rewards
 func (k Keeper) GetVoteReward(ctx sdk.Context) sdk.Coin {
+	params := k.GetParams(ctx)
+
 	pool := k.Pools.Get(ctx, BalancersPoolKey)
-	reward := QuoCoin(*pool, k.GetParams(ctx).VoterReward)
-	if reward.Amount.Int64() > 1000000 {
-		return sdk.NewInt64Coin(reward.Denom, 1000000)
+	reward := QuoCoin(*pool, params.VotePoolFraction)
+	if reward.Amount.Int64() > params.VotingRewardCap {
+		return sdk.NewInt64Coin(reward.Denom, params.VotingRewardCap)
 	}
 	return reward
 }
@@ -21,9 +23,13 @@ func (k Keeper) AddVoteRight(ctx sdk.Context, userAddress sdk.AccAddress, cardId
 	if err != nil {
 		return err
 	}
-	right := types.NewVoteRight(cardId, ctx.BlockHeight()+k.GetParams(ctx).VotingRightsExpirationTime)
-	user.VoteRights = append(user.VoteRights, &right)
-	k.SetUser(ctx, userAddress, user)
+
+	gottenCard := k.Cards.Get(ctx, cardId)
+	if !gottenCard.BalanceAnchor {
+		right := types.NewVoteRight(cardId, ctx.BlockHeight()+k.GetParams(ctx).VotingRightsExpirationTime)
+		user.VoteRights = append(user.VoteRights, &right)
+		k.SetUser(ctx, userAddress, user)
+	}
 	return nil
 }
 
@@ -31,7 +37,6 @@ func (k Keeper) AddVoteRight(ctx sdk.Context, userAddress sdk.AccAddress, cardId
 func (k Keeper) AddVoteRightsToAllUsers(ctx sdk.Context, expireBlock int64) {
 	votingRights := k.GetVoteRightToAllCards(ctx, expireBlock)
 	allUsers, allAddrs := k.GetAllUsers(ctx)
-
 	for idx, user := range allUsers {
 		user.VoteRights = votingRights
 		k.SetUser(ctx, allAddrs[idx], *user)
@@ -51,10 +56,12 @@ func (k Keeper) GetVoteRightToAllCards(ctx sdk.Context, expireBlock int64) (voti
 	for ; iter.Valid(); iter.Next() {
 		// here only give right if card is not a scheme or banished
 		idx, gottenCard := iter.Value()
-		switch gottenCard.Status {
-		case types.Status_permanent, types.Status_trial:
-			right := types.NewVoteRight(idx, expireBlock)
-			votingRights = append(votingRights, &right)
+		if !gottenCard.BalanceAnchor {
+			switch gottenCard.Status {
+			case types.Status_permanent, types.Status_trial:
+				right := types.NewVoteRight(idx, expireBlock)
+				votingRights = append(votingRights, &right)
+			}
 		}
 	}
 	return

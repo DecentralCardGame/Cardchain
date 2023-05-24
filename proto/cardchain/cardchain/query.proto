@@ -4,17 +4,17 @@ package DecentralCardGame.cardchain.cardchain;
 import "gogoproto/gogo.proto";
 import "google/api/annotations.proto";
 import "cosmos/base/query/v1beta1/pagination.proto";
-import "cardchain/params.proto";
-import "cardchain/vote_right.proto";
-import "cardchain/voting_results.proto";
-import "cardchain/card.proto";
-import "cardchain/user.proto";
-import "cardchain/match.proto";
-import "cardchain/collection.proto";
-import "cardchain/sell_offer.proto";
-import "cardchain/council.proto";
-import "cardchain/server.proto";
-import "cardchain/tx.proto";
+import "cardchain/cardchain/params.proto";
+import "cardchain/cardchain/vote_right.proto";
+import "cardchain/cardchain/voting_results.proto";
+import "cardchain/cardchain/card.proto";
+import "cardchain/cardchain/user.proto";
+import "cardchain/cardchain/match.proto";
+import "cardchain/cardchain/collection.proto";
+import "cardchain/cardchain/sell_offer.proto";
+import "cardchain/cardchain/council.proto";
+import "cardchain/cardchain/server.proto";
+import "cardchain/cardchain/tx.proto";
 
 // this line is used by starport scaffolding # 1
 

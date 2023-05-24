@@ -9,7 +9,7 @@ const TypeMsgBuyCardScheme = "buy_card_scheme"
 
 var _ sdk.Msg = &MsgBuyCardScheme{}
 
-func NewMsgBuyCardScheme(creator string, bid string) *MsgBuyCardScheme {
+func NewMsgBuyCardScheme(creator string, bid sdk.Coin) *MsgBuyCardScheme {
 	return &MsgBuyCardScheme{
 		Creator: creator,
 		Bid:     bid,
@@ -32,8 +32,8 @@ func (msg *MsgBuyCardScheme) GetSigners() []sdk.AccAddress {
 	return []sdk.AccAddress{creator}
 }
 
-func (msg *MsgBuyCardScheme) GetSignBytes() []byte {
-	bz := ModuleCdc.MustMarshalJSON(msg)
+func (msg MsgBuyCardScheme) GetSignBytes() []byte {
+	bz := ModuleCdc.MustMarshalJSON(&msg)
 	return sdk.MustSortJSON(bz)
 }
 
@@ -42,5 +42,6 @@ func (msg *MsgBuyCardScheme) ValidateBasic() error {
 	if err != nil {
 		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid creator address (%s)", err)
 	}
+
 	return nil
 }

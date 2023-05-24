@@ -6,8 +6,8 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
+	"github.com/cosmos/cosmos-sdk/client"
 )
 
 var (
@@ -69,6 +69,7 @@ func GetTxCmd() *cobra.Command {
 	cmd.AddCommand(CmdSetCollectionArtist())
 	cmd.AddCommand(CmdSetUserWebsite())
 	cmd.AddCommand(CmdSetUserBiography())
+	cmd.AddCommand(CmdMultiVoteCard())
 	// this line is used by starport scaffolding # 1
 
 	return cmd

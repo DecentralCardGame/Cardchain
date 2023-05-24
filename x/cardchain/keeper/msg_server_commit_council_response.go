@@ -38,16 +38,16 @@ func (k msgServer) CommitCouncilResponse(goCtx context.Context, msg *types.MsgCo
 	}
 
 	resp := types.WrapHashResponse{
-        User: msg.Creator,
-        Hash: msg.Response,
-    }
+		User: msg.Creator,
+		Hash: msg.Response,
+	}
 	council.HashResponses = append(council.HashResponses, &resp)
 	if msg.Suggestion != "" { // Direcly reveal when a suggestion is made
 		clearResp := types.WrapClearResponse{
-            User: msg.Creator,
-            Response: types.Response_Suggestion,
-            Suggestion: msg.Suggestion,
-        }
+			User:       msg.Creator,
+			Response:   types.Response_Suggestion,
+			Suggestion: msg.Suggestion,
+		}
 		council.ClearResponses = append(council.ClearResponses, &clearResp)
 	}
 

@@ -10,6 +10,7 @@ import (
 	"github.com/DecentralCardGame/cardobject/cardobject"
 	"github.com/DecentralCardGame/cardobject/keywords"
 	"github.com/cosmos/cosmos-sdk/codec"
+	storetypes "github.com/cosmos/cosmos-sdk/store/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	paramtypes "github.com/cosmos/cosmos-sdk/x/params/types"
@@ -19,8 +20,8 @@ import (
 // Keeper Yeah the keeper
 type Keeper struct {
 	cdc              codec.BinaryCodec // The wire codec for binary encoding/decoding.
-	UsersStoreKey    sdk.StoreKey
-	InternalStoreKey sdk.StoreKey
+	UsersStoreKey    storetypes.StoreKey
+	InternalStoreKey storetypes.StoreKey
 	paramstore       paramtypes.Subspace
 
 	Cards           gtk.GenericTypeKeeper[*types.Card]
@@ -40,16 +41,16 @@ type Keeper struct {
 func NewKeeper(
 	cdc codec.BinaryCodec,
 	usersStoreKey,
-	cardsStoreKey sdk.StoreKey,
-	matchesStorekey sdk.StoreKey,
-	collectionsStoreKey sdk.StoreKey,
-	sellOffersStoreKey sdk.StoreKey,
-	poolsStoreKey sdk.StoreKey,
-	councilsStoreKey sdk.StoreKey,
-	runningAveragesStoreKey sdk.StoreKey,
-	imagesStorekey sdk.StoreKey,
-	serversStoreKey sdk.StoreKey,
-	internalStoreKey sdk.StoreKey,
+	cardsStoreKey storetypes.StoreKey,
+	matchesStorekey storetypes.StoreKey,
+	collectionsStoreKey storetypes.StoreKey,
+	sellOffersStoreKey storetypes.StoreKey,
+	poolsStoreKey storetypes.StoreKey,
+	councilsStoreKey storetypes.StoreKey,
+	runningAveragesStoreKey storetypes.StoreKey,
+	imagesStorekey storetypes.StoreKey,
+	serversStoreKey storetypes.StoreKey,
+	internalStoreKey storetypes.StoreKey,
 	ps paramtypes.Subspace,
 
 	bankKeeper types.BankKeeper,
@@ -127,6 +128,10 @@ func (k Keeper) NerfBuffCards(ctx sdk.Context, cardIds []uint64, buff bool) {
 		cardobj, err := keywords.Unmarshal(buffCard.Content)
 		if err != nil {
 			k.Logger(ctx).Error("error on card content:", err, "with card", buffCard.Content)
+		}
+
+		if buffCard.BalanceAnchor {
+			continue
 		}
 
 		buffnerfCost := func(cost *cardobject.CastingCost) {
