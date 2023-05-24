@@ -126,6 +126,10 @@ func (k Keeper) NerfBuffCards(ctx sdk.Context, cardIds []uint64, buff bool) {
 			k.Logger(ctx).Error("error on card content:", err, "with card", buffCard.Content)
 		}
 
+		if buffCard.BalanceAnchor {
+			continue
+		}
+
 		buffnerfCost := func(cost *cardobject.CastingCost) {
 			update := *cost
 			if buff {

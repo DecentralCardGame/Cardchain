@@ -89,10 +89,9 @@ message MsgSaveCardContent {
   string creator = 1;
   uint64 cardId = 2;
   bytes content = 3;
-//  bytes image = 4;
-//  string fullArt = 5;
   string notes = 4;
   string artist = 5;
+  bool balanceAnchor = 6;
 }
 
 message MsgSaveCardContentResponse {
