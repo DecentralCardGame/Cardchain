@@ -38,9 +38,9 @@ func (k msgServer) ReportMatch(goCtx context.Context, msg *types.MsgReportMatch)
 
 	if msg.Outcome == types.Outcome_Aborted {
 		err = k.DistributeCoins(ctx, &match, msg.Outcome)
-        if err != nil {
-            return nil, err
-        }
+		if err != nil {
+			return nil, err
+		}
 		k.ReportServerMatch(ctx, msg.Creator, 1, true)
 	}
 

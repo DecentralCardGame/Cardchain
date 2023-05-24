@@ -19,9 +19,9 @@ func (k Keeper) CreateUser(ctx sdk.Context, addr sdk.AccAddress, alias string) e
 	if err != nil {
 		k.InitUser(ctx, addr, alias)
 	} else {
-        return types.ErrUserAlreadyExists
-    }
-    return nil
+		return types.ErrUserAlreadyExists
+	}
+	return nil
 }
 
 // InitUser Initializes a new user

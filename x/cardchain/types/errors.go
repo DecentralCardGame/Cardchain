@@ -29,5 +29,5 @@ var (
 	ErrCardobject              = sdkerrors.Register(ModuleName, 19, "Faulty cardobject")
 	ErrBoosterPack             = sdkerrors.Register(ModuleName, 20, "Unable to open Boosterpack")
 	ErrStringLength            = sdkerrors.Register(ModuleName, 21, "String literal too long")
-    ErrUserAlreadyExists       = sdkerrors.Register(ModuleName, 22, "User already exists")
+	ErrUserAlreadyExists       = sdkerrors.Register(ModuleName, 22, "User already exists")
 )
