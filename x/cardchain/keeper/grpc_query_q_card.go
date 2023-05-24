@@ -2,6 +2,8 @@ package keeper
 
 import (
 	"context"
+	"crypto/md5"
+	"encoding/hex"
 	"strconv"
 
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
@@ -30,6 +32,8 @@ func (k Keeper) QCard(goCtx context.Context, req *types.QueryQCardRequest) (*typ
 	}
 
 	image := k.Images.Get(ctx, card.ImageId)
+	sum := md5.Sum(image.Image)
+	hash := hex.EncodeToString(sum[:])
 
 	outpCard := types.OutpCard{
 		Owner:              card.Owner,
@@ -46,6 +50,7 @@ func (k Keeper) QCard(goCtx context.Context, req *types.QueryQCardRequest) (*typ
 		UnderpoweredVotes:  card.UnderpoweredVotes,
 		InappropriateVotes: card.InappropriateVotes,
 		Nerflevel:          card.Nerflevel,
+		Hash:               hash,
 	}
 
 	return &outpCard, nil

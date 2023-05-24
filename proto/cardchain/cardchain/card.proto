@@ -41,6 +41,7 @@ message OutpCard {
   uint64 inappropriateVotes = 12;
   int64 nerflevel = 13;
   bool balanceAnchor = 15;
+  string hash = 16;
 }
 
 enum Status {

@@ -34541,6 +34541,8 @@ paths:
                 format: int64
               balanceAnchor:
                 type: boolean
+              hash:
+                type: string
         default:
           description: An unexpected error response.
           schema:
@@ -71795,6 +71797,8 @@ definitions:
         format: int64
       balanceAnchor:
         type: boolean
+      hash:
+        type: string
   DecentralCardGame.cardchain.cardchain.OutpCollection:
     type: object
     properties:
