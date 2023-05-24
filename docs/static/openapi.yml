@@ -34539,6 +34539,8 @@ paths:
               nerflevel:
                 type: string
                 format: int64
+              balanceAnchor:
+                type: boolean
         default:
           description: An unexpected error response.
           schema:
@@ -71791,6 +71793,8 @@ definitions:
       nerflevel:
         type: string
         format: int64
+      balanceAnchor:
+        type: boolean
   DecentralCardGame.cardchain.cardchain.OutpCollection:
     type: object
     properties:
