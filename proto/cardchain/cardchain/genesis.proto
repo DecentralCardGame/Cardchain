@@ -32,5 +32,6 @@ message GenesisState {
   repeated RunningAverage RunningAverages = 13;
   repeated Image images = 14;
   repeated Server Servers = 15;
+  TimeStamp lastCardModified = 16;
   // this line is used by starport scaffolding # genesis/proto/state
 }

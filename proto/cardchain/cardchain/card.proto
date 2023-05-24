@@ -55,3 +55,7 @@ enum Status {
   bannedVerySoon = 7;
   none = 8;
 }
+
+message TimeStamp {
+	uint64 timeStamp = 1; 
+}
