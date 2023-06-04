@@ -12,11 +12,10 @@ import (
 func (k msgServer) voteCard(
 	ctx sdk.Context,
 	voter *User,
-	voteRights *[]*types.VoteRight,
 	cardId uint64,
 	voteType string,
 ) error {
-	rightsIndex := slices.IndexFunc(*voteRights, func(s *types.VoteRight) bool { return s.CardId == cardId })
+	rightsIndex := slices.IndexFunc(voter.VoteRights, func(s *types.VoteRight) bool { return s.CardId == cardId })
 
 	// check if voting rights are true
 	if rightsIndex < 0 {
@@ -24,7 +23,7 @@ func (k msgServer) voteCard(
 	}
 
 	//check if voting rights are timed out
-	if ctx.BlockHeight() > (*voteRights)[rightsIndex].ExpireBlock {
+	if ctx.BlockHeight() > (voter.VoteRights)[rightsIndex].ExpireBlock {
 		k.RemoveVoteRight(ctx, voter, rightsIndex)
 		return sdkerrors.Wrap(types.ErrVoteRightIsExpired, "Voting Right has expired")
 	}
@@ -66,9 +65,7 @@ func (k msgServer) voteCard(
 	k.MintCoinsToAddr(ctx, voter.Addr, sdk.Coins{amount})
 	k.SubPoolCredits(ctx, BalancersPoolKey, amount)
 	k.RemoveVoteRight(ctx, voter, rightsIndex)
-
-	*voteRights = append((*voteRights)[:rightsIndex], (*voteRights)[rightsIndex+1:]...)
-
+	
 	k.Cards.Set(ctx, cardId, card)
 
 	return nil

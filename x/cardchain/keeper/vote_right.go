@@ -3,6 +3,7 @@ package keeper
 import (
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	"golang.org/x/exp/slices"
 )
 
 // GetVoteReward Calculates winner rewards
@@ -44,9 +45,8 @@ func (k Keeper) AddVoteRightsToAllUsers(ctx sdk.Context, expireBlock int64) {
 }
 
 // RemoveVoteRight Removes a voteright from a user
-func (k Keeper) RemoveVoteRight(ctx sdk.Context, user *User, rightsIndex int) {
-	user.VoteRights[rightsIndex] = user.VoteRights[len(user.VoteRights)-1]
-	user.VoteRights = user.VoteRights[:len(user.VoteRights)-1]
+func (k Keeper) RemoveVoteRight(ctx sdk.Context, voter *User, rightsIndex int) {
+	voter.VoteRights = slices.Delete(voter.VoteRights, rightsIndex, rightsIndex+1)
 }
 
 // GetVoteRightToAllCards Gets the voterights to all cards
