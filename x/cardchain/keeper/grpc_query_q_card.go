@@ -50,6 +50,7 @@ func (k Keeper) QCard(goCtx context.Context, req *types.QueryQCardRequest) (*typ
 		UnderpoweredVotes:  card.UnderpoweredVotes,
 		InappropriateVotes: card.InappropriateVotes,
 		Nerflevel:          card.Nerflevel,
+		BalanceAnchor:		card.BalanceAnchor,
 		Hash:               hash,
 	}
 
