@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"sort"
 	"strings"
+	"strconv"
 
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
 	"github.com/DecentralCardGame/cardobject/cardobject"
@@ -134,7 +135,7 @@ func (k Keeper) QCards(goCtx context.Context, req *types.QueryQCardsRequest) (*t
 		if req.NameContains != "" || req.CardType != "" || req.SortBy != "" || req.Classes != "" || req.KeywordsContains != "" {
 			cardobj, err := keywords.Unmarshal(gottenCard.Content)
 			if err != nil {
-				return nil, sdkerrors.Wrap(sdkerrors.ErrJSONMarshal, err.Error())
+				return nil, sdkerrors.Wrap(sdkerrors.ErrJSONMarshal, err.Error()+"cardid="+strconv.FormatUint(idx, 10))
 			}
 
 			if cardobj.Action != nil {
