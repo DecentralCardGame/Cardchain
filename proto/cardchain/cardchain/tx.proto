@@ -356,7 +356,9 @@ message MsgOpenBoosterPack {
   uint64 boosterPackId = 2;
 }
 
-message MsgOpenBoosterPackResponse {}
+message MsgOpenBoosterPackResponse {
+  repeated uint64 cardIds = 1;
+}
 
 message MsgTransferBoosterPack {
   string creator       = 1;

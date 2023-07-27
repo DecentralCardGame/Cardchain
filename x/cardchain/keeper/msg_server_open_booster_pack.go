@@ -64,5 +64,5 @@ func (k msgServer) OpenBoosterPack(goCtx context.Context, msg *types.MsgOpenBoos
 
 	k.SetUserFromUser(ctx, creator)
 
-	return &types.MsgOpenBoosterPackResponse{}, nil
+	return &types.MsgOpenBoosterPackResponse{CardIds: cardsList}, nil
 }
