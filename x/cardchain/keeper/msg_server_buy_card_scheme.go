@@ -43,5 +43,7 @@ func (k msgServer) BuyCardScheme(goCtx context.Context, msg *types.MsgBuyCardSch
 	k.Images.Set(ctx, newCard.ImageId, &image)
 	k.AddOwnedCardScheme(ctx, currId, buyer)
 
-	return &types.MsgBuyCardSchemeResponse{}, nil
+	return &types.MsgBuyCardSchemeResponse{
+		CardId: currId,
+	}, nil
 }

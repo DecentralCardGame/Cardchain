@@ -68588,6 +68588,10 @@ definitions:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgBuyCardSchemeResponse:
     type: object
+    properties:
+      cardId:
+        type: string
+        format: uint64
   DecentralCardGame.cardchain.cardchain.MsgBuyCollectionResponse:
     type: object
     properties:

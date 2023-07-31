@@ -74,7 +74,9 @@ message MsgBuyCardScheme {
                        string bid = 2;
    */}
 
-message MsgBuyCardSchemeResponse {}
+message MsgBuyCardSchemeResponse {
+ uint64 cardId = 1;
+}
 
 message MsgVoteCard {
   string creator  = 1;
