@@ -2,16 +2,16 @@ syntax = "proto3";
 package DecentralCardGame.cardchain.cardchain;
 
 import "gogoproto/gogo.proto";
-import "cardchain/cardchain/params.proto";
-import "cardchain/cardchain/card.proto";
-import "cardchain/cardchain/user.proto";
-import "cardchain/cardchain/match.proto";
-import "cardchain/cardchain/set.proto";
-import "cardchain/cardchain/sell_offer.proto";
-import "cardchain/cardchain/running_average.proto";
-import "cardchain/cardchain/council.proto";
-import "cardchain/cardchain/image.proto";
-import "cardchain/cardchain/server.proto";
+import "DecentralCardGame/cardchain/cardchain/params.proto";
+import "DecentralCardGame/cardchain/cardchain/card.proto";
+import "DecentralCardGame/cardchain/cardchain/user.proto";
+import "DecentralCardGame/cardchain/cardchain/match.proto";
+import "DecentralCardGame/cardchain/cardchain/set.proto";
+import "DecentralCardGame/cardchain/cardchain/sell_offer.proto";
+import "DecentralCardGame/cardchain/cardchain/running_average.proto";
+import "DecentralCardGame/cardchain/cardchain/council.proto";
+import "DecentralCardGame/cardchain/cardchain/image.proto";
+import "DecentralCardGame/cardchain/cardchain/server.proto";
 import "cosmos/base/v1beta1/coin.proto";
 // this line is used by starport scaffolding # genesis/proto/import
 

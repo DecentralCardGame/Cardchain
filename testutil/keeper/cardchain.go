@@ -8,13 +8,13 @@ import (
 	"github.com/cosmos/cosmos-sdk/codec"
 	codectypes "github.com/cosmos/cosmos-sdk/codec/types"
 	"github.com/cosmos/cosmos-sdk/store"
-	// storetypes "github.com/cosmos/cosmos-sdk/store/types"
+	storetypes "github.com/cosmos/cosmos-sdk/store/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	typesparams "github.com/cosmos/cosmos-sdk/x/params/types"
 	"github.com/stretchr/testify/require"
-	"github.com/tendermint/tendermint/libs/log"
-	tmproto "github.com/tendermint/tendermint/proto/tendermint/types"
-	tmdb "github.com/tendermint/tm-db"
+	"github.com/cometbft/cometbft/libs/log"
+	tmproto "github.com/cometbft/cometbft/proto/tendermint/types"
+	dbm "github.com/cometbft/cometbft-db"
 )
 
 func CardchainKeeper(t testing.TB) (*keeper.Keeper, sdk.Context) {
@@ -29,20 +29,21 @@ func CardchainKeeper(t testing.TB) (*keeper.Keeper, sdk.Context) {
 	serversStoreKey := sdk.NewKVStoreKey(types.ServersStoreKey)
 	runningAveragesStoreKey := sdk.NewKVStoreKey(types.RunningAveragesStoreKey)
 	councilsStoreKey := sdk.NewKVStoreKey(types.CouncilsStoreKey)
+	imagesStorekey := sdk.NewKVStoreKey(types.ImagesStoreKey)
 
-	db := tmdb.NewMemDB()
+	db := dbm.NewMemDB()
 	stateStore := store.NewCommitMultiStore(db)
-	stateStore.MountStoreWithDB(storeKey, sdk.StoreTypeIAVL, db)
-	stateStore.MountStoreWithDB(usersStoreKey, sdk.StoreTypeIAVL, db)
-	stateStore.MountStoreWithDB(cardsStoreKey, sdk.StoreTypeIAVL, db)
-	stateStore.MountStoreWithDB(matchesStoreKey, sdk.StoreTypeIAVL, db)
-	stateStore.MountStoreWithDB(setsStoreKey, sdk.StoreTypeIAVL, db)
-	stateStore.MountStoreWithDB(internalStoreKey, sdk.StoreTypeIAVL, db)
-	stateStore.MountStoreWithDB(sellOffersStoreKey, sdk.StoreTypeIAVL, db)
-	stateStore.MountStoreWithDB(poolsStoreKey, sdk.StoreTypeIAVL, db)
-	stateStore.MountStoreWithDB(serversStoreKey, sdk.StoreTypeIAVL, db)
-	stateStore.MountStoreWithDB(councilsStoreKey, sdk.StoreTypeIAVL, db)
-	stateStore.MountStoreWithDB(runningAveragesStoreKey, sdk.StoreTypeIAVL, db)
+	stateStore.MountStoreWithDB(storeKey, storetypes.StoreTypeIAVL, db)
+	stateStore.MountStoreWithDB(usersStoreKey, storetypes.StoreTypeIAVL, db)
+	stateStore.MountStoreWithDB(cardsStoreKey, storetypes.StoreTypeIAVL, db)
+	stateStore.MountStoreWithDB(matchesStoreKey, storetypes.StoreTypeIAVL, db)
+	stateStore.MountStoreWithDB(setsStoreKey, storetypes.StoreTypeIAVL, db)
+	stateStore.MountStoreWithDB(internalStoreKey, storetypes.StoreTypeIAVL, db)
+	stateStore.MountStoreWithDB(sellOffersStoreKey, storetypes.StoreTypeIAVL, db)
+	stateStore.MountStoreWithDB(poolsStoreKey, storetypes.StoreTypeIAVL, db)
+	stateStore.MountStoreWithDB(serversStoreKey, storetypes.StoreTypeIAVL, db)
+	stateStore.MountStoreWithDB(councilsStoreKey, storetypes.StoreTypeIAVL, db)
+	stateStore.MountStoreWithDB(runningAveragesStoreKey, storetypes.StoreTypeIAVL, db)
 	require.NoError(t, stateStore.LoadLatestVersion())
 
 	registry := codectypes.NewInterfaceRegistry()
@@ -64,6 +65,7 @@ func CardchainKeeper(t testing.TB) (*keeper.Keeper, sdk.Context) {
 		poolsStoreKey,
 		councilsStoreKey,
 		runningAveragesStoreKey,
+		imagesStorekey,
 		serversStoreKey,
 		internalStoreKey,
 		paramsSubspace,
