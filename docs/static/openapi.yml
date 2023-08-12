@@ -9215,15 +9215,7 @@ paths:
                       PageRequest.count_total
 
                       was set, its value is undefined otherwise
-<<<<<<< HEAD
-<<<<<<< HEAD
             description: |-
-=======
-            description: >-
->>>>>>> fb08aaad636050c5f3d6ed75517435c3c73ec425
-=======
-            description: |-
->>>>>>> parent of 58594eb (v0.47.4)
               GetValidatorSetByHeightResponse is the response type for the
               Query/GetValidatorSetByHeight RPC method.
         default:
@@ -9825,15 +9817,7 @@ paths:
             type: object
             properties:
               commission:
-<<<<<<< HEAD
-<<<<<<< HEAD
                 description: commission defines the commision the validator received.
-=======
-                description: commission defines the commission the validator received.
->>>>>>> fb08aaad636050c5f3d6ed75517435c3c73ec425
-=======
-                description: commission defines the commision the validator received.
->>>>>>> parent of 58594eb (v0.47.4)
                 type: object
                 properties:
                   commission:
@@ -11865,38 +11849,14 @@ paths:
             type: object
             properties:
               voting_params:
-<<<<<<< HEAD
-<<<<<<< HEAD
                 description: voting_params defines the parameters related to voting.
-=======
-                description: |-
-                  Deprecated: Prefer to use `params` instead.
-                  voting_params defines the parameters related to voting.
->>>>>>> fb08aaad636050c5f3d6ed75517435c3c73ec425
-=======
-                description: voting_params defines the parameters related to voting.
->>>>>>> parent of 58594eb (v0.47.4)
                 type: object
                 properties:
                   voting_period:
                     type: string
-<<<<<<< HEAD
-<<<<<<< HEAD
                     description: Length of the voting period.
               deposit_params:
                 description: deposit_params defines the parameters related to deposit.
-=======
-                    description: Duration of the voting period.
-              deposit_params:
-                description: |-
-                  Deprecated: Prefer to use `params` instead.
-                  deposit_params defines the parameters related to deposit.
->>>>>>> fb08aaad636050c5f3d6ed75517435c3c73ec425
-=======
-                    description: Length of the voting period.
-              deposit_params:
-                description: deposit_params defines the parameters related to deposit.
->>>>>>> parent of 58594eb (v0.47.4)
                 type: object
                 properties:
                   min_deposit:
@@ -11922,24 +11882,9 @@ paths:
                     description: >-
                       Maximum period for Atom holders to deposit on a proposal.
                       Initial value: 2
-<<<<<<< HEAD
-<<<<<<< HEAD
                        months.
               tally_params:
                 description: tally_params defines the parameters related to tally.
-=======
-
-                      months.
-              tally_params:
-                description: |-
-                  Deprecated: Prefer to use `params` instead.
-                  tally_params defines the parameters related to tally.
->>>>>>> fb08aaad636050c5f3d6ed75517435c3c73ec425
-=======
-                       months.
-              tally_params:
-                description: tally_params defines the parameters related to tally.
->>>>>>> parent of 58594eb (v0.47.4)
                 type: object
                 properties:
                   quorum:
@@ -11959,26 +11904,6 @@ paths:
                       Minimum value of Veto votes to Total votes ratio for
                       proposal to be
                        vetoed. Default value: 1/3.
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-                  min_initial_deposit_ratio:
-                    type: string
-                    description: >-
-                      The ratio representing the proportion of the deposit value
-                      that must be paid at proposal submission.
-                  burn_vote_quorum:
-                    type: boolean
-                    title: burn deposits if a proposal does not meet quorum
-                  burn_proposal_deposit_prevote:
-                    type: boolean
-                    title: burn deposits if the proposal does not enter voting period
-                  burn_vote_veto:
-                    type: boolean
-                    title: burn deposits if quorum with vote type no_veto is met
->>>>>>> fb08aaad636050c5f3d6ed75517435c3c73ec425
-=======
->>>>>>> parent of 58594eb (v0.47.4)
             description: >-
               QueryParamsResponse is the response type for the Query/Params RPC
               method.
@@ -12418,15 +12343,6 @@ paths:
                           type: string
                         no_with_veto_count:
                           type: string
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-                          description: >-
-                            no_with_veto_count is the number of no with veto
-                            votes on a proposal.
->>>>>>> fb08aaad636050c5f3d6ed75517435c3c73ec425
-=======
->>>>>>> parent of 58594eb (v0.47.4)
                     submit_time:
                       type: string
                       format: date-time
@@ -13006,15 +12922,6 @@ paths:
                         type: string
                       no_with_veto_count:
                         type: string
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-                        description: >-
-                          no_with_veto_count is the number of no with veto votes
-                          on a proposal.
->>>>>>> fb08aaad636050c5f3d6ed75517435c3c73ec425
-=======
->>>>>>> parent of 58594eb (v0.47.4)
                   submit_time:
                     type: string
                     format: date-time
@@ -13602,13 +13509,6 @@ paths:
                         custom method
 
                         signatures required by gogoproto.
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-                    description: amount to be deposited by depositor.
->>>>>>> fb08aaad636050c5f3d6ed75517435c3c73ec425
-=======
->>>>>>> parent of 58594eb (v0.47.4)
             description: >-
               QueryDepositResponse is the response type for the Query/Deposit
               RPC method.
@@ -13833,15 +13733,6 @@ paths:
                     type: string
                   no_with_veto_count:
                     type: string
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-                    description: >-
-                      no_with_veto_count is the number of no with veto votes on
-                      a proposal.
->>>>>>> fb08aaad636050c5f3d6ed75517435c3c73ec425
-=======
->>>>>>> parent of 58594eb (v0.47.4)
             description: >-
               QueryTallyResultResponse is the response type for the Query/Tally
               RPC method.
@@ -14381,15 +14272,7 @@ paths:
             type: object
             properties:
               vote:
-<<<<<<< HEAD
-<<<<<<< HEAD
                 description: vote defined the queried vote.
-=======
-                description: vote defines the queried vote.
->>>>>>> fb08aaad636050c5f3d6ed75517435c3c73ec425
-=======
-                description: vote defined the queried vote.
->>>>>>> parent of 58594eb (v0.47.4)
                 type: object
                 properties:
                   proposal_id:
@@ -14648,15 +14531,7 @@ paths:
                 properties:
                   voting_period:
                     type: string
-<<<<<<< HEAD
-<<<<<<< HEAD
                     description: Length of the voting period.
-=======
-                    description: Duration of the voting period.
->>>>>>> fb08aaad636050c5f3d6ed75517435c3c73ec425
-=======
-                    description: Length of the voting period.
->>>>>>> parent of 58594eb (v0.47.4)
               deposit_params:
                 description: deposit_params defines the parameters related to deposit.
                 type: object
@@ -14684,16 +14559,7 @@ paths:
                     description: >-
                       Maximum period for Atom holders to deposit on a proposal.
                       Initial value: 2
-<<<<<<< HEAD
-<<<<<<< HEAD
                        months.
-=======
-
-                      months.
->>>>>>> fb08aaad636050c5f3d6ed75517435c3c73ec425
-=======
-                       months.
->>>>>>> parent of 58594eb (v0.47.4)
               tally_params:
                 description: tally_params defines the parameters related to tally.
                 type: object
@@ -14717,16 +14583,7 @@ paths:
                     description: >-
                       Minimum value of Veto votes to Total votes ratio for
                       proposal to be
-<<<<<<< HEAD
-<<<<<<< HEAD
                        vetoed. Default value: 1/3.
-=======
-
-                      vetoed. Default value: 1/3.
->>>>>>> fb08aaad636050c5f3d6ed75517435c3c73ec425
-=======
-                       vetoed. Default value: 1/3.
->>>>>>> parent of 58594eb (v0.47.4)
             description: >-
               QueryParamsResponse is the response type for the Query/Params RPC
               method.
@@ -15164,15 +15021,6 @@ paths:
                           type: string
                         no_with_veto:
                           type: string
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-                          description: >-
-                            no_with_veto is the number of no with veto votes on
-                            a proposal.
->>>>>>> fb08aaad636050c5f3d6ed75517435c3c73ec425
-=======
->>>>>>> parent of 58594eb (v0.47.4)
                     submit_time:
                       type: string
                       format: date-time
@@ -15743,15 +15591,6 @@ paths:
                         type: string
                       no_with_veto:
                         type: string
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-                        description: >-
-                          no_with_veto is the number of no with veto votes on a
-                          proposal.
->>>>>>> fb08aaad636050c5f3d6ed75517435c3c73ec425
-=======
->>>>>>> parent of 58594eb (v0.47.4)
                   submit_time:
                     type: string
                     format: date-time
@@ -16334,13 +16173,6 @@ paths:
                         custom method
 
                         signatures required by gogoproto.
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-                    description: amount to be deposited by depositor.
->>>>>>> fb08aaad636050c5f3d6ed75517435c3c73ec425
-=======
->>>>>>> parent of 58594eb (v0.47.4)
             description: >-
               QueryDepositResponse is the response type for the Query/Deposit
               RPC method.
@@ -16565,15 +16397,6 @@ paths:
                     type: string
                   no_with_veto:
                     type: string
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-                    description: >-
-                      no_with_veto is the number of no with veto votes on a
-                      proposal.
->>>>>>> fb08aaad636050c5f3d6ed75517435c3c73ec425
-=======
->>>>>>> parent of 58594eb (v0.47.4)
             description: >-
               QueryTallyResultResponse is the response type for the Query/Tally
               RPC method.
@@ -17130,15 +16953,7 @@ paths:
             type: object
             properties:
               vote:
-<<<<<<< HEAD
-<<<<<<< HEAD
                 description: vote defined the queried vote.
-=======
-                description: vote defines the queried vote.
->>>>>>> fb08aaad636050c5f3d6ed75517435c3c73ec425
-=======
-                description: vote defined the queried vote.
->>>>>>> parent of 58594eb (v0.47.4)
                 type: object
                 properties:
                   proposal_id:
@@ -17195,18 +17010,7 @@ paths:
 
 
                         Since: cosmos-sdk 0.43
-<<<<<<< HEAD
-<<<<<<< HEAD
                     title: 'Since: cosmos-sdk 0.43'
-=======
-                    description: |-
-                      options is the weighted vote options.
-
-                      Since: cosmos-sdk 0.43
->>>>>>> fb08aaad636050c5f3d6ed75517435c3c73ec425
-=======
-                    title: 'Since: cosmos-sdk 0.43'
->>>>>>> parent of 58594eb (v0.47.4)
             description: >-
               QueryVoteResponse is the response type for the Query/Vote RPC
               method.
@@ -27005,26 +26809,6 @@ paths:
 
 
                       Since: cosmos-sdk 0.46
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-                  unbonding_on_hold_ref_count:
-                    type: string
-                    format: int64
-                    title: >-
-                      strictly positive if this validator's unbonding has been
-                      stopped by external modules
-                  unbonding_ids:
-                    type: array
-                    items:
-                      type: string
-                      format: uint64
-                    title: >-
-                      list of unbonding ids, each uniquely identifing an
-                      unbonding of this validator
->>>>>>> fb08aaad636050c5f3d6ed75517435c3c73ec425
-=======
->>>>>>> parent of 58594eb (v0.47.4)
             description: |-
               QueryDelegatorValidatorResponse response type for the
               Query/DelegatorValidator RPC method.
@@ -28841,26 +28625,6 @@ paths:
 
 
                       Since: cosmos-sdk 0.46
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-                  unbonding_on_hold_ref_count:
-                    type: string
-                    format: int64
-                    title: >-
-                      strictly positive if this validator's unbonding has been
-                      stopped by external modules
-                  unbonding_ids:
-                    type: array
-                    items:
-                      type: string
-                      format: uint64
-                    title: >-
-                      list of unbonding ids, each uniquely identifing an
-                      unbonding of this validator
->>>>>>> fb08aaad636050c5f3d6ed75517435c3c73ec425
-=======
->>>>>>> parent of 58594eb (v0.47.4)
             title: >-
               QueryValidatorResponse is response type for the Query/Validator
               RPC method
@@ -51499,15 +51263,7 @@ definitions:
               PageRequest.count_total
 
               was set, its value is undefined otherwise
-<<<<<<< HEAD
-<<<<<<< HEAD
     description: |-
-=======
-    description: >-
->>>>>>> fb08aaad636050c5f3d6ed75517435c3c73ec425
-=======
-    description: |-
->>>>>>> parent of 58594eb (v0.47.4)
       GetLatestValidatorSetResponse is the response type for the
       Query/GetValidatorSetByHeight RPC method.
   cosmos.base.tendermint.v1beta1.GetNodeInfoResponse:
@@ -51799,15 +51555,7 @@ definitions:
               PageRequest.count_total
 
               was set, its value is undefined otherwise
-<<<<<<< HEAD
-<<<<<<< HEAD
     description: |-
-=======
-    description: >-
->>>>>>> fb08aaad636050c5f3d6ed75517435c3c73ec425
-=======
-    description: |-
->>>>>>> parent of 58594eb (v0.47.4)
       GetValidatorSetByHeightResponse is the response type for the
       Query/GetValidatorSetByHeight RPC method.
   cosmos.base.tendermint.v1beta1.Header:
@@ -54874,15 +54622,7 @@ definitions:
     type: object
     properties:
       commission:
-<<<<<<< HEAD
-<<<<<<< HEAD
         description: commission defines the commision the validator received.
-=======
-        description: commission defines the commission the validator received.
->>>>>>> fb08aaad636050c5f3d6ed75517435c3c73ec425
-=======
-        description: commission defines the commision the validator received.
->>>>>>> parent of 58594eb (v0.47.4)
         type: object
         properties:
           commission:
@@ -55944,15 +55684,6 @@ definitions:
             type: string
           no_with_veto_count:
             type: string
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-            description: >-
-              no_with_veto_count is the number of no with veto votes on a
-              proposal.
->>>>>>> fb08aaad636050c5f3d6ed75517435c3c73ec425
-=======
->>>>>>> parent of 58594eb (v0.47.4)
       submit_time:
         type: string
         format: date-time
@@ -56036,13 +55767,6 @@ definitions:
                 method
 
                 signatures required by gogoproto.
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-            description: amount to be deposited by depositor.
->>>>>>> fb08aaad636050c5f3d6ed75517435c3c73ec425
-=======
->>>>>>> parent of 58594eb (v0.47.4)
     description: >-
       QueryDepositResponse is the response type for the Query/Deposit RPC
       method.
@@ -56107,38 +55831,14 @@ definitions:
     type: object
     properties:
       voting_params:
-<<<<<<< HEAD
-<<<<<<< HEAD
         description: voting_params defines the parameters related to voting.
-=======
-        description: |-
-          Deprecated: Prefer to use `params` instead.
-          voting_params defines the parameters related to voting.
->>>>>>> fb08aaad636050c5f3d6ed75517435c3c73ec425
-=======
-        description: voting_params defines the parameters related to voting.
->>>>>>> parent of 58594eb (v0.47.4)
         type: object
         properties:
           voting_period:
             type: string
-<<<<<<< HEAD
-<<<<<<< HEAD
             description: Length of the voting period.
       deposit_params:
         description: deposit_params defines the parameters related to deposit.
-=======
-            description: Duration of the voting period.
-      deposit_params:
-        description: |-
-          Deprecated: Prefer to use `params` instead.
-          deposit_params defines the parameters related to deposit.
->>>>>>> fb08aaad636050c5f3d6ed75517435c3c73ec425
-=======
-            description: Length of the voting period.
-      deposit_params:
-        description: deposit_params defines the parameters related to deposit.
->>>>>>> parent of 58594eb (v0.47.4)
         type: object
         properties:
           min_deposit:
@@ -56164,24 +55864,9 @@ definitions:
             description: >-
               Maximum period for Atom holders to deposit on a proposal. Initial
               value: 2
-<<<<<<< HEAD
-<<<<<<< HEAD
                months.
       tally_params:
         description: tally_params defines the parameters related to tally.
-=======
-
-              months.
-      tally_params:
-        description: |-
-          Deprecated: Prefer to use `params` instead.
-          tally_params defines the parameters related to tally.
->>>>>>> fb08aaad636050c5f3d6ed75517435c3c73ec425
-=======
-               months.
-      tally_params:
-        description: tally_params defines the parameters related to tally.
->>>>>>> parent of 58594eb (v0.47.4)
         type: object
         properties:
           quorum:
@@ -56201,26 +55886,6 @@ definitions:
               Minimum value of Veto votes to Total votes ratio for proposal to
               be
                vetoed. Default value: 1/3.
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-          min_initial_deposit_ratio:
-            type: string
-            description: >-
-              The ratio representing the proportion of the deposit value that
-              must be paid at proposal submission.
-          burn_vote_quorum:
-            type: boolean
-            title: burn deposits if a proposal does not meet quorum
-          burn_proposal_deposit_prevote:
-            type: boolean
-            title: burn deposits if the proposal does not enter voting period
-          burn_vote_veto:
-            type: boolean
-            title: burn deposits if quorum with vote type no_veto is met
->>>>>>> fb08aaad636050c5f3d6ed75517435c3c73ec425
-=======
->>>>>>> parent of 58594eb (v0.47.4)
     description: QueryParamsResponse is the response type for the Query/Params RPC method.
   cosmos.gov.v1.QueryProposalResponse:
     type: object
@@ -56442,15 +56107,6 @@ definitions:
                 type: string
               no_with_veto_count:
                 type: string
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-                description: >-
-                  no_with_veto_count is the number of no with veto votes on a
-                  proposal.
->>>>>>> fb08aaad636050c5f3d6ed75517435c3c73ec425
-=======
->>>>>>> parent of 58594eb (v0.47.4)
           submit_time:
             type: string
             format: date-time
@@ -56712,15 +56368,6 @@ definitions:
                   type: string
                 no_with_veto_count:
                   type: string
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-                  description: >-
-                    no_with_veto_count is the number of no with veto votes on a
-                    proposal.
->>>>>>> fb08aaad636050c5f3d6ed75517435c3c73ec425
-=======
->>>>>>> parent of 58594eb (v0.47.4)
             submit_time:
               type: string
               format: date-time
@@ -56791,15 +56438,6 @@ definitions:
             type: string
           no_with_veto_count:
             type: string
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-            description: >-
-              no_with_veto_count is the number of no with veto votes on a
-              proposal.
->>>>>>> fb08aaad636050c5f3d6ed75517435c3c73ec425
-=======
->>>>>>> parent of 58594eb (v0.47.4)
     description: >-
       QueryTallyResultResponse is the response type for the Query/Tally RPC
       method.
@@ -56807,15 +56445,7 @@ definitions:
     type: object
     properties:
       vote:
-<<<<<<< HEAD
-<<<<<<< HEAD
         description: vote defined the queried vote.
-=======
-        description: vote defines the queried vote.
->>>>>>> fb08aaad636050c5f3d6ed75517435c3c73ec425
-=======
-        description: vote defined the queried vote.
->>>>>>> parent of 58594eb (v0.47.4)
         type: object
         properties:
           proposal_id:
@@ -57310,13 +56940,6 @@ definitions:
             type: string
           no_with_veto:
             type: string
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-            description: no_with_veto is the number of no with veto votes on a proposal.
->>>>>>> fb08aaad636050c5f3d6ed75517435c3c73ec425
-=======
->>>>>>> parent of 58594eb (v0.47.4)
       submit_time:
         type: string
         format: date-time
@@ -57397,13 +57020,6 @@ definitions:
                 method
 
                 signatures required by gogoproto.
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-            description: amount to be deposited by depositor.
->>>>>>> fb08aaad636050c5f3d6ed75517435c3c73ec425
-=======
->>>>>>> parent of 58594eb (v0.47.4)
     description: >-
       QueryDepositResponse is the response type for the Query/Deposit RPC
       method.
@@ -57473,15 +57089,7 @@ definitions:
         properties:
           voting_period:
             type: string
-<<<<<<< HEAD
-<<<<<<< HEAD
             description: Length of the voting period.
-=======
-            description: Duration of the voting period.
->>>>>>> fb08aaad636050c5f3d6ed75517435c3c73ec425
-=======
-            description: Length of the voting period.
->>>>>>> parent of 58594eb (v0.47.4)
       deposit_params:
         description: deposit_params defines the parameters related to deposit.
         type: object
@@ -57509,16 +57117,7 @@ definitions:
             description: >-
               Maximum period for Atom holders to deposit on a proposal. Initial
               value: 2
-<<<<<<< HEAD
-<<<<<<< HEAD
                months.
-=======
-
-              months.
->>>>>>> fb08aaad636050c5f3d6ed75517435c3c73ec425
-=======
-               months.
->>>>>>> parent of 58594eb (v0.47.4)
       tally_params:
         description: tally_params defines the parameters related to tally.
         type: object
@@ -57542,16 +57141,7 @@ definitions:
             description: >-
               Minimum value of Veto votes to Total votes ratio for proposal to
               be
-<<<<<<< HEAD
-<<<<<<< HEAD
                vetoed. Default value: 1/3.
-=======
-
-              vetoed. Default value: 1/3.
->>>>>>> fb08aaad636050c5f3d6ed75517435c3c73ec425
-=======
-               vetoed. Default value: 1/3.
->>>>>>> parent of 58594eb (v0.47.4)
     description: QueryParamsResponse is the response type for the Query/Params RPC method.
   cosmos.gov.v1beta1.QueryProposalResponse:
     type: object
@@ -57767,15 +57357,6 @@ definitions:
                 type: string
               no_with_veto:
                 type: string
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-                description: >-
-                  no_with_veto is the number of no with veto votes on a
-                  proposal.
->>>>>>> fb08aaad636050c5f3d6ed75517435c3c73ec425
-=======
->>>>>>> parent of 58594eb (v0.47.4)
           submit_time:
             type: string
             format: date-time
@@ -58030,15 +57611,6 @@ definitions:
                   type: string
                 no_with_veto:
                   type: string
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-                  description: >-
-                    no_with_veto is the number of no with veto votes on a
-                    proposal.
->>>>>>> fb08aaad636050c5f3d6ed75517435c3c73ec425
-=======
->>>>>>> parent of 58594eb (v0.47.4)
             submit_time:
               type: string
               format: date-time
@@ -58106,13 +57678,6 @@ definitions:
             type: string
           no_with_veto:
             type: string
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-            description: no_with_veto is the number of no with veto votes on a proposal.
->>>>>>> fb08aaad636050c5f3d6ed75517435c3c73ec425
-=======
->>>>>>> parent of 58594eb (v0.47.4)
     description: >-
       QueryTallyResultResponse is the response type for the Query/Tally RPC
       method.
@@ -58120,15 +57685,7 @@ definitions:
     type: object
     properties:
       vote:
-<<<<<<< HEAD
-<<<<<<< HEAD
         description: vote defined the queried vote.
-=======
-        description: vote defines the queried vote.
->>>>>>> fb08aaad636050c5f3d6ed75517435c3c73ec425
-=======
-        description: vote defined the queried vote.
->>>>>>> parent of 58594eb (v0.47.4)
         type: object
         properties:
           proposal_id:
@@ -58182,18 +57739,7 @@ definitions:
                 WeightedVoteOption defines a unit of vote for vote split.
 
                 Since: cosmos-sdk 0.43
-<<<<<<< HEAD
-<<<<<<< HEAD
             title: 'Since: cosmos-sdk 0.43'
-=======
-            description: |-
-              options is the weighted vote options.
-
-              Since: cosmos-sdk 0.43
->>>>>>> fb08aaad636050c5f3d6ed75517435c3c73ec425
-=======
-            title: 'Since: cosmos-sdk 0.43'
->>>>>>> parent of 58594eb (v0.47.4)
     description: QueryVoteResponse is the response type for the Query/Vote RPC method.
   cosmos.gov.v1beta1.QueryVotesResponse:
     type: object
@@ -62939,26 +62485,6 @@ definitions:
 
 
               Since: cosmos-sdk 0.46
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-          unbonding_on_hold_ref_count:
-            type: string
-            format: int64
-            title: >-
-              strictly positive if this validator's unbonding has been stopped
-              by external modules
-          unbonding_ids:
-            type: array
-            items:
-              type: string
-              format: uint64
-            title: >-
-              list of unbonding ids, each uniquely identifing an unbonding of
-              this validator
->>>>>>> fb08aaad636050c5f3d6ed75517435c3c73ec425
-=======
->>>>>>> parent of 58594eb (v0.47.4)
     description: |-
       QueryDelegatorValidatorResponse response type for the
       Query/DelegatorValidator RPC method.
@@ -63946,26 +63472,6 @@ definitions:
 
 
               Since: cosmos-sdk 0.46
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-          unbonding_on_hold_ref_count:
-            type: string
-            format: int64
-            title: >-
-              strictly positive if this validator's unbonding has been stopped
-              by external modules
-          unbonding_ids:
-            type: array
-            items:
-              type: string
-              format: uint64
-            title: >-
-              list of unbonding ids, each uniquely identifing an unbonding of
-              this validator
->>>>>>> fb08aaad636050c5f3d6ed75517435c3c73ec425
-=======
->>>>>>> parent of 58594eb (v0.47.4)
     title: QueryValidatorResponse is response type for the Query/Validator RPC method
   cosmos.staking.v1beta1.QueryValidatorUnbondingDelegationsResponse:
     type: object
