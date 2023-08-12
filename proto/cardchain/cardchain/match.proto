@@ -2,7 +2,7 @@ syntax = "proto3";
 package DecentralCardGame.cardchain.cardchain;
 
 option go_package = "github.com/DecentralCardGame/Cardchain/x/cardchain/types";
-import "DecentralCardGame/cardchain/cardchain/tx.proto";
+import "cardchain/cardchain/tx.proto";
 
 message Match {
 
