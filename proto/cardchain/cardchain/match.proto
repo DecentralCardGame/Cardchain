@@ -19,4 +19,6 @@ message MatchPlayer {
   repeated uint64 playedCards = 2;
   bool confirmed = 3;
   Outcome outcome = 4;
+  repeated uint64 deck = 5;
+  repeated uint64 votedCards = 6;
 }

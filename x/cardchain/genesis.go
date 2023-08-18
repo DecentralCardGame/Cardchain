@@ -44,9 +44,9 @@ func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) 
 	if genState.CardAuctionPrice.Denom != "" {
 		k.SetCardAuctionPrice(ctx, genState.CardAuctionPrice)
 	}
-    if genState.LastCardModified != nil {
-        k.SetLastCardModified(ctx, *genState.LastCardModified)
-    }
+	if genState.LastCardModified != nil {
+		k.SetLastCardModified(ctx, *genState.LastCardModified)
+	}
 	k.Logger(ctx).Info("reading cards with id:")
 	for currId, record := range genState.CardRecords {
 		_, err := keywords.Unmarshal(record.Content)
@@ -71,7 +71,7 @@ func ExportGenesis(ctx sdk.Context, k keeper.Keeper) *types.GenesisState {
 	params := k.GetParams(ctx)
 	// params := types.DefaultParams()
 	cardAuctionPrice := k.GetCardAuctionPrice(ctx)
-    lastCardModified := k.GetLastCardModified(ctx)
+	lastCardModified := k.GetLastCardModified(ctx)
 	sellOffers := k.SellOffers.GetAll(ctx)
 	pools := k.Pools.GetAll(ctx)
 	records := k.Cards.GetAll(ctx)
@@ -100,6 +100,6 @@ func ExportGenesis(ctx sdk.Context, k keeper.Keeper) *types.GenesisState {
 		Images:           images,
 		RunningAverages:  runningAverages,
 		Servers:          servers,
-        LastCardModified: &lastCardModified,
+		LastCardModified: &lastCardModified,
 	}
 }

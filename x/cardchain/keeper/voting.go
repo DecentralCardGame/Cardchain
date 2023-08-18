@@ -65,7 +65,7 @@ func (k msgServer) voteCard(
 	k.MintCoinsToAddr(ctx, voter.Addr, sdk.Coins{amount})
 	k.SubPoolCredits(ctx, BalancersPoolKey, amount)
 	k.RemoveVoteRight(ctx, voter, rightsIndex)
-	
+
 	k.Cards.Set(ctx, cardId, card)
 
 	return nil

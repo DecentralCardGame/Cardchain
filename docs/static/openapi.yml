@@ -33513,6 +33513,16 @@ paths:
                       - Draw
                       - Aborted
                     default: AWon
+                  deck:
+                    type: array
+                    items:
+                      type: string
+                      format: uint64
+                  votedCards:
+                    type: array
+                    items:
+                      type: string
+                      format: uint64
               playerB:
                 type: object
                 properties:
@@ -33533,6 +33543,16 @@ paths:
                       - Draw
                       - Aborted
                     default: AWon
+                  deck:
+                    type: array
+                    items:
+                      type: string
+                      format: uint64
+                  votedCards:
+                    type: array
+                    items:
+                      type: string
+                      format: uint64
               outcome:
                 type: string
                 enum:
@@ -33614,6 +33634,16 @@ paths:
                             - Draw
                             - Aborted
                           default: AWon
+                        deck:
+                          type: array
+                          items:
+                            type: string
+                            format: uint64
+                        votedCards:
+                          type: array
+                          items:
+                            type: string
+                            format: uint64
                     playerB:
                       type: object
                       properties:
@@ -33634,6 +33664,16 @@ paths:
                             - Draw
                             - Aborted
                           default: AWon
+                        deck:
+                          type: array
+                          items:
+                            type: string
+                            format: uint64
+                        votedCards:
+                          type: array
+                          items:
+                            type: string
+                            format: uint64
                     outcome:
                       type: string
                       enum:
@@ -68522,6 +68562,16 @@ definitions:
               - Draw
               - Aborted
             default: AWon
+          deck:
+            type: array
+            items:
+              type: string
+              format: uint64
+          votedCards:
+            type: array
+            items:
+              type: string
+              format: uint64
       playerB:
         type: object
         properties:
@@ -68542,6 +68592,16 @@ definitions:
               - Draw
               - Aborted
             default: AWon
+          deck:
+            type: array
+            items:
+              type: string
+              format: uint64
+          votedCards:
+            type: array
+            items:
+              type: string
+              format: uint64
       outcome:
         type: string
         enum:
@@ -68572,6 +68632,16 @@ definitions:
           - Draw
           - Aborted
         default: AWon
+      deck:
+        type: array
+        items:
+          type: string
+          format: uint64
+      votedCards:
+        type: array
+        items:
+          type: string
+          format: uint64
   DecentralCardGame.cardchain.cardchain.MsgAddArtworkResponse:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgAddArtworkToCollectionResponse:
@@ -68615,6 +68685,12 @@ definitions:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgFinalizeCollectionResponse:
     type: object
+  DecentralCardGame.cardchain.cardchain.MsgMsgOpenMatchResponse:
+    type: object
+    properties:
+      matchId:
+        type: string
+        format: uint64
   DecentralCardGame.cardchain.cardchain.MsgMultiVoteCardResponse:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgOpenBoosterPackResponse:
@@ -68990,6 +69066,16 @@ definitions:
                     - Draw
                     - Aborted
                   default: AWon
+                deck:
+                  type: array
+                  items:
+                    type: string
+                    format: uint64
+                votedCards:
+                  type: array
+                  items:
+                    type: string
+                    format: uint64
             playerB:
               type: object
               properties:
@@ -69010,6 +69096,16 @@ definitions:
                     - Draw
                     - Aborted
                   default: AWon
+                deck:
+                  type: array
+                  items:
+                    type: string
+                    format: uint64
+                votedCards:
+                  type: array
+                  items:
+                    type: string
+                    format: uint64
             outcome:
               type: string
               enum:
