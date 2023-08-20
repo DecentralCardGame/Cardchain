@@ -5,7 +5,8 @@ services:
     build: .
     command: ./docker-run.sh
     volumes:
-       - /home/wieth:/home/tendermint/
+      - ./backup:/backup
+      - ./docker-run.sh:/home/tendermint/docker-run.sh
     ports:
       - 26657:26657
       - 26658:26658
@@ -13,21 +14,18 @@ services:
       - 9090:9090
       - 4500:4500
 
-  herd:
-    image: nginx:latest
-    container_name: herd
-    volumes:
-      - /etc/letsencrypt/live/cardchain.crowdcontrol.network/fullchain.pem:/etc/letsencrypt/live/cardchain.crowdcontrol.network/fullchain.pem
-      - /etc/letsencrypt/live/cardchain.crowdcontrol.network/privkey.pem:/etc/letsencrypt/live/cardchain.crowdcontrol.network/privkey.pem
-      - ./config/nginx.conf:/etc/nginx/conf.d/default.conf
-      - /etc/nginx/ssl/dhparam-4096.pem:/etc/nginx/ssl/dhparam-4096.pem
-    ports:
-      - 80:80
-      - 81:81
-      - 443:443
-    command: /bin/bash -c "exec nginx -g 'daemon off;'"
-    depends_on: 
-      - blockchain
-
-volumes:
-  database-data: # named volumes can be managed easier using docker-compose
+#  herd:
+#    image: nginx:latest
+#    container_name: herd
+#    volumes:
+#      - /etc/letsencrypt/live/cardchain.crowdcontrol.network/fullchain.pem:/etc/letsencrypt/live/cardchain.crowdcontrol.network/fullchain.pem
+#      - /etc/letsencrypt/live/cardchain.crowdcontrol.network/privkey.pem:/etc/letsencrypt/live/cardchain.crowdcontrol.network/privkey.pem
+#      - ./config/nginx.conf:/etc/nginx/conf.d/default.conf
+#      - /etc/nginx/ssl/dhparam-4096.pem:/etc/nginx/ssl/dhparam-4096.pem
+#    ports:
+#      - 80:80
+#      - 81:81
+#      - 443:443
+#    command: /bin/bash -c "exec nginx -g 'daemon off;'"
+#    depends_on: 
+#      - blockchain
