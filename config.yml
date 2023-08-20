@@ -102,7 +102,7 @@ validators:
       timeout_commit: 5s
     moniker: yesyoulikeCC
     p2p:
-      laddr: 0.0.0.0:26658
+      laddr: 0.0.0.0:26656
     rpc:
       laddr: 0.0.0.0:26657
       pprof_laddr: :6061

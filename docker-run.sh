@@ -13,7 +13,7 @@ then
 fi
 
 SEEDS=""
-PEERS="749792ffd93fe56d155ce1baa26ea58b46b2668a@lxgr.xyz:26657"; \
+PEERS="749792ffd93fe56d155ce1baa26ea58b46b2668a@lxgr.xyz:26656"; \
 sed -i.bak -e "s/^seeds *=.*/seeds = \"$SEEDS\"/; s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $HOME/.Cardchain/config/config.toml
 
 SNAP_RPCs=("http://crowd.rpc.t.stavr.tech:21207"

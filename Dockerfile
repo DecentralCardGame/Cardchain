@@ -1,5 +1,5 @@
 
-FROM ignitehq/cli:v0.27.1
+FROM ignitehq/cli:v0.26.1
 
 
 USER root
