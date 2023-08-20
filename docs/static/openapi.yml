@@ -33563,6 +33563,8 @@ paths:
                 default: AWon
               coinsDistributed:
                 type: boolean
+              serverConfirmed:
+                type: boolean
         default:
           description: An unexpected error response.
           schema:
@@ -33683,6 +33685,8 @@ paths:
                         - Aborted
                       default: AWon
                     coinsDistributed:
+                      type: boolean
+                    serverConfirmed:
                       type: boolean
         default:
           description: An unexpected error response.
@@ -68612,6 +68616,8 @@ definitions:
         default: AWon
       coinsDistributed:
         type: boolean
+      serverConfirmed:
+        type: boolean
   DecentralCardGame.cardchain.cardchain.MatchPlayer:
     type: object
     properties:
@@ -69115,6 +69121,8 @@ definitions:
                 - Aborted
               default: AWon
             coinsDistributed:
+              type: boolean
+            serverConfirmed:
               type: boolean
   DecentralCardGame.cardchain.cardchain.QueryQSellOffersResponse:
     type: object

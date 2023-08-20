@@ -39,17 +39,15 @@ func (k msgServer) ConfirmMatch(goCtx context.Context, msg *types.MsgConfirmMatc
 	}
 
 	player.Outcome = msg.Outcome
+	
+	player.VotedCards = msg.VotedCards
+	player.Confirmed = true
 
-	// Prefilter voted cards cards
-	var votedCards []uint64
-	for _, card := range msg.VotedCards {
-		if slices.Contains(otherPlayer.Deck, card) {
-			votedCards = append(votedCards, card)
-		}
+	err := k.TryHandleMatchOutcome(ctx, match)
+	if err != nil {
+		return nil, err
 	}
 
-	player.VotedCards = votedCards
-	player.Confirmed = true
 	k.Matches.Set(ctx, msg.MatchId, match)
 
 	return &types.MsgConfirmMatchResponse{}, nil

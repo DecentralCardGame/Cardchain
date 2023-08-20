@@ -2,6 +2,7 @@ package keeper
 
 import (
 	"fmt"
+
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
@@ -128,4 +129,47 @@ func (k Keeper) GetOutcome(ctx sdk.Context, match types.Match) (outcome types.Ou
 		}
 	}
 	return
+}
+
+func (k Keeper) TryHandleMatchOutcome(ctx sdk.Context, match *types.Match) error {
+	if match.PlayerA.Confirmed && match.PlayerB.Confirmed && match.ServerConfirmed {
+		return k.HandleMatchOutcome(ctx, match)
+	}
+	return nil
+}
+
+func (k Keeper) HandleMatchOutcome(ctx sdk.Context, match *types.Match) error {
+	players := []*types.MatchPlayer{match.PlayerA, match.PlayerB}
+
+	// Evaluate Outcome
+	outcomes := []types.Outcome{match.Outcome, match.PlayerA.Outcome, match.PlayerB.Outcome}
+	slices.Sort(outcomes)
+	outcomes = slices.Compact(outcomes)
+	switch i := uint64(len(outcomes)); i {
+	case 1:
+		k.ReportServerMatch(ctx, match.Reporter, 1, true)
+	default:
+		k.ReportServerMatch(ctx, match.Reporter, i-1, false)
+	}
+
+	outcome, err := k.GetOutcome(ctx, *match)
+	match.Outcome = outcome
+
+	err = k.DistributeCoins(ctx, match, outcome)
+	if err != nil {
+		return err
+	}
+
+	for idx, player := range players {
+		// filter voted cards cards
+		var votedCards []uint64
+		for _, card := range player.VotedCards {
+			if slices.Contains(players[(idx+1)%2].Deck, card) {
+				votedCards = append(votedCards, card)
+			}
+		}
+	}
+
+	// TODO: Votes
+	return nil
 }
