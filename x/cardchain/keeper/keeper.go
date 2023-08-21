@@ -3,6 +3,7 @@ package keeper
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/cosmos/cosmos-sdk/types/errors"
 	"sort"
 
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
@@ -12,7 +13,6 @@ import (
 	"github.com/cosmos/cosmos-sdk/codec"
 	storetypes "github.com/cosmos/cosmos-sdk/store/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	paramtypes "github.com/cosmos/cosmos-sdk/x/params/types"
 	"github.com/tendermint/tendermint/libs/log"
 )
@@ -89,7 +89,7 @@ func (k Keeper) Logger(ctx sdk.Context) log.Logger {
 func (k Keeper) TransferSchemeToCard(ctx sdk.Context, cardId uint64, user *User) (err error) {
 	user.OwnedCardSchemes, err = PopItemFromArr(cardId, user.OwnedCardSchemes)
 	if err != nil {
-		return sdkerrors.ErrUnauthorized
+		return errors.ErrUnauthorized
 	}
 
 	user.OwnedPrototypes = append(user.OwnedPrototypes, cardId)
@@ -118,10 +118,10 @@ func (k Keeper) GetLastVotingResults(ctx sdk.Context) (results types.VotingResul
 // NerfBuffCards Nerfes or buffs certain cards
 // TODO maybe the whole auto balancing stuff should be moved into its own file
 func (k Keeper) NerfBuffCards(ctx sdk.Context, cardIds []uint64, buff bool) {
-    if len(cardIds) > 0 {
-        k.SetLastCardModifiedNow(ctx)
+	if len(cardIds) > 0 {
+		k.SetLastCardModifiedNow(ctx)
 	}
-    
+
 	for _, val := range cardIds {
 		buffCard := k.Cards.Get(ctx, val)
 
@@ -221,8 +221,8 @@ func (k Keeper) UpdateBanStatus(ctx sdk.Context, newBannedIds []uint64) {
 		k.Cards.Set(ctx, id, banCard)
 	}
 
-    if len(newBannedIds) > 0 {
-        k.SetLastCardModifiedNow(ctx)
+	if len(newBannedIds) > 0 {
+		k.SetLastCardModifiedNow(ctx)
 	}
 }
 

@@ -3,9 +3,10 @@ package keeper
 import (
 	"context"
 
+	sdkerrors "cosmossdk.io/errors"
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+	"github.com/cosmos/cosmos-sdk/types/errors"
 	"golang.org/x/exp/slices"
 )
 
@@ -24,14 +25,14 @@ func (k msgServer) ConfirmMatch(goCtx context.Context, msg *types.MsgConfirmMatc
 	case match.PlayerB.Addr:
 		player = match.PlayerB
 	default:
-		return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "Didn't participate in match")
+		return nil, sdkerrors.Wrap(errors.ErrUnauthorized, "Didn't participate in match")
 	}
 
 	if player.Confirmed {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "Already reported")
+		return nil, sdkerrors.Wrap(errors.ErrUnauthorized, "Already reported")
 	}
 	if match.Outcome == types.Outcome_Aborted {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "Can't report, because match was aborted")
+		return nil, sdkerrors.Wrap(errors.ErrUnauthorized, "Can't report, because match was aborted")
 	}
 
 	player.Outcome = msg.Outcome

@@ -3,9 +3,10 @@ package keeper
 import (
 	"context"
 
+	sdkerrors "cosmossdk.io/errors"
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+	"github.com/cosmos/cosmos-sdk/types/errors"
 )
 
 func (k msgServer) RemoveSellOffer(goCtx context.Context, msg *types.MsgRemoveSellOffer) (*types.MsgRemoveSellOfferResponse, error) {
@@ -19,7 +20,7 @@ func (k msgServer) RemoveSellOffer(goCtx context.Context, msg *types.MsgRemoveSe
 	sellOffer := k.SellOffers.Get(ctx, msg.SellOfferId)
 
 	if sellOffer.Seller != msg.Creator {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "Incorrect Seller")
+		return nil, sdkerrors.Wrap(errors.ErrUnauthorized, "Incorrect Seller")
 	}
 
 	if sellOffer.Status != types.SellOfferStatus_open {

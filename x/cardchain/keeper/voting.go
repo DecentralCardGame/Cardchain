@@ -3,9 +3,11 @@ package keeper
 import (
 	"fmt"
 
+	"github.com/cosmos/cosmos-sdk/types/errors"
+
+	sdkerrors "cosmossdk.io/errors"
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	"golang.org/x/exp/slices"
 )
 
@@ -33,7 +35,7 @@ func (k msgServer) voteCard(
 
 	// check if card status is valid
 	if card.Status != types.Status_permanent && card.Status != types.Status_trial {
-		return sdkerrors.Wrap(sdkerrors.ErrUnknownRequest, "Voting on a card is only possible if it is in trial or a permanent card")
+		return sdkerrors.Wrap(errors.ErrUnknownRequest, "Voting on a card is only possible if it is in trial or a permanent card")
 	}
 
 	switch voteType {
@@ -47,7 +49,7 @@ func (k msgServer) voteCard(
 		card.UnderpoweredVotes++
 	default:
 		errMsg := fmt.Sprintf("Unrecognized card vote type: %s", voteType)
-		return sdkerrors.Wrap(sdkerrors.ErrUnknownRequest, errMsg)
+		return sdkerrors.Wrap(errors.ErrUnknownRequest, errMsg)
 	}
 	card.Voters = append(card.Voters, voter.Addr.String())
 
@@ -56,16 +58,19 @@ func (k msgServer) voteCard(
 		reward := k.GetParams(ctx).TrialVoteReward
 		err := k.MintCoinsToAddr(ctx, voter.Addr, sdk.Coins{reward})
 		if err != nil {
-			return sdkerrors.Wrap(sdkerrors.ErrInsufficientFunds, err.Error())
+			return sdkerrors.Wrap(errors.ErrInsufficientFunds, err.Error())
 		}
 		card.VotePool.Sub(reward) // TODO actually if there is less than 1cr then it should be adjusted
 	}
 
 	amount := k.GetVoteReward(ctx)
-	k.MintCoinsToAddr(ctx, voter.Addr, sdk.Coins{amount})
+	err := k.MintCoinsToAddr(ctx, voter.Addr, sdk.Coins{amount})
+	if err != nil {
+		return err
+	}
 	k.SubPoolCredits(ctx, BalancersPoolKey, amount)
 	k.RemoveVoteRight(ctx, voter, rightsIndex)
-	
+
 	k.Cards.Set(ctx, cardId, card)
 
 	return nil

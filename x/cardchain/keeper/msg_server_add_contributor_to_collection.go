@@ -3,9 +3,10 @@ package keeper
 import (
 	"context"
 
+	sdkerrors "cosmossdk.io/errors"
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+	"github.com/cosmos/cosmos-sdk/types/errors"
 	"golang.org/x/exp/slices"
 )
 
@@ -14,7 +15,7 @@ func (k msgServer) AddContributorToCollection(goCtx context.Context, msg *types.
 
 	collection := k.Collections.Get(ctx, msg.CollectionId)
 	if msg.Creator != collection.Contributors[0] {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "Invalid creator")
+		return nil, sdkerrors.Wrap(errors.ErrUnauthorized, "Invalid creator")
 	}
 	if collection.Status != types.CStatus_design {
 		return nil, types.ErrCollectionNotInDesign
@@ -26,7 +27,7 @@ func (k msgServer) AddContributorToCollection(goCtx context.Context, msg *types.
 
 	err := k.CollectCollectionConributionFee(ctx, msg.Creator)
 	if err != nil {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrInsufficientFunds, err.Error())
+		return nil, sdkerrors.Wrap(errors.ErrInsufficientFunds, err.Error())
 	}
 
 	collection.Contributors = append(collection.Contributors, msg.User)
