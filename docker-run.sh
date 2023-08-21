@@ -14,7 +14,7 @@ fi
 
 #we can derive the peer id from the address and should do so!
 SEEDS=""
-PEERS="b62779bb72e9b3c0544c296e39c3a2a3973d5ac8@lxgr.xyz:26656"; \
+PEERS="ac55889faeddb46499142b25410a964d0589d48e@lxgr.xyz:26656"; \
 sed -i.bak -e "s/^seeds *=.*/seeds = \"$SEEDS\"/; s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $HOME/.Cardchain/config/config.toml
 
 SNAP_RPCs=("http://crowd.rpc.t.stavr.tech:21207"
