@@ -13,7 +13,7 @@ then
 fi
 
 SEEDS=""
-PEERS="749792ffd93fe56d155ce1baa26ea58b46b2668a@lxgr.xyz:26656"; \
+PEERS="b62779bb72e9b3c0544c296e39c3a2a3973d5ac8@lxgr.xyz:26656"; \
 sed -i.bak -e "s/^seeds *=.*/seeds = \"$SEEDS\"/; s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $HOME/.Cardchain/config/config.toml
 
 SNAP_RPCs=("http://crowd.rpc.t.stavr.tech:21207"
@@ -38,7 +38,7 @@ SNAP_RPCs=("http://crowd.rpc.t.stavr.tech:21207"
 SNAP_RPC="http://lxgr.xyz:26657"
 LATEST_HEIGHT=$(curl -s $SNAP_RPC/block | jq -r .result.block.header.height)
 echo $LATEST_HEIGHT
-BLOCK_HEIGHT=$((LATEST_HEIGHT - 2000)); \
+BLOCK_HEIGHT=$((LATEST_HEIGHT)); \
 TRUST_HASH=$(curl -s "$SNAP_RPC/block?height=$BLOCK_HEIGHT" | jq -r .result.block_id.hash)
 echo -e "\033[0;36mlatest height: $LATEST_HEIGHT \nblock height: $BLOCK_HEIGHT \ntrust hash: $TRUST_HASH \033[0m"
 
