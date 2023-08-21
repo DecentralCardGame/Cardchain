@@ -2,7 +2,7 @@ syntax = "proto3";
 package DecentralCardGame.cardchain.cardchain;
 
 option go_package = "github.com/DecentralCardGame/Cardchain/x/cardchain/types";
-import "cardchain/cardchain/vote_right.proto";
+import "cardchain/cardchain/voteing.proto";
 
 message User {
 

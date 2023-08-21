@@ -28,4 +28,5 @@ message Params {
   string trialVoteReward = 19 [(gogoproto.nullable) = false, (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Coin"];;
   int64 votePoolFraction = 20;
   int64 votingRewardCap = 8;
+  uint64 matchWorkerDelay = 21;
 }

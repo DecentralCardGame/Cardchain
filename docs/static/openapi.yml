@@ -33050,6 +33050,9 @@ paths:
                   votingRewardCap:
                     type: string
                     format: int64
+                  matchWorkerDelay:
+                    type: string
+                    format: uint64
             description: >-
               QueryParamsResponse is response type for the Query/Params RPC
               method.
@@ -33513,6 +33516,21 @@ paths:
                       - Draw
                       - Aborted
                     default: AWon
+                  deck:
+                    type: array
+                    items:
+                      type: string
+                      format: uint64
+                  votedCards:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        cardId:
+                          type: string
+                          format: uint64
+                        voteType:
+                          type: string
               playerB:
                 type: object
                 properties:
@@ -33533,6 +33551,21 @@ paths:
                       - Draw
                       - Aborted
                     default: AWon
+                  deck:
+                    type: array
+                    items:
+                      type: string
+                      format: uint64
+                  votedCards:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        cardId:
+                          type: string
+                          format: uint64
+                        voteType:
+                          type: string
               outcome:
                 type: string
                 enum:
@@ -33542,6 +33575,8 @@ paths:
                   - Aborted
                 default: AWon
               coinsDistributed:
+                type: boolean
+              serverConfirmed:
                 type: boolean
         default:
           description: An unexpected error response.
@@ -33614,6 +33649,21 @@ paths:
                             - Draw
                             - Aborted
                           default: AWon
+                        deck:
+                          type: array
+                          items:
+                            type: string
+                            format: uint64
+                        votedCards:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              cardId:
+                                type: string
+                                format: uint64
+                              voteType:
+                                type: string
                     playerB:
                       type: object
                       properties:
@@ -33634,6 +33684,21 @@ paths:
                             - Draw
                             - Aborted
                           default: AWon
+                        deck:
+                          type: array
+                          items:
+                            type: string
+                            format: uint64
+                        votedCards:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              cardId:
+                                type: string
+                                format: uint64
+                              voteType:
+                                type: string
                     outcome:
                       type: string
                       enum:
@@ -33643,6 +33708,8 @@ paths:
                         - Aborted
                       default: AWon
                     coinsDistributed:
+                      type: boolean
+                    serverConfirmed:
                       type: boolean
         default:
           description: An unexpected error response.
@@ -68522,6 +68589,21 @@ definitions:
               - Draw
               - Aborted
             default: AWon
+          deck:
+            type: array
+            items:
+              type: string
+              format: uint64
+          votedCards:
+            type: array
+            items:
+              type: object
+              properties:
+                cardId:
+                  type: string
+                  format: uint64
+                voteType:
+                  type: string
       playerB:
         type: object
         properties:
@@ -68542,6 +68624,21 @@ definitions:
               - Draw
               - Aborted
             default: AWon
+          deck:
+            type: array
+            items:
+              type: string
+              format: uint64
+          votedCards:
+            type: array
+            items:
+              type: object
+              properties:
+                cardId:
+                  type: string
+                  format: uint64
+                voteType:
+                  type: string
       outcome:
         type: string
         enum:
@@ -68551,6 +68648,8 @@ definitions:
           - Aborted
         default: AWon
       coinsDistributed:
+        type: boolean
+      serverConfirmed:
         type: boolean
   DecentralCardGame.cardchain.cardchain.MatchPlayer:
     type: object
@@ -68572,6 +68671,21 @@ definitions:
           - Draw
           - Aborted
         default: AWon
+      deck:
+        type: array
+        items:
+          type: string
+          format: uint64
+      votedCards:
+        type: array
+        items:
+          type: object
+          properties:
+            cardId:
+              type: string
+              format: uint64
+            voteType:
+              type: string
   DecentralCardGame.cardchain.cardchain.MsgAddArtworkResponse:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgAddArtworkToCollectionResponse:
@@ -68615,6 +68729,12 @@ definitions:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgFinalizeCollectionResponse:
     type: object
+  DecentralCardGame.cardchain.cardchain.MsgMsgOpenMatchResponse:
+    type: object
+    properties:
+      matchId:
+        type: string
+        format: uint64
   DecentralCardGame.cardchain.cardchain.MsgMultiVoteCardResponse:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgOpenBoosterPackResponse:
@@ -68827,6 +68947,9 @@ definitions:
       votingRewardCap:
         type: string
         format: int64
+      matchWorkerDelay:
+        type: string
+        format: uint64
     description: Params defines the parameters for the module.
   DecentralCardGame.cardchain.cardchain.QueryParamsResponse:
     type: object
@@ -68888,6 +69011,9 @@ definitions:
           votingRewardCap:
             type: string
             format: int64
+          matchWorkerDelay:
+            type: string
+            format: uint64
     description: QueryParamsResponse is response type for the Query/Params RPC method.
   DecentralCardGame.cardchain.cardchain.QueryQCardContentResponse:
     type: object
@@ -68990,6 +69116,21 @@ definitions:
                     - Draw
                     - Aborted
                   default: AWon
+                deck:
+                  type: array
+                  items:
+                    type: string
+                    format: uint64
+                votedCards:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      cardId:
+                        type: string
+                        format: uint64
+                      voteType:
+                        type: string
             playerB:
               type: object
               properties:
@@ -69010,6 +69151,21 @@ definitions:
                     - Draw
                     - Aborted
                   default: AWon
+                deck:
+                  type: array
+                  items:
+                    type: string
+                    format: uint64
+                votedCards:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      cardId:
+                        type: string
+                        format: uint64
+                      voteType:
+                        type: string
             outcome:
               type: string
               enum:
@@ -69019,6 +69175,8 @@ definitions:
                 - Aborted
               default: AWon
             coinsDistributed:
+              type: boolean
+            serverConfirmed:
               type: boolean
   DecentralCardGame.cardchain.cardchain.QueryQSellOffersResponse:
     type: object

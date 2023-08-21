@@ -11,23 +11,27 @@ import (
 	"golang.org/x/exp/slices"
 )
 
-func (k msgServer) voteCard(
+func (k Keeper) voteCard(
 	ctx sdk.Context,
 	voter *User,
 	cardId uint64,
 	voteType string,
+	ignoreVoteRights bool,
 ) error {
-	rightsIndex := slices.IndexFunc(voter.VoteRights, func(s *types.VoteRight) bool { return s.CardId == cardId })
+	var rightsIndex int
+	if !ignoreVoteRights {
+		rightsIndex = slices.IndexFunc(voter.VoteRights, func(s *types.VoteRight) bool { return s.CardId == cardId })
 
-	// check if voting rights are true
-	if rightsIndex < 0 {
-		return sdkerrors.Wrap(types.ErrVoterHasNoVotingRights, "No Voting Rights")
-	}
+		// check if voting rights are true
+		if rightsIndex < 0 {
+			return sdkerrors.Wrap(types.ErrVoterHasNoVotingRights, "No Voting Rights")
+		}
 
-	//check if voting rights are timed out
-	if ctx.BlockHeight() > (voter.VoteRights)[rightsIndex].ExpireBlock {
-		k.RemoveVoteRight(ctx, voter, rightsIndex)
-		return sdkerrors.Wrap(types.ErrVoteRightIsExpired, "Voting Right has expired")
+		//check if voting rights are timed out
+		if ctx.BlockHeight() > (voter.VoteRights)[rightsIndex].ExpireBlock {
+			k.RemoveVoteRight(ctx, voter, rightsIndex)
+			return sdkerrors.Wrap(types.ErrVoteRightIsExpired, "Voting Right has expired")
+		}
 	}
 
 	// if the vote right is valid, get the Card
@@ -69,15 +73,33 @@ func (k msgServer) voteCard(
 		return err
 	}
 	k.SubPoolCredits(ctx, BalancersPoolKey, amount)
-	k.RemoveVoteRight(ctx, voter, rightsIndex)
+	if !ignoreVoteRights {
+		k.RemoveVoteRight(ctx, voter, rightsIndex)
+	}
 
 	k.Cards.Set(ctx, cardId, card)
 
 	return nil
 }
 
-func (k msgServer) incVotesAverageBy(ctx sdk.Context, n int64) {
+func (k Keeper) incVotesAverageBy(ctx sdk.Context, n int64) {
 	votes := k.RunningAverages.Get(ctx, Votes24ValueKey)
 	votes.Arr[len(votes.Arr)-1] += n
 	k.RunningAverages.Set(ctx, Votes24ValueKey, votes)
+}
+
+func (k Keeper) multiVote(ctx sdk.Context, voter *User, votes []*types.SingleVote, ignoreVotingRights bool) error {
+	var n = 0
+
+	for i, vote := range votes {
+		err := k.voteCard(ctx, voter, vote.CardId, vote.VoteType, ignoreVotingRights)
+		if err != nil {
+			return err
+		}
+		n = i
+	}
+
+	k.incVotesAverageBy(ctx, int64(n+1))
+
+	return nil
 }

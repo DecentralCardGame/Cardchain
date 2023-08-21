@@ -104,7 +104,7 @@ func (k Keeper) CheckTrial(ctx sdk.Context) error {
 					card.Status = types.Status_permanent
 					group = approvers
 					amt = 2
-                    k.SetLastCardModifiedNow(ctx)
+					k.SetLastCardModifiedNow(ctx)
 				} else {
 					card.Status = types.Status_prototype
 					group = deniers

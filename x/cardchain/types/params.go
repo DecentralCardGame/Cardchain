@@ -12,6 +12,8 @@ import (
 
 var _ paramtypes.ParamSet = (*Params)(nil)
 
+const DefaultMatchWorkerDelay = 20 * 60
+
 // ParamKeyTable the param key table for launch module
 func ParamKeyTable() paramtypes.KeyTable {
 	return paramtypes.NewKeyTable().RegisterParamSet(&Params{})
@@ -40,6 +42,7 @@ func NewParams() Params {
 		CardAuctionPriceReductionPeriod: 20,
 		AirDropValue:                    sdk.NewInt64Coin("ubpf", int64(5*math.Pow(10, 6))),
 		AirDropMaxBlockHeight:           5000000,
+		MatchWorkerDelay:                DefaultMatchWorkerDelay,
 	}
 }
 
@@ -71,6 +74,7 @@ func (p *Params) ParamSetPairs() paramtypes.ParamSetPairs {
 		paramtypes.NewParamSetPair([]byte("CardAuctionPriceReductionPeriod"), &p.CardAuctionPriceReductionPeriod, validateCardAuctionPriceReductionPeriod),
 		paramtypes.NewParamSetPair([]byte("AirDropValue"), &p.AirDropValue, validateAirDropValue),
 		paramtypes.NewParamSetPair([]byte("AirDropMaxBlockHeight"), &p.AirDropMaxBlockHeight, validateAirDropMaxBlockHeight),
+		paramtypes.NewParamSetPair([]byte("MatchWorkerDelay"), &p.MatchWorkerDelay, validateMatchWorkerDelay),
 	}
 }
 
@@ -288,6 +292,14 @@ func validateInflationRate(i interface{}) error {
 	_, err := strconv.ParseFloat(v, 8)
 	if err != nil {
 		return fmt.Errorf("invalid parameter: %d", err)
+	}
+	return nil
+}
+
+func validateMatchWorkerDelay(i interface{}) error {
+	_, ok := i.(uint64)
+	if !ok {
+		return fmt.Errorf("invalid parameter type: %T", i)
 	}
 	return nil
 }

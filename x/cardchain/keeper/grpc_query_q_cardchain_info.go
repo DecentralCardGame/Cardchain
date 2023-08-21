@@ -25,6 +25,6 @@ func (k Keeper) QCardchainInfo(goCtx context.Context, req *types.QueryQCardchain
 		MatchesNumber:     k.Matches.GetNum(ctx),
 		SellOffersNumber:  k.SellOffers.GetNum(ctx),
 		CouncilsNumber:    k.Councils.GetNum(ctx),
-        LastCardModified:  k.GetLastCardModified(ctx).TimeStamp,
+		LastCardModified:  k.GetLastCardModified(ctx).TimeStamp,
 	}, nil
 }
