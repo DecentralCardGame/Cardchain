@@ -16,7 +16,7 @@ func (k msgServer) VoteCard(goCtx context.Context, msg *types.MsgVoteCard) (*typ
 		return nil, sdkerrors.Wrap(types.ErrInvalidAccAddress, "Unable to convert to AccAddress")
 	}
 
-	k.voteCard(ctx, &voter, msg.CardId, msg.VoteType)
+	k.voteCard(ctx, &voter, msg.CardId, msg.VoteType, false)
 
 	k.incVotesAverageBy(ctx, 1)
 

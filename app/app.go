@@ -810,6 +810,8 @@ func (app *App) EndBlocker(ctx sdk.Context, req abci.RequestEndBlock) abci.Respo
 		}
 	}
 
+	app.CardchainKeeper.MatchWorker(ctx)
+
 	return app.mm.EndBlock(ctx, req)
 }
 

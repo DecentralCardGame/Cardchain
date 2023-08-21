@@ -4,10 +4,11 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
-func NewMatchPlayer(addr string, cards []uint64) *MatchPlayer {
+func NewMatchPlayer(addr string, cards []uint64, deck []uint64) *MatchPlayer {
 	return &MatchPlayer{
 		Addr:        addr,
 		PlayedCards: cards,
+		Deck:        deck,
 		Confirmed:   false,
 		Outcome:     Outcome_Aborted,
 	}

@@ -118,10 +118,10 @@ func (k Keeper) GetLastVotingResults(ctx sdk.Context) (results types.VotingResul
 // NerfBuffCards Nerfes or buffs certain cards
 // TODO maybe the whole auto balancing stuff should be moved into its own file
 func (k Keeper) NerfBuffCards(ctx sdk.Context, cardIds []uint64, buff bool) {
-    if len(cardIds) > 0 {
-        k.SetLastCardModifiedNow(ctx)
+	if len(cardIds) > 0 {
+		k.SetLastCardModifiedNow(ctx)
 	}
-    
+
 	for _, val := range cardIds {
 		buffCard := k.Cards.Get(ctx, val)
 
@@ -221,8 +221,8 @@ func (k Keeper) UpdateBanStatus(ctx sdk.Context, newBannedIds []uint64) {
 		k.Cards.Set(ctx, id, banCard)
 	}
 
-    if len(newBannedIds) > 0 {
-        k.SetLastCardModifiedNow(ctx)
+	if len(newBannedIds) > 0 {
+		k.SetLastCardModifiedNow(ctx)
 	}
 }
 

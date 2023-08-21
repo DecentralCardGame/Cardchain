@@ -4,6 +4,8 @@ package DecentralCardGame.cardchain.cardchain;
 
 import "gogoproto/gogo.proto";
 import "cardchain/cardchain/council.proto";
+import "cardchain/cardchain/match.proto";
+import "cardchain/cardchain/voteing.proto";
 import "cosmos/base/v1beta1/coin.proto";
 
 // this line is used by starport scaffolding # proto/tx/import
@@ -55,6 +57,7 @@ service Msg {
 
   // this line is used by starport scaffolding # proto/tx/rpc
   rpc MultiVoteCard (MsgMultiVoteCard) returns (MsgMultiVoteCardResponse);
+  rpc MsgOpenMatch  (MsgMsgOpenMatch ) returns (MsgMsgOpenMatchResponse );
 }
 message MsgCreateuser {
   string creator = 1;
@@ -71,11 +74,11 @@ message MsgBuyCardScheme {
   cosmos.base.v1beta1.Coin bid     = 2 [(gogoproto.nullable) = false, (gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coin"];
 
   /*
-                       string bid = 2;
+                               string bid = 2;
    */}
 
 message MsgBuyCardSchemeResponse {
- uint64 cardId = 1;
+  uint64 cardId = 1;
 }
 
 message MsgVoteCard {
@@ -95,9 +98,9 @@ message MsgSaveCardContent {
   
   //  bytes image = 4;
   //  string fullArt = 5;
-  string notes  = 4;
-  string artist = 5;
-  bool balanceAnchor = 6;
+  string notes         = 4;
+  string artist        = 5;
+  bool   balanceAnchor = 6;
 }
 
 message MsgSaveCardContentResponse {
@@ -153,20 +156,13 @@ message MsgRegisterForCouncil {
 message MsgRegisterForCouncilResponse {}
 
 message MsgReportMatch {
-           string  creator = 1;
-           string  playerA = 2;
-           string  playerB = 3;
-  repeated uint64  cardsA  = 5;
-  repeated uint64  cardsB  = 6;
-           Outcome outcome = 7;
+           string  creator      = 1;
+           uint64  matchId      = 2;
+  repeated uint64  playedCardsA = 3;
+  repeated uint64  playedCardsB = 4;
+           Outcome outcome      = 5;
 }
 
-enum Outcome {
-  AWon    = 0;
-  BWon    = 1;
-  Draw    = 2;
-  Aborted = 3;
-}
 message MsgReportMatchResponse {
   uint64 matchId = 1;
 }
@@ -339,9 +335,10 @@ message MsgRewokeCouncilRegistration {
 message MsgRewokeCouncilRegistrationResponse {}
 
 message MsgConfirmMatch {
-  string  creator = 1;
-  uint64  matchId = 2;
-  Outcome outcome = 3;
+           string  creator = 1;
+           uint64  matchId = 2;
+           Outcome outcome = 3;
+  repeated SingleVote votedCards = 4;
 }
 
 message MsgConfirmMatchResponse {}
@@ -400,17 +397,23 @@ message MsgSetUserBiography {
 
 message MsgSetUserBiographyResponse {}
 
-
-message SingleVote {
-  uint64 cardId   = 1;
-  string voteType = 2;
-}
-
 // this line is used by starport scaffolding # proto/tx/message
 message MsgMultiVoteCard {
-  string creator = 1;
-  repeated SingleVote votes = 2;
+           string     creator = 1;
+  repeated SingleVote votes   = 2;
 }
 
 message MsgMultiVoteCardResponse {}
+
+message MsgMsgOpenMatch {
+  string creator = 1;
+  string playerA = 2;
+  string playerB = 3;
+  repeated uint64 playerADeck = 4;
+  repeated uint64 playerBDeck = 5;
+}
+
+message MsgMsgOpenMatchResponse {
+  uint64 matchId = 1;
+}
 
