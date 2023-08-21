@@ -2,8 +2,7 @@ package keeper
 
 import (
 	"context"
-
-	"golang.org/x/exp/slices"
+	"time"
 
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -14,8 +13,7 @@ func (k msgServer) ConfirmMatch(goCtx context.Context, msg *types.MsgConfirmMatc
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
 	var (
-		player      *types.MatchPlayer
-		otherPlayer *types.MatchPlayer
+		player *types.MatchPlayer
 	)
 
 	match := k.Matches.Get(ctx, msg.MatchId)
@@ -23,10 +21,8 @@ func (k msgServer) ConfirmMatch(goCtx context.Context, msg *types.MsgConfirmMatc
 	switch msg.Creator {
 	case match.PlayerA.Addr:
 		player = match.PlayerA
-		otherPlayer = match.PlayerB
 	case match.PlayerB.Addr:
 		player = match.PlayerB
-		otherPlayer = match.PlayerA
 	default:
 		return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "Didn't participate in match")
 	}
@@ -39,9 +35,9 @@ func (k msgServer) ConfirmMatch(goCtx context.Context, msg *types.MsgConfirmMatc
 	}
 
 	player.Outcome = msg.Outcome
-	
 	player.VotedCards = msg.VotedCards
 	player.Confirmed = true
+	match.Timestamp = uint64(time.Now().Unix())
 
 	err := k.TryHandleMatchOutcome(ctx, match)
 	if err != nil {

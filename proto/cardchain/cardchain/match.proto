@@ -2,6 +2,7 @@ syntax = "proto3";
 package DecentralCardGame.cardchain.cardchain;
 
 option go_package = "github.com/DecentralCardGame/Cardchain/x/cardchain/types";
+import "cardchain/cardchain/voteing.proto";
 
 message Match {
 
@@ -20,7 +21,7 @@ message MatchPlayer {
   bool confirmed = 3;
   Outcome outcome = 4;
   repeated uint64 deck = 5;
-  repeated uint64 votedCards = 6;
+  repeated SingleVote votedCards = 6;
 }
 
 enum Outcome {

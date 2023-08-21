@@ -2,6 +2,7 @@ package keeper
 
 import (
 	"fmt"
+	"time"
 
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -21,9 +22,9 @@ func (k Keeper) SetMatchReporter(ctx sdk.Context, address string) error {
 	return nil
 }
 
-// CalculateMatchReward Calculates the match winning rewards
-func (k Keeper) CalculateMatchReward(ctx sdk.Context, outcome types.Outcome) (amountA sdk.Coin, amountB sdk.Coin) {
-	reward := k.GetMatchReward(ctx)
+// calculateMatchReward Calculates the match winning rewards
+func (k Keeper) calculateMatchReward(ctx sdk.Context, outcome types.Outcome) (amountA sdk.Coin, amountB sdk.Coin) {
+	reward := k.getMatchReward(ctx)
 	amountA = sdk.NewInt64Coin("ucredits", 0)
 	amountB = sdk.NewInt64Coin("ucredits", 0)
 
@@ -41,8 +42,8 @@ func (k Keeper) CalculateMatchReward(ctx sdk.Context, outcome types.Outcome) (am
 	return
 }
 
-// GetMatchReward Calculates winner rewards
-func (k Keeper) GetMatchReward(ctx sdk.Context) sdk.Coin {
+// getMatchReward Calculates winner rewards
+func (k Keeper) getMatchReward(ctx sdk.Context) sdk.Coin {
 	pool := k.Pools.Get(ctx, WinnersPoolKey)
 	reward := QuoCoin(*pool, k.GetParams(ctx).WinnerReward)
 	if reward.Amount.Int64() > 1000000 {
@@ -51,8 +52,8 @@ func (k Keeper) GetMatchReward(ctx sdk.Context) sdk.Coin {
 	return reward
 }
 
-// GetMatchAddresses Get's and verifies the players of a match
-func (k Keeper) GetMatchAddresses(ctx sdk.Context, match types.Match) (addresses []sdk.AccAddress, err error) {
+// getMatchAddresses Get's and verifies the players of a match
+func (k Keeper) getMatchAddresses(ctx sdk.Context, match types.Match) (addresses []sdk.AccAddress, err error) {
 	for _, player := range []string{match.PlayerA.Addr, match.PlayerB.Addr} {
 		var address sdk.AccAddress
 		address, err = sdk.AccAddressFromBech32(player)
@@ -66,14 +67,26 @@ func (k Keeper) GetMatchAddresses(ctx sdk.Context, match types.Match) (addresses
 	return
 }
 
-// DistributeCoins to players of a match
-func (k Keeper) DistributeCoins(ctx sdk.Context, match *types.Match, outcome types.Outcome) error {
-	addresses, err := k.GetMatchAddresses(ctx, *match)
+func (k Keeper) getMatchUsers(ctx sdk.Context, match types.Match) (users []*User, err error) {
+	for _, address := range []string{match.PlayerA.Addr, match.PlayerB.Addr} {
+		user, err := k.GetUserFromString(ctx, address)
+		if err != nil {
+			return []*User{}, err
+		}
+		users = append(users, &user)
+	}
+
+	return
+}
+
+// distributeCoins to players of a match
+func (k Keeper) distributeCoins(ctx sdk.Context, match *types.Match, outcome types.Outcome) error {
+	addresses, err := k.getMatchAddresses(ctx, *match)
 	if err != nil {
 		return err
 	}
 
-	amountA, amountB := k.CalculateMatchReward(ctx, outcome)
+	amountA, amountB := k.calculateMatchReward(ctx, outcome)
 	amounts := []sdk.Coin{amountA, amountB}
 	for idx, address := range addresses {
 		if !amounts[idx].IsZero() {
@@ -139,8 +152,6 @@ func (k Keeper) TryHandleMatchOutcome(ctx sdk.Context, match *types.Match) error
 }
 
 func (k Keeper) HandleMatchOutcome(ctx sdk.Context, match *types.Match) error {
-	players := []*types.MatchPlayer{match.PlayerA, match.PlayerB}
-
 	// Evaluate Outcome
 	outcomes := []types.Outcome{match.Outcome, match.PlayerA.Outcome, match.PlayerB.Outcome}
 	slices.Sort(outcomes)
@@ -155,21 +166,63 @@ func (k Keeper) HandleMatchOutcome(ctx sdk.Context, match *types.Match) error {
 	outcome, err := k.GetOutcome(ctx, *match)
 	match.Outcome = outcome
 
-	err = k.DistributeCoins(ctx, match, outcome)
+	err = k.distributeCoins(ctx, match, outcome)
 	if err != nil {
 		return err
 	}
 
-	for idx, player := range players {
-		// filter voted cards cards
-		var votedCards []uint64
-		for _, card := range player.VotedCards {
-			if slices.Contains(players[(idx+1)%2].Deck, card) {
-				votedCards = append(votedCards, card)
-			}
-		}
+	err = k.voteMatchCards(ctx, match)
+	if err != nil {
+		return err
 	}
 
 	// TODO: Votes
 	return nil
+}
+
+func (k Keeper) voteMatchCards(ctx sdk.Context, match *types.Match) error {
+	users, err := k.getMatchUsers(ctx, *match)
+	if err != nil {
+		return err
+	}
+	players := []*types.MatchPlayer{match.PlayerA, match.PlayerB}
+	for idx, player := range players {
+		// filter voted cards cards
+		otherPlayer := players[(idx+1)%2]
+		var otherPlayerCards []uint64
+		var cleanedVotes []*types.SingleVote
+		if match.ServerConfirmed {
+			otherPlayerCards = otherPlayer.PlayedCards
+		} else {
+			otherPlayerCards = otherPlayer.Deck
+		}
+		for _, vote := range player.VotedCards {
+			if slices.Contains(otherPlayerCards, vote.CardId) {
+				cleanedVotes = append(cleanedVotes, vote)
+			}
+		}
+		err = k.multiVote(ctx, users[idx], cleanedVotes, true)
+		if err != nil {
+			return err
+		}
+		k.SetUserFromUser(ctx, *users[idx])
+	}
+	return nil
+}
+
+func (k Keeper) MatchWorker(ctx sdk.Context) {
+	now := uint64(time.Now().Unix())
+	if ctx.BlockHeight()%20 == 0 {
+		matchIter := k.Matches.GetItemIterator(ctx)
+		for ; matchIter.Valid(); matchIter.Next() {
+			id, match := matchIter.Value()
+			if !match.CoinsDistributed && match.Timestamp != 0 && match.Timestamp+k.GetParams(ctx).MatchWorkerDelay < now {
+				err := k.HandleMatchOutcome(ctx, match)
+				if err != nil {
+					k.Logger(ctx).Error(fmt.Sprintf(":: Error with matchWorker: %s", err))
+				}
+				k.Matches.Set(ctx, id, match)
+			}
+		}
+	}
 }

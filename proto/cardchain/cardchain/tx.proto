@@ -5,6 +5,7 @@ package DecentralCardGame.cardchain.cardchain;
 import "gogoproto/gogo.proto";
 import "cardchain/cardchain/council.proto";
 import "cardchain/cardchain/match.proto";
+import "cardchain/cardchain/voteing.proto";
 import "cosmos/base/v1beta1/coin.proto";
 
 // this line is used by starport scaffolding # proto/tx/import
@@ -337,7 +338,7 @@ message MsgConfirmMatch {
            string  creator = 1;
            uint64  matchId = 2;
            Outcome outcome = 3;
-  repeated uint64  votedCards = 4;
+  repeated SingleVote votedCards = 4;
 }
 
 message MsgConfirmMatchResponse {}
@@ -395,11 +396,6 @@ message MsgSetUserBiography {
 }
 
 message MsgSetUserBiographyResponse {}
-
-message SingleVote {
-  uint64 cardId   = 1;
-  string voteType = 2;
-}
 
 // this line is used by starport scaffolding # proto/tx/message
 message MsgMultiVoteCard {

@@ -28,34 +28,34 @@ func TestMatches(t *testing.T) {
 	require.EqualValues(t, match, *k.Matches.Get(ctx, 0))
 	require.EqualValues(t, []*types.Match{&match, &match}, k.Matches.GetAll(ctx))
 	require.EqualValues(t, 2, k.Matches.GetNumber(ctx))
-	require.EqualValues(t, sdk.NewInt64Coin("ucredits", 2), k.GetMatchReward(ctx), k.GetMatchReward(ctx).Amount.Int64())
+	require.EqualValues(t, sdk.NewInt64Coin("ucredits", 2), k.getMatchReward(ctx), k.getMatchReward(ctx).Amount.Int64())
 
-	amountA, amountB := k.CalculateMatchReward(ctx, types.Outcome_AWon)
+	amountA, amountB := k.calculateMatchReward(ctx, types.Outcome_AWon)
 	require.EqualValues(t, sdk.NewInt64Coin("ucredits", 2), amountA)
 	require.EqualValues(t, sdk.NewInt64Coin("ucredits", 0), amountB)
 
 	SetUpPools(ctx, *k)
-	amountA, amountB = k.CalculateMatchReward(ctx, types.Outcome_BWon)
+	amountA, amountB = k.calculateMatchReward(ctx, types.Outcome_BWon)
 	require.EqualValues(t, sdk.NewInt64Coin("ucredits", 0), amountA)
 	require.EqualValues(t, sdk.NewInt64Coin("ucredits", 2), amountB)
 
 	SetUpPools(ctx, *k)
-	amountA, amountB = k.CalculateMatchReward(ctx, types.Outcome_Draw)
+	amountA, amountB = k.calculateMatchReward(ctx, types.Outcome_Draw)
 	require.EqualValues(t, sdk.NewInt64Coin("ucredits", 1), amountA)
 	require.EqualValues(t, sdk.NewInt64Coin("ucredits", 1), amountB)
 
 	SetUpPools(ctx, *k)
-	amountA, amountB = k.CalculateMatchReward(ctx, types.Outcome_Aborted)
+	amountA, amountB = k.calculateMatchReward(ctx, types.Outcome_Aborted)
 	require.EqualValues(t, sdk.NewInt64Coin("ucredits", 0), amountA)
 	require.EqualValues(t, sdk.NewInt64Coin("ucredits", 0), amountB)
 
-	addrs, err := k.GetMatchAddresses(ctx, match)
+	addrs, err := k.getMatchAddresses(ctx, match)
 	require.EqualValues(t, nil, err)
 	require.EqualValues(t, addrs[0], addrs[1])
 	require.EqualValues(t, 2, len(addrs))
 
 	match.PlayerA.Addr = "abc"
-	addrs, err = k.GetMatchAddresses(ctx, match)
+	addrs, err = k.getMatchAddresses(ctx, match)
 	require.NotEqualValues(t, nil, err)
 
 	outcome, err := k.GetOutcome(ctx, match)

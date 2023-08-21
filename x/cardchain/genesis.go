@@ -62,6 +62,9 @@ func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) 
 		genState.Params.AirDropValue = defaultParams.AirDropValue
 		genState.Params.AirDropMaxBlockHeight = defaultParams.AirDropMaxBlockHeight
 	}
+	if genState.Params.MatchWorkerDelay == 0 {
+		genState.Params.MatchWorkerDelay = types.DefaultMatchWorkerDelay
+	}
 	k.SetParams(ctx, genState.Params)
 }
 

@@ -33050,6 +33050,9 @@ paths:
                   votingRewardCap:
                     type: string
                     format: int64
+                  matchWorkerDelay:
+                    type: string
+                    format: uint64
             description: >-
               QueryParamsResponse is response type for the Query/Params RPC
               method.
@@ -33521,8 +33524,13 @@ paths:
                   votedCards:
                     type: array
                     items:
-                      type: string
-                      format: uint64
+                      type: object
+                      properties:
+                        cardId:
+                          type: string
+                          format: uint64
+                        voteType:
+                          type: string
               playerB:
                 type: object
                 properties:
@@ -33551,8 +33559,13 @@ paths:
                   votedCards:
                     type: array
                     items:
-                      type: string
-                      format: uint64
+                      type: object
+                      properties:
+                        cardId:
+                          type: string
+                          format: uint64
+                        voteType:
+                          type: string
               outcome:
                 type: string
                 enum:
@@ -33644,8 +33657,13 @@ paths:
                         votedCards:
                           type: array
                           items:
-                            type: string
-                            format: uint64
+                            type: object
+                            properties:
+                              cardId:
+                                type: string
+                                format: uint64
+                              voteType:
+                                type: string
                     playerB:
                       type: object
                       properties:
@@ -33674,8 +33692,13 @@ paths:
                         votedCards:
                           type: array
                           items:
-                            type: string
-                            format: uint64
+                            type: object
+                            properties:
+                              cardId:
+                                type: string
+                                format: uint64
+                              voteType:
+                                type: string
                     outcome:
                       type: string
                       enum:
@@ -68574,8 +68597,13 @@ definitions:
           votedCards:
             type: array
             items:
-              type: string
-              format: uint64
+              type: object
+              properties:
+                cardId:
+                  type: string
+                  format: uint64
+                voteType:
+                  type: string
       playerB:
         type: object
         properties:
@@ -68604,8 +68632,13 @@ definitions:
           votedCards:
             type: array
             items:
-              type: string
-              format: uint64
+              type: object
+              properties:
+                cardId:
+                  type: string
+                  format: uint64
+                voteType:
+                  type: string
       outcome:
         type: string
         enum:
@@ -68646,8 +68679,13 @@ definitions:
       votedCards:
         type: array
         items:
-          type: string
-          format: uint64
+          type: object
+          properties:
+            cardId:
+              type: string
+              format: uint64
+            voteType:
+              type: string
   DecentralCardGame.cardchain.cardchain.MsgAddArtworkResponse:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgAddArtworkToCollectionResponse:
@@ -68909,6 +68947,9 @@ definitions:
       votingRewardCap:
         type: string
         format: int64
+      matchWorkerDelay:
+        type: string
+        format: uint64
     description: Params defines the parameters for the module.
   DecentralCardGame.cardchain.cardchain.QueryParamsResponse:
     type: object
@@ -68970,6 +69011,9 @@ definitions:
           votingRewardCap:
             type: string
             format: int64
+          matchWorkerDelay:
+            type: string
+            format: uint64
     description: QueryParamsResponse is response type for the Query/Params RPC method.
   DecentralCardGame.cardchain.cardchain.QueryQCardContentResponse:
     type: object
@@ -69080,8 +69124,13 @@ definitions:
                 votedCards:
                   type: array
                   items:
-                    type: string
-                    format: uint64
+                    type: object
+                    properties:
+                      cardId:
+                        type: string
+                        format: uint64
+                      voteType:
+                        type: string
             playerB:
               type: object
               properties:
@@ -69110,8 +69159,13 @@ definitions:
                 votedCards:
                   type: array
                   items:
-                    type: string
-                    format: uint64
+                    type: object
+                    properties:
+                      cardId:
+                        type: string
+                        format: uint64
+                      voteType:
+                        type: string
             outcome:
               type: string
               enum:
