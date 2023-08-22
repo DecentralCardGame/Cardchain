@@ -3,9 +3,10 @@ package keeper
 import (
 	"context"
 
+	sdkerrors "cosmossdk.io/errors"
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+	"github.com/cosmos/cosmos-sdk/types/errors"
 	"golang.org/x/exp/slices"
 )
 
@@ -14,7 +15,7 @@ func (k msgServer) RemoveCardFromCollection(goCtx context.Context, msg *types.Ms
 
 	collection := k.Collections.Get(ctx, msg.CollectionId)
 	if !slices.Contains(collection.Contributors, msg.Creator) {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "Invalid contributor")
+		return nil, sdkerrors.Wrap(errors.ErrUnauthorized, "Invalid contributor")
 	}
 	if collection.Status != types.CStatus_design {
 		return nil, types.ErrCollectionNotInDesign

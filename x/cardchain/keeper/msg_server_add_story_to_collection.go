@@ -3,9 +3,10 @@ package keeper
 import (
 	"context"
 
+	sdkerrors "cosmossdk.io/errors"
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+	"github.com/cosmos/cosmos-sdk/types/errors"
 )
 
 func (k msgServer) AddStoryToCollection(goCtx context.Context, msg *types.MsgAddStoryToCollection) (*types.MsgAddStoryToCollectionResponse, error) {
@@ -13,7 +14,7 @@ func (k msgServer) AddStoryToCollection(goCtx context.Context, msg *types.MsgAdd
 
 	collection := k.Collections.Get(ctx, msg.CollectionId)
 	if collection.StoryWriter != msg.Creator {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "Incorrect StoryWriter")
+		return nil, sdkerrors.Wrap(errors.ErrUnauthorized, "Incorrect StoryWriter")
 	}
 	if collection.Status != types.CStatus_design {
 		return nil, types.ErrCollectionNotInDesign
@@ -21,7 +22,7 @@ func (k msgServer) AddStoryToCollection(goCtx context.Context, msg *types.MsgAdd
 
 	err := k.CollectCollectionConributionFee(ctx, msg.Creator)
 	if err != nil {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrInsufficientFunds, err.Error())
+		return nil, sdkerrors.Wrap(errors.ErrInsufficientFunds, err.Error())
 	}
 
 	collection.Story = msg.Story

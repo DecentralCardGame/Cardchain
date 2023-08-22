@@ -5,11 +5,12 @@ import (
 	"encoding/json"
 	"errors"
 
+	sdkerrors "cosmossdk.io/errors"
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
 	"github.com/DecentralCardGame/cardobject/cardobject"
 	"github.com/DecentralCardGame/cardobject/keywords"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+	sdkerrors2 "github.com/cosmos/cosmos-sdk/types/errors"
 	"golang.org/x/exp/slices"
 )
 
@@ -20,7 +21,7 @@ func (k msgServer) SetCardRarity(goCtx context.Context, msg *types.MsgSetCardRar
 	collection := k.Collections.Get(ctx, msg.CollectionId)
 
 	if collection.Contributors[0] != msg.Creator || !slices.Contains(collection.Cards, msg.CardId) {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "Incorrect Creator")
+		return nil, sdkerrors.Wrap(sdkerrors2.ErrUnauthorized, "Incorrect Creator")
 	}
 
 	cardobj, err := keywords.Unmarshal(card.Content)

@@ -3,9 +3,10 @@ package keeper
 import (
 	"context"
 
+	sdkerrors "cosmossdk.io/errors"
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+	"github.com/cosmos/cosmos-sdk/types/errors"
 	"golang.org/x/exp/slices"
 )
 
@@ -16,7 +17,7 @@ func (k msgServer) AddCardToCollection(goCtx context.Context, msg *types.MsgAddC
 
 	collection := k.Collections.Get(ctx, msg.CollectionId)
 	if !slices.Contains(collection.Contributors, msg.Creator) {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "Invalid contributor")
+		return nil, sdkerrors.Wrap(errors.ErrUnauthorized, "Invalid contributor")
 	}
 	if collection.Status != types.CStatus_design {
 		return nil, types.ErrCollectionNotInDesign
@@ -36,7 +37,7 @@ func (k msgServer) AddCardToCollection(goCtx context.Context, msg *types.MsgAddC
 	}
 
 	if card.Owner != msg.Creator {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "Invalid creator")
+		return nil, sdkerrors.Wrap(errors.ErrUnauthorized, "Invalid creator")
 	}
 
 	if len(collection.Cards) >= collectionSize {
@@ -49,7 +50,7 @@ func (k msgServer) AddCardToCollection(goCtx context.Context, msg *types.MsgAddC
 
 	err := k.CollectCollectionConributionFee(ctx, msg.Creator)
 	if err != nil {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrInsufficientFunds, err.Error())
+		return nil, sdkerrors.Wrap(errors.ErrInsufficientFunds, err.Error())
 	}
 
 	collection.Cards = append(collection.Cards, msg.CardId)

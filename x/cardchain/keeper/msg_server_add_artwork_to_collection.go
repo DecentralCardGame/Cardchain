@@ -4,9 +4,10 @@ import (
 	"context"
 	"fmt"
 
+	sdkerrors "cosmossdk.io/errors"
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+	"github.com/cosmos/cosmos-sdk/types/errors"
 )
 
 func (k msgServer) AddArtworkToCollection(goCtx context.Context, msg *types.MsgAddArtworkToCollection) (*types.MsgAddArtworkToCollectionResponse, error) {
@@ -16,7 +17,7 @@ func (k msgServer) AddArtworkToCollection(goCtx context.Context, msg *types.MsgA
 	image := k.Images.Get(ctx, collection.ArtworkId)
 
 	if collection.Artist != msg.Creator {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "Incorrect Artist")
+		return nil, sdkerrors.Wrap(errors.ErrUnauthorized, "Incorrect Artist")
 	}
 	if collection.Status != types.CStatus_design {
 		return nil, types.ErrCollectionNotInDesign
@@ -28,7 +29,7 @@ func (k msgServer) AddArtworkToCollection(goCtx context.Context, msg *types.MsgA
 
 	err := k.CollectCollectionConributionFee(ctx, msg.Creator)
 	if err != nil {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrInsufficientFunds, err.Error())
+		return nil, sdkerrors.Wrap(errors.ErrInsufficientFunds, err.Error())
 	}
 
 	image.Image = msg.Image

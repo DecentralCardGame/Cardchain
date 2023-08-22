@@ -4,9 +4,10 @@ import (
 	"context"
 	"time"
 
+	sdkerrors "cosmossdk.io/errors"
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+	"github.com/cosmos/cosmos-sdk/types/errors"
 )
 
 func (k msgServer) ReportMatch(goCtx context.Context, msg *types.MsgReportMatch) (*types.MsgReportMatchResponse, error) {
@@ -19,16 +20,16 @@ func (k msgServer) ReportMatch(goCtx context.Context, msg *types.MsgReportMatch)
 		return nil, sdkerrors.Wrap(types.ErrUserDoesNotExist, err.Error())
 	}
 	if creator.ReportMatches == false {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "Incorrect Reporter")
+		return nil, sdkerrors.Wrap(errors.ErrUnauthorized, "Incorrect Reporter")
 	}
 	if msg.Creator != match.Reporter {
-		return nil, sdkerrors.Wrapf(sdkerrors.ErrUnauthorized, "Wrong Reporter, reporter is %s", match.Reporter)
+		return nil, sdkerrors.Wrapf(errors.ErrUnauthorized, "Wrong Reporter, reporter is %s", match.Reporter)
 	}
 	if !match.PlayerA.Confirmed && !match.PlayerB.Confirmed {
 		return nil, sdkerrors.Wrapf(types.ErrWaitingForPlayers, "Waiting for players to report")
 	}
 	if !match.CoinsDistributed {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "Match already reported")
+		return nil, sdkerrors.Wrap(errors.ErrUnauthorized, "Match already reported")
 	}
 
 	match.Outcome = msg.Outcome

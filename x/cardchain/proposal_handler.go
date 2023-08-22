@@ -3,10 +3,11 @@ package cardchain
 import (
 	"sort"
 
+	sdkerrors "cosmossdk.io/errors"
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/keeper"
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+	"github.com/cosmos/cosmos-sdk/types/errors"
 	govtypes "github.com/cosmos/cosmos-sdk/x/gov/types/v1beta1"
 )
 
@@ -22,7 +23,7 @@ func NewProposalHandler(k keeper.Keeper) govtypes.Handler {
 			return handleCollectionProposal(ctx, k, c)
 
 		default:
-			return sdkerrors.Wrapf(sdkerrors.ErrUnknownRequest, "unrecognized proposal content type: %T", c)
+			return sdkerrors.Wrapf(errors.ErrUnknownRequest, "unrecognized proposal content type: %T", c)
 		}
 	}
 }

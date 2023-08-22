@@ -3,9 +3,10 @@ package keeper
 import (
 	"context"
 
+	sdkerrors "cosmossdk.io/errors"
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+	"github.com/cosmos/cosmos-sdk/types/errors"
 )
 
 func (k msgServer) TransferCard(goCtx context.Context, msg *types.MsgTransferCard) (*types.MsgTransferCardResponse, error) {
@@ -23,21 +24,21 @@ func (k msgServer) TransferCard(goCtx context.Context, msg *types.MsgTransferCar
 	}
 
 	if card.Owner == "" {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "Card has no owner")
+		return nil, sdkerrors.Wrap(errors.ErrUnauthorized, "Card has no owner")
 	} else if msg.Creator != card.Owner { // Checks if the the msg sender is the same as the current owner
-		return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "Incorrect Owner") // If not, throw an error
+		return nil, sdkerrors.Wrap(errors.ErrUnauthorized, "Incorrect Owner") // If not, throw an error
 	}
 
 	if card.Status == types.Status_scheme {
 		creator.OwnedCardSchemes, err = PopItemFromArr(msg.CardId, creator.OwnedCardSchemes)
 		if err != nil {
-			return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, err.Error())
+			return nil, sdkerrors.Wrap(errors.ErrUnauthorized, err.Error())
 		}
 		receiver.OwnedCardSchemes = append(receiver.OwnedCardSchemes, msg.CardId)
 	} else {
 		creator.OwnedPrototypes, err = PopItemFromArr(msg.CardId, creator.OwnedPrototypes)
 		if err != nil {
-			return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, err.Error())
+			return nil, sdkerrors.Wrap(errors.ErrUnauthorized, err.Error())
 		}
 		receiver.OwnedPrototypes = append(receiver.OwnedPrototypes, msg.CardId)
 	}

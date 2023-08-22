@@ -4,7 +4,7 @@ import (
 	"testing"
 
 	"github.com/DecentralCardGame/Cardchain/testutil/sample"
-	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+	"github.com/cosmos/cosmos-sdk/types/errors"
 	"github.com/stretchr/testify/require"
 )
 
@@ -19,7 +19,7 @@ func TestMsgAddCardToCollection_ValidateBasic(t *testing.T) {
 			msg: MsgAddCardToCollection{
 				Creator: "invalid_address",
 			},
-			err: sdkerrors.ErrInvalidAddress,
+			err: errors.ErrInvalidAddress,
 		}, {
 			name: "valid address",
 			msg: MsgAddCardToCollection{

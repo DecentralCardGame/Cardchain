@@ -3,9 +3,9 @@ package keeper
 import (
 	"context"
 
+	sdkerrors "cosmossdk.io/errors"
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 )
 
 func (k msgServer) VoteCard(goCtx context.Context, msg *types.MsgVoteCard) (*types.MsgVoteCardResponse, error) {
@@ -16,7 +16,10 @@ func (k msgServer) VoteCard(goCtx context.Context, msg *types.MsgVoteCard) (*typ
 		return nil, sdkerrors.Wrap(types.ErrInvalidAccAddress, "Unable to convert to AccAddress")
 	}
 
-	k.voteCard(ctx, &voter, msg.CardId, msg.VoteType, false)
+	err = k.voteCard(ctx, &voter, msg.CardId, msg.VoteType, false)
+	if err != nil {
+		return nil, err
+	}
 
 	k.incVotesAverageBy(ctx, 1)
 

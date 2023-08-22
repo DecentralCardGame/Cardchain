@@ -5,9 +5,10 @@ import (
 	"fmt"
 	"strconv"
 
+	sdkerrors "cosmossdk.io/errors"
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+	"github.com/cosmos/cosmos-sdk/types/errors"
 )
 
 func (k msgServer) BuyCollection(goCtx context.Context, msg *types.MsgBuyCollection) (*types.MsgBuyCollectionResponse, error) {
@@ -41,7 +42,7 @@ func (k msgServer) BuyCollection(goCtx context.Context, msg *types.MsgBuyCollect
 
 		err = k.BankKeeper.SendCoins(ctx, creator.Addr, contribAddr, sdk.Coins{QuoCoin(params.CollectionPrice, int64(len(contribs)))})
 		if err != nil {
-			return nil, sdkerrors.Wrap(sdkerrors.ErrInsufficientFunds, err.Error())
+			return nil, sdkerrors.Wrap(errors.ErrInsufficientFunds, err.Error())
 		}
 	}
 

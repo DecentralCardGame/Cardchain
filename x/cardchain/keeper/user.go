@@ -1,9 +1,9 @@
 package keeper
 
 import (
+	sdkerrors "cosmossdk.io/errors"
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 )
 
 // User Combines types.User and it's account address for better usability
@@ -17,7 +17,10 @@ func (k Keeper) CreateUser(ctx sdk.Context, addr sdk.AccAddress, alias string) e
 	// check if user already exists
 	_, err := k.GetUser(ctx, addr)
 	if err != nil {
-		k.InitUser(ctx, addr, alias)
+		err = k.InitUser(ctx, addr, alias)
+		if err != nil {
+			return err
+		}
 	} else {
 		return types.ErrUserAlreadyExists
 	}
@@ -25,19 +28,23 @@ func (k Keeper) CreateUser(ctx sdk.Context, addr sdk.AccAddress, alias string) e
 }
 
 // InitUser Initializes a new user
-func (k Keeper) InitUser(ctx sdk.Context, address sdk.AccAddress, alias string) {
+func (k Keeper) InitUser(ctx sdk.Context, address sdk.AccAddress, alias string) error {
 	if alias == "" {
 		alias = "newbie"
 	}
 	newUser := types.NewUser()
 	newUser.Alias = alias
-	k.MintCoinsToAddr(ctx, address, sdk.Coins{sdk.NewInt64Coin("ucredits", 10000000000)})
+	err := k.MintCoinsToAddr(ctx, address, sdk.Coins{sdk.NewInt64Coin("ucredits", 10000000000)})
+	if err != nil {
+		return err
+	}
 	newUser.VoteRights = k.GetVoteRightToAllCards(ctx, ctx.BlockHeight()+k.GetParams(ctx).VotingRightsExpirationTime) // TODO this might be a good thing to remove later, so that sybil voting is not possible
 	// Yes yes remove later, this is pretty heavy on the chain and gas prices
 
 	userObj := User{newUser, address}
 	k.ClaimAirDrop(ctx, &userObj, types.AirDrop_user)
 	k.SetUserFromUser(ctx, userObj)
+	return nil
 }
 
 // GetUser Gets a user from store

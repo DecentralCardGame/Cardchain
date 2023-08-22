@@ -4,9 +4,10 @@ import (
 	"fmt"
 	"time"
 
+	sdkerrors "cosmossdk.io/errors"
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+	"github.com/cosmos/cosmos-sdk/types/errors"
 	"golang.org/x/exp/slices"
 )
 
@@ -92,7 +93,7 @@ func (k Keeper) distributeCoins(ctx sdk.Context, match *types.Match, outcome typ
 		if !amounts[idx].IsZero() {
 			err := k.MintCoinsToAddr(ctx, address, sdk.Coins{amounts[idx]})
 			if err != nil {
-				return sdkerrors.Wrap(sdkerrors.ErrInsufficientFunds, err.Error())
+				return sdkerrors.Wrap(errors.ErrInsufficientFunds, err.Error())
 			}
 			k.SubPoolCredits(ctx, WinnersPoolKey, amounts[idx])
 

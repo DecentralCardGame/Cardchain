@@ -4,10 +4,11 @@ import (
 	"context"
 	"encoding/json"
 
+	sdkerrors "cosmossdk.io/errors"
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
 	"github.com/DecentralCardGame/cardobject/keywords"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+	"github.com/cosmos/cosmos-sdk/types/errors"
 )
 
 func (k msgServer) SaveCardContent(goCtx context.Context, msg *types.MsgSaveCardContent) (*types.MsgSaveCardContentResponse, error) {
@@ -26,9 +27,9 @@ func (k msgServer) SaveCardContent(goCtx context.Context, msg *types.MsgSaveCard
 	//}
 
 	if card.Owner == "" {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "Card has no owner")
+		return nil, sdkerrors.Wrap(errors.ErrUnauthorized, "Card has no owner")
 	} else if msg.Creator != card.Owner { // Checks if the the msg sender is the same as the current owner
-		return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "Incorrect Owner")
+		return nil, sdkerrors.Wrap(errors.ErrUnauthorized, "Incorrect Owner")
 	}
 
 	cardobj, err := keywords.Unmarshal([]byte(msg.Content))
@@ -48,7 +49,7 @@ func (k msgServer) SaveCardContent(goCtx context.Context, msg *types.MsgSaveCard
 	if card.Status == types.Status_scheme {
 		err = k.TransferSchemeToCard(ctx, msg.CardId, &msgOwner)
 		if err != nil {
-			return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "An error accured while converting a card to a scheme: "+err.Error())
+			return nil, sdkerrors.Wrap(errors.ErrUnauthorized, "An error accured while converting a card to a scheme: "+err.Error())
 		}
 	}
 

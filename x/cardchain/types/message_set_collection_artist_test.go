@@ -4,12 +4,12 @@ import (
 	"testing"
 
 	"github.com/DecentralCardGame/Cardchain/testutil/sample"
-	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+	"github.com/cosmos/cosmos-sdk/types/errors"
 	"github.com/stretchr/testify/require"
 )
 
 func TestMsgSetCollectionArtist_ValidateBasic(t *testing.T) {
-	tests := []struct {
+	var tests = []struct {
 		name string
 		msg  MsgSetCollectionArtist
 		err  error
@@ -19,7 +19,7 @@ func TestMsgSetCollectionArtist_ValidateBasic(t *testing.T) {
 			msg: MsgSetCollectionArtist{
 				Creator: "invalid_address",
 			},
-			err: sdkerrors.ErrInvalidAddress,
+			err: errors.ErrInvalidAddress,
 		}, {
 			name: "valid address",
 			msg: MsgSetCollectionArtist{

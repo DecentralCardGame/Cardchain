@@ -4,9 +4,10 @@ import (
 	"context"
 	"fmt"
 
+	sdkerrors "cosmossdk.io/errors"
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+	"github.com/cosmos/cosmos-sdk/types/errors"
 )
 
 func (k msgServer) FinalizeCollection(goCtx context.Context, msg *types.MsgFinalizeCollection) (*types.MsgFinalizeCollectionResponse, error) {
@@ -16,7 +17,7 @@ func (k msgServer) FinalizeCollection(goCtx context.Context, msg *types.MsgFinal
 
 	collection := k.Collections.Get(ctx, msg.CollectionId)
 	if msg.Creator != collection.Contributors[0] {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "Invalid creator")
+		return nil, sdkerrors.Wrap(errors.ErrUnauthorized, "Invalid creator")
 	}
 
 	if collection.Status != types.CStatus_design {
@@ -29,7 +30,7 @@ func (k msgServer) FinalizeCollection(goCtx context.Context, msg *types.MsgFinal
 
 	err := k.CollectCollectionCreationFee(ctx, msg.Creator)
 	if err != nil {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrInsufficientFunds, err.Error())
+		return nil, sdkerrors.Wrap(errors.ErrInsufficientFunds, err.Error())
 	}
 
 	dist, err := k.GetRarityDistribution(ctx, *collection, uint64(collectionSize))
