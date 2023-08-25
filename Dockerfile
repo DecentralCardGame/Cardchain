@@ -20,7 +20,7 @@ RUN mv go /usr/local
 
 
 USER tendermint
-WORKDIR /home/tendermints
+WORKDIR /home/tendermint
 
 RUN export GOPATH=$HOME/go
 RUN wget https://github.com/DecentralCardGame/go-faucet/archive/master.zip && \
