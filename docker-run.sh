@@ -13,8 +13,11 @@ then
 fi
 
 #we can derive the peer id from the address and should do so!
+NODE_ADDR="lxgr.xyz"
+PEER_ID=$(curl -s "http://"$NODE_ADDR":26657/status" | jq -r .result.node_info.id)
 SEEDS=""
-PEERS="ac55889faeddb46499142b25410a964d0589d48e@lxgr.xyz:26656"; \
+PEERS=$PEER_ID"@"$NODE_ADDR":26656"
+echo "peers is:" $PEERS
 sed -i.bak -e "s/^seeds *=.*/seeds = \"$SEEDS\"/; s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $HOME/.Cardchain/config/config.toml
 
 SNAP_RPCs=("http://crowd.rpc.t.stavr.tech:21207"
@@ -71,6 +74,6 @@ echo -e "\033[0;32mstarting Blockchain\033[0m"
 Cardchaind start
 
 # backup area (this will be executed if the Cardchaind process is killed)
-#now=$(date +"%d.%m.%Y")
-#Cardchaind export > /backup/genesis$now.json
-#echo "BACKUP should be in /backup/genesis$now"
+now=$(date +"%d.%m.%Y")
+Cardchaind export > /backup/genesis$now.json
+echo "BACKUP should be in /backup/genesis$now"
