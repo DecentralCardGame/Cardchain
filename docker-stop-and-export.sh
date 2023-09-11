@@ -11,4 +11,5 @@ done
 
 echo "writing backup"
 
-sh ./scripts/backupGenesis.sh
+# no longer necessary
+#sh ./scripts/backupGenesis.sh

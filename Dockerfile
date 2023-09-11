@@ -6,11 +6,6 @@ USER root
 RUN apt-get -y -qq update && \
 	apt-get install -y -qq apt-transport-https curl wget unzip screen bash jq && \
 	apt-get clean
-#
-# install jq to parse json within bash scripts
-#RUN curl -o /usr/local/bin/jq https://github.com/jqlang/jq/releases/download/jq-1.6/jq-linux64 && \
-#  chmod +x /usr/local/bin/jq
-#RUN jq #this will crash in case jq is not properly installed
 
 # install correct go version
 RUN wget https://go.dev/dl/go1.20.2.linux-amd64.tar.gz
@@ -38,10 +33,8 @@ COPY --chown=tendermint:tendermint . .
 RUN ignite chain build
 RUN ignite chain init
 
-#RUN	mkdir -p $HOME/.Cardchain/config
-RUN wget -O $HOME/.Cardchain/config/genesis.json "https://raw.githubusercontent.com/DecentralCardGame/Testnet/Testnet4/genesis.json"
+RUN wget -O $HOME/.Cardchain/config/genesis.json "https://github.com/DecentralCardGame/Testnet/raw/Testnet4/genesis.json"
 RUN	wget -O $HOME/.Cardchain/config/addrbook.json "https://raw.githubusercontent.com/DecentralCardGame/Testnet/Testnet4/addrbook.json"
-
 
 RUN chmod +x ./docker-run.sh
 ENTRYPOINT bash docker-run.sh
