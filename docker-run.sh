@@ -76,4 +76,4 @@ Cardchaind start
 # backup area (this will be executed if the Cardchaind process is killed)
 now=$(date +"%d.%m.%Y")
 Cardchaind export > /backup/genesis$now.json
-echo "BACKUP should be in /backup/genesis$now"
+echo "BACKUP should be in /backup/genesis$now - don't forget to use migrate_with_data.py script in case you need it"
