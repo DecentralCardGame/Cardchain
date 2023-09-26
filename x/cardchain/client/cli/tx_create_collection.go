@@ -36,9 +36,9 @@ func CmdCreateCollection() *cobra.Command {
 
 			msg := types.NewMsgCreateCollection(
 				clientCtx.GetFromAddress().String(),
+				argName,
 				argArtist,
 				argStoryWriter,
-				argName,
 				argContributors,
 			)
 			if err := msg.ValidateBasic(); err != nil {
