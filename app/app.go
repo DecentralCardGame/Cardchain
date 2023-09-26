@@ -495,6 +495,28 @@ func New(
 	// If evidence needs to be handled for the app, set routes in router here and seal
 	app.EvidenceKeeper = *evidenceKeeper
 
+	app.CardchainKeeper = *cardchainmodulekeeper.NewKeeper(
+		appCodec,
+		keys[cardchainmoduletypes.UsersStoreKey],
+		keys[cardchainmoduletypes.CardsStoreKey],
+		keys[cardchainmoduletypes.MatchesStoreKey],
+		keys[cardchainmoduletypes.CollectionsStoreKey],
+		keys[cardchainmoduletypes.SellOffersStoreKey],
+		keys[cardchainmoduletypes.PoolsStoreKey],
+		keys[cardchainmoduletypes.CouncilsStoreKey],
+		keys[cardchainmoduletypes.RunningAveragesStoreKey],
+		keys[cardchainmoduletypes.ImagesStoreKey],
+		keys[cardchainmoduletypes.ServersStoreKey],
+		keys[cardchainmoduletypes.InternalStoreKey],
+		app.GetSubspace(cardchainmoduletypes.ModuleName),
+
+		app.BankKeeper,
+	)
+
+	cardchainModule := cardchainmodule.NewAppModule(appCodec, app.CardchainKeeper, app.AccountKeeper, app.BankKeeper)
+
+	// this line is used by starport scaffolding # stargate/app/keeperDefinition
+
 	// register the proposal types
 	govRouter := govv1beta1.NewRouter()
 	govRouter.
@@ -517,27 +539,6 @@ func New(
 		app.MsgServiceRouter(),
 		govConfig,
 	)
-
-	app.CardchainKeeper = *cardchainmodulekeeper.NewKeeper(
-		appCodec,
-		keys[cardchainmoduletypes.UsersStoreKey],
-		keys[cardchainmoduletypes.CardsStoreKey],
-		keys[cardchainmoduletypes.MatchesStoreKey],
-		keys[cardchainmoduletypes.CollectionsStoreKey],
-		keys[cardchainmoduletypes.SellOffersStoreKey],
-		keys[cardchainmoduletypes.PoolsStoreKey],
-		keys[cardchainmoduletypes.CouncilsStoreKey],
-		keys[cardchainmoduletypes.RunningAveragesStoreKey],
-		keys[cardchainmoduletypes.ImagesStoreKey],
-		keys[cardchainmoduletypes.ServersStoreKey],
-		keys[cardchainmoduletypes.InternalStoreKey],
-		app.GetSubspace(cardchainmoduletypes.ModuleName),
-
-		app.BankKeeper,
-	)
-	cardchainModule := cardchainmodule.NewAppModule(appCodec, app.CardchainKeeper, app.AccountKeeper, app.BankKeeper)
-
-	// this line is used by starport scaffolding # stargate/app/keeperDefinition
 
 	// Sealing prevents other modules from creating scoped sub-keepers
 	app.CapabilityKeeper.Seal()
