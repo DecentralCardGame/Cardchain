@@ -77,3 +77,4 @@ Cardchaind start
 now=$(date +"%d.%m.%Y")
 Cardchaind export > /backup/genesis$now.json
 echo "BACKUP should be in /backup/genesis$now - don't forget to use migrate_with_data.py script in case you need it"
+echo "fail? is backup folder owned by root? (no idea how this happens though)"

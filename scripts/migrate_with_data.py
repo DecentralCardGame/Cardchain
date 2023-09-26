@@ -2,6 +2,7 @@
 
 import sys
 import json
+import csv
 
 args = sys.argv
 
@@ -14,9 +15,21 @@ del_cards = [] #[370, 346, 258]
 file_path_old = args[1]
 file_path_new = args[2]
 
+genesisAccs = []
+# here we load the balances of addresses that start with balances on CC
+with open("./genesis_balances.tsv", "r", encoding="utf8") as genesis_file:
+    tsv_reader = csv.DictReader(genesis_file, delimiter="\t")
+    for entry in tsv_reader:
+        genesisAccs.append((entry["Address"], entry["Balance"]))
+        #print(f"{genesisAddresses} has {genesisBalances}")
+
+print( genesisAccs )
+
+# this loads the old genesis file
 with open(file_path_old, "r") as file:
 	old_dict = json.load(file)
 
+# this loads the new genesis file
 with open(file_path_new, "r") as file:
 	new_dict = json.load(file)
 
@@ -52,15 +65,20 @@ for idx, addr in enumerate(old_dict["app_state"]["cardchain"]["addresses"]):
 		if i.get("address") == addr:
 			new_dict["app_state"]["auth"]["accounts"].append(i)
 			break
-	# limit balances to 5k for all old accounts (only alice and bob will have more)
+	# limit balances to 5k for all old accounts (genesis accs + alice and bob will have more)
 	for i in old_dict["app_state"]["bank"]["balances"]:
 		if i["address"] == addr:
 			for idx, coin in enumerate(i["coins"]):
 				if coin["denom"] == "ubpf":
-					i["coins"][idx]["amount"] = "5000000"
+					# use flat value for all others (TODO ON LAUNCH THIS SHOULD BE 0)	
+					i["coins"][idx]["amount"] = "5000000"	
+					# use real bpf value for genesisAddresses
+					for acc in genesisAccs:
+						if acc[0] == addr:
+							i["coins"][idx]["amount"] = str(int(acc[1])*1000000)
+					
 			new_dict["app_state"]["bank"]["balances"].append(i)
 			break
-
 
 with open(file_path_new, "w") as file:
 	json.dump(new_dict, file, indent=2)
