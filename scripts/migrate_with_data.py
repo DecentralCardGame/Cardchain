@@ -2,6 +2,7 @@
 
 import sys
 import json
+import csv
 
 args = sys.argv
 
@@ -13,6 +14,13 @@ del_cards = [] #[370, 346, 258]
 
 file_path_old = args[1]
 file_path_new = args[2]
+
+with open("./genesis_balances.tsv", "r", encoding="utf8") as genesis_file:
+    tsv_reader = csv.DictReader(genesis_file, delimiter="\t")
+    for entry in tsv_reader:
+        addr = entry["Address"]
+        balance = entry["Balance"]
+        print(f"{addr} has {balance}")
 
 with open(file_path_old, "r") as file:
 	old_dict = json.load(file)
