@@ -1,6 +1,7 @@
 package cli
 
 import (
+	"github.com/DecentralCardGame/cardobject/cardobject"
 	"strconv"
 
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
@@ -28,6 +29,12 @@ func CmdSetCardRarity() *cobra.Command {
 				return err
 			}
 			argRarity := args[2]
+
+			rarity := cardobject.Rarity(argRarity)
+			err = rarity.ValidateType(cardobject.Card{})
+			if err != nil {
+				return err
+			}
 
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
