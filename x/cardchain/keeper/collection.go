@@ -1,7 +1,8 @@
 package keeper
 
 import (
-	"errors"
+	"fmt"
+	"github.com/cosmos/cosmos-sdk/types/errors"
 
 	sdkerrors "cosmossdk.io/errors"
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
@@ -104,5 +105,20 @@ func GetCardRarity(card *keywords.Card) (*cardobject.Rarity, error) {
 	} else if card.Headquarter != nil {
 		return card.Headquarter.Rarity, nil
 	}
-	return nil, errors.New("no card-attributes")
+	return nil, fmt.Errorf("no card-attributes")
+}
+
+func checkCollectionEditable(collection *types.Collection, user string) error {
+	if len(collection.Contributors) == 0 {
+		return sdkerrors.Wrap(types.ErrUninitializedType, "Collection not initialized")
+	}
+
+	if user != collection.Contributors[0] {
+		return sdkerrors.Wrap(errors.ErrUnauthorized, "Invalid creator")
+	}
+
+	if collection.Status != types.CStatus_design {
+		return types.ErrCollectionNotInDesign
+	}
+	return nil
 }

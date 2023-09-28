@@ -7,7 +7,7 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
-func (k msgServer) SetCollectionStoryWriter(goCtx context.Context, msg *types.MsgSetCollectionStoryWriter) (*types.MsgSetCollectionStoryWriterResponse, error) {
+func (k msgServer) SetCollectionName(goCtx context.Context, msg *types.MsgSetCollectionName) (*types.MsgSetCollectionNameResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
 	collection := k.Collections.Get(ctx, msg.CollectionId)
@@ -15,10 +15,10 @@ func (k msgServer) SetCollectionStoryWriter(goCtx context.Context, msg *types.Ms
 	if err != nil {
 		return nil, err
 	}
-
-	collection.StoryWriter = msg.StoryWriter
+	
+	collection.Name = msg.Name
 
 	k.Collections.Set(ctx, msg.CollectionId, collection)
 
-	return &types.MsgSetCollectionStoryWriterResponse{}, nil
+	return &types.MsgSetCollectionNameResponse{}, nil
 }

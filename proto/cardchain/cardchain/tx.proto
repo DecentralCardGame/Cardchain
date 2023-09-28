@@ -54,10 +54,11 @@ service Msg {
   rpc SetCollectionArtist             (MsgSetCollectionArtist            ) returns (MsgSetCollectionArtistResponse            );
   rpc SetUserWebsite                  (MsgSetUserWebsite                 ) returns (MsgSetUserWebsiteResponse                 );
   rpc SetUserBiography                (MsgSetUserBiography               ) returns (MsgSetUserBiographyResponse               );
-
+  
   // this line is used by starport scaffolding # proto/tx/rpc
-  rpc MultiVoteCard (MsgMultiVoteCard) returns (MsgMultiVoteCardResponse);
-  rpc MsgOpenMatch  (MsgMsgOpenMatch ) returns (MsgMsgOpenMatchResponse );
+  rpc MultiVoteCard     (MsgMultiVoteCard    ) returns (MsgMultiVoteCardResponse    );
+  rpc MsgOpenMatch      (MsgMsgOpenMatch     ) returns (MsgMsgOpenMatchResponse     );
+  rpc SetCollectionName (MsgSetCollectionName) returns (MsgSetCollectionNameResponse);
 }
 message MsgCreateuser {
   string creator = 1;
@@ -74,7 +75,7 @@ message MsgBuyCardScheme {
   cosmos.base.v1beta1.Coin bid     = 2 [(gogoproto.nullable) = false, (gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coin"];
 
   /*
-                               string bid = 2;
+                                       string bid = 2;
    */}
 
 message MsgBuyCardSchemeResponse {
@@ -335,9 +336,9 @@ message MsgRewokeCouncilRegistration {
 message MsgRewokeCouncilRegistrationResponse {}
 
 message MsgConfirmMatch {
-           string  creator = 1;
-           uint64  matchId = 2;
-           Outcome outcome = 3;
+           string     creator    = 1;
+           uint64     matchId    = 2;
+           Outcome    outcome    = 3;
   repeated SingleVote votedCards = 4;
 }
 
@@ -406,9 +407,9 @@ message MsgMultiVoteCard {
 message MsgMultiVoteCardResponse {}
 
 message MsgMsgOpenMatch {
-  string creator = 1;
-  string playerA = 2;
-  string playerB = 3;
+           string creator     = 1;
+           string playerA     = 2;
+           string playerB     = 3;
   repeated uint64 playerADeck = 4;
   repeated uint64 playerBDeck = 5;
 }
@@ -416,4 +417,12 @@ message MsgMsgOpenMatch {
 message MsgMsgOpenMatchResponse {
   uint64 matchId = 1;
 }
+
+message MsgSetCollectionName {
+  string creator      = 1;
+  uint64 collectionId = 2;
+  string name         = 3;
+}
+
+message MsgSetCollectionNameResponse {}
 

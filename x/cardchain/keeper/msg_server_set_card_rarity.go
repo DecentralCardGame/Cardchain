@@ -34,7 +34,7 @@ func (k msgServer) SetCardRarity(goCtx context.Context, msg *types.MsgSetCardRar
 	if err != nil {
 		return nil, sdkerrors.Wrap(types.ErrCardobject, err.Error())
 	}
-	
+
 	if cardobj.Action != nil {
 		cardobj.Action.Rarity = &rarity
 	} else if cardobj.Place != nil {
