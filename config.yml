@@ -9,11 +9,11 @@ build:
 accounts:
 - name: alice
   coins:
-  - 1000000000ucredits
+  - 1000000000000ucredits
   - 1000000000ubpf
 - name: bob
   coins:
-  - 10000000000ucredits
+  - 10000000000000ucredits
   - 10000000000ubpf
 faucet:
   name: bob
@@ -75,7 +75,7 @@ genesis:
         threshold: "0.500000000000000000"
         veto_threshold: "0.334000000000000000"
       voting_params:
-        voting_period: 172800s
+        voting_period: 300s
     mint:
       params:
         mint_denom: ubpf
