@@ -34,6 +34,7 @@ func (k Keeper) InitUser(ctx sdk.Context, address sdk.AccAddress, alias string) 
 	}
 	newUser := types.NewUser()
 	newUser.Alias = alias
+	newUser.Cards = k.GetAllStarterCards(ctx)
 	err := k.MintCoinsToAddr(ctx, address, sdk.Coins{sdk.NewInt64Coin("ucredits", 10000000000)})
 	if err != nil {
 		return err
