@@ -23,8 +23,6 @@ with open("./genesis_balances.tsv", "r", encoding="utf8") as genesis_file:
         genesisAccs.append((entry["Address"], entry["Balance"]))
         #print(f"{genesisAddresses} has {genesisBalances}")
 
-print( genesisAccs )
-
 # this loads the old genesis file
 with open(file_path_old, "r") as file:
 	old_dict = json.load(file)
@@ -69,6 +67,7 @@ for idx, addr in enumerate(old_dict["app_state"]["cardchain"]["addresses"]):
 	for i in old_dict["app_state"]["bank"]["balances"]:
 		if i["address"] == addr:
 			for idx, coin in enumerate(i["coins"]):
+				# adjust BPFs
 				if coin["denom"] == "ubpf":
 					# use flat value for all others (TODO ON LAUNCH THIS SHOULD BE 0)	
 					i["coins"][idx]["amount"] = "5000000"	
@@ -76,7 +75,10 @@ for idx, addr in enumerate(old_dict["app_state"]["cardchain"]["addresses"]):
 					for acc in genesisAccs:
 						if acc[0] == addr:
 							i["coins"][idx]["amount"] = str(int(acc[1])*1000000)
-					
+				# adjust Credits
+				if coin["denom"] == "ucredits":
+					if addr == alpha_creator:
+						i["coins"][idx]["amount"] = "100000000000"	
 			new_dict["app_state"]["bank"]["balances"].append(i)
 			break
 
