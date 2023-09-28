@@ -109,10 +109,16 @@ func (k Keeper) QCards(goCtx context.Context, req *types.QueryQCardsRequest) (*t
 	for ; iterator.Valid(); iterator.Next() {
 		idx, gottenCard := iterator.Value()
 
+		// filter for starterCards
+		if req.OnlyStarterCard && !gottenCard.StarterCard {
+			continue
+		}
+
 		// first skip all cards with irrelevant status
 		if gottenCard.Status == types.Status_none || gottenCard.Status == types.Status_scheme {
 			continue
 		}
+
 		// then check if a status constrain was given and skip the card if it has the wrong status
 		if req.Status != types.QueryQCardsRequest_none {
 			if !slices.Contains(states, gottenCard.Status) {

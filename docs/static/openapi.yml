@@ -33136,6 +33136,8 @@ paths:
                 type: boolean
               hash:
                 type: string
+              starterCard:
+                type: boolean
         default:
           description: An unexpected error response.
           schema:
@@ -33330,6 +33332,10 @@ paths:
           in: query
           required: false
           type: string
+        - name: onlyStarterCard
+          in: query
+          required: false
+          type: boolean
       tags:
         - Query
   /DecentralCardGame/cardchain/cardchain/q_collection/{collectionId}:
@@ -68858,6 +68864,8 @@ definitions:
         type: boolean
       hash:
         type: string
+      starterCard:
+        type: boolean
   DecentralCardGame.cardchain.cardchain.OutpCollection:
     type: object
     properties:
