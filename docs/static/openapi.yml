@@ -68774,6 +68774,8 @@ definitions:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgSetCollectionArtistResponse:
     type: object
+  DecentralCardGame.cardchain.cardchain.MsgSetCollectionNameResponse:
+    type: object
   DecentralCardGame.cardchain.cardchain.MsgSetCollectionStoryWriterResponse:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgSetProfileCardResponse:

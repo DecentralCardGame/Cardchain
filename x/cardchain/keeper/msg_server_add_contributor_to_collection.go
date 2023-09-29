@@ -14,18 +14,16 @@ func (k msgServer) AddContributorToCollection(goCtx context.Context, msg *types.
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
 	collection := k.Collections.Get(ctx, msg.CollectionId)
-	if msg.Creator != collection.Contributors[0] {
-		return nil, sdkerrors.Wrap(errors.ErrUnauthorized, "Invalid creator")
-	}
-	if collection.Status != types.CStatus_design {
-		return nil, types.ErrCollectionNotInDesign
+	err := checkCollectionEditable(collection, msg.Creator)
+	if err != nil {
+		return nil, err
 	}
 
 	if slices.Contains(collection.Contributors, msg.User) {
 		return nil, sdkerrors.Wrap(types.ErrContributor, "Contributor allready Contributor: "+msg.User)
 	}
 
-	err := k.CollectCollectionConributionFee(ctx, msg.Creator)
+	err = k.CollectCollectionConributionFee(ctx, msg.Creator)
 	if err != nil {
 		return nil, sdkerrors.Wrap(errors.ErrInsufficientFunds, err.Error())
 	}
