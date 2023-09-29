@@ -22,6 +22,7 @@ message Card {
   uint64 inappropriateVotes = 12;
   int64 nerflevel = 13;
   bool balanceAnchor = 15;
+  bool starterCard = 16;
 }
 
 message OutpCard {
@@ -42,6 +43,7 @@ message OutpCard {
   int64 nerflevel = 13;
   bool balanceAnchor = 15;
   string hash = 16;
+  bool starterCard = 17;
 }
 
 enum Status {
