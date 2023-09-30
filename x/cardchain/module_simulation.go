@@ -188,9 +188,9 @@ const (
 	// TODO: Determine the simulation weight value
 	defaultWeightMsgMultiVoteCard int = 100
 
-	opWeightMsgMsgOpenMatch = "op_weight_msg_msg_open_match"
+	opWeightMsgOpenMatch = "op_weight_msg_msg_open_match"
 	// TODO: Determine the simulation weight value
-	defaultWeightMsgMsgOpenMatch int = 100
+	defaultWeightMsgOpenMatch int = 100
 
 	opWeightMsgSetSetName = "op_weight_msg_set_set_name"
 	// TODO: Determine the simulation weight value
@@ -680,15 +680,15 @@ func (am AppModule) WeightedOperations(simState module.SimulationState) []simtyp
 		cardchainsimulation.SimulateMsgMultiVoteCard(am.accountKeeper, am.bankKeeper, am.keeper),
 	))
 
-	var weightMsgMsgOpenMatch int
-	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgMsgOpenMatch, &weightMsgMsgOpenMatch, nil,
+	var weightMsgOpenMatch int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgOpenMatch, &weightMsgOpenMatch, nil,
 		func(_ *rand.Rand) {
-			weightMsgMsgOpenMatch = defaultWeightMsgMsgOpenMatch
+			weightMsgOpenMatch = defaultWeightMsgOpenMatch
 		},
 	)
 	operations = append(operations, simulation.NewWeightedOperation(
-		weightMsgMsgOpenMatch,
-		cardchainsimulation.SimulateMsgMsgOpenMatch(am.accountKeeper, am.bankKeeper, am.keeper),
+		weightMsgOpenMatch,
+		cardchainsimulation.SimulateMsgOpenMatch(am.accountKeeper, am.bankKeeper, am.keeper),
 	))
 
 	var weightMsgSetSetName int

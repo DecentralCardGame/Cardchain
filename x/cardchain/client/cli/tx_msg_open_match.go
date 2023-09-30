@@ -15,7 +15,7 @@ var _ = strconv.Itoa(0)
 func CmdMsgOpenMatch() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "msg-open-match",
-		Short: "Broadcast message MsgOpenMatch",
+		Short: "Broadcast message OpenMatch",
 		Args:  cobra.ExactArgs(0),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
 
@@ -24,7 +24,7 @@ func CmdMsgOpenMatch() *cobra.Command {
 				return err
 			}
 
-			msg := types.NewMsgMsgOpenMatch(
+			msg := types.NewMsgOpenMatch(
 				clientCtx.GetFromAddress().String(),
 			)
 			if err := msg.ValidateBasic(); err != nil {

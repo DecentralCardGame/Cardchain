@@ -68735,12 +68735,6 @@ definitions:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgFinalizeSetResponse:
     type: object
-  DecentralCardGame.cardchain.cardchain.MsgMsgOpenMatchResponse:
-    type: object
-    properties:
-      matchId:
-        type: string
-        format: uint64
   DecentralCardGame.cardchain.cardchain.MsgMultiVoteCardResponse:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgOpenBoosterPackResponse:
@@ -68751,6 +68745,12 @@ definitions:
         items:
           type: string
           format: uint64
+  DecentralCardGame.cardchain.cardchain.MsgOpenMatchResponse:
+    type: object
+    properties:
+      matchId:
+        type: string
+        format: uint64
   DecentralCardGame.cardchain.cardchain.MsgRegisterForCouncilResponse:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgRemoveCardFromSetResponse:

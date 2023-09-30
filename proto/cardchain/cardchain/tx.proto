@@ -57,7 +57,7 @@ service Msg {
   
   // this line is used by starport scaffolding # proto/tx/rpc
   rpc MultiVoteCard     (MsgMultiVoteCard    ) returns (MsgMultiVoteCardResponse    );
-  rpc MsgOpenMatch      (MsgMsgOpenMatch     ) returns (MsgMsgOpenMatchResponse     );
+  rpc OpenMatch      (MsgOpenMatch     ) returns (MsgOpenMatchResponse     );
   rpc SetSetName (MsgSetSetName) returns (MsgSetSetNameResponse);
 }
 message MsgCreateuser {
@@ -406,7 +406,7 @@ message MsgMultiVoteCard {
 
 message MsgMultiVoteCardResponse {}
 
-message MsgMsgOpenMatch {
+message MsgOpenMatch {
            string creator     = 1;
            string playerA     = 2;
            string playerB     = 3;
@@ -414,7 +414,7 @@ message MsgMsgOpenMatch {
   repeated uint64 playerBDeck = 5;
 }
 
-message MsgMsgOpenMatchResponse {
+message MsgOpenMatchResponse {
   uint64 matchId = 1;
 }
 
