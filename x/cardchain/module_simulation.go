@@ -76,37 +76,37 @@ const (
 	// TODO: Determine the simulation weight value
 	defaultWeightMsgApointMatchReporter int = 100
 
-	opWeightMsgCreateCollection = "op_weight_msg_create_chain"
+	opWeightMsgCreateSet = "op_weight_msg_create_chain"
 	// TODO: Determine the simulation weight value
-	defaultWeightMsgCreateCollection int = 100
+	defaultWeightMsgCreateSet int = 100
 
-	opWeightMsgAddCardToCollection = "op_weight_msg_create_chain"
+	opWeightMsgAddCardToSet = "op_weight_msg_create_chain"
 	// TODO: Determine the simulation weight value
-	defaultWeightMsgAddCardToCollection int = 100
+	defaultWeightMsgAddCardToSet int = 100
 
-	opWeightMsgFinalizeCollection = "op_weight_msg_create_chain"
+	opWeightMsgFinalizeSet = "op_weight_msg_create_chain"
 	// TODO: Determine the simulation weight value
-	defaultWeightMsgFinalizeCollection int = 100
+	defaultWeightMsgFinalizeSet int = 100
 
-	opWeightMsgBuyCollection = "op_weight_msg_create_chain"
+	opWeightMsgBuySet = "op_weight_msg_create_chain"
 	// TODO: Determine the simulation weight value
-	defaultWeightMsgBuyCollection int = 100
+	defaultWeightMsgBuySet int = 100
 
-	opWeightMsgRemoveCardFromCollection = "op_weight_msg_create_chain"
+	opWeightMsgRemoveCardFromSet = "op_weight_msg_create_chain"
 	// TODO: Determine the simulation weight value
-	defaultWeightMsgRemoveCardFromCollection int = 100
+	defaultWeightMsgRemoveCardFromSet int = 100
 
-	opWeightMsgRemoveContributorFromCollection = "op_weight_msg_create_chain"
+	opWeightMsgRemoveContributorFromSet = "op_weight_msg_create_chain"
 	// TODO: Determine the simulation weight value
-	defaultWeightMsgRemoveContributorFromCollection int = 100
+	defaultWeightMsgRemoveContributorFromSet int = 100
 
-	opWeightMsgAddContributorToCollection = "op_weight_msg_create_chain"
+	opWeightMsgAddContributorToSet = "op_weight_msg_create_chain"
 	// TODO: Determine the simulation weight value
-	defaultWeightMsgAddContributorToCollection int = 100
+	defaultWeightMsgAddContributorToSet int = 100
 
-	opWeightMsgSubmitCollectionProposal = "op_weight_msg_create_chain"
+	opWeightMsgSubmitSetProposal = "op_weight_msg_create_chain"
 	// TODO: Determine the simulation weight value
-	defaultWeightMsgSubmitCollectionProposal int = 100
+	defaultWeightMsgSubmitSetProposal int = 100
 
 	opWeightMsgCreateSellOffer = "op_weight_msg_create_chain"
 	// TODO: Determine the simulation weight value
@@ -120,13 +120,13 @@ const (
 	// TODO: Determine the simulation weight value
 	defaultWeightMsgRemoveSellOffer int = 100
 
-	opWeightMsgAddArtworkToCollection = "op_weight_msg_create_chain"
+	opWeightMsgAddArtworkToSet = "op_weight_msg_create_chain"
 	// TODO: Determine the simulation weight value
-	defaultWeightMsgAddArtworkToCollection int = 100
+	defaultWeightMsgAddArtworkToSet int = 100
 
-	opWeightMsgAddStoryToCollection = "op_weight_msg_create_chain"
+	opWeightMsgAddStoryToSet = "op_weight_msg_create_chain"
 	// TODO: Determine the simulation weight value
-	defaultWeightMsgAddStoryToCollection int = 100
+	defaultWeightMsgAddStoryToSet int = 100
 
 	opWeightMsgSetCardRarity = "op_weight_msg_create_chain"
 	// TODO: Determine the simulation weight value
@@ -168,13 +168,13 @@ const (
 	// TODO: Determine the simulation weight value
 	defaultWeightMsgTransferBoosterPack int = 100
 
-	opWeightMsgSetCollectionStoryWriter = "op_weight_msg_set_collection_story_writer"
+	opWeightMsgSetSetStoryWriter = "op_weight_msg_set_set_story_writer"
 	// TODO: Determine the simulation weight value
-	defaultWeightMsgSetCollectionStoryWriter int = 100
+	defaultWeightMsgSetSetStoryWriter int = 100
 
-	opWeightMsgSetCollectionArtist = "op_weight_msg_set_collection_artist"
+	opWeightMsgSetSetArtist = "op_weight_msg_set_set_artist"
 	// TODO: Determine the simulation weight value
-	defaultWeightMsgSetCollectionArtist int = 100
+	defaultWeightMsgSetSetArtist int = 100
 
 	opWeightMsgSetUserWebsite = "op_weight_msg_set_user_website"
 	// TODO: Determine the simulation weight value
@@ -192,9 +192,9 @@ const (
 	// TODO: Determine the simulation weight value
 	defaultWeightMsgMsgOpenMatch int = 100
 
-	opWeightMsgSetCollectionName = "op_weight_msg_set_collection_name"
+	opWeightMsgSetSetName = "op_weight_msg_set_set_name"
 	// TODO: Determine the simulation weight value
-	defaultWeightMsgSetCollectionName int = 100
+	defaultWeightMsgSetSetName int = 100
 
 	// this line is used by starport scaffolding # simapp/module/const
 )
@@ -372,92 +372,92 @@ func (am AppModule) WeightedOperations(simState module.SimulationState) []simtyp
 		cardchainsimulation.SimulateMsgApointMatchReporter(am.accountKeeper, am.bankKeeper, am.keeper),
 	))
 
-	var weightMsgCreateCollection int
-	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgCreateCollection, &weightMsgCreateCollection, nil,
+	var weightMsgCreateSet int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgCreateSet, &weightMsgCreateSet, nil,
 		func(_ *rand.Rand) {
-			weightMsgCreateCollection = defaultWeightMsgCreateCollection
+			weightMsgCreateSet = defaultWeightMsgCreateSet
 		},
 	)
 	operations = append(operations, simulation.NewWeightedOperation(
-		weightMsgCreateCollection,
-		cardchainsimulation.SimulateMsgCreateCollection(am.accountKeeper, am.bankKeeper, am.keeper),
+		weightMsgCreateSet,
+		cardchainsimulation.SimulateMsgCreateSet(am.accountKeeper, am.bankKeeper, am.keeper),
 	))
 
-	var weightMsgAddCardToCollection int
-	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgAddCardToCollection, &weightMsgAddCardToCollection, nil,
+	var weightMsgAddCardToSet int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgAddCardToSet, &weightMsgAddCardToSet, nil,
 		func(_ *rand.Rand) {
-			weightMsgAddCardToCollection = defaultWeightMsgAddCardToCollection
+			weightMsgAddCardToSet = defaultWeightMsgAddCardToSet
 		},
 	)
 	operations = append(operations, simulation.NewWeightedOperation(
-		weightMsgAddCardToCollection,
-		cardchainsimulation.SimulateMsgAddCardToCollection(am.accountKeeper, am.bankKeeper, am.keeper),
+		weightMsgAddCardToSet,
+		cardchainsimulation.SimulateMsgAddCardToSet(am.accountKeeper, am.bankKeeper, am.keeper),
 	))
 
-	var weightMsgFinalizeCollection int
-	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgFinalizeCollection, &weightMsgFinalizeCollection, nil,
+	var weightMsgFinalizeSet int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgFinalizeSet, &weightMsgFinalizeSet, nil,
 		func(_ *rand.Rand) {
-			weightMsgFinalizeCollection = defaultWeightMsgFinalizeCollection
+			weightMsgFinalizeSet = defaultWeightMsgFinalizeSet
 		},
 	)
 	operations = append(operations, simulation.NewWeightedOperation(
-		weightMsgFinalizeCollection,
-		cardchainsimulation.SimulateMsgFinalizeCollection(am.accountKeeper, am.bankKeeper, am.keeper),
+		weightMsgFinalizeSet,
+		cardchainsimulation.SimulateMsgFinalizeSet(am.accountKeeper, am.bankKeeper, am.keeper),
 	))
 
-	var weightMsgBuyCollection int
-	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgBuyCollection, &weightMsgBuyCollection, nil,
+	var weightMsgBuySet int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgBuySet, &weightMsgBuySet, nil,
 		func(_ *rand.Rand) {
-			weightMsgBuyCollection = defaultWeightMsgBuyCollection
+			weightMsgBuySet = defaultWeightMsgBuySet
 		},
 	)
 	operations = append(operations, simulation.NewWeightedOperation(
-		weightMsgBuyCollection,
-		cardchainsimulation.SimulateMsgBuyCollection(am.accountKeeper, am.bankKeeper, am.keeper),
+		weightMsgBuySet,
+		cardchainsimulation.SimulateMsgBuySet(am.accountKeeper, am.bankKeeper, am.keeper),
 	))
 
-	var weightMsgRemoveCardFromCollection int
-	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgRemoveCardFromCollection, &weightMsgRemoveCardFromCollection, nil,
+	var weightMsgRemoveCardFromSet int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgRemoveCardFromSet, &weightMsgRemoveCardFromSet, nil,
 		func(_ *rand.Rand) {
-			weightMsgRemoveCardFromCollection = defaultWeightMsgRemoveCardFromCollection
+			weightMsgRemoveCardFromSet = defaultWeightMsgRemoveCardFromSet
 		},
 	)
 	operations = append(operations, simulation.NewWeightedOperation(
-		weightMsgRemoveCardFromCollection,
-		cardchainsimulation.SimulateMsgRemoveCardFromCollection(am.accountKeeper, am.bankKeeper, am.keeper),
+		weightMsgRemoveCardFromSet,
+		cardchainsimulation.SimulateMsgRemoveCardFromSet(am.accountKeeper, am.bankKeeper, am.keeper),
 	))
 
-	var weightMsgRemoveContributorFromCollection int
-	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgRemoveContributorFromCollection, &weightMsgRemoveContributorFromCollection, nil,
+	var weightMsgRemoveContributorFromSet int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgRemoveContributorFromSet, &weightMsgRemoveContributorFromSet, nil,
 		func(_ *rand.Rand) {
-			weightMsgRemoveContributorFromCollection = defaultWeightMsgRemoveContributorFromCollection
+			weightMsgRemoveContributorFromSet = defaultWeightMsgRemoveContributorFromSet
 		},
 	)
 	operations = append(operations, simulation.NewWeightedOperation(
-		weightMsgRemoveContributorFromCollection,
-		cardchainsimulation.SimulateMsgRemoveContributorFromCollection(am.accountKeeper, am.bankKeeper, am.keeper),
+		weightMsgRemoveContributorFromSet,
+		cardchainsimulation.SimulateMsgRemoveContributorFromSet(am.accountKeeper, am.bankKeeper, am.keeper),
 	))
 
-	var weightMsgAddContributorToCollection int
-	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgAddContributorToCollection, &weightMsgAddContributorToCollection, nil,
+	var weightMsgAddContributorToSet int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgAddContributorToSet, &weightMsgAddContributorToSet, nil,
 		func(_ *rand.Rand) {
-			weightMsgAddContributorToCollection = defaultWeightMsgAddContributorToCollection
+			weightMsgAddContributorToSet = defaultWeightMsgAddContributorToSet
 		},
 	)
 	operations = append(operations, simulation.NewWeightedOperation(
-		weightMsgAddContributorToCollection,
-		cardchainsimulation.SimulateMsgAddContributorToCollection(am.accountKeeper, am.bankKeeper, am.keeper),
+		weightMsgAddContributorToSet,
+		cardchainsimulation.SimulateMsgAddContributorToSet(am.accountKeeper, am.bankKeeper, am.keeper),
 	))
 
-	var weightMsgSubmitCollectionProposal int
-	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgSubmitCollectionProposal, &weightMsgSubmitCollectionProposal, nil,
+	var weightMsgSubmitSetProposal int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgSubmitSetProposal, &weightMsgSubmitSetProposal, nil,
 		func(_ *rand.Rand) {
-			weightMsgSubmitCollectionProposal = defaultWeightMsgSubmitCollectionProposal
+			weightMsgSubmitSetProposal = defaultWeightMsgSubmitSetProposal
 		},
 	)
 	operations = append(operations, simulation.NewWeightedOperation(
-		weightMsgSubmitCollectionProposal,
-		cardchainsimulation.SimulateMsgSubmitCollectionProposal(am.accountKeeper, am.bankKeeper, am.keeper),
+		weightMsgSubmitSetProposal,
+		cardchainsimulation.SimulateMsgSubmitSetProposal(am.accountKeeper, am.bankKeeper, am.keeper),
 	))
 
 	var weightMsgCreateSellOffer int
@@ -493,26 +493,26 @@ func (am AppModule) WeightedOperations(simState module.SimulationState) []simtyp
 		cardchainsimulation.SimulateMsgRemoveSellOffer(am.accountKeeper, am.bankKeeper, am.keeper),
 	))
 
-	var weightMsgAddArtworkToCollection int
-	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgAddArtworkToCollection, &weightMsgAddArtworkToCollection, nil,
+	var weightMsgAddArtworkToSet int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgAddArtworkToSet, &weightMsgAddArtworkToSet, nil,
 		func(_ *rand.Rand) {
-			weightMsgAddArtworkToCollection = defaultWeightMsgAddArtworkToCollection
+			weightMsgAddArtworkToSet = defaultWeightMsgAddArtworkToSet
 		},
 	)
 	operations = append(operations, simulation.NewWeightedOperation(
-		weightMsgAddArtworkToCollection,
-		cardchainsimulation.SimulateMsgAddArtworkToCollection(am.accountKeeper, am.bankKeeper, am.keeper),
+		weightMsgAddArtworkToSet,
+		cardchainsimulation.SimulateMsgAddArtworkToSet(am.accountKeeper, am.bankKeeper, am.keeper),
 	))
 
-	var weightMsgAddStoryToCollection int
-	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgAddStoryToCollection, &weightMsgAddStoryToCollection, nil,
+	var weightMsgAddStoryToSet int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgAddStoryToSet, &weightMsgAddStoryToSet, nil,
 		func(_ *rand.Rand) {
-			weightMsgAddStoryToCollection = defaultWeightMsgAddStoryToCollection
+			weightMsgAddStoryToSet = defaultWeightMsgAddStoryToSet
 		},
 	)
 	operations = append(operations, simulation.NewWeightedOperation(
-		weightMsgAddStoryToCollection,
-		cardchainsimulation.SimulateMsgAddStoryToCollection(am.accountKeeper, am.bankKeeper, am.keeper),
+		weightMsgAddStoryToSet,
+		cardchainsimulation.SimulateMsgAddStoryToSet(am.accountKeeper, am.bankKeeper, am.keeper),
 	))
 
 	var weightMsgSetCardRarity int
@@ -625,26 +625,26 @@ func (am AppModule) WeightedOperations(simState module.SimulationState) []simtyp
 		cardchainsimulation.SimulateMsgTransferBoosterPack(am.accountKeeper, am.bankKeeper, am.keeper),
 	))
 
-	var weightMsgSetCollectionStoryWriter int
-	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgSetCollectionStoryWriter, &weightMsgSetCollectionStoryWriter, nil,
+	var weightMsgSetSetStoryWriter int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgSetSetStoryWriter, &weightMsgSetSetStoryWriter, nil,
 		func(_ *rand.Rand) {
-			weightMsgSetCollectionStoryWriter = defaultWeightMsgSetCollectionStoryWriter
+			weightMsgSetSetStoryWriter = defaultWeightMsgSetSetStoryWriter
 		},
 	)
 	operations = append(operations, simulation.NewWeightedOperation(
-		weightMsgSetCollectionStoryWriter,
-		cardchainsimulation.SimulateMsgSetCollectionStoryWriter(am.accountKeeper, am.bankKeeper, am.keeper),
+		weightMsgSetSetStoryWriter,
+		cardchainsimulation.SimulateMsgSetSetStoryWriter(am.accountKeeper, am.bankKeeper, am.keeper),
 	))
 
-	var weightMsgSetCollectionArtist int
-	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgSetCollectionArtist, &weightMsgSetCollectionArtist, nil,
+	var weightMsgSetSetArtist int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgSetSetArtist, &weightMsgSetSetArtist, nil,
 		func(_ *rand.Rand) {
-			weightMsgSetCollectionArtist = defaultWeightMsgSetCollectionArtist
+			weightMsgSetSetArtist = defaultWeightMsgSetSetArtist
 		},
 	)
 	operations = append(operations, simulation.NewWeightedOperation(
-		weightMsgSetCollectionArtist,
-		cardchainsimulation.SimulateMsgSetCollectionArtist(am.accountKeeper, am.bankKeeper, am.keeper),
+		weightMsgSetSetArtist,
+		cardchainsimulation.SimulateMsgSetSetArtist(am.accountKeeper, am.bankKeeper, am.keeper),
 	))
 
 	var weightMsgSetUserWebsite int
@@ -691,15 +691,15 @@ func (am AppModule) WeightedOperations(simState module.SimulationState) []simtyp
 		cardchainsimulation.SimulateMsgMsgOpenMatch(am.accountKeeper, am.bankKeeper, am.keeper),
 	))
 
-	var weightMsgSetCollectionName int
-	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgSetCollectionName, &weightMsgSetCollectionName, nil,
+	var weightMsgSetSetName int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgSetSetName, &weightMsgSetSetName, nil,
 		func(_ *rand.Rand) {
-			weightMsgSetCollectionName = defaultWeightMsgSetCollectionName
+			weightMsgSetSetName = defaultWeightMsgSetSetName
 		},
 	)
 	operations = append(operations, simulation.NewWeightedOperation(
-		weightMsgSetCollectionName,
-		cardchainsimulation.SimulateMsgSetCollectionName(am.accountKeeper, am.bankKeeper, am.keeper),
+		weightMsgSetSetName,
+		cardchainsimulation.SimulateMsgSetSetName(am.accountKeeper, am.bankKeeper, am.keeper),
 	))
 
 	// this line is used by starport scaffolding # simapp/module/operation

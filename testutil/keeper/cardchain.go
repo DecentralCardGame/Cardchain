@@ -22,7 +22,7 @@ func CardchainKeeper(t testing.TB) (*keeper.Keeper, sdk.Context) {
 	usersStoreKey := sdk.NewKVStoreKey(types.UsersStoreKey)
 	cardsStoreKey := sdk.NewKVStoreKey(types.CardsStoreKey)
 	matchesStoreKey := sdk.NewKVStoreKey(types.MatchesStoreKey)
-	collectionsStoreKey := sdk.NewKVStoreKey(types.CollectionsStoreKey)
+	setsStoreKey := sdk.NewKVStoreKey(types.SetsStoreKey)
 	internalStoreKey := sdk.NewKVStoreKey(types.InternalStoreKey)
 	sellOffersStoreKey := sdk.NewKVStoreKey(types.SellOffersStoreKey)
 	poolsStoreKey := sdk.NewKVStoreKey(types.PoolsStoreKey)
@@ -36,7 +36,7 @@ func CardchainKeeper(t testing.TB) (*keeper.Keeper, sdk.Context) {
 	stateStore.MountStoreWithDB(usersStoreKey, sdk.StoreTypeIAVL, db)
 	stateStore.MountStoreWithDB(cardsStoreKey, sdk.StoreTypeIAVL, db)
 	stateStore.MountStoreWithDB(matchesStoreKey, sdk.StoreTypeIAVL, db)
-	stateStore.MountStoreWithDB(collectionsStoreKey, sdk.StoreTypeIAVL, db)
+	stateStore.MountStoreWithDB(setsStoreKey, sdk.StoreTypeIAVL, db)
 	stateStore.MountStoreWithDB(internalStoreKey, sdk.StoreTypeIAVL, db)
 	stateStore.MountStoreWithDB(sellOffersStoreKey, sdk.StoreTypeIAVL, db)
 	stateStore.MountStoreWithDB(poolsStoreKey, sdk.StoreTypeIAVL, db)
@@ -59,7 +59,7 @@ func CardchainKeeper(t testing.TB) (*keeper.Keeper, sdk.Context) {
 		usersStoreKey,
 		cardsStoreKey,
 		matchesStoreKey,
-		collectionsStoreKey,
+		setsStoreKey,
 		sellOffersStoreKey,
 		poolsStoreKey,
 		councilsStoreKey,

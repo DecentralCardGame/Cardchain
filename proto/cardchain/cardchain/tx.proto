@@ -27,19 +27,19 @@ service Msg {
   rpc ReportMatch                     (MsgReportMatch                    ) returns (MsgReportMatchResponse                    );
   rpc SubmitMatchReporterProposal     (MsgSubmitMatchReporterProposal    ) returns (MsgSubmitMatchReporterProposalResponse    );
   rpc ApointMatchReporter             (MsgApointMatchReporter            ) returns (MsgApointMatchReporterResponse            );
-  rpc CreateCollection                (MsgCreateCollection               ) returns (MsgCreateCollectionResponse               );
-  rpc AddCardToCollection             (MsgAddCardToCollection            ) returns (MsgAddCardToCollectionResponse            );
-  rpc FinalizeCollection              (MsgFinalizeCollection             ) returns (MsgFinalizeCollectionResponse             );
-  rpc BuyCollection                   (MsgBuyCollection                  ) returns (MsgBuyCollectionResponse                  );
-  rpc RemoveCardFromCollection        (MsgRemoveCardFromCollection       ) returns (MsgRemoveCardFromCollectionResponse       );
-  rpc RemoveContributorFromCollection (MsgRemoveContributorFromCollection) returns (MsgRemoveContributorFromCollectionResponse);
-  rpc AddContributorToCollection      (MsgAddContributorToCollection     ) returns (MsgAddContributorToCollectionResponse     );
-  rpc SubmitCollectionProposal        (MsgSubmitCollectionProposal       ) returns (MsgSubmitCollectionProposalResponse       );
+  rpc CreateSet                (MsgCreateSet               ) returns (MsgCreateSetResponse               );
+  rpc AddCardToSet             (MsgAddCardToSet            ) returns (MsgAddCardToSetResponse            );
+  rpc FinalizeSet              (MsgFinalizeSet             ) returns (MsgFinalizeSetResponse             );
+  rpc BuySet                   (MsgBuySet                  ) returns (MsgBuySetResponse                  );
+  rpc RemoveCardFromSet        (MsgRemoveCardFromSet       ) returns (MsgRemoveCardFromSetResponse       );
+  rpc RemoveContributorFromSet (MsgRemoveContributorFromSet) returns (MsgRemoveContributorFromSetResponse);
+  rpc AddContributorToSet      (MsgAddContributorToSet     ) returns (MsgAddContributorToSetResponse     );
+  rpc SubmitSetProposal        (MsgSubmitSetProposal       ) returns (MsgSubmitSetProposalResponse       );
   rpc CreateSellOffer                 (MsgCreateSellOffer                ) returns (MsgCreateSellOfferResponse                );
   rpc BuyCard                         (MsgBuyCard                        ) returns (MsgBuyCardResponse                        );
   rpc RemoveSellOffer                 (MsgRemoveSellOffer                ) returns (MsgRemoveSellOfferResponse                );
-  rpc AddArtworkToCollection          (MsgAddArtworkToCollection         ) returns (MsgAddArtworkToCollectionResponse         );
-  rpc AddStoryToCollection            (MsgAddStoryToCollection           ) returns (MsgAddStoryToCollectionResponse           );
+  rpc AddArtworkToSet          (MsgAddArtworkToSet         ) returns (MsgAddArtworkToSetResponse         );
+  rpc AddStoryToSet            (MsgAddStoryToSet           ) returns (MsgAddStoryToSetResponse           );
   rpc SetCardRarity                   (MsgSetCardRarity                  ) returns (MsgSetCardRarityResponse                  );
   rpc CreateCouncil                   (MsgCreateCouncil                  ) returns (MsgCreateCouncilResponse                  );
   rpc CommitCouncilResponse           (MsgCommitCouncilResponse          ) returns (MsgCommitCouncilResponseResponse          );
@@ -50,15 +50,15 @@ service Msg {
   rpc SetProfileCard                  (MsgSetProfileCard                 ) returns (MsgSetProfileCardResponse                 );
   rpc OpenBoosterPack                 (MsgOpenBoosterPack                ) returns (MsgOpenBoosterPackResponse                );
   rpc TransferBoosterPack             (MsgTransferBoosterPack            ) returns (MsgTransferBoosterPackResponse            );
-  rpc SetCollectionStoryWriter        (MsgSetCollectionStoryWriter       ) returns (MsgSetCollectionStoryWriterResponse       );
-  rpc SetCollectionArtist             (MsgSetCollectionArtist            ) returns (MsgSetCollectionArtistResponse            );
+  rpc SetSetStoryWriter        (MsgSetSetStoryWriter       ) returns (MsgSetSetStoryWriterResponse       );
+  rpc SetSetArtist             (MsgSetSetArtist            ) returns (MsgSetSetArtistResponse            );
   rpc SetUserWebsite                  (MsgSetUserWebsite                 ) returns (MsgSetUserWebsiteResponse                 );
   rpc SetUserBiography                (MsgSetUserBiography               ) returns (MsgSetUserBiographyResponse               );
   
   // this line is used by starport scaffolding # proto/tx/rpc
   rpc MultiVoteCard     (MsgMultiVoteCard    ) returns (MsgMultiVoteCardResponse    );
   rpc MsgOpenMatch      (MsgMsgOpenMatch     ) returns (MsgMsgOpenMatchResponse     );
-  rpc SetCollectionName (MsgSetCollectionName) returns (MsgSetCollectionNameResponse);
+  rpc SetSetName (MsgSetSetName) returns (MsgSetSetNameResponse);
 }
 message MsgCreateuser {
   string creator = 1;
@@ -184,7 +184,7 @@ message MsgApointMatchReporter {
 
 message MsgApointMatchReporterResponse {}
 
-message MsgCreateCollection {
+message MsgCreateSet {
            string creator      = 1;
            string name         = 2;
            string artist       = 3;
@@ -192,62 +192,62 @@ message MsgCreateCollection {
   repeated string contributors = 5;
 }
 
-message MsgCreateCollectionResponse {}
+message MsgCreateSetResponse {}
 
-message MsgAddCardToCollection {
+message MsgAddCardToSet {
   string creator      = 1;
-  uint64 collectionId = 2;
+  uint64 setId = 2;
   uint64 cardId       = 3;
 }
 
-message MsgAddCardToCollectionResponse {}
+message MsgAddCardToSetResponse {}
 
-message MsgFinalizeCollection {
+message MsgFinalizeSet {
   string creator      = 1;
-  uint64 collectionId = 2;
+  uint64 setId = 2;
 }
 
-message MsgFinalizeCollectionResponse {}
+message MsgFinalizeSetResponse {}
 
-message MsgBuyCollection {
+message MsgBuySet {
   string creator      = 1;
-  uint64 collectionId = 2;
+  uint64 setId = 2;
 }
 
-message MsgBuyCollectionResponse {
+message MsgBuySetResponse {
   bool airdropClaimed = 1;
 }
 
-message MsgRemoveCardFromCollection {
+message MsgRemoveCardFromSet {
   string creator      = 1;
-  uint64 collectionId = 2;
+  uint64 setId = 2;
   uint64 cardId       = 3;
 }
 
-message MsgRemoveCardFromCollectionResponse {}
+message MsgRemoveCardFromSetResponse {}
 
-message MsgRemoveContributorFromCollection {
+message MsgRemoveContributorFromSet {
   string creator      = 1;
-  uint64 collectionId = 2;
+  uint64 setId = 2;
   string user         = 3;
 }
 
-message MsgRemoveContributorFromCollectionResponse {}
+message MsgRemoveContributorFromSetResponse {}
 
-message MsgAddContributorToCollection {
+message MsgAddContributorToSet {
   string creator      = 1;
-  uint64 collectionId = 2;
+  uint64 setId = 2;
   string user         = 3;
 }
 
-message MsgAddContributorToCollectionResponse {}
+message MsgAddContributorToSetResponse {}
 
-message MsgSubmitCollectionProposal {
+message MsgSubmitSetProposal {
   string creator      = 1;
-  uint64 collectionId = 2;
+  uint64 setId = 2;
 }
 
-message MsgSubmitCollectionProposalResponse {}
+message MsgSubmitSetProposalResponse {}
 
 message MsgCreateSellOffer {
   string creator = 1;
@@ -271,26 +271,26 @@ message MsgRemoveSellOffer {
 
 message MsgRemoveSellOfferResponse {}
 
-message MsgAddArtworkToCollection {
+message MsgAddArtworkToSet {
   string creator      = 1;
-  uint64 collectionId = 2;
+  uint64 setId = 2;
   bytes  image        = 3;
 }
 
-message MsgAddArtworkToCollectionResponse {}
+message MsgAddArtworkToSetResponse {}
 
-message MsgAddStoryToCollection {
+message MsgAddStoryToSet {
   string creator      = 1;
-  uint64 collectionId = 2;
+  uint64 setId = 2;
   string story        = 3;
 }
 
-message MsgAddStoryToCollectionResponse {}
+message MsgAddStoryToSetResponse {}
 
 message MsgSetCardRarity {
   string creator      = 1;
   uint64 cardId       = 2;
-  uint64 collectionId = 3;
+  uint64 setId = 3;
   string rarity       = 4;
 }
 
@@ -368,21 +368,21 @@ message MsgTransferBoosterPack {
 
 message MsgTransferBoosterPackResponse {}
 
-message MsgSetCollectionStoryWriter {
+message MsgSetSetStoryWriter {
   string creator      = 1;
-  uint64 collectionId = 2;
+  uint64 setId = 2;
   string storyWriter  = 3;
 }
 
-message MsgSetCollectionStoryWriterResponse {}
+message MsgSetSetStoryWriterResponse {}
 
-message MsgSetCollectionArtist {
+message MsgSetSetArtist {
   string creator      = 1;
-  uint64 collectionId = 2;
+  uint64 setId = 2;
   string artist       = 3;
 }
 
-message MsgSetCollectionArtistResponse {}
+message MsgSetSetArtistResponse {}
 
 message MsgSetUserWebsite {
   string creator = 1;
@@ -418,11 +418,11 @@ message MsgMsgOpenMatchResponse {
   uint64 matchId = 1;
 }
 
-message MsgSetCollectionName {
+message MsgSetSetName {
   string creator      = 1;
-  uint64 collectionId = 2;
+  uint64 setId = 2;
   string name         = 3;
 }
 
-message MsgSetCollectionNameResponse {}
+message MsgSetSetNameResponse {}
 

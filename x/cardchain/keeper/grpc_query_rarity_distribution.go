@@ -16,9 +16,9 @@ func (k Keeper) RarityDistribution(goCtx context.Context, req *types.QueryRarity
 
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	collectionSize := k.GetParams(ctx).CollectionSize
-	collection := k.Collections.Get(ctx, req.CollectionId)
-	dist, err := k.GetRarityDistribution(ctx, *collection, collectionSize)
+	setSize := k.GetParams(ctx).SetSize
+	set := k.Sets.Get(ctx, req.SetId)
+	dist, err := k.GetRarityDistribution(ctx, *set, setSize)
 
 	return &types.QueryRarityDistributionResponse{Current: dist[0][:], Wanted: dist[1][:]}, err
 }

@@ -1325,7 +1325,7 @@ func (m *MsgApointMatchReporterResponse) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_MsgApointMatchReporterResponse proto.InternalMessageInfo
 
-type MsgCreateCollection struct {
+type MsgCreateSet struct {
 	Creator      string   `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
 	Name         string   `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
 	Artist       string   `protobuf:"bytes,3,opt,name=artist,proto3" json:"artist,omitempty"`
@@ -1333,18 +1333,18 @@ type MsgCreateCollection struct {
 	Contributors []string `protobuf:"bytes,5,rep,name=contributors,proto3" json:"contributors,omitempty"`
 }
 
-func (m *MsgCreateCollection) Reset()         { *m = MsgCreateCollection{} }
-func (m *MsgCreateCollection) String() string { return proto.CompactTextString(m) }
-func (*MsgCreateCollection) ProtoMessage()    {}
-func (*MsgCreateCollection) Descriptor() ([]byte, []int) {
+func (m *MsgCreateSet) Reset()         { *m = MsgCreateSet{} }
+func (m *MsgCreateSet) String() string { return proto.CompactTextString(m) }
+func (*MsgCreateSet) ProtoMessage()    {}
+func (*MsgCreateSet) Descriptor() ([]byte, []int) {
 	return fileDescriptor_3b4a3aba0ac94bc8, []int{26}
 }
-func (m *MsgCreateCollection) XXX_Unmarshal(b []byte) error {
+func (m *MsgCreateSet) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *MsgCreateCollection) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *MsgCreateSet) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_MsgCreateCollection.Marshal(b, m, deterministic)
+		return xxx_messageInfo_MsgCreateSet.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -1354,68 +1354,68 @@ func (m *MsgCreateCollection) XXX_Marshal(b []byte, deterministic bool) ([]byte,
 		return b[:n], nil
 	}
 }
-func (m *MsgCreateCollection) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_MsgCreateCollection.Merge(m, src)
+func (m *MsgCreateSet) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgCreateSet.Merge(m, src)
 }
-func (m *MsgCreateCollection) XXX_Size() int {
+func (m *MsgCreateSet) XXX_Size() int {
 	return m.Size()
 }
-func (m *MsgCreateCollection) XXX_DiscardUnknown() {
-	xxx_messageInfo_MsgCreateCollection.DiscardUnknown(m)
+func (m *MsgCreateSet) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgCreateSet.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_MsgCreateCollection proto.InternalMessageInfo
+var xxx_messageInfo_MsgCreateSet proto.InternalMessageInfo
 
-func (m *MsgCreateCollection) GetCreator() string {
+func (m *MsgCreateSet) GetCreator() string {
 	if m != nil {
 		return m.Creator
 	}
 	return ""
 }
 
-func (m *MsgCreateCollection) GetName() string {
+func (m *MsgCreateSet) GetName() string {
 	if m != nil {
 		return m.Name
 	}
 	return ""
 }
 
-func (m *MsgCreateCollection) GetArtist() string {
+func (m *MsgCreateSet) GetArtist() string {
 	if m != nil {
 		return m.Artist
 	}
 	return ""
 }
 
-func (m *MsgCreateCollection) GetStoryWriter() string {
+func (m *MsgCreateSet) GetStoryWriter() string {
 	if m != nil {
 		return m.StoryWriter
 	}
 	return ""
 }
 
-func (m *MsgCreateCollection) GetContributors() []string {
+func (m *MsgCreateSet) GetContributors() []string {
 	if m != nil {
 		return m.Contributors
 	}
 	return nil
 }
 
-type MsgCreateCollectionResponse struct {
+type MsgCreateSetResponse struct {
 }
 
-func (m *MsgCreateCollectionResponse) Reset()         { *m = MsgCreateCollectionResponse{} }
-func (m *MsgCreateCollectionResponse) String() string { return proto.CompactTextString(m) }
-func (*MsgCreateCollectionResponse) ProtoMessage()    {}
-func (*MsgCreateCollectionResponse) Descriptor() ([]byte, []int) {
+func (m *MsgCreateSetResponse) Reset()         { *m = MsgCreateSetResponse{} }
+func (m *MsgCreateSetResponse) String() string { return proto.CompactTextString(m) }
+func (*MsgCreateSetResponse) ProtoMessage()    {}
+func (*MsgCreateSetResponse) Descriptor() ([]byte, []int) {
 	return fileDescriptor_3b4a3aba0ac94bc8, []int{27}
 }
-func (m *MsgCreateCollectionResponse) XXX_Unmarshal(b []byte) error {
+func (m *MsgCreateSetResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *MsgCreateCollectionResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *MsgCreateSetResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_MsgCreateCollectionResponse.Marshal(b, m, deterministic)
+		return xxx_messageInfo_MsgCreateSetResponse.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -1425,36 +1425,36 @@ func (m *MsgCreateCollectionResponse) XXX_Marshal(b []byte, deterministic bool) 
 		return b[:n], nil
 	}
 }
-func (m *MsgCreateCollectionResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_MsgCreateCollectionResponse.Merge(m, src)
+func (m *MsgCreateSetResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgCreateSetResponse.Merge(m, src)
 }
-func (m *MsgCreateCollectionResponse) XXX_Size() int {
+func (m *MsgCreateSetResponse) XXX_Size() int {
 	return m.Size()
 }
-func (m *MsgCreateCollectionResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_MsgCreateCollectionResponse.DiscardUnknown(m)
+func (m *MsgCreateSetResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgCreateSetResponse.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_MsgCreateCollectionResponse proto.InternalMessageInfo
+var xxx_messageInfo_MsgCreateSetResponse proto.InternalMessageInfo
 
-type MsgAddCardToCollection struct {
-	Creator      string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
-	CollectionId uint64 `protobuf:"varint,2,opt,name=collectionId,proto3" json:"collectionId,omitempty"`
-	CardId       uint64 `protobuf:"varint,3,opt,name=cardId,proto3" json:"cardId,omitempty"`
+type MsgAddCardToSet struct {
+	Creator string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
+	SetId   uint64 `protobuf:"varint,2,opt,name=setId,proto3" json:"setId,omitempty"`
+	CardId  uint64 `protobuf:"varint,3,opt,name=cardId,proto3" json:"cardId,omitempty"`
 }
 
-func (m *MsgAddCardToCollection) Reset()         { *m = MsgAddCardToCollection{} }
-func (m *MsgAddCardToCollection) String() string { return proto.CompactTextString(m) }
-func (*MsgAddCardToCollection) ProtoMessage()    {}
-func (*MsgAddCardToCollection) Descriptor() ([]byte, []int) {
+func (m *MsgAddCardToSet) Reset()         { *m = MsgAddCardToSet{} }
+func (m *MsgAddCardToSet) String() string { return proto.CompactTextString(m) }
+func (*MsgAddCardToSet) ProtoMessage()    {}
+func (*MsgAddCardToSet) Descriptor() ([]byte, []int) {
 	return fileDescriptor_3b4a3aba0ac94bc8, []int{28}
 }
-func (m *MsgAddCardToCollection) XXX_Unmarshal(b []byte) error {
+func (m *MsgAddCardToSet) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *MsgAddCardToCollection) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *MsgAddCardToSet) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_MsgAddCardToCollection.Marshal(b, m, deterministic)
+		return xxx_messageInfo_MsgAddCardToSet.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -1464,54 +1464,54 @@ func (m *MsgAddCardToCollection) XXX_Marshal(b []byte, deterministic bool) ([]by
 		return b[:n], nil
 	}
 }
-func (m *MsgAddCardToCollection) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_MsgAddCardToCollection.Merge(m, src)
+func (m *MsgAddCardToSet) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgAddCardToSet.Merge(m, src)
 }
-func (m *MsgAddCardToCollection) XXX_Size() int {
+func (m *MsgAddCardToSet) XXX_Size() int {
 	return m.Size()
 }
-func (m *MsgAddCardToCollection) XXX_DiscardUnknown() {
-	xxx_messageInfo_MsgAddCardToCollection.DiscardUnknown(m)
+func (m *MsgAddCardToSet) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgAddCardToSet.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_MsgAddCardToCollection proto.InternalMessageInfo
+var xxx_messageInfo_MsgAddCardToSet proto.InternalMessageInfo
 
-func (m *MsgAddCardToCollection) GetCreator() string {
+func (m *MsgAddCardToSet) GetCreator() string {
 	if m != nil {
 		return m.Creator
 	}
 	return ""
 }
 
-func (m *MsgAddCardToCollection) GetCollectionId() uint64 {
+func (m *MsgAddCardToSet) GetSetId() uint64 {
 	if m != nil {
-		return m.CollectionId
+		return m.SetId
 	}
 	return 0
 }
 
-func (m *MsgAddCardToCollection) GetCardId() uint64 {
+func (m *MsgAddCardToSet) GetCardId() uint64 {
 	if m != nil {
 		return m.CardId
 	}
 	return 0
 }
 
-type MsgAddCardToCollectionResponse struct {
+type MsgAddCardToSetResponse struct {
 }
 
-func (m *MsgAddCardToCollectionResponse) Reset()         { *m = MsgAddCardToCollectionResponse{} }
-func (m *MsgAddCardToCollectionResponse) String() string { return proto.CompactTextString(m) }
-func (*MsgAddCardToCollectionResponse) ProtoMessage()    {}
-func (*MsgAddCardToCollectionResponse) Descriptor() ([]byte, []int) {
+func (m *MsgAddCardToSetResponse) Reset()         { *m = MsgAddCardToSetResponse{} }
+func (m *MsgAddCardToSetResponse) String() string { return proto.CompactTextString(m) }
+func (*MsgAddCardToSetResponse) ProtoMessage()    {}
+func (*MsgAddCardToSetResponse) Descriptor() ([]byte, []int) {
 	return fileDescriptor_3b4a3aba0ac94bc8, []int{29}
 }
-func (m *MsgAddCardToCollectionResponse) XXX_Unmarshal(b []byte) error {
+func (m *MsgAddCardToSetResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *MsgAddCardToCollectionResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *MsgAddCardToSetResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_MsgAddCardToCollectionResponse.Marshal(b, m, deterministic)
+		return xxx_messageInfo_MsgAddCardToSetResponse.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -1521,35 +1521,35 @@ func (m *MsgAddCardToCollectionResponse) XXX_Marshal(b []byte, deterministic boo
 		return b[:n], nil
 	}
 }
-func (m *MsgAddCardToCollectionResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_MsgAddCardToCollectionResponse.Merge(m, src)
+func (m *MsgAddCardToSetResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgAddCardToSetResponse.Merge(m, src)
 }
-func (m *MsgAddCardToCollectionResponse) XXX_Size() int {
+func (m *MsgAddCardToSetResponse) XXX_Size() int {
 	return m.Size()
 }
-func (m *MsgAddCardToCollectionResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_MsgAddCardToCollectionResponse.DiscardUnknown(m)
+func (m *MsgAddCardToSetResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgAddCardToSetResponse.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_MsgAddCardToCollectionResponse proto.InternalMessageInfo
+var xxx_messageInfo_MsgAddCardToSetResponse proto.InternalMessageInfo
 
-type MsgFinalizeCollection struct {
-	Creator      string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
-	CollectionId uint64 `protobuf:"varint,2,opt,name=collectionId,proto3" json:"collectionId,omitempty"`
+type MsgFinalizeSet struct {
+	Creator string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
+	SetId   uint64 `protobuf:"varint,2,opt,name=setId,proto3" json:"setId,omitempty"`
 }
 
-func (m *MsgFinalizeCollection) Reset()         { *m = MsgFinalizeCollection{} }
-func (m *MsgFinalizeCollection) String() string { return proto.CompactTextString(m) }
-func (*MsgFinalizeCollection) ProtoMessage()    {}
-func (*MsgFinalizeCollection) Descriptor() ([]byte, []int) {
+func (m *MsgFinalizeSet) Reset()         { *m = MsgFinalizeSet{} }
+func (m *MsgFinalizeSet) String() string { return proto.CompactTextString(m) }
+func (*MsgFinalizeSet) ProtoMessage()    {}
+func (*MsgFinalizeSet) Descriptor() ([]byte, []int) {
 	return fileDescriptor_3b4a3aba0ac94bc8, []int{30}
 }
-func (m *MsgFinalizeCollection) XXX_Unmarshal(b []byte) error {
+func (m *MsgFinalizeSet) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *MsgFinalizeCollection) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *MsgFinalizeSet) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_MsgFinalizeCollection.Marshal(b, m, deterministic)
+		return xxx_messageInfo_MsgFinalizeSet.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -1559,47 +1559,47 @@ func (m *MsgFinalizeCollection) XXX_Marshal(b []byte, deterministic bool) ([]byt
 		return b[:n], nil
 	}
 }
-func (m *MsgFinalizeCollection) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_MsgFinalizeCollection.Merge(m, src)
+func (m *MsgFinalizeSet) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgFinalizeSet.Merge(m, src)
 }
-func (m *MsgFinalizeCollection) XXX_Size() int {
+func (m *MsgFinalizeSet) XXX_Size() int {
 	return m.Size()
 }
-func (m *MsgFinalizeCollection) XXX_DiscardUnknown() {
-	xxx_messageInfo_MsgFinalizeCollection.DiscardUnknown(m)
+func (m *MsgFinalizeSet) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgFinalizeSet.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_MsgFinalizeCollection proto.InternalMessageInfo
+var xxx_messageInfo_MsgFinalizeSet proto.InternalMessageInfo
 
-func (m *MsgFinalizeCollection) GetCreator() string {
+func (m *MsgFinalizeSet) GetCreator() string {
 	if m != nil {
 		return m.Creator
 	}
 	return ""
 }
 
-func (m *MsgFinalizeCollection) GetCollectionId() uint64 {
+func (m *MsgFinalizeSet) GetSetId() uint64 {
 	if m != nil {
-		return m.CollectionId
+		return m.SetId
 	}
 	return 0
 }
 
-type MsgFinalizeCollectionResponse struct {
+type MsgFinalizeSetResponse struct {
 }
 
-func (m *MsgFinalizeCollectionResponse) Reset()         { *m = MsgFinalizeCollectionResponse{} }
-func (m *MsgFinalizeCollectionResponse) String() string { return proto.CompactTextString(m) }
-func (*MsgFinalizeCollectionResponse) ProtoMessage()    {}
-func (*MsgFinalizeCollectionResponse) Descriptor() ([]byte, []int) {
+func (m *MsgFinalizeSetResponse) Reset()         { *m = MsgFinalizeSetResponse{} }
+func (m *MsgFinalizeSetResponse) String() string { return proto.CompactTextString(m) }
+func (*MsgFinalizeSetResponse) ProtoMessage()    {}
+func (*MsgFinalizeSetResponse) Descriptor() ([]byte, []int) {
 	return fileDescriptor_3b4a3aba0ac94bc8, []int{31}
 }
-func (m *MsgFinalizeCollectionResponse) XXX_Unmarshal(b []byte) error {
+func (m *MsgFinalizeSetResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *MsgFinalizeCollectionResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *MsgFinalizeSetResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_MsgFinalizeCollectionResponse.Marshal(b, m, deterministic)
+		return xxx_messageInfo_MsgFinalizeSetResponse.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -1609,35 +1609,35 @@ func (m *MsgFinalizeCollectionResponse) XXX_Marshal(b []byte, deterministic bool
 		return b[:n], nil
 	}
 }
-func (m *MsgFinalizeCollectionResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_MsgFinalizeCollectionResponse.Merge(m, src)
+func (m *MsgFinalizeSetResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgFinalizeSetResponse.Merge(m, src)
 }
-func (m *MsgFinalizeCollectionResponse) XXX_Size() int {
+func (m *MsgFinalizeSetResponse) XXX_Size() int {
 	return m.Size()
 }
-func (m *MsgFinalizeCollectionResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_MsgFinalizeCollectionResponse.DiscardUnknown(m)
+func (m *MsgFinalizeSetResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgFinalizeSetResponse.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_MsgFinalizeCollectionResponse proto.InternalMessageInfo
+var xxx_messageInfo_MsgFinalizeSetResponse proto.InternalMessageInfo
 
-type MsgBuyCollection struct {
-	Creator      string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
-	CollectionId uint64 `protobuf:"varint,2,opt,name=collectionId,proto3" json:"collectionId,omitempty"`
+type MsgBuySet struct {
+	Creator string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
+	SetId   uint64 `protobuf:"varint,2,opt,name=setId,proto3" json:"setId,omitempty"`
 }
 
-func (m *MsgBuyCollection) Reset()         { *m = MsgBuyCollection{} }
-func (m *MsgBuyCollection) String() string { return proto.CompactTextString(m) }
-func (*MsgBuyCollection) ProtoMessage()    {}
-func (*MsgBuyCollection) Descriptor() ([]byte, []int) {
+func (m *MsgBuySet) Reset()         { *m = MsgBuySet{} }
+func (m *MsgBuySet) String() string { return proto.CompactTextString(m) }
+func (*MsgBuySet) ProtoMessage()    {}
+func (*MsgBuySet) Descriptor() ([]byte, []int) {
 	return fileDescriptor_3b4a3aba0ac94bc8, []int{32}
 }
-func (m *MsgBuyCollection) XXX_Unmarshal(b []byte) error {
+func (m *MsgBuySet) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *MsgBuyCollection) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *MsgBuySet) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_MsgBuyCollection.Marshal(b, m, deterministic)
+		return xxx_messageInfo_MsgBuySet.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -1647,48 +1647,48 @@ func (m *MsgBuyCollection) XXX_Marshal(b []byte, deterministic bool) ([]byte, er
 		return b[:n], nil
 	}
 }
-func (m *MsgBuyCollection) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_MsgBuyCollection.Merge(m, src)
+func (m *MsgBuySet) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgBuySet.Merge(m, src)
 }
-func (m *MsgBuyCollection) XXX_Size() int {
+func (m *MsgBuySet) XXX_Size() int {
 	return m.Size()
 }
-func (m *MsgBuyCollection) XXX_DiscardUnknown() {
-	xxx_messageInfo_MsgBuyCollection.DiscardUnknown(m)
+func (m *MsgBuySet) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgBuySet.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_MsgBuyCollection proto.InternalMessageInfo
+var xxx_messageInfo_MsgBuySet proto.InternalMessageInfo
 
-func (m *MsgBuyCollection) GetCreator() string {
+func (m *MsgBuySet) GetCreator() string {
 	if m != nil {
 		return m.Creator
 	}
 	return ""
 }
 
-func (m *MsgBuyCollection) GetCollectionId() uint64 {
+func (m *MsgBuySet) GetSetId() uint64 {
 	if m != nil {
-		return m.CollectionId
+		return m.SetId
 	}
 	return 0
 }
 
-type MsgBuyCollectionResponse struct {
+type MsgBuySetResponse struct {
 	AirdropClaimed bool `protobuf:"varint,1,opt,name=airdropClaimed,proto3" json:"airdropClaimed,omitempty"`
 }
 
-func (m *MsgBuyCollectionResponse) Reset()         { *m = MsgBuyCollectionResponse{} }
-func (m *MsgBuyCollectionResponse) String() string { return proto.CompactTextString(m) }
-func (*MsgBuyCollectionResponse) ProtoMessage()    {}
-func (*MsgBuyCollectionResponse) Descriptor() ([]byte, []int) {
+func (m *MsgBuySetResponse) Reset()         { *m = MsgBuySetResponse{} }
+func (m *MsgBuySetResponse) String() string { return proto.CompactTextString(m) }
+func (*MsgBuySetResponse) ProtoMessage()    {}
+func (*MsgBuySetResponse) Descriptor() ([]byte, []int) {
 	return fileDescriptor_3b4a3aba0ac94bc8, []int{33}
 }
-func (m *MsgBuyCollectionResponse) XXX_Unmarshal(b []byte) error {
+func (m *MsgBuySetResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *MsgBuyCollectionResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *MsgBuySetResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_MsgBuyCollectionResponse.Marshal(b, m, deterministic)
+		return xxx_messageInfo_MsgBuySetResponse.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -1698,43 +1698,43 @@ func (m *MsgBuyCollectionResponse) XXX_Marshal(b []byte, deterministic bool) ([]
 		return b[:n], nil
 	}
 }
-func (m *MsgBuyCollectionResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_MsgBuyCollectionResponse.Merge(m, src)
+func (m *MsgBuySetResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgBuySetResponse.Merge(m, src)
 }
-func (m *MsgBuyCollectionResponse) XXX_Size() int {
+func (m *MsgBuySetResponse) XXX_Size() int {
 	return m.Size()
 }
-func (m *MsgBuyCollectionResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_MsgBuyCollectionResponse.DiscardUnknown(m)
+func (m *MsgBuySetResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgBuySetResponse.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_MsgBuyCollectionResponse proto.InternalMessageInfo
+var xxx_messageInfo_MsgBuySetResponse proto.InternalMessageInfo
 
-func (m *MsgBuyCollectionResponse) GetAirdropClaimed() bool {
+func (m *MsgBuySetResponse) GetAirdropClaimed() bool {
 	if m != nil {
 		return m.AirdropClaimed
 	}
 	return false
 }
 
-type MsgRemoveCardFromCollection struct {
-	Creator      string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
-	CollectionId uint64 `protobuf:"varint,2,opt,name=collectionId,proto3" json:"collectionId,omitempty"`
-	CardId       uint64 `protobuf:"varint,3,opt,name=cardId,proto3" json:"cardId,omitempty"`
+type MsgRemoveCardFromSet struct {
+	Creator string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
+	SetId   uint64 `protobuf:"varint,2,opt,name=setId,proto3" json:"setId,omitempty"`
+	CardId  uint64 `protobuf:"varint,3,opt,name=cardId,proto3" json:"cardId,omitempty"`
 }
 
-func (m *MsgRemoveCardFromCollection) Reset()         { *m = MsgRemoveCardFromCollection{} }
-func (m *MsgRemoveCardFromCollection) String() string { return proto.CompactTextString(m) }
-func (*MsgRemoveCardFromCollection) ProtoMessage()    {}
-func (*MsgRemoveCardFromCollection) Descriptor() ([]byte, []int) {
+func (m *MsgRemoveCardFromSet) Reset()         { *m = MsgRemoveCardFromSet{} }
+func (m *MsgRemoveCardFromSet) String() string { return proto.CompactTextString(m) }
+func (*MsgRemoveCardFromSet) ProtoMessage()    {}
+func (*MsgRemoveCardFromSet) Descriptor() ([]byte, []int) {
 	return fileDescriptor_3b4a3aba0ac94bc8, []int{34}
 }
-func (m *MsgRemoveCardFromCollection) XXX_Unmarshal(b []byte) error {
+func (m *MsgRemoveCardFromSet) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *MsgRemoveCardFromCollection) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *MsgRemoveCardFromSet) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_MsgRemoveCardFromCollection.Marshal(b, m, deterministic)
+		return xxx_messageInfo_MsgRemoveCardFromSet.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -1744,54 +1744,54 @@ func (m *MsgRemoveCardFromCollection) XXX_Marshal(b []byte, deterministic bool) 
 		return b[:n], nil
 	}
 }
-func (m *MsgRemoveCardFromCollection) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_MsgRemoveCardFromCollection.Merge(m, src)
+func (m *MsgRemoveCardFromSet) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgRemoveCardFromSet.Merge(m, src)
 }
-func (m *MsgRemoveCardFromCollection) XXX_Size() int {
+func (m *MsgRemoveCardFromSet) XXX_Size() int {
 	return m.Size()
 }
-func (m *MsgRemoveCardFromCollection) XXX_DiscardUnknown() {
-	xxx_messageInfo_MsgRemoveCardFromCollection.DiscardUnknown(m)
+func (m *MsgRemoveCardFromSet) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgRemoveCardFromSet.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_MsgRemoveCardFromCollection proto.InternalMessageInfo
+var xxx_messageInfo_MsgRemoveCardFromSet proto.InternalMessageInfo
 
-func (m *MsgRemoveCardFromCollection) GetCreator() string {
+func (m *MsgRemoveCardFromSet) GetCreator() string {
 	if m != nil {
 		return m.Creator
 	}
 	return ""
 }
 
-func (m *MsgRemoveCardFromCollection) GetCollectionId() uint64 {
+func (m *MsgRemoveCardFromSet) GetSetId() uint64 {
 	if m != nil {
-		return m.CollectionId
+		return m.SetId
 	}
 	return 0
 }
 
-func (m *MsgRemoveCardFromCollection) GetCardId() uint64 {
+func (m *MsgRemoveCardFromSet) GetCardId() uint64 {
 	if m != nil {
 		return m.CardId
 	}
 	return 0
 }
 
-type MsgRemoveCardFromCollectionResponse struct {
+type MsgRemoveCardFromSetResponse struct {
 }
 
-func (m *MsgRemoveCardFromCollectionResponse) Reset()         { *m = MsgRemoveCardFromCollectionResponse{} }
-func (m *MsgRemoveCardFromCollectionResponse) String() string { return proto.CompactTextString(m) }
-func (*MsgRemoveCardFromCollectionResponse) ProtoMessage()    {}
-func (*MsgRemoveCardFromCollectionResponse) Descriptor() ([]byte, []int) {
+func (m *MsgRemoveCardFromSetResponse) Reset()         { *m = MsgRemoveCardFromSetResponse{} }
+func (m *MsgRemoveCardFromSetResponse) String() string { return proto.CompactTextString(m) }
+func (*MsgRemoveCardFromSetResponse) ProtoMessage()    {}
+func (*MsgRemoveCardFromSetResponse) Descriptor() ([]byte, []int) {
 	return fileDescriptor_3b4a3aba0ac94bc8, []int{35}
 }
-func (m *MsgRemoveCardFromCollectionResponse) XXX_Unmarshal(b []byte) error {
+func (m *MsgRemoveCardFromSetResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *MsgRemoveCardFromCollectionResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *MsgRemoveCardFromSetResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_MsgRemoveCardFromCollectionResponse.Marshal(b, m, deterministic)
+		return xxx_messageInfo_MsgRemoveCardFromSetResponse.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -1801,36 +1801,36 @@ func (m *MsgRemoveCardFromCollectionResponse) XXX_Marshal(b []byte, deterministi
 		return b[:n], nil
 	}
 }
-func (m *MsgRemoveCardFromCollectionResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_MsgRemoveCardFromCollectionResponse.Merge(m, src)
+func (m *MsgRemoveCardFromSetResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgRemoveCardFromSetResponse.Merge(m, src)
 }
-func (m *MsgRemoveCardFromCollectionResponse) XXX_Size() int {
+func (m *MsgRemoveCardFromSetResponse) XXX_Size() int {
 	return m.Size()
 }
-func (m *MsgRemoveCardFromCollectionResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_MsgRemoveCardFromCollectionResponse.DiscardUnknown(m)
+func (m *MsgRemoveCardFromSetResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgRemoveCardFromSetResponse.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_MsgRemoveCardFromCollectionResponse proto.InternalMessageInfo
+var xxx_messageInfo_MsgRemoveCardFromSetResponse proto.InternalMessageInfo
 
-type MsgRemoveContributorFromCollection struct {
-	Creator      string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
-	CollectionId uint64 `protobuf:"varint,2,opt,name=collectionId,proto3" json:"collectionId,omitempty"`
-	User         string `protobuf:"bytes,3,opt,name=user,proto3" json:"user,omitempty"`
+type MsgRemoveContributorFromSet struct {
+	Creator string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
+	SetId   uint64 `protobuf:"varint,2,opt,name=setId,proto3" json:"setId,omitempty"`
+	User    string `protobuf:"bytes,3,opt,name=user,proto3" json:"user,omitempty"`
 }
 
-func (m *MsgRemoveContributorFromCollection) Reset()         { *m = MsgRemoveContributorFromCollection{} }
-func (m *MsgRemoveContributorFromCollection) String() string { return proto.CompactTextString(m) }
-func (*MsgRemoveContributorFromCollection) ProtoMessage()    {}
-func (*MsgRemoveContributorFromCollection) Descriptor() ([]byte, []int) {
+func (m *MsgRemoveContributorFromSet) Reset()         { *m = MsgRemoveContributorFromSet{} }
+func (m *MsgRemoveContributorFromSet) String() string { return proto.CompactTextString(m) }
+func (*MsgRemoveContributorFromSet) ProtoMessage()    {}
+func (*MsgRemoveContributorFromSet) Descriptor() ([]byte, []int) {
 	return fileDescriptor_3b4a3aba0ac94bc8, []int{36}
 }
-func (m *MsgRemoveContributorFromCollection) XXX_Unmarshal(b []byte) error {
+func (m *MsgRemoveContributorFromSet) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *MsgRemoveContributorFromCollection) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *MsgRemoveContributorFromSet) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_MsgRemoveContributorFromCollection.Marshal(b, m, deterministic)
+		return xxx_messageInfo_MsgRemoveContributorFromSet.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -1840,58 +1840,54 @@ func (m *MsgRemoveContributorFromCollection) XXX_Marshal(b []byte, deterministic
 		return b[:n], nil
 	}
 }
-func (m *MsgRemoveContributorFromCollection) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_MsgRemoveContributorFromCollection.Merge(m, src)
+func (m *MsgRemoveContributorFromSet) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgRemoveContributorFromSet.Merge(m, src)
 }
-func (m *MsgRemoveContributorFromCollection) XXX_Size() int {
+func (m *MsgRemoveContributorFromSet) XXX_Size() int {
 	return m.Size()
 }
-func (m *MsgRemoveContributorFromCollection) XXX_DiscardUnknown() {
-	xxx_messageInfo_MsgRemoveContributorFromCollection.DiscardUnknown(m)
+func (m *MsgRemoveContributorFromSet) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgRemoveContributorFromSet.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_MsgRemoveContributorFromCollection proto.InternalMessageInfo
+var xxx_messageInfo_MsgRemoveContributorFromSet proto.InternalMessageInfo
 
-func (m *MsgRemoveContributorFromCollection) GetCreator() string {
+func (m *MsgRemoveContributorFromSet) GetCreator() string {
 	if m != nil {
 		return m.Creator
 	}
 	return ""
 }
 
-func (m *MsgRemoveContributorFromCollection) GetCollectionId() uint64 {
+func (m *MsgRemoveContributorFromSet) GetSetId() uint64 {
 	if m != nil {
-		return m.CollectionId
+		return m.SetId
 	}
 	return 0
 }
 
-func (m *MsgRemoveContributorFromCollection) GetUser() string {
+func (m *MsgRemoveContributorFromSet) GetUser() string {
 	if m != nil {
 		return m.User
 	}
 	return ""
 }
 
-type MsgRemoveContributorFromCollectionResponse struct {
+type MsgRemoveContributorFromSetResponse struct {
 }
 
-func (m *MsgRemoveContributorFromCollectionResponse) Reset() {
-	*m = MsgRemoveContributorFromCollectionResponse{}
-}
-func (m *MsgRemoveContributorFromCollectionResponse) String() string {
-	return proto.CompactTextString(m)
-}
-func (*MsgRemoveContributorFromCollectionResponse) ProtoMessage() {}
-func (*MsgRemoveContributorFromCollectionResponse) Descriptor() ([]byte, []int) {
+func (m *MsgRemoveContributorFromSetResponse) Reset()         { *m = MsgRemoveContributorFromSetResponse{} }
+func (m *MsgRemoveContributorFromSetResponse) String() string { return proto.CompactTextString(m) }
+func (*MsgRemoveContributorFromSetResponse) ProtoMessage()    {}
+func (*MsgRemoveContributorFromSetResponse) Descriptor() ([]byte, []int) {
 	return fileDescriptor_3b4a3aba0ac94bc8, []int{37}
 }
-func (m *MsgRemoveContributorFromCollectionResponse) XXX_Unmarshal(b []byte) error {
+func (m *MsgRemoveContributorFromSetResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *MsgRemoveContributorFromCollectionResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *MsgRemoveContributorFromSetResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_MsgRemoveContributorFromCollectionResponse.Marshal(b, m, deterministic)
+		return xxx_messageInfo_MsgRemoveContributorFromSetResponse.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -1901,36 +1897,36 @@ func (m *MsgRemoveContributorFromCollectionResponse) XXX_Marshal(b []byte, deter
 		return b[:n], nil
 	}
 }
-func (m *MsgRemoveContributorFromCollectionResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_MsgRemoveContributorFromCollectionResponse.Merge(m, src)
+func (m *MsgRemoveContributorFromSetResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgRemoveContributorFromSetResponse.Merge(m, src)
 }
-func (m *MsgRemoveContributorFromCollectionResponse) XXX_Size() int {
+func (m *MsgRemoveContributorFromSetResponse) XXX_Size() int {
 	return m.Size()
 }
-func (m *MsgRemoveContributorFromCollectionResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_MsgRemoveContributorFromCollectionResponse.DiscardUnknown(m)
+func (m *MsgRemoveContributorFromSetResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgRemoveContributorFromSetResponse.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_MsgRemoveContributorFromCollectionResponse proto.InternalMessageInfo
+var xxx_messageInfo_MsgRemoveContributorFromSetResponse proto.InternalMessageInfo
 
-type MsgAddContributorToCollection struct {
-	Creator      string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
-	CollectionId uint64 `protobuf:"varint,2,opt,name=collectionId,proto3" json:"collectionId,omitempty"`
-	User         string `protobuf:"bytes,3,opt,name=user,proto3" json:"user,omitempty"`
+type MsgAddContributorToSet struct {
+	Creator string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
+	SetId   uint64 `protobuf:"varint,2,opt,name=setId,proto3" json:"setId,omitempty"`
+	User    string `protobuf:"bytes,3,opt,name=user,proto3" json:"user,omitempty"`
 }
 
-func (m *MsgAddContributorToCollection) Reset()         { *m = MsgAddContributorToCollection{} }
-func (m *MsgAddContributorToCollection) String() string { return proto.CompactTextString(m) }
-func (*MsgAddContributorToCollection) ProtoMessage()    {}
-func (*MsgAddContributorToCollection) Descriptor() ([]byte, []int) {
+func (m *MsgAddContributorToSet) Reset()         { *m = MsgAddContributorToSet{} }
+func (m *MsgAddContributorToSet) String() string { return proto.CompactTextString(m) }
+func (*MsgAddContributorToSet) ProtoMessage()    {}
+func (*MsgAddContributorToSet) Descriptor() ([]byte, []int) {
 	return fileDescriptor_3b4a3aba0ac94bc8, []int{38}
 }
-func (m *MsgAddContributorToCollection) XXX_Unmarshal(b []byte) error {
+func (m *MsgAddContributorToSet) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *MsgAddContributorToCollection) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *MsgAddContributorToSet) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_MsgAddContributorToCollection.Marshal(b, m, deterministic)
+		return xxx_messageInfo_MsgAddContributorToSet.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -1940,54 +1936,54 @@ func (m *MsgAddContributorToCollection) XXX_Marshal(b []byte, deterministic bool
 		return b[:n], nil
 	}
 }
-func (m *MsgAddContributorToCollection) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_MsgAddContributorToCollection.Merge(m, src)
+func (m *MsgAddContributorToSet) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgAddContributorToSet.Merge(m, src)
 }
-func (m *MsgAddContributorToCollection) XXX_Size() int {
+func (m *MsgAddContributorToSet) XXX_Size() int {
 	return m.Size()
 }
-func (m *MsgAddContributorToCollection) XXX_DiscardUnknown() {
-	xxx_messageInfo_MsgAddContributorToCollection.DiscardUnknown(m)
+func (m *MsgAddContributorToSet) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgAddContributorToSet.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_MsgAddContributorToCollection proto.InternalMessageInfo
+var xxx_messageInfo_MsgAddContributorToSet proto.InternalMessageInfo
 
-func (m *MsgAddContributorToCollection) GetCreator() string {
+func (m *MsgAddContributorToSet) GetCreator() string {
 	if m != nil {
 		return m.Creator
 	}
 	return ""
 }
 
-func (m *MsgAddContributorToCollection) GetCollectionId() uint64 {
+func (m *MsgAddContributorToSet) GetSetId() uint64 {
 	if m != nil {
-		return m.CollectionId
+		return m.SetId
 	}
 	return 0
 }
 
-func (m *MsgAddContributorToCollection) GetUser() string {
+func (m *MsgAddContributorToSet) GetUser() string {
 	if m != nil {
 		return m.User
 	}
 	return ""
 }
 
-type MsgAddContributorToCollectionResponse struct {
+type MsgAddContributorToSetResponse struct {
 }
 
-func (m *MsgAddContributorToCollectionResponse) Reset()         { *m = MsgAddContributorToCollectionResponse{} }
-func (m *MsgAddContributorToCollectionResponse) String() string { return proto.CompactTextString(m) }
-func (*MsgAddContributorToCollectionResponse) ProtoMessage()    {}
-func (*MsgAddContributorToCollectionResponse) Descriptor() ([]byte, []int) {
+func (m *MsgAddContributorToSetResponse) Reset()         { *m = MsgAddContributorToSetResponse{} }
+func (m *MsgAddContributorToSetResponse) String() string { return proto.CompactTextString(m) }
+func (*MsgAddContributorToSetResponse) ProtoMessage()    {}
+func (*MsgAddContributorToSetResponse) Descriptor() ([]byte, []int) {
 	return fileDescriptor_3b4a3aba0ac94bc8, []int{39}
 }
-func (m *MsgAddContributorToCollectionResponse) XXX_Unmarshal(b []byte) error {
+func (m *MsgAddContributorToSetResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *MsgAddContributorToCollectionResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *MsgAddContributorToSetResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_MsgAddContributorToCollectionResponse.Marshal(b, m, deterministic)
+		return xxx_messageInfo_MsgAddContributorToSetResponse.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -1997,35 +1993,35 @@ func (m *MsgAddContributorToCollectionResponse) XXX_Marshal(b []byte, determinis
 		return b[:n], nil
 	}
 }
-func (m *MsgAddContributorToCollectionResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_MsgAddContributorToCollectionResponse.Merge(m, src)
+func (m *MsgAddContributorToSetResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgAddContributorToSetResponse.Merge(m, src)
 }
-func (m *MsgAddContributorToCollectionResponse) XXX_Size() int {
+func (m *MsgAddContributorToSetResponse) XXX_Size() int {
 	return m.Size()
 }
-func (m *MsgAddContributorToCollectionResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_MsgAddContributorToCollectionResponse.DiscardUnknown(m)
+func (m *MsgAddContributorToSetResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgAddContributorToSetResponse.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_MsgAddContributorToCollectionResponse proto.InternalMessageInfo
+var xxx_messageInfo_MsgAddContributorToSetResponse proto.InternalMessageInfo
 
-type MsgSubmitCollectionProposal struct {
-	Creator      string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
-	CollectionId uint64 `protobuf:"varint,2,opt,name=collectionId,proto3" json:"collectionId,omitempty"`
+type MsgSubmitSetProposal struct {
+	Creator string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
+	SetId   uint64 `protobuf:"varint,2,opt,name=setId,proto3" json:"setId,omitempty"`
 }
 
-func (m *MsgSubmitCollectionProposal) Reset()         { *m = MsgSubmitCollectionProposal{} }
-func (m *MsgSubmitCollectionProposal) String() string { return proto.CompactTextString(m) }
-func (*MsgSubmitCollectionProposal) ProtoMessage()    {}
-func (*MsgSubmitCollectionProposal) Descriptor() ([]byte, []int) {
+func (m *MsgSubmitSetProposal) Reset()         { *m = MsgSubmitSetProposal{} }
+func (m *MsgSubmitSetProposal) String() string { return proto.CompactTextString(m) }
+func (*MsgSubmitSetProposal) ProtoMessage()    {}
+func (*MsgSubmitSetProposal) Descriptor() ([]byte, []int) {
 	return fileDescriptor_3b4a3aba0ac94bc8, []int{40}
 }
-func (m *MsgSubmitCollectionProposal) XXX_Unmarshal(b []byte) error {
+func (m *MsgSubmitSetProposal) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *MsgSubmitCollectionProposal) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *MsgSubmitSetProposal) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_MsgSubmitCollectionProposal.Marshal(b, m, deterministic)
+		return xxx_messageInfo_MsgSubmitSetProposal.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -2035,47 +2031,47 @@ func (m *MsgSubmitCollectionProposal) XXX_Marshal(b []byte, deterministic bool) 
 		return b[:n], nil
 	}
 }
-func (m *MsgSubmitCollectionProposal) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_MsgSubmitCollectionProposal.Merge(m, src)
+func (m *MsgSubmitSetProposal) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgSubmitSetProposal.Merge(m, src)
 }
-func (m *MsgSubmitCollectionProposal) XXX_Size() int {
+func (m *MsgSubmitSetProposal) XXX_Size() int {
 	return m.Size()
 }
-func (m *MsgSubmitCollectionProposal) XXX_DiscardUnknown() {
-	xxx_messageInfo_MsgSubmitCollectionProposal.DiscardUnknown(m)
+func (m *MsgSubmitSetProposal) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgSubmitSetProposal.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_MsgSubmitCollectionProposal proto.InternalMessageInfo
+var xxx_messageInfo_MsgSubmitSetProposal proto.InternalMessageInfo
 
-func (m *MsgSubmitCollectionProposal) GetCreator() string {
+func (m *MsgSubmitSetProposal) GetCreator() string {
 	if m != nil {
 		return m.Creator
 	}
 	return ""
 }
 
-func (m *MsgSubmitCollectionProposal) GetCollectionId() uint64 {
+func (m *MsgSubmitSetProposal) GetSetId() uint64 {
 	if m != nil {
-		return m.CollectionId
+		return m.SetId
 	}
 	return 0
 }
 
-type MsgSubmitCollectionProposalResponse struct {
+type MsgSubmitSetProposalResponse struct {
 }
 
-func (m *MsgSubmitCollectionProposalResponse) Reset()         { *m = MsgSubmitCollectionProposalResponse{} }
-func (m *MsgSubmitCollectionProposalResponse) String() string { return proto.CompactTextString(m) }
-func (*MsgSubmitCollectionProposalResponse) ProtoMessage()    {}
-func (*MsgSubmitCollectionProposalResponse) Descriptor() ([]byte, []int) {
+func (m *MsgSubmitSetProposalResponse) Reset()         { *m = MsgSubmitSetProposalResponse{} }
+func (m *MsgSubmitSetProposalResponse) String() string { return proto.CompactTextString(m) }
+func (*MsgSubmitSetProposalResponse) ProtoMessage()    {}
+func (*MsgSubmitSetProposalResponse) Descriptor() ([]byte, []int) {
 	return fileDescriptor_3b4a3aba0ac94bc8, []int{41}
 }
-func (m *MsgSubmitCollectionProposalResponse) XXX_Unmarshal(b []byte) error {
+func (m *MsgSubmitSetProposalResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *MsgSubmitCollectionProposalResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *MsgSubmitSetProposalResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_MsgSubmitCollectionProposalResponse.Marshal(b, m, deterministic)
+		return xxx_messageInfo_MsgSubmitSetProposalResponse.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -2085,17 +2081,17 @@ func (m *MsgSubmitCollectionProposalResponse) XXX_Marshal(b []byte, deterministi
 		return b[:n], nil
 	}
 }
-func (m *MsgSubmitCollectionProposalResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_MsgSubmitCollectionProposalResponse.Merge(m, src)
+func (m *MsgSubmitSetProposalResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgSubmitSetProposalResponse.Merge(m, src)
 }
-func (m *MsgSubmitCollectionProposalResponse) XXX_Size() int {
+func (m *MsgSubmitSetProposalResponse) XXX_Size() int {
 	return m.Size()
 }
-func (m *MsgSubmitCollectionProposalResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_MsgSubmitCollectionProposalResponse.DiscardUnknown(m)
+func (m *MsgSubmitSetProposalResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgSubmitSetProposalResponse.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_MsgSubmitCollectionProposalResponse proto.InternalMessageInfo
+var xxx_messageInfo_MsgSubmitSetProposalResponse proto.InternalMessageInfo
 
 type MsgCreateSellOffer struct {
 	Creator string                                  `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
@@ -2362,24 +2358,24 @@ func (m *MsgRemoveSellOfferResponse) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_MsgRemoveSellOfferResponse proto.InternalMessageInfo
 
-type MsgAddArtworkToCollection struct {
-	Creator      string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
-	CollectionId uint64 `protobuf:"varint,2,opt,name=collectionId,proto3" json:"collectionId,omitempty"`
-	Image        []byte `protobuf:"bytes,3,opt,name=image,proto3" json:"image,omitempty"`
+type MsgAddArtworkToSet struct {
+	Creator string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
+	SetId   uint64 `protobuf:"varint,2,opt,name=setId,proto3" json:"setId,omitempty"`
+	Image   []byte `protobuf:"bytes,3,opt,name=image,proto3" json:"image,omitempty"`
 }
 
-func (m *MsgAddArtworkToCollection) Reset()         { *m = MsgAddArtworkToCollection{} }
-func (m *MsgAddArtworkToCollection) String() string { return proto.CompactTextString(m) }
-func (*MsgAddArtworkToCollection) ProtoMessage()    {}
-func (*MsgAddArtworkToCollection) Descriptor() ([]byte, []int) {
+func (m *MsgAddArtworkToSet) Reset()         { *m = MsgAddArtworkToSet{} }
+func (m *MsgAddArtworkToSet) String() string { return proto.CompactTextString(m) }
+func (*MsgAddArtworkToSet) ProtoMessage()    {}
+func (*MsgAddArtworkToSet) Descriptor() ([]byte, []int) {
 	return fileDescriptor_3b4a3aba0ac94bc8, []int{48}
 }
-func (m *MsgAddArtworkToCollection) XXX_Unmarshal(b []byte) error {
+func (m *MsgAddArtworkToSet) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *MsgAddArtworkToCollection) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *MsgAddArtworkToSet) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_MsgAddArtworkToCollection.Marshal(b, m, deterministic)
+		return xxx_messageInfo_MsgAddArtworkToSet.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -2389,54 +2385,54 @@ func (m *MsgAddArtworkToCollection) XXX_Marshal(b []byte, deterministic bool) ([
 		return b[:n], nil
 	}
 }
-func (m *MsgAddArtworkToCollection) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_MsgAddArtworkToCollection.Merge(m, src)
+func (m *MsgAddArtworkToSet) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgAddArtworkToSet.Merge(m, src)
 }
-func (m *MsgAddArtworkToCollection) XXX_Size() int {
+func (m *MsgAddArtworkToSet) XXX_Size() int {
 	return m.Size()
 }
-func (m *MsgAddArtworkToCollection) XXX_DiscardUnknown() {
-	xxx_messageInfo_MsgAddArtworkToCollection.DiscardUnknown(m)
+func (m *MsgAddArtworkToSet) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgAddArtworkToSet.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_MsgAddArtworkToCollection proto.InternalMessageInfo
+var xxx_messageInfo_MsgAddArtworkToSet proto.InternalMessageInfo
 
-func (m *MsgAddArtworkToCollection) GetCreator() string {
+func (m *MsgAddArtworkToSet) GetCreator() string {
 	if m != nil {
 		return m.Creator
 	}
 	return ""
 }
 
-func (m *MsgAddArtworkToCollection) GetCollectionId() uint64 {
+func (m *MsgAddArtworkToSet) GetSetId() uint64 {
 	if m != nil {
-		return m.CollectionId
+		return m.SetId
 	}
 	return 0
 }
 
-func (m *MsgAddArtworkToCollection) GetImage() []byte {
+func (m *MsgAddArtworkToSet) GetImage() []byte {
 	if m != nil {
 		return m.Image
 	}
 	return nil
 }
 
-type MsgAddArtworkToCollectionResponse struct {
+type MsgAddArtworkToSetResponse struct {
 }
 
-func (m *MsgAddArtworkToCollectionResponse) Reset()         { *m = MsgAddArtworkToCollectionResponse{} }
-func (m *MsgAddArtworkToCollectionResponse) String() string { return proto.CompactTextString(m) }
-func (*MsgAddArtworkToCollectionResponse) ProtoMessage()    {}
-func (*MsgAddArtworkToCollectionResponse) Descriptor() ([]byte, []int) {
+func (m *MsgAddArtworkToSetResponse) Reset()         { *m = MsgAddArtworkToSetResponse{} }
+func (m *MsgAddArtworkToSetResponse) String() string { return proto.CompactTextString(m) }
+func (*MsgAddArtworkToSetResponse) ProtoMessage()    {}
+func (*MsgAddArtworkToSetResponse) Descriptor() ([]byte, []int) {
 	return fileDescriptor_3b4a3aba0ac94bc8, []int{49}
 }
-func (m *MsgAddArtworkToCollectionResponse) XXX_Unmarshal(b []byte) error {
+func (m *MsgAddArtworkToSetResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *MsgAddArtworkToCollectionResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *MsgAddArtworkToSetResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_MsgAddArtworkToCollectionResponse.Marshal(b, m, deterministic)
+		return xxx_messageInfo_MsgAddArtworkToSetResponse.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -2446,36 +2442,36 @@ func (m *MsgAddArtworkToCollectionResponse) XXX_Marshal(b []byte, deterministic 
 		return b[:n], nil
 	}
 }
-func (m *MsgAddArtworkToCollectionResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_MsgAddArtworkToCollectionResponse.Merge(m, src)
+func (m *MsgAddArtworkToSetResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgAddArtworkToSetResponse.Merge(m, src)
 }
-func (m *MsgAddArtworkToCollectionResponse) XXX_Size() int {
+func (m *MsgAddArtworkToSetResponse) XXX_Size() int {
 	return m.Size()
 }
-func (m *MsgAddArtworkToCollectionResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_MsgAddArtworkToCollectionResponse.DiscardUnknown(m)
+func (m *MsgAddArtworkToSetResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgAddArtworkToSetResponse.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_MsgAddArtworkToCollectionResponse proto.InternalMessageInfo
+var xxx_messageInfo_MsgAddArtworkToSetResponse proto.InternalMessageInfo
 
-type MsgAddStoryToCollection struct {
-	Creator      string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
-	CollectionId uint64 `protobuf:"varint,2,opt,name=collectionId,proto3" json:"collectionId,omitempty"`
-	Story        string `protobuf:"bytes,3,opt,name=story,proto3" json:"story,omitempty"`
+type MsgAddStoryToSet struct {
+	Creator string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
+	SetId   uint64 `protobuf:"varint,2,opt,name=setId,proto3" json:"setId,omitempty"`
+	Story   string `protobuf:"bytes,3,opt,name=story,proto3" json:"story,omitempty"`
 }
 
-func (m *MsgAddStoryToCollection) Reset()         { *m = MsgAddStoryToCollection{} }
-func (m *MsgAddStoryToCollection) String() string { return proto.CompactTextString(m) }
-func (*MsgAddStoryToCollection) ProtoMessage()    {}
-func (*MsgAddStoryToCollection) Descriptor() ([]byte, []int) {
+func (m *MsgAddStoryToSet) Reset()         { *m = MsgAddStoryToSet{} }
+func (m *MsgAddStoryToSet) String() string { return proto.CompactTextString(m) }
+func (*MsgAddStoryToSet) ProtoMessage()    {}
+func (*MsgAddStoryToSet) Descriptor() ([]byte, []int) {
 	return fileDescriptor_3b4a3aba0ac94bc8, []int{50}
 }
-func (m *MsgAddStoryToCollection) XXX_Unmarshal(b []byte) error {
+func (m *MsgAddStoryToSet) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *MsgAddStoryToCollection) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *MsgAddStoryToSet) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_MsgAddStoryToCollection.Marshal(b, m, deterministic)
+		return xxx_messageInfo_MsgAddStoryToSet.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -2485,54 +2481,54 @@ func (m *MsgAddStoryToCollection) XXX_Marshal(b []byte, deterministic bool) ([]b
 		return b[:n], nil
 	}
 }
-func (m *MsgAddStoryToCollection) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_MsgAddStoryToCollection.Merge(m, src)
+func (m *MsgAddStoryToSet) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgAddStoryToSet.Merge(m, src)
 }
-func (m *MsgAddStoryToCollection) XXX_Size() int {
+func (m *MsgAddStoryToSet) XXX_Size() int {
 	return m.Size()
 }
-func (m *MsgAddStoryToCollection) XXX_DiscardUnknown() {
-	xxx_messageInfo_MsgAddStoryToCollection.DiscardUnknown(m)
+func (m *MsgAddStoryToSet) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgAddStoryToSet.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_MsgAddStoryToCollection proto.InternalMessageInfo
+var xxx_messageInfo_MsgAddStoryToSet proto.InternalMessageInfo
 
-func (m *MsgAddStoryToCollection) GetCreator() string {
+func (m *MsgAddStoryToSet) GetCreator() string {
 	if m != nil {
 		return m.Creator
 	}
 	return ""
 }
 
-func (m *MsgAddStoryToCollection) GetCollectionId() uint64 {
+func (m *MsgAddStoryToSet) GetSetId() uint64 {
 	if m != nil {
-		return m.CollectionId
+		return m.SetId
 	}
 	return 0
 }
 
-func (m *MsgAddStoryToCollection) GetStory() string {
+func (m *MsgAddStoryToSet) GetStory() string {
 	if m != nil {
 		return m.Story
 	}
 	return ""
 }
 
-type MsgAddStoryToCollectionResponse struct {
+type MsgAddStoryToSetResponse struct {
 }
 
-func (m *MsgAddStoryToCollectionResponse) Reset()         { *m = MsgAddStoryToCollectionResponse{} }
-func (m *MsgAddStoryToCollectionResponse) String() string { return proto.CompactTextString(m) }
-func (*MsgAddStoryToCollectionResponse) ProtoMessage()    {}
-func (*MsgAddStoryToCollectionResponse) Descriptor() ([]byte, []int) {
+func (m *MsgAddStoryToSetResponse) Reset()         { *m = MsgAddStoryToSetResponse{} }
+func (m *MsgAddStoryToSetResponse) String() string { return proto.CompactTextString(m) }
+func (*MsgAddStoryToSetResponse) ProtoMessage()    {}
+func (*MsgAddStoryToSetResponse) Descriptor() ([]byte, []int) {
 	return fileDescriptor_3b4a3aba0ac94bc8, []int{51}
 }
-func (m *MsgAddStoryToCollectionResponse) XXX_Unmarshal(b []byte) error {
+func (m *MsgAddStoryToSetResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *MsgAddStoryToCollectionResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *MsgAddStoryToSetResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_MsgAddStoryToCollectionResponse.Marshal(b, m, deterministic)
+		return xxx_messageInfo_MsgAddStoryToSetResponse.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -2542,23 +2538,23 @@ func (m *MsgAddStoryToCollectionResponse) XXX_Marshal(b []byte, deterministic bo
 		return b[:n], nil
 	}
 }
-func (m *MsgAddStoryToCollectionResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_MsgAddStoryToCollectionResponse.Merge(m, src)
+func (m *MsgAddStoryToSetResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgAddStoryToSetResponse.Merge(m, src)
 }
-func (m *MsgAddStoryToCollectionResponse) XXX_Size() int {
+func (m *MsgAddStoryToSetResponse) XXX_Size() int {
 	return m.Size()
 }
-func (m *MsgAddStoryToCollectionResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_MsgAddStoryToCollectionResponse.DiscardUnknown(m)
+func (m *MsgAddStoryToSetResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgAddStoryToSetResponse.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_MsgAddStoryToCollectionResponse proto.InternalMessageInfo
+var xxx_messageInfo_MsgAddStoryToSetResponse proto.InternalMessageInfo
 
 type MsgSetCardRarity struct {
-	Creator      string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
-	CardId       uint64 `protobuf:"varint,2,opt,name=cardId,proto3" json:"cardId,omitempty"`
-	CollectionId uint64 `protobuf:"varint,3,opt,name=collectionId,proto3" json:"collectionId,omitempty"`
-	Rarity       string `protobuf:"bytes,4,opt,name=rarity,proto3" json:"rarity,omitempty"`
+	Creator string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
+	CardId  uint64 `protobuf:"varint,2,opt,name=cardId,proto3" json:"cardId,omitempty"`
+	SetId   uint64 `protobuf:"varint,3,opt,name=setId,proto3" json:"setId,omitempty"`
+	Rarity  string `protobuf:"bytes,4,opt,name=rarity,proto3" json:"rarity,omitempty"`
 }
 
 func (m *MsgSetCardRarity) Reset()         { *m = MsgSetCardRarity{} }
@@ -2608,9 +2604,9 @@ func (m *MsgSetCardRarity) GetCardId() uint64 {
 	return 0
 }
 
-func (m *MsgSetCardRarity) GetCollectionId() uint64 {
+func (m *MsgSetCardRarity) GetSetId() uint64 {
 	if m != nil {
-		return m.CollectionId
+		return m.SetId
 	}
 	return 0
 }
@@ -3507,24 +3503,24 @@ func (m *MsgTransferBoosterPackResponse) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_MsgTransferBoosterPackResponse proto.InternalMessageInfo
 
-type MsgSetCollectionStoryWriter struct {
-	Creator      string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
-	CollectionId uint64 `protobuf:"varint,2,opt,name=collectionId,proto3" json:"collectionId,omitempty"`
-	StoryWriter  string `protobuf:"bytes,3,opt,name=storyWriter,proto3" json:"storyWriter,omitempty"`
+type MsgSetSetStoryWriter struct {
+	Creator     string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
+	SetId       uint64 `protobuf:"varint,2,opt,name=setId,proto3" json:"setId,omitempty"`
+	StoryWriter string `protobuf:"bytes,3,opt,name=storyWriter,proto3" json:"storyWriter,omitempty"`
 }
 
-func (m *MsgSetCollectionStoryWriter) Reset()         { *m = MsgSetCollectionStoryWriter{} }
-func (m *MsgSetCollectionStoryWriter) String() string { return proto.CompactTextString(m) }
-func (*MsgSetCollectionStoryWriter) ProtoMessage()    {}
-func (*MsgSetCollectionStoryWriter) Descriptor() ([]byte, []int) {
+func (m *MsgSetSetStoryWriter) Reset()         { *m = MsgSetSetStoryWriter{} }
+func (m *MsgSetSetStoryWriter) String() string { return proto.CompactTextString(m) }
+func (*MsgSetSetStoryWriter) ProtoMessage()    {}
+func (*MsgSetSetStoryWriter) Descriptor() ([]byte, []int) {
 	return fileDescriptor_3b4a3aba0ac94bc8, []int{72}
 }
-func (m *MsgSetCollectionStoryWriter) XXX_Unmarshal(b []byte) error {
+func (m *MsgSetSetStoryWriter) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *MsgSetCollectionStoryWriter) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *MsgSetSetStoryWriter) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_MsgSetCollectionStoryWriter.Marshal(b, m, deterministic)
+		return xxx_messageInfo_MsgSetSetStoryWriter.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -3534,54 +3530,54 @@ func (m *MsgSetCollectionStoryWriter) XXX_Marshal(b []byte, deterministic bool) 
 		return b[:n], nil
 	}
 }
-func (m *MsgSetCollectionStoryWriter) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_MsgSetCollectionStoryWriter.Merge(m, src)
+func (m *MsgSetSetStoryWriter) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgSetSetStoryWriter.Merge(m, src)
 }
-func (m *MsgSetCollectionStoryWriter) XXX_Size() int {
+func (m *MsgSetSetStoryWriter) XXX_Size() int {
 	return m.Size()
 }
-func (m *MsgSetCollectionStoryWriter) XXX_DiscardUnknown() {
-	xxx_messageInfo_MsgSetCollectionStoryWriter.DiscardUnknown(m)
+func (m *MsgSetSetStoryWriter) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgSetSetStoryWriter.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_MsgSetCollectionStoryWriter proto.InternalMessageInfo
+var xxx_messageInfo_MsgSetSetStoryWriter proto.InternalMessageInfo
 
-func (m *MsgSetCollectionStoryWriter) GetCreator() string {
+func (m *MsgSetSetStoryWriter) GetCreator() string {
 	if m != nil {
 		return m.Creator
 	}
 	return ""
 }
 
-func (m *MsgSetCollectionStoryWriter) GetCollectionId() uint64 {
+func (m *MsgSetSetStoryWriter) GetSetId() uint64 {
 	if m != nil {
-		return m.CollectionId
+		return m.SetId
 	}
 	return 0
 }
 
-func (m *MsgSetCollectionStoryWriter) GetStoryWriter() string {
+func (m *MsgSetSetStoryWriter) GetStoryWriter() string {
 	if m != nil {
 		return m.StoryWriter
 	}
 	return ""
 }
 
-type MsgSetCollectionStoryWriterResponse struct {
+type MsgSetSetStoryWriterResponse struct {
 }
 
-func (m *MsgSetCollectionStoryWriterResponse) Reset()         { *m = MsgSetCollectionStoryWriterResponse{} }
-func (m *MsgSetCollectionStoryWriterResponse) String() string { return proto.CompactTextString(m) }
-func (*MsgSetCollectionStoryWriterResponse) ProtoMessage()    {}
-func (*MsgSetCollectionStoryWriterResponse) Descriptor() ([]byte, []int) {
+func (m *MsgSetSetStoryWriterResponse) Reset()         { *m = MsgSetSetStoryWriterResponse{} }
+func (m *MsgSetSetStoryWriterResponse) String() string { return proto.CompactTextString(m) }
+func (*MsgSetSetStoryWriterResponse) ProtoMessage()    {}
+func (*MsgSetSetStoryWriterResponse) Descriptor() ([]byte, []int) {
 	return fileDescriptor_3b4a3aba0ac94bc8, []int{73}
 }
-func (m *MsgSetCollectionStoryWriterResponse) XXX_Unmarshal(b []byte) error {
+func (m *MsgSetSetStoryWriterResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *MsgSetCollectionStoryWriterResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *MsgSetSetStoryWriterResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_MsgSetCollectionStoryWriterResponse.Marshal(b, m, deterministic)
+		return xxx_messageInfo_MsgSetSetStoryWriterResponse.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -3591,36 +3587,36 @@ func (m *MsgSetCollectionStoryWriterResponse) XXX_Marshal(b []byte, deterministi
 		return b[:n], nil
 	}
 }
-func (m *MsgSetCollectionStoryWriterResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_MsgSetCollectionStoryWriterResponse.Merge(m, src)
+func (m *MsgSetSetStoryWriterResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgSetSetStoryWriterResponse.Merge(m, src)
 }
-func (m *MsgSetCollectionStoryWriterResponse) XXX_Size() int {
+func (m *MsgSetSetStoryWriterResponse) XXX_Size() int {
 	return m.Size()
 }
-func (m *MsgSetCollectionStoryWriterResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_MsgSetCollectionStoryWriterResponse.DiscardUnknown(m)
+func (m *MsgSetSetStoryWriterResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgSetSetStoryWriterResponse.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_MsgSetCollectionStoryWriterResponse proto.InternalMessageInfo
+var xxx_messageInfo_MsgSetSetStoryWriterResponse proto.InternalMessageInfo
 
-type MsgSetCollectionArtist struct {
-	Creator      string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
-	CollectionId uint64 `protobuf:"varint,2,opt,name=collectionId,proto3" json:"collectionId,omitempty"`
-	Artist       string `protobuf:"bytes,3,opt,name=artist,proto3" json:"artist,omitempty"`
+type MsgSetSetArtist struct {
+	Creator string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
+	SetId   uint64 `protobuf:"varint,2,opt,name=setId,proto3" json:"setId,omitempty"`
+	Artist  string `protobuf:"bytes,3,opt,name=artist,proto3" json:"artist,omitempty"`
 }
 
-func (m *MsgSetCollectionArtist) Reset()         { *m = MsgSetCollectionArtist{} }
-func (m *MsgSetCollectionArtist) String() string { return proto.CompactTextString(m) }
-func (*MsgSetCollectionArtist) ProtoMessage()    {}
-func (*MsgSetCollectionArtist) Descriptor() ([]byte, []int) {
+func (m *MsgSetSetArtist) Reset()         { *m = MsgSetSetArtist{} }
+func (m *MsgSetSetArtist) String() string { return proto.CompactTextString(m) }
+func (*MsgSetSetArtist) ProtoMessage()    {}
+func (*MsgSetSetArtist) Descriptor() ([]byte, []int) {
 	return fileDescriptor_3b4a3aba0ac94bc8, []int{74}
 }
-func (m *MsgSetCollectionArtist) XXX_Unmarshal(b []byte) error {
+func (m *MsgSetSetArtist) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *MsgSetCollectionArtist) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *MsgSetSetArtist) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_MsgSetCollectionArtist.Marshal(b, m, deterministic)
+		return xxx_messageInfo_MsgSetSetArtist.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -3630,54 +3626,54 @@ func (m *MsgSetCollectionArtist) XXX_Marshal(b []byte, deterministic bool) ([]by
 		return b[:n], nil
 	}
 }
-func (m *MsgSetCollectionArtist) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_MsgSetCollectionArtist.Merge(m, src)
+func (m *MsgSetSetArtist) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgSetSetArtist.Merge(m, src)
 }
-func (m *MsgSetCollectionArtist) XXX_Size() int {
+func (m *MsgSetSetArtist) XXX_Size() int {
 	return m.Size()
 }
-func (m *MsgSetCollectionArtist) XXX_DiscardUnknown() {
-	xxx_messageInfo_MsgSetCollectionArtist.DiscardUnknown(m)
+func (m *MsgSetSetArtist) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgSetSetArtist.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_MsgSetCollectionArtist proto.InternalMessageInfo
+var xxx_messageInfo_MsgSetSetArtist proto.InternalMessageInfo
 
-func (m *MsgSetCollectionArtist) GetCreator() string {
+func (m *MsgSetSetArtist) GetCreator() string {
 	if m != nil {
 		return m.Creator
 	}
 	return ""
 }
 
-func (m *MsgSetCollectionArtist) GetCollectionId() uint64 {
+func (m *MsgSetSetArtist) GetSetId() uint64 {
 	if m != nil {
-		return m.CollectionId
+		return m.SetId
 	}
 	return 0
 }
 
-func (m *MsgSetCollectionArtist) GetArtist() string {
+func (m *MsgSetSetArtist) GetArtist() string {
 	if m != nil {
 		return m.Artist
 	}
 	return ""
 }
 
-type MsgSetCollectionArtistResponse struct {
+type MsgSetSetArtistResponse struct {
 }
 
-func (m *MsgSetCollectionArtistResponse) Reset()         { *m = MsgSetCollectionArtistResponse{} }
-func (m *MsgSetCollectionArtistResponse) String() string { return proto.CompactTextString(m) }
-func (*MsgSetCollectionArtistResponse) ProtoMessage()    {}
-func (*MsgSetCollectionArtistResponse) Descriptor() ([]byte, []int) {
+func (m *MsgSetSetArtistResponse) Reset()         { *m = MsgSetSetArtistResponse{} }
+func (m *MsgSetSetArtistResponse) String() string { return proto.CompactTextString(m) }
+func (*MsgSetSetArtistResponse) ProtoMessage()    {}
+func (*MsgSetSetArtistResponse) Descriptor() ([]byte, []int) {
 	return fileDescriptor_3b4a3aba0ac94bc8, []int{75}
 }
-func (m *MsgSetCollectionArtistResponse) XXX_Unmarshal(b []byte) error {
+func (m *MsgSetSetArtistResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *MsgSetCollectionArtistResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *MsgSetSetArtistResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_MsgSetCollectionArtistResponse.Marshal(b, m, deterministic)
+		return xxx_messageInfo_MsgSetSetArtistResponse.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -3687,17 +3683,17 @@ func (m *MsgSetCollectionArtistResponse) XXX_Marshal(b []byte, deterministic boo
 		return b[:n], nil
 	}
 }
-func (m *MsgSetCollectionArtistResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_MsgSetCollectionArtistResponse.Merge(m, src)
+func (m *MsgSetSetArtistResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgSetSetArtistResponse.Merge(m, src)
 }
-func (m *MsgSetCollectionArtistResponse) XXX_Size() int {
+func (m *MsgSetSetArtistResponse) XXX_Size() int {
 	return m.Size()
 }
-func (m *MsgSetCollectionArtistResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_MsgSetCollectionArtistResponse.DiscardUnknown(m)
+func (m *MsgSetSetArtistResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgSetSetArtistResponse.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_MsgSetCollectionArtistResponse proto.InternalMessageInfo
+var xxx_messageInfo_MsgSetSetArtistResponse proto.InternalMessageInfo
 
 type MsgSetUserWebsite struct {
 	Creator string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
@@ -4084,24 +4080,24 @@ func (m *MsgMsgOpenMatchResponse) GetMatchId() uint64 {
 	return 0
 }
 
-type MsgSetCollectionName struct {
-	Creator      string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
-	CollectionId uint64 `protobuf:"varint,2,opt,name=collectionId,proto3" json:"collectionId,omitempty"`
-	Name         string `protobuf:"bytes,3,opt,name=name,proto3" json:"name,omitempty"`
+type MsgSetSetName struct {
+	Creator string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
+	SetId   uint64 `protobuf:"varint,2,opt,name=setId,proto3" json:"setId,omitempty"`
+	Name    string `protobuf:"bytes,3,opt,name=name,proto3" json:"name,omitempty"`
 }
 
-func (m *MsgSetCollectionName) Reset()         { *m = MsgSetCollectionName{} }
-func (m *MsgSetCollectionName) String() string { return proto.CompactTextString(m) }
-func (*MsgSetCollectionName) ProtoMessage()    {}
-func (*MsgSetCollectionName) Descriptor() ([]byte, []int) {
+func (m *MsgSetSetName) Reset()         { *m = MsgSetSetName{} }
+func (m *MsgSetSetName) String() string { return proto.CompactTextString(m) }
+func (*MsgSetSetName) ProtoMessage()    {}
+func (*MsgSetSetName) Descriptor() ([]byte, []int) {
 	return fileDescriptor_3b4a3aba0ac94bc8, []int{84}
 }
-func (m *MsgSetCollectionName) XXX_Unmarshal(b []byte) error {
+func (m *MsgSetSetName) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *MsgSetCollectionName) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *MsgSetSetName) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_MsgSetCollectionName.Marshal(b, m, deterministic)
+		return xxx_messageInfo_MsgSetSetName.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -4111,54 +4107,54 @@ func (m *MsgSetCollectionName) XXX_Marshal(b []byte, deterministic bool) ([]byte
 		return b[:n], nil
 	}
 }
-func (m *MsgSetCollectionName) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_MsgSetCollectionName.Merge(m, src)
+func (m *MsgSetSetName) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgSetSetName.Merge(m, src)
 }
-func (m *MsgSetCollectionName) XXX_Size() int {
+func (m *MsgSetSetName) XXX_Size() int {
 	return m.Size()
 }
-func (m *MsgSetCollectionName) XXX_DiscardUnknown() {
-	xxx_messageInfo_MsgSetCollectionName.DiscardUnknown(m)
+func (m *MsgSetSetName) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgSetSetName.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_MsgSetCollectionName proto.InternalMessageInfo
+var xxx_messageInfo_MsgSetSetName proto.InternalMessageInfo
 
-func (m *MsgSetCollectionName) GetCreator() string {
+func (m *MsgSetSetName) GetCreator() string {
 	if m != nil {
 		return m.Creator
 	}
 	return ""
 }
 
-func (m *MsgSetCollectionName) GetCollectionId() uint64 {
+func (m *MsgSetSetName) GetSetId() uint64 {
 	if m != nil {
-		return m.CollectionId
+		return m.SetId
 	}
 	return 0
 }
 
-func (m *MsgSetCollectionName) GetName() string {
+func (m *MsgSetSetName) GetName() string {
 	if m != nil {
 		return m.Name
 	}
 	return ""
 }
 
-type MsgSetCollectionNameResponse struct {
+type MsgSetSetNameResponse struct {
 }
 
-func (m *MsgSetCollectionNameResponse) Reset()         { *m = MsgSetCollectionNameResponse{} }
-func (m *MsgSetCollectionNameResponse) String() string { return proto.CompactTextString(m) }
-func (*MsgSetCollectionNameResponse) ProtoMessage()    {}
-func (*MsgSetCollectionNameResponse) Descriptor() ([]byte, []int) {
+func (m *MsgSetSetNameResponse) Reset()         { *m = MsgSetSetNameResponse{} }
+func (m *MsgSetSetNameResponse) String() string { return proto.CompactTextString(m) }
+func (*MsgSetSetNameResponse) ProtoMessage()    {}
+func (*MsgSetSetNameResponse) Descriptor() ([]byte, []int) {
 	return fileDescriptor_3b4a3aba0ac94bc8, []int{85}
 }
-func (m *MsgSetCollectionNameResponse) XXX_Unmarshal(b []byte) error {
+func (m *MsgSetSetNameResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *MsgSetCollectionNameResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *MsgSetSetNameResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_MsgSetCollectionNameResponse.Marshal(b, m, deterministic)
+		return xxx_messageInfo_MsgSetSetNameResponse.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -4168,17 +4164,17 @@ func (m *MsgSetCollectionNameResponse) XXX_Marshal(b []byte, deterministic bool)
 		return b[:n], nil
 	}
 }
-func (m *MsgSetCollectionNameResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_MsgSetCollectionNameResponse.Merge(m, src)
+func (m *MsgSetSetNameResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgSetSetNameResponse.Merge(m, src)
 }
-func (m *MsgSetCollectionNameResponse) XXX_Size() int {
+func (m *MsgSetSetNameResponse) XXX_Size() int {
 	return m.Size()
 }
-func (m *MsgSetCollectionNameResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_MsgSetCollectionNameResponse.DiscardUnknown(m)
+func (m *MsgSetSetNameResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgSetSetNameResponse.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_MsgSetCollectionNameResponse proto.InternalMessageInfo
+var xxx_messageInfo_MsgSetSetNameResponse proto.InternalMessageInfo
 
 func init() {
 	proto.RegisterType((*MsgCreateuser)(nil), "DecentralCardGame.cardchain.cardchain.MsgCreateuser")
@@ -4207,32 +4203,32 @@ func init() {
 	proto.RegisterType((*MsgSubmitMatchReporterProposalResponse)(nil), "DecentralCardGame.cardchain.cardchain.MsgSubmitMatchReporterProposalResponse")
 	proto.RegisterType((*MsgApointMatchReporter)(nil), "DecentralCardGame.cardchain.cardchain.MsgApointMatchReporter")
 	proto.RegisterType((*MsgApointMatchReporterResponse)(nil), "DecentralCardGame.cardchain.cardchain.MsgApointMatchReporterResponse")
-	proto.RegisterType((*MsgCreateCollection)(nil), "DecentralCardGame.cardchain.cardchain.MsgCreateCollection")
-	proto.RegisterType((*MsgCreateCollectionResponse)(nil), "DecentralCardGame.cardchain.cardchain.MsgCreateCollectionResponse")
-	proto.RegisterType((*MsgAddCardToCollection)(nil), "DecentralCardGame.cardchain.cardchain.MsgAddCardToCollection")
-	proto.RegisterType((*MsgAddCardToCollectionResponse)(nil), "DecentralCardGame.cardchain.cardchain.MsgAddCardToCollectionResponse")
-	proto.RegisterType((*MsgFinalizeCollection)(nil), "DecentralCardGame.cardchain.cardchain.MsgFinalizeCollection")
-	proto.RegisterType((*MsgFinalizeCollectionResponse)(nil), "DecentralCardGame.cardchain.cardchain.MsgFinalizeCollectionResponse")
-	proto.RegisterType((*MsgBuyCollection)(nil), "DecentralCardGame.cardchain.cardchain.MsgBuyCollection")
-	proto.RegisterType((*MsgBuyCollectionResponse)(nil), "DecentralCardGame.cardchain.cardchain.MsgBuyCollectionResponse")
-	proto.RegisterType((*MsgRemoveCardFromCollection)(nil), "DecentralCardGame.cardchain.cardchain.MsgRemoveCardFromCollection")
-	proto.RegisterType((*MsgRemoveCardFromCollectionResponse)(nil), "DecentralCardGame.cardchain.cardchain.MsgRemoveCardFromCollectionResponse")
-	proto.RegisterType((*MsgRemoveContributorFromCollection)(nil), "DecentralCardGame.cardchain.cardchain.MsgRemoveContributorFromCollection")
-	proto.RegisterType((*MsgRemoveContributorFromCollectionResponse)(nil), "DecentralCardGame.cardchain.cardchain.MsgRemoveContributorFromCollectionResponse")
-	proto.RegisterType((*MsgAddContributorToCollection)(nil), "DecentralCardGame.cardchain.cardchain.MsgAddContributorToCollection")
-	proto.RegisterType((*MsgAddContributorToCollectionResponse)(nil), "DecentralCardGame.cardchain.cardchain.MsgAddContributorToCollectionResponse")
-	proto.RegisterType((*MsgSubmitCollectionProposal)(nil), "DecentralCardGame.cardchain.cardchain.MsgSubmitCollectionProposal")
-	proto.RegisterType((*MsgSubmitCollectionProposalResponse)(nil), "DecentralCardGame.cardchain.cardchain.MsgSubmitCollectionProposalResponse")
+	proto.RegisterType((*MsgCreateSet)(nil), "DecentralCardGame.cardchain.cardchain.MsgCreateSet")
+	proto.RegisterType((*MsgCreateSetResponse)(nil), "DecentralCardGame.cardchain.cardchain.MsgCreateSetResponse")
+	proto.RegisterType((*MsgAddCardToSet)(nil), "DecentralCardGame.cardchain.cardchain.MsgAddCardToSet")
+	proto.RegisterType((*MsgAddCardToSetResponse)(nil), "DecentralCardGame.cardchain.cardchain.MsgAddCardToSetResponse")
+	proto.RegisterType((*MsgFinalizeSet)(nil), "DecentralCardGame.cardchain.cardchain.MsgFinalizeSet")
+	proto.RegisterType((*MsgFinalizeSetResponse)(nil), "DecentralCardGame.cardchain.cardchain.MsgFinalizeSetResponse")
+	proto.RegisterType((*MsgBuySet)(nil), "DecentralCardGame.cardchain.cardchain.MsgBuySet")
+	proto.RegisterType((*MsgBuySetResponse)(nil), "DecentralCardGame.cardchain.cardchain.MsgBuySetResponse")
+	proto.RegisterType((*MsgRemoveCardFromSet)(nil), "DecentralCardGame.cardchain.cardchain.MsgRemoveCardFromSet")
+	proto.RegisterType((*MsgRemoveCardFromSetResponse)(nil), "DecentralCardGame.cardchain.cardchain.MsgRemoveCardFromSetResponse")
+	proto.RegisterType((*MsgRemoveContributorFromSet)(nil), "DecentralCardGame.cardchain.cardchain.MsgRemoveContributorFromSet")
+	proto.RegisterType((*MsgRemoveContributorFromSetResponse)(nil), "DecentralCardGame.cardchain.cardchain.MsgRemoveContributorFromSetResponse")
+	proto.RegisterType((*MsgAddContributorToSet)(nil), "DecentralCardGame.cardchain.cardchain.MsgAddContributorToSet")
+	proto.RegisterType((*MsgAddContributorToSetResponse)(nil), "DecentralCardGame.cardchain.cardchain.MsgAddContributorToSetResponse")
+	proto.RegisterType((*MsgSubmitSetProposal)(nil), "DecentralCardGame.cardchain.cardchain.MsgSubmitSetProposal")
+	proto.RegisterType((*MsgSubmitSetProposalResponse)(nil), "DecentralCardGame.cardchain.cardchain.MsgSubmitSetProposalResponse")
 	proto.RegisterType((*MsgCreateSellOffer)(nil), "DecentralCardGame.cardchain.cardchain.MsgCreateSellOffer")
 	proto.RegisterType((*MsgCreateSellOfferResponse)(nil), "DecentralCardGame.cardchain.cardchain.MsgCreateSellOfferResponse")
 	proto.RegisterType((*MsgBuyCard)(nil), "DecentralCardGame.cardchain.cardchain.MsgBuyCard")
 	proto.RegisterType((*MsgBuyCardResponse)(nil), "DecentralCardGame.cardchain.cardchain.MsgBuyCardResponse")
 	proto.RegisterType((*MsgRemoveSellOffer)(nil), "DecentralCardGame.cardchain.cardchain.MsgRemoveSellOffer")
 	proto.RegisterType((*MsgRemoveSellOfferResponse)(nil), "DecentralCardGame.cardchain.cardchain.MsgRemoveSellOfferResponse")
-	proto.RegisterType((*MsgAddArtworkToCollection)(nil), "DecentralCardGame.cardchain.cardchain.MsgAddArtworkToCollection")
-	proto.RegisterType((*MsgAddArtworkToCollectionResponse)(nil), "DecentralCardGame.cardchain.cardchain.MsgAddArtworkToCollectionResponse")
-	proto.RegisterType((*MsgAddStoryToCollection)(nil), "DecentralCardGame.cardchain.cardchain.MsgAddStoryToCollection")
-	proto.RegisterType((*MsgAddStoryToCollectionResponse)(nil), "DecentralCardGame.cardchain.cardchain.MsgAddStoryToCollectionResponse")
+	proto.RegisterType((*MsgAddArtworkToSet)(nil), "DecentralCardGame.cardchain.cardchain.MsgAddArtworkToSet")
+	proto.RegisterType((*MsgAddArtworkToSetResponse)(nil), "DecentralCardGame.cardchain.cardchain.MsgAddArtworkToSetResponse")
+	proto.RegisterType((*MsgAddStoryToSet)(nil), "DecentralCardGame.cardchain.cardchain.MsgAddStoryToSet")
+	proto.RegisterType((*MsgAddStoryToSetResponse)(nil), "DecentralCardGame.cardchain.cardchain.MsgAddStoryToSetResponse")
 	proto.RegisterType((*MsgSetCardRarity)(nil), "DecentralCardGame.cardchain.cardchain.MsgSetCardRarity")
 	proto.RegisterType((*MsgSetCardRarityResponse)(nil), "DecentralCardGame.cardchain.cardchain.MsgSetCardRarityResponse")
 	proto.RegisterType((*MsgCreateCouncil)(nil), "DecentralCardGame.cardchain.cardchain.MsgCreateCouncil")
@@ -4253,10 +4249,10 @@ func init() {
 	proto.RegisterType((*MsgOpenBoosterPackResponse)(nil), "DecentralCardGame.cardchain.cardchain.MsgOpenBoosterPackResponse")
 	proto.RegisterType((*MsgTransferBoosterPack)(nil), "DecentralCardGame.cardchain.cardchain.MsgTransferBoosterPack")
 	proto.RegisterType((*MsgTransferBoosterPackResponse)(nil), "DecentralCardGame.cardchain.cardchain.MsgTransferBoosterPackResponse")
-	proto.RegisterType((*MsgSetCollectionStoryWriter)(nil), "DecentralCardGame.cardchain.cardchain.MsgSetCollectionStoryWriter")
-	proto.RegisterType((*MsgSetCollectionStoryWriterResponse)(nil), "DecentralCardGame.cardchain.cardchain.MsgSetCollectionStoryWriterResponse")
-	proto.RegisterType((*MsgSetCollectionArtist)(nil), "DecentralCardGame.cardchain.cardchain.MsgSetCollectionArtist")
-	proto.RegisterType((*MsgSetCollectionArtistResponse)(nil), "DecentralCardGame.cardchain.cardchain.MsgSetCollectionArtistResponse")
+	proto.RegisterType((*MsgSetSetStoryWriter)(nil), "DecentralCardGame.cardchain.cardchain.MsgSetSetStoryWriter")
+	proto.RegisterType((*MsgSetSetStoryWriterResponse)(nil), "DecentralCardGame.cardchain.cardchain.MsgSetSetStoryWriterResponse")
+	proto.RegisterType((*MsgSetSetArtist)(nil), "DecentralCardGame.cardchain.cardchain.MsgSetSetArtist")
+	proto.RegisterType((*MsgSetSetArtistResponse)(nil), "DecentralCardGame.cardchain.cardchain.MsgSetSetArtistResponse")
 	proto.RegisterType((*MsgSetUserWebsite)(nil), "DecentralCardGame.cardchain.cardchain.MsgSetUserWebsite")
 	proto.RegisterType((*MsgSetUserWebsiteResponse)(nil), "DecentralCardGame.cardchain.cardchain.MsgSetUserWebsiteResponse")
 	proto.RegisterType((*MsgSetUserBiography)(nil), "DecentralCardGame.cardchain.cardchain.MsgSetUserBiography")
@@ -4265,172 +4261,170 @@ func init() {
 	proto.RegisterType((*MsgMultiVoteCardResponse)(nil), "DecentralCardGame.cardchain.cardchain.MsgMultiVoteCardResponse")
 	proto.RegisterType((*MsgMsgOpenMatch)(nil), "DecentralCardGame.cardchain.cardchain.MsgMsgOpenMatch")
 	proto.RegisterType((*MsgMsgOpenMatchResponse)(nil), "DecentralCardGame.cardchain.cardchain.MsgMsgOpenMatchResponse")
-	proto.RegisterType((*MsgSetCollectionName)(nil), "DecentralCardGame.cardchain.cardchain.MsgSetCollectionName")
-	proto.RegisterType((*MsgSetCollectionNameResponse)(nil), "DecentralCardGame.cardchain.cardchain.MsgSetCollectionNameResponse")
+	proto.RegisterType((*MsgSetSetName)(nil), "DecentralCardGame.cardchain.cardchain.MsgSetSetName")
+	proto.RegisterType((*MsgSetSetNameResponse)(nil), "DecentralCardGame.cardchain.cardchain.MsgSetSetNameResponse")
 }
 
 func init() { proto.RegisterFile("cardchain/cardchain/tx.proto", fileDescriptor_3b4a3aba0ac94bc8) }
 
 var fileDescriptor_3b4a3aba0ac94bc8 = []byte{
-	// 2523 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xb4, 0x5b, 0xed, 0x8b, 0x1b, 0xc7,
-	0x19, 0xbf, 0xb5, 0x74, 0x7e, 0x79, 0xfc, 0x92, 0x64, 0x73, 0xb1, 0xe5, 0xb5, 0xad, 0x3b, 0x6f,
-	0x6c, 0xc7, 0x94, 0x56, 0xc2, 0x97, 0x36, 0xb1, 0xdd, 0x3a, 0x8e, 0xa4, 0x3b, 0xbf, 0xd4, 0x55,
-	0xec, 0xe8, 0xec, 0x84, 0x36, 0x85, 0xb2, 0x5a, 0xcd, 0xe9, 0x16, 0x4b, 0x3b, 0xea, 0xec, 0xea,
-	0x2e, 0x17, 0x28, 0x04, 0x5a, 0x4a, 0x03, 0xa1, 0x2d, 0xa1, 0x85, 0x42, 0xa1, 0x24, 0xb4, 0x50,
-	0x08, 0x14, 0x0a, 0x2d, 0xf4, 0x63, 0xbf, 0xe6, 0x63, 0x3e, 0x95, 0xd2, 0x0f, 0x69, 0xb1, 0xbf,
-	0xf4, 0x63, 0xff, 0x84, 0xb2, 0xb3, 0xb3, 0xb3, 0x33, 0xab, 0x5d, 0x69, 0x67, 0xa5, 0x7c, 0xb2,
-	0x66, 0x76, 0x7e, 0xcf, 0xf3, 0x9b, 0xd7, 0xe7, 0x99, 0xf9, 0xf9, 0xe0, 0xac, 0x6d, 0x91, 0x9e,
-	0xbd, 0x63, 0x39, 0x6e, 0x3d, 0xfe, 0xe5, 0xbf, 0x5b, 0x1b, 0x11, 0xec, 0x63, 0xfd, 0xe2, 0x06,
-	0xb2, 0x91, 0xeb, 0x13, 0x6b, 0xd0, 0xb2, 0x48, 0xef, 0xb6, 0x35, 0x44, 0x35, 0xde, 0x2a, 0xfe,
-	0x65, 0xac, 0xf4, 0x71, 0x1f, 0x53, 0x44, 0x3d, 0xf8, 0x15, 0x82, 0x8d, 0xf3, 0x69, 0xa6, 0x6d,
-	0x3c, 0x76, 0x6d, 0x67, 0xc0, 0x9a, 0xac, 0xa6, 0x35, 0x19, 0x5a, 0xbe, 0xbd, 0x33, 0xcd, 0xc6,
-	0x2e, 0xf6, 0x91, 0xe3, 0xf6, 0x59, 0x93, 0xaa, 0x8d, 0xbd, 0x21, 0xf6, 0xea, 0x5d, 0xcb, 0x43,
-	0xf5, 0xdd, 0x2b, 0x5d, 0xe4, 0x5b, 0x57, 0xea, 0x36, 0x76, 0xdc, 0xf0, 0xbb, 0xf9, 0x5d, 0x38,
-	0xde, 0xf6, 0xfa, 0x2d, 0x82, 0x2c, 0x1f, 0x8d, 0x3d, 0x44, 0xf4, 0x0a, 0x1c, 0xb2, 0x83, 0x12,
-	0x26, 0x15, 0x6d, 0x4d, 0xbb, 0x7c, 0xa4, 0x13, 0x15, 0x83, 0x2f, 0x2e, 0xda, 0x7b, 0xe4, 0x21,
-	0x52, 0x39, 0x10, 0x7e, 0x61, 0x45, 0x7d, 0x05, 0x96, 0xad, 0x81, 0x63, 0x79, 0x95, 0x12, 0xad,
-	0x0f, 0x0b, 0xe6, 0x29, 0x78, 0x41, 0x32, 0xdd, 0x41, 0xde, 0x08, 0xbb, 0x1e, 0x32, 0x7f, 0xa5,
-	0xc1, 0xb3, 0x6d, 0xaf, 0xdf, 0x1c, 0xef, 0x07, 0xe3, 0xb6, 0x65, 0xef, 0xa0, 0x21, 0x9a, 0xe2,
-	0xf7, 0xfb, 0x50, 0xea, 0x3a, 0x3d, 0xea, 0xf3, 0xe8, 0xfa, 0xe9, 0x5a, 0xd8, 0xa1, 0x5a, 0xd0,
-	0xa1, 0x1a, 0xeb, 0x50, 0xad, 0x85, 0x1d, 0xb7, 0x59, 0xff, 0xec, 0x8b, 0xd5, 0xa5, 0x4f, 0xff,
-	0xbd, 0xfa, 0x52, 0xdf, 0xf1, 0x77, 0xc6, 0xdd, 0x9a, 0x8d, 0x87, 0x75, 0xd6, 0xfb, 0xf0, 0x9f,
-	0xaf, 0x79, 0xbd, 0xc7, 0x75, 0x7f, 0x7f, 0x84, 0x3c, 0x0a, 0xe8, 0x04, 0x66, 0xaf, 0x1f, 0xfe,
-	0xd9, 0xc7, 0xab, 0x4b, 0xff, 0xfd, 0x78, 0x75, 0xc9, 0x5c, 0x87, 0x4a, 0x92, 0x55, 0x44, 0x59,
-	0x3f, 0x09, 0x07, 0x83, 0x11, 0xbe, 0xdb, 0xa3, 0xe4, 0xca, 0x1d, 0x56, 0x32, 0xdf, 0x81, 0xa3,
-	0x6d, 0xaf, 0xff, 0x16, 0xf6, 0x51, 0x00, 0x9a, 0xd2, 0x89, 0xd8, 0xc0, 0x01, 0xd1, 0x80, 0x6e,
-	0xc0, 0xe1, 0x60, 0xc2, 0x1e, 0xee, 0x8f, 0x10, 0x1b, 0x3d, 0x5e, 0x36, 0x6f, 0xc0, 0xf3, 0x82,
-	0x71, 0xce, 0xe5, 0x12, 0x9c, 0xb0, 0x1c, 0xd2, 0x23, 0x78, 0xd4, 0x1a, 0x58, 0xce, 0x10, 0x85,
-	0x9c, 0x0e, 0x77, 0x12, 0xb5, 0xe6, 0x5f, 0x35, 0xd0, 0xdb, 0x5e, 0x7f, 0xcb, 0xda, 0xa5, 0xf8,
-	0x16, 0x76, 0x7d, 0xe4, 0xfa, 0x05, 0x38, 0x06, 0x88, 0x10, 0x4c, 0x29, 0x1e, 0xeb, 0x44, 0xc5,
-	0x60, 0xe2, 0x5d, 0xec, 0x23, 0xaf, 0x52, 0x0e, 0x27, 0x9e, 0x16, 0x02, 0x3b, 0x16, 0xf1, 0x1d,
-	0xcf, 0xaf, 0x2c, 0xd3, 0x6a, 0x56, 0xd2, 0x2f, 0xc0, 0xf1, 0xae, 0x35, 0xb0, 0x5c, 0x1b, 0x35,
-	0x5c, 0x7b, 0x07, 0x93, 0xca, 0x41, 0xca, 0x5b, 0xae, 0x34, 0x37, 0xc0, 0x98, 0x64, 0xad, 0xdc,
-	0xf9, 0x1f, 0xc0, 0x33, 0x6d, 0xaf, 0xff, 0x90, 0x58, 0xae, 0xb7, 0x8d, 0x48, 0xf1, 0xc9, 0x21,
-	0xc8, 0x46, 0xce, 0x2e, 0x22, 0xac, 0x87, 0xbc, 0x6c, 0x9e, 0x86, 0x53, 0x09, 0x07, 0x7c, 0x7d,
-	0x7f, 0xa8, 0x51, 0xe7, 0x1b, 0xd8, 0xb5, 0x7c, 0xf4, 0x10, 0x17, 0x74, 0x7e, 0x1b, 0x0e, 0x5a,
-	0x43, 0x3c, 0x66, 0x83, 0x7e, 0x24, 0x5c, 0xde, 0xff, 0xfa, 0x22, 0xff, 0xf2, 0x66, 0x70, 0xc6,
-	0x54, 0x64, 0xc3, 0x99, 0xfe, 0x90, 0xee, 0xfe, 0x46, 0xaf, 0xd7, 0x20, 0xfe, 0x1e, 0x26, 0x8f,
-	0x0b, 0xd0, 0x5c, 0x81, 0x65, 0x67, 0x68, 0xf5, 0x11, 0x5b, 0x1a, 0x61, 0x21, 0xb0, 0xb3, 0x3d,
-	0x1e, 0x0c, 0x1a, 0xc4, 0xa7, 0x03, 0x77, 0xb8, 0x13, 0x15, 0xd9, 0xa9, 0x10, 0xbb, 0xe4, 0x5c,
-	0x7e, 0xa2, 0x85, 0x13, 0x3f, 0xee, 0x0e, 0x1d, 0xbf, 0x85, 0x47, 0xfb, 0xc4, 0xe9, 0xef, 0xf8,
-	0x0f, 0x08, 0x1e, 0x61, 0xcf, 0x1a, 0x14, 0x60, 0xb6, 0x06, 0x47, 0x7b, 0xc8, 0xb3, 0x89, 0x33,
-	0xf2, 0x1d, 0xec, 0xb2, 0xdd, 0x25, 0x56, 0xe9, 0x3a, 0x94, 0x07, 0x8e, 0xfb, 0x98, 0xcd, 0x2d,
-	0xfd, 0x6d, 0x5e, 0x00, 0x33, 0x9b, 0x05, 0x27, 0xfb, 0x0e, 0x9d, 0xe1, 0xd6, 0x8e, 0xe5, 0xf6,
-	0x51, 0x23, 0x5c, 0xdd, 0xb3, 0x09, 0x6e, 0x48, 0x04, 0x37, 0x84, 0x7d, 0x52, 0x12, 0xf7, 0x09,
-	0x9b, 0x30, 0xd1, 0x38, 0xf7, 0x7b, 0x85, 0x8e, 0x5e, 0x07, 0xf5, 0x1d, 0xcf, 0x47, 0xe4, 0x16,
-	0x26, 0xad, 0x30, 0x62, 0x64, 0x7b, 0x37, 0x57, 0xe1, 0x5c, 0x2a, 0x84, 0xdb, 0xfc, 0x87, 0x06,
-	0x27, 0x68, 0x8b, 0x11, 0x26, 0x7e, 0x3b, 0x08, 0x2f, 0xd3, 0x83, 0x00, 0x8d, 0x40, 0x7c, 0xb4,
-	0xa3, 0xa2, 0x6e, 0xc2, 0xb1, 0xd1, 0xc0, 0xda, 0x47, 0xbd, 0x60, 0x85, 0x79, 0x8d, 0x4a, 0x69,
-	0xad, 0x74, 0xb9, 0xdc, 0x91, 0xea, 0x12, 0x6d, 0x9a, 0x95, 0xf2, 0x44, 0x9b, 0xa6, 0x7e, 0x07,
-	0x0e, 0xe1, 0xb1, 0x6f, 0xe3, 0x21, 0xa2, 0xc7, 0xc7, 0x89, 0xf5, 0x5a, 0x2d, 0x57, 0x9c, 0xad,
-	0xdd, 0x0f, 0x51, 0x9d, 0x08, 0x6e, 0xae, 0xc3, 0x49, 0xb9, 0x5f, 0xfc, 0x14, 0x11, 0x7a, 0xa1,
-	0x49, 0xbd, 0x30, 0x3f, 0xd2, 0xa0, 0xca, 0xe7, 0x9f, 0x81, 0x02, 0x3c, 0x22, 0x39, 0x56, 0x22,
-	0x3d, 0x2f, 0xc2, 0xd6, 0x2c, 0x44, 0xf2, 0x72, 0x80, 0xea, 0xa1, 0x11, 0xf6, 0x9c, 0x68, 0xb6,
-	0xa3, 0x62, 0x72, 0x9d, 0x96, 0x27, 0xd6, 0xa9, 0x79, 0x19, 0x2e, 0x4d, 0xe7, 0xc4, 0xe7, 0xf2,
-	0x0d, 0xda, 0xe5, 0xc6, 0x08, 0x3b, 0xae, 0xdc, 0xb2, 0x18, 0x6b, 0x73, 0x8d, 0x8e, 0x46, 0x8a,
-	0x3d, 0xee, 0xf1, 0x13, 0x8d, 0x46, 0xa9, 0x30, 0xcc, 0xb7, 0xf0, 0x60, 0x80, 0x6c, 0xba, 0xb7,
-	0xb2, 0xfd, 0xe9, 0x50, 0x76, 0xad, 0x21, 0x62, 0xbe, 0xe8, 0xef, 0xac, 0xad, 0x10, 0x8c, 0x8d,
-	0xe7, 0x63, 0xb2, 0xff, 0x36, 0x71, 0x7c, 0x7e, 0x08, 0x8b, 0x55, 0xc1, 0x92, 0x0a, 0xa2, 0x11,
-	0x71, 0xba, 0x63, 0x1f, 0x13, 0xaf, 0xb2, 0xbc, 0x56, 0xba, 0x7c, 0xa4, 0x23, 0xd5, 0x99, 0xe7,
-	0xe0, 0x4c, 0x0a, 0x45, 0xde, 0x05, 0x37, 0x1c, 0xb4, 0x1e, 0x5d, 0x81, 0x0f, 0x71, 0xae, 0x4e,
-	0x50, 0xb7, 0x51, 0x3b, 0xbe, 0x19, 0xa4, 0x3a, 0xe1, 0x60, 0x2a, 0x49, 0x49, 0x03, 0x1b, 0xd4,
-	0x49, 0x7f, 0x9c, 0xd1, 0x23, 0xba, 0xcd, 0x6f, 0x39, 0xae, 0x35, 0x70, 0xde, 0x43, 0x8b, 0x22,
-	0xc4, 0x8e, 0x82, 0x49, 0xb3, 0xdc, 0xef, 0x03, 0x9e, 0x98, 0x2d, 0xca, 0x65, 0x93, 0x27, 0x55,
-	0x13, 0xde, 0x72, 0xc7, 0x72, 0x8f, 0x4e, 0x5f, 0x07, 0x0d, 0x71, 0x98, 0x13, 0xdc, 0x22, 0x78,
-	0xf8, 0xa5, 0x4f, 0xd2, 0x45, 0x78, 0x71, 0x8a, 0x53, 0x3e, 0x62, 0xbb, 0x34, 0x5c, 0xb0, 0x66,
-	0xf1, 0x9a, 0x5b, 0x28, 0x45, 0x1d, 0xca, 0x41, 0xfe, 0xcc, 0xb6, 0x06, 0xfd, 0x6d, 0x7e, 0x15,
-	0xbe, 0x32, 0xdb, 0xaf, 0x10, 0xe7, 0xcf, 0xb1, 0x15, 0x17, 0x37, 0x5d, 0xe0, 0x42, 0x4f, 0x23,
-	0xf8, 0x12, 0x5c, 0x9c, 0xea, 0x52, 0x08, 0xa5, 0x67, 0x84, 0x80, 0x1b, 0x7d, 0xce, 0x71, 0xda,
-	0xe6, 0x59, 0x7e, 0xe1, 0x2c, 0x66, 0x19, 0xe7, 0x1c, 0x3e, 0x08, 0x53, 0xe5, 0xf0, 0x84, 0xd8,
-	0x42, 0x83, 0xc1, 0xfd, 0xed, 0xed, 0xa9, 0x67, 0xa6, 0x0e, 0xe5, 0x60, 0x9d, 0x30, 0x9f, 0xf4,
-	0xb7, 0xbe, 0x09, 0xcb, 0x23, 0xe2, 0xd8, 0xa8, 0x68, 0xbe, 0x16, 0xa2, 0xcd, 0xb3, 0x34, 0x0d,
-	0x4a, 0x50, 0xe1, 0x4c, 0xef, 0x00, 0xc4, 0x97, 0x94, 0x29, 0x04, 0x83, 0x83, 0x33, 0x02, 0xf3,
-	0xb1, 0x11, 0xab, 0xcc, 0x15, 0xda, 0x65, 0x66, 0x49, 0x38, 0x01, 0x74, 0xbe, 0xae, 0xf2, 0x0c,
-	0xc4, 0x6c, 0x3f, 0x61, 0x7f, 0x12, 0x16, 0xb9, 0x3f, 0x0c, 0xa7, 0xa5, 0x74, 0x70, 0x81, 0xab,
-	0x32, 0x35, 0x33, 0x35, 0x5f, 0x84, 0xf3, 0x99, 0x0e, 0x39, 0xab, 0x21, 0xcd, 0xc0, 0x1a, 0xbd,
-	0xde, 0x56, 0x10, 0x69, 0x16, 0xcb, 0x89, 0x06, 0xaf, 0xe8, 0xa6, 0x4c, 0x0b, 0xe6, 0x79, 0x58,
-	0xcd, 0x70, 0xc7, 0x19, 0xbd, 0x1f, 0xde, 0x99, 0xb7, 0x90, 0x4f, 0xa7, 0xcb, 0x22, 0x8e, 0xbf,
-	0x5f, 0x20, 0x27, 0x4e, 0x72, 0x2c, 0xa5, 0x9f, 0x88, 0x84, 0xda, 0x67, 0xe1, 0x96, 0x95, 0x4c,
-	0x83, 0x1e, 0xe5, 0x12, 0x03, 0x4e, 0x6f, 0x83, 0xb2, 0x8b, 0x22, 0xec, 0x8c, 0x94, 0x34, 0x8b,
-	0x1d, 0xf3, 0x20, 0x59, 0xe1, 0x1e, 0x7e, 0xae, 0x85, 0x1f, 0xf1, 0x90, 0x6e, 0x65, 0xe9, 0xe3,
-	0xac, 0xe4, 0x26, 0x6c, 0x15, 0x27, 0x37, 0x0c, 0x75, 0x16, 0x8e, 0xb0, 0x07, 0x17, 0x3e, 0x12,
-	0x71, 0x85, 0x5e, 0x05, 0xf0, 0xc6, 0xfd, 0x3e, 0xf2, 0x84, 0xac, 0x4c, 0xa8, 0x31, 0x4d, 0x58,
-	0xcb, 0xe2, 0xc3, 0x49, 0xff, 0x2d, 0x24, 0xdd, 0x41, 0xbb, 0xc8, 0x1a, 0xe4, 0x27, 0x7d, 0x2f,
-	0x41, 0xfa, 0xc4, 0x7a, 0x3d, 0x67, 0x0e, 0xcc, 0x19, 0xc4, 0xbd, 0x3c, 0x09, 0x07, 0x3d, 0x64,
-	0x13, 0xc4, 0x53, 0xab, 0xb0, 0x24, 0xf7, 0xbe, 0x9c, 0xe8, 0x3d, 0xeb, 0x5d, 0x2a, 0x71, 0xde,
-	0xbb, 0x7b, 0xf0, 0x1c, 0x6d, 0xe3, 0xf9, 0x16, 0xf1, 0x67, 0xcf, 0xba, 0xe4, 0xf0, 0x40, 0xd2,
-	0xe1, 0x19, 0x7a, 0x10, 0xc8, 0xc6, 0xb8, 0xa7, 0xab, 0x70, 0x96, 0x7e, 0xdc, 0xc3, 0x8f, 0xe3,
-	0x85, 0x11, 0x5c, 0x68, 0x88, 0x35, 0x7d, 0x53, 0x9a, 0x97, 0xe0, 0xc2, 0x34, 0x24, 0xf7, 0xf0,
-	0x24, 0xbc, 0xb3, 0xb7, 0xb0, 0xbb, 0xed, 0x90, 0x61, 0xf1, 0x5b, 0x90, 0x70, 0x7b, 0x29, 0xcd,
-	0x75, 0x7b, 0xd1, 0xdf, 0x04, 0xd8, 0xc5, 0x3e, 0xbb, 0x16, 0xd1, 0x9b, 0xd2, 0xd1, 0xf5, 0x2b,
-	0x39, 0x8d, 0x6d, 0x39, 0x6e, 0x7f, 0x80, 0xde, 0xc2, 0x3e, 0xea, 0x08, 0x46, 0xa2, 0x8b, 0xa5,
-	0xd0, 0x47, 0xde, 0xff, 0x4d, 0x3a, 0x97, 0x5b, 0x28, 0xb8, 0xea, 0x6e, 0x3b, 0x83, 0x82, 0xcf,
-	0x59, 0x6c, 0x16, 0x65, 0x33, 0xdc, 0xc7, 0x43, 0x1a, 0x5b, 0xee, 0x8f, 0x90, 0xdb, 0xc4, 0x38,
-	0xb8, 0x8c, 0x3e, 0xb0, 0xec, 0x69, 0x4f, 0x0e, 0x17, 0xe0, 0x78, 0x37, 0x6e, 0xc8, 0x7d, 0xc9,
-	0x95, 0xe6, 0x2b, 0x34, 0xbe, 0x24, 0xac, 0x4a, 0x9b, 0x8c, 0x52, 0xf3, 0x2a, 0x1a, 0xbd, 0x6c,
-	0x46, 0x45, 0xd3, 0xa7, 0x59, 0x7f, 0xf4, 0x80, 0xb3, 0x40, 0x46, 0xd2, 0xb3, 0x51, 0x29, 0xf1,
-	0x6c, 0x14, 0xe6, 0xfe, 0x29, 0x5e, 0xf9, 0x28, 0xfd, 0x28, 0xcc, 0x87, 0x90, 0x90, 0xaf, 0x6c,
-	0x09, 0xf7, 0x9d, 0xf9, 0xe2, 0x4f, 0xe2, 0x3e, 0x55, 0x9a, 0xb8, 0x4f, 0x45, 0x19, 0x53, 0x86,
-	0xfb, 0xc4, 0x9d, 0x49, 0x6a, 0x36, 0xf3, 0x1d, 0x24, 0x67, 0x3a, 0x9e, 0xfa, 0x26, 0x12, 0x8e,
-	0x5b, 0x8a, 0x3f, 0xce, 0xe8, 0x76, 0xb4, 0x82, 0x1f, 0x79, 0x88, 0xbc, 0x8d, 0xba, 0x9e, 0xe3,
-	0xa3, 0xe9, 0x5b, 0x78, 0x2f, 0x6c, 0x14, 0xbd, 0x66, 0xb3, 0x62, 0xbc, 0x86, 0x05, 0x43, 0xdc,
-	0x4b, 0x9b, 0xde, 0x76, 0xd9, 0xc7, 0xa6, 0x83, 0xfb, 0xc4, 0x1a, 0xed, 0xec, 0x4f, 0x3f, 0xf5,
-	0xba, 0x51, 0x33, 0xe6, 0x29, 0xae, 0x60, 0x37, 0xd3, 0xa4, 0x39, 0xee, 0x6d, 0x4c, 0xc3, 0x6a,
-	0x7b, 0x3c, 0xf0, 0x9d, 0x1c, 0x6f, 0xcc, 0xb7, 0x61, 0x79, 0x97, 0xbe, 0xc6, 0x1e, 0x28, 0x7a,
-	0x58, 0x84, 0x78, 0x16, 0x87, 0x25, 0xb7, 0x9c, 0xd2, 0xef, 0xc3, 0x83, 0x92, 0x6d, 0xb9, 0x1c,
-	0x07, 0x25, 0x7d, 0xdc, 0x21, 0x8d, 0x68, 0x94, 0x59, 0x31, 0xfe, 0xd2, 0x8c, 0xde, 0x43, 0x58,
-	0x31, 0x58, 0xa3, 0xac, 0xd1, 0x06, 0xb2, 0x1f, 0xb3, 0x37, 0x22, 0xb1, 0x2a, 0x6e, 0xd1, 0xa4,
-	0x2d, 0x96, 0xc5, 0x16, 0xb4, 0xca, 0x7c, 0x99, 0x9e, 0x74, 0x22, 0xc9, 0x1c, 0x6f, 0x3f, 0x3b,
-	0xb0, 0x92, 0x5c, 0x63, 0x6f, 0x58, 0x53, 0xa5, 0x89, 0x9c, 0x97, 0x23, 0xfa, 0xdc, 0x51, 0x8a,
-	0x9f, 0x3b, 0xcc, 0x2a, 0x8d, 0x67, 0x13, 0x9e, 0x22, 0x8e, 0xeb, 0xff, 0x5b, 0x87, 0x52, 0xdb,
-	0xeb, 0xeb, 0xef, 0x6b, 0x00, 0x82, 0x36, 0xf3, 0xf5, 0x9c, 0x33, 0x2a, 0xc9, 0x2e, 0xc6, 0xb7,
-	0x8a, 0xa0, 0xf8, 0x70, 0x7d, 0xa0, 0xc1, 0x71, 0x59, 0xa9, 0x79, 0x35, 0xbf, 0x3d, 0x09, 0x68,
-	0xdc, 0x2c, 0x08, 0xe4, 0x5c, 0xde, 0x83, 0xc3, 0x7c, 0x1b, 0xac, 0xe7, 0x37, 0x16, 0x61, 0x8c,
-	0xeb, 0xea, 0x18, 0xee, 0xfb, 0x17, 0x1a, 0x3c, 0x93, 0x94, 0x52, 0xae, 0xe5, 0xb7, 0x97, 0x80,
-	0x1a, 0x8d, 0xc2, 0x50, 0xce, 0xe8, 0xa7, 0x1a, 0x1c, 0x93, 0x04, 0x8e, 0x57, 0xf2, 0xdb, 0x14,
-	0x71, 0xc6, 0x6b, 0xc5, 0x70, 0x12, 0x11, 0x49, 0xec, 0x50, 0x20, 0x22, 0xe2, 0x54, 0x88, 0xa4,
-	0xc9, 0x19, 0x74, 0xbb, 0x08, 0x62, 0x86, 0xc2, 0x76, 0x89, 0x51, 0x2a, 0xdb, 0x65, 0x52, 0xc5,
-	0xd0, 0xff, 0xa8, 0xc1, 0xa9, 0x2c, 0x09, 0x43, 0x65, 0xce, 0xd3, 0x4d, 0x18, 0x77, 0xe7, 0x36,
-	0x21, 0xcd, 0x9a, 0x24, 0x60, 0x28, 0xcc, 0x9a, 0x88, 0x53, 0x99, 0xb5, 0x34, 0x4d, 0x43, 0xff,
-	0x8d, 0x06, 0x7a, 0x8a, 0xa2, 0xa1, 0x30, 0x0f, 0x93, 0x68, 0x63, 0x63, 0x1e, 0x34, 0xa7, 0xf6,
-	0x63, 0x0d, 0x8e, 0x8a, 0xba, 0xc8, 0x37, 0x54, 0xac, 0x72, 0x98, 0x71, 0xa3, 0x10, 0x8c, 0xb3,
-	0xf8, 0x8b, 0x06, 0x67, 0xa6, 0x09, 0x12, 0x9b, 0xaa, 0x8b, 0x22, 0xd5, 0x8c, 0xd1, 0x5e, 0x88,
-	0x19, 0xce, 0xfa, 0xb7, 0x1a, 0x3c, 0x9f, 0x26, 0x44, 0x28, 0x0c, 0x46, 0x0a, 0xdc, 0xd8, 0x9c,
-	0x0b, 0xce, 0xd9, 0x7d, 0xa4, 0xc1, 0xb3, 0x13, 0x9a, 0xc5, 0x75, 0xd5, 0x48, 0x19, 0x63, 0x8d,
-	0x66, 0x71, 0xac, 0x3c, 0x64, 0x29, 0x32, 0xc4, 0x0d, 0xa5, 0x23, 0x29, 0x09, 0x57, 0x1a, 0xb2,
-	0x6c, 0x51, 0x82, 0xee, 0xd3, 0x14, 0x49, 0x42, 0x61, 0x9f, 0x4e, 0xa2, 0x55, 0xf6, 0x69, 0xb6,
-	0x6e, 0xc1, 0x93, 0x94, 0x98, 0x95, 0x62, 0x92, 0x12, 0x13, 0xba, 0x59, 0x10, 0xc8, 0xb9, 0x7c,
-	0xaa, 0x41, 0x25, 0x53, 0xab, 0x68, 0xaa, 0x9c, 0x04, 0xe9, 0x36, 0x8c, 0x6f, 0xcf, 0x6f, 0x83,
-	0x93, 0xfd, 0xbb, 0x06, 0xab, 0xb3, 0xc4, 0x8b, 0xbb, 0xca, 0xfe, 0xb2, 0x4c, 0x19, 0x6f, 0x2e,
-	0xcc, 0x14, 0xef, 0xc1, 0x9f, 0x35, 0x30, 0xa6, 0x08, 0x1b, 0x1b, 0x6a, 0x6b, 0x3f, 0xdd, 0x8a,
-	0xf1, 0x9d, 0x45, 0x58, 0x91, 0x56, 0x48, 0xa6, 0xde, 0xd1, 0x54, 0x8f, 0xf0, 0x49, 0x1b, 0x2a,
-	0x2b, 0x64, 0x96, 0x34, 0x42, 0xf3, 0xde, 0xa4, 0x2e, 0x72, 0x4d, 0xf5, 0xac, 0xe3, 0x50, 0x95,
-	0xbc, 0x37, 0x43, 0x02, 0xd1, 0xf7, 0xe0, 0x50, 0xa4, 0x7f, 0x5c, 0x51, 0xbe, 0x51, 0x18, 0xd7,
-	0x94, 0x21, 0xd2, 0x50, 0x24, 0x95, 0x91, 0x6b, 0xaa, 0x2b, 0xba, 0xd0, 0x50, 0x64, 0xa8, 0x27,
-	0xfa, 0x1f, 0x34, 0x38, 0x99, 0xa1, 0x9d, 0xbc, 0x5e, 0x24, 0x8d, 0x95, 0x16, 0xfd, 0x9d, 0x79,
-	0x2d, 0x70, 0x9a, 0xbf, 0xd3, 0x60, 0x25, 0x55, 0x4c, 0x79, 0x4d, 0xc9, 0xc5, 0x04, 0xde, 0xb8,
-	0x35, 0x1f, 0x5e, 0x8a, 0x1f, 0xb2, 0xb4, 0xa2, 0x10, 0x3f, 0x24, 0xa0, 0x4a, 0xfc, 0x48, 0x95,
-	0x52, 0x28, 0x17, 0x59, 0x48, 0x79, 0x55, 0x3d, 0xb5, 0x08, 0x93, 0xe0, 0x9b, 0x05, 0x81, 0x9c,
-	0xcb, 0x27, 0x1a, 0xbc, 0x90, 0xae, 0xb8, 0xa8, 0x98, 0x4e, 0x33, 0x60, 0xdc, 0x9e, 0xd3, 0x80,
-	0xc4, 0x31, 0x5d, 0x60, 0xb9, 0xa9, 0xb2, 0xc1, 0x52, 0x0c, 0xa8, 0x70, 0x9c, 0xaa, 0x94, 0xe8,
-	0x1f, 0x6a, 0x70, 0x22, 0xa1, 0x93, 0x5c, 0x55, 0xb1, 0x2d, 0x22, 0x8d, 0xd7, 0x8b, 0x22, 0x39,
-	0x9d, 0x3f, 0x69, 0x70, 0x3a, 0x5b, 0x4c, 0x69, 0xa9, 0xd8, 0xcf, 0x30, 0x62, 0xdc, 0x5b, 0x80,
-	0x11, 0xf9, 0xaa, 0x2a, 0x2a, 0x33, 0x2a, 0x57, 0x55, 0x01, 0xa7, 0x74, 0x55, 0x4d, 0x51, 0x49,
-	0xe8, 0x3c, 0x26, 0x34, 0x92, 0xab, 0x4a, 0xfb, 0x5d, 0x40, 0xaa, 0xcc, 0x63, 0xba, 0xa0, 0x42,
-	0x03, 0x52, 0x52, 0x4e, 0x51, 0x08, 0x48, 0x09, 0xa8, 0x4a, 0x40, 0xca, 0x92, 0x5b, 0x82, 0x1b,
-	0x4c, 0x9a, 0xa4, 0x72, 0x43, 0xfd, 0x89, 0x49, 0x64, 0xb6, 0x39, 0x17, 0x5c, 0x4e, 0xbc, 0xb2,
-	0x84, 0x95, 0xa6, 0xda, 0xc1, 0x9d, 0x66, 0x43, 0x29, 0xf1, 0x9a, 0xa1, 0xb0, 0xd0, 0xa1, 0x4c,
-	0xd3, 0x57, 0x6e, 0x14, 0xf4, 0xc1, 0x5e, 0x6b, 0x36, 0xe7, 0x82, 0x27, 0x77, 0x82, 0xa8, 0xb5,
-	0xa8, 0xed, 0x04, 0x01, 0xa9, 0xb8, 0x13, 0x52, 0x64, 0x19, 0x7a, 0x9d, 0x9f, 0x10, 0x65, 0xae,
-	0x2b, 0x9b, 0xe5, 0x58, 0xa3, 0x59, 0x1c, 0x2b, 0x45, 0x72, 0x59, 0xbb, 0x51, 0x88, 0xe4, 0x12,
-	0x50, 0x25, 0x92, 0xa7, 0xca, 0x36, 0xf4, 0x08, 0x95, 0x34, 0x1b, 0x85, 0x23, 0x54, 0xc4, 0xa9,
-	0x1c, 0xa1, 0xa9, 0xf2, 0xcb, 0xaf, 0x35, 0x78, 0x6e, 0x52, 0x62, 0xf9, 0x66, 0xc1, 0x55, 0x19,
-	0x80, 0x8d, 0xd6, 0x1c, 0xe0, 0x88, 0x57, 0xb3, 0xf3, 0xd9, 0x93, 0xaa, 0xf6, 0xf9, 0x93, 0xaa,
-	0xf6, 0x9f, 0x27, 0x55, 0xed, 0x97, 0x4f, 0xab, 0x4b, 0x9f, 0x3f, 0xad, 0x2e, 0xfd, 0xf3, 0x69,
-	0x75, 0xe9, 0x7b, 0x57, 0x85, 0xff, 0xc0, 0x35, 0xe1, 0xa8, 0xde, 0xe2, 0x7f, 0x78, 0xf3, 0xae,
-	0xf8, 0x37, 0x42, 0xfb, 0x23, 0xe4, 0x75, 0x0f, 0xd2, 0xbf, 0xb1, 0x79, 0xf9, 0xff, 0x01, 0x00,
-	0x00, 0xff, 0xff, 0xfb, 0x45, 0x83, 0x4a, 0x47, 0x34, 0x00, 0x00,
+	// 2494 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xac, 0x5b, 0x4f, 0x6f, 0x1b, 0xc7,
+	0x15, 0xd7, 0x9a, 0x94, 0x6c, 0x3d, 0xff, 0x49, 0xb2, 0x51, 0x6c, 0x7a, 0xed, 0x50, 0xea, 0xd6,
+	0x71, 0x7d, 0x29, 0x19, 0xcb, 0xa9, 0x6d, 0x59, 0x75, 0x1d, 0x92, 0x92, 0x95, 0xd4, 0x60, 0xec,
+	0x92, 0x4a, 0xd2, 0xfc, 0x41, 0x8b, 0xe5, 0x72, 0x44, 0x2d, 0x44, 0xee, 0xb0, 0xb3, 0x4b, 0x29,
+	0x0a, 0x50, 0x20, 0x40, 0x8b, 0xa2, 0x01, 0x82, 0xb6, 0x08, 0x5a, 0xa0, 0x68, 0x2f, 0x29, 0x7a,
+	0x28, 0x10, 0xa0, 0xa7, 0x16, 0xe8, 0x57, 0xc8, 0x31, 0xa7, 0xa2, 0x28, 0xd0, 0xb4, 0xb0, 0x2f,
+	0xfd, 0x18, 0xc1, 0xce, 0xcc, 0xce, 0xce, 0x2c, 0x97, 0x14, 0x67, 0xe5, 0x93, 0x39, 0xb3, 0xf3,
+	0x7b, 0xef, 0x37, 0xf3, 0xde, 0xcc, 0xbc, 0x79, 0xcf, 0x82, 0xcb, 0xae, 0x43, 0xba, 0xee, 0xae,
+	0xe3, 0xf9, 0xd5, 0xe4, 0x57, 0xf8, 0x41, 0x65, 0x48, 0x70, 0x88, 0xcd, 0x97, 0x36, 0x90, 0x8b,
+	0xfc, 0x90, 0x38, 0xfd, 0x86, 0x43, 0xba, 0x5b, 0xce, 0x00, 0x55, 0xc4, 0xa8, 0xe4, 0x97, 0xb5,
+	0xd4, 0xc3, 0x3d, 0x4c, 0x11, 0xd5, 0xe8, 0x17, 0x03, 0x5b, 0xdf, 0xc8, 0x12, 0xed, 0xe2, 0x91,
+	0xef, 0x7a, 0x7d, 0x3e, 0x64, 0x39, 0x6b, 0xc8, 0xc0, 0x09, 0xdd, 0xdd, 0x69, 0x32, 0xf6, 0x71,
+	0x88, 0x3c, 0xbf, 0xc7, 0x87, 0x94, 0x5d, 0x1c, 0x0c, 0x70, 0x50, 0xed, 0x38, 0x01, 0xaa, 0xee,
+	0x5f, 0xef, 0xa0, 0xd0, 0xb9, 0x5e, 0x75, 0xb1, 0xe7, 0xb3, 0xef, 0xf6, 0x3b, 0x70, 0xb6, 0x19,
+	0xf4, 0x1a, 0x04, 0x39, 0x21, 0x1a, 0x05, 0x88, 0x98, 0x25, 0x38, 0xe9, 0x46, 0x2d, 0x4c, 0x4a,
+	0xc6, 0x8a, 0x71, 0x6d, 0xb1, 0x15, 0x37, 0xa3, 0x2f, 0x3e, 0x3a, 0x78, 0x33, 0x40, 0xa4, 0x74,
+	0x82, 0x7d, 0xe1, 0x4d, 0x73, 0x09, 0xe6, 0x9d, 0xbe, 0xe7, 0x04, 0xa5, 0x02, 0xed, 0x67, 0x0d,
+	0xfb, 0x02, 0xbc, 0xa0, 0x88, 0x6e, 0xa1, 0x60, 0x88, 0xfd, 0x00, 0xd9, 0xbf, 0x35, 0xe0, 0xd9,
+	0x66, 0xd0, 0xab, 0x8f, 0x0e, 0xa3, 0x75, 0x6b, 0xbb, 0xbb, 0x68, 0x80, 0xa6, 0xe8, 0x7d, 0x1f,
+	0x0a, 0x1d, 0xaf, 0x4b, 0x75, 0x9e, 0x5e, 0xbd, 0x58, 0x61, 0x13, 0xaa, 0x44, 0x13, 0xaa, 0xf0,
+	0x09, 0x55, 0x1a, 0xd8, 0xf3, 0xeb, 0xd5, 0x2f, 0xbe, 0x5a, 0x9e, 0xfb, 0xfc, 0xbf, 0xcb, 0xdf,
+	0xea, 0x79, 0xe1, 0xee, 0xa8, 0x53, 0x71, 0xf1, 0xa0, 0xca, 0x67, 0xcf, 0xfe, 0xf9, 0x76, 0xd0,
+	0xdd, 0xab, 0x86, 0x87, 0x43, 0x14, 0x50, 0x40, 0x2b, 0x12, 0x7b, 0xe7, 0xd4, 0x2f, 0x3f, 0x5b,
+	0x9e, 0xfb, 0xff, 0x67, 0xcb, 0x73, 0xf6, 0x2a, 0x94, 0xd2, 0xac, 0x62, 0xca, 0xe6, 0x79, 0x58,
+	0x88, 0x56, 0xf8, 0xf5, 0x2e, 0x25, 0x57, 0x6c, 0xf1, 0x96, 0xfd, 0x1e, 0x9c, 0x6e, 0x06, 0xbd,
+	0xb7, 0x70, 0x88, 0x22, 0xd0, 0x94, 0x49, 0x24, 0x02, 0x4e, 0xc8, 0x02, 0x4c, 0x0b, 0x4e, 0x45,
+	0x06, 0xdb, 0x3e, 0x1c, 0x22, 0xbe, 0x7a, 0xa2, 0x6d, 0xdf, 0x85, 0xe7, 0x25, 0xe1, 0x82, 0xcb,
+	0x55, 0x38, 0xe7, 0x78, 0xa4, 0x4b, 0xf0, 0xb0, 0xd1, 0x77, 0xbc, 0x01, 0x62, 0x9c, 0x4e, 0xb5,
+	0x52, 0xbd, 0xf6, 0xdf, 0x0d, 0x30, 0x9b, 0x41, 0xaf, 0xed, 0xec, 0x53, 0x7c, 0x03, 0xfb, 0x21,
+	0xf2, 0xc3, 0x1c, 0x1c, 0x23, 0x04, 0x03, 0x53, 0x8a, 0x67, 0x5a, 0x71, 0x33, 0x32, 0xbc, 0x8f,
+	0x43, 0x14, 0x94, 0x8a, 0xcc, 0xf0, 0xb4, 0x11, 0xc9, 0x71, 0x48, 0xe8, 0x05, 0x61, 0x69, 0x9e,
+	0x76, 0xf3, 0x96, 0x79, 0x05, 0xce, 0x76, 0x9c, 0xbe, 0xe3, 0xbb, 0xa8, 0xe6, 0xbb, 0xbb, 0x98,
+	0x94, 0x16, 0x28, 0x6f, 0xb5, 0xd3, 0xde, 0x00, 0x6b, 0x9c, 0xb5, 0xf6, 0xe4, 0x7f, 0x0c, 0xcf,
+	0x34, 0x83, 0xde, 0x36, 0x71, 0xfc, 0x60, 0x07, 0x91, 0xfc, 0xc6, 0x21, 0xc8, 0x45, 0xde, 0x3e,
+	0x22, 0x7c, 0x86, 0xa2, 0x6d, 0x5f, 0x84, 0x0b, 0x29, 0x05, 0xc2, 0xbf, 0x3f, 0x31, 0xa8, 0xf2,
+	0x0d, 0xec, 0x3b, 0x21, 0xda, 0xc6, 0x39, 0x95, 0x6f, 0xc1, 0x82, 0x33, 0xc0, 0x23, 0xbe, 0xe8,
+	0x8b, 0xcc, 0xbd, 0xff, 0xfd, 0xd5, 0xec, 0xee, 0xcd, 0xe1, 0x9c, 0xa9, 0xcc, 0x46, 0x30, 0xfd,
+	0x09, 0xdd, 0xfd, 0xb5, 0x6e, 0xb7, 0x46, 0xc2, 0x03, 0x4c, 0xf6, 0x72, 0xd0, 0x5c, 0x82, 0x79,
+	0x6f, 0xe0, 0xf4, 0x10, 0x77, 0x0d, 0xd6, 0x88, 0xe4, 0xec, 0x8c, 0xfa, 0xfd, 0x1a, 0x09, 0xe9,
+	0xc2, 0x9d, 0x6a, 0xc5, 0x4d, 0x7e, 0x2a, 0x24, 0x2a, 0x05, 0x97, 0x9f, 0x1b, 0xcc, 0xf0, 0xa3,
+	0xce, 0xc0, 0x0b, 0x1b, 0x78, 0x78, 0x48, 0xbc, 0xde, 0x6e, 0xf8, 0x88, 0xe0, 0x21, 0x0e, 0x9c,
+	0x7e, 0x0e, 0x66, 0x2b, 0x70, 0xba, 0x8b, 0x02, 0x97, 0x78, 0xc3, 0xd0, 0xc3, 0x3e, 0xdf, 0x5d,
+	0x72, 0x97, 0x69, 0x42, 0xb1, 0xef, 0xf9, 0x7b, 0xdc, 0xb6, 0xf4, 0xb7, 0x7d, 0x05, 0xec, 0xc9,
+	0x2c, 0x04, 0xd9, 0xf7, 0xa8, 0x85, 0x1b, 0xbb, 0x8e, 0xdf, 0x43, 0x35, 0xe6, 0xdd, 0x47, 0x13,
+	0xdc, 0x50, 0x08, 0x6e, 0x48, 0xfb, 0xa4, 0x20, 0xef, 0x13, 0x6e, 0x30, 0x59, 0xb8, 0xd0, 0x7b,
+	0x9d, 0xae, 0x5e, 0x0b, 0xf5, 0xbc, 0x20, 0x44, 0xe4, 0x3e, 0x26, 0x0d, 0x76, 0x63, 0x4c, 0xd6,
+	0x6e, 0x2f, 0xc3, 0x8b, 0x99, 0x10, 0x21, 0xf3, 0x9f, 0x06, 0x9c, 0xa3, 0x23, 0x86, 0x98, 0x84,
+	0xcd, 0xe8, 0x7a, 0x99, 0x7e, 0x09, 0xd0, 0x1b, 0x48, 0xac, 0x76, 0xdc, 0x34, 0x6d, 0x38, 0x33,
+	0xec, 0x3b, 0x87, 0xa8, 0x1b, 0x79, 0x58, 0x50, 0x2b, 0x15, 0x56, 0x0a, 0xd7, 0x8a, 0x2d, 0xa5,
+	0x2f, 0x35, 0xa6, 0x5e, 0x2a, 0x8e, 0x8d, 0xa9, 0x9b, 0xaf, 0xc1, 0x49, 0x3c, 0x0a, 0x5d, 0x3c,
+	0x40, 0xf4, 0xf8, 0x38, 0xb7, 0x5a, 0xa9, 0xcc, 0x74, 0xcf, 0x56, 0x1e, 0x32, 0x54, 0x2b, 0x86,
+	0xdb, 0xab, 0x70, 0x5e, 0x9d, 0x97, 0x38, 0x45, 0xa4, 0x59, 0x18, 0xca, 0x2c, 0xec, 0x4f, 0x0d,
+	0x28, 0x0b, 0xfb, 0x73, 0x50, 0x84, 0x47, 0x64, 0x06, 0x4f, 0xa4, 0xe7, 0x05, 0x1b, 0xcd, 0xaf,
+	0x48, 0xd1, 0x8e, 0x50, 0x5d, 0x34, 0xc4, 0x81, 0x17, 0x5b, 0x3b, 0x6e, 0xa6, 0xfd, 0xb4, 0x38,
+	0xe6, 0xa7, 0xf6, 0x35, 0xb8, 0x3a, 0x9d, 0x93, 0xb0, 0xe5, 0x1b, 0x74, 0xca, 0xb5, 0x21, 0xf6,
+	0x7c, 0x75, 0x64, 0x3e, 0xd6, 0xf6, 0x0a, 0x5d, 0x8d, 0x0c, 0x79, 0x42, 0xe3, 0x1f, 0x0c, 0x38,
+	0x23, 0xae, 0xf9, 0x36, 0x9a, 0xb6, 0x0f, 0x4c, 0x28, 0xfa, 0xce, 0x00, 0x71, 0x25, 0xf4, 0xf7,
+	0xa4, 0x3d, 0x10, 0x2d, 0x4a, 0x10, 0x62, 0x72, 0xf8, 0x36, 0xf1, 0x42, 0x71, 0xfa, 0xca, 0x5d,
+	0x91, 0x2f, 0x45, 0xd7, 0x10, 0xf1, 0x3a, 0xa3, 0x10, 0x93, 0xa0, 0x34, 0xbf, 0x52, 0xb8, 0xb6,
+	0xd8, 0x52, 0xfa, 0xec, 0xf3, 0xb0, 0x24, 0x73, 0x13, 0xa4, 0xdf, 0xa1, 0xdb, 0xb7, 0xd6, 0xa5,
+	0x3e, 0xb7, 0x8d, 0xa7, 0xd3, 0x5e, 0x82, 0xf9, 0x00, 0x85, 0xc2, 0xe1, 0x59, 0x43, 0x3a, 0x75,
+	0x0a, 0x4a, 0x44, 0xc0, 0x36, 0xaf, 0x2c, 0x5a, 0x68, 0x7d, 0x95, 0xee, 0xb3, 0xfb, 0x9e, 0xef,
+	0xf4, 0xbd, 0x0f, 0x51, 0x0e, 0xa5, 0x76, 0x89, 0x9a, 0x57, 0x92, 0x20, 0x64, 0xaf, 0xc3, 0x22,
+	0x0b, 0x5e, 0xf2, 0x88, 0x5d, 0x87, 0xe7, 0x04, 0x58, 0xfb, 0xa6, 0xfd, 0x11, 0x5d, 0xe3, 0x16,
+	0x1a, 0x60, 0x76, 0x63, 0xdf, 0x27, 0x78, 0xf0, 0x34, 0x17, 0xb4, 0x0c, 0x97, 0xb3, 0xe4, 0x8b,
+	0x99, 0x3b, 0x70, 0x29, 0xf9, 0x9e, 0x18, 0x3f, 0x2f, 0x0d, 0x13, 0x8a, 0x51, 0xb0, 0xca, 0xdd,
+	0x91, 0xfe, 0xb6, 0x5f, 0x82, 0x6f, 0x4e, 0x51, 0x21, 0x98, 0xbc, 0xcf, 0x36, 0x5f, 0xb7, 0x2b,
+	0x8d, 0xc9, 0xe7, 0x5c, 0x59, 0x24, 0xf8, 0x56, 0x1c, 0x97, 0x2e, 0xf4, 0xdf, 0xa7, 0x96, 0x60,
+	0xc7, 0x44, 0x1b, 0xcd, 0x72, 0x75, 0x66, 0xbb, 0x03, 0x5b, 0xf1, 0x31, 0x39, 0x42, 0xcf, 0xc7,
+	0x2c, 0xb0, 0x8c, 0xb7, 0x55, 0xbf, 0xff, 0x70, 0x67, 0x67, 0xea, 0x09, 0x63, 0x42, 0x31, 0x32,
+	0x26, 0xd7, 0x42, 0x7f, 0x9b, 0x9b, 0x30, 0x3f, 0x24, 0x9e, 0x8b, 0xf2, 0x46, 0x37, 0x0c, 0x6d,
+	0x5f, 0xa6, 0x41, 0x43, 0x8a, 0x8a, 0x60, 0xfa, 0x1a, 0x40, 0x12, 0xd2, 0x4f, 0x21, 0x18, 0x9d,
+	0x36, 0x31, 0x58, 0xac, 0x86, 0xdc, 0x65, 0x2f, 0xd1, 0x29, 0x73, 0x49, 0x42, 0xfe, 0x23, 0xda,
+	0xcb, 0x1c, 0x63, 0x96, 0x85, 0x38, 0x5a, 0x0f, 0x9b, 0x4f, 0x4a, 0xa2, 0xd0, 0xf7, 0x2e, 0xd5,
+	0x97, 0x04, 0x4f, 0xf9, 0xbc, 0x2b, 0x33, 0x64, 0xe3, 0x9a, 0x53, 0xb2, 0x85, 0xe6, 0x1f, 0xd2,
+	0x27, 0x5b, 0xad, 0xdb, 0x6d, 0x47, 0x47, 0x70, 0x6e, 0xbd, 0xf4, 0x00, 0x8f, 0x9f, 0x89, 0xb4,
+	0x61, 0x5b, 0xf4, 0xd9, 0xa5, 0x48, 0x16, 0x5a, 0x09, 0xd5, 0xda, 0x46, 0x21, 0x5d, 0x75, 0x87,
+	0x78, 0xe1, 0x61, 0xbe, 0x10, 0x95, 0xb1, 0x29, 0xa4, 0xce, 0x1b, 0x42, 0x25, 0xf2, 0xcb, 0x85,
+	0xb7, 0x38, 0x1f, 0x45, 0xa7, 0xe0, 0xb3, 0x41, 0xf9, 0x30, 0x6f, 0x3b, 0x32, 0xf2, 0x9a, 0xc4,
+	0x87, 0x6b, 0x50, 0xa4, 0x08, 0x0d, 0xbf, 0x32, 0xd8, 0x47, 0x3c, 0xa0, 0xf1, 0xa7, 0xf2, 0xf1,
+	0xa8, 0x3b, 0x9c, 0x8d, 0x4a, 0xee, 0x70, 0x8e, 0xba, 0x0c, 0x8b, 0x3c, 0xaf, 0x20, 0x96, 0x20,
+	0xe9, 0x30, 0xcb, 0x00, 0xc1, 0xa8, 0xd7, 0x43, 0x81, 0x14, 0x7c, 0x48, 0x3d, 0xb6, 0x0d, 0x2b,
+	0x93, 0xf8, 0x08, 0xd2, 0xff, 0x60, 0xa4, 0x5b, 0x68, 0x1f, 0x39, 0xfd, 0xd9, 0x49, 0x3f, 0x48,
+	0x91, 0x3e, 0xb7, 0x5a, 0x9d, 0x31, 0xd4, 0x13, 0x0c, 0x92, 0x59, 0x9e, 0x87, 0x85, 0x00, 0xb9,
+	0x04, 0x89, 0x40, 0x82, 0xb5, 0xd4, 0xd9, 0x17, 0x53, 0xb3, 0xe7, 0xb3, 0xcb, 0x24, 0x2e, 0x66,
+	0xf7, 0x80, 0xde, 0x8e, 0x2d, 0x14, 0x84, 0x0e, 0x09, 0x8f, 0xb6, 0xba, 0xa2, 0xf0, 0x44, 0x5a,
+	0xe1, 0x25, 0xb8, 0x38, 0x26, 0x4c, 0x68, 0xba, 0xcd, 0xaf, 0xba, 0x03, 0xbc, 0x97, 0x38, 0x46,
+	0x14, 0xb7, 0x13, 0x87, 0xbe, 0x57, 0x26, 0x07, 0xf9, 0x57, 0xe1, 0xca, 0x34, 0xa4, 0xd0, 0xf0,
+	0x98, 0x3d, 0x4d, 0x1b, 0xd8, 0xdf, 0xf1, 0xc8, 0x20, 0x7f, 0xb0, 0x2f, 0x05, 0xe9, 0x85, 0x63,
+	0x05, 0xe9, 0xe6, 0x0f, 0x00, 0xf6, 0x71, 0xc8, 0xa3, 0x7f, 0xfa, 0x20, 0x38, 0xbd, 0x7a, 0x7d,
+	0x46, 0x61, 0x6d, 0xcf, 0xef, 0xf5, 0xd1, 0x5b, 0x38, 0x44, 0x2d, 0x49, 0x48, 0xfc, 0x7e, 0x92,
+	0xe6, 0x28, 0xe6, 0xbf, 0x49, 0x6d, 0xc9, 0x2e, 0xb5, 0x1d, 0xaf, 0x9f, 0x33, 0x6b, 0xc3, 0xad,
+	0xa8, 0x8a, 0x11, 0x3a, 0xb6, 0xe9, 0x21, 0xfd, 0x70, 0x88, 0xfc, 0x3a, 0xc6, 0xd1, 0x9b, 0xeb,
+	0x91, 0xe3, 0x4e, 0x7b, 0x59, 0x5f, 0x81, 0xb3, 0x9d, 0x64, 0xa0, 0xd0, 0xa5, 0x76, 0xda, 0x37,
+	0xe9, 0xf1, 0x9c, 0x92, 0xaa, 0x6c, 0x32, 0x4a, 0x2d, 0x28, 0x19, 0xf4, 0x4d, 0x15, 0x37, 0xed,
+	0x90, 0x06, 0x25, 0x71, 0x9e, 0xe2, 0x29, 0x32, 0x52, 0xb2, 0x23, 0x85, 0x54, 0x76, 0x84, 0x05,
+	0x2b, 0x19, 0x5a, 0xc5, 0x2a, 0xed, 0xb2, 0x60, 0x05, 0x45, 0x11, 0x46, 0x5b, 0x0a, 0xeb, 0x75,
+	0x2f, 0x95, 0xd4, 0x43, 0xa1, 0x30, 0xf6, 0x50, 0x88, 0xc3, 0x99, 0xb4, 0xa6, 0xd4, 0x63, 0x80,
+	0x7d, 0x3f, 0xf2, 0x2d, 0x3f, 0x31, 0x76, 0x9d, 0xf2, 0x92, 0x97, 0x45, 0x0b, 0xad, 0x5b, 0xb1,
+	0x27, 0xbe, 0x19, 0x20, 0xf2, 0x36, 0xea, 0x04, 0x5e, 0x88, 0xa6, 0x6f, 0xc5, 0x03, 0x36, 0x28,
+	0x4e, 0xbe, 0xf2, 0x66, 0xe2, 0x8b, 0x92, 0x20, 0xa1, 0xa5, 0x49, 0x53, 0x88, 0xfc, 0x63, 0xdd,
+	0xc3, 0x3d, 0xe2, 0x0c, 0x77, 0x0f, 0xa7, 0x9f, 0x5e, 0x9d, 0x78, 0x18, 0xd7, 0x94, 0x74, 0xd8,
+	0x2f, 0xd2, 0x58, 0x3b, 0x2d, 0x4e, 0x68, 0x1b, 0xd1, 0xeb, 0xb1, 0x39, 0xea, 0x87, 0xde, 0x0c,
+	0x29, 0xd1, 0x2d, 0x98, 0xdf, 0xa7, 0xc9, 0xc3, 0x13, 0x79, 0x37, 0x3d, 0xc3, 0xf3, 0xfb, 0x54,
+	0x51, 0x2b, 0x28, 0xfd, 0x99, 0x1d, 0x78, 0x7c, 0xeb, 0xcc, 0x70, 0xe0, 0xd1, 0x5c, 0x04, 0xa9,
+	0xc5, 0xab, 0xcc, 0x9b, 0xc9, 0x97, 0x7a, 0xfc, 0x7c, 0xe7, 0xcd, 0xc8, 0x01, 0xf9, 0xa0, 0x0d,
+	0xe4, 0xee, 0xf1, 0x94, 0x86, 0xdc, 0x95, 0x8c, 0xa8, 0xd3, 0x11, 0xf3, 0xf2, 0x08, 0xda, 0x65,
+	0xdf, 0xa0, 0x7e, 0x22, 0x93, 0x9c, 0x21, 0x55, 0xd1, 0xa6, 0xc9, 0x3b, 0xe6, 0x5c, 0x6f, 0x38,
+	0x53, 0x53, 0xe8, 0x13, 0x5f, 0x19, 0xf4, 0x3d, 0x5e, 0x48, 0xde, 0xe3, 0x3c, 0x3d, 0x97, 0x08,
+	0x8d, 0x79, 0xac, 0xfe, 0xe7, 0x65, 0x28, 0x34, 0x83, 0x9e, 0xf9, 0x91, 0x01, 0x20, 0x95, 0x0b,
+	0x5e, 0x99, 0xd1, 0x6a, 0x4a, 0x25, 0xc0, 0xfa, 0x6e, 0x1e, 0x94, 0x58, 0x92, 0x8f, 0x0d, 0x38,
+	0xab, 0x16, 0x0f, 0x6e, 0xcd, 0x2e, 0x4f, 0x01, 0x5a, 0xf7, 0x72, 0x02, 0x05, 0x97, 0x0f, 0xe1,
+	0x94, 0x70, 0xf5, 0xd5, 0xd9, 0x85, 0xc5, 0x18, 0xeb, 0x8e, 0x3e, 0x46, 0xe8, 0xfe, 0xb5, 0x01,
+	0xcf, 0xa4, 0xb3, 0xfb, 0x6b, 0xb3, 0xcb, 0x4b, 0x41, 0xad, 0x5a, 0x6e, 0xa8, 0x60, 0xf4, 0x0b,
+	0x03, 0xce, 0x28, 0x39, 0xf7, 0x9b, 0xb3, 0xcb, 0x94, 0x71, 0xd6, 0xf7, 0xf2, 0xe1, 0x14, 0x22,
+	0x4a, 0xfe, 0x5d, 0x83, 0x88, 0x8c, 0xd3, 0x21, 0x92, 0x95, 0x61, 0xa7, 0xdb, 0x45, 0xca, 0xaf,
+	0x6b, 0x6c, 0x97, 0x04, 0xa5, 0xb3, 0x5d, 0xc6, 0x13, 0xeb, 0xe6, 0x5f, 0x0c, 0xb8, 0x30, 0x29,
+	0xab, 0xae, 0x63, 0xf3, 0x6c, 0x11, 0xd6, 0xeb, 0xc7, 0x16, 0xa1, 0x58, 0x4d, 0xc9, 0xa9, 0x6b,
+	0x58, 0x4d, 0xc6, 0xe9, 0x58, 0x2d, 0x2b, 0xcd, 0x6e, 0xfe, 0xde, 0x00, 0x33, 0x23, 0xc9, 0xae,
+	0x61, 0x87, 0x71, 0xb4, 0xb5, 0x71, 0x1c, 0xb4, 0xa0, 0xf6, 0x33, 0x03, 0x4e, 0xcb, 0xa9, 0xfa,
+	0xef, 0xe8, 0x48, 0x15, 0x30, 0xeb, 0x6e, 0x2e, 0x98, 0x60, 0xf1, 0x37, 0x03, 0x2e, 0x4d, 0xcb,
+	0x91, 0x6f, 0xea, 0x3a, 0x45, 0xa6, 0x18, 0xab, 0xf9, 0x54, 0xc4, 0x08, 0xd6, 0x7f, 0x34, 0xe0,
+	0xf9, 0xac, 0xdc, 0xb8, 0xc6, 0x62, 0x64, 0xc0, 0xad, 0xcd, 0x63, 0xc1, 0x05, 0xbb, 0x9f, 0xc2,
+	0x62, 0x92, 0x45, 0xbf, 0xa1, 0x7b, 0x43, 0xb6, 0x51, 0x68, 0xad, 0xe7, 0x00, 0x29, 0x9b, 0x4f,
+	0xc9, 0x88, 0xdf, 0xd4, 0x3a, 0x75, 0x04, 0x4e, 0x67, 0xf3, 0x65, 0xa5, 0xc9, 0xa9, 0x87, 0xcb,
+	0x49, 0x72, 0x0d, 0x0f, 0x97, 0x60, 0x3a, 0x1e, 0x9e, 0x91, 0x50, 0x37, 0x43, 0x58, 0xe0, 0xd9,
+	0xf4, 0x97, 0xb5, 0x62, 0x84, 0x48, 0xf5, 0x6d, 0x5d, 0x84, 0xd0, 0xfa, 0x3b, 0x03, 0x9e, 0x1b,
+	0x4f, 0xa5, 0xaf, 0xeb, 0x6c, 0xd6, 0x14, 0xd8, 0x6a, 0x1c, 0x03, 0x2c, 0x78, 0x7d, 0x6e, 0x40,
+	0x69, 0x62, 0x8a, 0xbd, 0xae, 0xad, 0x61, 0x4c, 0x86, 0xf5, 0xfd, 0xe3, 0xcb, 0x50, 0xb7, 0x79,
+	0x46, 0x16, 0xfe, 0xae, 0x9e, 0x63, 0xa6, 0xe0, 0x5a, 0xdb, 0x7c, 0x72, 0x96, 0x9e, 0x9a, 0x78,
+	0x3c, 0x47, 0xbf, 0xae, 0x7b, 0xd2, 0x49, 0x60, 0x1d, 0x13, 0x4f, 0xcc, 0xea, 0xd3, 0x68, 0x32,
+	0x9d, 0xd2, 0x5f, 0xd3, 0x3f, 0x50, 0x38, 0x54, 0x27, 0x9a, 0x9c, 0x90, 0xbd, 0x37, 0x0f, 0xe0,
+	0x64, 0x9c, 0xba, 0xbf, 0xae, 0x1d, 0xa7, 0x5b, 0x6b, 0xda, 0x10, 0x65, 0x29, 0xd2, 0x49, 0xfd,
+	0x35, 0x5d, 0x07, 0xcd, 0xb5, 0x14, 0x13, 0x12, 0xff, 0x94, 0x51, 0x3a, 0xed, 0xbf, 0x96, 0x27,
+	0x2a, 0x64, 0xae, 0x5c, 0xcb, 0x0d, 0x55, 0x1e, 0x61, 0x6a, 0x39, 0xe0, 0x96, 0x96, 0xd0, 0x04,
+	0xa8, 0xf3, 0x08, 0xcb, 0x2c, 0x13, 0x50, 0x2e, 0x6a, 0x91, 0x40, 0x83, 0x8b, 0x02, 0xd4, 0xe1,
+	0x92, 0x59, 0x22, 0xa0, 0x5c, 0xd4, 0x02, 0xc1, 0x2d, 0xdd, 0x9d, 0x10, 0x07, 0x8c, 0xf7, 0x72,
+	0x02, 0x05, 0x97, 0x3f, 0x19, 0xf0, 0x42, 0x76, 0x25, 0x41, 0x47, 0x74, 0x96, 0x00, 0x6b, 0xeb,
+	0x98, 0x02, 0x14, 0x8e, 0xd9, 0x85, 0x83, 0x7b, 0x3a, 0xdb, 0x26, 0x43, 0x80, 0x0e, 0xc7, 0xa9,
+	0x15, 0x00, 0xf3, 0x13, 0x03, 0xce, 0xa5, 0xf2, 0xff, 0xb7, 0x75, 0x64, 0xcb, 0x48, 0xeb, 0xd5,
+	0xbc, 0x48, 0x41, 0xe7, 0xaf, 0x06, 0x5c, 0x9c, 0x5c, 0x24, 0xd0, 0xba, 0xef, 0x27, 0x08, 0xb1,
+	0x1e, 0x3c, 0x05, 0x21, 0xea, 0xb3, 0x4e, 0xae, 0x38, 0xe8, 0x3c, 0xeb, 0x24, 0x9c, 0xd6, 0xb3,
+	0x2e, 0x23, 0xfb, 0x4f, 0xed, 0x98, 0xca, 0xfd, 0xdf, 0xd6, 0xda, 0xef, 0x12, 0x52, 0xc7, 0x8e,
+	0xd9, 0x85, 0x02, 0x7a, 0xa8, 0xa7, 0xcb, 0x04, 0x1a, 0x87, 0x7a, 0x0a, 0xaa, 0x73, 0xa8, 0x4f,
+	0x2a, 0x23, 0x44, 0x91, 0x53, 0x56, 0xa9, 0xe0, 0xae, 0x7e, 0x3a, 0x46, 0x66, 0xb6, 0x79, 0x2c,
+	0xb8, 0x1a, 0x39, 0x8d, 0x15, 0x0c, 0xd6, 0xb5, 0xec, 0xa0, 0x82, 0xb5, 0x22, 0xa7, 0x49, 0x05,
+	0x04, 0xea, 0xdf, 0x4a, 0xf9, 0xe0, 0xa6, 0xae, 0x54, 0xfd, 0xb4, 0x45, 0x56, 0x4d, 0x21, 0xf6,
+	0x6f, 0xb9, 0xa2, 0xa0, 0xe7, 0xdf, 0x12, 0x52, 0xd3, 0xbf, 0x33, 0x8a, 0x0f, 0xe6, 0xa7, 0x06,
+	0x3c, 0x3b, 0x56, 0x7a, 0xb8, 0xa3, 0x2d, 0x56, 0x60, 0xad, 0x7a, 0x7e, 0xac, 0x72, 0x3f, 0xab,
+	0x15, 0x0a, 0x8d, 0xfb, 0x59, 0x01, 0xea, 0xdc, 0xcf, 0x99, 0xc5, 0x09, 0xea, 0x38, 0x4a, 0x65,
+	0x42, 0xc3, 0x71, 0x64, 0x9c, 0x8e, 0xe3, 0x64, 0x16, 0x19, 0x3e, 0x32, 0x00, 0xa4, 0x42, 0xc2,
+	0x2b, 0xba, 0x7e, 0x18, 0xa1, 0x74, 0xb2, 0x94, 0xe3, 0xf5, 0x85, 0x7a, 0xeb, 0x8b, 0xc7, 0x65,
+	0xe3, 0xcb, 0xc7, 0x65, 0xe3, 0x7f, 0x8f, 0xcb, 0xc6, 0x6f, 0x9e, 0x94, 0xe7, 0xbe, 0x7c, 0x52,
+	0x9e, 0xfb, 0xd7, 0x93, 0xf2, 0xdc, 0xbb, 0xb7, 0xa5, 0xff, 0x12, 0x34, 0xa6, 0xa1, 0xda, 0x10,
+	0x7f, 0xf8, 0xf0, 0x81, 0xfc, 0x37, 0x1a, 0x87, 0x43, 0x14, 0x74, 0x16, 0xe8, 0xdf, 0x38, 0xdc,
+	0xf8, 0x3a, 0x00, 0x00, 0xff, 0xff, 0xe0, 0x99, 0xfc, 0xd1, 0xc7, 0x31, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -4458,19 +4452,19 @@ type MsgClient interface {
 	ReportMatch(ctx context.Context, in *MsgReportMatch, opts ...grpc.CallOption) (*MsgReportMatchResponse, error)
 	SubmitMatchReporterProposal(ctx context.Context, in *MsgSubmitMatchReporterProposal, opts ...grpc.CallOption) (*MsgSubmitMatchReporterProposalResponse, error)
 	ApointMatchReporter(ctx context.Context, in *MsgApointMatchReporter, opts ...grpc.CallOption) (*MsgApointMatchReporterResponse, error)
-	CreateCollection(ctx context.Context, in *MsgCreateCollection, opts ...grpc.CallOption) (*MsgCreateCollectionResponse, error)
-	AddCardToCollection(ctx context.Context, in *MsgAddCardToCollection, opts ...grpc.CallOption) (*MsgAddCardToCollectionResponse, error)
-	FinalizeCollection(ctx context.Context, in *MsgFinalizeCollection, opts ...grpc.CallOption) (*MsgFinalizeCollectionResponse, error)
-	BuyCollection(ctx context.Context, in *MsgBuyCollection, opts ...grpc.CallOption) (*MsgBuyCollectionResponse, error)
-	RemoveCardFromCollection(ctx context.Context, in *MsgRemoveCardFromCollection, opts ...grpc.CallOption) (*MsgRemoveCardFromCollectionResponse, error)
-	RemoveContributorFromCollection(ctx context.Context, in *MsgRemoveContributorFromCollection, opts ...grpc.CallOption) (*MsgRemoveContributorFromCollectionResponse, error)
-	AddContributorToCollection(ctx context.Context, in *MsgAddContributorToCollection, opts ...grpc.CallOption) (*MsgAddContributorToCollectionResponse, error)
-	SubmitCollectionProposal(ctx context.Context, in *MsgSubmitCollectionProposal, opts ...grpc.CallOption) (*MsgSubmitCollectionProposalResponse, error)
+	CreateSet(ctx context.Context, in *MsgCreateSet, opts ...grpc.CallOption) (*MsgCreateSetResponse, error)
+	AddCardToSet(ctx context.Context, in *MsgAddCardToSet, opts ...grpc.CallOption) (*MsgAddCardToSetResponse, error)
+	FinalizeSet(ctx context.Context, in *MsgFinalizeSet, opts ...grpc.CallOption) (*MsgFinalizeSetResponse, error)
+	BuySet(ctx context.Context, in *MsgBuySet, opts ...grpc.CallOption) (*MsgBuySetResponse, error)
+	RemoveCardFromSet(ctx context.Context, in *MsgRemoveCardFromSet, opts ...grpc.CallOption) (*MsgRemoveCardFromSetResponse, error)
+	RemoveContributorFromSet(ctx context.Context, in *MsgRemoveContributorFromSet, opts ...grpc.CallOption) (*MsgRemoveContributorFromSetResponse, error)
+	AddContributorToSet(ctx context.Context, in *MsgAddContributorToSet, opts ...grpc.CallOption) (*MsgAddContributorToSetResponse, error)
+	SubmitSetProposal(ctx context.Context, in *MsgSubmitSetProposal, opts ...grpc.CallOption) (*MsgSubmitSetProposalResponse, error)
 	CreateSellOffer(ctx context.Context, in *MsgCreateSellOffer, opts ...grpc.CallOption) (*MsgCreateSellOfferResponse, error)
 	BuyCard(ctx context.Context, in *MsgBuyCard, opts ...grpc.CallOption) (*MsgBuyCardResponse, error)
 	RemoveSellOffer(ctx context.Context, in *MsgRemoveSellOffer, opts ...grpc.CallOption) (*MsgRemoveSellOfferResponse, error)
-	AddArtworkToCollection(ctx context.Context, in *MsgAddArtworkToCollection, opts ...grpc.CallOption) (*MsgAddArtworkToCollectionResponse, error)
-	AddStoryToCollection(ctx context.Context, in *MsgAddStoryToCollection, opts ...grpc.CallOption) (*MsgAddStoryToCollectionResponse, error)
+	AddArtworkToSet(ctx context.Context, in *MsgAddArtworkToSet, opts ...grpc.CallOption) (*MsgAddArtworkToSetResponse, error)
+	AddStoryToSet(ctx context.Context, in *MsgAddStoryToSet, opts ...grpc.CallOption) (*MsgAddStoryToSetResponse, error)
 	SetCardRarity(ctx context.Context, in *MsgSetCardRarity, opts ...grpc.CallOption) (*MsgSetCardRarityResponse, error)
 	CreateCouncil(ctx context.Context, in *MsgCreateCouncil, opts ...grpc.CallOption) (*MsgCreateCouncilResponse, error)
 	CommitCouncilResponse(ctx context.Context, in *MsgCommitCouncilResponse, opts ...grpc.CallOption) (*MsgCommitCouncilResponseResponse, error)
@@ -4481,14 +4475,14 @@ type MsgClient interface {
 	SetProfileCard(ctx context.Context, in *MsgSetProfileCard, opts ...grpc.CallOption) (*MsgSetProfileCardResponse, error)
 	OpenBoosterPack(ctx context.Context, in *MsgOpenBoosterPack, opts ...grpc.CallOption) (*MsgOpenBoosterPackResponse, error)
 	TransferBoosterPack(ctx context.Context, in *MsgTransferBoosterPack, opts ...grpc.CallOption) (*MsgTransferBoosterPackResponse, error)
-	SetCollectionStoryWriter(ctx context.Context, in *MsgSetCollectionStoryWriter, opts ...grpc.CallOption) (*MsgSetCollectionStoryWriterResponse, error)
-	SetCollectionArtist(ctx context.Context, in *MsgSetCollectionArtist, opts ...grpc.CallOption) (*MsgSetCollectionArtistResponse, error)
+	SetSetStoryWriter(ctx context.Context, in *MsgSetSetStoryWriter, opts ...grpc.CallOption) (*MsgSetSetStoryWriterResponse, error)
+	SetSetArtist(ctx context.Context, in *MsgSetSetArtist, opts ...grpc.CallOption) (*MsgSetSetArtistResponse, error)
 	SetUserWebsite(ctx context.Context, in *MsgSetUserWebsite, opts ...grpc.CallOption) (*MsgSetUserWebsiteResponse, error)
 	SetUserBiography(ctx context.Context, in *MsgSetUserBiography, opts ...grpc.CallOption) (*MsgSetUserBiographyResponse, error)
 	// this line is used by starport scaffolding # proto/tx/rpc
 	MultiVoteCard(ctx context.Context, in *MsgMultiVoteCard, opts ...grpc.CallOption) (*MsgMultiVoteCardResponse, error)
 	MsgOpenMatch(ctx context.Context, in *MsgMsgOpenMatch, opts ...grpc.CallOption) (*MsgMsgOpenMatchResponse, error)
-	SetCollectionName(ctx context.Context, in *MsgSetCollectionName, opts ...grpc.CallOption) (*MsgSetCollectionNameResponse, error)
+	SetSetName(ctx context.Context, in *MsgSetSetName, opts ...grpc.CallOption) (*MsgSetSetNameResponse, error)
 }
 
 type msgClient struct {
@@ -4616,72 +4610,72 @@ func (c *msgClient) ApointMatchReporter(ctx context.Context, in *MsgApointMatchR
 	return out, nil
 }
 
-func (c *msgClient) CreateCollection(ctx context.Context, in *MsgCreateCollection, opts ...grpc.CallOption) (*MsgCreateCollectionResponse, error) {
-	out := new(MsgCreateCollectionResponse)
-	err := c.cc.Invoke(ctx, "/DecentralCardGame.cardchain.cardchain.Msg/CreateCollection", in, out, opts...)
+func (c *msgClient) CreateSet(ctx context.Context, in *MsgCreateSet, opts ...grpc.CallOption) (*MsgCreateSetResponse, error) {
+	out := new(MsgCreateSetResponse)
+	err := c.cc.Invoke(ctx, "/DecentralCardGame.cardchain.cardchain.Msg/CreateSet", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *msgClient) AddCardToCollection(ctx context.Context, in *MsgAddCardToCollection, opts ...grpc.CallOption) (*MsgAddCardToCollectionResponse, error) {
-	out := new(MsgAddCardToCollectionResponse)
-	err := c.cc.Invoke(ctx, "/DecentralCardGame.cardchain.cardchain.Msg/AddCardToCollection", in, out, opts...)
+func (c *msgClient) AddCardToSet(ctx context.Context, in *MsgAddCardToSet, opts ...grpc.CallOption) (*MsgAddCardToSetResponse, error) {
+	out := new(MsgAddCardToSetResponse)
+	err := c.cc.Invoke(ctx, "/DecentralCardGame.cardchain.cardchain.Msg/AddCardToSet", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *msgClient) FinalizeCollection(ctx context.Context, in *MsgFinalizeCollection, opts ...grpc.CallOption) (*MsgFinalizeCollectionResponse, error) {
-	out := new(MsgFinalizeCollectionResponse)
-	err := c.cc.Invoke(ctx, "/DecentralCardGame.cardchain.cardchain.Msg/FinalizeCollection", in, out, opts...)
+func (c *msgClient) FinalizeSet(ctx context.Context, in *MsgFinalizeSet, opts ...grpc.CallOption) (*MsgFinalizeSetResponse, error) {
+	out := new(MsgFinalizeSetResponse)
+	err := c.cc.Invoke(ctx, "/DecentralCardGame.cardchain.cardchain.Msg/FinalizeSet", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *msgClient) BuyCollection(ctx context.Context, in *MsgBuyCollection, opts ...grpc.CallOption) (*MsgBuyCollectionResponse, error) {
-	out := new(MsgBuyCollectionResponse)
-	err := c.cc.Invoke(ctx, "/DecentralCardGame.cardchain.cardchain.Msg/BuyCollection", in, out, opts...)
+func (c *msgClient) BuySet(ctx context.Context, in *MsgBuySet, opts ...grpc.CallOption) (*MsgBuySetResponse, error) {
+	out := new(MsgBuySetResponse)
+	err := c.cc.Invoke(ctx, "/DecentralCardGame.cardchain.cardchain.Msg/BuySet", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *msgClient) RemoveCardFromCollection(ctx context.Context, in *MsgRemoveCardFromCollection, opts ...grpc.CallOption) (*MsgRemoveCardFromCollectionResponse, error) {
-	out := new(MsgRemoveCardFromCollectionResponse)
-	err := c.cc.Invoke(ctx, "/DecentralCardGame.cardchain.cardchain.Msg/RemoveCardFromCollection", in, out, opts...)
+func (c *msgClient) RemoveCardFromSet(ctx context.Context, in *MsgRemoveCardFromSet, opts ...grpc.CallOption) (*MsgRemoveCardFromSetResponse, error) {
+	out := new(MsgRemoveCardFromSetResponse)
+	err := c.cc.Invoke(ctx, "/DecentralCardGame.cardchain.cardchain.Msg/RemoveCardFromSet", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *msgClient) RemoveContributorFromCollection(ctx context.Context, in *MsgRemoveContributorFromCollection, opts ...grpc.CallOption) (*MsgRemoveContributorFromCollectionResponse, error) {
-	out := new(MsgRemoveContributorFromCollectionResponse)
-	err := c.cc.Invoke(ctx, "/DecentralCardGame.cardchain.cardchain.Msg/RemoveContributorFromCollection", in, out, opts...)
+func (c *msgClient) RemoveContributorFromSet(ctx context.Context, in *MsgRemoveContributorFromSet, opts ...grpc.CallOption) (*MsgRemoveContributorFromSetResponse, error) {
+	out := new(MsgRemoveContributorFromSetResponse)
+	err := c.cc.Invoke(ctx, "/DecentralCardGame.cardchain.cardchain.Msg/RemoveContributorFromSet", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *msgClient) AddContributorToCollection(ctx context.Context, in *MsgAddContributorToCollection, opts ...grpc.CallOption) (*MsgAddContributorToCollectionResponse, error) {
-	out := new(MsgAddContributorToCollectionResponse)
-	err := c.cc.Invoke(ctx, "/DecentralCardGame.cardchain.cardchain.Msg/AddContributorToCollection", in, out, opts...)
+func (c *msgClient) AddContributorToSet(ctx context.Context, in *MsgAddContributorToSet, opts ...grpc.CallOption) (*MsgAddContributorToSetResponse, error) {
+	out := new(MsgAddContributorToSetResponse)
+	err := c.cc.Invoke(ctx, "/DecentralCardGame.cardchain.cardchain.Msg/AddContributorToSet", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *msgClient) SubmitCollectionProposal(ctx context.Context, in *MsgSubmitCollectionProposal, opts ...grpc.CallOption) (*MsgSubmitCollectionProposalResponse, error) {
-	out := new(MsgSubmitCollectionProposalResponse)
-	err := c.cc.Invoke(ctx, "/DecentralCardGame.cardchain.cardchain.Msg/SubmitCollectionProposal", in, out, opts...)
+func (c *msgClient) SubmitSetProposal(ctx context.Context, in *MsgSubmitSetProposal, opts ...grpc.CallOption) (*MsgSubmitSetProposalResponse, error) {
+	out := new(MsgSubmitSetProposalResponse)
+	err := c.cc.Invoke(ctx, "/DecentralCardGame.cardchain.cardchain.Msg/SubmitSetProposal", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -4715,18 +4709,18 @@ func (c *msgClient) RemoveSellOffer(ctx context.Context, in *MsgRemoveSellOffer,
 	return out, nil
 }
 
-func (c *msgClient) AddArtworkToCollection(ctx context.Context, in *MsgAddArtworkToCollection, opts ...grpc.CallOption) (*MsgAddArtworkToCollectionResponse, error) {
-	out := new(MsgAddArtworkToCollectionResponse)
-	err := c.cc.Invoke(ctx, "/DecentralCardGame.cardchain.cardchain.Msg/AddArtworkToCollection", in, out, opts...)
+func (c *msgClient) AddArtworkToSet(ctx context.Context, in *MsgAddArtworkToSet, opts ...grpc.CallOption) (*MsgAddArtworkToSetResponse, error) {
+	out := new(MsgAddArtworkToSetResponse)
+	err := c.cc.Invoke(ctx, "/DecentralCardGame.cardchain.cardchain.Msg/AddArtworkToSet", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *msgClient) AddStoryToCollection(ctx context.Context, in *MsgAddStoryToCollection, opts ...grpc.CallOption) (*MsgAddStoryToCollectionResponse, error) {
-	out := new(MsgAddStoryToCollectionResponse)
-	err := c.cc.Invoke(ctx, "/DecentralCardGame.cardchain.cardchain.Msg/AddStoryToCollection", in, out, opts...)
+func (c *msgClient) AddStoryToSet(ctx context.Context, in *MsgAddStoryToSet, opts ...grpc.CallOption) (*MsgAddStoryToSetResponse, error) {
+	out := new(MsgAddStoryToSetResponse)
+	err := c.cc.Invoke(ctx, "/DecentralCardGame.cardchain.cardchain.Msg/AddStoryToSet", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -4823,18 +4817,18 @@ func (c *msgClient) TransferBoosterPack(ctx context.Context, in *MsgTransferBoos
 	return out, nil
 }
 
-func (c *msgClient) SetCollectionStoryWriter(ctx context.Context, in *MsgSetCollectionStoryWriter, opts ...grpc.CallOption) (*MsgSetCollectionStoryWriterResponse, error) {
-	out := new(MsgSetCollectionStoryWriterResponse)
-	err := c.cc.Invoke(ctx, "/DecentralCardGame.cardchain.cardchain.Msg/SetCollectionStoryWriter", in, out, opts...)
+func (c *msgClient) SetSetStoryWriter(ctx context.Context, in *MsgSetSetStoryWriter, opts ...grpc.CallOption) (*MsgSetSetStoryWriterResponse, error) {
+	out := new(MsgSetSetStoryWriterResponse)
+	err := c.cc.Invoke(ctx, "/DecentralCardGame.cardchain.cardchain.Msg/SetSetStoryWriter", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *msgClient) SetCollectionArtist(ctx context.Context, in *MsgSetCollectionArtist, opts ...grpc.CallOption) (*MsgSetCollectionArtistResponse, error) {
-	out := new(MsgSetCollectionArtistResponse)
-	err := c.cc.Invoke(ctx, "/DecentralCardGame.cardchain.cardchain.Msg/SetCollectionArtist", in, out, opts...)
+func (c *msgClient) SetSetArtist(ctx context.Context, in *MsgSetSetArtist, opts ...grpc.CallOption) (*MsgSetSetArtistResponse, error) {
+	out := new(MsgSetSetArtistResponse)
+	err := c.cc.Invoke(ctx, "/DecentralCardGame.cardchain.cardchain.Msg/SetSetArtist", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -4877,9 +4871,9 @@ func (c *msgClient) MsgOpenMatch(ctx context.Context, in *MsgMsgOpenMatch, opts 
 	return out, nil
 }
 
-func (c *msgClient) SetCollectionName(ctx context.Context, in *MsgSetCollectionName, opts ...grpc.CallOption) (*MsgSetCollectionNameResponse, error) {
-	out := new(MsgSetCollectionNameResponse)
-	err := c.cc.Invoke(ctx, "/DecentralCardGame.cardchain.cardchain.Msg/SetCollectionName", in, out, opts...)
+func (c *msgClient) SetSetName(ctx context.Context, in *MsgSetSetName, opts ...grpc.CallOption) (*MsgSetSetNameResponse, error) {
+	out := new(MsgSetSetNameResponse)
+	err := c.cc.Invoke(ctx, "/DecentralCardGame.cardchain.cardchain.Msg/SetSetName", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -4901,19 +4895,19 @@ type MsgServer interface {
 	ReportMatch(context.Context, *MsgReportMatch) (*MsgReportMatchResponse, error)
 	SubmitMatchReporterProposal(context.Context, *MsgSubmitMatchReporterProposal) (*MsgSubmitMatchReporterProposalResponse, error)
 	ApointMatchReporter(context.Context, *MsgApointMatchReporter) (*MsgApointMatchReporterResponse, error)
-	CreateCollection(context.Context, *MsgCreateCollection) (*MsgCreateCollectionResponse, error)
-	AddCardToCollection(context.Context, *MsgAddCardToCollection) (*MsgAddCardToCollectionResponse, error)
-	FinalizeCollection(context.Context, *MsgFinalizeCollection) (*MsgFinalizeCollectionResponse, error)
-	BuyCollection(context.Context, *MsgBuyCollection) (*MsgBuyCollectionResponse, error)
-	RemoveCardFromCollection(context.Context, *MsgRemoveCardFromCollection) (*MsgRemoveCardFromCollectionResponse, error)
-	RemoveContributorFromCollection(context.Context, *MsgRemoveContributorFromCollection) (*MsgRemoveContributorFromCollectionResponse, error)
-	AddContributorToCollection(context.Context, *MsgAddContributorToCollection) (*MsgAddContributorToCollectionResponse, error)
-	SubmitCollectionProposal(context.Context, *MsgSubmitCollectionProposal) (*MsgSubmitCollectionProposalResponse, error)
+	CreateSet(context.Context, *MsgCreateSet) (*MsgCreateSetResponse, error)
+	AddCardToSet(context.Context, *MsgAddCardToSet) (*MsgAddCardToSetResponse, error)
+	FinalizeSet(context.Context, *MsgFinalizeSet) (*MsgFinalizeSetResponse, error)
+	BuySet(context.Context, *MsgBuySet) (*MsgBuySetResponse, error)
+	RemoveCardFromSet(context.Context, *MsgRemoveCardFromSet) (*MsgRemoveCardFromSetResponse, error)
+	RemoveContributorFromSet(context.Context, *MsgRemoveContributorFromSet) (*MsgRemoveContributorFromSetResponse, error)
+	AddContributorToSet(context.Context, *MsgAddContributorToSet) (*MsgAddContributorToSetResponse, error)
+	SubmitSetProposal(context.Context, *MsgSubmitSetProposal) (*MsgSubmitSetProposalResponse, error)
 	CreateSellOffer(context.Context, *MsgCreateSellOffer) (*MsgCreateSellOfferResponse, error)
 	BuyCard(context.Context, *MsgBuyCard) (*MsgBuyCardResponse, error)
 	RemoveSellOffer(context.Context, *MsgRemoveSellOffer) (*MsgRemoveSellOfferResponse, error)
-	AddArtworkToCollection(context.Context, *MsgAddArtworkToCollection) (*MsgAddArtworkToCollectionResponse, error)
-	AddStoryToCollection(context.Context, *MsgAddStoryToCollection) (*MsgAddStoryToCollectionResponse, error)
+	AddArtworkToSet(context.Context, *MsgAddArtworkToSet) (*MsgAddArtworkToSetResponse, error)
+	AddStoryToSet(context.Context, *MsgAddStoryToSet) (*MsgAddStoryToSetResponse, error)
 	SetCardRarity(context.Context, *MsgSetCardRarity) (*MsgSetCardRarityResponse, error)
 	CreateCouncil(context.Context, *MsgCreateCouncil) (*MsgCreateCouncilResponse, error)
 	CommitCouncilResponse(context.Context, *MsgCommitCouncilResponse) (*MsgCommitCouncilResponseResponse, error)
@@ -4924,14 +4918,14 @@ type MsgServer interface {
 	SetProfileCard(context.Context, *MsgSetProfileCard) (*MsgSetProfileCardResponse, error)
 	OpenBoosterPack(context.Context, *MsgOpenBoosterPack) (*MsgOpenBoosterPackResponse, error)
 	TransferBoosterPack(context.Context, *MsgTransferBoosterPack) (*MsgTransferBoosterPackResponse, error)
-	SetCollectionStoryWriter(context.Context, *MsgSetCollectionStoryWriter) (*MsgSetCollectionStoryWriterResponse, error)
-	SetCollectionArtist(context.Context, *MsgSetCollectionArtist) (*MsgSetCollectionArtistResponse, error)
+	SetSetStoryWriter(context.Context, *MsgSetSetStoryWriter) (*MsgSetSetStoryWriterResponse, error)
+	SetSetArtist(context.Context, *MsgSetSetArtist) (*MsgSetSetArtistResponse, error)
 	SetUserWebsite(context.Context, *MsgSetUserWebsite) (*MsgSetUserWebsiteResponse, error)
 	SetUserBiography(context.Context, *MsgSetUserBiography) (*MsgSetUserBiographyResponse, error)
 	// this line is used by starport scaffolding # proto/tx/rpc
 	MultiVoteCard(context.Context, *MsgMultiVoteCard) (*MsgMultiVoteCardResponse, error)
 	MsgOpenMatch(context.Context, *MsgMsgOpenMatch) (*MsgMsgOpenMatchResponse, error)
-	SetCollectionName(context.Context, *MsgSetCollectionName) (*MsgSetCollectionNameResponse, error)
+	SetSetName(context.Context, *MsgSetSetName) (*MsgSetSetNameResponse, error)
 }
 
 // UnimplementedMsgServer can be embedded to have forward compatible implementations.
@@ -4977,29 +4971,29 @@ func (*UnimplementedMsgServer) SubmitMatchReporterProposal(ctx context.Context, 
 func (*UnimplementedMsgServer) ApointMatchReporter(ctx context.Context, req *MsgApointMatchReporter) (*MsgApointMatchReporterResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ApointMatchReporter not implemented")
 }
-func (*UnimplementedMsgServer) CreateCollection(ctx context.Context, req *MsgCreateCollection) (*MsgCreateCollectionResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CreateCollection not implemented")
+func (*UnimplementedMsgServer) CreateSet(ctx context.Context, req *MsgCreateSet) (*MsgCreateSetResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateSet not implemented")
 }
-func (*UnimplementedMsgServer) AddCardToCollection(ctx context.Context, req *MsgAddCardToCollection) (*MsgAddCardToCollectionResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method AddCardToCollection not implemented")
+func (*UnimplementedMsgServer) AddCardToSet(ctx context.Context, req *MsgAddCardToSet) (*MsgAddCardToSetResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AddCardToSet not implemented")
 }
-func (*UnimplementedMsgServer) FinalizeCollection(ctx context.Context, req *MsgFinalizeCollection) (*MsgFinalizeCollectionResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method FinalizeCollection not implemented")
+func (*UnimplementedMsgServer) FinalizeSet(ctx context.Context, req *MsgFinalizeSet) (*MsgFinalizeSetResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method FinalizeSet not implemented")
 }
-func (*UnimplementedMsgServer) BuyCollection(ctx context.Context, req *MsgBuyCollection) (*MsgBuyCollectionResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method BuyCollection not implemented")
+func (*UnimplementedMsgServer) BuySet(ctx context.Context, req *MsgBuySet) (*MsgBuySetResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method BuySet not implemented")
 }
-func (*UnimplementedMsgServer) RemoveCardFromCollection(ctx context.Context, req *MsgRemoveCardFromCollection) (*MsgRemoveCardFromCollectionResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method RemoveCardFromCollection not implemented")
+func (*UnimplementedMsgServer) RemoveCardFromSet(ctx context.Context, req *MsgRemoveCardFromSet) (*MsgRemoveCardFromSetResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RemoveCardFromSet not implemented")
 }
-func (*UnimplementedMsgServer) RemoveContributorFromCollection(ctx context.Context, req *MsgRemoveContributorFromCollection) (*MsgRemoveContributorFromCollectionResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method RemoveContributorFromCollection not implemented")
+func (*UnimplementedMsgServer) RemoveContributorFromSet(ctx context.Context, req *MsgRemoveContributorFromSet) (*MsgRemoveContributorFromSetResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RemoveContributorFromSet not implemented")
 }
-func (*UnimplementedMsgServer) AddContributorToCollection(ctx context.Context, req *MsgAddContributorToCollection) (*MsgAddContributorToCollectionResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method AddContributorToCollection not implemented")
+func (*UnimplementedMsgServer) AddContributorToSet(ctx context.Context, req *MsgAddContributorToSet) (*MsgAddContributorToSetResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AddContributorToSet not implemented")
 }
-func (*UnimplementedMsgServer) SubmitCollectionProposal(ctx context.Context, req *MsgSubmitCollectionProposal) (*MsgSubmitCollectionProposalResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method SubmitCollectionProposal not implemented")
+func (*UnimplementedMsgServer) SubmitSetProposal(ctx context.Context, req *MsgSubmitSetProposal) (*MsgSubmitSetProposalResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SubmitSetProposal not implemented")
 }
 func (*UnimplementedMsgServer) CreateSellOffer(ctx context.Context, req *MsgCreateSellOffer) (*MsgCreateSellOfferResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateSellOffer not implemented")
@@ -5010,11 +5004,11 @@ func (*UnimplementedMsgServer) BuyCard(ctx context.Context, req *MsgBuyCard) (*M
 func (*UnimplementedMsgServer) RemoveSellOffer(ctx context.Context, req *MsgRemoveSellOffer) (*MsgRemoveSellOfferResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method RemoveSellOffer not implemented")
 }
-func (*UnimplementedMsgServer) AddArtworkToCollection(ctx context.Context, req *MsgAddArtworkToCollection) (*MsgAddArtworkToCollectionResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method AddArtworkToCollection not implemented")
+func (*UnimplementedMsgServer) AddArtworkToSet(ctx context.Context, req *MsgAddArtworkToSet) (*MsgAddArtworkToSetResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AddArtworkToSet not implemented")
 }
-func (*UnimplementedMsgServer) AddStoryToCollection(ctx context.Context, req *MsgAddStoryToCollection) (*MsgAddStoryToCollectionResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method AddStoryToCollection not implemented")
+func (*UnimplementedMsgServer) AddStoryToSet(ctx context.Context, req *MsgAddStoryToSet) (*MsgAddStoryToSetResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AddStoryToSet not implemented")
 }
 func (*UnimplementedMsgServer) SetCardRarity(ctx context.Context, req *MsgSetCardRarity) (*MsgSetCardRarityResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SetCardRarity not implemented")
@@ -5046,11 +5040,11 @@ func (*UnimplementedMsgServer) OpenBoosterPack(ctx context.Context, req *MsgOpen
 func (*UnimplementedMsgServer) TransferBoosterPack(ctx context.Context, req *MsgTransferBoosterPack) (*MsgTransferBoosterPackResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method TransferBoosterPack not implemented")
 }
-func (*UnimplementedMsgServer) SetCollectionStoryWriter(ctx context.Context, req *MsgSetCollectionStoryWriter) (*MsgSetCollectionStoryWriterResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method SetCollectionStoryWriter not implemented")
+func (*UnimplementedMsgServer) SetSetStoryWriter(ctx context.Context, req *MsgSetSetStoryWriter) (*MsgSetSetStoryWriterResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SetSetStoryWriter not implemented")
 }
-func (*UnimplementedMsgServer) SetCollectionArtist(ctx context.Context, req *MsgSetCollectionArtist) (*MsgSetCollectionArtistResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method SetCollectionArtist not implemented")
+func (*UnimplementedMsgServer) SetSetArtist(ctx context.Context, req *MsgSetSetArtist) (*MsgSetSetArtistResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SetSetArtist not implemented")
 }
 func (*UnimplementedMsgServer) SetUserWebsite(ctx context.Context, req *MsgSetUserWebsite) (*MsgSetUserWebsiteResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SetUserWebsite not implemented")
@@ -5064,8 +5058,8 @@ func (*UnimplementedMsgServer) MultiVoteCard(ctx context.Context, req *MsgMultiV
 func (*UnimplementedMsgServer) MsgOpenMatch(ctx context.Context, req *MsgMsgOpenMatch) (*MsgMsgOpenMatchResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method MsgOpenMatch not implemented")
 }
-func (*UnimplementedMsgServer) SetCollectionName(ctx context.Context, req *MsgSetCollectionName) (*MsgSetCollectionNameResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method SetCollectionName not implemented")
+func (*UnimplementedMsgServer) SetSetName(ctx context.Context, req *MsgSetSetName) (*MsgSetSetNameResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SetSetName not implemented")
 }
 
 func RegisterMsgServer(s grpc1.Server, srv MsgServer) {
@@ -5306,146 +5300,146 @@ func _Msg_ApointMatchReporter_Handler(srv interface{}, ctx context.Context, dec 
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Msg_CreateCollection_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(MsgCreateCollection)
+func _Msg_CreateSet_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgCreateSet)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(MsgServer).CreateCollection(ctx, in)
+		return srv.(MsgServer).CreateSet(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/DecentralCardGame.cardchain.cardchain.Msg/CreateCollection",
+		FullMethod: "/DecentralCardGame.cardchain.cardchain.Msg/CreateSet",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MsgServer).CreateCollection(ctx, req.(*MsgCreateCollection))
+		return srv.(MsgServer).CreateSet(ctx, req.(*MsgCreateSet))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Msg_AddCardToCollection_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(MsgAddCardToCollection)
+func _Msg_AddCardToSet_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgAddCardToSet)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(MsgServer).AddCardToCollection(ctx, in)
+		return srv.(MsgServer).AddCardToSet(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/DecentralCardGame.cardchain.cardchain.Msg/AddCardToCollection",
+		FullMethod: "/DecentralCardGame.cardchain.cardchain.Msg/AddCardToSet",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MsgServer).AddCardToCollection(ctx, req.(*MsgAddCardToCollection))
+		return srv.(MsgServer).AddCardToSet(ctx, req.(*MsgAddCardToSet))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Msg_FinalizeCollection_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(MsgFinalizeCollection)
+func _Msg_FinalizeSet_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgFinalizeSet)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(MsgServer).FinalizeCollection(ctx, in)
+		return srv.(MsgServer).FinalizeSet(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/DecentralCardGame.cardchain.cardchain.Msg/FinalizeCollection",
+		FullMethod: "/DecentralCardGame.cardchain.cardchain.Msg/FinalizeSet",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MsgServer).FinalizeCollection(ctx, req.(*MsgFinalizeCollection))
+		return srv.(MsgServer).FinalizeSet(ctx, req.(*MsgFinalizeSet))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Msg_BuyCollection_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(MsgBuyCollection)
+func _Msg_BuySet_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgBuySet)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(MsgServer).BuyCollection(ctx, in)
+		return srv.(MsgServer).BuySet(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/DecentralCardGame.cardchain.cardchain.Msg/BuyCollection",
+		FullMethod: "/DecentralCardGame.cardchain.cardchain.Msg/BuySet",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MsgServer).BuyCollection(ctx, req.(*MsgBuyCollection))
+		return srv.(MsgServer).BuySet(ctx, req.(*MsgBuySet))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Msg_RemoveCardFromCollection_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(MsgRemoveCardFromCollection)
+func _Msg_RemoveCardFromSet_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgRemoveCardFromSet)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(MsgServer).RemoveCardFromCollection(ctx, in)
+		return srv.(MsgServer).RemoveCardFromSet(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/DecentralCardGame.cardchain.cardchain.Msg/RemoveCardFromCollection",
+		FullMethod: "/DecentralCardGame.cardchain.cardchain.Msg/RemoveCardFromSet",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MsgServer).RemoveCardFromCollection(ctx, req.(*MsgRemoveCardFromCollection))
+		return srv.(MsgServer).RemoveCardFromSet(ctx, req.(*MsgRemoveCardFromSet))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Msg_RemoveContributorFromCollection_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(MsgRemoveContributorFromCollection)
+func _Msg_RemoveContributorFromSet_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgRemoveContributorFromSet)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(MsgServer).RemoveContributorFromCollection(ctx, in)
+		return srv.(MsgServer).RemoveContributorFromSet(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/DecentralCardGame.cardchain.cardchain.Msg/RemoveContributorFromCollection",
+		FullMethod: "/DecentralCardGame.cardchain.cardchain.Msg/RemoveContributorFromSet",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MsgServer).RemoveContributorFromCollection(ctx, req.(*MsgRemoveContributorFromCollection))
+		return srv.(MsgServer).RemoveContributorFromSet(ctx, req.(*MsgRemoveContributorFromSet))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Msg_AddContributorToCollection_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(MsgAddContributorToCollection)
+func _Msg_AddContributorToSet_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgAddContributorToSet)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(MsgServer).AddContributorToCollection(ctx, in)
+		return srv.(MsgServer).AddContributorToSet(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/DecentralCardGame.cardchain.cardchain.Msg/AddContributorToCollection",
+		FullMethod: "/DecentralCardGame.cardchain.cardchain.Msg/AddContributorToSet",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MsgServer).AddContributorToCollection(ctx, req.(*MsgAddContributorToCollection))
+		return srv.(MsgServer).AddContributorToSet(ctx, req.(*MsgAddContributorToSet))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Msg_SubmitCollectionProposal_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(MsgSubmitCollectionProposal)
+func _Msg_SubmitSetProposal_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgSubmitSetProposal)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(MsgServer).SubmitCollectionProposal(ctx, in)
+		return srv.(MsgServer).SubmitSetProposal(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/DecentralCardGame.cardchain.cardchain.Msg/SubmitCollectionProposal",
+		FullMethod: "/DecentralCardGame.cardchain.cardchain.Msg/SubmitSetProposal",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MsgServer).SubmitCollectionProposal(ctx, req.(*MsgSubmitCollectionProposal))
+		return srv.(MsgServer).SubmitSetProposal(ctx, req.(*MsgSubmitSetProposal))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -5504,38 +5498,38 @@ func _Msg_RemoveSellOffer_Handler(srv interface{}, ctx context.Context, dec func
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Msg_AddArtworkToCollection_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(MsgAddArtworkToCollection)
+func _Msg_AddArtworkToSet_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgAddArtworkToSet)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(MsgServer).AddArtworkToCollection(ctx, in)
+		return srv.(MsgServer).AddArtworkToSet(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/DecentralCardGame.cardchain.cardchain.Msg/AddArtworkToCollection",
+		FullMethod: "/DecentralCardGame.cardchain.cardchain.Msg/AddArtworkToSet",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MsgServer).AddArtworkToCollection(ctx, req.(*MsgAddArtworkToCollection))
+		return srv.(MsgServer).AddArtworkToSet(ctx, req.(*MsgAddArtworkToSet))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Msg_AddStoryToCollection_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(MsgAddStoryToCollection)
+func _Msg_AddStoryToSet_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgAddStoryToSet)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(MsgServer).AddStoryToCollection(ctx, in)
+		return srv.(MsgServer).AddStoryToSet(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/DecentralCardGame.cardchain.cardchain.Msg/AddStoryToCollection",
+		FullMethod: "/DecentralCardGame.cardchain.cardchain.Msg/AddStoryToSet",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MsgServer).AddStoryToCollection(ctx, req.(*MsgAddStoryToCollection))
+		return srv.(MsgServer).AddStoryToSet(ctx, req.(*MsgAddStoryToSet))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -5720,38 +5714,38 @@ func _Msg_TransferBoosterPack_Handler(srv interface{}, ctx context.Context, dec 
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Msg_SetCollectionStoryWriter_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(MsgSetCollectionStoryWriter)
+func _Msg_SetSetStoryWriter_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgSetSetStoryWriter)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(MsgServer).SetCollectionStoryWriter(ctx, in)
+		return srv.(MsgServer).SetSetStoryWriter(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/DecentralCardGame.cardchain.cardchain.Msg/SetCollectionStoryWriter",
+		FullMethod: "/DecentralCardGame.cardchain.cardchain.Msg/SetSetStoryWriter",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MsgServer).SetCollectionStoryWriter(ctx, req.(*MsgSetCollectionStoryWriter))
+		return srv.(MsgServer).SetSetStoryWriter(ctx, req.(*MsgSetSetStoryWriter))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Msg_SetCollectionArtist_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(MsgSetCollectionArtist)
+func _Msg_SetSetArtist_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgSetSetArtist)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(MsgServer).SetCollectionArtist(ctx, in)
+		return srv.(MsgServer).SetSetArtist(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/DecentralCardGame.cardchain.cardchain.Msg/SetCollectionArtist",
+		FullMethod: "/DecentralCardGame.cardchain.cardchain.Msg/SetSetArtist",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MsgServer).SetCollectionArtist(ctx, req.(*MsgSetCollectionArtist))
+		return srv.(MsgServer).SetSetArtist(ctx, req.(*MsgSetSetArtist))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -5828,20 +5822,20 @@ func _Msg_MsgOpenMatch_Handler(srv interface{}, ctx context.Context, dec func(in
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Msg_SetCollectionName_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(MsgSetCollectionName)
+func _Msg_SetSetName_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgSetSetName)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(MsgServer).SetCollectionName(ctx, in)
+		return srv.(MsgServer).SetSetName(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/DecentralCardGame.cardchain.cardchain.Msg/SetCollectionName",
+		FullMethod: "/DecentralCardGame.cardchain.cardchain.Msg/SetSetName",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MsgServer).SetCollectionName(ctx, req.(*MsgSetCollectionName))
+		return srv.(MsgServer).SetSetName(ctx, req.(*MsgSetSetName))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -5903,36 +5897,36 @@ var _Msg_serviceDesc = grpc.ServiceDesc{
 			Handler:    _Msg_ApointMatchReporter_Handler,
 		},
 		{
-			MethodName: "CreateCollection",
-			Handler:    _Msg_CreateCollection_Handler,
+			MethodName: "CreateSet",
+			Handler:    _Msg_CreateSet_Handler,
 		},
 		{
-			MethodName: "AddCardToCollection",
-			Handler:    _Msg_AddCardToCollection_Handler,
+			MethodName: "AddCardToSet",
+			Handler:    _Msg_AddCardToSet_Handler,
 		},
 		{
-			MethodName: "FinalizeCollection",
-			Handler:    _Msg_FinalizeCollection_Handler,
+			MethodName: "FinalizeSet",
+			Handler:    _Msg_FinalizeSet_Handler,
 		},
 		{
-			MethodName: "BuyCollection",
-			Handler:    _Msg_BuyCollection_Handler,
+			MethodName: "BuySet",
+			Handler:    _Msg_BuySet_Handler,
 		},
 		{
-			MethodName: "RemoveCardFromCollection",
-			Handler:    _Msg_RemoveCardFromCollection_Handler,
+			MethodName: "RemoveCardFromSet",
+			Handler:    _Msg_RemoveCardFromSet_Handler,
 		},
 		{
-			MethodName: "RemoveContributorFromCollection",
-			Handler:    _Msg_RemoveContributorFromCollection_Handler,
+			MethodName: "RemoveContributorFromSet",
+			Handler:    _Msg_RemoveContributorFromSet_Handler,
 		},
 		{
-			MethodName: "AddContributorToCollection",
-			Handler:    _Msg_AddContributorToCollection_Handler,
+			MethodName: "AddContributorToSet",
+			Handler:    _Msg_AddContributorToSet_Handler,
 		},
 		{
-			MethodName: "SubmitCollectionProposal",
-			Handler:    _Msg_SubmitCollectionProposal_Handler,
+			MethodName: "SubmitSetProposal",
+			Handler:    _Msg_SubmitSetProposal_Handler,
 		},
 		{
 			MethodName: "CreateSellOffer",
@@ -5947,12 +5941,12 @@ var _Msg_serviceDesc = grpc.ServiceDesc{
 			Handler:    _Msg_RemoveSellOffer_Handler,
 		},
 		{
-			MethodName: "AddArtworkToCollection",
-			Handler:    _Msg_AddArtworkToCollection_Handler,
+			MethodName: "AddArtworkToSet",
+			Handler:    _Msg_AddArtworkToSet_Handler,
 		},
 		{
-			MethodName: "AddStoryToCollection",
-			Handler:    _Msg_AddStoryToCollection_Handler,
+			MethodName: "AddStoryToSet",
+			Handler:    _Msg_AddStoryToSet_Handler,
 		},
 		{
 			MethodName: "SetCardRarity",
@@ -5995,12 +5989,12 @@ var _Msg_serviceDesc = grpc.ServiceDesc{
 			Handler:    _Msg_TransferBoosterPack_Handler,
 		},
 		{
-			MethodName: "SetCollectionStoryWriter",
-			Handler:    _Msg_SetCollectionStoryWriter_Handler,
+			MethodName: "SetSetStoryWriter",
+			Handler:    _Msg_SetSetStoryWriter_Handler,
 		},
 		{
-			MethodName: "SetCollectionArtist",
-			Handler:    _Msg_SetCollectionArtist_Handler,
+			MethodName: "SetSetArtist",
+			Handler:    _Msg_SetSetArtist_Handler,
 		},
 		{
 			MethodName: "SetUserWebsite",
@@ -6019,8 +6013,8 @@ var _Msg_serviceDesc = grpc.ServiceDesc{
 			Handler:    _Msg_MsgOpenMatch_Handler,
 		},
 		{
-			MethodName: "SetCollectionName",
-			Handler:    _Msg_SetCollectionName_Handler,
+			MethodName: "SetSetName",
+			Handler:    _Msg_SetSetName_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
@@ -6972,7 +6966,7 @@ func (m *MsgApointMatchReporterResponse) MarshalToSizedBuffer(dAtA []byte) (int,
 	return len(dAtA) - i, nil
 }
 
-func (m *MsgCreateCollection) Marshal() (dAtA []byte, err error) {
+func (m *MsgCreateSet) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -6982,12 +6976,12 @@ func (m *MsgCreateCollection) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *MsgCreateCollection) MarshalTo(dAtA []byte) (int, error) {
+func (m *MsgCreateSet) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *MsgCreateCollection) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *MsgCreateSet) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
@@ -7032,7 +7026,7 @@ func (m *MsgCreateCollection) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	return len(dAtA) - i, nil
 }
 
-func (m *MsgCreateCollectionResponse) Marshal() (dAtA []byte, err error) {
+func (m *MsgCreateSetResponse) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -7042,12 +7036,12 @@ func (m *MsgCreateCollectionResponse) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *MsgCreateCollectionResponse) MarshalTo(dAtA []byte) (int, error) {
+func (m *MsgCreateSetResponse) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *MsgCreateCollectionResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *MsgCreateSetResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
@@ -7055,7 +7049,7 @@ func (m *MsgCreateCollectionResponse) MarshalToSizedBuffer(dAtA []byte) (int, er
 	return len(dAtA) - i, nil
 }
 
-func (m *MsgAddCardToCollection) Marshal() (dAtA []byte, err error) {
+func (m *MsgAddCardToSet) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -7065,12 +7059,12 @@ func (m *MsgAddCardToCollection) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *MsgAddCardToCollection) MarshalTo(dAtA []byte) (int, error) {
+func (m *MsgAddCardToSet) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *MsgAddCardToCollection) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *MsgAddCardToSet) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
@@ -7080,8 +7074,8 @@ func (m *MsgAddCardToCollection) MarshalToSizedBuffer(dAtA []byte) (int, error) 
 		i--
 		dAtA[i] = 0x18
 	}
-	if m.CollectionId != 0 {
-		i = encodeVarintTx(dAtA, i, uint64(m.CollectionId))
+	if m.SetId != 0 {
+		i = encodeVarintTx(dAtA, i, uint64(m.SetId))
 		i--
 		dAtA[i] = 0x10
 	}
@@ -7095,7 +7089,7 @@ func (m *MsgAddCardToCollection) MarshalToSizedBuffer(dAtA []byte) (int, error) 
 	return len(dAtA) - i, nil
 }
 
-func (m *MsgAddCardToCollectionResponse) Marshal() (dAtA []byte, err error) {
+func (m *MsgAddCardToSetResponse) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -7105,12 +7099,12 @@ func (m *MsgAddCardToCollectionResponse) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *MsgAddCardToCollectionResponse) MarshalTo(dAtA []byte) (int, error) {
+func (m *MsgAddCardToSetResponse) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *MsgAddCardToCollectionResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *MsgAddCardToSetResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
@@ -7118,7 +7112,7 @@ func (m *MsgAddCardToCollectionResponse) MarshalToSizedBuffer(dAtA []byte) (int,
 	return len(dAtA) - i, nil
 }
 
-func (m *MsgFinalizeCollection) Marshal() (dAtA []byte, err error) {
+func (m *MsgFinalizeSet) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -7128,18 +7122,18 @@ func (m *MsgFinalizeCollection) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *MsgFinalizeCollection) MarshalTo(dAtA []byte) (int, error) {
+func (m *MsgFinalizeSet) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *MsgFinalizeCollection) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *MsgFinalizeSet) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
 	_ = l
-	if m.CollectionId != 0 {
-		i = encodeVarintTx(dAtA, i, uint64(m.CollectionId))
+	if m.SetId != 0 {
+		i = encodeVarintTx(dAtA, i, uint64(m.SetId))
 		i--
 		dAtA[i] = 0x10
 	}
@@ -7153,7 +7147,7 @@ func (m *MsgFinalizeCollection) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	return len(dAtA) - i, nil
 }
 
-func (m *MsgFinalizeCollectionResponse) Marshal() (dAtA []byte, err error) {
+func (m *MsgFinalizeSetResponse) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -7163,12 +7157,12 @@ func (m *MsgFinalizeCollectionResponse) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *MsgFinalizeCollectionResponse) MarshalTo(dAtA []byte) (int, error) {
+func (m *MsgFinalizeSetResponse) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *MsgFinalizeCollectionResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *MsgFinalizeSetResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
@@ -7176,7 +7170,7 @@ func (m *MsgFinalizeCollectionResponse) MarshalToSizedBuffer(dAtA []byte) (int, 
 	return len(dAtA) - i, nil
 }
 
-func (m *MsgBuyCollection) Marshal() (dAtA []byte, err error) {
+func (m *MsgBuySet) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -7186,18 +7180,18 @@ func (m *MsgBuyCollection) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *MsgBuyCollection) MarshalTo(dAtA []byte) (int, error) {
+func (m *MsgBuySet) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *MsgBuyCollection) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *MsgBuySet) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
 	_ = l
-	if m.CollectionId != 0 {
-		i = encodeVarintTx(dAtA, i, uint64(m.CollectionId))
+	if m.SetId != 0 {
+		i = encodeVarintTx(dAtA, i, uint64(m.SetId))
 		i--
 		dAtA[i] = 0x10
 	}
@@ -7211,7 +7205,7 @@ func (m *MsgBuyCollection) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	return len(dAtA) - i, nil
 }
 
-func (m *MsgBuyCollectionResponse) Marshal() (dAtA []byte, err error) {
+func (m *MsgBuySetResponse) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -7221,12 +7215,12 @@ func (m *MsgBuyCollectionResponse) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *MsgBuyCollectionResponse) MarshalTo(dAtA []byte) (int, error) {
+func (m *MsgBuySetResponse) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *MsgBuyCollectionResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *MsgBuySetResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
@@ -7244,7 +7238,7 @@ func (m *MsgBuyCollectionResponse) MarshalToSizedBuffer(dAtA []byte) (int, error
 	return len(dAtA) - i, nil
 }
 
-func (m *MsgRemoveCardFromCollection) Marshal() (dAtA []byte, err error) {
+func (m *MsgRemoveCardFromSet) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -7254,12 +7248,12 @@ func (m *MsgRemoveCardFromCollection) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *MsgRemoveCardFromCollection) MarshalTo(dAtA []byte) (int, error) {
+func (m *MsgRemoveCardFromSet) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *MsgRemoveCardFromCollection) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *MsgRemoveCardFromSet) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
@@ -7269,8 +7263,8 @@ func (m *MsgRemoveCardFromCollection) MarshalToSizedBuffer(dAtA []byte) (int, er
 		i--
 		dAtA[i] = 0x18
 	}
-	if m.CollectionId != 0 {
-		i = encodeVarintTx(dAtA, i, uint64(m.CollectionId))
+	if m.SetId != 0 {
+		i = encodeVarintTx(dAtA, i, uint64(m.SetId))
 		i--
 		dAtA[i] = 0x10
 	}
@@ -7284,7 +7278,7 @@ func (m *MsgRemoveCardFromCollection) MarshalToSizedBuffer(dAtA []byte) (int, er
 	return len(dAtA) - i, nil
 }
 
-func (m *MsgRemoveCardFromCollectionResponse) Marshal() (dAtA []byte, err error) {
+func (m *MsgRemoveCardFromSetResponse) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -7294,12 +7288,12 @@ func (m *MsgRemoveCardFromCollectionResponse) Marshal() (dAtA []byte, err error)
 	return dAtA[:n], nil
 }
 
-func (m *MsgRemoveCardFromCollectionResponse) MarshalTo(dAtA []byte) (int, error) {
+func (m *MsgRemoveCardFromSetResponse) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *MsgRemoveCardFromCollectionResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *MsgRemoveCardFromSetResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
@@ -7307,7 +7301,7 @@ func (m *MsgRemoveCardFromCollectionResponse) MarshalToSizedBuffer(dAtA []byte) 
 	return len(dAtA) - i, nil
 }
 
-func (m *MsgRemoveContributorFromCollection) Marshal() (dAtA []byte, err error) {
+func (m *MsgRemoveContributorFromSet) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -7317,12 +7311,12 @@ func (m *MsgRemoveContributorFromCollection) Marshal() (dAtA []byte, err error) 
 	return dAtA[:n], nil
 }
 
-func (m *MsgRemoveContributorFromCollection) MarshalTo(dAtA []byte) (int, error) {
+func (m *MsgRemoveContributorFromSet) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *MsgRemoveContributorFromCollection) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *MsgRemoveContributorFromSet) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
@@ -7334,8 +7328,8 @@ func (m *MsgRemoveContributorFromCollection) MarshalToSizedBuffer(dAtA []byte) (
 		i--
 		dAtA[i] = 0x1a
 	}
-	if m.CollectionId != 0 {
-		i = encodeVarintTx(dAtA, i, uint64(m.CollectionId))
+	if m.SetId != 0 {
+		i = encodeVarintTx(dAtA, i, uint64(m.SetId))
 		i--
 		dAtA[i] = 0x10
 	}
@@ -7349,7 +7343,7 @@ func (m *MsgRemoveContributorFromCollection) MarshalToSizedBuffer(dAtA []byte) (
 	return len(dAtA) - i, nil
 }
 
-func (m *MsgRemoveContributorFromCollectionResponse) Marshal() (dAtA []byte, err error) {
+func (m *MsgRemoveContributorFromSetResponse) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -7359,12 +7353,12 @@ func (m *MsgRemoveContributorFromCollectionResponse) Marshal() (dAtA []byte, err
 	return dAtA[:n], nil
 }
 
-func (m *MsgRemoveContributorFromCollectionResponse) MarshalTo(dAtA []byte) (int, error) {
+func (m *MsgRemoveContributorFromSetResponse) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *MsgRemoveContributorFromCollectionResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *MsgRemoveContributorFromSetResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
@@ -7372,7 +7366,7 @@ func (m *MsgRemoveContributorFromCollectionResponse) MarshalToSizedBuffer(dAtA [
 	return len(dAtA) - i, nil
 }
 
-func (m *MsgAddContributorToCollection) Marshal() (dAtA []byte, err error) {
+func (m *MsgAddContributorToSet) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -7382,12 +7376,12 @@ func (m *MsgAddContributorToCollection) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *MsgAddContributorToCollection) MarshalTo(dAtA []byte) (int, error) {
+func (m *MsgAddContributorToSet) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *MsgAddContributorToCollection) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *MsgAddContributorToSet) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
@@ -7399,8 +7393,8 @@ func (m *MsgAddContributorToCollection) MarshalToSizedBuffer(dAtA []byte) (int, 
 		i--
 		dAtA[i] = 0x1a
 	}
-	if m.CollectionId != 0 {
-		i = encodeVarintTx(dAtA, i, uint64(m.CollectionId))
+	if m.SetId != 0 {
+		i = encodeVarintTx(dAtA, i, uint64(m.SetId))
 		i--
 		dAtA[i] = 0x10
 	}
@@ -7414,7 +7408,7 @@ func (m *MsgAddContributorToCollection) MarshalToSizedBuffer(dAtA []byte) (int, 
 	return len(dAtA) - i, nil
 }
 
-func (m *MsgAddContributorToCollectionResponse) Marshal() (dAtA []byte, err error) {
+func (m *MsgAddContributorToSetResponse) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -7424,12 +7418,12 @@ func (m *MsgAddContributorToCollectionResponse) Marshal() (dAtA []byte, err erro
 	return dAtA[:n], nil
 }
 
-func (m *MsgAddContributorToCollectionResponse) MarshalTo(dAtA []byte) (int, error) {
+func (m *MsgAddContributorToSetResponse) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *MsgAddContributorToCollectionResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *MsgAddContributorToSetResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
@@ -7437,7 +7431,7 @@ func (m *MsgAddContributorToCollectionResponse) MarshalToSizedBuffer(dAtA []byte
 	return len(dAtA) - i, nil
 }
 
-func (m *MsgSubmitCollectionProposal) Marshal() (dAtA []byte, err error) {
+func (m *MsgSubmitSetProposal) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -7447,18 +7441,18 @@ func (m *MsgSubmitCollectionProposal) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *MsgSubmitCollectionProposal) MarshalTo(dAtA []byte) (int, error) {
+func (m *MsgSubmitSetProposal) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *MsgSubmitCollectionProposal) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *MsgSubmitSetProposal) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
 	_ = l
-	if m.CollectionId != 0 {
-		i = encodeVarintTx(dAtA, i, uint64(m.CollectionId))
+	if m.SetId != 0 {
+		i = encodeVarintTx(dAtA, i, uint64(m.SetId))
 		i--
 		dAtA[i] = 0x10
 	}
@@ -7472,7 +7466,7 @@ func (m *MsgSubmitCollectionProposal) MarshalToSizedBuffer(dAtA []byte) (int, er
 	return len(dAtA) - i, nil
 }
 
-func (m *MsgSubmitCollectionProposalResponse) Marshal() (dAtA []byte, err error) {
+func (m *MsgSubmitSetProposalResponse) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -7482,12 +7476,12 @@ func (m *MsgSubmitCollectionProposalResponse) Marshal() (dAtA []byte, err error)
 	return dAtA[:n], nil
 }
 
-func (m *MsgSubmitCollectionProposalResponse) MarshalTo(dAtA []byte) (int, error) {
+func (m *MsgSubmitSetProposalResponse) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *MsgSubmitCollectionProposalResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *MsgSubmitSetProposalResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
@@ -7679,7 +7673,7 @@ func (m *MsgRemoveSellOfferResponse) MarshalToSizedBuffer(dAtA []byte) (int, err
 	return len(dAtA) - i, nil
 }
 
-func (m *MsgAddArtworkToCollection) Marshal() (dAtA []byte, err error) {
+func (m *MsgAddArtworkToSet) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -7689,12 +7683,12 @@ func (m *MsgAddArtworkToCollection) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *MsgAddArtworkToCollection) MarshalTo(dAtA []byte) (int, error) {
+func (m *MsgAddArtworkToSet) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *MsgAddArtworkToCollection) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *MsgAddArtworkToSet) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
@@ -7706,8 +7700,8 @@ func (m *MsgAddArtworkToCollection) MarshalToSizedBuffer(dAtA []byte) (int, erro
 		i--
 		dAtA[i] = 0x1a
 	}
-	if m.CollectionId != 0 {
-		i = encodeVarintTx(dAtA, i, uint64(m.CollectionId))
+	if m.SetId != 0 {
+		i = encodeVarintTx(dAtA, i, uint64(m.SetId))
 		i--
 		dAtA[i] = 0x10
 	}
@@ -7721,7 +7715,7 @@ func (m *MsgAddArtworkToCollection) MarshalToSizedBuffer(dAtA []byte) (int, erro
 	return len(dAtA) - i, nil
 }
 
-func (m *MsgAddArtworkToCollectionResponse) Marshal() (dAtA []byte, err error) {
+func (m *MsgAddArtworkToSetResponse) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -7731,12 +7725,12 @@ func (m *MsgAddArtworkToCollectionResponse) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *MsgAddArtworkToCollectionResponse) MarshalTo(dAtA []byte) (int, error) {
+func (m *MsgAddArtworkToSetResponse) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *MsgAddArtworkToCollectionResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *MsgAddArtworkToSetResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
@@ -7744,7 +7738,7 @@ func (m *MsgAddArtworkToCollectionResponse) MarshalToSizedBuffer(dAtA []byte) (i
 	return len(dAtA) - i, nil
 }
 
-func (m *MsgAddStoryToCollection) Marshal() (dAtA []byte, err error) {
+func (m *MsgAddStoryToSet) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -7754,12 +7748,12 @@ func (m *MsgAddStoryToCollection) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *MsgAddStoryToCollection) MarshalTo(dAtA []byte) (int, error) {
+func (m *MsgAddStoryToSet) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *MsgAddStoryToCollection) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *MsgAddStoryToSet) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
@@ -7771,8 +7765,8 @@ func (m *MsgAddStoryToCollection) MarshalToSizedBuffer(dAtA []byte) (int, error)
 		i--
 		dAtA[i] = 0x1a
 	}
-	if m.CollectionId != 0 {
-		i = encodeVarintTx(dAtA, i, uint64(m.CollectionId))
+	if m.SetId != 0 {
+		i = encodeVarintTx(dAtA, i, uint64(m.SetId))
 		i--
 		dAtA[i] = 0x10
 	}
@@ -7786,7 +7780,7 @@ func (m *MsgAddStoryToCollection) MarshalToSizedBuffer(dAtA []byte) (int, error)
 	return len(dAtA) - i, nil
 }
 
-func (m *MsgAddStoryToCollectionResponse) Marshal() (dAtA []byte, err error) {
+func (m *MsgAddStoryToSetResponse) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -7796,12 +7790,12 @@ func (m *MsgAddStoryToCollectionResponse) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *MsgAddStoryToCollectionResponse) MarshalTo(dAtA []byte) (int, error) {
+func (m *MsgAddStoryToSetResponse) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *MsgAddStoryToCollectionResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *MsgAddStoryToSetResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
@@ -7836,8 +7830,8 @@ func (m *MsgSetCardRarity) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 		i--
 		dAtA[i] = 0x22
 	}
-	if m.CollectionId != 0 {
-		i = encodeVarintTx(dAtA, i, uint64(m.CollectionId))
+	if m.SetId != 0 {
+		i = encodeVarintTx(dAtA, i, uint64(m.SetId))
 		i--
 		dAtA[i] = 0x18
 	}
@@ -8466,7 +8460,7 @@ func (m *MsgTransferBoosterPackResponse) MarshalToSizedBuffer(dAtA []byte) (int,
 	return len(dAtA) - i, nil
 }
 
-func (m *MsgSetCollectionStoryWriter) Marshal() (dAtA []byte, err error) {
+func (m *MsgSetSetStoryWriter) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -8476,12 +8470,12 @@ func (m *MsgSetCollectionStoryWriter) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *MsgSetCollectionStoryWriter) MarshalTo(dAtA []byte) (int, error) {
+func (m *MsgSetSetStoryWriter) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *MsgSetCollectionStoryWriter) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *MsgSetSetStoryWriter) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
@@ -8493,8 +8487,8 @@ func (m *MsgSetCollectionStoryWriter) MarshalToSizedBuffer(dAtA []byte) (int, er
 		i--
 		dAtA[i] = 0x1a
 	}
-	if m.CollectionId != 0 {
-		i = encodeVarintTx(dAtA, i, uint64(m.CollectionId))
+	if m.SetId != 0 {
+		i = encodeVarintTx(dAtA, i, uint64(m.SetId))
 		i--
 		dAtA[i] = 0x10
 	}
@@ -8508,7 +8502,7 @@ func (m *MsgSetCollectionStoryWriter) MarshalToSizedBuffer(dAtA []byte) (int, er
 	return len(dAtA) - i, nil
 }
 
-func (m *MsgSetCollectionStoryWriterResponse) Marshal() (dAtA []byte, err error) {
+func (m *MsgSetSetStoryWriterResponse) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -8518,12 +8512,12 @@ func (m *MsgSetCollectionStoryWriterResponse) Marshal() (dAtA []byte, err error)
 	return dAtA[:n], nil
 }
 
-func (m *MsgSetCollectionStoryWriterResponse) MarshalTo(dAtA []byte) (int, error) {
+func (m *MsgSetSetStoryWriterResponse) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *MsgSetCollectionStoryWriterResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *MsgSetSetStoryWriterResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
@@ -8531,7 +8525,7 @@ func (m *MsgSetCollectionStoryWriterResponse) MarshalToSizedBuffer(dAtA []byte) 
 	return len(dAtA) - i, nil
 }
 
-func (m *MsgSetCollectionArtist) Marshal() (dAtA []byte, err error) {
+func (m *MsgSetSetArtist) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -8541,12 +8535,12 @@ func (m *MsgSetCollectionArtist) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *MsgSetCollectionArtist) MarshalTo(dAtA []byte) (int, error) {
+func (m *MsgSetSetArtist) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *MsgSetCollectionArtist) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *MsgSetSetArtist) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
@@ -8558,8 +8552,8 @@ func (m *MsgSetCollectionArtist) MarshalToSizedBuffer(dAtA []byte) (int, error) 
 		i--
 		dAtA[i] = 0x1a
 	}
-	if m.CollectionId != 0 {
-		i = encodeVarintTx(dAtA, i, uint64(m.CollectionId))
+	if m.SetId != 0 {
+		i = encodeVarintTx(dAtA, i, uint64(m.SetId))
 		i--
 		dAtA[i] = 0x10
 	}
@@ -8573,7 +8567,7 @@ func (m *MsgSetCollectionArtist) MarshalToSizedBuffer(dAtA []byte) (int, error) 
 	return len(dAtA) - i, nil
 }
 
-func (m *MsgSetCollectionArtistResponse) Marshal() (dAtA []byte, err error) {
+func (m *MsgSetSetArtistResponse) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -8583,12 +8577,12 @@ func (m *MsgSetCollectionArtistResponse) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *MsgSetCollectionArtistResponse) MarshalTo(dAtA []byte) (int, error) {
+func (m *MsgSetSetArtistResponse) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *MsgSetCollectionArtistResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *MsgSetSetArtistResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
@@ -8891,7 +8885,7 @@ func (m *MsgMsgOpenMatchResponse) MarshalToSizedBuffer(dAtA []byte) (int, error)
 	return len(dAtA) - i, nil
 }
 
-func (m *MsgSetCollectionName) Marshal() (dAtA []byte, err error) {
+func (m *MsgSetSetName) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -8901,12 +8895,12 @@ func (m *MsgSetCollectionName) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *MsgSetCollectionName) MarshalTo(dAtA []byte) (int, error) {
+func (m *MsgSetSetName) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *MsgSetCollectionName) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *MsgSetSetName) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
@@ -8918,8 +8912,8 @@ func (m *MsgSetCollectionName) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 		i--
 		dAtA[i] = 0x1a
 	}
-	if m.CollectionId != 0 {
-		i = encodeVarintTx(dAtA, i, uint64(m.CollectionId))
+	if m.SetId != 0 {
+		i = encodeVarintTx(dAtA, i, uint64(m.SetId))
 		i--
 		dAtA[i] = 0x10
 	}
@@ -8933,7 +8927,7 @@ func (m *MsgSetCollectionName) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	return len(dAtA) - i, nil
 }
 
-func (m *MsgSetCollectionNameResponse) Marshal() (dAtA []byte, err error) {
+func (m *MsgSetSetNameResponse) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -8943,12 +8937,12 @@ func (m *MsgSetCollectionNameResponse) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *MsgSetCollectionNameResponse) MarshalTo(dAtA []byte) (int, error) {
+func (m *MsgSetSetNameResponse) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *MsgSetCollectionNameResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *MsgSetSetNameResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
@@ -9376,7 +9370,7 @@ func (m *MsgApointMatchReporterResponse) Size() (n int) {
 	return n
 }
 
-func (m *MsgCreateCollection) Size() (n int) {
+func (m *MsgCreateSet) Size() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -9407,7 +9401,7 @@ func (m *MsgCreateCollection) Size() (n int) {
 	return n
 }
 
-func (m *MsgCreateCollectionResponse) Size() (n int) {
+func (m *MsgCreateSetResponse) Size() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -9416,7 +9410,7 @@ func (m *MsgCreateCollectionResponse) Size() (n int) {
 	return n
 }
 
-func (m *MsgAddCardToCollection) Size() (n int) {
+func (m *MsgAddCardToSet) Size() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -9426,8 +9420,8 @@ func (m *MsgAddCardToCollection) Size() (n int) {
 	if l > 0 {
 		n += 1 + l + sovTx(uint64(l))
 	}
-	if m.CollectionId != 0 {
-		n += 1 + sovTx(uint64(m.CollectionId))
+	if m.SetId != 0 {
+		n += 1 + sovTx(uint64(m.SetId))
 	}
 	if m.CardId != 0 {
 		n += 1 + sovTx(uint64(m.CardId))
@@ -9435,7 +9429,7 @@ func (m *MsgAddCardToCollection) Size() (n int) {
 	return n
 }
 
-func (m *MsgAddCardToCollectionResponse) Size() (n int) {
+func (m *MsgAddCardToSetResponse) Size() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -9444,32 +9438,7 @@ func (m *MsgAddCardToCollectionResponse) Size() (n int) {
 	return n
 }
 
-func (m *MsgFinalizeCollection) Size() (n int) {
-	if m == nil {
-		return 0
-	}
-	var l int
-	_ = l
-	l = len(m.Creator)
-	if l > 0 {
-		n += 1 + l + sovTx(uint64(l))
-	}
-	if m.CollectionId != 0 {
-		n += 1 + sovTx(uint64(m.CollectionId))
-	}
-	return n
-}
-
-func (m *MsgFinalizeCollectionResponse) Size() (n int) {
-	if m == nil {
-		return 0
-	}
-	var l int
-	_ = l
-	return n
-}
-
-func (m *MsgBuyCollection) Size() (n int) {
+func (m *MsgFinalizeSet) Size() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -9479,13 +9448,38 @@ func (m *MsgBuyCollection) Size() (n int) {
 	if l > 0 {
 		n += 1 + l + sovTx(uint64(l))
 	}
-	if m.CollectionId != 0 {
-		n += 1 + sovTx(uint64(m.CollectionId))
+	if m.SetId != 0 {
+		n += 1 + sovTx(uint64(m.SetId))
 	}
 	return n
 }
 
-func (m *MsgBuyCollectionResponse) Size() (n int) {
+func (m *MsgFinalizeSetResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	return n
+}
+
+func (m *MsgBuySet) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.Creator)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	if m.SetId != 0 {
+		n += 1 + sovTx(uint64(m.SetId))
+	}
+	return n
+}
+
+func (m *MsgBuySetResponse) Size() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -9497,7 +9491,7 @@ func (m *MsgBuyCollectionResponse) Size() (n int) {
 	return n
 }
 
-func (m *MsgRemoveCardFromCollection) Size() (n int) {
+func (m *MsgRemoveCardFromSet) Size() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -9507,8 +9501,8 @@ func (m *MsgRemoveCardFromCollection) Size() (n int) {
 	if l > 0 {
 		n += 1 + l + sovTx(uint64(l))
 	}
-	if m.CollectionId != 0 {
-		n += 1 + sovTx(uint64(m.CollectionId))
+	if m.SetId != 0 {
+		n += 1 + sovTx(uint64(m.SetId))
 	}
 	if m.CardId != 0 {
 		n += 1 + sovTx(uint64(m.CardId))
@@ -9516,7 +9510,7 @@ func (m *MsgRemoveCardFromCollection) Size() (n int) {
 	return n
 }
 
-func (m *MsgRemoveCardFromCollectionResponse) Size() (n int) {
+func (m *MsgRemoveCardFromSetResponse) Size() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -9525,7 +9519,7 @@ func (m *MsgRemoveCardFromCollectionResponse) Size() (n int) {
 	return n
 }
 
-func (m *MsgRemoveContributorFromCollection) Size() (n int) {
+func (m *MsgRemoveContributorFromSet) Size() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -9535,8 +9529,8 @@ func (m *MsgRemoveContributorFromCollection) Size() (n int) {
 	if l > 0 {
 		n += 1 + l + sovTx(uint64(l))
 	}
-	if m.CollectionId != 0 {
-		n += 1 + sovTx(uint64(m.CollectionId))
+	if m.SetId != 0 {
+		n += 1 + sovTx(uint64(m.SetId))
 	}
 	l = len(m.User)
 	if l > 0 {
@@ -9545,7 +9539,7 @@ func (m *MsgRemoveContributorFromCollection) Size() (n int) {
 	return n
 }
 
-func (m *MsgRemoveContributorFromCollectionResponse) Size() (n int) {
+func (m *MsgRemoveContributorFromSetResponse) Size() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -9554,7 +9548,7 @@ func (m *MsgRemoveContributorFromCollectionResponse) Size() (n int) {
 	return n
 }
 
-func (m *MsgAddContributorToCollection) Size() (n int) {
+func (m *MsgAddContributorToSet) Size() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -9564,8 +9558,8 @@ func (m *MsgAddContributorToCollection) Size() (n int) {
 	if l > 0 {
 		n += 1 + l + sovTx(uint64(l))
 	}
-	if m.CollectionId != 0 {
-		n += 1 + sovTx(uint64(m.CollectionId))
+	if m.SetId != 0 {
+		n += 1 + sovTx(uint64(m.SetId))
 	}
 	l = len(m.User)
 	if l > 0 {
@@ -9574,7 +9568,7 @@ func (m *MsgAddContributorToCollection) Size() (n int) {
 	return n
 }
 
-func (m *MsgAddContributorToCollectionResponse) Size() (n int) {
+func (m *MsgAddContributorToSetResponse) Size() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -9583,7 +9577,7 @@ func (m *MsgAddContributorToCollectionResponse) Size() (n int) {
 	return n
 }
 
-func (m *MsgSubmitCollectionProposal) Size() (n int) {
+func (m *MsgSubmitSetProposal) Size() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -9593,13 +9587,13 @@ func (m *MsgSubmitCollectionProposal) Size() (n int) {
 	if l > 0 {
 		n += 1 + l + sovTx(uint64(l))
 	}
-	if m.CollectionId != 0 {
-		n += 1 + sovTx(uint64(m.CollectionId))
+	if m.SetId != 0 {
+		n += 1 + sovTx(uint64(m.SetId))
 	}
 	return n
 }
 
-func (m *MsgSubmitCollectionProposalResponse) Size() (n int) {
+func (m *MsgSubmitSetProposalResponse) Size() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -9685,7 +9679,7 @@ func (m *MsgRemoveSellOfferResponse) Size() (n int) {
 	return n
 }
 
-func (m *MsgAddArtworkToCollection) Size() (n int) {
+func (m *MsgAddArtworkToSet) Size() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -9695,8 +9689,8 @@ func (m *MsgAddArtworkToCollection) Size() (n int) {
 	if l > 0 {
 		n += 1 + l + sovTx(uint64(l))
 	}
-	if m.CollectionId != 0 {
-		n += 1 + sovTx(uint64(m.CollectionId))
+	if m.SetId != 0 {
+		n += 1 + sovTx(uint64(m.SetId))
 	}
 	l = len(m.Image)
 	if l > 0 {
@@ -9705,7 +9699,7 @@ func (m *MsgAddArtworkToCollection) Size() (n int) {
 	return n
 }
 
-func (m *MsgAddArtworkToCollectionResponse) Size() (n int) {
+func (m *MsgAddArtworkToSetResponse) Size() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -9714,7 +9708,7 @@ func (m *MsgAddArtworkToCollectionResponse) Size() (n int) {
 	return n
 }
 
-func (m *MsgAddStoryToCollection) Size() (n int) {
+func (m *MsgAddStoryToSet) Size() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -9724,8 +9718,8 @@ func (m *MsgAddStoryToCollection) Size() (n int) {
 	if l > 0 {
 		n += 1 + l + sovTx(uint64(l))
 	}
-	if m.CollectionId != 0 {
-		n += 1 + sovTx(uint64(m.CollectionId))
+	if m.SetId != 0 {
+		n += 1 + sovTx(uint64(m.SetId))
 	}
 	l = len(m.Story)
 	if l > 0 {
@@ -9734,7 +9728,7 @@ func (m *MsgAddStoryToCollection) Size() (n int) {
 	return n
 }
 
-func (m *MsgAddStoryToCollectionResponse) Size() (n int) {
+func (m *MsgAddStoryToSetResponse) Size() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -9756,8 +9750,8 @@ func (m *MsgSetCardRarity) Size() (n int) {
 	if m.CardId != 0 {
 		n += 1 + sovTx(uint64(m.CardId))
 	}
-	if m.CollectionId != 0 {
-		n += 1 + sovTx(uint64(m.CollectionId))
+	if m.SetId != 0 {
+		n += 1 + sovTx(uint64(m.SetId))
 	}
 	l = len(m.Rarity)
 	if l > 0 {
@@ -10032,7 +10026,7 @@ func (m *MsgTransferBoosterPackResponse) Size() (n int) {
 	return n
 }
 
-func (m *MsgSetCollectionStoryWriter) Size() (n int) {
+func (m *MsgSetSetStoryWriter) Size() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -10042,8 +10036,8 @@ func (m *MsgSetCollectionStoryWriter) Size() (n int) {
 	if l > 0 {
 		n += 1 + l + sovTx(uint64(l))
 	}
-	if m.CollectionId != 0 {
-		n += 1 + sovTx(uint64(m.CollectionId))
+	if m.SetId != 0 {
+		n += 1 + sovTx(uint64(m.SetId))
 	}
 	l = len(m.StoryWriter)
 	if l > 0 {
@@ -10052,7 +10046,7 @@ func (m *MsgSetCollectionStoryWriter) Size() (n int) {
 	return n
 }
 
-func (m *MsgSetCollectionStoryWriterResponse) Size() (n int) {
+func (m *MsgSetSetStoryWriterResponse) Size() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -10061,7 +10055,7 @@ func (m *MsgSetCollectionStoryWriterResponse) Size() (n int) {
 	return n
 }
 
-func (m *MsgSetCollectionArtist) Size() (n int) {
+func (m *MsgSetSetArtist) Size() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -10071,8 +10065,8 @@ func (m *MsgSetCollectionArtist) Size() (n int) {
 	if l > 0 {
 		n += 1 + l + sovTx(uint64(l))
 	}
-	if m.CollectionId != 0 {
-		n += 1 + sovTx(uint64(m.CollectionId))
+	if m.SetId != 0 {
+		n += 1 + sovTx(uint64(m.SetId))
 	}
 	l = len(m.Artist)
 	if l > 0 {
@@ -10081,7 +10075,7 @@ func (m *MsgSetCollectionArtist) Size() (n int) {
 	return n
 }
 
-func (m *MsgSetCollectionArtistResponse) Size() (n int) {
+func (m *MsgSetSetArtistResponse) Size() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -10217,7 +10211,7 @@ func (m *MsgMsgOpenMatchResponse) Size() (n int) {
 	return n
 }
 
-func (m *MsgSetCollectionName) Size() (n int) {
+func (m *MsgSetSetName) Size() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -10227,8 +10221,8 @@ func (m *MsgSetCollectionName) Size() (n int) {
 	if l > 0 {
 		n += 1 + l + sovTx(uint64(l))
 	}
-	if m.CollectionId != 0 {
-		n += 1 + sovTx(uint64(m.CollectionId))
+	if m.SetId != 0 {
+		n += 1 + sovTx(uint64(m.SetId))
 	}
 	l = len(m.Name)
 	if l > 0 {
@@ -10237,7 +10231,7 @@ func (m *MsgSetCollectionName) Size() (n int) {
 	return n
 }
 
-func (m *MsgSetCollectionNameResponse) Size() (n int) {
+func (m *MsgSetSetNameResponse) Size() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -12960,7 +12954,7 @@ func (m *MsgApointMatchReporterResponse) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *MsgCreateCollection) Unmarshal(dAtA []byte) error {
+func (m *MsgCreateSet) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -12983,10 +12977,10 @@ func (m *MsgCreateCollection) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: MsgCreateCollection: wiretype end group for non-group")
+			return fmt.Errorf("proto: MsgCreateSet: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: MsgCreateCollection: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: MsgCreateSet: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		case 1:
@@ -13170,7 +13164,7 @@ func (m *MsgCreateCollection) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *MsgCreateCollectionResponse) Unmarshal(dAtA []byte) error {
+func (m *MsgCreateSetResponse) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -13193,10 +13187,10 @@ func (m *MsgCreateCollectionResponse) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: MsgCreateCollectionResponse: wiretype end group for non-group")
+			return fmt.Errorf("proto: MsgCreateSetResponse: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: MsgCreateCollectionResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: MsgCreateSetResponse: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		default:
@@ -13220,7 +13214,7 @@ func (m *MsgCreateCollectionResponse) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *MsgAddCardToCollection) Unmarshal(dAtA []byte) error {
+func (m *MsgAddCardToSet) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -13243,10 +13237,10 @@ func (m *MsgAddCardToCollection) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: MsgAddCardToCollection: wiretype end group for non-group")
+			return fmt.Errorf("proto: MsgAddCardToSet: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: MsgAddCardToCollection: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: MsgAddCardToSet: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		case 1:
@@ -13283,9 +13277,9 @@ func (m *MsgAddCardToCollection) Unmarshal(dAtA []byte) error {
 			iNdEx = postIndex
 		case 2:
 			if wireType != 0 {
-				return fmt.Errorf("proto: wrong wireType = %d for field CollectionId", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field SetId", wireType)
 			}
-			m.CollectionId = 0
+			m.SetId = 0
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowTx
@@ -13295,7 +13289,7 @@ func (m *MsgAddCardToCollection) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.CollectionId |= uint64(b&0x7F) << shift
+				m.SetId |= uint64(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
@@ -13340,7 +13334,7 @@ func (m *MsgAddCardToCollection) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *MsgAddCardToCollectionResponse) Unmarshal(dAtA []byte) error {
+func (m *MsgAddCardToSetResponse) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -13363,10 +13357,10 @@ func (m *MsgAddCardToCollectionResponse) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: MsgAddCardToCollectionResponse: wiretype end group for non-group")
+			return fmt.Errorf("proto: MsgAddCardToSetResponse: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: MsgAddCardToCollectionResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: MsgAddCardToSetResponse: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		default:
@@ -13390,7 +13384,7 @@ func (m *MsgAddCardToCollectionResponse) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *MsgFinalizeCollection) Unmarshal(dAtA []byte) error {
+func (m *MsgFinalizeSet) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -13413,161 +13407,10 @@ func (m *MsgFinalizeCollection) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: MsgFinalizeCollection: wiretype end group for non-group")
+			return fmt.Errorf("proto: MsgFinalizeSet: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: MsgFinalizeCollection: illegal tag %d (wire type %d)", fieldNum, wire)
-		}
-		switch fieldNum {
-		case 1:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Creator", wireType)
-			}
-			var stringLen uint64
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowTx
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				stringLen |= uint64(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			intStringLen := int(stringLen)
-			if intStringLen < 0 {
-				return ErrInvalidLengthTx
-			}
-			postIndex := iNdEx + intStringLen
-			if postIndex < 0 {
-				return ErrInvalidLengthTx
-			}
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			m.Creator = string(dAtA[iNdEx:postIndex])
-			iNdEx = postIndex
-		case 2:
-			if wireType != 0 {
-				return fmt.Errorf("proto: wrong wireType = %d for field CollectionId", wireType)
-			}
-			m.CollectionId = 0
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowTx
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				m.CollectionId |= uint64(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-		default:
-			iNdEx = preIndex
-			skippy, err := skipTx(dAtA[iNdEx:])
-			if err != nil {
-				return err
-			}
-			if (skippy < 0) || (iNdEx+skippy) < 0 {
-				return ErrInvalidLengthTx
-			}
-			if (iNdEx + skippy) > l {
-				return io.ErrUnexpectedEOF
-			}
-			iNdEx += skippy
-		}
-	}
-
-	if iNdEx > l {
-		return io.ErrUnexpectedEOF
-	}
-	return nil
-}
-func (m *MsgFinalizeCollectionResponse) Unmarshal(dAtA []byte) error {
-	l := len(dAtA)
-	iNdEx := 0
-	for iNdEx < l {
-		preIndex := iNdEx
-		var wire uint64
-		for shift := uint(0); ; shift += 7 {
-			if shift >= 64 {
-				return ErrIntOverflowTx
-			}
-			if iNdEx >= l {
-				return io.ErrUnexpectedEOF
-			}
-			b := dAtA[iNdEx]
-			iNdEx++
-			wire |= uint64(b&0x7F) << shift
-			if b < 0x80 {
-				break
-			}
-		}
-		fieldNum := int32(wire >> 3)
-		wireType := int(wire & 0x7)
-		if wireType == 4 {
-			return fmt.Errorf("proto: MsgFinalizeCollectionResponse: wiretype end group for non-group")
-		}
-		if fieldNum <= 0 {
-			return fmt.Errorf("proto: MsgFinalizeCollectionResponse: illegal tag %d (wire type %d)", fieldNum, wire)
-		}
-		switch fieldNum {
-		default:
-			iNdEx = preIndex
-			skippy, err := skipTx(dAtA[iNdEx:])
-			if err != nil {
-				return err
-			}
-			if (skippy < 0) || (iNdEx+skippy) < 0 {
-				return ErrInvalidLengthTx
-			}
-			if (iNdEx + skippy) > l {
-				return io.ErrUnexpectedEOF
-			}
-			iNdEx += skippy
-		}
-	}
-
-	if iNdEx > l {
-		return io.ErrUnexpectedEOF
-	}
-	return nil
-}
-func (m *MsgBuyCollection) Unmarshal(dAtA []byte) error {
-	l := len(dAtA)
-	iNdEx := 0
-	for iNdEx < l {
-		preIndex := iNdEx
-		var wire uint64
-		for shift := uint(0); ; shift += 7 {
-			if shift >= 64 {
-				return ErrIntOverflowTx
-			}
-			if iNdEx >= l {
-				return io.ErrUnexpectedEOF
-			}
-			b := dAtA[iNdEx]
-			iNdEx++
-			wire |= uint64(b&0x7F) << shift
-			if b < 0x80 {
-				break
-			}
-		}
-		fieldNum := int32(wire >> 3)
-		wireType := int(wire & 0x7)
-		if wireType == 4 {
-			return fmt.Errorf("proto: MsgBuyCollection: wiretype end group for non-group")
-		}
-		if fieldNum <= 0 {
-			return fmt.Errorf("proto: MsgBuyCollection: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: MsgFinalizeSet: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		case 1:
@@ -13604,9 +13447,9 @@ func (m *MsgBuyCollection) Unmarshal(dAtA []byte) error {
 			iNdEx = postIndex
 		case 2:
 			if wireType != 0 {
-				return fmt.Errorf("proto: wrong wireType = %d for field CollectionId", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field SetId", wireType)
 			}
-			m.CollectionId = 0
+			m.SetId = 0
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowTx
@@ -13616,7 +13459,7 @@ func (m *MsgBuyCollection) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.CollectionId |= uint64(b&0x7F) << shift
+				m.SetId |= uint64(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
@@ -13642,7 +13485,7 @@ func (m *MsgBuyCollection) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *MsgBuyCollectionResponse) Unmarshal(dAtA []byte) error {
+func (m *MsgFinalizeSetResponse) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -13665,10 +13508,161 @@ func (m *MsgBuyCollectionResponse) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: MsgBuyCollectionResponse: wiretype end group for non-group")
+			return fmt.Errorf("proto: MsgFinalizeSetResponse: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: MsgBuyCollectionResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: MsgFinalizeSetResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTx(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthTx
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *MsgBuySet) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTx
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: MsgBuySet: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: MsgBuySet: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Creator", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Creator = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field SetId", wireType)
+			}
+			m.SetId = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.SetId |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTx(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthTx
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *MsgBuySetResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTx
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: MsgBuySetResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: MsgBuySetResponse: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		case 1:
@@ -13712,7 +13706,7 @@ func (m *MsgBuyCollectionResponse) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *MsgRemoveCardFromCollection) Unmarshal(dAtA []byte) error {
+func (m *MsgRemoveCardFromSet) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -13735,10 +13729,10 @@ func (m *MsgRemoveCardFromCollection) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: MsgRemoveCardFromCollection: wiretype end group for non-group")
+			return fmt.Errorf("proto: MsgRemoveCardFromSet: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: MsgRemoveCardFromCollection: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: MsgRemoveCardFromSet: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		case 1:
@@ -13775,9 +13769,9 @@ func (m *MsgRemoveCardFromCollection) Unmarshal(dAtA []byte) error {
 			iNdEx = postIndex
 		case 2:
 			if wireType != 0 {
-				return fmt.Errorf("proto: wrong wireType = %d for field CollectionId", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field SetId", wireType)
 			}
-			m.CollectionId = 0
+			m.SetId = 0
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowTx
@@ -13787,7 +13781,7 @@ func (m *MsgRemoveCardFromCollection) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.CollectionId |= uint64(b&0x7F) << shift
+				m.SetId |= uint64(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
@@ -13832,7 +13826,7 @@ func (m *MsgRemoveCardFromCollection) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *MsgRemoveCardFromCollectionResponse) Unmarshal(dAtA []byte) error {
+func (m *MsgRemoveCardFromSetResponse) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -13855,10 +13849,10 @@ func (m *MsgRemoveCardFromCollectionResponse) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: MsgRemoveCardFromCollectionResponse: wiretype end group for non-group")
+			return fmt.Errorf("proto: MsgRemoveCardFromSetResponse: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: MsgRemoveCardFromCollectionResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: MsgRemoveCardFromSetResponse: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		default:
@@ -13882,7 +13876,7 @@ func (m *MsgRemoveCardFromCollectionResponse) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *MsgRemoveContributorFromCollection) Unmarshal(dAtA []byte) error {
+func (m *MsgRemoveContributorFromSet) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -13905,10 +13899,10 @@ func (m *MsgRemoveContributorFromCollection) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: MsgRemoveContributorFromCollection: wiretype end group for non-group")
+			return fmt.Errorf("proto: MsgRemoveContributorFromSet: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: MsgRemoveContributorFromCollection: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: MsgRemoveContributorFromSet: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		case 1:
@@ -13945,9 +13939,9 @@ func (m *MsgRemoveContributorFromCollection) Unmarshal(dAtA []byte) error {
 			iNdEx = postIndex
 		case 2:
 			if wireType != 0 {
-				return fmt.Errorf("proto: wrong wireType = %d for field CollectionId", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field SetId", wireType)
 			}
-			m.CollectionId = 0
+			m.SetId = 0
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowTx
@@ -13957,7 +13951,7 @@ func (m *MsgRemoveContributorFromCollection) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.CollectionId |= uint64(b&0x7F) << shift
+				m.SetId |= uint64(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
@@ -14015,7 +14009,7 @@ func (m *MsgRemoveContributorFromCollection) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *MsgRemoveContributorFromCollectionResponse) Unmarshal(dAtA []byte) error {
+func (m *MsgRemoveContributorFromSetResponse) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -14038,10 +14032,10 @@ func (m *MsgRemoveContributorFromCollectionResponse) Unmarshal(dAtA []byte) erro
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: MsgRemoveContributorFromCollectionResponse: wiretype end group for non-group")
+			return fmt.Errorf("proto: MsgRemoveContributorFromSetResponse: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: MsgRemoveContributorFromCollectionResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: MsgRemoveContributorFromSetResponse: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		default:
@@ -14065,7 +14059,7 @@ func (m *MsgRemoveContributorFromCollectionResponse) Unmarshal(dAtA []byte) erro
 	}
 	return nil
 }
-func (m *MsgAddContributorToCollection) Unmarshal(dAtA []byte) error {
+func (m *MsgAddContributorToSet) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -14088,10 +14082,10 @@ func (m *MsgAddContributorToCollection) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: MsgAddContributorToCollection: wiretype end group for non-group")
+			return fmt.Errorf("proto: MsgAddContributorToSet: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: MsgAddContributorToCollection: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: MsgAddContributorToSet: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		case 1:
@@ -14128,9 +14122,9 @@ func (m *MsgAddContributorToCollection) Unmarshal(dAtA []byte) error {
 			iNdEx = postIndex
 		case 2:
 			if wireType != 0 {
-				return fmt.Errorf("proto: wrong wireType = %d for field CollectionId", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field SetId", wireType)
 			}
-			m.CollectionId = 0
+			m.SetId = 0
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowTx
@@ -14140,7 +14134,7 @@ func (m *MsgAddContributorToCollection) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.CollectionId |= uint64(b&0x7F) << shift
+				m.SetId |= uint64(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
@@ -14198,7 +14192,7 @@ func (m *MsgAddContributorToCollection) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *MsgAddContributorToCollectionResponse) Unmarshal(dAtA []byte) error {
+func (m *MsgAddContributorToSetResponse) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -14221,10 +14215,10 @@ func (m *MsgAddContributorToCollectionResponse) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: MsgAddContributorToCollectionResponse: wiretype end group for non-group")
+			return fmt.Errorf("proto: MsgAddContributorToSetResponse: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: MsgAddContributorToCollectionResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: MsgAddContributorToSetResponse: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		default:
@@ -14248,7 +14242,7 @@ func (m *MsgAddContributorToCollectionResponse) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *MsgSubmitCollectionProposal) Unmarshal(dAtA []byte) error {
+func (m *MsgSubmitSetProposal) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -14271,10 +14265,10 @@ func (m *MsgSubmitCollectionProposal) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: MsgSubmitCollectionProposal: wiretype end group for non-group")
+			return fmt.Errorf("proto: MsgSubmitSetProposal: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: MsgSubmitCollectionProposal: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: MsgSubmitSetProposal: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		case 1:
@@ -14311,9 +14305,9 @@ func (m *MsgSubmitCollectionProposal) Unmarshal(dAtA []byte) error {
 			iNdEx = postIndex
 		case 2:
 			if wireType != 0 {
-				return fmt.Errorf("proto: wrong wireType = %d for field CollectionId", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field SetId", wireType)
 			}
-			m.CollectionId = 0
+			m.SetId = 0
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowTx
@@ -14323,7 +14317,7 @@ func (m *MsgSubmitCollectionProposal) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.CollectionId |= uint64(b&0x7F) << shift
+				m.SetId |= uint64(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
@@ -14349,7 +14343,7 @@ func (m *MsgSubmitCollectionProposal) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *MsgSubmitCollectionProposalResponse) Unmarshal(dAtA []byte) error {
+func (m *MsgSubmitSetProposalResponse) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -14372,10 +14366,10 @@ func (m *MsgSubmitCollectionProposalResponse) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: MsgSubmitCollectionProposalResponse: wiretype end group for non-group")
+			return fmt.Errorf("proto: MsgSubmitSetProposalResponse: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: MsgSubmitCollectionProposalResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: MsgSubmitSetProposalResponse: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		default:
@@ -14886,7 +14880,7 @@ func (m *MsgRemoveSellOfferResponse) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *MsgAddArtworkToCollection) Unmarshal(dAtA []byte) error {
+func (m *MsgAddArtworkToSet) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -14909,10 +14903,10 @@ func (m *MsgAddArtworkToCollection) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: MsgAddArtworkToCollection: wiretype end group for non-group")
+			return fmt.Errorf("proto: MsgAddArtworkToSet: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: MsgAddArtworkToCollection: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: MsgAddArtworkToSet: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		case 1:
@@ -14949,9 +14943,9 @@ func (m *MsgAddArtworkToCollection) Unmarshal(dAtA []byte) error {
 			iNdEx = postIndex
 		case 2:
 			if wireType != 0 {
-				return fmt.Errorf("proto: wrong wireType = %d for field CollectionId", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field SetId", wireType)
 			}
-			m.CollectionId = 0
+			m.SetId = 0
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowTx
@@ -14961,7 +14955,7 @@ func (m *MsgAddArtworkToCollection) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.CollectionId |= uint64(b&0x7F) << shift
+				m.SetId |= uint64(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
@@ -15021,7 +15015,7 @@ func (m *MsgAddArtworkToCollection) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *MsgAddArtworkToCollectionResponse) Unmarshal(dAtA []byte) error {
+func (m *MsgAddArtworkToSetResponse) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -15044,10 +15038,10 @@ func (m *MsgAddArtworkToCollectionResponse) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: MsgAddArtworkToCollectionResponse: wiretype end group for non-group")
+			return fmt.Errorf("proto: MsgAddArtworkToSetResponse: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: MsgAddArtworkToCollectionResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: MsgAddArtworkToSetResponse: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		default:
@@ -15071,7 +15065,7 @@ func (m *MsgAddArtworkToCollectionResponse) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *MsgAddStoryToCollection) Unmarshal(dAtA []byte) error {
+func (m *MsgAddStoryToSet) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -15094,10 +15088,10 @@ func (m *MsgAddStoryToCollection) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: MsgAddStoryToCollection: wiretype end group for non-group")
+			return fmt.Errorf("proto: MsgAddStoryToSet: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: MsgAddStoryToCollection: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: MsgAddStoryToSet: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		case 1:
@@ -15134,9 +15128,9 @@ func (m *MsgAddStoryToCollection) Unmarshal(dAtA []byte) error {
 			iNdEx = postIndex
 		case 2:
 			if wireType != 0 {
-				return fmt.Errorf("proto: wrong wireType = %d for field CollectionId", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field SetId", wireType)
 			}
-			m.CollectionId = 0
+			m.SetId = 0
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowTx
@@ -15146,7 +15140,7 @@ func (m *MsgAddStoryToCollection) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.CollectionId |= uint64(b&0x7F) << shift
+				m.SetId |= uint64(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
@@ -15204,7 +15198,7 @@ func (m *MsgAddStoryToCollection) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *MsgAddStoryToCollectionResponse) Unmarshal(dAtA []byte) error {
+func (m *MsgAddStoryToSetResponse) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -15227,10 +15221,10 @@ func (m *MsgAddStoryToCollectionResponse) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: MsgAddStoryToCollectionResponse: wiretype end group for non-group")
+			return fmt.Errorf("proto: MsgAddStoryToSetResponse: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: MsgAddStoryToCollectionResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: MsgAddStoryToSetResponse: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		default:
@@ -15336,9 +15330,9 @@ func (m *MsgSetCardRarity) Unmarshal(dAtA []byte) error {
 			}
 		case 3:
 			if wireType != 0 {
-				return fmt.Errorf("proto: wrong wireType = %d for field CollectionId", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field SetId", wireType)
 			}
-			m.CollectionId = 0
+			m.SetId = 0
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowTx
@@ -15348,7 +15342,7 @@ func (m *MsgSetCardRarity) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.CollectionId |= uint64(b&0x7F) << shift
+				m.SetId |= uint64(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
@@ -17072,7 +17066,7 @@ func (m *MsgTransferBoosterPackResponse) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *MsgSetCollectionStoryWriter) Unmarshal(dAtA []byte) error {
+func (m *MsgSetSetStoryWriter) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -17095,10 +17089,10 @@ func (m *MsgSetCollectionStoryWriter) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: MsgSetCollectionStoryWriter: wiretype end group for non-group")
+			return fmt.Errorf("proto: MsgSetSetStoryWriter: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: MsgSetCollectionStoryWriter: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: MsgSetSetStoryWriter: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		case 1:
@@ -17135,9 +17129,9 @@ func (m *MsgSetCollectionStoryWriter) Unmarshal(dAtA []byte) error {
 			iNdEx = postIndex
 		case 2:
 			if wireType != 0 {
-				return fmt.Errorf("proto: wrong wireType = %d for field CollectionId", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field SetId", wireType)
 			}
-			m.CollectionId = 0
+			m.SetId = 0
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowTx
@@ -17147,7 +17141,7 @@ func (m *MsgSetCollectionStoryWriter) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.CollectionId |= uint64(b&0x7F) << shift
+				m.SetId |= uint64(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
@@ -17205,7 +17199,7 @@ func (m *MsgSetCollectionStoryWriter) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *MsgSetCollectionStoryWriterResponse) Unmarshal(dAtA []byte) error {
+func (m *MsgSetSetStoryWriterResponse) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -17228,10 +17222,10 @@ func (m *MsgSetCollectionStoryWriterResponse) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: MsgSetCollectionStoryWriterResponse: wiretype end group for non-group")
+			return fmt.Errorf("proto: MsgSetSetStoryWriterResponse: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: MsgSetCollectionStoryWriterResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: MsgSetSetStoryWriterResponse: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		default:
@@ -17255,7 +17249,7 @@ func (m *MsgSetCollectionStoryWriterResponse) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *MsgSetCollectionArtist) Unmarshal(dAtA []byte) error {
+func (m *MsgSetSetArtist) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -17278,10 +17272,10 @@ func (m *MsgSetCollectionArtist) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: MsgSetCollectionArtist: wiretype end group for non-group")
+			return fmt.Errorf("proto: MsgSetSetArtist: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: MsgSetCollectionArtist: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: MsgSetSetArtist: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		case 1:
@@ -17318,9 +17312,9 @@ func (m *MsgSetCollectionArtist) Unmarshal(dAtA []byte) error {
 			iNdEx = postIndex
 		case 2:
 			if wireType != 0 {
-				return fmt.Errorf("proto: wrong wireType = %d for field CollectionId", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field SetId", wireType)
 			}
-			m.CollectionId = 0
+			m.SetId = 0
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowTx
@@ -17330,7 +17324,7 @@ func (m *MsgSetCollectionArtist) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.CollectionId |= uint64(b&0x7F) << shift
+				m.SetId |= uint64(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
@@ -17388,7 +17382,7 @@ func (m *MsgSetCollectionArtist) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *MsgSetCollectionArtistResponse) Unmarshal(dAtA []byte) error {
+func (m *MsgSetSetArtistResponse) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -17411,10 +17405,10 @@ func (m *MsgSetCollectionArtistResponse) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: MsgSetCollectionArtistResponse: wiretype end group for non-group")
+			return fmt.Errorf("proto: MsgSetSetArtistResponse: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: MsgSetCollectionArtistResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: MsgSetSetArtistResponse: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		default:
@@ -18299,7 +18293,7 @@ func (m *MsgMsgOpenMatchResponse) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *MsgSetCollectionName) Unmarshal(dAtA []byte) error {
+func (m *MsgSetSetName) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -18322,10 +18316,10 @@ func (m *MsgSetCollectionName) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: MsgSetCollectionName: wiretype end group for non-group")
+			return fmt.Errorf("proto: MsgSetSetName: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: MsgSetCollectionName: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: MsgSetSetName: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		case 1:
@@ -18362,9 +18356,9 @@ func (m *MsgSetCollectionName) Unmarshal(dAtA []byte) error {
 			iNdEx = postIndex
 		case 2:
 			if wireType != 0 {
-				return fmt.Errorf("proto: wrong wireType = %d for field CollectionId", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field SetId", wireType)
 			}
-			m.CollectionId = 0
+			m.SetId = 0
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowTx
@@ -18374,7 +18368,7 @@ func (m *MsgSetCollectionName) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.CollectionId |= uint64(b&0x7F) << shift
+				m.SetId |= uint64(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
@@ -18432,7 +18426,7 @@ func (m *MsgSetCollectionName) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *MsgSetCollectionNameResponse) Unmarshal(dAtA []byte) error {
+func (m *MsgSetSetNameResponse) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -18455,10 +18449,10 @@ func (m *MsgSetCollectionNameResponse) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: MsgSetCollectionNameResponse: wiretype end group for non-group")
+			return fmt.Errorf("proto: MsgSetSetNameResponse: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: MsgSetCollectionNameResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: MsgSetSetNameResponse: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		default:

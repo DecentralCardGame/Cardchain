@@ -28,7 +28,7 @@ enum CouncilStatus {
 }
 
 message BoosterPack {
-  uint64 collectionId = 1;
+  uint64 setId = 1;
   int64 timeStamp = 2;
   repeated uint64 raritiesPerPack = 3;
 }

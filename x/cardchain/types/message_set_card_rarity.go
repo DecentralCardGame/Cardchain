@@ -10,11 +10,11 @@ const TypeMsgSetCardRarity = "set_card_rarity"
 
 var _ sdk.Msg = &MsgSetCardRarity{}
 
-func NewMsgSetCardRarity(creator string, cardId uint64, collectionId uint64, rarity string) *MsgSetCardRarity {
+func NewMsgSetCardRarity(creator string, cardId uint64, setId uint64, rarity string) *MsgSetCardRarity {
 	return &MsgSetCardRarity{
 		Creator:      creator,
 		CardId:       cardId,
-		CollectionId: collectionId,
+		SetId: setId,
 		Rarity:       rarity,
 	}
 }
