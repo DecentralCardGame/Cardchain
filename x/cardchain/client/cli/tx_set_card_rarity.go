@@ -16,7 +16,7 @@ var _ = strconv.Itoa(0)
 
 func CmdSetCardRarity() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "set-card-rarity [card-id] [collection-id] [rarity]",
+		Use:   "set-card-rarity [card-id] [set-id] [rarity]",
 		Short: "Broadcast message SetCardRarity",
 		Args:  cobra.ExactArgs(3),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
@@ -24,7 +24,7 @@ func CmdSetCardRarity() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			argCollectionId, err := cast.ToUint64E(args[1])
+			argSetId, err := cast.ToUint64E(args[1])
 			if err != nil {
 				return err
 			}
@@ -44,7 +44,7 @@ func CmdSetCardRarity() *cobra.Command {
 			msg := types.NewMsgSetCardRarity(
 				clientCtx.GetFromAddress().String(),
 				argCardId,
-				argCollectionId,
+				argSetId,
 				argRarity,
 			)
 			if err := msg.ValidateBasic(); err != nil {

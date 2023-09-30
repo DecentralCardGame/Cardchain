@@ -41,7 +41,7 @@ func GetQueryCmd(queryRoute string) *cobra.Command {
 
 	cmd.AddCommand(CmdQMatch())
 
-	cmd.AddCommand(CmdQCollection())
+	cmd.AddCommand(CmdQSet())
 
 	cmd.AddCommand(CmdQSellOffer())
 
@@ -53,7 +53,7 @@ func GetQueryCmd(queryRoute string) *cobra.Command {
 
 	cmd.AddCommand(CmdQServer())
 
-	cmd.AddCommand(CmdQCollections())
+	cmd.AddCommand(CmdQSets())
 
 	cmd.AddCommand(CmdRarityDistribution())
 

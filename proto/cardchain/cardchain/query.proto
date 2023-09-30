@@ -9,7 +9,7 @@ import "cardchain/cardchain/voteing.proto";
 import "cardchain/cardchain/card.proto";
 import "cardchain/cardchain/user.proto";
 import "cardchain/cardchain/match.proto";
-import "cardchain/cardchain/collection.proto";
+import "cardchain/cardchain/set.proto";
 import "cardchain/cardchain/sell_offer.proto";
 import "cardchain/cardchain/council.proto";
 import "cardchain/cardchain/server.proto";
@@ -65,10 +65,10 @@ service Query {
 		option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/q_match/{matchId}";
 	}
 
-// Queries a list of QCollection items.
-	rpc QCollection(QueryQCollectionRequest) returns (OutpCollection) {
+// Queries a list of QSet items.
+	rpc QSet(QueryQSetRequest) returns (OutpSet) {
 option (google.api.http).get =
-"/DecentralCardGame/cardchain/cardchain/q_collection/{collectionId}"; }
+"/DecentralCardGame/cardchain/cardchain/q_set/{setId}"; }
 
 // Queries a list of QSellOffer items.
 	rpc QSellOffer(QueryQSellOfferRequest) returns (SellOffer) { option
@@ -95,14 +95,14 @@ option (google.api.http).get =
 (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/q_server/{id}";
 }
 
-// Queries a list of QCollections items.
-	rpc QCollections(QueryQCollectionsRequest) returns (QueryQCollectionsResponse) {
-		option (google.api.http).get = "/DecentralCardGame/Cardchain/cardchain/q_collections/{status}/{ignoreStatus}";
+// Queries a list of QSets items.
+	rpc QSets(QueryQSetsRequest) returns (QueryQSetsResponse) {
+		option (google.api.http).get = "/DecentralCardGame/Cardchain/cardchain/q_sets/{status}/{ignoreStatus}";
 	}
 
 // Queries a list of RarityDistribution items.
 	rpc RarityDistribution(QueryRarityDistributionRequest) returns (QueryRarityDistributionResponse) {
-		option (google.api.http).get = "/DecentralCardGame/Cardchain/cardchain/rarity_distribution/{collectionId}";
+		option (google.api.http).get = "/DecentralCardGame/Cardchain/cardchain/rarity_distribution/{setId}";
 	}
 
 // this line is used by starport scaffolding # 2
@@ -139,7 +139,7 @@ message QueryQCardchainInfoRequest {
 
 message QueryQCardchainInfoResponse {
   string cardAuctionPrice = 1 [(gogoproto.nullable) = false, (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Coin"];;
-  repeated uint64 activeCollections = 2;
+  repeated uint64 activeSets = 2;
   uint64 cardsNumber = 3;
   uint64 matchesNumber = 4;
   uint64 sellOffersNumber = 5;
@@ -197,8 +197,8 @@ message QueryQMatchRequest {
   uint64 matchId = 1;
 }
 
-message QueryQCollectionRequest {
-  uint64 collectionId = 1;
+message QueryQSetRequest {
+  uint64 setId = 1;
 }
 
 message QueryQSellOfferRequest {
@@ -267,7 +267,7 @@ message QueryQServerRequest {
 message QueryQServerResponse {
 }
 
-message QueryQCollectionsRequest {
+message QueryQSetsRequest {
    CStatus status = 1;
    bool ignoreStatus = 2;
    repeated string contributors = 3;
@@ -275,12 +275,12 @@ message QueryQCollectionsRequest {
    string owner = 5;
 }
 
-message QueryQCollectionsResponse {
-   repeated uint64 collectionIds = 1;
+message QueryQSetsResponse {
+   repeated uint64 setIds = 1;
 }
 
 message QueryRarityDistributionRequest {
-   uint64 collectionId = 1;
+   uint64 setId = 1;
 }
 
 message QueryRarityDistributionResponse {

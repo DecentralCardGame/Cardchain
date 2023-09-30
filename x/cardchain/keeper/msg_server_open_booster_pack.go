@@ -33,12 +33,12 @@ func (k msgServer) OpenBoosterPack(goCtx context.Context, msg *types.MsgOpenBoos
 	var cardsList []uint64
 	rarities := []string{"COMMON", "UNCOMMON", "RARE"}
 
-	collection := k.Collections.Get(ctx, creator.BoosterPacks[msg.BoosterPackId].CollectionId)
+	set := k.Sets.Get(ctx, creator.BoosterPacks[msg.BoosterPackId].SetId)
 
 	for idx, num := range creator.BoosterPacks[msg.BoosterPackId].RaritiesPerPack {
 		for i := 0; i < int(num); i++ {
 			var rarityCards []uint64
-			for _, cardId := range collection.Cards {
+			for _, cardId := range set.Cards {
 				cardobj, err := keywords.Unmarshal(k.Cards.Get(ctx, cardId).Content)
 				if err != nil {
 					return nil, sdkerrors.Wrap(types.ErrCardobject, err.Error())

@@ -32869,17 +32869,17 @@ paths:
           format: int64
       tags:
         - Query
-  /DecentralCardGame/Cardchain/cardchain/q_collections/{status}/{ignoreStatus}:
+  /DecentralCardGame/Cardchain/cardchain/q_sets/{status}/{ignoreStatus}:
     get:
-      summary: Queries a list of QCollections items.
-      operationId: DecentralCardGameCardchainCardchainQCollections
+      summary: Queries a list of QSets items.
+      operationId: DecentralCardGameCardchainCardchainQSets
       responses:
         '200':
           description: A successful response.
           schema:
             type: object
             properties:
-              collectionIds:
+              setIds:
                 type: array
                 items:
                   type: string
@@ -32937,7 +32937,7 @@ paths:
           type: string
       tags:
         - Query
-  /DecentralCardGame/Cardchain/cardchain/rarity_distribution/{collectionId}:
+  /DecentralCardGame/Cardchain/cardchain/rarity_distribution/{setId}:
     get:
       summary: Queries a list of RarityDistribution items.
       operationId: DecentralCardGameCardchainCardchainRarityDistribution
@@ -32976,7 +32976,7 @@ paths:
                       type: string
                   additionalProperties: {}
       parameters:
-        - name: collectionId
+        - name: setId
           in: path
           required: true
           type: string
@@ -33000,15 +33000,15 @@ paths:
                   votingRightsExpirationTime:
                     type: string
                     format: int64
-                  collectionSize:
+                  setSize:
                     type: string
                     format: uint64
-                  collectionPrice:
+                  setPrice:
                     type: string
-                  activeCollectionsAmount:
+                  activeSetsAmount:
                     type: string
                     format: uint64
-                  collectionCreationFee:
+                  setCreationFee:
                     type: string
                   collateralDeposit:
                     type: string
@@ -33214,7 +33214,7 @@ paths:
             properties:
               cardAuctionPrice:
                 type: string
-              activeCollections:
+              activeSets:
                 type: array
                 items:
                   type: string
@@ -33336,72 +33336,6 @@ paths:
           in: query
           required: false
           type: boolean
-      tags:
-        - Query
-  /DecentralCardGame/cardchain/cardchain/q_collection/{collectionId}:
-    get:
-      summary: Queries a list of QCollection items.
-      operationId: DecentralCardGameCardchainCardchainQCollection
-      responses:
-        '200':
-          description: A successful response.
-          schema:
-            type: object
-            properties:
-              name:
-                type: string
-              cards:
-                type: array
-                items:
-                  type: string
-                  format: uint64
-              artist:
-                type: string
-              storyWriter:
-                type: string
-              contributors:
-                type: array
-                items:
-                  type: string
-              story:
-                type: string
-              artwork:
-                type: string
-              status:
-                type: string
-                enum:
-                  - design
-                  - finalized
-                  - active
-                  - archived
-                default: design
-              timeStamp:
-                type: string
-                format: int64
-        default:
-          description: An unexpected error response.
-          schema:
-            type: object
-            properties:
-              code:
-                type: integer
-                format: int32
-              message:
-                type: string
-              details:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    '@type':
-                      type: string
-                  additionalProperties: {}
-      parameters:
-        - name: collectionId
-          in: path
-          required: true
-          type: string
-          format: uint64
       tags:
         - Query
   /DecentralCardGame/cardchain/cardchain/q_council/{councilId}:
@@ -33971,6 +33905,72 @@ paths:
           format: uint64
       tags:
         - Query
+  /DecentralCardGame/cardchain/cardchain/q_set/{setId}:
+    get:
+      summary: Queries a list of QSet items.
+      operationId: DecentralCardGameCardchainCardchainQSet
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+              cards:
+                type: array
+                items:
+                  type: string
+                  format: uint64
+              artist:
+                type: string
+              storyWriter:
+                type: string
+              contributors:
+                type: array
+                items:
+                  type: string
+              story:
+                type: string
+              artwork:
+                type: string
+              status:
+                type: string
+                enum:
+                  - design
+                  - finalized
+                  - active
+                  - archived
+                default: design
+              timeStamp:
+                type: string
+                format: int64
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: setId
+          in: path
+          required: true
+          type: string
+          format: uint64
+      tags:
+        - Query
   /DecentralCardGame/cardchain/cardchain/q_user/{address}:
     get:
       summary: Queries a list of QUser items.
@@ -34040,7 +34040,7 @@ paths:
                 items:
                   type: object
                   properties:
-                    collectionId:
+                    setId:
                       type: string
                       format: uint64
                     timeStamp:
@@ -68468,7 +68468,7 @@ definitions:
   DecentralCardGame.cardchain.cardchain.BoosterPack:
     type: object
     properties:
-      collectionId:
+      setId:
         type: string
         format: uint64
       timeStamp:
@@ -68694,13 +68694,13 @@ definitions:
               type: string
   DecentralCardGame.cardchain.cardchain.MsgAddArtworkResponse:
     type: object
-  DecentralCardGame.cardchain.cardchain.MsgAddArtworkToCollectionResponse:
+  DecentralCardGame.cardchain.cardchain.MsgAddArtworkToSetResponse:
     type: object
-  DecentralCardGame.cardchain.cardchain.MsgAddCardToCollectionResponse:
+  DecentralCardGame.cardchain.cardchain.MsgAddCardToSetResponse:
     type: object
-  DecentralCardGame.cardchain.cardchain.MsgAddContributorToCollectionResponse:
+  DecentralCardGame.cardchain.cardchain.MsgAddContributorToSetResponse:
     type: object
-  DecentralCardGame.cardchain.cardchain.MsgAddStoryToCollectionResponse:
+  DecentralCardGame.cardchain.cardchain.MsgAddStoryToSetResponse:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgApointMatchReporterResponse:
     type: object
@@ -68712,7 +68712,7 @@ definitions:
       cardId:
         type: string
         format: uint64
-  DecentralCardGame.cardchain.cardchain.MsgBuyCollectionResponse:
+  DecentralCardGame.cardchain.cardchain.MsgBuySetResponse:
     type: object
     properties:
       airdropClaimed:
@@ -68723,24 +68723,18 @@ definitions:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgConfirmMatchResponse:
     type: object
-  DecentralCardGame.cardchain.cardchain.MsgCreateCollectionResponse:
-    type: object
   DecentralCardGame.cardchain.cardchain.MsgCreateCouncilResponse:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgCreateSellOfferResponse:
+    type: object
+  DecentralCardGame.cardchain.cardchain.MsgCreateSetResponse:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgCreateuserResponse:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgDonateToCardResponse:
     type: object
-  DecentralCardGame.cardchain.cardchain.MsgFinalizeCollectionResponse:
+  DecentralCardGame.cardchain.cardchain.MsgFinalizeSetResponse:
     type: object
-  DecentralCardGame.cardchain.cardchain.MsgMsgOpenMatchResponse:
-    type: object
-    properties:
-      matchId:
-        type: string
-        format: uint64
   DecentralCardGame.cardchain.cardchain.MsgMultiVoteCardResponse:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgOpenBoosterPackResponse:
@@ -68751,11 +68745,17 @@ definitions:
         items:
           type: string
           format: uint64
+  DecentralCardGame.cardchain.cardchain.MsgOpenMatchResponse:
+    type: object
+    properties:
+      matchId:
+        type: string
+        format: uint64
   DecentralCardGame.cardchain.cardchain.MsgRegisterForCouncilResponse:
     type: object
-  DecentralCardGame.cardchain.cardchain.MsgRemoveCardFromCollectionResponse:
+  DecentralCardGame.cardchain.cardchain.MsgRemoveCardFromSetResponse:
     type: object
-  DecentralCardGame.cardchain.cardchain.MsgRemoveContributorFromCollectionResponse:
+  DecentralCardGame.cardchain.cardchain.MsgRemoveContributorFromSetResponse:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgRemoveSellOfferResponse:
     type: object
@@ -68778,23 +68778,23 @@ definitions:
         type: boolean
   DecentralCardGame.cardchain.cardchain.MsgSetCardRarityResponse:
     type: object
-  DecentralCardGame.cardchain.cardchain.MsgSetCollectionArtistResponse:
-    type: object
-  DecentralCardGame.cardchain.cardchain.MsgSetCollectionNameResponse:
-    type: object
-  DecentralCardGame.cardchain.cardchain.MsgSetCollectionStoryWriterResponse:
-    type: object
   DecentralCardGame.cardchain.cardchain.MsgSetProfileCardResponse:
+    type: object
+  DecentralCardGame.cardchain.cardchain.MsgSetSetArtistResponse:
+    type: object
+  DecentralCardGame.cardchain.cardchain.MsgSetSetNameResponse:
+    type: object
+  DecentralCardGame.cardchain.cardchain.MsgSetSetStoryWriterResponse:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgSetUserBiographyResponse:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgSetUserWebsiteResponse:
     type: object
-  DecentralCardGame.cardchain.cardchain.MsgSubmitCollectionProposalResponse:
-    type: object
   DecentralCardGame.cardchain.cardchain.MsgSubmitCopyrightProposalResponse:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgSubmitMatchReporterProposalResponse:
+    type: object
+  DecentralCardGame.cardchain.cardchain.MsgSubmitSetProposalResponse:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgTransferBoosterPackResponse:
     type: object
@@ -68868,7 +68868,7 @@ definitions:
         type: string
       starterCard:
         type: boolean
-  DecentralCardGame.cardchain.cardchain.OutpCollection:
+  DecentralCardGame.cardchain.cardchain.OutpSet:
     type: object
     properties:
       name:
@@ -68907,15 +68907,15 @@ definitions:
       votingRightsExpirationTime:
         type: string
         format: int64
-      collectionSize:
+      setSize:
         type: string
         format: uint64
-      collectionPrice:
+      setPrice:
         type: string
-      activeCollectionsAmount:
+      activeSetsAmount:
         type: string
         format: uint64
-      collectionCreationFee:
+      setCreationFee:
         type: string
       collateralDeposit:
         type: string
@@ -68971,15 +68971,15 @@ definitions:
           votingRightsExpirationTime:
             type: string
             format: int64
-          collectionSize:
+          setSize:
             type: string
             format: uint64
-          collectionPrice:
+          setPrice:
             type: string
-          activeCollectionsAmount:
+          activeSetsAmount:
             type: string
             format: uint64
-          collectionCreationFee:
+          setCreationFee:
             type: string
           collateralDeposit:
             type: string
@@ -69037,7 +69037,7 @@ definitions:
     properties:
       cardAuctionPrice:
         type: string
-      activeCollections:
+      activeSets:
         type: array
         items:
           type: string
@@ -69076,14 +69076,6 @@ definitions:
     type: object
     properties:
       cardsList:
-        type: array
-        items:
-          type: string
-          format: uint64
-  DecentralCardGame.cardchain.cardchain.QueryQCollectionsResponse:
-    type: object
-    properties:
-      collectionIds:
         type: array
         items:
           type: string
@@ -69217,6 +69209,14 @@ definitions:
                 - sold
                 - removed
               default: open
+  DecentralCardGame.cardchain.cardchain.QueryQSetsResponse:
+    type: object
+    properties:
+      setIds:
+        type: array
+        items:
+          type: string
+          format: uint64
   DecentralCardGame.cardchain.cardchain.QueryQVotableCardsResponse:
     type: object
     properties:
@@ -69420,7 +69420,7 @@ definitions:
         items:
           type: object
           properties:
-            collectionId:
+            setId:
               type: string
               format: uint64
             timeStamp:

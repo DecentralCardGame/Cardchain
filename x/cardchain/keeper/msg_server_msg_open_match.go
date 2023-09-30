@@ -9,7 +9,7 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
-func (k msgServer) MsgOpenMatch(goCtx context.Context, msg *types.MsgMsgOpenMatch) (*types.MsgMsgOpenMatchResponse, error) {
+func (k msgServer) OpenMatch(goCtx context.Context, msg *types.MsgOpenMatch) (*types.MsgOpenMatchResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
 	creator, err := k.GetUserFromString(ctx, msg.Creator)
@@ -31,5 +31,5 @@ func (k msgServer) MsgOpenMatch(goCtx context.Context, msg *types.MsgMsgOpenMatc
 
 	k.Matches.Set(ctx, matchId, &match)
 
-	return &types.MsgMsgOpenMatchResponse{MatchId: matchId}, nil
+	return &types.MsgOpenMatchResponse{MatchId: matchId}, nil
 }

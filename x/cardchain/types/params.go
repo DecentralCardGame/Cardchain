@@ -23,10 +23,10 @@ func ParamKeyTable() paramtypes.KeyTable {
 func NewParams() Params {
 	return Params{
 		VotingRightsExpirationTime:      86000,
-		CollectionSize:                  24,
-		CollectionPrice:                 sdk.NewInt64Coin("ucredits", 10000000),
-		ActiveCollectionsAmount:         3,
-		CollectionCreationFee:           sdk.NewInt64Coin("ucredits", int64(5000*math.Pow(10, 6))),
+		SetSize:                  24,
+		SetPrice:                 sdk.NewInt64Coin("ucredits", 10000000),
+		ActiveSetsAmount:         3,
+		SetCreationFee:           sdk.NewInt64Coin("ucredits", int64(5000*math.Pow(10, 6))),
 		CollateralDeposit:               sdk.NewInt64Coin("ucredits", int64(50*math.Pow(10, 6))),
 		TrialVoteReward:                 sdk.NewInt64Coin("ucredits", int64(math.Pow(10, 6))),
 		WinnerReward:                    int64(math.Pow(10, 6)),
@@ -55,11 +55,11 @@ func DefaultParams() Params {
 func (p *Params) ParamSetPairs() paramtypes.ParamSetPairs {
 	return paramtypes.ParamSetPairs{
 		paramtypes.NewParamSetPair([]byte("VotingRightsExpirationTime"), &p.VotingRightsExpirationTime, validateVotingRightsExpirationTime),
-		paramtypes.NewParamSetPair([]byte("CollectionSize"), &p.CollectionSize, validateCollectionSize),
-		paramtypes.NewParamSetPair([]byte("CollectionPrice"), &p.CollectionPrice, validateCollectionPrice),
-		paramtypes.NewParamSetPair([]byte("TrialVoteReward"), &p.TrialVoteReward, validateCollectionPrice),
-		paramtypes.NewParamSetPair([]byte("ActiveCollectionsAmount"), &p.ActiveCollectionsAmount, validateActiveCollectionsAmount),
-		paramtypes.NewParamSetPair([]byte("CollectionCreationFee"), &p.CollectionCreationFee, validateCollectionCreationFee),
+		paramtypes.NewParamSetPair([]byte("SetSize"), &p.SetSize, validateSetSize),
+		paramtypes.NewParamSetPair([]byte("SetPrice"), &p.SetPrice, validateSetPrice),
+		paramtypes.NewParamSetPair([]byte("TrialVoteReward"), &p.TrialVoteReward, validateSetPrice),
+		paramtypes.NewParamSetPair([]byte("ActiveSetsAmount"), &p.ActiveSetsAmount, validateActiveSetsAmount),
+		paramtypes.NewParamSetPair([]byte("SetCreationFee"), &p.SetCreationFee, validateSetCreationFee),
 		paramtypes.NewParamSetPair([]byte("CollateralDeposit"), &p.CollateralDeposit, validateCollateralDeposit),
 		paramtypes.NewParamSetPair([]byte("WinnerReward"), &p.WinnerReward, validateWinnerReward),
 		paramtypes.NewParamSetPair([]byte("VotePoolFraction"), &p.VotePoolFraction, validateVoterReward),
@@ -102,40 +102,40 @@ func validateVotingRightsExpirationTime(i interface{}) error {
 	return nil
 }
 
-func validateCollectionSize(i interface{}) error {
+func validateSetSize(i interface{}) error {
 	v, ok := i.(uint64)
 	if !ok {
 		return fmt.Errorf("invalid parameter type: %T", i)
 	}
 
 	if v == 0 {
-		return fmt.Errorf("invalid CollectionSize: %d", v)
+		return fmt.Errorf("invalid SetSize: %d", v)
 	}
 
 	return nil
 }
 
-func validateCollectionPrice(i interface{}) error {
+func validateSetPrice(i interface{}) error {
 	v, ok := i.(sdk.Coin)
 	if !ok {
 		return fmt.Errorf("invalid parameter type: %T", i)
 	}
 
 	if v == sdk.NewInt64Coin("ucredits", 0) {
-		return fmt.Errorf("invalid CollectionPrice: %v", v)
+		return fmt.Errorf("invalid SetPrice: %v", v)
 	}
 
 	return nil
 }
 
-func validateActiveCollectionsAmount(i interface{}) error {
+func validateActiveSetsAmount(i interface{}) error {
 	v, ok := i.(uint64)
 	if !ok {
 		return fmt.Errorf("invalid parameter type: %T", i)
 	}
 
 	if v == 0 {
-		return fmt.Errorf("invalid ActiveCollectionsAmount: %d", v)
+		return fmt.Errorf("invalid ActiveSetsAmount: %d", v)
 	}
 
 	return nil
@@ -193,14 +193,14 @@ func validateCardAuctionPriceReductionPeriod(i interface{}) error {
 	return nil
 }
 
-func validateCollectionCreationFee(i interface{}) error {
+func validateSetCreationFee(i interface{}) error {
 	v, ok := i.(sdk.Coin)
 	if !ok {
 		return fmt.Errorf("invalid parameter type: %T", i)
 	}
 
 	if v == sdk.NewInt64Coin("ucredits", 0) {
-		return fmt.Errorf("invalid CollectionCreationFee: %v", v)
+		return fmt.Errorf("invalid SetCreationFee: %v", v)
 	}
 
 	return nil

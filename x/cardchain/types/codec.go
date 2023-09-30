@@ -19,25 +19,25 @@ func RegisterCodec(cdc *codec.LegacyAmino) {
 	cdc.RegisterConcrete(&MsgSubmitCopyrightProposal{}, "cardchain/SubmitCopyrightProposal", nil)
 	cdc.RegisterConcrete(&CopyrightProposal{}, "cardchain/CopyrightProposal", nil)
 	cdc.RegisterConcrete(&MatchReporterProposal{}, "cardchain/MatchReporterProposal", nil)
-	cdc.RegisterConcrete(&CollectionProposal{}, "cardchain/CollectionProposal", nil)
+	cdc.RegisterConcrete(&SetProposal{}, "cardchain/SetProposal", nil)
 	cdc.RegisterConcrete(&MsgChangeArtist{}, "cardchain/ChangeArtist", nil)
 	cdc.RegisterConcrete(&MsgRegisterForCouncil{}, "cardchain/RegisterForCouncil", nil)
 	cdc.RegisterConcrete(&MsgReportMatch{}, "cardchain/ReportMatch", nil)
 	cdc.RegisterConcrete(&MsgSubmitMatchReporterProposal{}, "cardchain/SubmitMatchReporterProposal", nil)
 	cdc.RegisterConcrete(&MsgApointMatchReporter{}, "cardchain/ApointMatchReporter", nil)
-	cdc.RegisterConcrete(&MsgCreateCollection{}, "cardchain/CreateCollection", nil)
-	cdc.RegisterConcrete(&MsgAddCardToCollection{}, "cardchain/AddCardToCollection", nil)
-	cdc.RegisterConcrete(&MsgFinalizeCollection{}, "cardchain/FinalizeCollection", nil)
-	cdc.RegisterConcrete(&MsgBuyCollection{}, "cardchain/BuyCollection", nil)
-	cdc.RegisterConcrete(&MsgRemoveCardFromCollection{}, "cardchain/RemoveCardFromCollection", nil)
-	cdc.RegisterConcrete(&MsgRemoveContributorFromCollection{}, "cardchain/RemoveContributorFromCollection", nil)
-	cdc.RegisterConcrete(&MsgAddContributorToCollection{}, "cardchain/AddContributorToCollection", nil)
-	cdc.RegisterConcrete(&MsgSubmitCollectionProposal{}, "cardchain/SubmitCollectionProposal", nil)
+	cdc.RegisterConcrete(&MsgCreateSet{}, "cardchain/CreateSet", nil)
+	cdc.RegisterConcrete(&MsgAddCardToSet{}, "cardchain/AddCardToSet", nil)
+	cdc.RegisterConcrete(&MsgFinalizeSet{}, "cardchain/FinalizeSet", nil)
+	cdc.RegisterConcrete(&MsgBuySet{}, "cardchain/BuySet", nil)
+	cdc.RegisterConcrete(&MsgRemoveCardFromSet{}, "cardchain/RemoveCardFromSet", nil)
+	cdc.RegisterConcrete(&MsgRemoveContributorFromSet{}, "cardchain/RemoveContributorFromSet", nil)
+	cdc.RegisterConcrete(&MsgAddContributorToSet{}, "cardchain/AddContributorToSet", nil)
+	cdc.RegisterConcrete(&MsgSubmitSetProposal{}, "cardchain/SubmitSetProposal", nil)
 	cdc.RegisterConcrete(&MsgCreateSellOffer{}, "cardchain/CreateSellOffer", nil)
 	cdc.RegisterConcrete(&MsgBuyCard{}, "cardchain/BuyCard", nil)
 	cdc.RegisterConcrete(&MsgRemoveSellOffer{}, "cardchain/RemoveSellOffer", nil)
-	cdc.RegisterConcrete(&MsgAddArtworkToCollection{}, "cardchain/AddArtworkToCollection", nil)
-	cdc.RegisterConcrete(&MsgAddStoryToCollection{}, "cardchain/AddStoryToCollection", nil)
+	cdc.RegisterConcrete(&MsgAddArtworkToSet{}, "cardchain/AddArtworkToSet", nil)
+	cdc.RegisterConcrete(&MsgAddStoryToSet{}, "cardchain/AddStoryToSet", nil)
 	cdc.RegisterConcrete(&MsgSetCardRarity{}, "cardchain/SetCardRarity", nil)
 	cdc.RegisterConcrete(&MsgCreateCouncil{}, "cardchain/CreateCouncil", nil)
 	cdc.RegisterConcrete(&MsgCommitCouncilResponse{}, "cardchain/CommitCouncilResponse", nil)
@@ -48,13 +48,13 @@ func RegisterCodec(cdc *codec.LegacyAmino) {
 	cdc.RegisterConcrete(&MsgSetProfileCard{}, "cardchain/SetProfileCard", nil)
 	cdc.RegisterConcrete(&MsgOpenBoosterPack{}, "cardchain/OpenBoosterPack", nil)
 	cdc.RegisterConcrete(&MsgTransferBoosterPack{}, "cardchain/TransferBoosterPack", nil)
-	cdc.RegisterConcrete(&MsgSetCollectionStoryWriter{}, "cardchain/SetCollectionStoryWriter", nil)
-	cdc.RegisterConcrete(&MsgSetCollectionArtist{}, "cardchain/SetCollectionArtist", nil)
+	cdc.RegisterConcrete(&MsgSetSetStoryWriter{}, "cardchain/SetSetStoryWriter", nil)
+	cdc.RegisterConcrete(&MsgSetSetArtist{}, "cardchain/SetSetArtist", nil)
 	cdc.RegisterConcrete(&MsgSetUserWebsite{}, "cardchain/SetUserWebsite", nil)
 	cdc.RegisterConcrete(&MsgSetUserBiography{}, "cardchain/SetUserBiography", nil)
 	cdc.RegisterConcrete(&MsgMultiVoteCard{}, "cardchain/MultiVoteCard", nil)
-	cdc.RegisterConcrete(&MsgMsgOpenMatch{}, "cardchain/MsgOpenMatch", nil)
-	cdc.RegisterConcrete(&MsgSetCollectionName{}, "cardchain/SetCollectionName", nil)
+	cdc.RegisterConcrete(&MsgOpenMatch{}, "cardchain/MsgOpenMatch", nil)
+	cdc.RegisterConcrete(&MsgSetSetName{}, "cardchain/SetSetName", nil)
 	// this line is used by starport scaffolding # 2
 }
 
@@ -90,7 +90,7 @@ func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {
 		&MatchReporterProposal{},
 	)
 	registry.RegisterImplementations((*govtypes.Content)(nil),
-		&CollectionProposal{},
+		&SetProposal{},
 	)
 	registry.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgChangeArtist{},
@@ -108,28 +108,28 @@ func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {
 		&MsgApointMatchReporter{},
 	)
 	registry.RegisterImplementations((*sdk.Msg)(nil),
-		&MsgCreateCollection{},
+		&MsgCreateSet{},
 	)
 	registry.RegisterImplementations((*sdk.Msg)(nil),
-		&MsgAddCardToCollection{},
+		&MsgAddCardToSet{},
 	)
 	registry.RegisterImplementations((*sdk.Msg)(nil),
-		&MsgFinalizeCollection{},
+		&MsgFinalizeSet{},
 	)
 	registry.RegisterImplementations((*sdk.Msg)(nil),
-		&MsgBuyCollection{},
+		&MsgBuySet{},
 	)
 	registry.RegisterImplementations((*sdk.Msg)(nil),
-		&MsgRemoveCardFromCollection{},
+		&MsgRemoveCardFromSet{},
 	)
 	registry.RegisterImplementations((*sdk.Msg)(nil),
-		&MsgRemoveContributorFromCollection{},
+		&MsgRemoveContributorFromSet{},
 	)
 	registry.RegisterImplementations((*sdk.Msg)(nil),
-		&MsgAddContributorToCollection{},
+		&MsgAddContributorToSet{},
 	)
 	registry.RegisterImplementations((*sdk.Msg)(nil),
-		&MsgSubmitCollectionProposal{},
+		&MsgSubmitSetProposal{},
 	)
 	registry.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgCreateSellOffer{},
@@ -141,10 +141,10 @@ func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {
 		&MsgRemoveSellOffer{},
 	)
 	registry.RegisterImplementations((*sdk.Msg)(nil),
-		&MsgAddArtworkToCollection{},
+		&MsgAddArtworkToSet{},
 	)
 	registry.RegisterImplementations((*sdk.Msg)(nil),
-		&MsgAddStoryToCollection{},
+		&MsgAddStoryToSet{},
 	)
 	registry.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgSetCardRarity{},
@@ -177,10 +177,10 @@ func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {
 		&MsgTransferBoosterPack{},
 	)
 	registry.RegisterImplementations((*sdk.Msg)(nil),
-		&MsgSetCollectionStoryWriter{},
+		&MsgSetSetStoryWriter{},
 	)
 	registry.RegisterImplementations((*sdk.Msg)(nil),
-		&MsgSetCollectionArtist{},
+		&MsgSetSetArtist{},
 	)
 	registry.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgSetUserWebsite{},
@@ -192,10 +192,10 @@ func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {
 		&MsgMultiVoteCard{},
 	)
 	registry.RegisterImplementations((*sdk.Msg)(nil),
-		&MsgMsgOpenMatch{},
+		&MsgOpenMatch{},
 	)
 	registry.RegisterImplementations((*sdk.Msg)(nil),
-		&MsgSetCollectionName{},
+		&MsgSetSetName{},
 	)
 	// this line is used by starport scaffolding # 3
 

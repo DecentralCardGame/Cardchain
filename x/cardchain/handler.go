@@ -51,29 +51,29 @@ func NewHandler(k keeper.Keeper) sdk.Handler {
 		// case *types.MsgApointMatchReporter: // Will be uncommented later when I know how to check for module account
 		// 	res, err := msgServer.ApointMatchReporter(sdk.WrapSDKContext(ctx), msg)
 		// 	return sdk.WrapServiceResult(ctx, res, err)
-		case *types.MsgCreateCollection:
-			res, err := msgServer.CreateCollection(sdk.WrapSDKContext(ctx), msg)
+		case *types.MsgCreateSet:
+			res, err := msgServer.CreateSet(sdk.WrapSDKContext(ctx), msg)
 			return sdk.WrapServiceResult(ctx, res, err)
-		case *types.MsgAddCardToCollection:
-			res, err := msgServer.AddCardToCollection(sdk.WrapSDKContext(ctx), msg)
+		case *types.MsgAddCardToSet:
+			res, err := msgServer.AddCardToSet(sdk.WrapSDKContext(ctx), msg)
 			return sdk.WrapServiceResult(ctx, res, err)
-		case *types.MsgFinalizeCollection:
-			res, err := msgServer.FinalizeCollection(sdk.WrapSDKContext(ctx), msg)
+		case *types.MsgFinalizeSet:
+			res, err := msgServer.FinalizeSet(sdk.WrapSDKContext(ctx), msg)
 			return sdk.WrapServiceResult(ctx, res, err)
-		case *types.MsgBuyCollection:
-			res, err := msgServer.BuyCollection(sdk.WrapSDKContext(ctx), msg)
+		case *types.MsgBuySet:
+			res, err := msgServer.BuySet(sdk.WrapSDKContext(ctx), msg)
 			return sdk.WrapServiceResult(ctx, res, err)
-		case *types.MsgRemoveCardFromCollection:
-			res, err := msgServer.RemoveCardFromCollection(sdk.WrapSDKContext(ctx), msg)
+		case *types.MsgRemoveCardFromSet:
+			res, err := msgServer.RemoveCardFromSet(sdk.WrapSDKContext(ctx), msg)
 			return sdk.WrapServiceResult(ctx, res, err)
-		case *types.MsgRemoveContributorFromCollection:
-			res, err := msgServer.RemoveContributorFromCollection(sdk.WrapSDKContext(ctx), msg)
+		case *types.MsgRemoveContributorFromSet:
+			res, err := msgServer.RemoveContributorFromSet(sdk.WrapSDKContext(ctx), msg)
 			return sdk.WrapServiceResult(ctx, res, err)
-		case *types.MsgAddContributorToCollection:
-			res, err := msgServer.AddContributorToCollection(sdk.WrapSDKContext(ctx), msg)
+		case *types.MsgAddContributorToSet:
+			res, err := msgServer.AddContributorToSet(sdk.WrapSDKContext(ctx), msg)
 			return sdk.WrapServiceResult(ctx, res, err)
-		case *types.MsgSubmitCollectionProposal:
-			res, err := msgServer.SubmitCollectionProposal(sdk.WrapSDKContext(ctx), msg)
+		case *types.MsgSubmitSetProposal:
+			res, err := msgServer.SubmitSetProposal(sdk.WrapSDKContext(ctx), msg)
 			return sdk.WrapServiceResult(ctx, res, err)
 		case *types.MsgCreateSellOffer:
 			res, err := msgServer.CreateSellOffer(sdk.WrapSDKContext(ctx), msg)
@@ -84,11 +84,11 @@ func NewHandler(k keeper.Keeper) sdk.Handler {
 		case *types.MsgRemoveSellOffer:
 			res, err := msgServer.RemoveSellOffer(sdk.WrapSDKContext(ctx), msg)
 			return sdk.WrapServiceResult(ctx, res, err)
-		case *types.MsgAddArtworkToCollection:
-			res, err := msgServer.AddArtworkToCollection(sdk.WrapSDKContext(ctx), msg)
+		case *types.MsgAddArtworkToSet:
+			res, err := msgServer.AddArtworkToSet(sdk.WrapSDKContext(ctx), msg)
 			return sdk.WrapServiceResult(ctx, res, err)
-		case *types.MsgAddStoryToCollection:
-			res, err := msgServer.AddStoryToCollection(sdk.WrapSDKContext(ctx), msg)
+		case *types.MsgAddStoryToSet:
+			res, err := msgServer.AddStoryToSet(sdk.WrapSDKContext(ctx), msg)
 			return sdk.WrapServiceResult(ctx, res, err)
 		case *types.MsgSetCardRarity:
 			res, err := msgServer.SetCardRarity(sdk.WrapSDKContext(ctx), msg)
@@ -120,11 +120,11 @@ func NewHandler(k keeper.Keeper) sdk.Handler {
 		case *types.MsgTransferBoosterPack:
 			res, err := msgServer.TransferBoosterPack(sdk.WrapSDKContext(ctx), msg)
 			return sdk.WrapServiceResult(ctx, res, err)
-		case *types.MsgSetCollectionStoryWriter:
-			res, err := msgServer.SetCollectionStoryWriter(sdk.WrapSDKContext(ctx), msg)
+		case *types.MsgSetSetStoryWriter:
+			res, err := msgServer.SetSetStoryWriter(sdk.WrapSDKContext(ctx), msg)
 			return sdk.WrapServiceResult(ctx, res, err)
-		case *types.MsgSetCollectionArtist:
-			res, err := msgServer.SetCollectionArtist(sdk.WrapSDKContext(ctx), msg)
+		case *types.MsgSetSetArtist:
+			res, err := msgServer.SetSetArtist(sdk.WrapSDKContext(ctx), msg)
 			return sdk.WrapServiceResult(ctx, res, err)
 		case *types.MsgSetUserWebsite:
 			res, err := msgServer.SetUserWebsite(sdk.WrapSDKContext(ctx), msg)
