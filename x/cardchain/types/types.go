@@ -14,11 +14,12 @@ func NewMatchPlayer(addr string, cards []uint64, deck []uint64) *MatchPlayer {
 	}
 }
 
-func NewBoosterPack(ctx sdk.Context, setId uint64, raritiesPerPack []uint64) BoosterPack {
+func NewBoosterPack(ctx sdk.Context, setId uint64, raritiesPerPack []uint64, dropRatiosPerPack []uint64) BoosterPack {
 	return BoosterPack{
-		SetId:    setId,
-		RaritiesPerPack: raritiesPerPack,
-		TimeStamp:       ctx.BlockHeight(),
+		SetId:             setId,
+		RaritiesPerPack:   raritiesPerPack,
+		TimeStamp:         ctx.BlockHeight(),
+		DropRatiosPerPack: dropRatiosPerPack,
 	}
 }
 

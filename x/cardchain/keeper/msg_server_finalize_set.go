@@ -16,30 +16,23 @@ func (k msgServer) FinalizeSet(goCtx context.Context, msg *types.MsgFinalizeSet)
 	setSize := int(k.GetParams(ctx).SetSize)
 
 	set := k.Sets.Get(ctx, msg.SetId)
-	if msg.Creator != set.Contributors[0] {
-		return nil, sdkerrors.Wrap(errors.ErrUnauthorized, "Invalid creator")
+	err := checkSetEditable(set, msg.Creator)
+	if err != nil  {
+		return nil, err
 	}
 
-	if set.Status != types.CStatus_design {
-		return nil, types.ErrSetNotInDesign
-	}
-
-	if len(set.Cards) != setSize {
-		return nil, sdkerrors.Wrapf(types.ErrSetSize, "Has to be %d", setSize)
-	}
-
-	err := k.CollectSetCreationFee(ctx, msg.Creator)
+	err = k.CollectSetCreationFee(ctx, msg.Creator)
 	if err != nil {
 		return nil, sdkerrors.Wrap(errors.ErrInsufficientFunds, err.Error())
 	}
 
-	dist, err := k.GetRarityDistribution(ctx, *set, uint64(setSize))
+	dist, err := k.GetRarityDistribution(ctx, *set, uint32(setSize))
 	if err != nil {
 		return nil, err
 	}
 
 	if dist[0] != dist[1] {
-		return nil, fmt.Errorf("sets should contain (c,u,r) %d, %d, %d but contains %d, %d, %d", dist[1][0], dist[1][1], dist[1][2], dist[0][0], dist[0][1], dist[0][2])
+		return nil, fmt.Errorf("sets should contain [(common,unique,exceptional), uncommon, rare] %d, %d, %d but contains %d, %d, %d", dist[1][0], dist[1][1], dist[1][2], dist[0][0], dist[0][1], dist[0][2])
 	}
 
 	set.Status = types.CStatus_finalized

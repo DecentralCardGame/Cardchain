@@ -38,6 +38,7 @@ with open(file_path_old, "r") as file:
 with open(file_path_new, "r") as file:
     new_dict = json.load(file)
 
+params = new_dict["app_state"]["cardchain"]["params"]
 new_dict["app_state"]["cardchain"] = old_dict["app_state"]["cardchain"].copy()
 new_dict["app_state"]["cardchain"]["addresses"] = []
 new_dict["app_state"]["cardchain"]["users"] = []
@@ -47,8 +48,6 @@ for card in del_cards:
 # write rarities into cards
 #for card in rarities:
 #    new_dict["app_state"]["cardchain"]["cardRecords"][card[1]][rarity] = card[0]
-
-params = new_dict["app_state"]["cardchain"]["params"]
 
 for param in params:
     if param in old_dict["app_state"]["cardchain"]["params"]:
