@@ -68704,6 +68704,11 @@ definitions:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgApointMatchReporterResponse:
     type: object
+  DecentralCardGame.cardchain.cardchain.MsgBuyBoosterPackResponse:
+    type: object
+    properties:
+      airdropClaimed:
+        type: boolean
   DecentralCardGame.cardchain.cardchain.MsgBuyCardResponse:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgBuyCardSchemeResponse:
@@ -68712,11 +68717,6 @@ definitions:
       cardId:
         type: string
         format: uint64
-  DecentralCardGame.cardchain.cardchain.MsgBuySetResponse:
-    type: object
-    properties:
-      airdropClaimed:
-        type: boolean
   DecentralCardGame.cardchain.cardchain.MsgChangeArtistResponse:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgCommitCouncilResponseResponse:

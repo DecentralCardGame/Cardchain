@@ -8,21 +8,21 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func TestMsgBuySet_ValidateBasic(t *testing.T) {
+func TestMsgBuyBoosterPack_ValidateBasic(t *testing.T) {
 	tests := []struct {
 		name string
-		msg  MsgBuySet
+		msg  MsgBuyBoosterPack
 		err  error
 	}{
 		{
 			name: "invalid address",
-			msg: MsgBuySet{
+			msg: MsgBuyBoosterPack{
 				Creator: "invalid_address",
 			},
 			err: errors.ErrInvalidAddress,
 		}, {
 			name: "valid address",
-			msg: MsgBuySet{
+			msg: MsgBuyBoosterPack{
 				Creator: sample.AccAddress(),
 			},
 		},

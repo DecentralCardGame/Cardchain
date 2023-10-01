@@ -28,7 +28,7 @@ func RegisterCodec(cdc *codec.LegacyAmino) {
 	cdc.RegisterConcrete(&MsgCreateSet{}, "cardchain/CreateSet", nil)
 	cdc.RegisterConcrete(&MsgAddCardToSet{}, "cardchain/AddCardToSet", nil)
 	cdc.RegisterConcrete(&MsgFinalizeSet{}, "cardchain/FinalizeSet", nil)
-	cdc.RegisterConcrete(&MsgBuySet{}, "cardchain/BuySet", nil)
+	cdc.RegisterConcrete(&MsgBuyBoosterPack{}, "cardchain/BuyBoosterPack", nil)
 	cdc.RegisterConcrete(&MsgRemoveCardFromSet{}, "cardchain/RemoveCardFromSet", nil)
 	cdc.RegisterConcrete(&MsgRemoveContributorFromSet{}, "cardchain/RemoveContributorFromSet", nil)
 	cdc.RegisterConcrete(&MsgAddContributorToSet{}, "cardchain/AddContributorToSet", nil)
@@ -117,7 +117,7 @@ func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {
 		&MsgFinalizeSet{},
 	)
 	registry.RegisterImplementations((*sdk.Msg)(nil),
-		&MsgBuySet{},
+		&MsgBuyBoosterPack{},
 	)
 	registry.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgRemoveCardFromSet{},

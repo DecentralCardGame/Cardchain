@@ -13,10 +13,10 @@ import (
 
 var _ = strconv.Itoa(0)
 
-func CmdBuySet() *cobra.Command {
+func CmdBuyBoosterPack() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "buy-set [set-id]",
-		Short: "Broadcast message BuySet",
+		Short: "Broadcast message BuyBoosterPack",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
 
@@ -30,7 +30,7 @@ func CmdBuySet() *cobra.Command {
 				return err
 			}
 
-			msg := types.NewMsgBuySet(
+			msg := types.NewMsgBuyBoosterPack(
 				clientCtx.GetFromAddress().String(),
 				argSetId,
 			)

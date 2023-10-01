@@ -88,9 +88,9 @@ const (
 	// TODO: Determine the simulation weight value
 	defaultWeightMsgFinalizeSet int = 100
 
-	opWeightMsgBuySet = "op_weight_msg_create_chain"
+	opWeightMsgBuyBoosterPack = "op_weight_msg_create_chain"
 	// TODO: Determine the simulation weight value
-	defaultWeightMsgBuySet int = 100
+	defaultWeightMsgBuyBoosterPack int = 100
 
 	opWeightMsgRemoveCardFromSet = "op_weight_msg_create_chain"
 	// TODO: Determine the simulation weight value
@@ -405,15 +405,15 @@ func (am AppModule) WeightedOperations(simState module.SimulationState) []simtyp
 		cardchainsimulation.SimulateMsgFinalizeSet(am.accountKeeper, am.bankKeeper, am.keeper),
 	))
 
-	var weightMsgBuySet int
-	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgBuySet, &weightMsgBuySet, nil,
+	var weightMsgBuyBoosterPack int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgBuyBoosterPack, &weightMsgBuyBoosterPack, nil,
 		func(_ *rand.Rand) {
-			weightMsgBuySet = defaultWeightMsgBuySet
+			weightMsgBuyBoosterPack = defaultWeightMsgBuyBoosterPack
 		},
 	)
 	operations = append(operations, simulation.NewWeightedOperation(
-		weightMsgBuySet,
-		cardchainsimulation.SimulateMsgBuySet(am.accountKeeper, am.bankKeeper, am.keeper),
+		weightMsgBuyBoosterPack,
+		cardchainsimulation.SimulateMsgBuyBoosterPack(am.accountKeeper, am.bankKeeper, am.keeper),
 	))
 
 	var weightMsgRemoveCardFromSet int
