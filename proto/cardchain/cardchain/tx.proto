@@ -6,6 +6,7 @@ import "gogoproto/gogo.proto";
 import "cardchain/cardchain/council.proto";
 import "cardchain/cardchain/match.proto";
 import "cardchain/cardchain/voteing.proto";
+import "cardchain/cardchain/card.proto";
 import "cosmos/base/v1beta1/coin.proto";
 
 // this line is used by starport scaffolding # proto/tx/import
@@ -291,7 +292,7 @@ message MsgSetCardRarity {
   string creator      = 1;
   uint64 cardId       = 2;
   uint64 setId = 3;
-  string rarity       = 4;
+  CardRarity rarity       = 4;
 }
 
 message MsgSetCardRarityResponse {}

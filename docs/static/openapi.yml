@@ -33138,6 +33138,15 @@ paths:
                 type: string
               starterCard:
                 type: boolean
+              rarity:
+                type: string
+                enum:
+                  - common
+                  - uncommon
+                  - rare
+                  - exceptional
+                  - unique
+                default: common
         default:
           description: An unexpected error response.
           schema:
@@ -68487,6 +68496,15 @@ definitions:
       - active
       - archived
     default: design
+  DecentralCardGame.cardchain.cardchain.CardRarity:
+    type: string
+    enum:
+      - common
+      - uncommon
+      - rare
+      - exceptional
+      - unique
+    default: common
   DecentralCardGame.cardchain.cardchain.CouncelingStatus:
     type: string
     enum:
@@ -68868,6 +68886,15 @@ definitions:
         type: string
       starterCard:
         type: boolean
+      rarity:
+        type: string
+        enum:
+          - common
+          - uncommon
+          - rare
+          - exceptional
+          - unique
+        default: common
   DecentralCardGame.cardchain.cardchain.OutpSet:
     type: object
     properties:
