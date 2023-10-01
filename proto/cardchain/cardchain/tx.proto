@@ -30,7 +30,7 @@ service Msg {
   rpc CreateSet                (MsgCreateSet               ) returns (MsgCreateSetResponse               );
   rpc AddCardToSet             (MsgAddCardToSet            ) returns (MsgAddCardToSetResponse            );
   rpc FinalizeSet              (MsgFinalizeSet             ) returns (MsgFinalizeSetResponse             );
-  rpc BuySet                   (MsgBuySet                  ) returns (MsgBuySetResponse                  );
+  rpc BuyBoosterPack                   (MsgBuyBoosterPack                  ) returns (MsgBuyBoosterPackResponse                  );
   rpc RemoveCardFromSet        (MsgRemoveCardFromSet       ) returns (MsgRemoveCardFromSetResponse       );
   rpc RemoveContributorFromSet (MsgRemoveContributorFromSet) returns (MsgRemoveContributorFromSetResponse);
   rpc AddContributorToSet      (MsgAddContributorToSet     ) returns (MsgAddContributorToSetResponse     );
@@ -209,12 +209,12 @@ message MsgFinalizeSet {
 
 message MsgFinalizeSetResponse {}
 
-message MsgBuySet {
+message MsgBuyBoosterPack {
   string creator      = 1;
   uint64 setId = 2;
 }
 
-message MsgBuySetResponse {
+message MsgBuyBoosterPackResponse {
   bool airdropClaimed = 1;
 }
 

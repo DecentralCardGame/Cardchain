@@ -60,8 +60,8 @@ func NewHandler(k keeper.Keeper) sdk.Handler {
 		case *types.MsgFinalizeSet:
 			res, err := msgServer.FinalizeSet(sdk.WrapSDKContext(ctx), msg)
 			return sdk.WrapServiceResult(ctx, res, err)
-		case *types.MsgBuySet:
-			res, err := msgServer.BuySet(sdk.WrapSDKContext(ctx), msg)
+		case *types.MsgBuyBoosterPack:
+			res, err := msgServer.BuyBoosterPack(sdk.WrapSDKContext(ctx), msg)
 			return sdk.WrapServiceResult(ctx, res, err)
 		case *types.MsgRemoveCardFromSet:
 			res, err := msgServer.RemoveCardFromSet(sdk.WrapSDKContext(ctx), msg)

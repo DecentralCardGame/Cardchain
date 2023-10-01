@@ -45,7 +45,7 @@ func GetTxCmd() *cobra.Command {
 	cmd.AddCommand(CmdCreateSet())
 	cmd.AddCommand(CmdAddCardToSet())
 	cmd.AddCommand(CmdFinalizeSet())
-	cmd.AddCommand(CmdBuySet())
+	cmd.AddCommand(CmdBuyBoosterPack())
 	cmd.AddCommand(CmdRemoveCardFromSet())
 	cmd.AddCommand(CmdRemoveContributorFromSet())
 	cmd.AddCommand(CmdAddContributorToSet())

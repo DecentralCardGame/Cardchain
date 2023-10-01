@@ -11,7 +11,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/types/errors"
 )
 
-func (k msgServer) BuySet(goCtx context.Context, msg *types.MsgBuySet) (*types.MsgBuySetResponse, error) {
+func (k msgServer) BuyBoosterPack(goCtx context.Context, msg *types.MsgBuyBoosterPack) (*types.MsgBuyBoosterPackResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 	params := k.GetParams(ctx)
 
@@ -57,5 +57,5 @@ func (k msgServer) BuySet(goCtx context.Context, msg *types.MsgBuySet) (*types.M
 	k.Pools.Set(ctx, PublicPoolKey, &newPool)
 	k.Logger(ctx).Info(fmt.Sprintf(":: PublicPool: %s", newPool))
 
-	return &types.MsgBuySetResponse{AirdropClaimed: claimedAirdrop}, nil
+	return &types.MsgBuyBoosterPackResponse{AirdropClaimed: claimedAirdrop}, nil
 }
