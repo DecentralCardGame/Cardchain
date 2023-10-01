@@ -68,7 +68,8 @@ echo -e "\033[0;32mstarting faucet \033[0m"
 sed -i -e "s/^SECRET_KEY *=.*/SECRET_KEY = \"$FAUCET_SECRET_KEY\"/" go-faucet-master/.env
 cd go-faucet-master
 ./go-faucet &
-echo -e "\033[0;31mfaucet adress: \033[0;36m $(Cardchaind keys show alice --address) \033[0;31m must be registered!\033[0m"
+echo -e "\033[0;31mfaucet adress: \033[0;36m $(Cardchaind keys show alice --address) \033[0;31m must be registered!\033[0m use scripts/register_faucet.sh for that"
+echo $(Cardchaind keys show alice --address) > /backup/faucetaddress.txt
 
 echo -e "\033[0;32mstarting Blockchain\033[0m"
 Cardchaind start

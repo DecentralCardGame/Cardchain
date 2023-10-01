@@ -23,6 +23,13 @@ with open("./genesis_balances.tsv", "r", encoding="utf8") as genesis_file:
         genesisAccs.append((entry["Address"], entry["Balance"]))
         # print(f"{genesisAddresses} has {genesisBalances}")
 
+rarities = []
+# here we load the table with card rarities
+with open("./card_rarities.tsv", "r", encoding="utf8") as genesis_file:
+    tsv_reader = csv.DictReader(genesis_file, delimiter="\t")
+    for entry in tsv_reader:
+        rarities.append((entry["CardId"], entry["Rarity"]))
+
 # this loads the old genesis file
 with open(file_path_old, "r") as file:
     old_dict = json.loads(file.read().replace("collection", "set").replace("Collection", "Set"))
@@ -37,6 +44,10 @@ new_dict["app_state"]["cardchain"]["addresses"] = []
 new_dict["app_state"]["cardchain"]["users"] = []
 for card in del_cards:
     new_dict["app_state"]["cardchain"]["cardRecords"][card] = {}
+
+# write rarities into cards
+#for card in rarities:
+#    new_dict["app_state"]["cardchain"]["cardRecords"][card[1]][rarity] = card[0]
 
 for param in params:
     if param in old_dict["app_state"]["cardchain"]["params"]:
