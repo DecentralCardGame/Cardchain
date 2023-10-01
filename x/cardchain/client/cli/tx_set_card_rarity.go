@@ -28,7 +28,11 @@ func CmdSetCardRarity() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			argRarity := args[2]
+			rar, err := strconv.Atoi(args[2])
+			if err != nil {
+				return err
+			}
+			argRarity := types.CardRarity(rar)
 
 			rarity := cardobject.Rarity(argRarity)
 			err = rarity.ValidateType(cardobject.Card{})

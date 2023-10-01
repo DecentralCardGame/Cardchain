@@ -10,12 +10,12 @@ const TypeMsgSetCardRarity = "set_card_rarity"
 
 var _ sdk.Msg = &MsgSetCardRarity{}
 
-func NewMsgSetCardRarity(creator string, cardId uint64, setId uint64, rarity string) *MsgSetCardRarity {
+func NewMsgSetCardRarity(creator string, cardId uint64, setId uint64, rarity CardRarity) *MsgSetCardRarity {
 	return &MsgSetCardRarity{
-		Creator:      creator,
-		CardId:       cardId,
-		SetId: setId,
-		Rarity:       rarity,
+		Creator: creator,
+		CardId:  cardId,
+		SetId:   setId,
+		Rarity:  rarity,
 	}
 }
 
@@ -45,5 +45,10 @@ func (msg *MsgSetCardRarity) ValidateBasic() error {
 	if err != nil {
 		return sdkerrors.Wrapf(errors.ErrInvalidAddress, "invalid creator address (%s)", err)
 	}
+	_, isValid := CardRarity_name[int32(msg.Rarity)]
+	if !isValid {
+		return sdkerrors.Wrapf(errors.ErrInvalidRequest, "Invalid cardRarity: (%d)", msg.Rarity)
+	}
+
 	return nil
 }

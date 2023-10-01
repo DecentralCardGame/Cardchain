@@ -23,6 +23,7 @@ message Card {
   int64 nerflevel = 13;
   bool balanceAnchor = 15;
   bool starterCard = 16;
+  CardRarity rarity = 17;
 }
 
 message OutpCard {
@@ -44,6 +45,7 @@ message OutpCard {
   bool balanceAnchor = 15;
   string hash = 16;
   bool starterCard = 17;
+  CardRarity rarity = 18;
 }
 
 enum Status {
@@ -56,6 +58,14 @@ enum Status {
   bannedSoon = 6;
   bannedVerySoon = 7;
   none = 8;
+}
+
+enum CardRarity {
+  common = 0;
+  uncommon = 1;
+  rare = 2;
+  exceptional = 3;
+  unique = 4;
 }
 
 message TimeStamp {

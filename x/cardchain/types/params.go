@@ -23,10 +23,10 @@ func ParamKeyTable() paramtypes.KeyTable {
 func NewParams() Params {
 	return Params{
 		VotingRightsExpirationTime:      86000,
-		SetSize:                  24,
-		SetPrice:                 sdk.NewInt64Coin("ucredits", 10000000),
-		ActiveSetsAmount:         3,
-		SetCreationFee:           sdk.NewInt64Coin("ucredits", int64(5000*math.Pow(10, 6))),
+		SetSize:                         24,
+		SetPrice:                        sdk.NewInt64Coin("ucredits", 10000000),
+		ActiveSetsAmount:                3,
+		SetCreationFee:                  sdk.NewInt64Coin("ucredits", int64(5000*math.Pow(10, 6))),
 		CollateralDeposit:               sdk.NewInt64Coin("ucredits", int64(50*math.Pow(10, 6))),
 		TrialVoteReward:                 sdk.NewInt64Coin("ucredits", int64(math.Pow(10, 6))),
 		WinnerReward:                    int64(math.Pow(10, 6)),
@@ -43,6 +43,9 @@ func NewParams() Params {
 		AirDropValue:                    sdk.NewInt64Coin("ubpf", int64(5*math.Pow(10, 6))),
 		AirDropMaxBlockHeight:           5000000,
 		MatchWorkerDelay:                DefaultMatchWorkerDelay,
+		RareDropRatio:                   150,
+		ExceptionalDropRatio:            50,
+		UniqueDropRatio:                 1,
 	}
 }
 
@@ -75,6 +78,9 @@ func (p *Params) ParamSetPairs() paramtypes.ParamSetPairs {
 		paramtypes.NewParamSetPair([]byte("AirDropValue"), &p.AirDropValue, validateAirDropValue),
 		paramtypes.NewParamSetPair([]byte("AirDropMaxBlockHeight"), &p.AirDropMaxBlockHeight, validateAirDropMaxBlockHeight),
 		paramtypes.NewParamSetPair([]byte("MatchWorkerDelay"), &p.MatchWorkerDelay, validateMatchWorkerDelay),
+		paramtypes.NewParamSetPair([]byte("RareDropRatio"), &p.RareDropRatio, validateRareDropRatio),
+		paramtypes.NewParamSetPair([]byte("ExceptionalDropRatio"), &p.ExceptionalDropRatio, validateExceptionalDropRatio),
+		paramtypes.NewParamSetPair([]byte("UniqueDropRatio"), &p.UniqueDropRatio, validateUniqueDropRatio),
 	}
 }
 
@@ -297,6 +303,30 @@ func validateInflationRate(i interface{}) error {
 }
 
 func validateMatchWorkerDelay(i interface{}) error {
+	_, ok := i.(uint64)
+	if !ok {
+		return fmt.Errorf("invalid parameter type: %T", i)
+	}
+	return nil
+}
+
+func validateRareDropRatio(i interface{}) error {
+	_, ok := i.(uint64)
+	if !ok {
+		return fmt.Errorf("invalid parameter type: %T", i)
+	}
+	return nil
+}
+
+func validateExceptionalDropRatio(i interface{}) error {
+	_, ok := i.(uint64)
+	if !ok {
+		return fmt.Errorf("invalid parameter type: %T", i)
+	}
+	return nil
+}
+
+func validateUniqueDropRatio(i interface{}) error {
 	_, ok := i.(uint64)
 	if !ok {
 		return fmt.Errorf("invalid parameter type: %T", i)
