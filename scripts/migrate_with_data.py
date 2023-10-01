@@ -38,6 +38,10 @@ with open(file_path_old, "r") as file:
 with open(file_path_new, "r") as file:
     new_dict = json.load(file)
 
+# delete all sets           # TODO REMOVE THIS PART ONCE EVERYTHING IS FINE
+print(old_dict["app_state"]["cardchain"]["sets"])
+old_dict["app_state"]["cardchain"]["sets"] = []
+
 new_dict["app_state"]["cardchain"] = old_dict["app_state"]["cardchain"].copy()
 new_dict["app_state"]["cardchain"]["addresses"] = []
 new_dict["app_state"]["cardchain"]["users"] = []
@@ -45,8 +49,9 @@ for card in del_cards:
     new_dict["app_state"]["cardchain"]["cardRecords"][card] = {}
 
 # write rarities into cards
-#for card in rarities:
-#    new_dict["app_state"]["cardchain"]["cardRecords"][card[1]][rarity] = card[0]
+for card in rarities:
+	print("rarity", card[1], "yes", card[0], "no", new_dict["app_state"]["cardchain"]["cardRecords"][int(card[0])])
+    #new_dict["app_state"]["cardchain"]["cardRecords"][card[1]][rarity] = card[0]
 
 params = new_dict["app_state"]["cardchain"]["params"]
 
