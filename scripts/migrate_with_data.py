@@ -44,6 +44,10 @@ new_dict["app_state"]["cardchain"]["users"] = []
 for card in del_cards:
     new_dict["app_state"]["cardchain"]["cardRecords"][card] = {}
 
+# write rarities into cards
+#for card in rarities:
+#    new_dict["app_state"]["cardchain"]["cardRecords"][card[1]][rarity] = card[0]
+
 params = new_dict["app_state"]["cardchain"]["params"]
 
 for param in params:
