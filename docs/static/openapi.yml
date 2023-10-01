@@ -32950,13 +32950,13 @@ paths:
               current:
                 type: array
                 items:
-                  type: string
-                  format: uint64
+                  type: integer
+                  format: int64
               wanted:
                 type: array
                 items:
-                  type: string
-                  format: uint64
+                  type: integer
+                  format: int64
         default:
           description: An unexpected error response.
           schema:
@@ -33051,6 +33051,15 @@ paths:
                     type: string
                     format: int64
                   matchWorkerDelay:
+                    type: string
+                    format: uint64
+                  rareDropRatio:
+                    type: string
+                    format: uint64
+                  exceptionalDropRatio:
+                    type: string
+                    format: uint64
+                  uniqueDropRatio:
                     type: string
                     format: uint64
             description: >-
@@ -34060,6 +34069,17 @@ paths:
                       items:
                         type: string
                         format: uint64
+                      title: >-
+                        How often the different rarities will appear in a
+                        BoosterPack
+                    dropRatiosPerPack:
+                      type: array
+                      items:
+                        type: string
+                        format: uint64
+                      title: >-
+                        The chances of the rare beeing a normal rare, an
+                        exceptional or a unique
               website:
                 type: string
               biography:
@@ -68488,6 +68508,15 @@ definitions:
         items:
           type: string
           format: uint64
+        title: How often the different rarities will appear in a BoosterPack
+      dropRatiosPerPack:
+        type: array
+        items:
+          type: string
+          format: uint64
+        title: >-
+          The chances of the rare beeing a normal rare, an exceptional or a
+          unique
   DecentralCardGame.cardchain.cardchain.CStatus:
     type: string
     enum:
@@ -68987,6 +69016,15 @@ definitions:
       matchWorkerDelay:
         type: string
         format: uint64
+      rareDropRatio:
+        type: string
+        format: uint64
+      exceptionalDropRatio:
+        type: string
+        format: uint64
+      uniqueDropRatio:
+        type: string
+        format: uint64
     description: Params defines the parameters for the module.
   DecentralCardGame.cardchain.cardchain.QueryParamsResponse:
     type: object
@@ -69049,6 +69087,15 @@ definitions:
             type: string
             format: int64
           matchWorkerDelay:
+            type: string
+            format: uint64
+          rareDropRatio:
+            type: string
+            format: uint64
+          exceptionalDropRatio:
+            type: string
+            format: uint64
+          uniqueDropRatio:
             type: string
             format: uint64
     description: QueryParamsResponse is response type for the Query/Params RPC method.
@@ -69313,13 +69360,13 @@ definitions:
       current:
         type: array
         items:
-          type: string
-          format: uint64
+          type: integer
+          format: int64
       wanted:
         type: array
         items:
-          type: string
-          format: uint64
+          type: integer
+          format: int64
   DecentralCardGame.cardchain.cardchain.Response:
     type: string
     enum:
@@ -69458,6 +69505,15 @@ definitions:
               items:
                 type: string
                 format: uint64
+              title: How often the different rarities will appear in a BoosterPack
+            dropRatiosPerPack:
+              type: array
+              items:
+                type: string
+                format: uint64
+              title: >-
+                The chances of the rare beeing a normal rare, an exceptional or
+                a unique
       website:
         type: string
       biography:

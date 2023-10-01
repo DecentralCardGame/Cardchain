@@ -284,8 +284,8 @@ message QueryRarityDistributionRequest {
 }
 
 message QueryRarityDistributionResponse {
-   repeated uint64 current = 1;
-   repeated uint64 wanted = 2;
+   repeated uint32 current = 1;
+   repeated uint32 wanted = 2;
 }
 
 // this line is used by starport scaffolding # 3

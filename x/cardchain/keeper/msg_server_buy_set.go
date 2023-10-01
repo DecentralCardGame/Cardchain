@@ -30,6 +30,7 @@ func (k msgServer) BuyBoosterPack(goCtx context.Context, msg *types.MsgBuyBooste
 		ctx,
 		msg.SetId,
 		[]uint64{params.CommonsPerPack, params.UnCommonsPerPack, params.RaresPerPack},
+		[]uint64{params.RareDropRatio, params.ExceptionalDropRatio, params.UniqueDropRatio},
 	)
 
 	// payment

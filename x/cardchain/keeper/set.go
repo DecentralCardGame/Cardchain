@@ -1,13 +1,10 @@
 package keeper
 
 import (
-	"fmt"
 	"github.com/cosmos/cosmos-sdk/types/errors"
 
 	sdkerrors "cosmossdk.io/errors"
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
-	"github.com/DecentralCardGame/cardobject/cardobject"
-	"github.com/DecentralCardGame/cardobject/keywords"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
@@ -55,57 +52,36 @@ func (k Keeper) GetActiveSets(ctx sdk.Context) (activeSets []uint64) {
 	return
 }
 
-func (k Keeper) GetRarityDistribution(ctx sdk.Context, set types.Set, setSize uint64) (dist [2][4]uint64, err error) {
+func (k Keeper) GetRarityDistribution(ctx sdk.Context, set types.Set, setSize uint32) (dist [2][3]uint32, err error) {
 	var (
-		unCommons, rares, commons, others, commonsAll, unCommonsAll, raresAll uint64
+		unCommons, rares, commons, commonsAll, unCommonsAll, raresAll uint32
 	)
 
-	unCommonsAll = uint64(setSize / 3)
-	raresAll = uint64(setSize / 3)
-	commonsAll = uint64(setSize - raresAll - unCommonsAll)
+	unCommonsAll = uint32(setSize / 3)
+	raresAll = uint32(setSize / 3)
+	commonsAll = uint32(setSize - raresAll - unCommonsAll)
 
 	for _, cardId := range set.Cards {
-		cardobj, err := keywords.Unmarshal(k.Cards.Get(ctx, cardId).Content)
+		card := k.Cards.Get(ctx, cardId)
 		if err != nil {
 			return dist, sdkerrors.Wrap(types.ErrCardobject, err.Error())
 		}
-		rarity, err := GetCardRarity(cardobj)
-		if err != nil {
-			return dist, sdkerrors.Wrap(types.ErrCardobject, err.Error())
-		}
-		if rarity == nil {
-			others++
-		} else {
-			switch *rarity {
-			case cardobject.Rarity("COMMON"):
-				commons++
-			case cardobject.Rarity("UNCOMMON"):
-				unCommons++
-			case cardobject.Rarity("RARE"):
-				rares++
-			default:
-				others++
-			}
+		switch card.Rarity {
+		case types.CardRarity_common, types.CardRarity_unique, types.CardRarity_exceptional:
+			commons++
+		case types.CardRarity_uncommon:
+			unCommons++
+		case types.CardRarity_rare:
+			rares++
+		default:
+			return dist, sdkerrors.Wrapf(errors.ErrInvalidType, "Invalid rarity (%d) for card (%d)", card.Rarity, cardId)
 		}
 	}
 
-	return [2][4]uint64{
-		[4]uint64{commons, unCommons, rares, others},
-		[4]uint64{commonsAll, unCommonsAll, raresAll, 0},
+	return [2][3]uint32{
+		{commons, unCommons, rares},
+		{commonsAll, unCommonsAll, raresAll},
 	}, nil
-}
-
-func GetCardRarity(card *keywords.Card) (*cardobject.Rarity, error) {
-	if card.Action != nil {
-		return card.Action.Rarity, nil
-	} else if card.Place != nil {
-		return card.Place.Rarity, nil
-	} else if card.Entity != nil {
-		return card.Entity.Rarity, nil
-	} else if card.Headquarter != nil {
-		return card.Headquarter.Rarity, nil
-	}
-	return nil, fmt.Errorf("no card-attributes")
 }
 
 func checkSetEditable(set *types.Set, user string) error {
