@@ -1,3 +1,4 @@
 import tendermint_chunked_genesis_download as tcgd
+f = open('syncnode.txt', 'r')
 
-tcgd.download_genesis('http://lxgr.xyz:26657/')
+tcgd.download_genesis('http://'+f.read()+':26657/')

@@ -13,7 +13,7 @@ then
 fi
 
 #we can derive the peer id from the address and should do so!
-NODE_ADDR="lxgr.xyz"
+NODE_ADDR=$(cat syncnode.txt)
 PEER_ID=$(curl -s "http://"$NODE_ADDR":26657/status" | jq -r .result.node_info.id)
 SEEDS=""
 PEERS=$PEER_ID"@"$NODE_ADDR":26656"
@@ -39,7 +39,7 @@ SNAP_RPCs=("http://crowd.rpc.t.stavr.tech:21207"
 # 	echo -e "\033[0;31mNo SNAP_RPC available\033[0m"
 # fi
 
-SNAP_RPC="http://lxgr.xyz:26657"
+SNAP_RPC="http://$(cat syncnode.txt):26657"
 LATEST_HEIGHT=$(curl -s $SNAP_RPC/block | jq -r .result.block.header.height)
 echo $LATEST_HEIGHT
 BLOCK_HEIGHT=$((LATEST_HEIGHT)); \
