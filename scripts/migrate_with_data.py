@@ -91,6 +91,9 @@ for idx, addr in enumerate(old_dict["app_state"]["cardchain"]["addresses"]):
                     for acc in genesisAccs:
                         if acc[0] == addr:
                             i["coins"][idx]["amount"] = str(int(acc[1]) * 1000000)
+                    # give bpf to alpha creator (jannik)
+                    if addr == alpha_creator:
+                        i["coins"][idx]["amount"] = "1000000000"
                 # adjust Credits
                 if coin["denom"] == "ucredits":
                     if addr == alpha_creator:

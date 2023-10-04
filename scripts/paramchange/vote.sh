@@ -4,4 +4,6 @@ if [ $# -lt 1 ]; then
   exit 2
 fi
 
+echo "voting! (I hope you have staked ubpf)"
+
 Cardchaind tx gov vote $1 yes --from jannik
