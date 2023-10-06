@@ -1,7 +1,6 @@
 package keeper
 
 import (
-	"fmt"
 	"context"
 	"math/rand"
 
@@ -42,7 +41,6 @@ func (k msgServer) OpenBoosterPack(goCtx context.Context, msg *types.MsgOpenBoos
 			cleanedRatios[idx] = ratio
 		}
 	}
-	fmt.Printf("%s", rarityNums)
 
 	for idx, num := range creator.BoosterPacks[msg.BoosterPackId].RaritiesPerPack {
 		for i := 0; i < int(num); i++ {
@@ -76,7 +74,6 @@ func (k msgServer) OpenBoosterPack(goCtx context.Context, msg *types.MsgOpenBoos
 func (k Keeper) getCardRaritiesInSet(ctx sdk.Context, set *types.Set) (rarityNums [5][]uint64) {
 	for _, cardId := range set.Cards {
 		card := k.Cards.Get(ctx, cardId)
-		fmt.Println(card.Rarity)
 		rarityNums[int(card.Rarity)] = append(rarityNums[int(card.Rarity)], cardId)
 	}
 	return
