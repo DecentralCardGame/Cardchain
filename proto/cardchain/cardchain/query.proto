@@ -5,7 +5,7 @@ import "gogoproto/gogo.proto";
 import "google/api/annotations.proto";
 import "cosmos/base/query/v1beta1/pagination.proto";
 import "cardchain/cardchain/params.proto";
-import "cardchain/cardchain/voteing.proto";
+import "cardchain/cardchain/voting.proto";
 import "cardchain/cardchain/card.proto";
 import "cardchain/cardchain/user.proto";
 import "cardchain/cardchain/match.proto";
