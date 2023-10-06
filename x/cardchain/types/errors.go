@@ -32,4 +32,5 @@ var (
 	ErrUserAlreadyExists       = sdkerrors.Register(ModuleName, 22, "User already exists")
 	ErrWaitingForPlayers       = sdkerrors.Register(ModuleName, 23, "Waiting for players")
 	ErrUninitializedType       = sdkerrors.Register(ModuleName, 24, "Type not yet initialized")
+	ErrFinalizeSet             = sdkerrors.Register(ModuleName, 24, "Set can't be finalized")
 )
