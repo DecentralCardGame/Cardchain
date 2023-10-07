@@ -1,7 +1,7 @@
 package cli
 
 import (
-	"github.com/DecentralCardGame/cardobject/cardobject"
+	"fmt"
 	"strconv"
 
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
@@ -10,6 +10,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/client/tx"
 	"github.com/spf13/cast"
 	"github.com/spf13/cobra"
+	"golang.org/x/exp/maps"
 )
 
 var _ = strconv.Itoa(0)
@@ -28,17 +29,12 @@ func CmdSetCardRarity() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			rar, err := strconv.Atoi(args[2])
-			if err != nil {
-				return err
+			rar, found := types.CardRarity_value[args[2]]
+			if (!found) {
+				return fmt.Errorf("Rarity has to be in %s", maps.Keys(types.CardRarity_value))
 			}
-			argRarity := types.CardRarity(rar)
 
-			rarity := cardobject.Rarity(argRarity)
-			err = rarity.ValidateType(cardobject.Card{})
-			if err != nil {
-				return err
-			}
+			argRarity := types.CardRarity(rar)
 
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
