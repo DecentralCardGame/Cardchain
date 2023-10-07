@@ -5,7 +5,7 @@ package DecentralCardGame.cardchain.cardchain;
 import "gogoproto/gogo.proto";
 import "cardchain/cardchain/council.proto";
 import "cardchain/cardchain/match.proto";
-import "cardchain/cardchain/voteing.proto";
+import "cardchain/cardchain/voting.proto";
 import "cardchain/cardchain/card.proto";
 import "cosmos/base/v1beta1/coin.proto";
 
