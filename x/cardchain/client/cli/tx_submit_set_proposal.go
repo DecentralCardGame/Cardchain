@@ -34,9 +34,9 @@ func CmdSubmitSetProposal() *cobra.Command {
 
 			from := clientCtx.GetFromAddress()
 			proposal := types.SetProposal{
-				Title:        "Request to activate the set `" + args[0] + "`",
-				Description:  "See `" + args[0] + "` for more information on the set.",
-				SetId: argSetId,
+				Title:       "Request to activate the set `" + args[0] + "`",
+				Description: "See `" + args[0] + "` for more information on the set.",
+				SetId:       argSetId,
 			}
 
 			deposit, err := sdk.ParseCoinsNormalized(argDeposit)

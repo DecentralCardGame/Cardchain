@@ -114,6 +114,9 @@ import (
 
 	appparams "github.com/DecentralCardGame/Cardchain/app/params"
 	globtypes "github.com/DecentralCardGame/Cardchain/types"
+	featureflagmodule "github.com/DecentralCardGame/Cardchain/x/featureflag"
+	featureflagmodulekeeper "github.com/DecentralCardGame/Cardchain/x/featureflag/keeper"
+	featureflagmoduletypes "github.com/DecentralCardGame/Cardchain/x/featureflag/types"
 	// this line is used by starport scaffolding # stargate/app/moduleImport
 )
 
@@ -175,6 +178,7 @@ var (
 		ica.AppModuleBasic{},
 		vesting.AppModuleBasic{},
 		cardchainmodule.AppModuleBasic{},
+		featureflagmodule.AppModuleBasic{},
 		// this line is used by starport scaffolding # stargate/app/moduleBasic
 	)
 
@@ -250,6 +254,8 @@ type App struct {
 	ScopedICAHostKeeper  capabilitykeeper.ScopedKeeper
 
 	CardchainKeeper cardchainmodulekeeper.Keeper
+
+	FeatureflagKeeper featureflagmodulekeeper.Keeper
 	// this line is used by starport scaffolding # stargate/app/keeperDeclaration
 
 	// mm is the module manager
@@ -299,6 +305,7 @@ func New(
 		cardchainmoduletypes.RunningAveragesStoreKey, cardchainmoduletypes.CouncilsStoreKey,
 		cardchainmoduletypes.ImagesStoreKey, cardchainmoduletypes.InternalStoreKey,
 		cardchainmoduletypes.ServersStoreKey,
+		featureflagmoduletypes.StoreKey,
 		// this line is used by starport scaffolding # stargate/app/storeKey
 	)
 	tkeys := sdk.NewTransientStoreKeys(paramstypes.TStoreKey)
@@ -515,6 +522,14 @@ func New(
 
 	cardchainModule := cardchainmodule.NewAppModule(appCodec, app.CardchainKeeper, app.AccountKeeper, app.BankKeeper)
 
+	app.FeatureflagKeeper = *featureflagmodulekeeper.NewKeeper(
+		appCodec,
+		keys[featureflagmoduletypes.StoreKey],
+		keys[featureflagmoduletypes.MemStoreKey],
+		app.GetSubspace(featureflagmoduletypes.ModuleName),
+	)
+	featureflagModule := featureflagmodule.NewAppModule(appCodec, app.FeatureflagKeeper, app.AccountKeeper, app.BankKeeper)
+
 	// this line is used by starport scaffolding # stargate/app/keeperDefinition
 
 	// register the proposal types
@@ -585,6 +600,7 @@ func New(
 		transferModule,
 		icaModule,
 		cardchainModule,
+		featureflagModule,
 		// this line is used by starport scaffolding # stargate/app/appModule
 	)
 
@@ -615,6 +631,7 @@ func New(
 		paramstypes.ModuleName,
 		vestingtypes.ModuleName,
 		cardchainmoduletypes.ModuleName,
+		featureflagmoduletypes.ModuleName,
 		// this line is used by starport scaffolding # stargate/app/beginBlockers
 	)
 
@@ -640,6 +657,7 @@ func New(
 		upgradetypes.ModuleName,
 		vestingtypes.ModuleName,
 		cardchainmoduletypes.ModuleName,
+		featureflagmoduletypes.ModuleName,
 		// this line is used by starport scaffolding # stargate/app/endBlockers
 	)
 
@@ -670,6 +688,7 @@ func New(
 		upgradetypes.ModuleName,
 		vestingtypes.ModuleName,
 		cardchainmoduletypes.ModuleName,
+		featureflagmoduletypes.ModuleName,
 		// this line is used by starport scaffolding # stargate/app/initGenesis
 	)
 
@@ -700,6 +719,7 @@ func New(
 		ibc.NewAppModule(app.IBCKeeper),
 		transferModule,
 		cardchainModule,
+		featureflagModule,
 		// this line is used by starport scaffolding # stargate/app/appModule
 	)
 	app.sm.RegisterStoreDecoders()
@@ -972,6 +992,7 @@ func initParamsKeeper(appCodec codec.BinaryCodec, legacyAmino *codec.LegacyAmino
 	paramsKeeper.Subspace(icacontrollertypes.SubModuleName)
 	paramsKeeper.Subspace(icahosttypes.SubModuleName)
 	paramsKeeper.Subspace(cardchainmoduletypes.ModuleName)
+	paramsKeeper.Subspace(featureflagmoduletypes.ModuleName)
 	// this line is used by starport scaffolding # stargate/app/paramSubspace
 
 	return paramsKeeper

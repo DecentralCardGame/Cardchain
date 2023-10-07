@@ -12,9 +12,9 @@ var _ sdk.Msg = &MsgRemoveContributorFromSet{}
 
 func NewMsgRemoveContributorFromSet(creator string, setId uint64, user string) *MsgRemoveContributorFromSet {
 	return &MsgRemoveContributorFromSet{
-		Creator:      creator,
-		SetId: setId,
-		User:         user,
+		Creator: creator,
+		SetId:   setId,
+		User:    user,
 	}
 }
 

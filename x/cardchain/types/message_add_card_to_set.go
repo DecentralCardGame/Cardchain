@@ -12,9 +12,9 @@ var _ sdk.Msg = &MsgAddCardToSet{}
 
 func NewMsgAddCardToSet(creator string, setId uint64, cardId uint64) *MsgAddCardToSet {
 	return &MsgAddCardToSet{
-		Creator:      creator,
-		SetId: setId,
-		CardId:       cardId,
+		Creator: creator,
+		SetId:   setId,
+		CardId:  cardId,
 	}
 }
 

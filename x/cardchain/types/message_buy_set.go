@@ -12,8 +12,8 @@ var _ sdk.Msg = &MsgBuyBoosterPack{}
 
 func NewMsgBuyBoosterPack(creator string, setId uint64) *MsgBuyBoosterPack {
 	return &MsgBuyBoosterPack{
-		Creator:      creator,
-		SetId: setId,
+		Creator: creator,
+		SetId:   setId,
 	}
 }
 

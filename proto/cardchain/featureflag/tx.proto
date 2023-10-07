@@ -1,0 +1,7 @@
+syntax = "proto3";
+package DecentralCardGame.cardchain.featureflag;
+
+option go_package = "github.com/DecentralCardGame/Cardchain/x/featureflag/types";
+
+// Msg defines the Msg service.
+service Msg {}

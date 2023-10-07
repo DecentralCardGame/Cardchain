@@ -1,0 +1,9 @@
+syntax = "proto3";
+package DecentralCardGame.cardchain.featureflag;
+
+option go_package = "github.com/DecentralCardGame/Cardchain/x/featureflag/types";
+
+message Flag {
+    string Module = 1;
+    bool Set = 2;
+}

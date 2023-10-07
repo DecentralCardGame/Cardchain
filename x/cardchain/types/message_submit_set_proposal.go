@@ -12,8 +12,8 @@ var _ sdk.Msg = &MsgSubmitSetProposal{}
 
 func NewMsgSubmitSetProposal(creator string, setId uint64) *MsgSubmitSetProposal {
 	return &MsgSubmitSetProposal{
-		Creator:      creator,
-		SetId: setId,
+		Creator: creator,
+		SetId:   setId,
 	}
 }
 

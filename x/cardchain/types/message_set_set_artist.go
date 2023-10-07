@@ -12,9 +12,9 @@ var _ sdk.Msg = &MsgSetSetArtist{}
 
 func NewMsgSetSetArtist(creator string, setId uint64, artist string) *MsgSetSetArtist {
 	return &MsgSetSetArtist{
-		Creator:      creator,
-		SetId: setId,
-		Artist:       artist,
+		Creator: creator,
+		SetId:   setId,
+		Artist:  artist,
 	}
 }
 

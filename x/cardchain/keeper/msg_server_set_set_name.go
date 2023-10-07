@@ -15,7 +15,7 @@ func (k msgServer) SetSetName(goCtx context.Context, msg *types.MsgSetSetName) (
 	if err != nil {
 		return nil, err
 	}
-	
+
 	set.Name = msg.Name
 
 	k.Sets.Set(ctx, msg.SetId, set)
