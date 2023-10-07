@@ -5,7 +5,7 @@ import "gogoproto/gogo.proto";
 import "google/api/annotations.proto";
 import "cosmos/base/query/v1beta1/pagination.proto";
 import "DecentralCardGame/cardchain/cardchain/params.proto";
-import "DecentralCardGame/cardchain/cardchain/voteing.proto";
+import "DecentralCardGame/cardchain/cardchain/voting.proto";
 import "DecentralCardGame/cardchain/cardchain/card.proto";
 import "DecentralCardGame/cardchain/cardchain/user.proto";
 import "DecentralCardGame/cardchain/cardchain/match.proto";
