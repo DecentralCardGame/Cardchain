@@ -2,7 +2,6 @@ package keeper
 
 import (
 	"context"
-	"fmt"
 
 	sdkerrors "cosmossdk.io/errors"
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
@@ -21,6 +20,12 @@ func (k msgServer) FinalizeSet(goCtx context.Context, msg *types.MsgFinalizeSet)
 		return nil, err
 	}
 
+	image := k.Images.Get(ctx, set.ArtworkId)
+
+	if len(image.Image) == 0 {
+		return nil, sdkerrors.Wrapf(types.ErrFinalizeSet, "Set artwork is needed")
+	}
+
 	err = k.CollectSetCreationFee(ctx, msg.Creator)
 	if err != nil {
 		return nil, sdkerrors.Wrap(errors.ErrInsufficientFunds, err.Error())
@@ -32,7 +37,7 @@ func (k msgServer) FinalizeSet(goCtx context.Context, msg *types.MsgFinalizeSet)
 	}
 
 	if dist[0] != dist[1] {
-		return nil, fmt.Errorf("sets should contain [(common,unique,exceptional), uncommon, rare] %d, %d, %d but contains %d, %d, %d", dist[1][0], dist[1][1], dist[1][2], dist[0][0], dist[0][1], dist[0][2])
+		return nil, sdkerrors.Wrapf(types.ErrFinalizeSet, "Sets should contain [(common,unique,exceptional), uncommon, rare] %d, %d, %d but contains %d, %d, %d", dist[1][0], dist[1][1], dist[1][2], dist[0][0], dist[0][1], dist[0][2])
 	}
 
 	set.Status = types.CStatus_finalized
