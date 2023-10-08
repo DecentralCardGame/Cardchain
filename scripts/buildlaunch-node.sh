@@ -6,4 +6,4 @@ cd "$parent_path"
 docker-compose build
 docker-compose up -d
 sleep 1
-sh register_faucet.sh
+bash register_faucet.sh
