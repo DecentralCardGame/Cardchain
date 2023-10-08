@@ -15,7 +15,7 @@ var _ = strconv.Itoa(0)
 
 func CmdBuyBoosterPack() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "buy-set [set-id]",
+		Use:   "buy-booster-pack [set-id]",
 		Short: "Broadcast message BuyBoosterPack",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {

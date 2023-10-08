@@ -40,8 +40,8 @@ with open(file_path_new, "r") as file:
 
 
 # delete all sets           # TODO REMOVE THIS PART ONCE EVERYTHING IS FINE
-print(old_dict["app_state"]["cardchain"]["sets"])
-old_dict["app_state"]["cardchain"]["sets"] = []
+#print(old_dict["app_state"]["cardchain"]["sets"])
+#old_dict["app_state"]["cardchain"]["sets"] = []
 
 
 params = new_dict["app_state"]["cardchain"]["params"]
