@@ -3,10 +3,13 @@
 import sys
 import json
 import csv
+import os
 
 args = sys.argv
 
 assert len(args) == 3, f"Error: Syntax: {args[0]} [old_genesis] [new_genesis]"
+
+__location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
 
 gameserver_addr = ["cc1z94z55n2rr4rmjf4ea0m7ykgh9a8urwzrlsxt4", "cc1ch66e3f0szxy8q976rsq5y07esmgdqzj70dfpu"]
 alpha_creator = "cc14km80077s0hch3sh38wh2hfk7kxfau4456r3ej"
@@ -17,7 +20,7 @@ file_path_new = args[2]
 
 genesisAccs = []
 # here we load the balances of addresses that start with balances on CC
-with open("./genesis_balances.tsv", "r", encoding="utf8") as genesis_file:
+with open(os.path.join(__location__, "./genesis_balances.tsv"), "r", encoding="utf8") as genesis_file:
     tsv_reader = csv.DictReader(genesis_file, delimiter="\t")
     for entry in tsv_reader:
         genesisAccs.append((entry["Address"], entry["Balance"]))
@@ -25,14 +28,22 @@ with open("./genesis_balances.tsv", "r", encoding="utf8") as genesis_file:
 
 rarities = []
 # here we load the table with card rarities
-with open("./card_rarities.tsv", "r", encoding="utf8") as genesis_file:
-    tsv_reader = csv.DictReader(genesis_file, delimiter="\t")
+with open(os.path.join(__location__, "./card_rarities.tsv"), "r", encoding="utf8") as rarity_file:
+    tsv_reader = csv.DictReader(rarity_file, delimiter="\t")
     for entry in tsv_reader:
         rarities.append((entry["CardId"], entry["Rarity"]))
 
+starters = []
+# here we load the table with starter card
+with open(os.path.join(__location__, "./card_starters.tsv"), "r", encoding="utf8") as starter_file:
+    tsv_reader = csv.DictReader(starter_file, delimiter="\t")
+    for entry in tsv_reader:
+        starters.append(entry["CardId"])
+
 # this loads the old genesis file
 with open(file_path_old, "r") as file:
-    old_dict = json.loads(file.read().replace("collection", "set").replace("Collection", "Set"))
+    old_dict = json.load(file)
+    #old_dict = json.loads(file.read().replace("collection", "set").replace("Collection", "Set"))
 
 # this loads the new genesis file
 with open(file_path_new, "r") as file:
@@ -41,7 +52,7 @@ with open(file_path_new, "r") as file:
 
 # delete all sets           # TODO REMOVE THIS PART ONCE EVERYTHING IS FINE
 #print(old_dict["app_state"]["cardchain"]["sets"])
-#old_dict["app_state"]["cardchain"]["sets"] = []
+old_dict["app_state"]["cardchain"]["sets"] = []
 
 
 params = new_dict["app_state"]["cardchain"]["params"]
@@ -53,8 +64,16 @@ for card in del_cards:
 
 # write rarities into cards
 for card in rarities:
-	print("rarity", card[1], "yes", card[0], "no", new_dict["app_state"]["cardchain"]["cardRecords"][int(card[0])])
-    #new_dict["app_state"]["cardchain"]["cardRecords"][card[1]][rarity] = card[0]
+    if card[1] == "C":
+        new_dict["app_state"]["cardchain"]["cardRecords"][int(card[0])]["rarity"] = "common"
+    if card[1] == "U":
+        new_dict["app_state"]["cardchain"]["cardRecords"][int(card[0])]["rarity"] = "uncommon"
+    if card[1] == "R":
+        new_dict["app_state"]["cardchain"]["cardRecords"][int(card[0])]["rarity"] = "rare"
+
+# set starter cards
+for card in starters:
+    new_dict["app_state"]["cardchain"]["cardRecords"][int(card)]["starterCard"] = True
 
 for param in params:
     if param in old_dict["app_state"]["cardchain"]["params"]:
