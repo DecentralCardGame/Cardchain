@@ -15,9 +15,9 @@ var _ = strconv.Itoa(0)
 
 func CmdAddArtworkToSet() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "add-artwork-to-set [image]",
+		Use:   "add-artwork-to-set [set-id] [image]",
 		Short: "Broadcast message AddArtworkToSet",
-		Args:  cobra.ExactArgs(1),
+		Args:  cobra.ExactArgs(2),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
 			argSetId, err := cast.ToUint64E(args[0])
 			if err != nil {
