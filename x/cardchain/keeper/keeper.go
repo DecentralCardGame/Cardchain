@@ -7,7 +7,7 @@ import (
 	"sort"
 
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
-	gtk "github.com/DecentralCardGame/Cardchain/x/cardchain/types/generic_type_keeper"
+	gtk "github.com/DecentralCardGame/Cardchain/types/generic_type_keeper"
 	"github.com/DecentralCardGame/cardobject/cardobject"
 	"github.com/DecentralCardGame/cardobject/keywords"
 	"github.com/cosmos/cosmos-sdk/codec"
