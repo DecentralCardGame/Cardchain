@@ -21,7 +21,7 @@ func NewModuleInstance(ctx sdk.Context, keeper Keeper, moduleName string, names 
 	}
 	for _, name := range names {
 		val, _ := instance.Get(ctx, name)
-		_ = instance.Set(ctx, name, val)
+		_ = instance.set(ctx, name, val)
 	}
 	return instance
 }
@@ -34,7 +34,7 @@ func (m ModuleInstance) Get(ctx sdk.Context, name string) (bool, error) {
 	return m.k.GetFlag(ctx, getKey(m.moduleName, name)).Set, nil
 }
 
-func (m ModuleInstance) Set(ctx sdk.Context, name string, isSet bool) error {
+func (m ModuleInstance) set(ctx sdk.Context, name string, isSet bool) error {
 	err := m.nameExists(name)
 	if err != nil {
 		return err
