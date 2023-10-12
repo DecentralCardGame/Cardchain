@@ -45,7 +45,7 @@ func (k Keeper) GetModuleInstance(ctx sdk.Context, moduleName string, flagNames 
 }
 
 func getKey(module string, name string) []byte {
-	return []byte(module+"-"+name)
+	return []byte(module + "-" + name)
 }
 
 func (k Keeper) GetFlag(ctx sdk.Context, key []byte) (gottenFlag types.Flag) {
@@ -77,7 +77,6 @@ func (k Keeper) GetAllFlags(ctx sdk.Context) (allFlags []*types.Flag, allKeys []
 	}
 	return
 }
-
 
 func (k Keeper) Logger(ctx sdk.Context) log.Logger {
 	return ctx.Logger().With("module", fmt.Sprintf("x/%s", types.ModuleName))

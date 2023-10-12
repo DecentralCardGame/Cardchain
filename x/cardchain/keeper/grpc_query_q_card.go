@@ -54,8 +54,8 @@ func (k Keeper) QCard(goCtx context.Context, req *types.QueryQCardRequest) (*typ
 		Nerflevel:          card.Nerflevel,
 		BalanceAnchor:      card.BalanceAnchor,
 		Hash:               hash,
-  		Rarity:             card.Rarity,
-  		StarterCard:        card.StarterCard,
+		Rarity:             card.Rarity,
+		StarterCard:        card.StarterCard,
 	}
 
 	return &outpCard, nil

@@ -15,22 +15,22 @@ func TestGenesis(t *testing.T) {
 		Params: types.DefaultParams(),
 
 		FlagsList: []types.Flags{
-		{
-			Index: "0",
-},
-		{
-			Index: "1",
-},
-	},
-	FlagsList: []types.Flags{
-		{
-			Index: "0",
-},
-		{
-			Index: "1",
-},
-	},
-	// this line is used by starport scaffolding # genesis/test/state
+			{
+				Index: "0",
+			},
+			{
+				Index: "1",
+			},
+		},
+		FlagsList: []types.Flags{
+			{
+				Index: "0",
+			},
+			{
+				Index: "1",
+			},
+		},
+		// this line is used by starport scaffolding # genesis/test/state
 	}
 
 	k, ctx := keepertest.FeatureflagKeeper(t)
@@ -42,6 +42,6 @@ func TestGenesis(t *testing.T) {
 	nullify.Fill(got)
 
 	require.ElementsMatch(t, genesisState.FlagsList, got.FlagsList)
-require.ElementsMatch(t, genesisState.FlagsList, got.FlagsList)
-// this line is used by starport scaffolding # genesis/test/assert
+	require.ElementsMatch(t, genesisState.FlagsList, got.FlagsList)
+	// this line is used by starport scaffolding # genesis/test/assert
 }

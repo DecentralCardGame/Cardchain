@@ -6,6 +6,7 @@ import "gogoproto/gogo.proto";
 import "google/api/annotations.proto";
 import "cosmos/base/query/v1beta1/pagination.proto";
 import "cardchain/featureflag/params.proto";
+import "cardchain/featureflag/flag.proto";
 
 option go_package = "github.com/DecentralCardGame/Cardchain/x/featureflag/types";
 
@@ -17,6 +18,18 @@ service Query {
     option (google.api.http).get = "/DecentralCardGame/Cardchain/featureflag/params";
   
   }
+
+  // Queries a list of QFlag items.
+  rpc QFlag (QueryQFlagRequest) returns (QueryQFlagResponse) {
+    option (google.api.http).get = "/DecentralCardGame/Cardchain/featureflag/q_flag/{name}";
+
+  }
+
+  // Queries a list of QFlags items.
+  rpc QFlags (QueryQFlagsRequest) returns (QueryQFlagsResponse) {
+    option (google.api.http).get = "/DecentralCardGame/Cardchain/featureflag/q_flags";
+
+  }
 }
 // QueryParamsRequest is request type for the Query/Params RPC method.
 message QueryParamsRequest {}
@@ -27,3 +40,19 @@ message QueryParamsResponse {
   // params holds all the parameters of this module.
   Params params = 1 [(gogoproto.nullable) = false];
 }
+
+message QueryQFlagRequest {
+  string module = 1;
+  string name = 2;
+}
+
+message QueryQFlagResponse {
+  Flag flag = 1;
+}
+
+message QueryQFlagsRequest {}
+
+message QueryQFlagsResponse {
+  repeated Flag flags = 1;
+}
+

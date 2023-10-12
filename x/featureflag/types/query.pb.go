@@ -113,36 +113,226 @@ func (m *QueryParamsResponse) GetParams() Params {
 	return Params{}
 }
 
+type QueryQFlagRequest struct {
+	Module string `protobuf:"bytes,1,opt,name=module,proto3" json:"module,omitempty"`
+	Name   string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+}
+
+func (m *QueryQFlagRequest) Reset()         { *m = QueryQFlagRequest{} }
+func (m *QueryQFlagRequest) String() string { return proto.CompactTextString(m) }
+func (*QueryQFlagRequest) ProtoMessage()    {}
+func (*QueryQFlagRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_fb461e75899978b4, []int{2}
+}
+func (m *QueryQFlagRequest) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryQFlagRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryQFlagRequest.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryQFlagRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryQFlagRequest.Merge(m, src)
+}
+func (m *QueryQFlagRequest) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryQFlagRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryQFlagRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryQFlagRequest proto.InternalMessageInfo
+
+func (m *QueryQFlagRequest) GetModule() string {
+	if m != nil {
+		return m.Module
+	}
+	return ""
+}
+
+func (m *QueryQFlagRequest) GetName() string {
+	if m != nil {
+		return m.Name
+	}
+	return ""
+}
+
+type QueryQFlagResponse struct {
+	Flag *Flag `protobuf:"bytes,1,opt,name=flag,proto3" json:"flag,omitempty"`
+}
+
+func (m *QueryQFlagResponse) Reset()         { *m = QueryQFlagResponse{} }
+func (m *QueryQFlagResponse) String() string { return proto.CompactTextString(m) }
+func (*QueryQFlagResponse) ProtoMessage()    {}
+func (*QueryQFlagResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_fb461e75899978b4, []int{3}
+}
+func (m *QueryQFlagResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryQFlagResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryQFlagResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryQFlagResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryQFlagResponse.Merge(m, src)
+}
+func (m *QueryQFlagResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryQFlagResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryQFlagResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryQFlagResponse proto.InternalMessageInfo
+
+func (m *QueryQFlagResponse) GetFlag() *Flag {
+	if m != nil {
+		return m.Flag
+	}
+	return nil
+}
+
+type QueryQFlagsRequest struct {
+}
+
+func (m *QueryQFlagsRequest) Reset()         { *m = QueryQFlagsRequest{} }
+func (m *QueryQFlagsRequest) String() string { return proto.CompactTextString(m) }
+func (*QueryQFlagsRequest) ProtoMessage()    {}
+func (*QueryQFlagsRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_fb461e75899978b4, []int{4}
+}
+func (m *QueryQFlagsRequest) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryQFlagsRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryQFlagsRequest.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryQFlagsRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryQFlagsRequest.Merge(m, src)
+}
+func (m *QueryQFlagsRequest) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryQFlagsRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryQFlagsRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryQFlagsRequest proto.InternalMessageInfo
+
+type QueryQFlagsResponse struct {
+	Flags []*Flag `protobuf:"bytes,1,rep,name=flags,proto3" json:"flags,omitempty"`
+}
+
+func (m *QueryQFlagsResponse) Reset()         { *m = QueryQFlagsResponse{} }
+func (m *QueryQFlagsResponse) String() string { return proto.CompactTextString(m) }
+func (*QueryQFlagsResponse) ProtoMessage()    {}
+func (*QueryQFlagsResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_fb461e75899978b4, []int{5}
+}
+func (m *QueryQFlagsResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryQFlagsResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryQFlagsResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryQFlagsResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryQFlagsResponse.Merge(m, src)
+}
+func (m *QueryQFlagsResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryQFlagsResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryQFlagsResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryQFlagsResponse proto.InternalMessageInfo
+
+func (m *QueryQFlagsResponse) GetFlags() []*Flag {
+	if m != nil {
+		return m.Flags
+	}
+	return nil
+}
+
 func init() {
 	proto.RegisterType((*QueryParamsRequest)(nil), "DecentralCardGame.cardchain.featureflag.QueryParamsRequest")
 	proto.RegisterType((*QueryParamsResponse)(nil), "DecentralCardGame.cardchain.featureflag.QueryParamsResponse")
+	proto.RegisterType((*QueryQFlagRequest)(nil), "DecentralCardGame.cardchain.featureflag.QueryQFlagRequest")
+	proto.RegisterType((*QueryQFlagResponse)(nil), "DecentralCardGame.cardchain.featureflag.QueryQFlagResponse")
+	proto.RegisterType((*QueryQFlagsRequest)(nil), "DecentralCardGame.cardchain.featureflag.QueryQFlagsRequest")
+	proto.RegisterType((*QueryQFlagsResponse)(nil), "DecentralCardGame.cardchain.featureflag.QueryQFlagsResponse")
 }
 
 func init() { proto.RegisterFile("cardchain/featureflag/query.proto", fileDescriptor_fb461e75899978b4) }
 
 var fileDescriptor_fb461e75899978b4 = []byte{
-	// 323 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x9c, 0x91, 0x31, 0x4b, 0xc3, 0x40,
-	0x14, 0xc7, 0x73, 0xa2, 0x1d, 0xe2, 0x16, 0x3b, 0x48, 0x91, 0xa8, 0x59, 0x14, 0x87, 0x1c, 0xad,
-	0x83, 0xa0, 0x4e, 0xad, 0xe0, 0x24, 0x68, 0x71, 0x72, 0x7b, 0x49, 0x5f, 0xaf, 0x81, 0xe6, 0x5e,
-	0x7a, 0x77, 0x11, 0xbb, 0xfa, 0x09, 0x04, 0xbf, 0x8e, 0xb3, 0x74, 0x2c, 0xb8, 0x38, 0x89, 0xb4,
-	0x7e, 0x10, 0x69, 0x2e, 0x88, 0xa5, 0x52, 0x8a, 0xdb, 0xf1, 0xee, 0xff, 0xfb, 0xbd, 0xf7, 0xee,
-	0xdc, 0xfd, 0x18, 0x54, 0x27, 0xee, 0x41, 0x22, 0x79, 0x17, 0xc1, 0xe4, 0x0a, 0xbb, 0x7d, 0x10,
-	0x7c, 0x90, 0xa3, 0x1a, 0x86, 0x99, 0x22, 0x43, 0xde, 0xc1, 0x05, 0xc6, 0x28, 0x8d, 0x82, 0x7e,
-	0x0b, 0x54, 0xe7, 0x12, 0x52, 0x0c, 0x7f, 0xa0, 0xf0, 0x17, 0x54, 0xab, 0x0a, 0x12, 0x54, 0x30,
-	0x7c, 0x76, 0xb2, 0x78, 0x6d, 0x47, 0x10, 0x89, 0x3e, 0x72, 0xc8, 0x12, 0x0e, 0x52, 0x92, 0x01,
-	0x93, 0x90, 0xd4, 0xe5, 0xed, 0x51, 0x4c, 0x3a, 0x25, 0xcd, 0x23, 0xd0, 0x68, 0xbb, 0xf2, 0xfb,
-	0x7a, 0x84, 0x06, 0xea, 0x3c, 0x03, 0x91, 0xc8, 0x22, 0x5c, 0x66, 0x83, 0xbf, 0x67, 0xcd, 0x40,
-	0x41, 0x5a, 0xfa, 0x82, 0xaa, 0xeb, 0xdd, 0xcc, 0x2c, 0xd7, 0x45, 0xb1, 0x8d, 0x83, 0x1c, 0xb5,
-	0x09, 0x3a, 0xee, 0xd6, 0x5c, 0x55, 0x67, 0x24, 0x35, 0x7a, 0x57, 0x6e, 0xc5, 0xc2, 0xdb, 0x6c,
-	0x8f, 0x1d, 0x6e, 0x36, 0x78, 0xb8, 0xe2, 0xaa, 0xa1, 0x15, 0x35, 0xd7, 0x47, 0x1f, 0xbb, 0x4e,
-	0xbb, 0x94, 0x34, 0x5e, 0x99, 0xbb, 0x51, 0xb4, 0xf1, 0x5e, 0x98, 0x5b, 0xb1, 0x11, 0xef, 0x6c,
-	0x65, 0xe7, 0xe2, 0xdc, 0xb5, 0xf3, 0xff, 0xc1, 0x76, 0xbd, 0xe0, 0xe4, 0xf1, 0xed, 0xeb, 0x79,
-	0xad, 0xee, 0x71, 0xbe, 0x60, 0xe1, 0xad, 0x25, 0x4f, 0xd9, 0xbc, 0x1d, 0x4d, 0x7c, 0x36, 0x9e,
-	0xf8, 0xec, 0x73, 0xe2, 0xb3, 0xa7, 0xa9, 0xef, 0x8c, 0xa7, 0xbe, 0xf3, 0x3e, 0xf5, 0x9d, 0xbb,
-	0x53, 0x91, 0x98, 0x5e, 0x1e, 0x85, 0x31, 0xa5, 0x4b, 0xa5, 0x0f, 0x73, 0x5a, 0x33, 0xcc, 0x50,
-	0x47, 0x95, 0xe2, 0x87, 0x8e, 0xbf, 0x03, 0x00, 0x00, 0xff, 0xff, 0x50, 0xdc, 0xd3, 0xb2, 0x73,
-	0x02, 0x00, 0x00,
+	// 481 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x9c, 0x54, 0x4f, 0x6b, 0x13, 0x41,
+	0x14, 0xcf, 0xd4, 0x64, 0xc1, 0xf1, 0xe4, 0x58, 0xa4, 0x04, 0x59, 0xeb, 0x5e, 0x14, 0xc1, 0x1d,
+	0x13, 0x41, 0x4b, 0x2b, 0x8a, 0x8d, 0xe8, 0x49, 0xb0, 0x41, 0x10, 0x7a, 0x91, 0x97, 0xcd, 0x74,
+	0xba, 0xb0, 0x3b, 0xb3, 0xd9, 0x99, 0x15, 0x8b, 0x78, 0xf1, 0x13, 0x08, 0x7e, 0x1d, 0x05, 0x8f,
+	0xf5, 0x56, 0xf0, 0xe2, 0x49, 0x24, 0xf1, 0x83, 0xc8, 0xbe, 0x99, 0x86, 0x86, 0x96, 0x90, 0xe4,
+	0x92, 0xcc, 0xce, 0xbe, 0xdf, 0x9f, 0xf7, 0x7b, 0x8f, 0xa5, 0xb7, 0x12, 0x28, 0x87, 0xc9, 0x21,
+	0xa4, 0x8a, 0x1f, 0x08, 0xb0, 0x55, 0x29, 0x0e, 0x32, 0x90, 0x7c, 0x54, 0x89, 0xf2, 0x28, 0x2e,
+	0x4a, 0x6d, 0x35, 0xbb, 0xfd, 0x5c, 0x24, 0x42, 0xd9, 0x12, 0xb2, 0x1e, 0x94, 0xc3, 0x97, 0x90,
+	0x8b, 0x78, 0x0a, 0x8a, 0xcf, 0x80, 0xda, 0xeb, 0x52, 0x4b, 0x8d, 0x18, 0x5e, 0x9f, 0x1c, 0xbc,
+	0x7d, 0x43, 0x6a, 0x2d, 0x33, 0xc1, 0xa1, 0x48, 0x39, 0x28, 0xa5, 0x2d, 0xd8, 0x54, 0x2b, 0xe3,
+	0xdf, 0xde, 0x4d, 0xb4, 0xc9, 0xb5, 0xe1, 0x03, 0x30, 0xc2, 0xa9, 0xf2, 0xf7, 0x9d, 0x81, 0xb0,
+	0xd0, 0xe1, 0x05, 0xc8, 0x54, 0x61, 0xb1, 0xaf, 0x8d, 0x2e, 0xf6, 0x5a, 0x40, 0x09, 0xf9, 0x29,
+	0xdf, 0xe6, 0xc5, 0x35, 0xf5, 0x8f, 0xab, 0x88, 0xd6, 0x29, 0xdb, 0xab, 0x75, 0x5e, 0x23, 0xac,
+	0x2f, 0x46, 0x95, 0x30, 0x36, 0x1a, 0xd2, 0x6b, 0x33, 0xb7, 0xa6, 0xd0, 0xca, 0x08, 0xf6, 0x8a,
+	0x06, 0x8e, 0x7e, 0x83, 0x6c, 0x92, 0x3b, 0x57, 0xba, 0x3c, 0x5e, 0x30, 0x8c, 0xd8, 0x11, 0xed,
+	0x36, 0x8f, 0xff, 0xdc, 0x6c, 0xf4, 0x3d, 0x49, 0xf4, 0x94, 0x5e, 0x45, 0x95, 0xbd, 0x17, 0x19,
+	0x48, 0x2f, 0xcd, 0xae, 0xd3, 0x20, 0xd7, 0xc3, 0x2a, 0x13, 0xa8, 0x71, 0xb9, 0xef, 0x9f, 0x18,
+	0xa3, 0x4d, 0x05, 0xb9, 0xd8, 0x58, 0xc3, 0x5b, 0x3c, 0x47, 0x6f, 0xbd, 0x79, 0x4f, 0xe0, 0x5d,
+	0x3e, 0xa3, 0xcd, 0x5a, 0xd3, 0x7b, 0xbc, 0xb7, 0xb0, 0x47, 0x24, 0x41, 0xe8, 0x34, 0x15, 0x24,
+	0x9e, 0xa6, 0xb2, 0xef, 0x53, 0x39, 0xbd, 0xf5, 0x7a, 0x3d, 0xda, 0xaa, 0x41, 0x75, 0x28, 0x97,
+	0x96, 0x17, 0x74, 0xd8, 0xee, 0xcf, 0x26, 0x6d, 0x21, 0x39, 0xfb, 0x46, 0x68, 0xe0, 0xe2, 0x62,
+	0x3b, 0x0b, 0x53, 0x9d, 0x9f, 0x61, 0xfb, 0xf1, 0x6a, 0x60, 0xd7, 0x54, 0xf4, 0xe8, 0xf3, 0xaf,
+	0x7f, 0x5f, 0xd7, 0x3a, 0x8c, 0xf3, 0x73, 0x2c, 0xbc, 0x37, 0x67, 0xf1, 0xd8, 0x0f, 0x42, 0x5b,
+	0x18, 0x10, 0xdb, 0x5e, 0xce, 0xc0, 0xd9, 0x2d, 0x68, 0xef, 0xac, 0x84, 0xf5, 0xde, 0x9f, 0xa0,
+	0xf7, 0x2d, 0xf6, 0x70, 0x61, 0xef, 0xa3, 0x77, 0xf8, 0xf7, 0xb1, 0xde, 0xaa, 0x4f, 0xec, 0x3b,
+	0xa1, 0x81, 0x9b, 0x31, 0x5b, 0xc5, 0xc7, 0xaa, 0x13, 0x98, 0x5d, 0xab, 0x68, 0x0b, 0xbb, 0xe8,
+	0xb2, 0xfb, 0x4b, 0x76, 0x61, 0x76, 0xdf, 0x1c, 0x8f, 0x43, 0x72, 0x32, 0x0e, 0xc9, 0xdf, 0x71,
+	0x48, 0xbe, 0x4c, 0xc2, 0xc6, 0xc9, 0x24, 0x6c, 0xfc, 0x9e, 0x84, 0x8d, 0xfd, 0x6d, 0x99, 0xda,
+	0xc3, 0x6a, 0x10, 0x27, 0x3a, 0x9f, 0xcb, 0xfa, 0x61, 0x86, 0xd7, 0x1e, 0x15, 0xc2, 0x0c, 0x02,
+	0xfc, 0x60, 0x3c, 0xf8, 0x1f, 0x00, 0x00, 0xff, 0xff, 0xc5, 0xae, 0xf3, 0xfe, 0x24, 0x05, 0x00,
+	0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -159,6 +349,10 @@ const _ = grpc.SupportPackageIsVersion4
 type QueryClient interface {
 	// Parameters queries the parameters of the module.
 	Params(ctx context.Context, in *QueryParamsRequest, opts ...grpc.CallOption) (*QueryParamsResponse, error)
+	// Queries a list of QFlag items.
+	QFlag(ctx context.Context, in *QueryQFlagRequest, opts ...grpc.CallOption) (*QueryQFlagResponse, error)
+	// Queries a list of QFlags items.
+	QFlags(ctx context.Context, in *QueryQFlagsRequest, opts ...grpc.CallOption) (*QueryQFlagsResponse, error)
 }
 
 type queryClient struct {
@@ -178,10 +372,32 @@ func (c *queryClient) Params(ctx context.Context, in *QueryParamsRequest, opts .
 	return out, nil
 }
 
+func (c *queryClient) QFlag(ctx context.Context, in *QueryQFlagRequest, opts ...grpc.CallOption) (*QueryQFlagResponse, error) {
+	out := new(QueryQFlagResponse)
+	err := c.cc.Invoke(ctx, "/DecentralCardGame.cardchain.featureflag.Query/QFlag", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *queryClient) QFlags(ctx context.Context, in *QueryQFlagsRequest, opts ...grpc.CallOption) (*QueryQFlagsResponse, error) {
+	out := new(QueryQFlagsResponse)
+	err := c.cc.Invoke(ctx, "/DecentralCardGame.cardchain.featureflag.Query/QFlags", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // QueryServer is the server API for Query service.
 type QueryServer interface {
 	// Parameters queries the parameters of the module.
 	Params(context.Context, *QueryParamsRequest) (*QueryParamsResponse, error)
+	// Queries a list of QFlag items.
+	QFlag(context.Context, *QueryQFlagRequest) (*QueryQFlagResponse, error)
+	// Queries a list of QFlags items.
+	QFlags(context.Context, *QueryQFlagsRequest) (*QueryQFlagsResponse, error)
 }
 
 // UnimplementedQueryServer can be embedded to have forward compatible implementations.
@@ -190,6 +406,12 @@ type UnimplementedQueryServer struct {
 
 func (*UnimplementedQueryServer) Params(ctx context.Context, req *QueryParamsRequest) (*QueryParamsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Params not implemented")
+}
+func (*UnimplementedQueryServer) QFlag(ctx context.Context, req *QueryQFlagRequest) (*QueryQFlagResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method QFlag not implemented")
+}
+func (*UnimplementedQueryServer) QFlags(ctx context.Context, req *QueryQFlagsRequest) (*QueryQFlagsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method QFlags not implemented")
 }
 
 func RegisterQueryServer(s grpc1.Server, srv QueryServer) {
@@ -214,6 +436,42 @@ func _Query_Params_Handler(srv interface{}, ctx context.Context, dec func(interf
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Query_QFlag_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryQFlagRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).QFlag(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/DecentralCardGame.cardchain.featureflag.Query/QFlag",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).QFlag(ctx, req.(*QueryQFlagRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Query_QFlags_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryQFlagsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).QFlags(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/DecentralCardGame.cardchain.featureflag.Query/QFlags",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).QFlags(ctx, req.(*QueryQFlagsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _Query_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "DecentralCardGame.cardchain.featureflag.Query",
 	HandlerType: (*QueryServer)(nil),
@@ -221,6 +479,14 @@ var _Query_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Params",
 			Handler:    _Query_Params_Handler,
+		},
+		{
+			MethodName: "QFlag",
+			Handler:    _Query_QFlag_Handler,
+		},
+		{
+			MethodName: "QFlags",
+			Handler:    _Query_QFlags_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
@@ -283,6 +549,138 @@ func (m *QueryParamsResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	return len(dAtA) - i, nil
 }
 
+func (m *QueryQFlagRequest) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryQFlagRequest) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryQFlagRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.Name) > 0 {
+		i -= len(m.Name)
+		copy(dAtA[i:], m.Name)
+		i = encodeVarintQuery(dAtA, i, uint64(len(m.Name)))
+		i--
+		dAtA[i] = 0x12
+	}
+	if len(m.Module) > 0 {
+		i -= len(m.Module)
+		copy(dAtA[i:], m.Module)
+		i = encodeVarintQuery(dAtA, i, uint64(len(m.Module)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *QueryQFlagResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryQFlagResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryQFlagResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.Flag != nil {
+		{
+			size, err := m.Flag.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintQuery(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *QueryQFlagsRequest) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryQFlagsRequest) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryQFlagsRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	return len(dAtA) - i, nil
+}
+
+func (m *QueryQFlagsResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryQFlagsResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryQFlagsResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.Flags) > 0 {
+		for iNdEx := len(m.Flags) - 1; iNdEx >= 0; iNdEx-- {
+			{
+				size, err := m.Flags[iNdEx].MarshalToSizedBuffer(dAtA[:i])
+				if err != nil {
+					return 0, err
+				}
+				i -= size
+				i = encodeVarintQuery(dAtA, i, uint64(size))
+			}
+			i--
+			dAtA[i] = 0xa
+		}
+	}
+	return len(dAtA) - i, nil
+}
+
 func encodeVarintQuery(dAtA []byte, offset int, v uint64) int {
 	offset -= sovQuery(v)
 	base := offset
@@ -311,6 +709,60 @@ func (m *QueryParamsResponse) Size() (n int) {
 	_ = l
 	l = m.Params.Size()
 	n += 1 + l + sovQuery(uint64(l))
+	return n
+}
+
+func (m *QueryQFlagRequest) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.Module)
+	if l > 0 {
+		n += 1 + l + sovQuery(uint64(l))
+	}
+	l = len(m.Name)
+	if l > 0 {
+		n += 1 + l + sovQuery(uint64(l))
+	}
+	return n
+}
+
+func (m *QueryQFlagResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.Flag != nil {
+		l = m.Flag.Size()
+		n += 1 + l + sovQuery(uint64(l))
+	}
+	return n
+}
+
+func (m *QueryQFlagsRequest) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	return n
+}
+
+func (m *QueryQFlagsResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if len(m.Flags) > 0 {
+		for _, e := range m.Flags {
+			l = e.Size()
+			n += 1 + l + sovQuery(uint64(l))
+		}
+	}
 	return n
 }
 
@@ -429,6 +881,340 @@ func (m *QueryParamsResponse) Unmarshal(dAtA []byte) error {
 				return io.ErrUnexpectedEOF
 			}
 			if err := m.Params.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QueryQFlagRequest) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryQFlagRequest: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryQFlagRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Module", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Module = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Name", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Name = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QueryQFlagResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryQFlagResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryQFlagResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Flag", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Flag == nil {
+				m.Flag = &Flag{}
+			}
+			if err := m.Flag.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QueryQFlagsRequest) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryQFlagsRequest: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryQFlagsRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QueryQFlagsResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryQFlagsResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryQFlagsResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Flags", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Flags = append(m.Flags, &Flag{})
+			if err := m.Flags[len(m.Flags)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
 			iNdEx = postIndex

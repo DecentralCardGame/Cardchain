@@ -41,6 +41,7 @@ func (m ModuleInstance) set(ctx sdk.Context, name string, isSet bool) error {
 	}
 	m.k.SetFlag(ctx, getKey(m.moduleName, name), types.Flag{
 		Module: m.moduleName,
+		Name:   name,
 		Set:    isSet,
 	})
 	return nil
