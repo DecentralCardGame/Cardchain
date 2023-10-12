@@ -109,12 +109,14 @@ import (
 
 	"github.com/DecentralCardGame/Cardchain/docs"
 	cardchainmodule "github.com/DecentralCardGame/Cardchain/x/cardchain"
+	cardchainclient "github.com/DecentralCardGame/Cardchain/x/cardchain/client"
 	cardchainmodulekeeper "github.com/DecentralCardGame/Cardchain/x/cardchain/keeper"
 	cardchainmoduletypes "github.com/DecentralCardGame/Cardchain/x/cardchain/types"
 
 	appparams "github.com/DecentralCardGame/Cardchain/app/params"
 	globtypes "github.com/DecentralCardGame/Cardchain/types"
 	featureflagmodule "github.com/DecentralCardGame/Cardchain/x/featureflag"
+	featureflagclient "github.com/DecentralCardGame/Cardchain/x/featureflag/client"
 	featureflagmodulekeeper "github.com/DecentralCardGame/Cardchain/x/featureflag/keeper"
 	featureflagmoduletypes "github.com/DecentralCardGame/Cardchain/x/featureflag/types"
 	// this line is used by starport scaffolding # stargate/app/moduleImport
@@ -142,7 +144,10 @@ func getGovProposalHandlers() []govclient.ProposalHandler {
 		upgradeclient.LegacyCancelProposalHandler,
 		ibcclientclient.UpdateClientProposalHandler,
 		ibcclientclient.UpgradeProposalHandler,
-		//cardchainclient.ProposalHandler,
+		cardchainclient.CopyrightProposalHandler,
+		cardchainclient.MatchReporterProposalHandler,
+		cardchainclient.SetProposalHandler,
+		featureflagclient.ProposalHandler,
 		// this line is used by starport scaffolding # stargate/app/govProposalHandler
 	)
 
@@ -537,6 +542,7 @@ func New(
 	govRouter.
 		AddRoute(govtypes.RouterKey, govv1beta1.ProposalHandler).
 		AddRoute(cardchainmoduletypes.RouterKey, cardchainmodule.NewProposalHandler(app.CardchainKeeper)).
+		AddRoute(featureflagmoduletypes.RouterKey, featureflagmodule.NewProposalHandler(app.FeatureflagKeeper)).
 		AddRoute(paramproposal.RouterKey, params.NewParamChangeProposalHandler(app.ParamsKeeper)).
 		AddRoute(distrtypes.RouterKey, distr.NewCommunityPoolSpendProposalHandler(app.DistrKeeper)).
 		AddRoute(upgradetypes.RouterKey, upgrade.NewSoftwareUpgradeProposalHandler(app.UpgradeKeeper)).

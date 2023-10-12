@@ -16,7 +16,7 @@ func (k Keeper) QFlag(goCtx context.Context, req *types.QueryQFlagRequest) (*typ
 
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	flag := k.GetFlag(ctx, getKey(req.Module, req.Name))
+	flag := k.GetFlag(ctx, GetKey(req.Module, req.Name))
 
 	return &types.QueryQFlagResponse{Flag: &flag}, nil
 }

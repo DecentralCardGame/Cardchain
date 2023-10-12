@@ -25,7 +25,7 @@ func (m ModuleInstance) Get(ctx sdk.Context, name string) (bool, error) {
 	if err != nil {
 		return false, err
 	}
-	return m.k.GetFlag(ctx, getKey(m.moduleName, name)).Set, nil
+	return m.k.GetFlag(ctx, GetKey(m.moduleName, name)).Set, nil
 }
 
 func (m ModuleInstance) nameExists(name string) error {

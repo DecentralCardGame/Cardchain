@@ -58,7 +58,7 @@ func (k Keeper) RegisterKey(module string, name string) {
 
 func (k Keeper) InitAllStores(ctx sdk.Context) {
 	for _, tup := range *k.flagKeys {
-		k.SetFlag(ctx, getKey(tup[0], tup[1]), types.Flag{
+		k.SetFlag(ctx, GetKey(tup[0], tup[1]), types.Flag{
 			Module: tup[0],
 			Name:   tup[1],
 			Set:    false,
@@ -70,7 +70,7 @@ func (k Keeper) GetModuleInstance(moduleName string, flagNames []string) ModuleI
 	return NewModuleInstance(k, moduleName, flagNames)
 }
 
-func getKey(module string, name string) []byte {
+func GetKey(module string, name string) []byte {
 	return []byte(module + "-" + name)
 }
 
