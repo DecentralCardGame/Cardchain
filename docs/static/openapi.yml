@@ -68962,12 +68962,6 @@ definitions:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgSetUserWebsiteResponse:
     type: object
-  DecentralCardGame.cardchain.cardchain.MsgSubmitCopyrightProposalResponse:
-    type: object
-  DecentralCardGame.cardchain.cardchain.MsgSubmitMatchReporterProposalResponse:
-    type: object
-  DecentralCardGame.cardchain.cardchain.MsgSubmitSetProposalResponse:
-    type: object
   DecentralCardGame.cardchain.cardchain.MsgTransferBoosterPackResponse:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgTransferCardResponse:
