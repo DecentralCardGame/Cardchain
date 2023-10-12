@@ -3,6 +3,7 @@ package keeper
 import (
 	"encoding/json"
 	"fmt"
+	ffKeeper "github.com/DecentralCardGame/Cardchain/x/featureflag/keeper"
 	"github.com/cosmos/cosmos-sdk/types/errors"
 	"sort"
 
@@ -34,7 +35,8 @@ type Keeper struct {
 	Pools           gtk.KeywordedGenericTypeKeeper[*sdk.Coin]
 	Images          gtk.GenericTypeKeeper[*types.Image]
 
-	BankKeeper types.BankKeeper
+	FeatureFlagModuleInstance ffKeeper.ModuleInstance
+	BankKeeper                types.BankKeeper
 }
 
 // NewKeeper Constructor for Keeper
@@ -53,6 +55,7 @@ func NewKeeper(
 	internalStoreKey storetypes.StoreKey,
 	ps paramtypes.Subspace,
 
+	featureFlagKeeper types.FeatureFlagKeeper,
 	bankKeeper types.BankKeeper,
 ) *Keeper {
 	// set KeyTable if it has not already been set
@@ -76,6 +79,7 @@ func NewKeeper(
 		Images:          gtk.NewGTK[*types.Image](imagesStorekey, internalStoreKey, cdc, gtk.GetEmpty[types.Image]),
 		Servers:         gtk.NewGTK[*types.Server](serversStoreKey, internalStoreKey, cdc, gtk.GetEmpty[types.Server]),
 
+		FeatureFlagModuleInstance: featureFlagKeeper.GetModuleInstance(types.ModuleName, []string{string(types.FeatureFlagName_Council), string(types.FeatureFlagName_Matches)}),
 		BankKeeper: bankKeeper,
 	}
 }

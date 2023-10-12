@@ -502,6 +502,14 @@ func New(
 	// If evidence needs to be handled for the app, set routes in router here and seal
 	app.EvidenceKeeper = *evidenceKeeper
 
+	app.FeatureflagKeeper = *featureflagmodulekeeper.NewKeeper(
+		appCodec,
+		keys[featureflagmoduletypes.StoreKey],
+		keys[featureflagmoduletypes.MemStoreKey],
+		app.GetSubspace(featureflagmoduletypes.ModuleName),
+	)
+	featureflagModule := featureflagmodule.NewAppModule(appCodec, app.FeatureflagKeeper, app.AccountKeeper, app.BankKeeper)
+
 	app.CardchainKeeper = *cardchainmodulekeeper.NewKeeper(
 		appCodec,
 		keys[cardchainmoduletypes.UsersStoreKey],
@@ -516,19 +524,11 @@ func New(
 		keys[cardchainmoduletypes.ServersStoreKey],
 		keys[cardchainmoduletypes.InternalStoreKey],
 		app.GetSubspace(cardchainmoduletypes.ModuleName),
-
+		app.FeatureflagKeeper,
 		app.BankKeeper,
 	)
 
 	cardchainModule := cardchainmodule.NewAppModule(appCodec, app.CardchainKeeper, app.AccountKeeper, app.BankKeeper)
-
-	app.FeatureflagKeeper = *featureflagmodulekeeper.NewKeeper(
-		appCodec,
-		keys[featureflagmoduletypes.StoreKey],
-		keys[featureflagmoduletypes.MemStoreKey],
-		app.GetSubspace(featureflagmoduletypes.ModuleName),
-	)
-	featureflagModule := featureflagmodule.NewAppModule(appCodec, app.FeatureflagKeeper, app.AccountKeeper, app.BankKeeper)
 
 	// this line is used by starport scaffolding # stargate/app/keeperDefinition
 

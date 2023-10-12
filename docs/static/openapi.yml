@@ -34267,7 +34267,7 @@ paths:
                   additionalProperties: {}
       tags:
         - Query
-  /DecentralCardGame/Cardchain/featureflag/q_flag/{name}:
+  /DecentralCardGame/Cardchain/featureflag/q_flag/{module}/{name}:
     get:
       summary: Queries a list of QFlag items.
       operationId: DecentralCardGameCardchainFeatureflagQFlag
@@ -34305,13 +34305,13 @@ paths:
                       type: string
                   additionalProperties: {}
       parameters:
-        - name: name
+        - name: module
           in: path
           required: true
           type: string
-        - name: module
-          in: query
-          required: false
+        - name: name
+          in: path
+          required: true
           type: string
       tags:
         - Query

@@ -21,7 +21,7 @@ service Query {
 
   // Queries a list of QFlag items.
   rpc QFlag (QueryQFlagRequest) returns (QueryQFlagResponse) {
-    option (google.api.http).get = "/DecentralCardGame/Cardchain/featureflag/q_flag/{name}";
+    option (google.api.http).get = "/DecentralCardGame/Cardchain/featureflag/q_flag/{module}/{name}";
 
   }
 

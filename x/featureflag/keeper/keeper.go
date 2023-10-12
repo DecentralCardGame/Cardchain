@@ -3,12 +3,14 @@ package keeper
 import (
 	"fmt"
 
+	sdkerrors "cosmossdk.io/errors"
 	"github.com/DecentralCardGame/Cardchain/x/featureflag/types"
 	"github.com/cosmos/cosmos-sdk/codec"
 	storetypes "github.com/cosmos/cosmos-sdk/store/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	paramtypes "github.com/cosmos/cosmos-sdk/x/params/types"
 	"github.com/tendermint/tendermint/libs/log"
+	"golang.org/x/exp/slices"
 )
 
 type (
@@ -17,6 +19,7 @@ type (
 		storeKey   storetypes.StoreKey
 		memKey     storetypes.StoreKey
 		paramstore paramtypes.Subspace
+		flagKeys   *[][2]string
 	}
 )
 
@@ -37,11 +40,34 @@ func NewKeeper(
 		storeKey:   storeKey,
 		memKey:     memKey,
 		paramstore: ps,
+		flagKeys:   &[][2]string{},
 	}
 }
 
-func (k Keeper) GetModuleInstance(ctx sdk.Context, moduleName string, flagNames []string) ModuleInstance {
-	return NewModuleInstance(ctx, k, moduleName, flagNames)
+func (k Keeper) FlagExists(module string, name string) error {
+	if slices.Contains(*k.flagKeys, [2]string{module, name}) {
+		return nil
+	}
+
+	return sdkerrors.Wrapf(types.ErrFlagUnregisterd, "Flag '%s' for module '%s'", name, module)
+}
+
+func (k Keeper) RegisterKey(module string, name string) {
+	*k.flagKeys = append(*k.flagKeys, [2]string{module, name})
+}
+
+func (k Keeper) InitAllStores(ctx sdk.Context) {
+	for _, tup := range *k.flagKeys {
+		k.SetFlag(ctx, getKey(tup[0], tup[1]), types.Flag{
+			Module: tup[0],
+			Name:   tup[1],
+			Set:    false,
+		})
+	}
+}
+
+func (k Keeper) GetModuleInstance(moduleName string, flagNames []string) ModuleInstance {
+	return NewModuleInstance(k, moduleName, flagNames)
 }
 
 func getKey(module string, name string) []byte {
