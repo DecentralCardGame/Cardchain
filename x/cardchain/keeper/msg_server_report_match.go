@@ -25,9 +25,6 @@ func (k msgServer) ReportMatch(goCtx context.Context, msg *types.MsgReportMatch)
 	if msg.Creator != match.Reporter {
 		return nil, sdkerrors.Wrapf(errors.ErrUnauthorized, "Wrong Reporter, reporter is %s", match.Reporter)
 	}
-	if !match.PlayerA.Confirmed && !match.PlayerB.Confirmed {
-		return nil, sdkerrors.Wrapf(types.ErrWaitingForPlayers, "Waiting for players to report")
-	}
 	if !match.CoinsDistributed {
 		return nil, sdkerrors.Wrap(errors.ErrUnauthorized, "Match already reported")
 	}
