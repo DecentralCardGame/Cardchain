@@ -40,11 +40,11 @@ func (k Keeper) InitUser(ctx sdk.Context, address sdk.AccAddress, alias string) 
 		return err
 	}
 
-	councilEnabled, err := k.FeatureFlagModuleInstance.Get(ctx, string(types.FeatureFlagName_Matches))
+	matchesEnabled, err := k.FeatureFlagModuleInstance.Get(ctx, string(types.FeatureFlagName_Matches))
 	if err != nil {
 		return err
 	}
-	if !councilEnabled {
+	if !matchesEnabled {
 		newUser.VoteRights = k.GetVoteRightToAllCards(ctx, ctx.BlockHeight()+k.GetParams(ctx).VotingRightsExpirationTime)
 	}
 
