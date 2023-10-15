@@ -39,8 +39,14 @@ func (k Keeper) InitUser(ctx sdk.Context, address sdk.AccAddress, alias string) 
 	if err != nil {
 		return err
 	}
-	newUser.VoteRights = k.GetVoteRightToAllCards(ctx, ctx.BlockHeight()+k.GetParams(ctx).VotingRightsExpirationTime) // TODO this might be a good thing to remove later, so that sybil voting is not possible
-	// Yes yes remove later, this is pretty heavy on the chain and gas prices
+
+	councilEnabled, err := k.FeatureFlagModuleInstance.Get(ctx, string(types.FeatureFlagName_Council))
+	if err != nil {
+		return err
+	}
+	if !councilEnabled {
+		newUser.VoteRights = k.GetVoteRightToAllCards(ctx, ctx.BlockHeight()+k.GetParams(ctx).VotingRightsExpirationTime)
+	}
 
 	userObj := User{newUser, address}
 	k.ClaimAirDrop(ctx, &userObj, types.AirDrop_user)

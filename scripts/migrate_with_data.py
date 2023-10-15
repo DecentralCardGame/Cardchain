@@ -56,6 +56,7 @@ old_dict["app_state"]["cardchain"]["sets"] = []
 
 
 params = new_dict["app_state"]["cardchain"]["params"]
+new_dict["app_state"]["featureflag"] = old_dict["app_state"].get("featureflag", new_dict["app_state"]["featureflag"])
 new_dict["app_state"]["cardchain"] = old_dict["app_state"]["cardchain"].copy()
 new_dict["app_state"]["cardchain"]["addresses"] = []
 new_dict["app_state"]["cardchain"]["users"] = []
