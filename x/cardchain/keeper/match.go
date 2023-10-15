@@ -2,13 +2,13 @@ package keeper
 
 import (
 	"fmt"
+	"slices"
 	"time"
 
 	sdkerrors "cosmossdk.io/errors"
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/errors"
-	"golang.org/x/exp/slices"
 )
 
 // SetMatchReporter Makes a user a match reporter

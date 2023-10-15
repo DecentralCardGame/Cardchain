@@ -3,8 +3,7 @@ package keeper
 import (
 	"context"
 	"math/rand"
-
-	"golang.org/x/exp/slices"
+	"slices"
 
 	sdkerrors "cosmossdk.io/errors"
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
