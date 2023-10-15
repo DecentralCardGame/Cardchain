@@ -12,9 +12,9 @@ var _ sdk.Msg = &MsgAddStoryToSet{}
 
 func NewMsgAddStoryToSet(creator string, setId uint64, story string) *MsgAddStoryToSet {
 	return &MsgAddStoryToSet{
-		Creator:      creator,
-		SetId: setId,
-		Story:        story,
+		Creator: creator,
+		SetId:   setId,
+		Story:   story,
 	}
 }
 

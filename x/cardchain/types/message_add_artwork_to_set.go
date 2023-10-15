@@ -12,9 +12,9 @@ var _ sdk.Msg = &MsgAddArtworkToSet{}
 
 func NewMsgAddArtworkToSet(creator string, setId uint64, image []byte) *MsgAddArtworkToSet {
 	return &MsgAddArtworkToSet{
-		Creator:      creator,
-		SetId: setId,
-		Image:        image,
+		Creator: creator,
+		SetId:   setId,
+		Image:   image,
 	}
 }
 

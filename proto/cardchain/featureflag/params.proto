@@ -1,0 +1,12 @@
+syntax = "proto3";
+package DecentralCardGame.cardchain.featureflag;
+
+import "gogoproto/gogo.proto";
+
+option go_package = "github.com/DecentralCardGame/Cardchain/x/featureflag/types";
+
+// Params defines the parameters for the module.
+message Params {
+  option (gogoproto.goproto_stringer) = false;
+  
+}

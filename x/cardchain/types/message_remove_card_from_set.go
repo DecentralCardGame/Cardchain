@@ -12,9 +12,9 @@ var _ sdk.Msg = &MsgRemoveCardFromSet{}
 
 func NewMsgRemoveCardFromSet(creator string, setId uint64, cardId uint64) *MsgRemoveCardFromSet {
 	return &MsgRemoveCardFromSet{
-		Creator:      creator,
-		SetId: setId,
-		CardId:       cardId,
+		Creator: creator,
+		SetId:   setId,
+		CardId:  cardId,
 	}
 }
 

@@ -22,4 +22,3 @@ func (k msgServer) SetSetArtist(goCtx context.Context, msg *types.MsgSetSetArtis
 
 	return &types.MsgSetSetArtistResponse{}, nil
 }
-
