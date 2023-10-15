@@ -1,10 +1,11 @@
 package generic_type_keeper
 
 import (
+	"slices"
+
 	"github.com/cosmos/cosmos-sdk/codec"
 	storetypes "github.com/cosmos/cosmos-sdk/store/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"golang.org/x/exp/slices"
 )
 
 type KeywordedGenericTypeKeeper[T codec.ProtoMarshaler] struct {
