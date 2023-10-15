@@ -4,6 +4,6 @@ if [ $# -lt 1 ]; then
   exit 2
 fi
 
-echo "voting! (I hope you have staked ubpf)"
+echo "\033[0;36mvoting! (I hope jannik has staked ubpf)\033[0m"
 
 Cardchaind tx gov vote $1 yes --from jannik

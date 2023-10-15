@@ -2,13 +2,12 @@ package keeper
 
 import (
 	"fmt"
-
-	"github.com/cosmos/cosmos-sdk/types/errors"
+	"slices"
 
 	sdkerrors "cosmossdk.io/errors"
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"golang.org/x/exp/slices"
+	"github.com/cosmos/cosmos-sdk/types/errors"
 )
 
 func (k Keeper) voteCard(
