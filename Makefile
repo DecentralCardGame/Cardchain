@@ -2,13 +2,6 @@
 ###                                  Build                                  ###
 ###############################################################################
 
-# Check Go version
-check_version:
-	@if [ "$(shell go version | awk '{print $$3}' | cut -c 3-)" != "1.20.2" ]; then \
-	echo "ERROR: Go version 1.20.2 is required for this version of Cardchaind."; \
-	exit 1; \
-	fi
-
 # Default target
 all: install
 
