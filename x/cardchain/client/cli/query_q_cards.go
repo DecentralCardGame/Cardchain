@@ -1,6 +1,7 @@
 package cli
 
 import (
+	"fmt"
 	"strconv"
 
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
@@ -13,11 +14,12 @@ var _ = strconv.Itoa(0)
 
 func CmdQCards() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "q-cards [owner] [status] [card-type] [classes] [sort-by] [name-contains] [keywords-contains] [notes-contains]",
+		Use:   "q-cards [owner] [status] [card-type] [classes] [sort-by] [name-contains] [keywords-contains] [notes-contains] [only-startercard]",
 		Short: "Query qCards",
-		Args:  cobra.ExactArgs(8),
+		Args:  cobra.ExactArgs(9),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
 			reqOwner := args[0]
+			var reqOnlyStarterCard bool
 			var reqStatus types.QueryQCardsRequest_Status
 			if args[1] == "" {
 				reqStatus = types.QueryQCardsRequest_none
@@ -30,6 +32,15 @@ func CmdQCards() *cobra.Command {
 			reqNameContains := args[5]
 			reqKeywordsContains := args[6]
 			reqNotesContains := args[7]
+
+			switch args[8]{
+			case "yes":
+				reqOnlyStarterCard = true
+			case "no":
+				reqOnlyStarterCard = false
+			default:
+				return fmt.Errorf("arg 'only-startercard' has to be either yes or no but not %s", args[8])
+			}
 
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
@@ -48,6 +59,7 @@ func CmdQCards() *cobra.Command {
 				NameContains:     reqNameContains,
 				KeywordsContains: reqKeywordsContains,
 				NotesContains:    reqNotesContains,
+				OnlyStarterCard:  reqOnlyStarterCard,
 			}
 
 			res, err := queryClient.QCards(cmd.Context(), params)
