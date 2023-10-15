@@ -9,8 +9,8 @@ all: install
 BUILDDIR := ./build
 
 # Build the project
-build: check_version go.sum $(BUILDDIR)/
-	GOWORK=off go build -mod=readonly -o $(BUILDDIR)/ ./...
+build: go.sum $(BUILDDIR)/
+	go build -mod=readonly -o $(BUILDDIR)/ ./...
 
 # Create the build directory
 $(BUILDDIR)/:
@@ -30,4 +30,4 @@ clean:
 	rm -rf $(BUILDDIR)/
 
 # Phony targets
-.PHONY: check_version all build install clean
+.PHONY: all build install clean
