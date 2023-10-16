@@ -14,7 +14,7 @@ var _ = strconv.Itoa(0)
 
 func CmdQCards() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "q-cards [owner] [status] [card-type] [classes] [sort-by] [name-contains] [keywords-contains] [notes-contains] [only-startercard]",
+		Use:   "q-cards [owner] [status] [card-type] [classes] [sort-by] [name-contains] [keywords-contains] [notes-contains] [startercards-only]",
 		Short: "Query qCards",
 		Args:  cobra.ExactArgs(9),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
