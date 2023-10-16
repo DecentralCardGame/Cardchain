@@ -6,7 +6,7 @@ import "cardchain/cardchain/params.proto";
 import "cardchain/cardchain/card.proto";
 import "cardchain/cardchain/user.proto";
 import "cardchain/cardchain/match.proto";
-import "cardchain/cardchain/collection.proto";
+import "cardchain/cardchain/set.proto";
 import "cardchain/cardchain/sell_offer.proto";
 import "cardchain/cardchain/running_average.proto";
 import "cardchain/cardchain/council.proto";
@@ -24,7 +24,7 @@ message GenesisState {
   repeated User users = 3;
   repeated string addresses = 4;
   repeated Match matches = 6;
-  repeated Collection collections = 7;
+  repeated Set sets = 7;
   repeated SellOffer sellOffers = 8;
   repeated cosmos.base.v1beta1.Coin pools = 9;
   string cardAuctionPrice = 11 [(gogoproto.nullable) = false, (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Coin"];;
@@ -32,5 +32,6 @@ message GenesisState {
   repeated RunningAverage RunningAverages = 13;
   repeated Image images = 14;
   repeated Server Servers = 15;
+  TimeStamp lastCardModified = 16;
   // this line is used by starport scaffolding # genesis/proto/state
 }

@@ -1,6 +1,7 @@
 package types
 
 import (
+	ffKeeper "github.com/DecentralCardGame/Cardchain/x/featureflag/keeper"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/x/auth/types"
 )
@@ -9,6 +10,10 @@ import (
 type AccountKeeper interface {
 	GetAccount(ctx sdk.Context, addr sdk.AccAddress) types.AccountI
 	// Methods imported from account should be defined here
+}
+
+type FeatureFlagKeeper interface {
+	GetModuleInstance(moduleName string, flagNames []string) ffKeeper.ModuleInstance
 }
 
 // BankKeeper defines the expected interface needed to retrieve account balances.

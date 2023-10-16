@@ -2,11 +2,12 @@ package keeper
 
 import (
 	"context"
+	"time"
 
+	sdkerrors "cosmossdk.io/errors"
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
-	"golang.org/x/exp/slices"
+	"github.com/cosmos/cosmos-sdk/types/errors"
 )
 
 func (k msgServer) ConfirmMatch(goCtx context.Context, msg *types.MsgConfirmMatch) (*types.MsgConfirmMatchResponse, error) {
@@ -24,41 +25,22 @@ func (k msgServer) ConfirmMatch(goCtx context.Context, msg *types.MsgConfirmMatc
 	case match.PlayerB.Addr:
 		player = match.PlayerB
 	default:
-		return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "Didn't participate in match")
+		return nil, sdkerrors.Wrap(errors.ErrUnauthorized, "Didn't participate in match")
 	}
 
 	if player.Confirmed {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "Already reported")
+		return nil, sdkerrors.Wrap(errors.ErrUnauthorized, "Already reported")
 	}
 	if match.Outcome == types.Outcome_Aborted {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "Can't report, because match was aborted")
+		return nil, sdkerrors.Wrap(errors.ErrUnauthorized, "Can't report, because match was aborted")
 	}
 
 	player.Outcome = msg.Outcome
+	player.VotedCards = msg.VotedCards
 	player.Confirmed = true
-	k.Matches.Set(ctx, msg.MatchId, match)
+	match.Timestamp = uint64(time.Now().Unix())
 
-	// Report bulshit servers
-	if match.PlayerA.Confirmed && match.PlayerB.Confirmed {
-		outcomes := []types.Outcome{match.Outcome, match.PlayerA.Outcome, match.PlayerB.Outcome}
-		slices.Sort(outcomes)
-		outcomes = slices.Compact(outcomes)
-		switch i := uint64(len(outcomes)); i {
-		case 1:
-			k.ReportServerMatch(ctx, match.Reporter, 1, true)
-		default:
-			k.ReportServerMatch(ctx, match.Reporter, i-1, false)
-		}
-	}
-
-	outcome, err := k.GetOutcome(ctx, *match)
-
-	// Distribute coins
-	if match.CoinsDistributed || err != nil { // Ensures that money isn't dropped twice
-		return &types.MsgConfirmMatchResponse{}, nil
-	}
-
-	err = k.DistributeCoins(ctx, match, outcome)
+	err := k.TryHandleMatchOutcome(ctx, match)
 	if err != nil {
 		return nil, err
 	}

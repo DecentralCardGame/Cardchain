@@ -10,7 +10,7 @@ import "cardchain/voting_results.proto";
 import "cardchain/card.proto";
 import "cardchain/user.proto";
 import "cardchain/match.proto";
-import "cardchain/collection.proto";
+import "cardchain/set.proto";
 import "cardchain/sell_offer.proto";
 import "cardchain/council.proto";
 import "cardchain/tx.proto";
@@ -65,9 +65,9 @@ service Query {
 		option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/q_match/{matchId}";
 	}
 
-// Queries a list of QCollection items.
-	rpc QCollection(QueryQCollectionRequest) returns (Collection) {
-		option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/q_collection/{collectionId}";
+// Queries a list of QSet items.
+	rpc QSet(QueryQSetRequest) returns (Set) {
+		option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/q_set/{setId}";
 	}
 
 // Queries a list of QSellOffer items.
@@ -113,7 +113,7 @@ message QueryQCardchainInfoRequest {
 
 message QueryQCardchainInfoResponse {
   string cardAuctionPrice = 1 [(gogoproto.nullable) = false, (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Coin"];;
-  repeated uint64 activeCollections = 2;
+  repeated uint64 activeSets = 2;
 }
 
 message QueryQVotingResultsRequest {
@@ -152,8 +152,8 @@ message QueryQMatchRequest {
   uint64 matchId = 1;
 }
 
-message QueryQCollectionRequest {
-  uint64 collectionId = 1;
+message QueryQSetRequest {
+  uint64 setId = 1;
 }
 
 message QueryQSellOfferRequest {

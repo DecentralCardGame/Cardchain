@@ -5,12 +5,14 @@ services:
     build: .
     command: ./docker-run.sh
     volumes:
-       - /home/wieth:/home/tendermint/
+      - ./backup:/backup
+      - ./docker-run.sh:/home/tendermint/docker-run.sh
     ports:
       - 26657:26657
       - 26658:26658
       - 1317:1317
       - 9090:9090
+      - 9091:9091
       - 4500:4500
 
   herd:
@@ -28,6 +30,3 @@ services:
     command: /bin/bash -c "exec nginx -g 'daemon off;'"
     depends_on: 
       - blockchain
-
-volumes:
-  database-data: # named volumes can be managed easier using docker-compose

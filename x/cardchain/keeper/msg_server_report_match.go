@@ -4,47 +4,40 @@ import (
 	"context"
 	"time"
 
+	sdkerrors "cosmossdk.io/errors"
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+	"github.com/cosmos/cosmos-sdk/types/errors"
 )
 
 func (k msgServer) ReportMatch(goCtx context.Context, msg *types.MsgReportMatch) (*types.MsgReportMatchResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
+
+	match := k.Matches.Get(ctx, msg.MatchId)
 
 	creator, err := k.GetUserFromString(ctx, msg.Creator)
 	if err != nil {
 		return nil, sdkerrors.Wrap(types.ErrUserDoesNotExist, err.Error())
 	}
 	if creator.ReportMatches == false {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "Incorrect Reporter")
+		return nil, sdkerrors.Wrap(errors.ErrUnauthorized, "Incorrect Reporter")
+	}
+	if msg.Creator != match.Reporter {
+		return nil, sdkerrors.Wrapf(errors.ErrUnauthorized, "Wrong Reporter, reporter is %s", match.Reporter)
+	}
+	if !match.CoinsDistributed {
+		return nil, sdkerrors.Wrap(errors.ErrUnauthorized, "Match already reported")
 	}
 
-	matchId := k.Matches.GetNum(ctx)
+	match.Outcome = msg.Outcome
+	match.Timestamp = uint64(time.Now().Unix())
 
-	match := types.Match{
-		Timestamp:        uint64(time.Now().Unix()),
-		Reporter:         msg.Creator,
-		PlayerA:          types.NewMatchPlayer(msg.PlayerA, msg.CardsA),
-		PlayerB:          types.NewMatchPlayer(msg.PlayerB, msg.CardsB),
-		Outcome:          msg.Outcome,
-		CoinsDistributed: false,
-	}
-
-	_, err = k.GetMatchAddresses(ctx, match)
+	err = k.TryHandleMatchOutcome(ctx, match)
 	if err != nil {
 		return nil, err
 	}
 
-	if msg.Outcome == types.Outcome_Aborted {
-		err = k.DistributeCoins(ctx, &match, msg.Outcome)
-        if err != nil {
-            return nil, err
-        }
-		k.ReportServerMatch(ctx, msg.Creator, 1, true)
-	}
-
-	k.Matches.Set(ctx, matchId, &match)
+	k.Matches.Set(ctx, msg.MatchId, match)
 
 	return &types.MsgReportMatchResponse{}, nil
 }

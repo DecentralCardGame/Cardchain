@@ -2,10 +2,11 @@ package keeper
 
 import (
 	"context"
+	"github.com/cosmos/cosmos-sdk/types/errors"
 
+	sdkerrors "cosmossdk.io/errors"
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 )
 
 func (k msgServer) CreateSellOffer(goCtx context.Context, msg *types.MsgCreateSellOffer) (*types.MsgCreateSellOfferResponse, error) {
@@ -14,6 +15,12 @@ func (k msgServer) CreateSellOffer(goCtx context.Context, msg *types.MsgCreateSe
 	creator, err := k.GetUserFromString(ctx, msg.Creator)
 	if err != nil {
 		return nil, sdkerrors.Wrap(types.ErrUserDoesNotExist, err.Error())
+	}
+
+	// Check if card is startercard
+	card := k.Cards.Get(ctx, msg.Card)
+	if card.StarterCard {
+		return nil, sdkerrors.Wrap(errors.ErrUnauthorized, "Card is startercard and therefore not sellable")
 	}
 
 	newCards, err := PopItemFromArr(msg.Card, creator.Cards)

@@ -1,0 +1,10 @@
+{
+    "configurations": [
+        {
+            "type": "command",
+            "name": "ignite chain serve -v",
+            "program": "./ignite",
+            "args": ["chain", "serve", "-v"]
+        },
+    ]
+}

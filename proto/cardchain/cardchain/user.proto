@@ -2,7 +2,7 @@ syntax = "proto3";
 package DecentralCardGame.cardchain.cardchain;
 
 option go_package = "github.com/DecentralCardGame/Cardchain/x/cardchain/types";
-import "cardchain/cardchain/vote_right.proto";
+import "cardchain/cardchain/voting.proto";
 
 message User {
 
@@ -33,9 +33,12 @@ message CouncilParticipation {
 }
 
 message BoosterPack {
-  uint64 collectionId = 1;
+  uint64 setId = 1;
   int64 timeStamp = 2;
+  // How often the different rarities will appear in a BoosterPack
   repeated uint64 raritiesPerPack = 3;
+  // The chances of the rare beeing a normal rare, an exceptional or a unique
+  repeated uint64 dropRatiosPerPack = 4;
 }
 
 message AirDrops {

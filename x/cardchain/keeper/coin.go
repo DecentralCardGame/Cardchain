@@ -1,18 +1,18 @@
 package keeper
 
 import (
+	sdkerrors "cosmossdk.io/errors"
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	"math/big"
 )
 
 // MulCoin multiplies a Coin with an int
 func MulCoin(coin sdk.Coin, amt int64) sdk.Coin {
 	return sdk.Coin{
-        Denom: coin.Denom,
-        Amount: coin.Amount.Mul(sdk.NewInt(amt)),
-    }
+		Denom:  coin.Denom,
+		Amount: coin.Amount.Mul(sdk.NewInt(amt)),
+	}
 }
 
 // MulCoinFloat multiplies a Coin with a float
@@ -23,17 +23,17 @@ func MulCoinFloat(coin sdk.Coin, amt float64) sdk.Coin {
 	var newAmount big.Int
 	oldAmount.Int(&newAmount)
 	return sdk.Coin{
-        Denom: coin.Denom,
-        Amount: sdk.NewIntFromBigInt(&newAmount),
-    }
+		Denom:  coin.Denom,
+		Amount: sdk.NewIntFromBigInt(&newAmount),
+	}
 }
 
 // QuoCoin devides a Coin with by int
 func QuoCoin(coin sdk.Coin, amt int64) sdk.Coin {
 	return sdk.Coin{
-        Denom: coin.Denom,
-        Amount: coin.Amount.Quo(sdk.NewInt(amt)),
-    }
+		Denom:  coin.Denom,
+		Amount: coin.Amount.Quo(sdk.NewInt(amt)),
+	}
 }
 
 // MintCoinsToAddr adds coins to an Account

@@ -4,20 +4,22 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
-func NewMatchPlayer(addr string, cards []uint64) *MatchPlayer {
+func NewMatchPlayer(addr string, cards []uint64, deck []uint64) *MatchPlayer {
 	return &MatchPlayer{
 		Addr:        addr,
 		PlayedCards: cards,
+		Deck:        deck,
 		Confirmed:   false,
 		Outcome:     Outcome_Aborted,
 	}
 }
 
-func NewBoosterPack(ctx sdk.Context, collectionId uint64, raritiesPerPack []uint64) BoosterPack {
+func NewBoosterPack(ctx sdk.Context, setId uint64, raritiesPerPack []uint64, dropRatiosPerPack []uint64) BoosterPack {
 	return BoosterPack{
-		CollectionId:    collectionId,
-		RaritiesPerPack: raritiesPerPack,
-		TimeStamp:       ctx.BlockHeight(),
+		SetId:             setId,
+		RaritiesPerPack:   raritiesPerPack,
+		TimeStamp:         ctx.BlockHeight(),
+		DropRatiosPerPack: dropRatiosPerPack,
 	}
 }
 

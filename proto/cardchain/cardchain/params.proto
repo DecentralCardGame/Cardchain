@@ -9,10 +9,10 @@ option go_package = "github.com/DecentralCardGame/Cardchain/x/cardchain/types";
 message Params {
   option (gogoproto.goproto_stringer) = false;
   int64 votingRightsExpirationTime = 1;
-  uint64 collectionSize = 2;
-  string collectionPrice = 3 [(gogoproto.nullable) = false, (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Coin"];;
-  uint64 activeCollectionsAmount = 4;
-  string collectionCreationFee = 5 [(gogoproto.nullable) = false, (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Coin"];;
+  uint64 setSize = 2;
+  string setPrice = 3 [(gogoproto.nullable) = false, (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Coin"];;
+  uint64 activeSetsAmount = 4;
+  string setCreationFee = 5 [(gogoproto.nullable) = false, (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Coin"];;
   string collateralDeposit = 6 [(gogoproto.nullable) = false, (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Coin"];;
   int64 winnerReward = 7;
   string hourlyFaucet = 9 [(gogoproto.nullable) = false, (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Coin"];;
@@ -28,4 +28,8 @@ message Params {
   string trialVoteReward = 19 [(gogoproto.nullable) = false, (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Coin"];;
   int64 votePoolFraction = 20;
   int64 votingRewardCap = 8;
+  uint64 matchWorkerDelay = 21;
+  uint64 rareDropRatio = 22;
+  uint64 exceptionalDropRatio = 23;
+  uint64 uniqueDropRatio = 24;
 }

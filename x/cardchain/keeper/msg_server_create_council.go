@@ -3,11 +3,12 @@ package keeper
 import (
 	"context"
 	"math/rand"
+	"slices"
 
+	sdkerrors "cosmossdk.io/errors"
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
-	"golang.org/x/exp/slices"
+	"github.com/cosmos/cosmos-sdk/types/errors"
 )
 
 func (k msgServer) CreateCouncil(goCtx context.Context, msg *types.MsgCreateCouncil) (*types.MsgCreateCouncilResponse, error) {
@@ -22,7 +23,7 @@ func (k msgServer) CreateCouncil(goCtx context.Context, msg *types.MsgCreateCoun
 	if card.Status != types.Status_prototype {
 		return nil, sdkerrors.Wrapf(types.ErrInvalidCardStatus, "%s", card.Status.String())
 	} else if card.Owner != msg.Creator {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "Incorrect Creator")
+		return nil, sdkerrors.Wrap(errors.ErrUnauthorized, "Incorrect Creator")
 	}
 
 	var possibleVoters []User
@@ -54,7 +55,7 @@ func (k msgServer) CreateCouncil(goCtx context.Context, msg *types.MsgCreateCoun
 
 	err = k.BurnCoinsFromAddr(ctx, creator.Addr, sdk.Coins{treasury})
 	if err != nil {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrInsufficientFunds, "Creator does not have enough coins")
+		return nil, sdkerrors.Wrap(errors.ErrInsufficientFunds, "Creator does not have enough coins")
 	}
 
 	for _, user := range fiveVoters {

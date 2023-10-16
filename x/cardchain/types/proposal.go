@@ -1,7 +1,7 @@
 package types
 
 import (
-	govtypes "github.com/cosmos/cosmos-sdk/x/gov/types"
+	govtypes "github.com/cosmos/cosmos-sdk/x/gov/types/v1beta1"
 )
 
 // Module name for minting coins
@@ -11,7 +11,7 @@ const (
 	// ProposalTypeChange defines the type for a ParameterChangeProposal
 	ProposalTypeCopyright     = "Copyright"
 	ProposalTypeMatchReporter = "MatchReporter"
-	ProposalTypeCollection    = "Collection"
+	ProposalTypeSet           = "Set"
 )
 
 func (c *CopyrightProposal) ProposalRoute() string { return RouterKey }
@@ -40,11 +40,11 @@ func (c *MatchReporterProposal) ValidateBasic() error {
 	return nil
 }
 
-func (c *CollectionProposal) ProposalRoute() string { return RouterKey }
+func (c *SetProposal) ProposalRoute() string { return RouterKey }
 
-func (c *CollectionProposal) ProposalType() string { return ProposalTypeCollection }
+func (c *SetProposal) ProposalType() string { return ProposalTypeSet }
 
-func (c *CollectionProposal) ValidateBasic() error {
+func (c *SetProposal) ValidateBasic() error {
 	err := govtypes.ValidateAbstract(c)
 	if err != nil {
 		return err
@@ -56,5 +56,5 @@ func (c *CollectionProposal) ValidateBasic() error {
 func init() {
 	govtypes.RegisterProposalType(ProposalTypeCopyright)
 	govtypes.RegisterProposalType(ProposalTypeMatchReporter)
-	govtypes.RegisterProposalType(ProposalTypeCollection)
+	govtypes.RegisterProposalType(ProposalTypeSet)
 }

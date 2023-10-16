@@ -1,20 +1,21 @@
 package types
 
 import (
+	sdkerrors "cosmossdk.io/errors"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+	"github.com/cosmos/cosmos-sdk/types/errors"
 )
 
 const TypeMsgSetCardRarity = "set_card_rarity"
 
 var _ sdk.Msg = &MsgSetCardRarity{}
 
-func NewMsgSetCardRarity(creator string, cardId uint64, collectionId uint64, rarity string) *MsgSetCardRarity {
+func NewMsgSetCardRarity(creator string, cardId uint64, setId uint64, rarity CardRarity) *MsgSetCardRarity {
 	return &MsgSetCardRarity{
-		Creator:      creator,
-		CardId:       cardId,
-		CollectionId: collectionId,
-		Rarity:       rarity,
+		Creator: creator,
+		CardId:  cardId,
+		SetId:   setId,
+		Rarity:  rarity,
 	}
 }
 
@@ -42,7 +43,12 @@ func (msg *MsgSetCardRarity) GetSignBytes() []byte {
 func (msg *MsgSetCardRarity) ValidateBasic() error {
 	_, err := sdk.AccAddressFromBech32(msg.Creator)
 	if err != nil {
-		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid creator address (%s)", err)
+		return sdkerrors.Wrapf(errors.ErrInvalidAddress, "invalid creator address (%s)", err)
 	}
+	_, isValid := CardRarity_name[int32(msg.Rarity)]
+	if !isValid {
+		return sdkerrors.Wrapf(errors.ErrInvalidRequest, "Invalid cardRarity: (%d)", msg.Rarity)
+	}
+
 	return nil
 }

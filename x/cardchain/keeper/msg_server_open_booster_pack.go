@@ -3,14 +3,11 @@ package keeper
 import (
 	"context"
 	"math/rand"
+	"slices"
 
-	"golang.org/x/exp/slices"
-
+	sdkerrors "cosmossdk.io/errors"
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
-	"github.com/DecentralCardGame/cardobject/cardobject"
-	"github.com/DecentralCardGame/cardobject/keywords"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 )
 
 func (k msgServer) OpenBoosterPack(goCtx context.Context, msg *types.MsgOpenBoosterPack) (*types.MsgOpenBoosterPackResponse, error) {
@@ -30,28 +27,34 @@ func (k msgServer) OpenBoosterPack(goCtx context.Context, msg *types.MsgOpenBoos
 		)
 	}
 
-	var cardsList []uint64
-	rarities := []string{"COMMON", "UNCOMMON", "RARE"}
-
-	collection := k.Collections.Get(ctx, creator.BoosterPacks[msg.BoosterPackId].CollectionId)
+	var (
+		cardsList     []uint64
+		cleanedRatios [3]uint64
+	)
+	set := k.Sets.Get(ctx, creator.BoosterPacks[msg.BoosterPackId].SetId)
+	rarityNums := k.getCardRaritiesInSet(ctx, set)
+	for idx, ratio := range creator.BoosterPacks[msg.BoosterPackId].DropRatiosPerPack {
+		if len(rarityNums[idx+2]) == 0 {
+			cleanedRatios[idx] = 0
+		} else {
+			cleanedRatios[idx] = ratio
+		}
+	}
 
 	for idx, num := range creator.BoosterPacks[msg.BoosterPackId].RaritiesPerPack {
 		for i := 0; i < int(num); i++ {
-			var rarityCards []uint64
-			for _, cardId := range collection.Cards {
-				cardobj, err := keywords.Unmarshal(k.Cards.Get(ctx, cardId).Content)
-				if err != nil {
-					return nil, sdkerrors.Wrap(types.ErrCardobject, err.Error())
+			if idx != 2 {
+				cardsList = append(cardsList, rarityNums[idx][rand.Intn(len(rarityNums[idx]))])
+			} else {
+				res := uint64(rand.Intn(int(cleanedRatios[0] + cleanedRatios[1] + cleanedRatios[2])))
+				j := 4
+				if res < cleanedRatios[0] {
+					j = 2
+				} else if res < cleanedRatios[0]+cleanedRatios[1] {
+					j = 3
 				}
-				rarity, err := GetCardRarity(cardobj)
-				if err != nil {
-					return nil, sdkerrors.Wrap(types.ErrCardobject, err.Error())
-				}
-				if *rarity == cardobject.Rarity(rarities[idx]) {
-					rarityCards = append(rarityCards, cardId)
-				}
+				cardsList = append(cardsList, rarityNums[j][rand.Intn(len(rarityNums[j]))])
 			}
-			cardsList = append(cardsList, rarityCards[rand.Intn(len(rarityCards))])
 		}
 	}
 
@@ -64,5 +67,13 @@ func (k msgServer) OpenBoosterPack(goCtx context.Context, msg *types.MsgOpenBoos
 
 	k.SetUserFromUser(ctx, creator)
 
-	return &types.MsgOpenBoosterPackResponse{}, nil
+	return &types.MsgOpenBoosterPackResponse{CardIds: cardsList}, nil
+}
+
+func (k Keeper) getCardRaritiesInSet(ctx sdk.Context, set *types.Set) (rarityNums [5][]uint64) {
+	for _, cardId := range set.Cards {
+		card := k.Cards.Get(ctx, cardId)
+		rarityNums[int(card.Rarity)] = append(rarityNums[int(card.Rarity)], cardId)
+	}
+	return
 }

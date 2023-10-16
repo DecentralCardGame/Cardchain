@@ -3,9 +3,10 @@ package keeper
 import (
 	"context"
 
+	sdkerrors "cosmossdk.io/errors"
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+	"github.com/cosmos/cosmos-sdk/types/errors"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 )
@@ -19,7 +20,7 @@ func (k Keeper) QVotableCards(goCtx context.Context, req *types.QueryQVotableCar
 
 	address, err := sdk.AccAddressFromBech32(req.Address)
 	if err != nil {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrUnknownRequest, "could not parse user address")
+		return nil, sdkerrors.Wrap(errors.ErrUnknownRequest, "could not parse user address")
 	}
 
 	unreg := true

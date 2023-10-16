@@ -3,11 +3,12 @@ package cardchain
 import (
 	"sort"
 
+	sdkerrors "cosmossdk.io/errors"
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/keeper"
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
-	govtypes "github.com/cosmos/cosmos-sdk/x/gov/types"
+	"github.com/cosmos/cosmos-sdk/types/errors"
+	govtypes "github.com/cosmos/cosmos-sdk/x/gov/types/v1beta1"
 )
 
 // NewProposalHandler creates a new governance Handler for a ParamChangeProposal
@@ -18,11 +19,11 @@ func NewProposalHandler(k keeper.Keeper) govtypes.Handler {
 			return handleCopyrightProposal(ctx, k, c)
 		case *types.MatchReporterProposal:
 			return handleMatchReporterProposal(ctx, k, c)
-		case *types.CollectionProposal:
-			return handleCollectionProposal(ctx, k, c)
+		case *types.SetProposal:
+			return handleSetProposal(ctx, k, c)
 
 		default:
-			return sdkerrors.Wrapf(sdkerrors.ErrUnknownRequest, "unrecognized proposal content type: %T", c)
+			return sdkerrors.Wrapf(errors.ErrUnknownRequest, "unrecognized proposal content type: %T", c)
 		}
 	}
 }
@@ -39,44 +40,45 @@ func handleCopyrightProposal(ctx sdk.Context, k keeper.Keeper, p *types.Copyrigh
 	card.Artist = card.Owner
 	card.Status = types.Status_suspended
 
+	k.SetLastCardModifiedNow(ctx)
 	k.Cards.Set(ctx, p.CardId, card)
 	k.Images.Set(ctx, card.ImageId, image)
 
 	return nil
 }
 
-func handleCollectionProposal(ctx sdk.Context, k keeper.Keeper, p *types.CollectionProposal) error {
-	collection := k.Collections.Get(ctx, p.CollectionId)
+func handleSetProposal(ctx sdk.Context, k keeper.Keeper, p *types.SetProposal) error {
+	set := k.Sets.Get(ctx, p.SetId)
 
-	if collection.Status != types.CStatus_finalized {
-		return sdkerrors.Wrapf(types.ErrCollectionNotInDesign, "Collection status is %s but should be finalized", collection.Status)
+	if set.Status != types.CStatus_finalized {
+		return sdkerrors.Wrapf(types.ErrSetNotInDesign, "Set status is %s but should be finalized", set.Status)
 	}
 
-	activeCollectionsIds := k.GetActiveCollections(ctx)
-	var activeCollections []sortStruct
-	if len(activeCollections) >= int(k.GetParams(ctx).ActiveCollectionsAmount) {
-		for _, id := range activeCollectionsIds {
-			var collection = k.Collections.Get(ctx, id)
-			activeCollections = append(activeCollections, sortStruct{id, collection})
+	activeSetsIds := k.GetActiveSets(ctx)
+	var activeSets []sortStruct
+	if len(activeSets) >= int(k.GetParams(ctx).ActiveSetsAmount) {
+		for _, id := range activeSetsIds {
+			var set = k.Sets.Get(ctx, id)
+			activeSets = append(activeSets, sortStruct{id, set})
 		}
-		sort.SliceStable(activeCollections, func(i, j int) bool {
-			return activeCollections[i].Collection.TimeStamp < activeCollections[j].Collection.TimeStamp
+		sort.SliceStable(activeSets, func(i, j int) bool {
+			return activeSets[i].Set.TimeStamp < activeSets[j].Set.TimeStamp
 		},
 		)
-		yeetStruct := activeCollections[0]
-		yeetStruct.Collection.Status = types.CStatus_archived
-		k.Collections.Set(ctx, yeetStruct.Id, yeetStruct.Collection)
+		yeetStruct := activeSets[0]
+		yeetStruct.Set.Status = types.CStatus_archived
+		k.Sets.Set(ctx, yeetStruct.Id, yeetStruct.Set)
 	}
 
-	collection.Status = types.CStatus_active
-	collection.TimeStamp = ctx.BlockHeight()
+	set.Status = types.CStatus_active
+	set.TimeStamp = ctx.BlockHeight()
 
-	k.Collections.Set(ctx, p.CollectionId, collection)
+	k.Sets.Set(ctx, p.SetId, set)
 
 	return nil
 }
 
 type sortStruct struct {
-	Id         uint64
-	Collection *types.Collection
+	Id  uint64
+	Set *types.Set
 }

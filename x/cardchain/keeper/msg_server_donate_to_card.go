@@ -3,9 +3,10 @@ package keeper
 import (
 	"context"
 
+	sdkerrors "cosmossdk.io/errors"
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+	"github.com/cosmos/cosmos-sdk/types/errors"
 )
 
 func (k msgServer) DonateToCard(goCtx context.Context, msg *types.MsgDonateToCard) (*types.MsgDonateToCardResponse, error) {
@@ -13,7 +14,7 @@ func (k msgServer) DonateToCard(goCtx context.Context, msg *types.MsgDonateToCar
 
 	err := k.BurnCoinsFromString(ctx, msg.Creator, sdk.Coins{msg.Amount}) // If so, deduct the Bid amount from the sender
 	if err != nil {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrInsufficientFunds, "Donator does not have enough coins")
+		return nil, sdkerrors.Wrap(errors.ErrInsufficientFunds, "Donator does not have enough coins")
 	}
 
 	card := k.Cards.Get(ctx, msg.CardId)

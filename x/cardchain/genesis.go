@@ -23,8 +23,8 @@ func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) 
 	for id, council := range genState.Councils {
 		k.Councils.Set(ctx, uint64(id), council)
 	}
-	for id, collection := range genState.Collections {
-		k.Collections.Set(ctx, uint64(id), collection)
+	for id, set := range genState.Sets {
+		k.Sets.Set(ctx, uint64(id), set)
 	}
 	for id, sellOffer := range genState.SellOffers {
 		k.SellOffers.Set(ctx, uint64(id), sellOffer)
@@ -44,6 +44,9 @@ func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) 
 	if genState.CardAuctionPrice.Denom != "" {
 		k.SetCardAuctionPrice(ctx, genState.CardAuctionPrice)
 	}
+	if genState.LastCardModified != nil {
+		k.SetLastCardModified(ctx, *genState.LastCardModified)
+	}
 	k.Logger(ctx).Info("reading cards with id:")
 	for currId, record := range genState.CardRecords {
 		_, err := keywords.Unmarshal(record.Content)
@@ -59,6 +62,9 @@ func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) 
 		genState.Params.AirDropValue = defaultParams.AirDropValue
 		genState.Params.AirDropMaxBlockHeight = defaultParams.AirDropMaxBlockHeight
 	}
+	if genState.Params.MatchWorkerDelay == 0 {
+		genState.Params.MatchWorkerDelay = types.DefaultMatchWorkerDelay
+	}
 	k.SetParams(ctx, genState.Params)
 }
 
@@ -68,13 +74,14 @@ func ExportGenesis(ctx sdk.Context, k keeper.Keeper) *types.GenesisState {
 	params := k.GetParams(ctx)
 	// params := types.DefaultParams()
 	cardAuctionPrice := k.GetCardAuctionPrice(ctx)
+	lastCardModified := k.GetLastCardModified(ctx)
 	sellOffers := k.SellOffers.GetAll(ctx)
 	pools := k.Pools.GetAll(ctx)
 	records := k.Cards.GetAll(ctx)
 	matches := k.Matches.GetAll(ctx)
 	councils := k.Councils.GetAll(ctx)
 	runningAverages := k.RunningAverages.GetAll(ctx)
-	collections := k.Collections.GetAll(ctx)
+	sets := k.Sets.GetAll(ctx)
 	images := k.Images.GetAll(ctx)
 	servers := k.Servers.GetAll(ctx)
 	users, accAddresses := k.GetAllUsers(ctx)
@@ -87,7 +94,7 @@ func ExportGenesis(ctx sdk.Context, k keeper.Keeper) *types.GenesisState {
 		CardRecords:      records,
 		Users:            users,
 		Matches:          matches,
-		Collections:      collections,
+		Sets:             sets,
 		SellOffers:       sellOffers,
 		Pools:            pools,
 		Councils:         councils,
@@ -96,5 +103,6 @@ func ExportGenesis(ctx sdk.Context, k keeper.Keeper) *types.GenesisState {
 		Images:           images,
 		RunningAverages:  runningAverages,
 		Servers:          servers,
+		LastCardModified: &lastCardModified,
 	}
 }

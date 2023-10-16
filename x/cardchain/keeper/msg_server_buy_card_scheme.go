@@ -4,9 +4,10 @@ import (
 	"context"
 	"math"
 
+	sdkerrors "cosmossdk.io/errors"
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+	"github.com/cosmos/cosmos-sdk/types/errors"
 )
 
 func (k msgServer) BuyCardScheme(goCtx context.Context, msg *types.MsgBuyCardScheme) (*types.MsgBuyCardSchemeResponse, error) {
@@ -14,11 +15,7 @@ func (k msgServer) BuyCardScheme(goCtx context.Context, msg *types.MsgBuyCardSch
 
 	currId := k.Cards.GetNum(ctx)
 	price := k.GetCardAuctionPrice(ctx)
-
-	bid, err := sdk.ParseCoinNormalized(msg.Bid)
-	if err != nil {
-		return nil, err
-	}
+	bid := msg.Bid
 
 	buyer, err := sdk.AccAddressFromBech32(msg.Creator)
 	if err != nil {
@@ -26,12 +23,12 @@ func (k msgServer) BuyCardScheme(goCtx context.Context, msg *types.MsgBuyCardSch
 	}
 
 	if bid.IsLT(price) { // Checks if the bid is less than price
-		return nil, sdkerrors.Wrap(sdkerrors.ErrInsufficientFunds, "Bid not high enough")
+		return nil, sdkerrors.Wrap(errors.ErrInsufficientFunds, "Bid not high enough")
 	}
 
 	err = k.BurnCoinsFromAddr(ctx, buyer, sdk.Coins{price}) // If so, deduct the Bid amount from the sender
 	if err != nil {
-		return nil, sdkerrors.Wrapf(sdkerrors.ErrInsufficientFunds, "Buyer does not have enough coins %s", err)
+		return nil, sdkerrors.Wrapf(errors.ErrInsufficientFunds, "Buyer does not have enough coins %s", err)
 	}
 
 	k.AddPoolCredits(ctx, PublicPoolKey, price)
@@ -47,5 +44,7 @@ func (k msgServer) BuyCardScheme(goCtx context.Context, msg *types.MsgBuyCardSch
 	k.Images.Set(ctx, newCard.ImageId, &image)
 	k.AddOwnedCardScheme(ctx, currId, buyer)
 
-	return &types.MsgBuyCardSchemeResponse{}, nil
+	return &types.MsgBuyCardSchemeResponse{
+		CardId: currId,
+	}, nil
 }

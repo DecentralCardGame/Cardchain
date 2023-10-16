@@ -5,13 +5,15 @@ import (
 	"fmt"
 	"sort"
 
+	gtk "github.com/DecentralCardGame/Cardchain/types/generic_type_keeper"
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
-	gtk "github.com/DecentralCardGame/Cardchain/x/cardchain/types/generic_type_keeper"
+	ffKeeper "github.com/DecentralCardGame/Cardchain/x/featureflag/keeper"
 	"github.com/DecentralCardGame/cardobject/cardobject"
 	"github.com/DecentralCardGame/cardobject/keywords"
 	"github.com/cosmos/cosmos-sdk/codec"
+	storetypes "github.com/cosmos/cosmos-sdk/store/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+	"github.com/cosmos/cosmos-sdk/types/errors"
 	paramtypes "github.com/cosmos/cosmos-sdk/x/params/types"
 	"github.com/tendermint/tendermint/libs/log"
 )
@@ -19,39 +21,41 @@ import (
 // Keeper Yeah the keeper
 type Keeper struct {
 	cdc              codec.BinaryCodec // The wire codec for binary encoding/decoding.
-	UsersStoreKey    sdk.StoreKey
-	InternalStoreKey sdk.StoreKey
+	UsersStoreKey    storetypes.StoreKey
+	InternalStoreKey storetypes.StoreKey
 	paramstore       paramtypes.Subspace
 
 	Cards           gtk.GenericTypeKeeper[*types.Card]
 	Councils        gtk.GenericTypeKeeper[*types.Council]
 	SellOffers      gtk.GenericTypeKeeper[*types.SellOffer]
-	Collections     gtk.GenericTypeKeeper[*types.Collection]
+	Sets            gtk.GenericTypeKeeper[*types.Set]
 	Matches         gtk.GenericTypeKeeper[*types.Match]
 	Servers         gtk.GenericTypeKeeper[*types.Server]
 	RunningAverages gtk.KeywordedGenericTypeKeeper[*types.RunningAverage]
 	Pools           gtk.KeywordedGenericTypeKeeper[*sdk.Coin]
 	Images          gtk.GenericTypeKeeper[*types.Image]
 
-	BankKeeper types.BankKeeper
+	FeatureFlagModuleInstance ffKeeper.ModuleInstance
+	BankKeeper                types.BankKeeper
 }
 
 // NewKeeper Constructor for Keeper
 func NewKeeper(
 	cdc codec.BinaryCodec,
 	usersStoreKey,
-	cardsStoreKey sdk.StoreKey,
-	matchesStorekey sdk.StoreKey,
-	collectionsStoreKey sdk.StoreKey,
-	sellOffersStoreKey sdk.StoreKey,
-	poolsStoreKey sdk.StoreKey,
-	councilsStoreKey sdk.StoreKey,
-	runningAveragesStoreKey sdk.StoreKey,
-	imagesStorekey sdk.StoreKey,
-	serversStoreKey sdk.StoreKey,
-	internalStoreKey sdk.StoreKey,
+	cardsStoreKey storetypes.StoreKey,
+	matchesStorekey storetypes.StoreKey,
+	setsStoreKey storetypes.StoreKey,
+	sellOffersStoreKey storetypes.StoreKey,
+	poolsStoreKey storetypes.StoreKey,
+	councilsStoreKey storetypes.StoreKey,
+	runningAveragesStoreKey storetypes.StoreKey,
+	imagesStorekey storetypes.StoreKey,
+	serversStoreKey storetypes.StoreKey,
+	internalStoreKey storetypes.StoreKey,
 	ps paramtypes.Subspace,
 
+	featureFlagKeeper types.FeatureFlagKeeper,
 	bankKeeper types.BankKeeper,
 ) *Keeper {
 	// set KeyTable if it has not already been set
@@ -68,14 +72,15 @@ func NewKeeper(
 		Cards:           gtk.NewGTK[*types.Card](cardsStoreKey, internalStoreKey, cdc, gtk.GetEmpty[types.Card]),
 		Councils:        gtk.NewGTK[*types.Council](councilsStoreKey, internalStoreKey, cdc, gtk.GetEmpty[types.Council]),
 		SellOffers:      gtk.NewGTK[*types.SellOffer](sellOffersStoreKey, internalStoreKey, cdc, gtk.GetEmpty[types.SellOffer]),
-		Collections:     gtk.NewGTK[*types.Collection](collectionsStoreKey, internalStoreKey, cdc, gtk.GetEmpty[types.Collection]),
+		Sets:            gtk.NewGTK[*types.Set](setsStoreKey, internalStoreKey, cdc, gtk.GetEmpty[types.Set]),
 		Matches:         gtk.NewGTK[*types.Match](matchesStorekey, internalStoreKey, cdc, gtk.GetEmpty[types.Match]),
 		RunningAverages: gtk.NewKGTK[*types.RunningAverage](runningAveragesStoreKey, internalStoreKey, cdc, gtk.GetEmpty[types.RunningAverage], []string{Games24ValueKey, Votes24ValueKey}),
 		Pools:           gtk.NewKGTK[*sdk.Coin](poolsStoreKey, internalStoreKey, cdc, gtk.GetEmpty[sdk.Coin], []string{PublicPoolKey, WinnersPoolKey, BalancersPoolKey}),
 		Images:          gtk.NewGTK[*types.Image](imagesStorekey, internalStoreKey, cdc, gtk.GetEmpty[types.Image]),
 		Servers:         gtk.NewGTK[*types.Server](serversStoreKey, internalStoreKey, cdc, gtk.GetEmpty[types.Server]),
 
-		BankKeeper: bankKeeper,
+		FeatureFlagModuleInstance: featureFlagKeeper.GetModuleInstance(types.ModuleName, []string{string(types.FeatureFlagName_Council), string(types.FeatureFlagName_Matches)}),
+		BankKeeper:                bankKeeper,
 	}
 }
 
@@ -88,7 +93,7 @@ func (k Keeper) Logger(ctx sdk.Context) log.Logger {
 func (k Keeper) TransferSchemeToCard(ctx sdk.Context, cardId uint64, user *User) (err error) {
 	user.OwnedCardSchemes, err = PopItemFromArr(cardId, user.OwnedCardSchemes)
 	if err != nil {
-		return sdkerrors.ErrUnauthorized
+		return errors.ErrUnauthorized
 	}
 
 	user.OwnedPrototypes = append(user.OwnedPrototypes, cardId)
@@ -117,12 +122,20 @@ func (k Keeper) GetLastVotingResults(ctx sdk.Context) (results types.VotingResul
 // NerfBuffCards Nerfes or buffs certain cards
 // TODO maybe the whole auto balancing stuff should be moved into its own file
 func (k Keeper) NerfBuffCards(ctx sdk.Context, cardIds []uint64, buff bool) {
+	if len(cardIds) > 0 {
+		k.SetLastCardModifiedNow(ctx)
+	}
+
 	for _, val := range cardIds {
 		buffCard := k.Cards.Get(ctx, val)
 
 		cardobj, err := keywords.Unmarshal(buffCard.Content)
 		if err != nil {
 			k.Logger(ctx).Error("error on card content:", err, "with card", buffCard.Content)
+		}
+
+		if buffCard.BalanceAnchor {
+			continue
 		}
 
 		buffnerfCost := func(cost *cardobject.CastingCost) {
@@ -210,6 +223,10 @@ func (k Keeper) UpdateBanStatus(ctx sdk.Context, newBannedIds []uint64) {
 		banCard := k.Cards.Get(ctx, id)
 		banCard.Status = types.Status_bannedSoon
 		k.Cards.Set(ctx, id, banCard)
+	}
+
+	if len(newBannedIds) > 0 {
+		k.SetLastCardModifiedNow(ctx)
 	}
 }
 

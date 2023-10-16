@@ -3,15 +3,17 @@ package keeper
 import (
 	"context"
 	"encoding/json"
+	"slices"
 	"sort"
+	"strconv"
 	"strings"
 
+	sdkerrors "cosmossdk.io/errors"
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
 	"github.com/DecentralCardGame/cardobject/cardobject"
 	"github.com/DecentralCardGame/cardobject/keywords"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
-	"golang.org/x/exp/slices"
+	"github.com/cosmos/cosmos-sdk/types/errors"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 )
@@ -107,10 +109,16 @@ func (k Keeper) QCards(goCtx context.Context, req *types.QueryQCardsRequest) (*t
 	for ; iterator.Valid(); iterator.Next() {
 		idx, gottenCard := iterator.Value()
 
+		// filter for starterCards
+		if req.OnlyStarterCard && !gottenCard.StarterCard {
+			continue
+		}
+
 		// first skip all cards with irrelevant status
 		if gottenCard.Status == types.Status_none || gottenCard.Status == types.Status_scheme {
 			continue
 		}
+
 		// then check if a status constrain was given and skip the card if it has the wrong status
 		if req.Status != types.QueryQCardsRequest_none {
 			if !slices.Contains(states, gottenCard.Status) {
@@ -134,7 +142,7 @@ func (k Keeper) QCards(goCtx context.Context, req *types.QueryQCardsRequest) (*t
 		if req.NameContains != "" || req.CardType != "" || req.SortBy != "" || req.Classes != "" || req.KeywordsContains != "" {
 			cardobj, err := keywords.Unmarshal(gottenCard.Content)
 			if err != nil {
-				return nil, sdkerrors.Wrap(sdkerrors.ErrJSONMarshal, err.Error())
+				return nil, sdkerrors.Wrap(errors.ErrJSONMarshal, err.Error()+"cardid="+strconv.FormatUint(idx, 10))
 			}
 
 			if cardobj.Action != nil {

@@ -3,9 +3,10 @@ package keeper
 import (
 	"context"
 
+	sdkerrors "cosmossdk.io/errors"
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+	"github.com/cosmos/cosmos-sdk/types/errors"
 )
 
 func (k msgServer) ChangeArtist(goCtx context.Context, msg *types.MsgChangeArtist) (*types.MsgChangeArtistResponse, error) {
@@ -18,7 +19,7 @@ func (k msgServer) ChangeArtist(goCtx context.Context, msg *types.MsgChangeArtis
 	}
 
 	if card.Owner != msg.Creator {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "Incorrect Owner")
+		return nil, sdkerrors.Wrap(errors.ErrUnauthorized, "Incorrect Owner")
 	}
 
 	newArtist, err := sdk.AccAddressFromBech32(msg.Artist)

@@ -15,20 +15,23 @@ var _ = strconv.Itoa(0)
 
 func CmdReportMatch() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "report-match [player-a] [player-b] [cards-a] [cards-b] [outcome]",
+		Use:   "report-match [match-id] [cards-a] [cards-b] [outcome]",
 		Short: "Broadcast message ReportMatch",
-		Args:  cobra.ExactArgs(5),
+		Args:  cobra.ExactArgs(4),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
-			argPlayerA := args[0]
-			argPlayerB := args[1]
-			var argCardsA []uint64
-			var argCardsB []uint64
-
-			err = json.Unmarshal([]byte(args[2]), &argCardsA)
+			argMatchId, err := strconv.Atoi(args[0])
 			if err != nil {
 				return err
 			}
-			err = json.Unmarshal([]byte(args[3]), &argCardsB)
+
+			var argCardsA []uint64
+			var argCardsB []uint64
+
+			err = json.Unmarshal([]byte(args[1]), &argCardsA)
+			if err != nil {
+				return err
+			}
+			err = json.Unmarshal([]byte(args[2]), &argCardsB)
 			if err != nil {
 				return err
 			}
@@ -42,8 +45,7 @@ func CmdReportMatch() *cobra.Command {
 
 			msg := types.NewMsgReportMatch(
 				clientCtx.GetFromAddress().String(),
-				argPlayerA,
-				argPlayerB,
+				uint64(argMatchId),
 				argCardsA,
 				argCardsB,
 				argOutcome,

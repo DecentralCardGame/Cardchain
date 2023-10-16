@@ -12,6 +12,8 @@ import (
 
 var _ paramtypes.ParamSet = (*Params)(nil)
 
+const DefaultMatchWorkerDelay = 20 * 60
+
 // ParamKeyTable the param key table for launch module
 func ParamKeyTable() paramtypes.KeyTable {
 	return paramtypes.NewKeyTable().RegisterParamSet(&Params{})
@@ -21,15 +23,15 @@ func ParamKeyTable() paramtypes.KeyTable {
 func NewParams() Params {
 	return Params{
 		VotingRightsExpirationTime:      86000,
-		CollectionSize:                  24,
-		CollectionPrice:                 sdk.NewInt64Coin("ucredits", 10000000),
-		ActiveCollectionsAmount:         3,
-		CollectionCreationFee:           sdk.NewInt64Coin("ucredits", int64(5000*math.Pow(10, 6))),
+		SetSize:                         24,
+		SetPrice:                        sdk.NewInt64Coin("ucredits", 10000000),
+		ActiveSetsAmount:                3,
+		SetCreationFee:                  sdk.NewInt64Coin("ucredits", int64(5000*math.Pow(10, 6))),
 		CollateralDeposit:               sdk.NewInt64Coin("ucredits", int64(50*math.Pow(10, 6))),
-        TrialVoteReward:               	 sdk.NewInt64Coin("ucredits", int64(math.Pow(10, 6))),
+		TrialVoteReward:                 sdk.NewInt64Coin("ucredits", int64(math.Pow(10, 6))),
 		WinnerReward:                    int64(math.Pow(10, 6)),
 		VotePoolFraction:                int64(math.Pow(10, 6)),
-        VotingRewardCap:                 int64(math.Pow(10, 6)),
+		VotingRewardCap:                 int64(math.Pow(10, 6)),
 		HourlyFaucet:                    sdk.NewInt64Coin("ucredits", int64(50*math.Pow(10, 6))),
 		InflationRate:                   "1.1", // TODO: Also make this a fixed point number
 		RaresPerPack:                    1,
@@ -40,6 +42,10 @@ func NewParams() Params {
 		CardAuctionPriceReductionPeriod: 20,
 		AirDropValue:                    sdk.NewInt64Coin("ubpf", int64(5*math.Pow(10, 6))),
 		AirDropMaxBlockHeight:           5000000,
+		MatchWorkerDelay:                DefaultMatchWorkerDelay,
+		RareDropRatio:                   150,
+		ExceptionalDropRatio:            50,
+		UniqueDropRatio:                 1,
 	}
 }
 
@@ -52,16 +58,16 @@ func DefaultParams() Params {
 func (p *Params) ParamSetPairs() paramtypes.ParamSetPairs {
 	return paramtypes.ParamSetPairs{
 		paramtypes.NewParamSetPair([]byte("VotingRightsExpirationTime"), &p.VotingRightsExpirationTime, validateVotingRightsExpirationTime),
-		paramtypes.NewParamSetPair([]byte("CollectionSize"), &p.CollectionSize, validateCollectionSize),
-		paramtypes.NewParamSetPair([]byte("CollectionPrice"), &p.CollectionPrice, validateCollectionPrice),
-        paramtypes.NewParamSetPair([]byte("TrialVoteReward"), &p.TrialVoteReward, validateCollectionPrice),
-		paramtypes.NewParamSetPair([]byte("ActiveCollectionsAmount"), &p.ActiveCollectionsAmount, validateActiveCollectionsAmount),
-		paramtypes.NewParamSetPair([]byte("CollectionCreationFee"), &p.CollectionCreationFee, validateCollectionCreationFee),
+		paramtypes.NewParamSetPair([]byte("SetSize"), &p.SetSize, validateSetSize),
+		paramtypes.NewParamSetPair([]byte("SetPrice"), &p.SetPrice, validateSetPrice),
+		paramtypes.NewParamSetPair([]byte("TrialVoteReward"), &p.TrialVoteReward, validateSetPrice),
+		paramtypes.NewParamSetPair([]byte("ActiveSetsAmount"), &p.ActiveSetsAmount, validateActiveSetsAmount),
+		paramtypes.NewParamSetPair([]byte("SetCreationFee"), &p.SetCreationFee, validateSetCreationFee),
 		paramtypes.NewParamSetPair([]byte("CollateralDeposit"), &p.CollateralDeposit, validateCollateralDeposit),
 		paramtypes.NewParamSetPair([]byte("WinnerReward"), &p.WinnerReward, validateWinnerReward),
-        paramtypes.NewParamSetPair([]byte("VotePoolFraction"), &p.VotePoolFraction, validateVoterReward),
-        paramtypes.NewParamSetPair([]byte("VotingRewardCap"), &p.VotingRewardCap, validateVoterReward),
-        paramtypes.NewParamSetPair([]byte("HourlyFaucet"), &p.HourlyFaucet, validateHourlyFaucet),
+		paramtypes.NewParamSetPair([]byte("VotePoolFraction"), &p.VotePoolFraction, validateVoterReward),
+		paramtypes.NewParamSetPair([]byte("VotingRewardCap"), &p.VotingRewardCap, validateVoterReward),
+		paramtypes.NewParamSetPair([]byte("HourlyFaucet"), &p.HourlyFaucet, validateHourlyFaucet),
 		paramtypes.NewParamSetPair([]byte("InflationRate"), &p.InflationRate, validateInflationRate),
 		paramtypes.NewParamSetPair([]byte("RaresPerPack"), &p.RaresPerPack, validatePerPack),
 		paramtypes.NewParamSetPair([]byte("CommonsPerPack"), &p.CommonsPerPack, validatePerPack),
@@ -71,6 +77,10 @@ func (p *Params) ParamSetPairs() paramtypes.ParamSetPairs {
 		paramtypes.NewParamSetPair([]byte("CardAuctionPriceReductionPeriod"), &p.CardAuctionPriceReductionPeriod, validateCardAuctionPriceReductionPeriod),
 		paramtypes.NewParamSetPair([]byte("AirDropValue"), &p.AirDropValue, validateAirDropValue),
 		paramtypes.NewParamSetPair([]byte("AirDropMaxBlockHeight"), &p.AirDropMaxBlockHeight, validateAirDropMaxBlockHeight),
+		paramtypes.NewParamSetPair([]byte("MatchWorkerDelay"), &p.MatchWorkerDelay, validateMatchWorkerDelay),
+		paramtypes.NewParamSetPair([]byte("RareDropRatio"), &p.RareDropRatio, validateRareDropRatio),
+		paramtypes.NewParamSetPair([]byte("ExceptionalDropRatio"), &p.ExceptionalDropRatio, validateExceptionalDropRatio),
+		paramtypes.NewParamSetPair([]byte("UniqueDropRatio"), &p.UniqueDropRatio, validateUniqueDropRatio),
 	}
 }
 
@@ -98,40 +108,40 @@ func validateVotingRightsExpirationTime(i interface{}) error {
 	return nil
 }
 
-func validateCollectionSize(i interface{}) error {
+func validateSetSize(i interface{}) error {
 	v, ok := i.(uint64)
 	if !ok {
 		return fmt.Errorf("invalid parameter type: %T", i)
 	}
 
 	if v == 0 {
-		return fmt.Errorf("invalid CollectionSize: %d", v)
+		return fmt.Errorf("invalid SetSize: %d", v)
 	}
 
 	return nil
 }
 
-func validateCollectionPrice(i interface{}) error {
+func validateSetPrice(i interface{}) error {
 	v, ok := i.(sdk.Coin)
 	if !ok {
 		return fmt.Errorf("invalid parameter type: %T", i)
 	}
 
 	if v == sdk.NewInt64Coin("ucredits", 0) {
-		return fmt.Errorf("invalid CollectionPrice: %v", v)
+		return fmt.Errorf("invalid SetPrice: %v", v)
 	}
 
 	return nil
 }
 
-func validateActiveCollectionsAmount(i interface{}) error {
+func validateActiveSetsAmount(i interface{}) error {
 	v, ok := i.(uint64)
 	if !ok {
 		return fmt.Errorf("invalid parameter type: %T", i)
 	}
 
 	if v == 0 {
-		return fmt.Errorf("invalid ActiveCollectionsAmount: %d", v)
+		return fmt.Errorf("invalid ActiveSetsAmount: %d", v)
 	}
 
 	return nil
@@ -189,14 +199,14 @@ func validateCardAuctionPriceReductionPeriod(i interface{}) error {
 	return nil
 }
 
-func validateCollectionCreationFee(i interface{}) error {
+func validateSetCreationFee(i interface{}) error {
 	v, ok := i.(sdk.Coin)
 	if !ok {
 		return fmt.Errorf("invalid parameter type: %T", i)
 	}
 
 	if v == sdk.NewInt64Coin("ucredits", 0) {
-		return fmt.Errorf("invalid CollectionCreationFee: %v", v)
+		return fmt.Errorf("invalid SetCreationFee: %v", v)
 	}
 
 	return nil
@@ -288,6 +298,38 @@ func validateInflationRate(i interface{}) error {
 	_, err := strconv.ParseFloat(v, 8)
 	if err != nil {
 		return fmt.Errorf("invalid parameter: %d", err)
+	}
+	return nil
+}
+
+func validateMatchWorkerDelay(i interface{}) error {
+	_, ok := i.(uint64)
+	if !ok {
+		return fmt.Errorf("invalid parameter type: %T", i)
+	}
+	return nil
+}
+
+func validateRareDropRatio(i interface{}) error {
+	_, ok := i.(uint64)
+	if !ok {
+		return fmt.Errorf("invalid parameter type: %T", i)
+	}
+	return nil
+}
+
+func validateExceptionalDropRatio(i interface{}) error {
+	_, ok := i.(uint64)
+	if !ok {
+		return fmt.Errorf("invalid parameter type: %T", i)
+	}
+	return nil
+}
+
+func validateUniqueDropRatio(i interface{}) error {
+	_, ok := i.(uint64)
+	if !ok {
+		return fmt.Errorf("invalid parameter type: %T", i)
 	}
 	return nil
 }

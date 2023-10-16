@@ -3,9 +3,9 @@ package keeper
 import (
 	"context"
 
+	sdkerrors "cosmossdk.io/errors"
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 )
 
 func (k msgServer) SetUserBiography(goCtx context.Context, msg *types.MsgSetUserBiography) (*types.MsgSetUserBiographyResponse, error) {

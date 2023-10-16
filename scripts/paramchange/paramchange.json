@@ -1,0 +1,12 @@
+{
+  "title": "Param change uncommonsPerPack: 2",
+  "description": "We want to change the unCommonsPerPack",
+  "changes": [
+    {
+      "subspace": "cardchain",
+      "key": "UnCommonsPerPack",
+      "value": "2"
+    }
+  ],
+  "deposit": "10000000ubpf"
+}

@@ -1,5 +1,8 @@
 #!/bin/bash
 
+echo "please give write permission to backup folder:"
+sudo chmod o+w backup
+
 PID=$(docker-compose exec blockchain pidof Cardchaind)
 echo PID:$PID
 
@@ -11,4 +14,5 @@ done
 
 echo "writing backup"
 
-sh ./scripts/backupGenesis.sh
+# no longer necessary
+#sh ./scripts/backupGenesis.sh

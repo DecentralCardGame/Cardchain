@@ -9,11 +9,11 @@ build:
 accounts:
 - name: alice
   coins:
-  - 1000000000ucredits
+  - 1000000000000ucredits
   - 1000000000ubpf
 - name: bob
   coins:
-  - 10000000000ucredits
+  - 10000000000000ucredits
   - 10000000000ubpf
 faucet:
   name: bob
@@ -25,8 +25,12 @@ faucet:
   - 5000000ubpf
   host: 0.0.0.0:4500
 client:
+  typescript:
+    path: ../decentralcardgame-cardchain-client-ts
   vuex:
     path: vue/src/store
+  composables:
+    path: vue/src/composables
   openapi:
     path: docs/static/openapi.yml
 genesis:
@@ -71,7 +75,7 @@ genesis:
         threshold: "0.500000000000000000"
         veto_threshold: "0.334000000000000000"
       voting_params:
-        voting_period: 172800s
+        voting_period: 300s
     mint:
       params:
         mint_denom: ubpf
@@ -83,7 +87,7 @@ genesis:
     staking:
       params:
         bond_denom: ubpf
-  chain_id: Testnet3
+  chain_id: carddevnet-1
 validators:
 - name: alice
   bonded: 5000000ubpf
@@ -98,7 +102,7 @@ validators:
       timeout_commit: 5s
     moniker: yesyoulikeCC
     p2p:
-      laddr: 0.0.0.0:26658
+      laddr: 0.0.0.0:26656
     rpc:
       laddr: 0.0.0.0:26657
       pprof_laddr: :6061

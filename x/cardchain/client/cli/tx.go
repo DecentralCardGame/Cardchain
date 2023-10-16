@@ -6,8 +6,8 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
+	"github.com/cosmos/cosmos-sdk/client"
 )
 
 var (
@@ -36,25 +36,22 @@ func GetTxCmd() *cobra.Command {
 	cmd.AddCommand(CmdTransferCard())
 	cmd.AddCommand(CmdDonateToCard())
 	cmd.AddCommand(CmdAddArtwork())
-	cmd.AddCommand(CmdSubmitCopyrightProposal())
 	cmd.AddCommand(CmdChangeArtist())
 	cmd.AddCommand(CmdRegisterForCouncil())
 	cmd.AddCommand(CmdReportMatch())
-	cmd.AddCommand(CmdSubmitMatchReporterProposal())
 	cmd.AddCommand(CmdApointMatchReporter())
-	cmd.AddCommand(CmdCreateCollection())
-	cmd.AddCommand(CmdAddCardToCollection())
-	cmd.AddCommand(CmdFinalizeCollection())
-	cmd.AddCommand(CmdBuyCollection())
-	cmd.AddCommand(CmdRemoveCardFromCollection())
-	cmd.AddCommand(CmdRemoveContributorFromCollection())
-	cmd.AddCommand(CmdAddContributorToCollection())
-	cmd.AddCommand(CmdSubmitCollectionProposal())
+	cmd.AddCommand(CmdCreateSet())
+	cmd.AddCommand(CmdAddCardToSet())
+	cmd.AddCommand(CmdFinalizeSet())
+	cmd.AddCommand(CmdBuyBoosterPack())
+	cmd.AddCommand(CmdRemoveCardFromSet())
+	cmd.AddCommand(CmdRemoveContributorFromSet())
+	cmd.AddCommand(CmdAddContributorToSet())
 	cmd.AddCommand(CmdCreateSellOffer())
 	cmd.AddCommand(CmdBuyCard())
 	cmd.AddCommand(CmdRemoveSellOffer())
-	cmd.AddCommand(CmdAddArtworkToCollection())
-	cmd.AddCommand(CmdAddStoryToCollection())
+	cmd.AddCommand(CmdAddArtworkToSet())
+	cmd.AddCommand(CmdAddStoryToSet())
 	cmd.AddCommand(CmdSetCardRarity())
 	cmd.AddCommand(CmdCreateCouncil())
 	cmd.AddCommand(CmdCommitCouncilResponse())
@@ -65,10 +62,13 @@ func GetTxCmd() *cobra.Command {
 	cmd.AddCommand(CmdSetProfileCard())
 	cmd.AddCommand(CmdOpenBoosterPack())
 	cmd.AddCommand(CmdTransferBoosterPack())
-	cmd.AddCommand(CmdSetCollectionStoryWriter())
-	cmd.AddCommand(CmdSetCollectionArtist())
+	cmd.AddCommand(CmdSetSetStoryWriter())
+	cmd.AddCommand(CmdSetSetArtist())
 	cmd.AddCommand(CmdSetUserWebsite())
 	cmd.AddCommand(CmdSetUserBiography())
+	cmd.AddCommand(CmdMultiVoteCard())
+	cmd.AddCommand(CmdMsgOpenMatch())
+	cmd.AddCommand(CmdSetSetName())
 	// this line is used by starport scaffolding # 1
 
 	return cmd
