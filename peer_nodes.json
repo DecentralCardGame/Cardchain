@@ -1,0 +1,16 @@
+{
+	"rpcs": [
+		"http://crowd.rpc.t.stavr.tech:21207",
+		"https://cardchain-testnet-rpc.itrocket.net",
+		"https://rpc-testnet-cardchain.nodeist.net"
+	],
+	"peers": [
+		"crowd.peer.stavr.tech:21206",
+		"cardchain-testnet-peer.itrocket.net:31656",
+		"rpc-testnet-cardchain.nodeist.net:26656"
+	],
+	"snap_rpcs": [
+		"http://crowd.rpc.t.stavr.tech:21207",
+		"https://rpc-testnet-cardchain.nodeist.net:443"
+	]
+}
