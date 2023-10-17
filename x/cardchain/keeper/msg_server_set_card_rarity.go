@@ -2,12 +2,12 @@ package keeper
 
 import (
 	"context"
+	"slices"
 
 	sdkerrors "cosmossdk.io/errors"
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors2 "github.com/cosmos/cosmos-sdk/types/errors"
-	"golang.org/x/exp/slices"
 )
 
 func (k msgServer) SetCardRarity(goCtx context.Context, msg *types.MsgSetCardRarity) (*types.MsgSetCardRarityResponse, error) {

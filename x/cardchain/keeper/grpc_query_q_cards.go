@@ -3,6 +3,7 @@ package keeper
 import (
 	"context"
 	"encoding/json"
+	"slices"
 	"sort"
 	"strconv"
 	"strings"
@@ -13,7 +14,6 @@ import (
 	"github.com/DecentralCardGame/cardobject/keywords"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/errors"
-	"golang.org/x/exp/slices"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 )

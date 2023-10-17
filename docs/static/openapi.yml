@@ -32869,121 +32869,7 @@ paths:
           format: int64
       tags:
         - Query
-  /DecentralCardGame/Cardchain/cardchain/q_sets/{status}/{ignoreStatus}:
-    get:
-      summary: Queries a list of QSets items.
-      operationId: DecentralCardGameCardchainCardchainQSets
-      responses:
-        '200':
-          description: A successful response.
-          schema:
-            type: object
-            properties:
-              setIds:
-                type: array
-                items:
-                  type: string
-                  format: uint64
-        default:
-          description: An unexpected error response.
-          schema:
-            type: object
-            properties:
-              code:
-                type: integer
-                format: int32
-              message:
-                type: string
-              details:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    '@type':
-                      type: string
-                  additionalProperties: {}
-      parameters:
-        - name: status
-          in: path
-          required: true
-          type: string
-          enum:
-            - design
-            - finalized
-            - active
-            - archived
-        - name: ignoreStatus
-          in: path
-          required: true
-          type: boolean
-        - name: contributors
-          in: query
-          required: false
-          type: array
-          items:
-            type: string
-          collectionFormat: multi
-        - name: containsCards
-          in: query
-          required: false
-          type: array
-          items:
-            type: string
-            format: uint64
-          collectionFormat: multi
-        - name: owner
-          in: query
-          required: false
-          type: string
-      tags:
-        - Query
-  /DecentralCardGame/Cardchain/cardchain/rarity_distribution/{setId}:
-    get:
-      summary: Queries a list of RarityDistribution items.
-      operationId: DecentralCardGameCardchainCardchainRarityDistribution
-      responses:
-        '200':
-          description: A successful response.
-          schema:
-            type: object
-            properties:
-              current:
-                type: array
-                items:
-                  type: integer
-                  format: int64
-              wanted:
-                type: array
-                items:
-                  type: integer
-                  format: int64
-        default:
-          description: An unexpected error response.
-          schema:
-            type: object
-            properties:
-              code:
-                type: integer
-                format: int32
-              message:
-                type: string
-              details:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    '@type':
-                      type: string
-                  additionalProperties: {}
-      parameters:
-        - name: setId
-          in: path
-          required: true
-          type: string
-          format: uint64
-      tags:
-        - Query
-  /DecentralCardGame/cardchain/cardchain/params:
+  /DecentralCardGame/Cardchain/cardchain/params:
     get:
       summary: Parameters queries the parameters of the module.
       operationId: DecentralCardGameCardchainCardchainParams
@@ -33085,7 +32971,7 @@ paths:
                   additionalProperties: {}
       tags:
         - Query
-  /DecentralCardGame/cardchain/cardchain/q_card/{cardId}:
+  /DecentralCardGame/Cardchain/cardchain/q_card/{cardId}:
     get:
       summary: Queries a list of QCard items.
       operationId: DecentralCardGameCardchainCardchainQCard
@@ -33181,7 +33067,7 @@ paths:
           type: string
       tags:
         - Query
-  /DecentralCardGame/cardchain/cardchain/q_card_content/{cardId}:
+  /DecentralCardGame/Cardchain/cardchain/q_card_content/{cardId}:
     get:
       summary: Queries a list of QCardContent items.
       operationId: DecentralCardGameCardchainCardchainQCardContent
@@ -33220,7 +33106,7 @@ paths:
           type: string
       tags:
         - Query
-  /DecentralCardGame/cardchain/cardchain/q_cardchain_info:
+  /DecentralCardGame/Cardchain/cardchain/q_cardchain_info:
     get:
       summary: Queries a list of QCardchainInfo items.
       operationId: DecentralCardGameCardchainCardchainQCardchainInfo
@@ -33272,7 +33158,7 @@ paths:
                   additionalProperties: {}
       tags:
         - Query
-  /DecentralCardGame/cardchain/cardchain/q_cards/{status}:
+  /DecentralCardGame/Cardchain/cardchain/q_cards/{status}:
     get:
       summary: Queries a list of QCards items.
       operationId: DecentralCardGameCardchainCardchainQCards
@@ -33356,7 +33242,7 @@ paths:
           type: boolean
       tags:
         - Query
-  /DecentralCardGame/cardchain/cardchain/q_council/{councilId}:
+  /DecentralCardGame/Cardchain/cardchain/q_council/{councilId}:
     get:
       summary: Queries a list of QCouncil items.
       operationId: DecentralCardGameCardchainCardchainQCouncil
@@ -33439,7 +33325,7 @@ paths:
           format: uint64
       tags:
         - Query
-  /DecentralCardGame/cardchain/cardchain/q_match/{matchId}:
+  /DecentralCardGame/Cardchain/cardchain/q_match/{matchId}:
     get:
       summary: Queries a list of QMatch items.
       operationId: DecentralCardGameCardchainCardchainQMatch
@@ -33562,7 +33448,7 @@ paths:
           format: uint64
       tags:
         - Query
-  /DecentralCardGame/cardchain/cardchain/q_matches:
+  /DecentralCardGame/Cardchain/cardchain/q_matches:
     get:
       summary: Queries a list of QMatches items.
       operationId: DecentralCardGameCardchainCardchainQMatches
@@ -33733,7 +33619,7 @@ paths:
           type: boolean
       tags:
         - Query
-  /DecentralCardGame/cardchain/cardchain/q_sell_offer/{sellOfferId}:
+  /DecentralCardGame/Cardchain/cardchain/q_sell_offer/{sellOfferId}:
     get:
       summary: Queries a list of QSellOffer items.
       operationId: DecentralCardGameCardchainCardchainQSellOffer
@@ -33785,7 +33671,7 @@ paths:
           format: uint64
       tags:
         - Query
-  /DecentralCardGame/cardchain/cardchain/q_sell_offers/{status}:
+  /DecentralCardGame/Cardchain/cardchain/q_sell_offers/{status}:
     get:
       summary: Queries a list of QSellOffers items.
       operationId: DecentralCardGameCardchainCardchainQSellOffers
@@ -33879,7 +33765,7 @@ paths:
           type: boolean
       tags:
         - Query
-  /DecentralCardGame/cardchain/cardchain/q_server/{id}:
+  /DecentralCardGame/Cardchain/cardchain/q_server/{id}:
     get:
       summary: Queries a list of QServer items.
       operationId: DecentralCardGameCardchainCardchainQServer
@@ -33923,7 +33809,7 @@ paths:
           format: uint64
       tags:
         - Query
-  /DecentralCardGame/cardchain/cardchain/q_set/{setId}:
+  /DecentralCardGame/Cardchain/cardchain/q_set/{setId}:
     get:
       summary: Queries a list of QSet items.
       operationId: DecentralCardGameCardchainCardchainQSet
@@ -33989,7 +33875,75 @@ paths:
           format: uint64
       tags:
         - Query
-  /DecentralCardGame/cardchain/cardchain/q_user/{address}:
+  /DecentralCardGame/Cardchain/cardchain/q_sets/{status}/{ignoreStatus}:
+    get:
+      summary: Queries a list of QSets items.
+      operationId: DecentralCardGameCardchainCardchainQSets
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              setIds:
+                type: array
+                items:
+                  type: string
+                  format: uint64
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: status
+          in: path
+          required: true
+          type: string
+          enum:
+            - design
+            - finalized
+            - active
+            - archived
+        - name: ignoreStatus
+          in: path
+          required: true
+          type: boolean
+        - name: contributors
+          in: query
+          required: false
+          type: array
+          items:
+            type: string
+          collectionFormat: multi
+        - name: containsCards
+          in: query
+          required: false
+          type: array
+          items:
+            type: string
+            format: uint64
+          collectionFormat: multi
+        - name: owner
+          in: query
+          required: false
+          type: string
+      tags:
+        - Query
+  /DecentralCardGame/Cardchain/cardchain/q_user/{address}:
     get:
       summary: Queries a list of QUser items.
       operationId: DecentralCardGameCardchainCardchainQUser
@@ -34109,7 +34063,7 @@ paths:
           type: string
       tags:
         - Query
-  /DecentralCardGame/cardchain/cardchain/q_votable_cards/{address}:
+  /DecentralCardGame/Cardchain/cardchain/q_votable_cards/{address}:
     get:
       summary: Queries a list of QVotableCards items.
       operationId: DecentralCardGameCardchainCardchainQVotableCards
@@ -34159,7 +34113,7 @@ paths:
           type: string
       tags:
         - Query
-  /DecentralCardGame/cardchain/cardchain/q_voting_results:
+  /DecentralCardGame/Cardchain/cardchain/q_voting_results:
     get:
       summary: Queries a list of QVotingResults items.
       operationId: DecentralCardGameCardchainCardchainQVotingResults
@@ -34211,6 +34165,177 @@ paths:
                           type: string
                   notes:
                     type: string
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      tags:
+        - Query
+  /DecentralCardGame/Cardchain/cardchain/rarity_distribution/{setId}:
+    get:
+      summary: Queries a list of RarityDistribution items.
+      operationId: DecentralCardGameCardchainCardchainRarityDistribution
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              current:
+                type: array
+                items:
+                  type: integer
+                  format: int64
+              wanted:
+                type: array
+                items:
+                  type: integer
+                  format: int64
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: setId
+          in: path
+          required: true
+          type: string
+          format: uint64
+      tags:
+        - Query
+  /DecentralCardGame/Cardchain/featureflag/params:
+    get:
+      summary: Parameters queries the parameters of the module.
+      operationId: DecentralCardGameCardchainFeatureflagParams
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              params:
+                description: params holds all the parameters of this module.
+                type: object
+            description: >-
+              QueryParamsResponse is response type for the Query/Params RPC
+              method.
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      tags:
+        - Query
+  /DecentralCardGame/Cardchain/featureflag/q_flag/{module}/{name}:
+    get:
+      summary: Queries a list of QFlag items.
+      operationId: DecentralCardGameCardchainFeatureflagQFlag
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              flag:
+                type: object
+                properties:
+                  Module:
+                    type: string
+                  Name:
+                    type: string
+                  Set:
+                    type: boolean
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: module
+          in: path
+          required: true
+          type: string
+        - name: name
+          in: path
+          required: true
+          type: string
+      tags:
+        - Query
+  /DecentralCardGame/Cardchain/featureflag/q_flags:
+    get:
+      summary: Queries a list of QFlags items.
+      operationId: DecentralCardGameCardchainFeatureflagQFlags
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              flags:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    Module:
+                      type: string
+                    Name:
+                      type: string
+                    Set:
+                      type: boolean
         default:
           description: An unexpected error response.
           schema:
@@ -68837,12 +68962,6 @@ definitions:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgSetUserWebsiteResponse:
     type: object
-  DecentralCardGame.cardchain.cardchain.MsgSubmitCopyrightProposalResponse:
-    type: object
-  DecentralCardGame.cardchain.cardchain.MsgSubmitMatchReporterProposalResponse:
-    type: object
-  DecentralCardGame.cardchain.cardchain.MsgSubmitSetProposalResponse:
-    type: object
   DecentralCardGame.cardchain.cardchain.MsgTransferBoosterPackResponse:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgTransferCardResponse:
@@ -69610,6 +69729,51 @@ definitions:
         type: string
       hash:
         type: string
+  DecentralCardGame.cardchain.featureflag.Flag:
+    type: object
+    properties:
+      Module:
+        type: string
+      Name:
+        type: string
+      Set:
+        type: boolean
+  DecentralCardGame.cardchain.featureflag.Params:
+    type: object
+    description: Params defines the parameters for the module.
+  DecentralCardGame.cardchain.featureflag.QueryParamsResponse:
+    type: object
+    properties:
+      params:
+        description: params holds all the parameters of this module.
+        type: object
+    description: QueryParamsResponse is response type for the Query/Params RPC method.
+  DecentralCardGame.cardchain.featureflag.QueryQFlagResponse:
+    type: object
+    properties:
+      flag:
+        type: object
+        properties:
+          Module:
+            type: string
+          Name:
+            type: string
+          Set:
+            type: boolean
+  DecentralCardGame.cardchain.featureflag.QueryQFlagsResponse:
+    type: object
+    properties:
+      flags:
+        type: array
+        items:
+          type: object
+          properties:
+            Module:
+              type: string
+            Name:
+              type: string
+            Set:
+              type: boolean
   ibc.applications.interchain_accounts.controller.v1.MsgRegisterInterchainAccountResponse:
     type: object
     properties:

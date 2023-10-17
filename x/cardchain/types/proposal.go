@@ -11,7 +11,7 @@ const (
 	// ProposalTypeChange defines the type for a ParameterChangeProposal
 	ProposalTypeCopyright     = "Copyright"
 	ProposalTypeMatchReporter = "MatchReporter"
-	ProposalTypeSet    = "Set"
+	ProposalTypeSet           = "Set"
 )
 
 func (c *CopyrightProposal) ProposalRoute() string { return RouterKey }

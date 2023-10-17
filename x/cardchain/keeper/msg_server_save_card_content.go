@@ -15,16 +15,20 @@ func (k msgServer) SaveCardContent(goCtx context.Context, msg *types.MsgSaveCard
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
 	card := k.Cards.Get(ctx, msg.CardId)
+	councilEnabled, err := k.FeatureFlagModuleInstance.Get(ctx, string(types.FeatureFlagName_Council))
+	if err != nil {
+		return nil, err
+	}
 
 	msgOwner, err := k.GetUserFromString(ctx, msg.Creator)
 	if err != nil {
 		return nil, sdkerrors.Wrap(types.ErrInvalidAccAddress, err.Error())
 	}
 
-	// TODO
-	//if card.Status != types.Status_prototype {
-	//	return nil, sdkerrors.Wrap(types.ErrInvalidCardStatus, "Card has to be a prototype to be changeable")
-	//}
+	// Checks card status
+	if councilEnabled && card.Status != types.Status_prototype {
+		return nil, sdkerrors.Wrap(types.ErrInvalidCardStatus, "Card has to be a prototype to be changeable")
+	}
 
 	if card.Owner == "" {
 		return nil, sdkerrors.Wrap(errors.ErrUnauthorized, "Card has no owner")
@@ -56,8 +60,12 @@ func (k msgServer) SaveCardContent(goCtx context.Context, msg *types.MsgSaveCard
 	claimedAirdrop := k.ClaimAirDrop(ctx, &msgOwner, types.AirDrop_create)
 	k.SetUserFromUser(ctx, msgOwner)
 
-	// card.Status = types.Status_prototype
-	card.Status = types.Status_permanent // TODO: remove later
+	// Sets correct state
+	if councilEnabled {
+		card.Status = types.Status_prototype
+	} else {
+		card.Status = types.Status_permanent
+	}
 	k.Cards.Set(ctx, msg.CardId, card)
 
 	return &types.MsgSaveCardContentResponse{AirdropClaimed: claimedAirdrop}, nil

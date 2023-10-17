@@ -16,7 +16,7 @@ func (k msgServer) FinalizeSet(goCtx context.Context, msg *types.MsgFinalizeSet)
 
 	set := k.Sets.Get(ctx, msg.SetId)
 	err := checkSetEditable(set, msg.Creator)
-	if err != nil  {
+	if err != nil {
 		return nil, err
 	}
 
