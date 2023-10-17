@@ -87,7 +87,7 @@ genesis:
     staking:
       params:
         bond_denom: ubpf
-  chain_id: carddevnet-1
+  chain_id: cardtestnet-5
 validators:
 - name: alice
   bonded: 5000000ubpf
