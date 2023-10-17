@@ -1701,35 +1701,35 @@ func RegisterQueryHandlerClient(ctx context.Context, mux *runtime.ServeMux, clie
 }
 
 var (
-	pattern_Query_Params_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 1, 2, 2}, []string{"DecentralCardGame", "cardchain", "params"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_Params_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"DecentralCardGame", "Cardchain", "cardchain", "params"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_QCard_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"DecentralCardGame", "cardchain", "q_card", "cardId"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_QCard_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"DecentralCardGame", "Cardchain", "cardchain", "q_card", "cardId"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_QCardContent_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"DecentralCardGame", "cardchain", "q_card_content", "cardId"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_QCardContent_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"DecentralCardGame", "Cardchain", "cardchain", "q_card_content", "cardId"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_QUser_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"DecentralCardGame", "cardchain", "q_user", "address"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_QUser_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"DecentralCardGame", "Cardchain", "cardchain", "q_user", "address"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_QCardchainInfo_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 1, 2, 2}, []string{"DecentralCardGame", "cardchain", "q_cardchain_info"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_QCardchainInfo_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"DecentralCardGame", "Cardchain", "cardchain", "q_cardchain_info"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_QVotingResults_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 1, 2, 2}, []string{"DecentralCardGame", "cardchain", "q_voting_results"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_QVotingResults_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"DecentralCardGame", "Cardchain", "cardchain", "q_voting_results"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_QVotableCards_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"DecentralCardGame", "cardchain", "q_votable_cards", "address"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_QVotableCards_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"DecentralCardGame", "Cardchain", "cardchain", "q_votable_cards", "address"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_QCards_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"DecentralCardGame", "cardchain", "q_cards", "status"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_QCards_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"DecentralCardGame", "Cardchain", "cardchain", "q_cards", "status"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_QMatch_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"DecentralCardGame", "cardchain", "q_match", "matchId"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_QMatch_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"DecentralCardGame", "Cardchain", "cardchain", "q_match", "matchId"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_QSet_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"DecentralCardGame", "cardchain", "q_set", "setId"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_QSet_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"DecentralCardGame", "Cardchain", "cardchain", "q_set", "setId"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_QSellOffer_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"DecentralCardGame", "cardchain", "q_sell_offer", "sellOfferId"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_QSellOffer_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"DecentralCardGame", "Cardchain", "cardchain", "q_sell_offer", "sellOfferId"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_QCouncil_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"DecentralCardGame", "cardchain", "q_council", "councilId"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_QCouncil_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"DecentralCardGame", "Cardchain", "cardchain", "q_council", "councilId"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_QMatches_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 1, 2, 2}, []string{"DecentralCardGame", "cardchain", "q_matches"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_QMatches_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"DecentralCardGame", "Cardchain", "cardchain", "q_matches"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_QSellOffers_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"DecentralCardGame", "cardchain", "q_sell_offers", "status"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_QSellOffers_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"DecentralCardGame", "Cardchain", "cardchain", "q_sell_offers", "status"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_QServer_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"DecentralCardGame", "cardchain", "q_server", "id"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_QServer_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"DecentralCardGame", "Cardchain", "cardchain", "q_server", "id"}, "", runtime.AssumeColonVerbOpt(true)))
 
 	pattern_Query_QSets_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 1, 0, 4, 1, 5, 5}, []string{"DecentralCardGame", "Cardchain", "cardchain", "q_sets", "status", "ignoreStatus"}, "", runtime.AssumeColonVerbOpt(true)))
 
