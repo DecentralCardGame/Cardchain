@@ -46,6 +46,7 @@ func NewParams() Params {
 		RareDropRatio:                   150,
 		ExceptionalDropRatio:            50,
 		UniqueDropRatio:                 1,
+		CouncilVotingTimeLimit:          24 * 60 * 60, // One day
 	}
 }
 
@@ -81,6 +82,7 @@ func (p *Params) ParamSetPairs() paramtypes.ParamSetPairs {
 		paramtypes.NewParamSetPair([]byte("RareDropRatio"), &p.RareDropRatio, validateRareDropRatio),
 		paramtypes.NewParamSetPair([]byte("ExceptionalDropRatio"), &p.ExceptionalDropRatio, validateExceptionalDropRatio),
 		paramtypes.NewParamSetPair([]byte("UniqueDropRatio"), &p.UniqueDropRatio, validateUniqueDropRatio),
+		paramtypes.NewParamSetPair([]byte("CouncilVotingTimeLimit"), &p.CouncilVotingTimeLimit, validateCouncilVotingTimeLimit),
 	}
 }
 
@@ -327,6 +329,14 @@ func validateExceptionalDropRatio(i interface{}) error {
 }
 
 func validateUniqueDropRatio(i interface{}) error {
+	_, ok := i.(uint64)
+	if !ok {
+		return fmt.Errorf("invalid parameter type: %T", i)
+	}
+	return nil
+}
+
+func validateCouncilVotingTimeLimit(i interface{}) error {
 	_, ok := i.(uint64)
 	if !ok {
 		return fmt.Errorf("invalid parameter type: %T", i)

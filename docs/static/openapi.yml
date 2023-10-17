@@ -32948,6 +32948,10 @@ paths:
                   uniqueDropRatio:
                     type: string
                     format: uint64
+                  councilVotingTimeLimit:
+                    type: string
+                    format: uint64
+                    title: seconds till the council ends
             description: >-
               QueryParamsResponse is response type for the Query/Params RPC
               method.
@@ -69301,6 +69305,10 @@ definitions:
       uniqueDropRatio:
         type: string
         format: uint64
+      councilVotingTimeLimit:
+        type: string
+        format: uint64
+        title: seconds till the council ends
     description: Params defines the parameters for the module.
   DecentralCardGame.cardchain.cardchain.QueryParamsResponse:
     type: object
@@ -69374,6 +69382,10 @@ definitions:
           uniqueDropRatio:
             type: string
             format: uint64
+          councilVotingTimeLimit:
+            type: string
+            format: uint64
+            title: seconds till the council ends
     description: QueryParamsResponse is response type for the Query/Params RPC method.
   DecentralCardGame.cardchain.cardchain.QueryQCardContentResponse:
     type: object
