@@ -10,6 +10,8 @@ BUILDDIR := ./build
 
 # Build the project
 build: go.sum $(BUILDDIR)/
+	@echo "Warning: Building without version information"
+	@echo "Warning: To build with version info and defaults please use './ignite chain build'"
 	go build -mod=readonly -o $(BUILDDIR)/ ./...
 
 # Create the build directory
