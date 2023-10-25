@@ -27,7 +27,7 @@ func CmdVoteCard() *cobra.Command {
 			}
 			argVoteType, found := types.VoteType_value[args[1]]
 			if !found {
-				return fmt.Errorf("rarity has to be in %s", maps.Keys(types.CardRarity_value))
+				return fmt.Errorf("vote-type has to be in %s", maps.Keys(types.VoteType_value))
 			}
 
 			clientCtx, err := client.GetClientTxContext(cmd)
