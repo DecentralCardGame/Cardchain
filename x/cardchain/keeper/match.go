@@ -115,12 +115,14 @@ func (k Keeper) distributeCoins(ctx sdk.Context, match *types.Match, outcome typ
 
 	if outcome != types.Outcome_Aborted {
 		for idx, address := range addresses {
-			for _, cardId := range [][]uint64{match.PlayerA.PlayedCards, match.PlayerB.PlayedCards}[idx] {
-				err = k.AddVoteRight(ctx, address, cardId)
-				if err != nil {
-					return sdkerrors.Wrap(types.ErrUserDoesNotExist, err.Error())
-				}
+			user, err := k.GetUser(ctx, address)
+			if err != nil {
+				return sdkerrors.Wrap(types.ErrUserDoesNotExist, err.Error())
 			}
+			for _, cardId := range [][]uint64{match.PlayerA.PlayedCards, match.PlayerB.PlayedCards}[idx] {
+				k.AddVoteRightToUser(ctx, &user, cardId)
+			}
+			k.SetUser(ctx, address, user)
 		}
 	}
 
@@ -197,12 +199,18 @@ func (k Keeper) voteMatchCards(ctx sdk.Context, match *types.Match) error {
 		} else {
 			otherPlayerCards = otherPlayer.Deck
 		}
+
+		for _, card := range otherPlayerCards {
+			k.AddVoteRightToUser(ctx, &users[idx].User, card)
+		}
+
 		for _, vote := range player.VotedCards {
 			if slices.Contains(otherPlayerCards, vote.CardId) {
 				cleanedVotes = append(cleanedVotes, vote)
 			}
 		}
-		err = k.multiVote(ctx, users[idx], cleanedVotes, true)
+
+		err = k.multiVote(ctx, users[idx], cleanedVotes)
 		if err != nil {
 			return err
 		}
