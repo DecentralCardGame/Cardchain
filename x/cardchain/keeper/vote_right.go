@@ -1,9 +1,10 @@
 package keeper
 
 import (
+	"slices"
+
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"golang.org/x/exp/slices"
 )
 
 // GetVoteReward Calculates winner rewards

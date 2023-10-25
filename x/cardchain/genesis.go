@@ -94,7 +94,7 @@ func ExportGenesis(ctx sdk.Context, k keeper.Keeper) *types.GenesisState {
 		CardRecords:      records,
 		Users:            users,
 		Matches:          matches,
-		Sets:      sets,
+		Sets:             sets,
 		SellOffers:       sellOffers,
 		Pools:            pools,
 		Councils:         councils,

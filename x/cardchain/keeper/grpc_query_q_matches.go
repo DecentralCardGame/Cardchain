@@ -2,8 +2,7 @@ package keeper
 
 import (
 	"context"
-
-	"golang.org/x/exp/slices"
+	"slices"
 
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"

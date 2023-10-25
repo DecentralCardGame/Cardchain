@@ -306,17 +306,6 @@ func (am AppModule) WeightedOperations(simState module.SimulationState) []simtyp
 		cardchainsimulation.SimulateMsgAddArtwork(am.accountKeeper, am.bankKeeper, am.keeper),
 	))
 
-	var weightMsgSubmitCopyrightProposal int
-	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgSubmitCopyrightProposal, &weightMsgSubmitCopyrightProposal, nil,
-		func(_ *rand.Rand) {
-			weightMsgSubmitCopyrightProposal = defaultWeightMsgSubmitCopyrightProposal
-		},
-	)
-	operations = append(operations, simulation.NewWeightedOperation(
-		weightMsgSubmitCopyrightProposal,
-		cardchainsimulation.SimulateMsgSubmitCopyrightProposal(am.accountKeeper, am.bankKeeper, am.keeper),
-	))
-
 	var weightMsgChangeArtist int
 	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgChangeArtist, &weightMsgChangeArtist, nil,
 		func(_ *rand.Rand) {
@@ -348,17 +337,6 @@ func (am AppModule) WeightedOperations(simState module.SimulationState) []simtyp
 	operations = append(operations, simulation.NewWeightedOperation(
 		weightMsgReportMatch,
 		cardchainsimulation.SimulateMsgReportMatch(am.accountKeeper, am.bankKeeper, am.keeper),
-	))
-
-	var weightMsgSubmitMatchReporterProposal int
-	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgSubmitMatchReporterProposal, &weightMsgSubmitMatchReporterProposal, nil,
-		func(_ *rand.Rand) {
-			weightMsgSubmitMatchReporterProposal = defaultWeightMsgSubmitMatchReporterProposal
-		},
-	)
-	operations = append(operations, simulation.NewWeightedOperation(
-		weightMsgSubmitMatchReporterProposal,
-		cardchainsimulation.SimulateMsgSubmitMatchReporterProposal(am.accountKeeper, am.bankKeeper, am.keeper),
 	))
 
 	var weightMsgApointMatchReporter int
@@ -447,17 +425,6 @@ func (am AppModule) WeightedOperations(simState module.SimulationState) []simtyp
 	operations = append(operations, simulation.NewWeightedOperation(
 		weightMsgAddContributorToSet,
 		cardchainsimulation.SimulateMsgAddContributorToSet(am.accountKeeper, am.bankKeeper, am.keeper),
-	))
-
-	var weightMsgSubmitSetProposal int
-	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgSubmitSetProposal, &weightMsgSubmitSetProposal, nil,
-		func(_ *rand.Rand) {
-			weightMsgSubmitSetProposal = defaultWeightMsgSubmitSetProposal
-		},
-	)
-	operations = append(operations, simulation.NewWeightedOperation(
-		weightMsgSubmitSetProposal,
-		cardchainsimulation.SimulateMsgSubmitSetProposal(am.accountKeeper, am.bankKeeper, am.keeper),
 	))
 
 	var weightMsgCreateSellOffer int

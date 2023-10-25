@@ -30,8 +30,8 @@ func CmdSetCardRarity() *cobra.Command {
 				return err
 			}
 			rar, found := types.CardRarity_value[args[2]]
-			if (!found) {
-				return fmt.Errorf("Rarity has to be in %s", maps.Keys(types.CardRarity_value))
+			if !found {
+				return fmt.Errorf("rarity has to be in %s", maps.Keys(types.CardRarity_value))
 			}
 
 			argRarity := types.CardRarity(rar)

@@ -72,9 +72,6 @@ func NewHandler(k keeper.Keeper) sdk.Handler {
 		case *types.MsgAddContributorToSet:
 			res, err := msgServer.AddContributorToSet(sdk.WrapSDKContext(ctx), msg)
 			return sdk.WrapServiceResult(ctx, res, err)
-		case *types.MsgSubmitSetProposal:
-			res, err := msgServer.SubmitSetProposal(sdk.WrapSDKContext(ctx), msg)
-			return sdk.WrapServiceResult(ctx, res, err)
 		case *types.MsgCreateSellOffer:
 			res, err := msgServer.CreateSellOffer(sdk.WrapSDKContext(ctx), msg)
 			return sdk.WrapServiceResult(ctx, res, err)

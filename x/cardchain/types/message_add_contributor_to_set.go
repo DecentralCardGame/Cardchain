@@ -12,9 +12,9 @@ var _ sdk.Msg = &MsgAddContributorToSet{}
 
 func NewMsgAddContributorToSet(creator string, setId uint64, user string) *MsgAddContributorToSet {
 	return &MsgAddContributorToSet{
-		Creator:      creator,
-		SetId: setId,
-		User:         user,
+		Creator: creator,
+		SetId:   setId,
+		User:    user,
 	}
 }
 

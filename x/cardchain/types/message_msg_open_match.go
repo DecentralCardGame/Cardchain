@@ -9,9 +9,13 @@ const TypeMsgOpenMatch = "msg_open_match"
 
 var _ sdk.Msg = &MsgOpenMatch{}
 
-func NewMsgOpenMatch(creator string) *MsgOpenMatch {
+func NewMsgOpenMatch(creator string, playerA string, playerB string, playerADeck []uint64, playerBDeck []uint64) *MsgOpenMatch {
 	return &MsgOpenMatch{
 		Creator: creator,
+		PlayerA: playerA,
+		PlayerB: playerB,
+		PlayerADeck: playerADeck,
+		PlayerBDeck: playerBDeck,
 	}
 }
 
