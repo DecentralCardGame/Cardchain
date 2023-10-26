@@ -2,6 +2,7 @@ package keeper
 
 import (
 	"fmt"
+	"slices"
 
 	sdkerrors "cosmossdk.io/errors"
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
@@ -13,8 +14,25 @@ func (k Keeper) voteCard(
 	ctx sdk.Context,
 	voter *User,
 	cardId uint64,
-	voteType types.VoteType,
+	voteType string,
+	ignoreVoteRights bool,
 ) error {
+	var rightsIndex int
+	if !ignoreVoteRights {
+		rightsIndex = slices.IndexFunc(voter.VoteRights, func(s *types.VoteRight) bool { return s.CardId == cardId })
+
+		// check if voting rights are true
+		if rightsIndex < 0 {
+			return sdkerrors.Wrap(types.ErrVoterHasNoVotingRights, "No Voting Rights")
+		}
+
+		//check if voting rights are timed out
+		if ctx.BlockHeight() > (voter.VoteRights)[rightsIndex].ExpireBlock {
+			k.RemoveVoteRight(ctx, voter, rightsIndex)
+			return sdkerrors.Wrap(types.ErrVoteRightIsExpired, "Voting Right has expired")
+		}
+	}
+
 	// if the vote right is valid, get the Card
 	card := k.Cards.Get(ctx, cardId)
 
@@ -23,19 +41,14 @@ func (k Keeper) voteCard(
 		return sdkerrors.Wrap(errors.ErrUnknownRequest, "Voting on a card is only possible if it is in trial or a permanent card")
 	}
 
-	err := k.RegisterVote(voter, cardId)
-	if err != nil {
-		return err
-	}
-
 	switch voteType {
-	case types.VoteType_fairEnough:
+	case "fair_enough":
 		card.FairEnoughVotes++
-	case types.VoteType_inappropriate:
+	case "inappropriate":
 		card.InappropriateVotes++
-	case types.VoteType_overpowered:
+	case "overpowered":
 		card.OverpoweredVotes++
-	case types.VoteType_underpowered:
+	case "underpowered":
 		card.UnderpoweredVotes++
 	default:
 		errMsg := fmt.Sprintf("Unrecognized card vote type: %s", voteType)
@@ -54,11 +67,15 @@ func (k Keeper) voteCard(
 	}
 
 	amount := k.GetVoteReward(ctx)
-	err = k.MintCoinsToAddr(ctx, voter.Addr, sdk.Coins{amount})
+	err := k.MintCoinsToAddr(ctx, voter.Addr, sdk.Coins{amount})
 	if err != nil {
 		return err
 	}
 	k.SubPoolCredits(ctx, BalancersPoolKey, amount)
+	if !ignoreVoteRights {
+		k.RemoveVoteRight(ctx, voter, rightsIndex)
+	}
+
 	k.Cards.Set(ctx, cardId, card)
 
 	return nil
@@ -70,11 +87,11 @@ func (k Keeper) incVotesAverageBy(ctx sdk.Context, n int64) {
 	k.RunningAverages.Set(ctx, Votes24ValueKey, votes)
 }
 
-func (k Keeper) multiVote(ctx sdk.Context, voter *User, votes []*types.SingleVote) error {
+func (k Keeper) multiVote(ctx sdk.Context, voter *User, votes []*types.SingleVote, ignoreVotingRights bool) error {
 	var n = 0
 
 	for i, vote := range votes {
-		err := k.voteCard(ctx, voter, vote.CardId, vote.VoteType)
+		err := k.voteCard(ctx, voter, vote.CardId, vote.VoteType, ignoreVotingRights)
 		if err != nil {
 			return err
 		}

@@ -43,9 +43,18 @@ func NewUser() User {
 		Cards:            []uint64{},
 		OwnedCardSchemes: []uint64{},
 		OwnedPrototypes:  []uint64{},
+		VoteRights:       []*VoteRight{},
 		CouncilStatus:    CouncilStatus_unavailable,
 		ReportMatches:    false,
 		AirDrops:         &AirDrops{},
+	}
+}
+
+// NewVoteRight Constructor for VoteRights
+func NewVoteRight(cardId uint64, expireBlock int64) VoteRight {
+	return VoteRight{
+		CardId:      cardId,
+		ExpireBlock: expireBlock,
 	}
 }
 

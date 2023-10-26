@@ -3,7 +3,6 @@ package keeper
 import (
 	"slices"
 
-	sdkerrors "cosmossdk.io/errors"
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
@@ -20,41 +19,39 @@ func (k Keeper) GetVoteReward(ctx sdk.Context) sdk.Coin {
 	return reward
 }
 
-// AddVoteRightToUser Adds a voteright for a certain card to a certain user
-func (k Keeper) AddVoteRightToUser(ctx sdk.Context, user *types.User, cardId uint64) {
-	card := k.Cards.Get(ctx, cardId)
-	if !card.BalanceAnchor {
-		if !slices.Contains(user.VotableCards, cardId) && !slices.Contains(user.VotedCards, cardId) {
-			user.VotableCards = append(user.VotableCards, cardId)
-		}
+// AddVoteRight Adds a voteright for a certain card to a certain user
+func (k Keeper) AddVoteRight(ctx sdk.Context, userAddress sdk.AccAddress, cardId uint64) error {
+	user, err := k.GetUser(ctx, userAddress)
+	if err != nil {
+		return err
 	}
+
+	gottenCard := k.Cards.Get(ctx, cardId)
+	if !gottenCard.BalanceAnchor {
+		right := types.NewVoteRight(cardId, ctx.BlockHeight()+k.GetParams(ctx).VotingRightsExpirationTime)
+		user.VoteRights = append(user.VoteRights, &right)
+		k.SetUser(ctx, userAddress, user)
+	}
+	return nil
 }
 
 // AddVoteRightsToAllUsers Adds voterights to all cards to all users
-func (k Keeper) AddVoteRightsToAllUsers(ctx sdk.Context) {
-	votables := k.GetAllVotableCards(ctx)
+func (k Keeper) AddVoteRightsToAllUsers(ctx sdk.Context, expireBlock int64) {
+	votingRights := k.GetVoteRightToAllCards(ctx, expireBlock)
 	allUsers, allAddrs := k.GetAllUsers(ctx)
 	for idx, user := range allUsers {
-		user.VotableCards = votables
+		user.VoteRights = votingRights
 		k.SetUser(ctx, allAddrs[idx], *user)
 	}
 }
 
-// RegisterVote Removes a voteright from a user
-func (k Keeper) RegisterVote(voter *User, cardId uint64) error {
-	var rightsIndex = slices.Index(voter.VotableCards, cardId)
-
-	// check if voting rights are true
-	if rightsIndex < 0 {
-		return sdkerrors.Wrap(types.ErrVoterHasNoVotingRights, "No Voting Rights")
-	}
-	voter.VotableCards = slices.Delete(voter.VotableCards, rightsIndex, rightsIndex+1)
-	voter.VotedCards = append(voter.VotedCards, cardId)
-	return nil
+// RemoveVoteRight Removes a voteright from a user
+func (k Keeper) RemoveVoteRight(ctx sdk.Context, voter *User, rightsIndex int) {
+	voter.VoteRights = slices.Delete(voter.VoteRights, rightsIndex, rightsIndex+1)
 }
 
-// GetAllVotableCards Gets the voterights to all cards
-func (k Keeper) GetAllVotableCards(ctx sdk.Context) (votables []uint64) {
+// GetVoteRightToAllCards Gets the voterights to all cards
+func (k Keeper) GetVoteRightToAllCards(ctx sdk.Context, expireBlock int64) (votingRights []*types.VoteRight) {
 	iter := k.Cards.GetItemIterator(ctx)
 
 	for ; iter.Valid(); iter.Next() {
@@ -63,11 +60,18 @@ func (k Keeper) GetAllVotableCards(ctx sdk.Context) (votables []uint64) {
 		if !gottenCard.BalanceAnchor {
 			switch gottenCard.Status {
 			case types.Status_permanent, types.Status_trial:
-				votables = append(votables, idx)
+				right := types.NewVoteRight(idx, expireBlock)
+				votingRights = append(votingRights, &right)
 			}
 		}
 	}
 	return
+}
+
+// GetVoteRights Gets the voterights of a user
+func (k Keeper) GetVoteRights(ctx sdk.Context, voter sdk.AccAddress) []*types.VoteRight {
+	user, _ := k.GetUser(ctx, voter)
+	return user.VoteRights
 }
 
 // RemoveExpiredVoteRights Removes all expied voteRights
@@ -75,8 +79,14 @@ func (k Keeper) RemoveExpiredVoteRights(ctx sdk.Context) {
 	allUsers, allAddrs := k.GetAllUsers(ctx)
 
 	for idx, user := range allUsers {
-		user.VotableCards = []uint64{}
-		user.VotedCards =  []uint64{}
+		var validVoteRights []*types.VoteRight
+
+		for _, voteRight := range user.VoteRights {
+			if voteRight.ExpireBlock > ctx.BlockHeight() {
+				validVoteRights = append(validVoteRights, voteRight)
+			}
+		}
+		user.VoteRights = validVoteRights
 		k.SetUser(ctx, allAddrs[idx], *user)
 	}
 }

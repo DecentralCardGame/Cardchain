@@ -1,7 +1,6 @@
 package cli
 
 import (
-	"fmt"
 	"strconv"
 
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
@@ -10,7 +9,6 @@ import (
 	"github.com/cosmos/cosmos-sdk/client/tx"
 	"github.com/spf13/cast"
 	"github.com/spf13/cobra"
-	"golang.org/x/exp/maps"
 )
 
 var _ = strconv.Itoa(0)
@@ -25,10 +23,7 @@ func CmdVoteCard() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			argVoteType, found := types.VoteType_value[args[1]]
-			if !found {
-				return fmt.Errorf("vote-type has to be in %s", maps.Keys(types.VoteType_value))
-			}
+			argVoteType := args[1]
 
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
@@ -38,7 +33,7 @@ func CmdVoteCard() *cobra.Command {
 			msg := types.NewMsgVoteCard(
 				clientCtx.GetFromAddress().String(),
 				argCardId,
-				types.VoteType(argVoteType),
+				argVoteType,
 			)
 			if err := msg.ValidateBasic(); err != nil {
 				return err

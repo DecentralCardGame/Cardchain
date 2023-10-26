@@ -10,7 +10,7 @@ const TypeMsgVoteCard = "vote_card"
 
 var _ sdk.Msg = &MsgVoteCard{}
 
-func NewMsgVoteCard(creator string, cardId uint64, voteType VoteType) *MsgVoteCard {
+func NewMsgVoteCard(creator string, cardId uint64, voteType string) *MsgVoteCard {
 	return &MsgVoteCard{
 		Creator:  creator,
 		CardId:   cardId,

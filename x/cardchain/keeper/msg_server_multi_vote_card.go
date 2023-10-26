@@ -16,7 +16,7 @@ func (k msgServer) MultiVoteCard(goCtx context.Context, msg *types.MsgMultiVoteC
 		return nil, sdkerrors.Wrap(types.ErrInvalidAccAddress, "Unable to convert to AccAddress")
 	}
 
-	err = k.multiVote(ctx, &voter, msg.Votes)
+	err = k.multiVote(ctx, &voter, msg.Votes, false)
 	if err != nil {
 		return nil, err
 	}

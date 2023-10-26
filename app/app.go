@@ -796,10 +796,7 @@ func (app *App) EndBlocker(ctx sdk.Context, req abci.RequestEndBlock) abci.Respo
 	// automated nerf/buff happens here
 	if app.LastBlockHeight()%epochBlockTime == 0 {
 		cardchainmodule.UpdateNerfLevels(ctx, app.CardchainKeeper)
-		matchesEnabled, _ := app.CardchainKeeper.FeatureFlagModuleInstance.Get(ctx, string(cardchainmoduletypes.FeatureFlagName_Matches))
-		if matchesEnabled {  // Only give voterigths to all users, when matches are not anabled
-			app.CardchainKeeper.AddVoteRightsToAllUsers(ctx)
-		}
+		app.CardchainKeeper.AddVoteRightsToAllUsers(ctx, ctx.BlockHeight()+app.CardchainKeeper.GetParams(ctx).VotingRightsExpirationTime)
 	}
 
 	if app.LastBlockHeight()%500 == 0 { //HourlyFaucet

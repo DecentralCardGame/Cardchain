@@ -26,12 +26,11 @@ message VotingResult {
 
 message SingleVote {
   uint64 cardId   = 1;
-  VoteType voteType = 2;
+  string voteType = 2;
 }
 
-enum VoteType {
-  fairEnough = 0;
-  inappropriate = 1;
-  overpowered = 2;
-  underpowered = 3;
+message VoteRight {
+
+  uint64 cardId = 1;
+  int64 expireBlock = 2; 
 }
