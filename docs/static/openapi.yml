@@ -33375,6 +33375,12 @@ paths:
                           format: uint64
                         voteType:
                           type: string
+                          enum:
+                            - fairEnough
+                            - inappropriate
+                            - overpowered
+                            - underpowered
+                          default: fairEnough
               playerB:
                 type: object
                 properties:
@@ -33410,6 +33416,12 @@ paths:
                           format: uint64
                         voteType:
                           type: string
+                          enum:
+                            - fairEnough
+                            - inappropriate
+                            - overpowered
+                            - underpowered
+                          default: fairEnough
               outcome:
                 type: string
                 enum:
@@ -33508,6 +33520,12 @@ paths:
                                 format: uint64
                               voteType:
                                 type: string
+                                enum:
+                                  - fairEnough
+                                  - inappropriate
+                                  - overpowered
+                                  - underpowered
+                                default: fairEnough
                     playerB:
                       type: object
                       properties:
@@ -33543,6 +33561,12 @@ paths:
                                 format: uint64
                               voteType:
                                 type: string
+                                enum:
+                                  - fairEnough
+                                  - inappropriate
+                                  - overpowered
+                                  - underpowered
+                                default: fairEnough
                     outcome:
                       type: string
                       enum:
@@ -33970,17 +33994,6 @@ paths:
                 items:
                   type: string
                   format: uint64
-              voteRights:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    cardId:
-                      type: string
-                      format: uint64
-                    expireBlock:
-                      type: string
-                      format: int64
               CouncilStatus:
                 type: string
                 enum:
@@ -34038,56 +34051,16 @@ paths:
                 type: string
               biography:
                 type: string
-        default:
-          description: An unexpected error response.
-          schema:
-            type: object
-            properties:
-              code:
-                type: integer
-                format: int32
-              message:
-                type: string
-              details:
+              votableCards:
                 type: array
                 items:
-                  type: object
-                  properties:
-                    '@type':
-                      type: string
-                  additionalProperties: {}
-      parameters:
-        - name: address
-          in: path
-          required: true
-          type: string
-      tags:
-        - Query
-  /DecentralCardGame/Cardchain/cardchain/q_votable_cards/{address}:
-    get:
-      summary: Queries a list of QVotableCards items.
-      operationId: DecentralCardGameCardchainCardchainQVotableCards
-      responses:
-        '200':
-          description: A successful response.
-          schema:
-            type: object
-            properties:
-              unregistered:
-                type: boolean
-              noVoteRights:
-                type: boolean
-              voteRights:
+                  type: string
+                  format: uint64
+              votedCards:
                 type: array
                 items:
-                  type: object
-                  properties:
-                    cardId:
-                      type: string
-                      format: uint64
-                    expireBlock:
-                      type: string
-                      format: int64
+                  type: string
+                  format: uint64
         default:
           description: An unexpected error response.
           schema:
@@ -68782,6 +68755,12 @@ definitions:
                   format: uint64
                 voteType:
                   type: string
+                  enum:
+                    - fairEnough
+                    - inappropriate
+                    - overpowered
+                    - underpowered
+                  default: fairEnough
       playerB:
         type: object
         properties:
@@ -68817,6 +68796,12 @@ definitions:
                   format: uint64
                 voteType:
                   type: string
+                  enum:
+                    - fairEnough
+                    - inappropriate
+                    - overpowered
+                    - underpowered
+                  default: fairEnough
       outcome:
         type: string
         enum:
@@ -68864,6 +68849,12 @@ definitions:
               format: uint64
             voteType:
               type: string
+              enum:
+                - fairEnough
+                - inappropriate
+                - overpowered
+                - underpowered
+              default: fairEnough
   DecentralCardGame.cardchain.cardchain.MsgAddArtworkResponse:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgAddArtworkToSetResponse:
@@ -69326,6 +69317,12 @@ definitions:
                         format: uint64
                       voteType:
                         type: string
+                        enum:
+                          - fairEnough
+                          - inappropriate
+                          - overpowered
+                          - underpowered
+                        default: fairEnough
             playerB:
               type: object
               properties:
@@ -69361,6 +69358,12 @@ definitions:
                         format: uint64
                       voteType:
                         type: string
+                        enum:
+                          - fairEnough
+                          - inappropriate
+                          - overpowered
+                          - underpowered
+                        default: fairEnough
             outcome:
               type: string
               enum:
@@ -69410,24 +69413,6 @@ definitions:
         items:
           type: string
           format: uint64
-  DecentralCardGame.cardchain.cardchain.QueryQVotableCardsResponse:
-    type: object
-    properties:
-      unregistered:
-        type: boolean
-      noVoteRights:
-        type: boolean
-      voteRights:
-        type: array
-        items:
-          type: object
-          properties:
-            cardId:
-              type: string
-              format: uint64
-            expireBlock:
-              type: string
-              format: int64
   DecentralCardGame.cardchain.cardchain.QueryQVotingResultsResponse:
     type: object
     properties:
@@ -69538,6 +69523,12 @@ definitions:
         format: uint64
       voteType:
         type: string
+        enum:
+          - fairEnough
+          - inappropriate
+          - overpowered
+          - underpowered
+        default: fairEnough
   DecentralCardGame.cardchain.cardchain.Status:
     type: string
     enum:
@@ -69571,17 +69562,6 @@ definitions:
         items:
           type: string
           format: uint64
-      voteRights:
-        type: array
-        items:
-          type: object
-          properties:
-            cardId:
-              type: string
-              format: uint64
-            expireBlock:
-              type: string
-              format: int64
       CouncilStatus:
         type: string
         enum:
@@ -69637,15 +69617,24 @@ definitions:
         type: string
       biography:
         type: string
-  DecentralCardGame.cardchain.cardchain.VoteRight:
-    type: object
-    properties:
-      cardId:
-        type: string
-        format: uint64
-      expireBlock:
-        type: string
-        format: int64
+      votableCards:
+        type: array
+        items:
+          type: string
+          format: uint64
+      votedCards:
+        type: array
+        items:
+          type: string
+          format: uint64
+  DecentralCardGame.cardchain.cardchain.VoteType:
+    type: string
+    enum:
+      - fairEnough
+      - inappropriate
+      - overpowered
+      - underpowered
+    default: fairEnough
   DecentralCardGame.cardchain.cardchain.VotingResult:
     type: object
     properties:
