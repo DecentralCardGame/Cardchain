@@ -83,7 +83,7 @@ message MsgBuyCardSchemeResponse {
 message MsgVoteCard {
   string creator  = 1;
   uint64 cardId   = 2;
-  string voteType = 3;
+  VoteType voteType = 3;
 }
 
 message MsgVoteCardResponse {
