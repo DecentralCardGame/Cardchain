@@ -12,34 +12,61 @@ then
 	exit 1
 fi
 
-#we can derive the peer id from the address and should do so!
-NODE_ADDR=$(cat syncnode.txt)
-PEER_ID=$(curl -s "http://"$NODE_ADDR":26657/status" | jq -r .result.node_info.id)
+#we can derive the peer id from the rpc
+mapfile -t peers < <(
+	jq -r '.peers[]' peer_nodes.json
+)
+
+for item in "${peers[@]}"; do
+    echo "peers: ${item}"
+done
+
+mapfile -t rpcs < <(
+	jq -r '.rpcs[]' peer_nodes.json
+)
+
+echo "peers" $peers
+
+for i in "${!rpcs[@]}"; do
+ 	if curl --output /dev/null --silent --head --fail --connect-timeout 5 ${rpcs[$i]}; then
+   		echo "URL exists: ${rpcs[$i]}"
+ 		PEER_ID=$(curl -s ${rpcs[$i]}"/status" | jq -r .result.node_info.id)
+
+ 		PEERS=$PEER_ID"@"${peers[$i]}
+ 		break
+ 	else
+   		echo "not reachable $i"
+ 	fi
+done
+if [ -z "$PEERS" ]
+then
+	echo -e "\033[0;31mNo PEERS available\033[0m"
+	exit
+fi
+
 SEEDS=""
-PEERS=$PEER_ID"@"$NODE_ADDR":26656"
 echo "peers is:" $PEERS
 sed -i.bak -e "s/^seeds *=.*/seeds = \"$SEEDS\"/; s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $HOME/.Cardchain/config/config.toml
 
-SNAP_RPCs=("http://crowd.rpc.t.stavr.tech:21207"
-"https://cardchain-testnet.nodejumper.io:443"
-"https://cardchain-rpc.acloud.pp.ua:443")
+mapfile -t snap_rpcs < <(
+  jq -r '.snap_rpcs[]' peer_nodes.json
+)
 
-# for i in "${SNAP_RPCs[@]}"; do
-# 	if curl --output /dev/null --silent --head --fail --connect-timeout 5 $i; then
-#   		echo "URL exists: $i"
-# 		SNAP_RPC=$i
-# 		break
-# 	else
-#   		echo "not reachable $i"
-# 	fi
-# done
+for i in "${snap_rpcs[@]}"; do
+ 	if curl --output /dev/null --silent --head --fail --connect-timeout 5 $i; then
+   		echo "URL exists: $i"
+ 		SNAP_RPC=$i
+ 		break
+ 	else
+   		echo "not reachable $i"
+ 	fi
+done
+if [ -z "$SNAP_RPC" ]
+then
+	echo -e "\033[0;31mNo SNAP_RPC available\033[0m"
+	exit
+fi
 
-# if [ -z "$SNAP_RPC" ]
-# then
-# 	echo -e "\033[0;31mNo SNAP_RPC available\033[0m"
-# fi
-
-SNAP_RPC="http://$(cat syncnode.txt):26657"
 LATEST_HEIGHT=$(curl -s $SNAP_RPC/block | jq -r .result.block.header.height)
 echo $LATEST_HEIGHT
 BLOCK_HEIGHT=$((LATEST_HEIGHT)); \

@@ -35,8 +35,6 @@ func GetQueryCmd(queryRoute string) *cobra.Command {
 
 	cmd.AddCommand(CmdQVotingResults())
 
-	cmd.AddCommand(CmdQVotableCards())
-
 	cmd.AddCommand(CmdQCards())
 
 	cmd.AddCommand(CmdQMatch())

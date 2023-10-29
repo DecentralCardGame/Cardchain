@@ -7,9 +7,9 @@ RUN apt-get -y -qq update && \
 	apt-get install -y -qq apt-transport-https curl wget unzip screen bash jq python3 pip && \
 	apt-get clean
 
+
 # install python script to download genesis
 RUN pip install tendermint-chunked-genesis-download
-
 
 
 # install correct go version
