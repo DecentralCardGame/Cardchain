@@ -1,11 +1,11 @@
 {
-  "title": "Param change uncommonsPerPack: 2",
-  "description": "We want to change the unCommonsPerPack",
+  "title": "Param change setSize: 140",
+  "description": "We want to change the set size",
   "changes": [
     {
       "subspace": "cardchain",
-      "key": "UnCommonsPerPack",
-      "value": "2"
+      "key": "SetSize",
+      "value": "120"
     }
   ],
   "deposit": "10000000ubpf"
