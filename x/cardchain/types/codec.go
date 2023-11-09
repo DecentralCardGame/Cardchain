@@ -16,14 +16,12 @@ func RegisterCodec(cdc *codec.LegacyAmino) {
 	cdc.RegisterConcrete(&MsgTransferCard{}, "cardchain/TransferCard", nil)
 	cdc.RegisterConcrete(&MsgDonateToCard{}, "cardchain/DonateToCard", nil)
 	cdc.RegisterConcrete(&MsgAddArtwork{}, "cardchain/AddArtwork", nil)
-	cdc.RegisterConcrete(&MsgSubmitCopyrightProposal{}, "cardchain/SubmitCopyrightProposal", nil)
 	cdc.RegisterConcrete(&CopyrightProposal{}, "cardchain/CopyrightProposal", nil)
 	cdc.RegisterConcrete(&MatchReporterProposal{}, "cardchain/MatchReporterProposal", nil)
 	cdc.RegisterConcrete(&SetProposal{}, "cardchain/SetProposal", nil)
 	cdc.RegisterConcrete(&MsgChangeArtist{}, "cardchain/ChangeArtist", nil)
 	cdc.RegisterConcrete(&MsgRegisterForCouncil{}, "cardchain/RegisterForCouncil", nil)
 	cdc.RegisterConcrete(&MsgReportMatch{}, "cardchain/ReportMatch", nil)
-	cdc.RegisterConcrete(&MsgSubmitMatchReporterProposal{}, "cardchain/SubmitMatchReporterProposal", nil)
 	cdc.RegisterConcrete(&MsgApointMatchReporter{}, "cardchain/ApointMatchReporter", nil)
 	cdc.RegisterConcrete(&MsgCreateSet{}, "cardchain/CreateSet", nil)
 	cdc.RegisterConcrete(&MsgAddCardToSet{}, "cardchain/AddCardToSet", nil)
@@ -32,7 +30,6 @@ func RegisterCodec(cdc *codec.LegacyAmino) {
 	cdc.RegisterConcrete(&MsgRemoveCardFromSet{}, "cardchain/RemoveCardFromSet", nil)
 	cdc.RegisterConcrete(&MsgRemoveContributorFromSet{}, "cardchain/RemoveContributorFromSet", nil)
 	cdc.RegisterConcrete(&MsgAddContributorToSet{}, "cardchain/AddContributorToSet", nil)
-	cdc.RegisterConcrete(&MsgSubmitSetProposal{}, "cardchain/SubmitSetProposal", nil)
 	cdc.RegisterConcrete(&MsgCreateSellOffer{}, "cardchain/CreateSellOffer", nil)
 	cdc.RegisterConcrete(&MsgBuyCard{}, "cardchain/BuyCard", nil)
 	cdc.RegisterConcrete(&MsgRemoveSellOffer{}, "cardchain/RemoveSellOffer", nil)
@@ -80,9 +77,6 @@ func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {
 	registry.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgAddArtwork{},
 	)
-	registry.RegisterImplementations((*sdk.Msg)(nil),
-		&MsgSubmitCopyrightProposal{},
-	)
 	registry.RegisterImplementations((*govtypes.Content)(nil),
 		&CopyrightProposal{},
 	)
@@ -100,9 +94,6 @@ func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {
 	)
 	registry.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgReportMatch{},
-	)
-	registry.RegisterImplementations((*sdk.Msg)(nil),
-		&MsgSubmitMatchReporterProposal{},
 	)
 	registry.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgApointMatchReporter{},
@@ -127,9 +118,6 @@ func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {
 	)
 	registry.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgAddContributorToSet{},
-	)
-	registry.RegisterImplementations((*sdk.Msg)(nil),
-		&MsgSubmitSetProposal{},
 	)
 	registry.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgCreateSellOffer{},

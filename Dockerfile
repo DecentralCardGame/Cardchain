@@ -7,14 +7,14 @@ RUN apt-get -y -qq update && \
 	apt-get install -y -qq apt-transport-https curl wget unzip screen bash jq python3 pip && \
 	apt-get clean
 
+
 # install python script to download genesis
 RUN pip install tendermint-chunked-genesis-download
 
 
-
 # install correct go version
-RUN wget https://go.dev/dl/go1.20.2.linux-amd64.tar.gz
-RUN tar -xvf go1.20.2.linux-amd64.tar.gz
+RUN wget https://go.dev/dl/go1.21.0.linux-amd64.tar.gz
+RUN tar -xvf go1.21.0.linux-amd64.tar.gz
 RUN rm /usr/local/go -rf
 RUN mv go /usr/local
 

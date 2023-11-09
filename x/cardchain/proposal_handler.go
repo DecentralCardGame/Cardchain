@@ -79,6 +79,6 @@ func handleSetProposal(ctx sdk.Context, k keeper.Keeper, p *types.SetProposal) e
 }
 
 type sortStruct struct {
-	Id         uint64
+	Id  uint64
 	Set *types.Set
 }

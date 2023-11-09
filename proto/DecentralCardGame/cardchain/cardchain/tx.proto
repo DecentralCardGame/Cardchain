@@ -22,11 +22,9 @@ service Msg {
   rpc TransferCard                    (MsgTransferCard                   ) returns (MsgTransferCardResponse                   );
   rpc DonateToCard                    (MsgDonateToCard                   ) returns (MsgDonateToCardResponse                   );
   rpc AddArtwork                      (MsgAddArtwork                     ) returns (MsgAddArtworkResponse                     );
-  rpc SubmitCopyrightProposal         (MsgSubmitCopyrightProposal        ) returns (MsgSubmitCopyrightProposalResponse        );
   rpc ChangeArtist                    (MsgChangeArtist                   ) returns (MsgChangeArtistResponse                   );
   rpc RegisterForCouncil              (MsgRegisterForCouncil             ) returns (MsgRegisterForCouncilResponse             );
   rpc ReportMatch                     (MsgReportMatch                    ) returns (MsgReportMatchResponse                    );
-  rpc SubmitMatchReporterProposal     (MsgSubmitMatchReporterProposal    ) returns (MsgSubmitMatchReporterProposalResponse    );
   rpc ApointMatchReporter             (MsgApointMatchReporter            ) returns (MsgApointMatchReporterResponse            );
   rpc CreateSet                (MsgCreateSet               ) returns (MsgCreateSetResponse               );
   rpc AddCardToSet             (MsgAddCardToSet            ) returns (MsgAddCardToSetResponse            );
@@ -35,7 +33,6 @@ service Msg {
   rpc RemoveCardFromSet        (MsgRemoveCardFromSet       ) returns (MsgRemoveCardFromSetResponse       );
   rpc RemoveContributorFromSet (MsgRemoveContributorFromSet) returns (MsgRemoveContributorFromSetResponse);
   rpc AddContributorToSet      (MsgAddContributorToSet     ) returns (MsgAddContributorToSetResponse     );
-  rpc SubmitSetProposal        (MsgSubmitSetProposal       ) returns (MsgSubmitSetProposalResponse       );
   rpc CreateSellOffer                 (MsgCreateSellOffer                ) returns (MsgCreateSellOfferResponse                );
   rpc BuyCard                         (MsgBuyCard                        ) returns (MsgBuyCardResponse                        );
   rpc RemoveSellOffer                 (MsgRemoveSellOffer                ) returns (MsgRemoveSellOfferResponse                );
@@ -86,7 +83,7 @@ message MsgBuyCardSchemeResponse {
 message MsgVoteCard {
   string creator  = 1;
   uint64 cardId   = 2;
-  string voteType = 3;
+  VoteType voteType = 3;
 }
 
 message MsgVoteCardResponse {
@@ -134,15 +131,6 @@ message MsgAddArtwork {
 
 message MsgAddArtworkResponse {}
 
-message MsgSubmitCopyrightProposal {
-  string creator     = 1;
-  uint64 cardId      = 2;
-  string description = 3;
-  string link        = 4;
-}
-
-message MsgSubmitCopyrightProposalResponse {}
-
 message MsgChangeArtist {
   string creator = 1;
   uint64 cardID  = 2;
@@ -168,15 +156,6 @@ message MsgReportMatch {
 message MsgReportMatchResponse {
   uint64 matchId = 1;
 }
-
-message MsgSubmitMatchReporterProposal {
-  string creator     = 1;
-  string reporter    = 2;
-  string deposit     = 3;
-  string description = 4;
-}
-
-message MsgSubmitMatchReporterProposalResponse {}
 
 message MsgApointMatchReporter {
   string creator  = 1;
@@ -242,13 +221,6 @@ message MsgAddContributorToSet {
 }
 
 message MsgAddContributorToSetResponse {}
-
-message MsgSubmitSetProposal {
-  string creator      = 1;
-  uint64 setId = 2;
-}
-
-message MsgSubmitSetProposalResponse {}
 
 message MsgCreateSellOffer {
   string creator = 1;

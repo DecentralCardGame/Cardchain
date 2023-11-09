@@ -9,7 +9,7 @@ const (
 	CardsStoreKey           = "Cards"
 	UsersStoreKey           = "Users"
 	MatchesStoreKey         = "Matches"
-	SetsStoreKey     = "Sets"
+	SetsStoreKey            = "Sets"
 	SellOffersStoreKey      = "SellOffers"
 	PoolsStoreKey           = "Pools"
 	CouncilsStoreKey        = "Councils"

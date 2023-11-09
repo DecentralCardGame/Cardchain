@@ -2,11 +2,11 @@ package keeper
 
 import (
 	"context"
+	"slices"
 
 	sdkerrors "cosmossdk.io/errors"
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"golang.org/x/exp/slices"
 )
 
 func (k msgServer) TransferBoosterPack(goCtx context.Context, msg *types.MsgTransferBoosterPack) (*types.MsgTransferBoosterPackResponse, error) {

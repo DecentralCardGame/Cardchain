@@ -12,9 +12,9 @@ var _ sdk.Msg = &MsgSetSetStoryWriter{}
 
 func NewMsgSetSetStoryWriter(creator string, setId uint64, storyWriter string) *MsgSetSetStoryWriter {
 	return &MsgSetSetStoryWriter{
-		Creator:      creator,
-		SetId: setId,
-		StoryWriter:  storyWriter,
+		Creator:     creator,
+		SetId:       setId,
+		StoryWriter: storyWriter,
 	}
 }
 

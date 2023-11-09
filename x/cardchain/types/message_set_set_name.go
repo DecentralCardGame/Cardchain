@@ -11,9 +11,9 @@ var _ sdk.Msg = &MsgSetSetName{}
 
 func NewMsgSetSetName(creator string, setId uint64, name string) *MsgSetSetName {
 	return &MsgSetSetName{
-		Creator:      creator,
-		SetId: setId,
-		Name:         name,
+		Creator: creator,
+		SetId:   setId,
+		Name:    name,
 	}
 }
 

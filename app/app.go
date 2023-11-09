@@ -1,6 +1,7 @@
 package app
 
 import (
+	"bytes"
 	"fmt"
 	"github.com/cosmos/cosmos-sdk/runtime"
 	"io"
@@ -115,11 +116,16 @@ import (
 
 	"github.com/DecentralCardGame/Cardchain/docs"
 	cardchainmodule "github.com/DecentralCardGame/Cardchain/x/cardchain"
+	cardchainclient "github.com/DecentralCardGame/Cardchain/x/cardchain/client"
 	cardchainmodulekeeper "github.com/DecentralCardGame/Cardchain/x/cardchain/keeper"
 	cardchainmoduletypes "github.com/DecentralCardGame/Cardchain/x/cardchain/types"
 
 	appparams "github.com/DecentralCardGame/Cardchain/app/params"
 	globtypes "github.com/DecentralCardGame/Cardchain/types"
+	featureflagmodule "github.com/DecentralCardGame/Cardchain/x/featureflag"
+	featureflagclient "github.com/DecentralCardGame/Cardchain/x/featureflag/client"
+	featureflagmodulekeeper "github.com/DecentralCardGame/Cardchain/x/featureflag/keeper"
+	featureflagmoduletypes "github.com/DecentralCardGame/Cardchain/x/featureflag/types"
 	// this line is used by starport scaffolding # stargate/app/moduleImport
 )
 
@@ -144,7 +150,10 @@ func getGovProposalHandlers() []govclient.ProposalHandler {
 		upgradeclient.LegacyCancelProposalHandler,
 		ibcclientclient.UpdateClientProposalHandler,
 		ibcclientclient.UpgradeProposalHandler,
-		//cardchainclient.ProposalHandler,
+		cardchainclient.CopyrightProposalHandler,
+		cardchainclient.MatchReporterProposalHandler,
+		cardchainclient.SetProposalHandler,
+		featureflagclient.ProposalHandler,
 		// this line is used by starport scaffolding # stargate/app/govProposalHandler
 	)
 
@@ -184,6 +193,7 @@ var (
 		vesting.AppModuleBasic{},
 		consensus.AppModuleBasic{},
 		cardchainmodule.AppModuleBasic{},
+		featureflagmodule.AppModuleBasic{},
 		// this line is used by starport scaffolding # stargate/app/moduleBasic
 	)
 
@@ -261,6 +271,8 @@ type App struct {
 	ScopedICAHostKeeper  capabilitykeeper.ScopedKeeper
 
 	CardchainKeeper cardchainmodulekeeper.Keeper
+
+	FeatureflagKeeper featureflagmodulekeeper.Keeper
 	// this line is used by starport scaffolding # stargate/app/keeperDeclaration
 
 	// mm is the module manager
@@ -311,7 +323,9 @@ func New(
 		cardchainmoduletypes.SetsStoreKey, cardchainmoduletypes.SellOffersStoreKey, cardchainmoduletypes.PoolsStoreKey,
 		cardchainmoduletypes.RunningAveragesStoreKey, cardchainmoduletypes.CouncilsStoreKey,
 		cardchainmoduletypes.ImagesStoreKey, cardchainmoduletypes.InternalStoreKey,
-		cardchainmoduletypes.ServersStoreKey, crisistypes.StoreKey, consensusparamtypes.StoreKey,
+		cardchainmoduletypes.ServersStoreKey,
+		crisistypes.StoreKey, consensusparamtypes.StoreKey,
+		featureflagmoduletypes.StoreKey,
 		// this line is used by starport scaffolding # stargate/app/storeKey
 	)
 	tkeys := sdk.NewTransientStoreKeys(paramstypes.TStoreKey)
@@ -513,6 +527,14 @@ func New(
 	// If evidence needs to be handled for the app, set routes in router here and seal
 	app.EvidenceKeeper = *evidenceKeeper
 
+	app.FeatureflagKeeper = *featureflagmodulekeeper.NewKeeper(
+		appCodec,
+		keys[featureflagmoduletypes.StoreKey],
+		keys[featureflagmoduletypes.MemStoreKey],
+		app.GetSubspace(featureflagmoduletypes.ModuleName),
+	)
+	featureflagModule := featureflagmodule.NewAppModule(appCodec, app.FeatureflagKeeper, app.AccountKeeper, app.BankKeeper)
+
 	app.CardchainKeeper = *cardchainmodulekeeper.NewKeeper(
 		appCodec,
 		keys[cardchainmoduletypes.UsersStoreKey],
@@ -527,7 +549,7 @@ func New(
 		keys[cardchainmoduletypes.ServersStoreKey],
 		keys[cardchainmoduletypes.InternalStoreKey],
 		app.GetSubspace(cardchainmoduletypes.ModuleName),
-
+		app.FeatureflagKeeper,
 		app.BankKeeper,
 	)
 
@@ -552,6 +574,7 @@ func New(
 	govRouter.
 		AddRoute(govtypes.RouterKey, govv1beta1.ProposalHandler).
 		AddRoute(cardchainmoduletypes.RouterKey, cardchainmodule.NewProposalHandler(app.CardchainKeeper)).
+		AddRoute(featureflagmoduletypes.RouterKey, featureflagmodule.NewProposalHandler(app.FeatureflagKeeper)).
 		AddRoute(paramproposal.RouterKey, params.NewParamChangeProposalHandler(app.ParamsKeeper)).
 		AddRoute(upgradetypes.RouterKey, upgrade.NewSoftwareUpgradeProposalHandler(app.UpgradeKeeper)).
 		AddRoute(ibcclienttypes.RouterKey, ibcclient.NewClientProposalHandler(app.IBCKeeper.ClientKeeper))
@@ -609,6 +632,7 @@ func New(
 		transferModule,
 		icaModule,
 		cardchainModule,
+		featureflagModule,
 		// this line is used by starport scaffolding # stargate/app/appModule
 	)
 
@@ -640,6 +664,7 @@ func New(
 		vestingtypes.ModuleName,
 		consensusparamtypes.ModuleName,
 		cardchainmoduletypes.ModuleName,
+		featureflagmoduletypes.ModuleName,
 		// this line is used by starport scaffolding # stargate/app/beginBlockers
 	)
 
@@ -666,6 +691,7 @@ func New(
 		vestingtypes.ModuleName,
 		consensusparamtypes.ModuleName,
 		cardchainmoduletypes.ModuleName,
+		featureflagmoduletypes.ModuleName,
 		// this line is used by starport scaffolding # stargate/app/endBlockers
 	)
 
@@ -697,6 +723,7 @@ func New(
 		vestingtypes.ModuleName,
 		consensusparamtypes.ModuleName,
 		cardchainmoduletypes.ModuleName,
+		featureflagmoduletypes.ModuleName,
 		// this line is used by starport scaffolding # stargate/app/initGenesis
 	}
 
@@ -775,6 +802,9 @@ func (app *App) BeginBlocker(ctx sdk.Context, req abci.RequestBeginBlock) abci.R
 // EndBlocker application updates every end block
 func (app *App) EndBlocker(ctx sdk.Context, req abci.RequestEndBlock) abci.ResponseEndBlock {
 	// update the price of card auction (currently 1% decay per block)
+	var buf bytes.Buffer
+	app.cdc.Amino.PrintTypes(&buf)
+	fmt.Print(buf.String())
 	if app.LastBlockHeight()%app.CardchainKeeper.GetParams(ctx).CardAuctionPriceReductionPeriod == 0 {
 		price := app.CardchainKeeper.GetCardAuctionPrice(ctx)
 		newprice := price.Sub(cardchainmodulekeeper.QuoCoin(price, 100))
@@ -787,7 +817,10 @@ func (app *App) EndBlocker(ctx sdk.Context, req abci.RequestEndBlock) abci.Respo
 	// automated nerf/buff happens here
 	if app.LastBlockHeight()%epochBlockTime == 0 {
 		cardchainmodule.UpdateNerfLevels(ctx, app.CardchainKeeper)
-		app.CardchainKeeper.AddVoteRightsToAllUsers(ctx, ctx.BlockHeight()+app.CardchainKeeper.GetParams(ctx).VotingRightsExpirationTime)
+		matchesEnabled, _ := app.CardchainKeeper.FeatureFlagModuleInstance.Get(ctx, string(cardchainmoduletypes.FeatureFlagName_Matches))
+		if matchesEnabled {  // Only give voterigths to all users, when matches are not anabled
+			app.CardchainKeeper.AddVoteRightsToAllUsers(ctx)
+		}
 	}
 
 	if app.LastBlockHeight()%500 == 0 { //HourlyFaucet
@@ -999,6 +1032,7 @@ func initParamsKeeper(appCodec codec.BinaryCodec, legacyAmino *codec.LegacyAmino
 	paramsKeeper.Subspace(icacontrollertypes.SubModuleName)
 	paramsKeeper.Subspace(icahosttypes.SubModuleName)
 	paramsKeeper.Subspace(cardchainmoduletypes.ModuleName)
+	paramsKeeper.Subspace(featureflagmoduletypes.ModuleName)
 	// this line is used by starport scaffolding # stargate/app/paramSubspace
 
 	return paramsKeeper

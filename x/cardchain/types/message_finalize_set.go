@@ -12,8 +12,8 @@ var _ sdk.Msg = &MsgFinalizeSet{}
 
 func NewMsgFinalizeSet(creator string, setId uint64) *MsgFinalizeSet {
 	return &MsgFinalizeSet{
-		Creator:      creator,
-		SetId: setId,
+		Creator: creator,
+		SetId:   setId,
 	}
 }
 
