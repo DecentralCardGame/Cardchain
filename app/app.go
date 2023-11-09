@@ -1,7 +1,6 @@
 package app
 
 import (
-	"bytes"
 	"fmt"
 	"io"
 	"math"
@@ -785,9 +784,6 @@ func (app *App) BeginBlocker(ctx sdk.Context, req abci.RequestBeginBlock) abci.R
 // EndBlocker application updates every end block
 func (app *App) EndBlocker(ctx sdk.Context, req abci.RequestEndBlock) abci.ResponseEndBlock {
 	// update the price of card auction (currently 1% decay per block)
-	var buf bytes.Buffer
-	app.cdc.Amino.PrintTypes(&buf)
-	fmt.Print(buf.String())
 	if app.LastBlockHeight()%app.CardchainKeeper.GetParams(ctx).CardAuctionPriceReductionPeriod == 0 {
 		price := app.CardchainKeeper.GetCardAuctionPrice(ctx)
 		newprice := price.Sub(cardchainmodulekeeper.QuoCoin(price, 100))
