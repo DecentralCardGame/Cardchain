@@ -10,11 +10,12 @@ const TypeMsgConfirmMatch = "confirm_match"
 
 var _ sdk.Msg = &MsgConfirmMatch{}
 
-func NewMsgConfirmMatch(creator string, matchId uint64, outcome Outcome) *MsgConfirmMatch {
+func NewMsgConfirmMatch(creator string, matchId uint64, votedCards []*SingleVote, outcome Outcome) *MsgConfirmMatch {
 	return &MsgConfirmMatch{
 		Creator: creator,
 		MatchId: matchId,
 		Outcome: outcome,
+		VotedCards: votedCards,
 	}
 }
 

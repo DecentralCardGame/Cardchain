@@ -1,6 +1,7 @@
 package keeper
 
 import (
+	"fmt"
 	"slices"
 
 	sdkerrors "cosmossdk.io/errors"

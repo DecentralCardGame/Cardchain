@@ -62,18 +62,19 @@ new_dict["app_state"]["cardchain"]["users"] = []
 for card in del_cards:
     new_dict["app_state"]["cardchain"]["cardRecords"][card] = {}
 
-# write rarities into cards
-for card in rarities:
-    if card[1] == "C":
-        new_dict["app_state"]["cardchain"]["cardRecords"][int(card[0])]["rarity"] = "common"
-    if card[1] == "U":
-        new_dict["app_state"]["cardchain"]["cardRecords"][int(card[0])]["rarity"] = "uncommon"
-    if card[1] == "R":
-        new_dict["app_state"]["cardchain"]["cardRecords"][int(card[0])]["rarity"] = "rare"
+if new_dict["app_state"]["cardchain"]["cardRecords"]:
+    # write rarities into cards
+    for card in rarities:
+        if card[1] == "C":
+            new_dict["app_state"]["cardchain"]["cardRecords"][int(card[0])]["rarity"] = "common"
+        if card[1] == "U":
+            new_dict["app_state"]["cardchain"]["cardRecords"][int(card[0])]["rarity"] = "uncommon"
+        if card[1] == "R":
+            new_dict["app_state"]["cardchain"]["cardRecords"][int(card[0])]["rarity"] = "rare"
 
-# set starter cards
-for card in starters:
-    new_dict["app_state"]["cardchain"]["cardRecords"][int(card)]["starterCard"] = True
+    # set starter cards
+    for card in starters:
+        new_dict["app_state"]["cardchain"]["cardRecords"][int(card)]["starterCard"] = True
 
 for param in params:
     if param in old_dict["app_state"]["cardchain"]["params"]:

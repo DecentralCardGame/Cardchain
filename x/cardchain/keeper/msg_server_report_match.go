@@ -29,7 +29,10 @@ func (k msgServer) ReportMatch(goCtx context.Context, msg *types.MsgReportMatch)
 		return nil, sdkerrors.Wrap(errors.ErrUnauthorized, "Match already reported")
 	}
 
+	match.PlayerA.PlayedCards = msg.PlayedCardsA
+	match.PlayerB.PlayedCards = msg.PlayedCardsB
 	match.Outcome = msg.Outcome
+	match.ServerConfirmed = true
 	match.Timestamp = uint64(time.Now().Unix())
 
 	err = k.TryHandleMatchOutcome(ctx, match)

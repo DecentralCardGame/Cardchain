@@ -114,13 +114,10 @@ func (k Keeper) distributeCoins(ctx sdk.Context, match *types.Match, outcome typ
 	match.CoinsDistributed = true
 
 	if outcome != types.Outcome_Aborted {
-		for idx, address := range addresses {
+		for _, address := range addresses {
 			user, err := k.GetUser(ctx, address)
 			if err != nil {
 				return sdkerrors.Wrap(types.ErrUserDoesNotExist, err.Error())
-			}
-			for _, cardId := range [][]uint64{match.PlayerA.PlayedCards, match.PlayerB.PlayedCards}[idx] {
-				k.AddVoteRightToUser(ctx, &user, cardId)
 			}
 			k.SetUser(ctx, address, user)
 		}
@@ -179,7 +176,6 @@ func (k Keeper) HandleMatchOutcome(ctx sdk.Context, match *types.Match) error {
 		return err
 	}
 
-	// TODO: Votes
 	return nil
 }
 
