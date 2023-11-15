@@ -1,0 +1,3 @@
+is_global = true
+build_property.RootNamespace = cardchain
+build_property.ProjectDir = /home/arch/projects/Cardchain/cs/

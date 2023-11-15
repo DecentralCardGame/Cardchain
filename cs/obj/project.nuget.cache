@@ -1,0 +1,25 @@
+{
+  "version": 2,
+  "dgSpecHash": "LIkLwgb+bKXKtxVb1YTNgQsQrlEl0Puk4R2pFXJKBYqbQvfH6pphwnnsXyirzuy/ljI1W9VbQPLMgCkdG3ur9w==",
+  "success": true,
+  "projectFilePath": "/home/arch/projects/Cardchain/cs/DecentralCardGame.Cardchain.csproj",
+  "expectedPackageFiles": [
+    "/home/arch/.nuget/packages/cardanobech32/0.9.1/cardanobech32.0.9.1.nupkg.sha512",
+    "/home/arch/.nuget/packages/cosmcs/0.4.4/cosmcs.0.4.4.nupkg.sha512",
+    "/home/arch/.nuget/packages/cryptography.ecdsa.secp256k1/1.1.3/cryptography.ecdsa.secp256k1.1.1.3.nupkg.sha512",
+    "/home/arch/.nuget/packages/devhawk.ripemd160/3.0.27/devhawk.ripemd160.3.0.27.nupkg.sha512",
+    "/home/arch/.nuget/packages/google.protobuf/3.23.3/google.protobuf.3.23.3.nupkg.sha512",
+    "/home/arch/.nuget/packages/grpc.core/2.46.6/grpc.core.2.46.6.nupkg.sha512",
+    "/home/arch/.nuget/packages/grpc.core.api/2.55.0/grpc.core.api.2.55.0.nupkg.sha512",
+    "/home/arch/.nuget/packages/grpc.net.client/2.55.0/grpc.net.client.2.55.0.nupkg.sha512",
+    "/home/arch/.nuget/packages/grpc.net.client.web/2.59.0/grpc.net.client.web.2.59.0.nupkg.sha512",
+    "/home/arch/.nuget/packages/grpc.net.common/2.55.0/grpc.net.common.2.55.0.nupkg.sha512",
+    "/home/arch/.nuget/packages/microsoft.extensions.logging.abstractions/3.0.3/microsoft.extensions.logging.abstractions.3.0.3.nupkg.sha512",
+    "/home/arch/.nuget/packages/system.buffers/4.4.0/system.buffers.4.4.0.nupkg.sha512",
+    "/home/arch/.nuget/packages/system.diagnostics.diagnosticsource/4.5.1/system.diagnostics.diagnosticsource.4.5.1.nupkg.sha512",
+    "/home/arch/.nuget/packages/system.memory/4.5.3/system.memory.4.5.3.nupkg.sha512",
+    "/home/arch/.nuget/packages/system.numerics.vectors/4.4.0/system.numerics.vectors.4.4.0.nupkg.sha512",
+    "/home/arch/.nuget/packages/system.runtime.compilerservices.unsafe/4.5.2/system.runtime.compilerservices.unsafe.4.5.2.nupkg.sha512"
+  ],
+  "logs": []
+}

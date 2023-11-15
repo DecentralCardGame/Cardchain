@@ -1,0 +1,10 @@
+/home/arch/projects/Cardchain/cs/obj/Debug/netstandard2.1/cardchain.csproj.AssemblyReference.cache
+/home/arch/projects/Cardchain/cs/obj/Debug/netstandard2.1/cardchain.GeneratedMSBuildEditorConfig.editorconfig
+/home/arch/projects/Cardchain/cs/obj/Debug/netstandard2.1/cardchain.AssemblyInfoInputs.cache
+/home/arch/projects/Cardchain/cs/obj/Debug/netstandard2.1/cardchain.AssemblyInfo.cs
+/home/arch/projects/Cardchain/cs/obj/Debug/netstandard2.1/cardchain.csproj.CoreCompileInputs.cache
+/home/arch/projects/Cardchain/cs/bin/Debug/netstandard2.1/cardchain.deps.json
+/home/arch/projects/Cardchain/cs/bin/Debug/netstandard2.1/cardchain.dll
+/home/arch/projects/Cardchain/cs/bin/Debug/netstandard2.1/cardchain.pdb
+/home/arch/projects/Cardchain/cs/obj/Debug/netstandard2.1/cardchain.dll
+/home/arch/projects/Cardchain/cs/obj/Debug/netstandard2.1/cardchain.pdb
