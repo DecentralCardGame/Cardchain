@@ -173,7 +173,7 @@ func (k Keeper) HandleMatchOutcome(ctx sdk.Context, match *types.Match) error {
 
 	err = k.voteMatchCards(ctx, match)
 	if err != nil {
-		return err
+		k.Logger(ctx).Error(":: Error while voting, skipping, " + err.Error())
 	}
 
 	return nil
@@ -217,14 +217,17 @@ func (k Keeper) voteMatchCards(ctx sdk.Context, match *types.Match) error {
 
 func (k Keeper) MatchWorker(ctx sdk.Context) {
 	now := uint64(time.Now().Unix())
+	matchWorkerDelay := k.GetParams(ctx).MatchWorkerDelay
 	if ctx.BlockHeight()%20 == 0 {
 		matchIter := k.Matches.GetItemIterator(ctx)
 		for ; matchIter.Valid(); matchIter.Next() {
 			id, match := matchIter.Value()
-			if !match.CoinsDistributed && match.Timestamp != 0 && match.Timestamp+k.GetParams(ctx).MatchWorkerDelay < now {
+			if !match.CoinsDistributed && match.Timestamp != 0 && match.Timestamp+matchWorkerDelay < now {
 				err := k.HandleMatchOutcome(ctx, match)
 				if err != nil {
 					k.Logger(ctx).Error(fmt.Sprintf(":: Error with matchWorker: %s", err))
+					match.Outcome = types.Outcome_Aborted
+					match.CoinsDistributed = true
 				}
 				k.Matches.Set(ctx, id, match)
 			}
