@@ -17,8 +17,8 @@ func (k Keeper) QSets(goCtx context.Context, req *types.QueryQSetsRequest) (*typ
 
 	var (
 		setIds        []uint64
-		allUsersInSet bool = true
-		allCardsInSet bool = true
+		allUsersInSet bool
+		allCardsInSet bool
 	)
 
 	ctx := sdk.UnwrapSDKContext(goCtx)
@@ -26,6 +26,9 @@ func (k Keeper) QSets(goCtx context.Context, req *types.QueryQSetsRequest) (*typ
 	iter := k.Sets.GetItemIterator(ctx)
 	for ; iter.Valid(); iter.Next() {
 		idx, set := iter.Value()
+
+		allUsersInSet = true
+		allCardsInSet = true
 
 		// Checks for status
 		if !req.IgnoreStatus {

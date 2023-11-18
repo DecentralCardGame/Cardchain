@@ -66,7 +66,8 @@ func (k Keeper) TryEvaluate(ctx sdk.Context, council *types.Council) error {
 			if err != nil {
 				return err
 			}
-			user.CouncilStatus = types.CouncilStatus_available
+			user.CouncilParticipation.Status = types.CouncilStatus_available
+			user.CouncilParticipation.Council = 0
 			user.Cards = append(user.Cards, council.CardId)
 			k.SetUserFromUser(ctx, user)
 		}
@@ -137,6 +138,50 @@ func (k Keeper) CheckTrial(ctx sdk.Context) error {
 				k.Cards.Set(ctx, council.CardId, card)
 			}
 		}
+	}
+	return nil
+}
+
+func commitCouncilResponse(council *types.Council, user User, hash string, suggestion string) {
+	resp := types.WrapHashResponse{
+		User: user.Addr.String(),
+		Hash: hash,
+		}
+		council.HashResponses = append(council.HashResponses, &resp)
+		if suggestion != "" { // Direcly reveal when a suggestion is made
+			clearResp := types.WrapClearResponse{
+				User:       user.Addr.String(),
+				Response:   types.Response_Suggestion,
+				Suggestion: suggestion,
+				}
+				council.ClearResponses = append(council.ClearResponses, &clearResp)
+		}
+
+		if len(council.HashResponses) == 5 {
+			council.Status = types.CouncelingStatus_commited
+		}
+}
+
+func revealCouncilResponse(council *types.Council, user User, response types.Response, secret string) error {
+	hashStringResponse := GetResponseHash(response, secret)
+	var originalHash string
+
+	for _, hash := range council.HashResponses {
+		if hash.User == user.Addr.String() {
+			originalHash = hash.Hash
+			break
+		}
+	}
+
+	if originalHash != hashStringResponse {
+		return types.ErrBadReveal
+	}
+
+	resp := types.WrapClearResponse{User: user.Addr.String(), Response: response}
+	council.ClearResponses = append(council.ClearResponses, &resp)
+
+	if len(council.ClearResponses) == 5 {
+		council.Status = types.CouncelingStatus_revealed
 	}
 	return nil
 }

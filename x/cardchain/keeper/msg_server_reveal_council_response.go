@@ -38,25 +38,9 @@ func (k msgServer) RevealCouncilResponse(goCtx context.Context, msg *types.MsgRe
 		return nil, sdkerrors.Wrap(errors.ErrUnauthorized, "Already voted")
 	}
 
-	hashStringResponse := GetResponseHash(msg.Response, msg.Secret)
-	var originalHash string
-
-	for _, hash := range council.HashResponses {
-		if hash.User == msg.Creator {
-			originalHash = hash.Hash
-			break
-		}
-	}
-
-	if originalHash != hashStringResponse {
-		return nil, types.ErrBadReveal
-	}
-
-	resp := types.WrapClearResponse{User: msg.Creator, Response: msg.Response}
-	council.ClearResponses = append(council.ClearResponses, &resp)
-
-	if len(council.ClearResponses) == 5 {
-		council.Status = types.CouncelingStatus_revealed
+	err = revealCouncilResponse(council, creator, msg.Response, msg.Secret)
+	if err != nil {
+		return nil, err
 	}
 
 	err = k.BurnCoinsFromAddr(ctx, creator.Addr, sdk.Coins{collateralDeposit})

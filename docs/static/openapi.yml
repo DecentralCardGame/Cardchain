@@ -32948,6 +32948,10 @@ paths:
                   uniqueDropRatio:
                     type: string
                     format: uint64
+                  councilVotingTimeLimit:
+                    type: string
+                    format: uint64
+                    title: seconds till the council ends
             description: >-
               QueryParamsResponse is response type for the Query/Params RPC
               method.
@@ -33005,6 +33009,7 @@ paths:
                   - bannedSoon
                   - bannedVerySoon
                   - none
+                  - inCouncil
                 default: scheme
               votePool:
                 type: string
@@ -33289,13 +33294,14 @@ paths:
               status:
                 type: string
                 enum:
+                  - councilDoesNotExist
                   - councilOpen
                   - councilCreated
                   - councilClosed
                   - commited
                   - revealed
                   - suggestionsMade
-                default: councilOpen
+                default: councilDoesNotExist
               trialStart:
                 type: string
                 format: uint64
@@ -33323,6 +33329,131 @@ paths:
           required: true
           type: string
           format: uint64
+      tags:
+        - Query
+  /DecentralCardGame/Cardchain/cardchain/q_councils/{status}:
+    get:
+      summary: Queries a list of QCouncils items.
+      operationId: DecentralCardGameCardchainCardchainQCouncils
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              councilssIds:
+                type: array
+                items:
+                  type: string
+                  format: uint64
+              councils:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    cardId:
+                      type: string
+                      format: uint64
+                    voters:
+                      type: array
+                      items:
+                        type: string
+                    hashResponses:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          user:
+                            type: string
+                          hash:
+                            type: string
+                    clearResponses:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          user:
+                            type: string
+                          response:
+                            type: string
+                            enum:
+                              - 'Yes'
+                              - 'No'
+                              - Suggestion
+                            default: 'Yes'
+                          suggestion:
+                            type: string
+                    treasury:
+                      type: string
+                    status:
+                      type: string
+                      enum:
+                        - councilDoesNotExist
+                        - councilOpen
+                        - councilCreated
+                        - councilClosed
+                        - commited
+                        - revealed
+                        - suggestionsMade
+                      default: councilDoesNotExist
+                    trialStart:
+                      type: string
+                      format: uint64
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: status
+          in: path
+          required: true
+          type: string
+          enum:
+            - councilDoesNotExist
+            - councilOpen
+            - councilCreated
+            - councilClosed
+            - commited
+            - revealed
+            - suggestionsMade
+        - name: voters
+          in: query
+          required: false
+          type: array
+          items:
+            type: string
+          collectionFormat: multi
+        - name: card
+          in: query
+          required: false
+          type: string
+          format: uint64
+        - name: creator
+          in: query
+          required: false
+          type: string
+        - name: ignore.status
+          in: query
+          required: false
+          type: boolean
+        - name: ignore.card
+          in: query
+          required: false
+          type: boolean
       tags:
         - Query
   /DecentralCardGame/Cardchain/cardchain/q_match/{matchId}:
@@ -33994,14 +34125,20 @@ paths:
                 items:
                   type: string
                   format: uint64
-              CouncilStatus:
-                type: string
-                enum:
-                  - available
-                  - unavailable
-                  - openCouncil
-                  - startedCouncil
-                default: available
+              councilParticipation:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    enum:
+                      - available
+                      - unavailable
+                      - openCouncil
+                      - startedCouncil
+                    default: available
+                  council:
+                    type: string
+                    format: uint64
               ReportMatches:
                 type: boolean
               profileCard:
@@ -68635,13 +68772,14 @@ definitions:
   DecentralCardGame.cardchain.cardchain.CouncelingStatus:
     type: string
     enum:
+      - councilDoesNotExist
       - councilOpen
       - councilCreated
       - councilClosed
       - commited
       - revealed
       - suggestionsMade
-    default: councilOpen
+    default: councilDoesNotExist
   DecentralCardGame.cardchain.cardchain.Council:
     type: object
     properties:
@@ -68682,14 +68820,29 @@ definitions:
       status:
         type: string
         enum:
+          - councilDoesNotExist
           - councilOpen
           - councilCreated
           - councilClosed
           - commited
           - revealed
           - suggestionsMade
-        default: councilOpen
+        default: councilDoesNotExist
       trialStart:
+        type: string
+        format: uint64
+  DecentralCardGame.cardchain.cardchain.CouncilParticipation:
+    type: object
+    properties:
+      status:
+        type: string
+        enum:
+          - available
+          - unavailable
+          - openCouncil
+          - startedCouncil
+        default: available
+      council:
         type: string
         format: uint64
   DecentralCardGame.cardchain.cardchain.CouncilStatus:
@@ -68700,6 +68853,13 @@ definitions:
       - openCouncil
       - startedCouncil
     default: available
+  DecentralCardGame.cardchain.cardchain.IgnoreCouncils:
+    type: object
+    properties:
+      status:
+        type: boolean
+      card:
+        type: boolean
   DecentralCardGame.cardchain.cardchain.IgnoreMatches:
     type: object
     properties:
@@ -68997,6 +69157,7 @@ definitions:
           - bannedSoon
           - bannedVerySoon
           - none
+          - inCouncil
         default: scheme
       votePool:
         type: string
@@ -69135,6 +69296,10 @@ definitions:
       uniqueDropRatio:
         type: string
         format: uint64
+      councilVotingTimeLimit:
+        type: string
+        format: uint64
+        title: seconds till the council ends
     description: Params defines the parameters for the module.
   DecentralCardGame.cardchain.cardchain.QueryParamsResponse:
     type: object
@@ -69208,6 +69373,10 @@ definitions:
           uniqueDropRatio:
             type: string
             format: uint64
+          councilVotingTimeLimit:
+            type: string
+            format: uint64
+            title: seconds till the council ends
     description: QueryParamsResponse is response type for the Query/Params RPC method.
   DecentralCardGame.cardchain.cardchain.QueryQCardContentResponse:
     type: object
@@ -69264,6 +69433,67 @@ definitions:
         items:
           type: string
           format: uint64
+  DecentralCardGame.cardchain.cardchain.QueryQCouncilsResponse:
+    type: object
+    properties:
+      councilssIds:
+        type: array
+        items:
+          type: string
+          format: uint64
+      councils:
+        type: array
+        items:
+          type: object
+          properties:
+            cardId:
+              type: string
+              format: uint64
+            voters:
+              type: array
+              items:
+                type: string
+            hashResponses:
+              type: array
+              items:
+                type: object
+                properties:
+                  user:
+                    type: string
+                  hash:
+                    type: string
+            clearResponses:
+              type: array
+              items:
+                type: object
+                properties:
+                  user:
+                    type: string
+                  response:
+                    type: string
+                    enum:
+                      - 'Yes'
+                      - 'No'
+                      - Suggestion
+                    default: 'Yes'
+                  suggestion:
+                    type: string
+            treasury:
+              type: string
+            status:
+              type: string
+              enum:
+                - councilDoesNotExist
+                - councilOpen
+                - councilCreated
+                - councilClosed
+                - commited
+                - revealed
+                - suggestionsMade
+              default: councilDoesNotExist
+            trialStart:
+              type: string
+              format: uint64
   DecentralCardGame.cardchain.cardchain.QueryQMatchesResponse:
     type: object
     properties:
@@ -69541,6 +69771,7 @@ definitions:
       - bannedSoon
       - bannedVerySoon
       - none
+      - inCouncil
     default: scheme
   DecentralCardGame.cardchain.cardchain.User:
     type: object
@@ -69562,14 +69793,20 @@ definitions:
         items:
           type: string
           format: uint64
-      CouncilStatus:
-        type: string
-        enum:
-          - available
-          - unavailable
-          - openCouncil
-          - startedCouncil
-        default: available
+      councilParticipation:
+        type: object
+        properties:
+          status:
+            type: string
+            enum:
+              - available
+              - unavailable
+              - openCouncil
+              - startedCouncil
+            default: available
+          council:
+            type: string
+            format: uint64
       ReportMatches:
         type: boolean
       profileCard:

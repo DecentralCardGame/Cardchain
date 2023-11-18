@@ -33,10 +33,11 @@ enum Response {
 }
 
 enum CouncelingStatus {
-  councilOpen = 0;
-  councilCreated = 1;
-  councilClosed = 2;
-  commited = 3;
-  revealed = 4;
-  suggestionsMade = 5;
+  councilDoesNotExist = 0;
+  councilOpen = 1;
+  councilCreated = 2;
+  councilClosed = 3;
+  commited = 4;
+  revealed = 5;
+  suggestionsMade = 6;
 }

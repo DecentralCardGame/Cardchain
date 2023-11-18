@@ -52,7 +52,7 @@ service Msg {
   rpc SetSetArtist             (MsgSetSetArtist            ) returns (MsgSetSetArtistResponse            );
   rpc SetUserWebsite                  (MsgSetUserWebsite                 ) returns (MsgSetUserWebsiteResponse                 );
   rpc SetUserBiography                (MsgSetUserBiography               ) returns (MsgSetUserBiographyResponse               );
-  
+
   // this line is used by starport scaffolding # proto/tx/rpc
   rpc MultiVoteCard     (MsgMultiVoteCard    ) returns (MsgMultiVoteCardResponse    );
   rpc OpenMatch      (MsgOpenMatch     ) returns (MsgOpenMatchResponse     );
@@ -94,7 +94,6 @@ message MsgSaveCardContent {
   string creator = 1;
   uint64 cardId  = 2;
   bytes  content = 3;
-  
   //  bytes image = 4;
   //  string fullArt = 5;
   string notes         = 4;

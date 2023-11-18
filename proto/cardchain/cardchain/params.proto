@@ -32,4 +32,5 @@ message Params {
   uint64 rareDropRatio = 22;
   uint64 exceptionalDropRatio = 23;
   uint64 uniqueDropRatio = 24;
+  uint64 councilVotingTimeLimit = 25; // seconds till the council ends
 }

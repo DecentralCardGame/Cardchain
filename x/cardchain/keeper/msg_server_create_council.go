@@ -3,6 +3,7 @@ package keeper
 import (
 	"context"
 	"math/rand"
+	"slices"
 
 	sdkerrors "cosmossdk.io/errors"
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
@@ -19,10 +20,9 @@ func (k msgServer) CreateCouncil(goCtx context.Context, msg *types.MsgCreateCoun
 	}
 
 	card := k.Cards.Get(ctx, msg.CardId)
-	//if card.Status != types.Status_prototype {
-	//	return nil, sdkerrors.Wrapf(types.ErrInvalidCardStatus, "%s", card.Status.String())
-	//} else
-	if card.Owner != msg.Creator {
+	if card.Status != types.Status_prototype {
+		return nil, sdkerrors.Wrapf(types.ErrInvalidCardStatus, "%s", card.Status.String())
+	} else if card.Owner != msg.Creator {
 		return nil, sdkerrors.Wrap(errors.ErrUnauthorized, "Incorrect Creator")
 	}
 
@@ -36,7 +36,7 @@ func (k msgServer) CreateCouncil(goCtx context.Context, msg *types.MsgCreateCoun
 	users, addresses := k.GetAllUsers(ctx)
 
 	for idx, user := range users {
-		if user.CouncilStatus == types.CouncilStatus_available {
+		if user.CouncilParticipation.Status == types.CouncilStatus_available && !slices.Contains(user.OwnedPrototypes, msg.CardId) {
 			possibleVoters = append(possibleVoters, User{*user, addresses[idx]})
 		}
 	}
@@ -59,10 +59,11 @@ func (k msgServer) CreateCouncil(goCtx context.Context, msg *types.MsgCreateCoun
 	}
 
 	for _, user := range fiveVoters {
+		user.CouncilParticipation.Council = councilId
 		if status == types.CouncelingStatus_councilOpen {
-			user.CouncilStatus = types.CouncilStatus_openCouncil
+			user.CouncilParticipation.Status = types.CouncilStatus_openCouncil
 		} else {
-			user.CouncilStatus = types.CouncilStatus_startedCouncil
+			user.CouncilParticipation.Status = types.CouncilStatus_startedCouncil
 		}
 		k.SetUserFromUser(ctx, user)
 		voters = append(voters, user.Addr.String())
@@ -76,6 +77,9 @@ func (k msgServer) CreateCouncil(goCtx context.Context, msg *types.MsgCreateCoun
 	}
 
 	k.Councils.Set(ctx, councilId, &council)
+
+	card.Status = types.Status_inCouncil
+	k.Cards.Set(ctx, msg.CardId, card)
 
 	return &types.MsgCreateCouncilResponse{}, nil
 }

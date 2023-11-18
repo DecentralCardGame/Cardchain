@@ -100,6 +100,11 @@ option (google.api.http).get =
 		option (google.api.http).get = "/DecentralCardGame/Cardchain/cardchain/rarity_distribution/{setId}";
 	}
 
+// Queries a list of QCouncils items.
+	rpc QCouncils(QueryQCouncilsRequest) returns (QueryQCouncilsResponse) {
+		option (google.api.http).get = "/DecentralCardGame/Cardchain/cardchain/q_councils/{status}";
+	}
+
 // this line is used by starport scaffolding # 2
 }
 
@@ -271,6 +276,24 @@ message QueryRarityDistributionRequest {
 message QueryRarityDistributionResponse {
    repeated uint32 current = 1;
    repeated uint32 wanted = 2;
+}
+
+message QueryQCouncilsRequest {
+	CouncelingStatus status = 1;
+   	repeated string voters = 3;
+   	uint64 card = 4;
+   	string creator = 5;
+	IgnoreCouncils ignore = 2;
+}
+
+message IgnoreCouncils {
+  bool status = 1;
+  bool card = 2;
+}
+
+message QueryQCouncilsResponse {
+	repeated uint64 councilssIds = 1;
+	repeated Council councils = 2;
 }
 
 // this line is used by starport scaffolding # 3

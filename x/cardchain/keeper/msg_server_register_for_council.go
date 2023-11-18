@@ -2,6 +2,7 @@ package keeper
 
 import (
 	"context"
+	"slices"
 
 	sdkerrors "cosmossdk.io/errors"
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
@@ -16,15 +17,19 @@ func (k msgServer) RegisterForCouncil(goCtx context.Context, msg *types.MsgRegis
 		return nil, sdkerrors.Wrap(types.ErrUserDoesNotExist, err.Error())
 	}
 
-	if user.CouncilStatus != types.CouncilStatus_unavailable {
-		return nil, sdkerrors.Wrapf(types.ErrInvalidUserStatus, "%s", user.CouncilStatus.String())
+	if user.CouncilParticipation.Status != types.CouncilStatus_unavailable {
+		return nil, sdkerrors.Wrapf(types.ErrInvalidUserStatus, "%s", user.CouncilParticipation.Status.String())
 	}
 
 	iter := k.Councils.GetItemIterator(ctx)
 	for ; iter.Valid(); iter.Next() {
 		idx, council := iter.Value()
 		if council.Status == types.CouncelingStatus_councilOpen {
-			council.Voters = append(council.Voters, msg.Creator)
+			if !slices.Contains(user.OwnedPrototypes, council.CardId) {
+				council.Voters = append(council.Voters, msg.Creator)
+			} else {
+				continue
+			}
 			if len(council.Voters) == 5 {
 				council.Status = types.CouncelingStatus_councilCreated
 			}
@@ -33,10 +38,11 @@ func (k msgServer) RegisterForCouncil(goCtx context.Context, msg *types.MsgRegis
 				if err != nil {
 					return nil, sdkerrors.Wrap(types.ErrUserDoesNotExist, err.Error())
 				}
+				usr.CouncilParticipation.Council = idx
 				if len(council.Voters) == 5 {
-					usr.CouncilStatus = types.CouncilStatus_startedCouncil
+					usr.CouncilParticipation.Status = types.CouncilStatus_startedCouncil
 				} else {
-					usr.CouncilStatus = types.CouncilStatus_openCouncil
+					usr.CouncilParticipation.Status = types.CouncilStatus_openCouncil
 				}
 				k.SetUserFromUser(ctx, usr)
 			}
@@ -49,8 +55,8 @@ func (k msgServer) RegisterForCouncil(goCtx context.Context, msg *types.MsgRegis
 	if err != nil {
 		return nil, sdkerrors.Wrap(types.ErrUserDoesNotExist, err.Error())
 	}
-	if user.CouncilStatus == types.CouncilStatus_unavailable {
-		user.CouncilStatus = types.CouncilStatus_available
+	if user.CouncilParticipation.Status == types.CouncilStatus_unavailable {
+		user.CouncilParticipation.Status = types.CouncilStatus_available
 	}
 	k.SetUserFromUser(ctx, user)
 

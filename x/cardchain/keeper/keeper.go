@@ -3,17 +3,17 @@ package keeper
 import (
 	"encoding/json"
 	"fmt"
-	ffKeeper "github.com/DecentralCardGame/Cardchain/x/featureflag/keeper"
-	"github.com/cosmos/cosmos-sdk/types/errors"
 	"sort"
 
 	gtk "github.com/DecentralCardGame/Cardchain/types/generic_type_keeper"
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
+	ffKeeper "github.com/DecentralCardGame/Cardchain/x/featureflag/keeper"
 	"github.com/DecentralCardGame/cardobject/cardobject"
 	"github.com/DecentralCardGame/cardobject/keywords"
 	"github.com/cosmos/cosmos-sdk/codec"
 	storetypes "github.com/cosmos/cosmos-sdk/store/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	"github.com/cosmos/cosmos-sdk/types/errors"
 	paramtypes "github.com/cosmos/cosmos-sdk/x/params/types"
 	"github.com/tendermint/tendermint/libs/log"
 )
@@ -80,7 +80,7 @@ func NewKeeper(
 		Servers:         gtk.NewGTK[*types.Server](serversStoreKey, internalStoreKey, cdc, gtk.GetEmpty[types.Server]),
 
 		FeatureFlagModuleInstance: featureFlagKeeper.GetModuleInstance(types.ModuleName, []string{string(types.FeatureFlagName_Council), string(types.FeatureFlagName_Matches)}),
-		BankKeeper: bankKeeper,
+		BankKeeper:                bankKeeper,
 	}
 }
 
