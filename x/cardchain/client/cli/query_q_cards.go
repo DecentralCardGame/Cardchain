@@ -14,12 +14,13 @@ var _ = strconv.Itoa(0)
 
 func CmdQCards() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "q-cards [owner] [status] [card-type] [classes] [sort-by] [name-contains] [keywords-contains] [notes-contains] [startercards-only]",
+		Use:   "q-cards [owner] [status] [card-type] [classes] [sort-by] [name-contains] [keywords-contains] [notes-contains] [startercards-only] [balance-achors-only]",
 		Short: "Query qCards",
-		Args:  cobra.ExactArgs(9),
+		Args:  cobra.ExactArgs(10),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
 			reqOwner := args[0]
-			var reqOnlyStarterCard bool
+			var reqOnlyStarterCards bool
+			var reqOnlyBalanceAnchors bool
 			var reqStatus types.QueryQCardsRequest_Status
 			if args[1] == "" {
 				reqStatus = types.QueryQCardsRequest_none
@@ -33,13 +34,22 @@ func CmdQCards() *cobra.Command {
 			reqKeywordsContains := args[6]
 			reqNotesContains := args[7]
 
-			switch args[8]{
+			switch args[8] {
 			case "yes":
-				reqOnlyStarterCard = true
+				reqOnlyStarterCards = true
 			case "no":
-				reqOnlyStarterCard = false
+				reqOnlyStarterCards = false
 			default:
 				return fmt.Errorf("arg 'only-startercard' has to be either yes or no but not %s", args[8])
+			}
+
+			switch args[9] {
+			case "yes":
+				reqOnlyBalanceAnchors = true
+			case "no":
+				reqOnlyBalanceAnchors = false
+			default:
+				return fmt.Errorf("arg 'balance-achors-only' has to be either yes or no but not %s", args[8])
 			}
 
 			clientCtx, err := client.GetClientTxContext(cmd)
@@ -51,15 +61,16 @@ func CmdQCards() *cobra.Command {
 
 			params := &types.QueryQCardsRequest{
 
-				Owner:            reqOwner,
-				Status:           reqStatus,
-				CardType:         reqCardType,
-				Classes:          reqClasses,
-				SortBy:           reqSortBy,
-				NameContains:     reqNameContains,
-				KeywordsContains: reqKeywordsContains,
-				NotesContains:    reqNotesContains,
-				OnlyStarterCard:  reqOnlyStarterCard,
+				Owner:              reqOwner,
+				Status:             reqStatus,
+				CardType:           reqCardType,
+				Classes:            reqClasses,
+				SortBy:             reqSortBy,
+				NameContains:       reqNameContains,
+				KeywordsContains:   reqKeywordsContains,
+				NotesContains:      reqNotesContains,
+				OnlyStarterCard:    reqOnlyStarterCards,
+				OnlyBalanceAnchors: reqOnlyBalanceAnchors,
 			}
 
 			res, err := queryClient.QCards(cmd.Context(), params)

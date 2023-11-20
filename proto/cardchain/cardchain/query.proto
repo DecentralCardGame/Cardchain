@@ -172,6 +172,7 @@ message QueryQCardsRequest {
   string keywordsContains = 7;
   string notesContains = 8;
   bool onlyStarterCard = 9;
+  bool onlyBalanceAnchors = 10;
 }
 
 message QueryQCardsResponse {

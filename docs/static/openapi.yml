@@ -33240,6 +33240,10 @@ paths:
           in: query
           required: false
           type: boolean
+        - name: onlyBalanceAnchors
+          in: query
+          required: false
+          type: boolean
       tags:
         - Query
   /DecentralCardGame/Cardchain/cardchain/q_council/{councilId}:
