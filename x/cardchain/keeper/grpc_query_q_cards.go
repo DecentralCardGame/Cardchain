@@ -114,6 +114,11 @@ func (k Keeper) QCards(goCtx context.Context, req *types.QueryQCardsRequest) (*t
 			continue
 		}
 
+		// filter for balance anchors
+		if req.OnlyBalanceAnchors && !gottenCard.BalanceAnchor {
+			continue
+		}
+
 		// first skip all cards with irrelevant status
 		if gottenCard.Status == types.Status_none || gottenCard.Status == types.Status_scheme {
 			continue
