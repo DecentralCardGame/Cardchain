@@ -120,5 +120,10 @@ for idx, addr in enumerate(old_dict["app_state"]["cardchain"]["addresses"]):
             new_dict["app_state"]["bank"]["balances"].append(i)
             break
 
+# Remove deprecated voteRights from users
+for user in new_dict["app_state"]["cardchain"]["users"]:
+    if "voteRights" in user:
+        del user["voteRights"]
+
 with open(file_path_new, "w") as file:
     json.dump(new_dict, file, indent=2)

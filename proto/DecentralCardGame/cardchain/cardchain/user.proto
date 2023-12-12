@@ -2,7 +2,7 @@ syntax = "proto3";
 package DecentralCardGame.cardchain.cardchain;
 
 option go_package = "github.com/DecentralCardGame/Cardchain/x/cardchain/types";
-import "cardchain/cardchain/voting.proto";
+import "DecentralCardGame/cardchain/cardchain/voting.proto";
 
 message User {
 
@@ -10,7 +10,6 @@ message User {
   repeated uint64 ownedCardSchemes = 2;
   repeated uint64 ownedPrototypes = 3;
   repeated uint64 cards = 4;
-  repeated VoteRight voteRights = 5;
   CouncilStatus CouncilStatus = 6;
   bool ReportMatches = 7;
   uint64 profileCard = 8;
@@ -18,6 +17,8 @@ message User {
   repeated BoosterPack boosterPacks = 10;
   string website = 11;
   string biography = 12;
+  repeated uint64 votableCards = 13;
+  repeated uint64 votedCards = 14;
 }
 
 enum CouncilStatus {

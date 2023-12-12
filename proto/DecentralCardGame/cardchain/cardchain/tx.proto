@@ -3,10 +3,10 @@ syntax = "proto3";
 package DecentralCardGame.cardchain.cardchain;
 
 import "gogoproto/gogo.proto";
-import "cardchain/cardchain/council.proto";
-import "cardchain/cardchain/match.proto";
-import "cardchain/cardchain/voting.proto";
-import "cardchain/cardchain/card.proto";
+import "DecentralCardGame/cardchain/cardchain/council.proto";
+import "DecentralCardGame/cardchain/cardchain/match.proto";
+import "DecentralCardGame/cardchain/cardchain/voting.proto";
+import "DecentralCardGame/cardchain/cardchain/card.proto";
 import "cosmos/base/v1beta1/coin.proto";
 
 // this line is used by starport scaffolding # proto/tx/import
@@ -83,7 +83,7 @@ message MsgBuyCardSchemeResponse {
 message MsgVoteCard {
   string creator  = 1;
   uint64 cardId   = 2;
-  string voteType = 3;
+  VoteType voteType = 3;
 }
 
 message MsgVoteCardResponse {

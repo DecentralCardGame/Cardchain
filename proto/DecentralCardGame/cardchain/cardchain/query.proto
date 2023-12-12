@@ -4,16 +4,16 @@ package DecentralCardGame.cardchain.cardchain;
 import "gogoproto/gogo.proto";
 import "google/api/annotations.proto";
 import "cosmos/base/query/v1beta1/pagination.proto";
-import "cardchain/cardchain/params.proto";
-import "cardchain/cardchain/voting.proto";
-import "cardchain/cardchain/card.proto";
-import "cardchain/cardchain/user.proto";
-import "cardchain/cardchain/match.proto";
-import "cardchain/cardchain/set.proto";
-import "cardchain/cardchain/sell_offer.proto";
-import "cardchain/cardchain/council.proto";
-import "cardchain/cardchain/server.proto";
-import "cardchain/cardchain/tx.proto";
+import "DecentralCardGame/cardchain/cardchain/params.proto";
+import "DecentralCardGame/cardchain/cardchain/voting.proto";
+import "DecentralCardGame/cardchain/cardchain/card.proto";
+import "DecentralCardGame/cardchain/cardchain/user.proto";
+import "DecentralCardGame/cardchain/cardchain/match.proto";
+import "DecentralCardGame/cardchain/cardchain/set.proto";
+import "DecentralCardGame/cardchain/cardchain/sell_offer.proto";
+import "DecentralCardGame/cardchain/cardchain/council.proto";
+import "DecentralCardGame/cardchain/cardchain/server.proto";
+import "DecentralCardGame/cardchain/cardchain/tx.proto";
 
 // this line is used by starport scaffolding # 1
 
@@ -48,11 +48,6 @@ service Query {
 // Queries a list of QVotingResults items.
 	rpc QVotingResults(QueryQVotingResultsRequest) returns (QueryQVotingResultsResponse) {
 		option (google.api.http).get = "/DecentralCardGame/Cardchain/cardchain/q_voting_results";
-	}
-
-// Queries a list of QVotableCards items.
-	rpc QVotableCards(QueryQVotableCardsRequest) returns (QueryQVotableCardsResponse) {
-		option (google.api.http).get = "/DecentralCardGame/Cardchain/cardchain/q_votable_cards/{address}";
 	}
 
 // Queries a list of QCards items.
@@ -152,16 +147,6 @@ message QueryQVotingResultsRequest {
 
 message QueryQVotingResultsResponse {
   VotingResults lastVotingResults = 1;
-}
-
-message QueryQVotableCardsRequest {
-  string address = 1;
-}
-
-message QueryQVotableCardsResponse {
-  bool unregistered = 1;
-  bool noVoteRights = 2;
-  repeated VoteRight voteRights = 3;
 }
 
 message QueryQCardsRequest {

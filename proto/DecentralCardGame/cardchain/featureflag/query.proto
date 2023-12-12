@@ -5,8 +5,8 @@ package DecentralCardGame.cardchain.featureflag;
 import "gogoproto/gogo.proto";
 import "google/api/annotations.proto";
 import "cosmos/base/query/v1beta1/pagination.proto";
-import "cardchain/featureflag/params.proto";
-import "cardchain/featureflag/flag.proto";
+import "DecentralCardGame/cardchain/featureflag/params.proto";
+import "DecentralCardGame/cardchain/featureflag/flag.proto";
 
 option go_package = "github.com/DecentralCardGame/Cardchain/x/featureflag/types";
 
