@@ -65,7 +65,7 @@ func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) 
 	k.SetParams(ctx, genState.Params)
 	for id, set := range genState.Sets {
 		if set.Status == types.CStatus_active || set.Status == types.CStatus_finalized {
-			set.ContributorsDistribution = k.GetContributorDistribution(ctx, set)
+			set.ContributorsDistribution = k.GetContributorDistribution(ctx, *set)
 		}
 		k.Sets.Set(ctx, uint64(id), set)
 	}

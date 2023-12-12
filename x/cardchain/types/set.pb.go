@@ -55,16 +55,16 @@ func (CStatus) EnumDescriptor() ([]byte, []int) {
 }
 
 type Set struct {
-	Name                     string                   `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
-	Cards                    []uint64                 `protobuf:"varint,2,rep,packed,name=cards,proto3" json:"cards,omitempty"`
-	Artist                   string                   `protobuf:"bytes,3,opt,name=artist,proto3" json:"artist,omitempty"`
-	StoryWriter              string                   `protobuf:"bytes,4,opt,name=storyWriter,proto3" json:"storyWriter,omitempty"`
-	Contributors             []string                 `protobuf:"bytes,5,rep,name=contributors,proto3" json:"contributors,omitempty"`
-	Story                    string                   `protobuf:"bytes,6,opt,name=story,proto3" json:"story,omitempty"`
-	ArtworkId                uint64                   `protobuf:"varint,7,opt,name=artworkId,proto3" json:"artworkId,omitempty"`
-	Status                   CStatus                  `protobuf:"varint,8,opt,name=status,proto3,enum=DecentralCardGame.cardchain.cardchain.CStatus" json:"status,omitempty"`
-	TimeStamp                int64                    `protobuf:"varint,9,opt,name=timeStamp,proto3" json:"timeStamp,omitempty"`
-	ContributorsDistribution *ContributorDistribution `protobuf:"bytes,10,opt,name=contributorsDistribution,proto3" json:"contributorsDistribution,omitempty"`
+	Name                     string              `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	Cards                    []uint64            `protobuf:"varint,2,rep,packed,name=cards,proto3" json:"cards,omitempty"`
+	Artist                   string              `protobuf:"bytes,3,opt,name=artist,proto3" json:"artist,omitempty"`
+	StoryWriter              string              `protobuf:"bytes,4,opt,name=storyWriter,proto3" json:"storyWriter,omitempty"`
+	Contributors             []string            `protobuf:"bytes,5,rep,name=contributors,proto3" json:"contributors,omitempty"`
+	Story                    string              `protobuf:"bytes,6,opt,name=story,proto3" json:"story,omitempty"`
+	ArtworkId                uint64              `protobuf:"varint,7,opt,name=artworkId,proto3" json:"artworkId,omitempty"`
+	Status                   CStatus             `protobuf:"varint,8,opt,name=status,proto3,enum=DecentralCardGame.cardchain.cardchain.CStatus" json:"status,omitempty"`
+	TimeStamp                int64               `protobuf:"varint,9,opt,name=timeStamp,proto3" json:"timeStamp,omitempty"`
+	ContributorsDistribution []*AddrWithQuantity `protobuf:"bytes,10,rep,name=contributorsDistribution,proto3" json:"contributorsDistribution,omitempty"`
 }
 
 func (m *Set) Reset()         { *m = Set{} }
@@ -163,7 +163,7 @@ func (m *Set) GetTimeStamp() int64 {
 	return 0
 }
 
-func (m *Set) GetContributorsDistribution() *ContributorDistribution {
+func (m *Set) GetContributorsDistribution() []*AddrWithQuantity {
 	if m != nil {
 		return m.ContributorsDistribution
 	}
@@ -171,16 +171,16 @@ func (m *Set) GetContributorsDistribution() *ContributorDistribution {
 }
 
 type OutpSet struct {
-	Name                     string                   `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
-	Cards                    []uint64                 `protobuf:"varint,2,rep,packed,name=cards,proto3" json:"cards,omitempty"`
-	Artist                   string                   `protobuf:"bytes,3,opt,name=artist,proto3" json:"artist,omitempty"`
-	StoryWriter              string                   `protobuf:"bytes,4,opt,name=storyWriter,proto3" json:"storyWriter,omitempty"`
-	Contributors             []string                 `protobuf:"bytes,5,rep,name=contributors,proto3" json:"contributors,omitempty"`
-	Story                    string                   `protobuf:"bytes,6,opt,name=story,proto3" json:"story,omitempty"`
-	Artwork                  string                   `protobuf:"bytes,7,opt,name=artwork,proto3" json:"artwork,omitempty"`
-	Status                   CStatus                  `protobuf:"varint,8,opt,name=status,proto3,enum=DecentralCardGame.cardchain.cardchain.CStatus" json:"status,omitempty"`
-	TimeStamp                int64                    `protobuf:"varint,9,opt,name=timeStamp,proto3" json:"timeStamp,omitempty"`
-	ContributorsDistribution *ContributorDistribution `protobuf:"bytes,10,opt,name=contributorsDistribution,proto3" json:"contributorsDistribution,omitempty"`
+	Name                     string              `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	Cards                    []uint64            `protobuf:"varint,2,rep,packed,name=cards,proto3" json:"cards,omitempty"`
+	Artist                   string              `protobuf:"bytes,3,opt,name=artist,proto3" json:"artist,omitempty"`
+	StoryWriter              string              `protobuf:"bytes,4,opt,name=storyWriter,proto3" json:"storyWriter,omitempty"`
+	Contributors             []string            `protobuf:"bytes,5,rep,name=contributors,proto3" json:"contributors,omitempty"`
+	Story                    string              `protobuf:"bytes,6,opt,name=story,proto3" json:"story,omitempty"`
+	Artwork                  string              `protobuf:"bytes,7,opt,name=artwork,proto3" json:"artwork,omitempty"`
+	Status                   CStatus             `protobuf:"varint,8,opt,name=status,proto3,enum=DecentralCardGame.cardchain.cardchain.CStatus" json:"status,omitempty"`
+	TimeStamp                int64               `protobuf:"varint,9,opt,name=timeStamp,proto3" json:"timeStamp,omitempty"`
+	ContributorsDistribution []*AddrWithQuantity `protobuf:"bytes,10,rep,name=contributorsDistribution,proto3" json:"contributorsDistribution,omitempty"`
 }
 
 func (m *OutpSet) Reset()         { *m = OutpSet{} }
@@ -279,7 +279,7 @@ func (m *OutpSet) GetTimeStamp() int64 {
 	return 0
 }
 
-func (m *OutpSet) GetContributorsDistribution() *ContributorDistribution {
+func (m *OutpSet) GetContributorsDistribution() []*AddrWithQuantity {
 	if m != nil {
 		return m.ContributorsDistribution
 	}
@@ -287,8 +287,9 @@ func (m *OutpSet) GetContributorsDistribution() *ContributorDistribution {
 }
 
 type AddrWithQuantity struct {
-	Addr string `protobuf:"bytes,1,opt,name=addr,proto3" json:"addr,omitempty"`
-	Q    uint32 `protobuf:"varint,2,opt,name=q,proto3" json:"q,omitempty"`
+	Addr    string      `protobuf:"bytes,1,opt,name=addr,proto3" json:"addr,omitempty"`
+	Q       uint32      `protobuf:"varint,2,opt,name=q,proto3" json:"q,omitempty"`
+	Payment *types.Coin `protobuf:"bytes,3,opt,name=payment,proto3" json:"payment,omitempty"`
 }
 
 func (m *AddrWithQuantity) Reset()         { *m = AddrWithQuantity{} }
@@ -338,54 +339,9 @@ func (m *AddrWithQuantity) GetQ() uint32 {
 	return 0
 }
 
-type ContributorDistribution struct {
-	Payment      *types.Coin         `protobuf:"bytes,1,opt,name=payment,proto3" json:"payment,omitempty"`
-	Contributors []*AddrWithQuantity `protobuf:"bytes,2,rep,name=contributors,proto3" json:"contributors,omitempty"`
-}
-
-func (m *ContributorDistribution) Reset()         { *m = ContributorDistribution{} }
-func (m *ContributorDistribution) String() string { return proto.CompactTextString(m) }
-func (*ContributorDistribution) ProtoMessage()    {}
-func (*ContributorDistribution) Descriptor() ([]byte, []int) {
-	return fileDescriptor_4433f04964645edd, []int{3}
-}
-func (m *ContributorDistribution) XXX_Unmarshal(b []byte) error {
-	return m.Unmarshal(b)
-}
-func (m *ContributorDistribution) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	if deterministic {
-		return xxx_messageInfo_ContributorDistribution.Marshal(b, m, deterministic)
-	} else {
-		b = b[:cap(b)]
-		n, err := m.MarshalToSizedBuffer(b)
-		if err != nil {
-			return nil, err
-		}
-		return b[:n], nil
-	}
-}
-func (m *ContributorDistribution) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_ContributorDistribution.Merge(m, src)
-}
-func (m *ContributorDistribution) XXX_Size() int {
-	return m.Size()
-}
-func (m *ContributorDistribution) XXX_DiscardUnknown() {
-	xxx_messageInfo_ContributorDistribution.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_ContributorDistribution proto.InternalMessageInfo
-
-func (m *ContributorDistribution) GetPayment() *types.Coin {
+func (m *AddrWithQuantity) GetPayment() *types.Coin {
 	if m != nil {
 		return m.Payment
-	}
-	return nil
-}
-
-func (m *ContributorDistribution) GetContributors() []*AddrWithQuantity {
-	if m != nil {
-		return m.Contributors
 	}
 	return nil
 }
@@ -395,46 +351,43 @@ func init() {
 	proto.RegisterType((*Set)(nil), "DecentralCardGame.cardchain.cardchain.Set")
 	proto.RegisterType((*OutpSet)(nil), "DecentralCardGame.cardchain.cardchain.OutpSet")
 	proto.RegisterType((*AddrWithQuantity)(nil), "DecentralCardGame.cardchain.cardchain.AddrWithQuantity")
-	proto.RegisterType((*ContributorDistribution)(nil), "DecentralCardGame.cardchain.cardchain.ContributorDistribution")
 }
 
 func init() { proto.RegisterFile("cardchain/cardchain/set.proto", fileDescriptor_4433f04964645edd) }
 
 var fileDescriptor_4433f04964645edd = []byte{
-	// 523 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe4, 0x94, 0xc1, 0x6e, 0xd3, 0x40,
-	0x10, 0x86, 0xb3, 0x75, 0x9a, 0xd4, 0x93, 0x14, 0x45, 0x2b, 0x04, 0x0b, 0x02, 0xcb, 0x8a, 0x84,
-	0x64, 0x71, 0xb0, 0xd5, 0x14, 0x09, 0x4e, 0x95, 0x20, 0x15, 0x88, 0x13, 0x62, 0x73, 0xa8, 0x04,
-	0xa7, 0x8d, 0xbd, 0x34, 0x2b, 0xea, 0xdd, 0x74, 0x77, 0x12, 0x48, 0x9f, 0x82, 0x77, 0xe0, 0xc8,
-	0x8b, 0x70, 0xec, 0x91, 0x23, 0x4a, 0x5e, 0x04, 0xd9, 0x49, 0xea, 0xb4, 0xa8, 0x52, 0x8e, 0x48,
-	0xdc, 0x66, 0x66, 0x67, 0xfe, 0xd9, 0xf5, 0xe7, 0x19, 0x78, 0x9c, 0x0a, 0x9b, 0xa5, 0x23, 0xa1,
-	0x74, 0x52, 0x59, 0x4e, 0x62, 0x3c, 0xb6, 0x06, 0x0d, 0x7d, 0x72, 0x2c, 0x53, 0xa9, 0xd1, 0x8a,
-	0xb3, 0xbe, 0xb0, 0xd9, 0x1b, 0x91, 0xcb, 0xf8, 0x2a, 0xad, 0xb2, 0x1e, 0x06, 0xa9, 0x71, 0xb9,
-	0x71, 0xc9, 0x50, 0x38, 0x99, 0x4c, 0x0f, 0x86, 0x12, 0xc5, 0x41, 0x92, 0x1a, 0xa5, 0x97, 0x32,
-	0xdd, 0xef, 0x1e, 0x78, 0x03, 0x89, 0x94, 0x42, 0x5d, 0x8b, 0x5c, 0x32, 0x12, 0x92, 0xc8, 0xe7,
-	0xa5, 0x4d, 0xef, 0xc2, 0x6e, 0x21, 0xe4, 0xd8, 0x4e, 0xe8, 0x45, 0x75, 0xbe, 0x74, 0xe8, 0x3d,
-	0x68, 0x08, 0x8b, 0xca, 0x21, 0xf3, 0xca, 0xdc, 0x95, 0x47, 0x43, 0x68, 0x39, 0x34, 0x76, 0x76,
-	0x62, 0x15, 0x4a, 0xcb, 0xea, 0xe5, 0xe1, 0x66, 0x88, 0x76, 0xa1, 0x9d, 0x1a, 0x8d, 0x56, 0x0d,
-	0x27, 0x68, 0xac, 0x63, 0xbb, 0xa1, 0x17, 0xf9, 0xfc, 0x5a, 0xac, 0xe8, 0x59, 0x96, 0xb0, 0x46,
-	0x59, 0xbf, 0x74, 0xe8, 0x23, 0xf0, 0x85, 0xc5, 0x2f, 0xc6, 0x7e, 0x7e, 0x9b, 0xb1, 0x66, 0x48,
-	0xa2, 0x3a, 0xaf, 0x02, 0xf4, 0x35, 0x34, 0x1c, 0x0a, 0x9c, 0x38, 0xb6, 0x17, 0x92, 0xe8, 0x4e,
-	0x2f, 0x8e, 0xb7, 0xfa, 0x36, 0x71, 0x7f, 0x50, 0x56, 0xf1, 0x55, 0x75, 0xd1, 0x05, 0x55, 0x2e,
-	0x07, 0x28, 0xf2, 0x31, 0xf3, 0x43, 0x12, 0x79, 0xbc, 0x0a, 0xd0, 0x0b, 0x60, 0x9b, 0x37, 0x3d,
-	0x56, 0x6e, 0x69, 0x2b, 0xa3, 0x19, 0x84, 0x24, 0x6a, 0xf5, 0x8e, 0xb6, 0xed, 0x5b, 0xc9, 0x6c,
-	0xaa, 0xf0, 0x5b, 0xf5, 0x0b, 0x4a, 0xcd, 0x77, 0x13, 0x1c, 0xff, 0xfb, 0xa4, 0x18, 0x34, 0x57,
-	0x60, 0x4a, 0x4e, 0x3e, 0x5f, 0xbb, 0xff, 0x01, 0xa5, 0x67, 0xd0, 0x79, 0x99, 0x65, 0xf6, 0x44,
-	0xe1, 0xe8, 0xfd, 0x44, 0x68, 0x54, 0x38, 0x2b, 0x68, 0x89, 0x2c, 0xb3, 0x6b, 0x5a, 0x85, 0x4d,
-	0xdb, 0x40, 0xce, 0xd9, 0x4e, 0x48, 0xa2, 0x7d, 0x4e, 0xce, 0xbb, 0x3f, 0x08, 0xdc, 0xbf, 0xa5,
-	0x17, 0x3d, 0x84, 0xe6, 0x58, 0xcc, 0x72, 0xa9, 0xb1, 0x14, 0x68, 0xf5, 0x1e, 0xc4, 0xcb, 0x79,
-	0x8e, 0x8b, 0x79, 0x8e, 0x57, 0xf3, 0x1c, 0xf7, 0x8d, 0xd2, 0x7c, 0x9d, 0x49, 0x3f, 0xde, 0x80,
-	0x57, 0xfc, 0x13, 0xad, 0xde, 0xf3, 0x2d, 0x9f, 0x7d, 0xf3, 0x05, 0xd7, 0xa9, 0x3f, 0x3d, 0x82,
-	0xe6, 0x0a, 0x08, 0x05, 0x68, 0x64, 0xd2, 0xa9, 0x53, 0xdd, 0xa9, 0xd1, 0x7d, 0xf0, 0x3f, 0x29,
-	0x2d, 0xce, 0xd4, 0x85, 0xcc, 0x3a, 0xa4, 0x38, 0x12, 0x29, 0xaa, 0xa9, 0xec, 0xec, 0xd0, 0x36,
-	0xec, 0x09, 0x9b, 0x8e, 0xd4, 0x54, 0x66, 0x1d, 0xef, 0x15, 0xff, 0x39, 0x0f, 0xc8, 0xe5, 0x3c,
-	0x20, 0xbf, 0xe7, 0x01, 0xf9, 0xb6, 0x08, 0x6a, 0x97, 0x8b, 0xa0, 0xf6, 0x6b, 0x11, 0xd4, 0x3e,
-	0xbc, 0x38, 0x55, 0x38, 0x9a, 0x0c, 0xe3, 0xd4, 0xe4, 0xc9, 0x5f, 0x57, 0x4d, 0xfa, 0x57, 0x2b,
-	0xf0, 0xeb, 0xc6, 0x3a, 0xc4, 0xd9, 0x58, 0xba, 0x61, 0xa3, 0x5c, 0x65, 0x87, 0x7f, 0x02, 0x00,
-	0x00, 0xff, 0xff, 0x19, 0x63, 0x14, 0x48, 0x32, 0x05, 0x00, 0x00,
+	// 494 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xdc, 0x94, 0xcf, 0x8a, 0x13, 0x4f,
+	0x10, 0xc7, 0xd3, 0x99, 0x6c, 0xb2, 0x53, 0xc9, 0xfe, 0x08, 0xcd, 0x0f, 0x69, 0x45, 0x87, 0x61,
+	0x41, 0x18, 0x3c, 0xcc, 0xb0, 0xd9, 0x83, 0x9e, 0x04, 0xcd, 0xa2, 0x78, 0x12, 0x3b, 0x87, 0x05,
+	0x6f, 0x9d, 0xe9, 0x76, 0xd3, 0xb8, 0xd3, 0x9d, 0xed, 0xae, 0x44, 0xe3, 0x53, 0xf8, 0x00, 0x3e,
+	0x90, 0xc7, 0x3d, 0x7a, 0x94, 0xe4, 0x45, 0x64, 0xfe, 0x64, 0x13, 0x15, 0x61, 0x8f, 0xe2, 0xed,
+	0x5b, 0xd5, 0xf5, 0xa7, 0xa9, 0x0f, 0x55, 0xf0, 0x20, 0x17, 0x4e, 0xe6, 0x33, 0xa1, 0x4d, 0xb6,
+	0x53, 0x5e, 0x61, 0x3a, 0x77, 0x16, 0x2d, 0x7d, 0x78, 0xa6, 0x72, 0x65, 0xd0, 0x89, 0xcb, 0xb1,
+	0x70, 0xf2, 0xa5, 0x28, 0x54, 0x7a, 0x13, 0xb6, 0x53, 0xf7, 0xa2, 0xdc, 0xfa, 0xc2, 0xfa, 0x6c,
+	0x2a, 0xbc, 0xca, 0x96, 0x27, 0x53, 0x85, 0xe2, 0x24, 0xcb, 0xad, 0x36, 0x75, 0x99, 0xe3, 0x2f,
+	0x01, 0x04, 0x13, 0x85, 0x94, 0x42, 0xc7, 0x88, 0x42, 0x31, 0x12, 0x93, 0x24, 0xe4, 0x95, 0xa6,
+	0xff, 0xc3, 0x41, 0x59, 0xc8, 0xb3, 0x76, 0x1c, 0x24, 0x1d, 0x5e, 0x1b, 0xf4, 0x0e, 0x74, 0x85,
+	0x43, 0xed, 0x91, 0x05, 0x55, 0x6c, 0x63, 0xd1, 0x18, 0xfa, 0x1e, 0xad, 0x5b, 0x9d, 0x3b, 0x8d,
+	0xca, 0xb1, 0x4e, 0xf5, 0xb8, 0xef, 0xa2, 0xc7, 0x30, 0xc8, 0xad, 0x41, 0xa7, 0xa7, 0x0b, 0xb4,
+	0xce, 0xb3, 0x83, 0x38, 0x48, 0x42, 0xfe, 0x93, 0xaf, 0xec, 0x59, 0xa5, 0xb0, 0x6e, 0x95, 0x5f,
+	0x1b, 0xf4, 0x3e, 0x84, 0xc2, 0xe1, 0x07, 0xeb, 0xde, 0xbf, 0x92, 0xac, 0x17, 0x93, 0xa4, 0xc3,
+	0x77, 0x0e, 0xfa, 0x02, 0xba, 0x1e, 0x05, 0x2e, 0x3c, 0x3b, 0x8c, 0x49, 0xf2, 0xdf, 0x28, 0x4d,
+	0x6f, 0x35, 0x9b, 0x74, 0x3c, 0xa9, 0xb2, 0x78, 0x93, 0x5d, 0x76, 0x41, 0x5d, 0xa8, 0x09, 0x8a,
+	0x62, 0xce, 0xc2, 0x98, 0x24, 0x01, 0xdf, 0x39, 0xa8, 0x07, 0xb6, 0xff, 0xd3, 0x33, 0xed, 0x6b,
+	0xad, 0xad, 0x61, 0x10, 0x07, 0x49, 0x7f, 0xf4, 0xf8, 0x96, 0x7d, 0x9f, 0x49, 0xe9, 0xce, 0x35,
+	0xce, 0xde, 0x2c, 0x84, 0x41, 0x8d, 0x2b, 0xfe, 0xc7, 0xc2, 0x25, 0x9e, 0xde, 0xeb, 0x05, 0xce,
+	0xff, 0x7e, 0x44, 0x0c, 0x7a, 0x0d, 0x91, 0x0a, 0x50, 0xc8, 0xb7, 0xe6, 0xbf, 0x8c, 0x47, 0xc3,
+	0xf0, 0xd7, 0xe8, 0x12, 0x93, 0x90, 0xd2, 0x6d, 0x31, 0x95, 0x9a, 0x0e, 0x80, 0x5c, 0xb1, 0x76,
+	0x4c, 0x92, 0x23, 0x4e, 0xae, 0xe8, 0x29, 0xf4, 0xe6, 0x62, 0x55, 0x28, 0x53, 0xf3, 0xe9, 0x8f,
+	0xee, 0xa6, 0xf5, 0x96, 0xa6, 0xe5, 0x96, 0xa6, 0xcd, 0x96, 0xa6, 0x63, 0xab, 0x0d, 0xdf, 0x46,
+	0x3e, 0x7a, 0x0a, 0xbd, 0x66, 0x20, 0x14, 0xa0, 0x2b, 0x95, 0xd7, 0x17, 0x66, 0xd8, 0xa2, 0x47,
+	0x10, 0xbe, 0xd3, 0x46, 0x5c, 0xea, 0x4f, 0x4a, 0x0e, 0x49, 0xf9, 0x24, 0x72, 0xd4, 0x4b, 0x35,
+	0x6c, 0xd3, 0x01, 0x1c, 0x0a, 0x97, 0xcf, 0xf4, 0x52, 0xc9, 0x61, 0xf0, 0x9c, 0x7f, 0x5d, 0x47,
+	0xe4, 0x7a, 0x1d, 0x91, 0xef, 0xeb, 0x88, 0x7c, 0xde, 0x44, 0xad, 0xeb, 0x4d, 0xd4, 0xfa, 0xb6,
+	0x89, 0x5a, 0x6f, 0x9f, 0x5c, 0x68, 0x9c, 0x2d, 0xa6, 0x69, 0x6e, 0x8b, 0xec, 0xb7, 0x09, 0x65,
+	0xe3, 0x9b, 0xdb, 0xf3, 0x71, 0xef, 0x0e, 0xe1, 0x6a, 0xae, 0xfc, 0xb4, 0x5b, 0xdd, 0x90, 0xd3,
+	0x1f, 0x01, 0x00, 0x00, 0xff, 0xff, 0x7f, 0xee, 0xae, 0x8c, 0xab, 0x04, 0x00, 0x00,
 }
 
 func (m *Set) Marshal() (dAtA []byte, err error) {
@@ -457,17 +410,19 @@ func (m *Set) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
-	if m.ContributorsDistribution != nil {
-		{
-			size, err := m.ContributorsDistribution.MarshalToSizedBuffer(dAtA[:i])
-			if err != nil {
-				return 0, err
+	if len(m.ContributorsDistribution) > 0 {
+		for iNdEx := len(m.ContributorsDistribution) - 1; iNdEx >= 0; iNdEx-- {
+			{
+				size, err := m.ContributorsDistribution[iNdEx].MarshalToSizedBuffer(dAtA[:i])
+				if err != nil {
+					return 0, err
+				}
+				i -= size
+				i = encodeVarintSet(dAtA, i, uint64(size))
 			}
-			i -= size
-			i = encodeVarintSet(dAtA, i, uint64(size))
+			i--
+			dAtA[i] = 0x52
 		}
-		i--
-		dAtA[i] = 0x52
 	}
 	if m.TimeStamp != 0 {
 		i = encodeVarintSet(dAtA, i, uint64(m.TimeStamp))
@@ -515,20 +470,20 @@ func (m *Set) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 		dAtA[i] = 0x1a
 	}
 	if len(m.Cards) > 0 {
-		dAtA3 := make([]byte, len(m.Cards)*10)
-		var j2 int
+		dAtA2 := make([]byte, len(m.Cards)*10)
+		var j1 int
 		for _, num := range m.Cards {
 			for num >= 1<<7 {
-				dAtA3[j2] = uint8(uint64(num)&0x7f | 0x80)
+				dAtA2[j1] = uint8(uint64(num)&0x7f | 0x80)
 				num >>= 7
-				j2++
+				j1++
 			}
-			dAtA3[j2] = uint8(num)
-			j2++
+			dAtA2[j1] = uint8(num)
+			j1++
 		}
-		i -= j2
-		copy(dAtA[i:], dAtA3[:j2])
-		i = encodeVarintSet(dAtA, i, uint64(j2))
+		i -= j1
+		copy(dAtA[i:], dAtA2[:j1])
+		i = encodeVarintSet(dAtA, i, uint64(j1))
 		i--
 		dAtA[i] = 0x12
 	}
@@ -562,17 +517,19 @@ func (m *OutpSet) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
-	if m.ContributorsDistribution != nil {
-		{
-			size, err := m.ContributorsDistribution.MarshalToSizedBuffer(dAtA[:i])
-			if err != nil {
-				return 0, err
+	if len(m.ContributorsDistribution) > 0 {
+		for iNdEx := len(m.ContributorsDistribution) - 1; iNdEx >= 0; iNdEx-- {
+			{
+				size, err := m.ContributorsDistribution[iNdEx].MarshalToSizedBuffer(dAtA[:i])
+				if err != nil {
+					return 0, err
+				}
+				i -= size
+				i = encodeVarintSet(dAtA, i, uint64(size))
 			}
-			i -= size
-			i = encodeVarintSet(dAtA, i, uint64(size))
+			i--
+			dAtA[i] = 0x52
 		}
-		i--
-		dAtA[i] = 0x52
 	}
 	if m.TimeStamp != 0 {
 		i = encodeVarintSet(dAtA, i, uint64(m.TimeStamp))
@@ -622,20 +579,20 @@ func (m *OutpSet) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 		dAtA[i] = 0x1a
 	}
 	if len(m.Cards) > 0 {
-		dAtA6 := make([]byte, len(m.Cards)*10)
-		var j5 int
+		dAtA4 := make([]byte, len(m.Cards)*10)
+		var j3 int
 		for _, num := range m.Cards {
 			for num >= 1<<7 {
-				dAtA6[j5] = uint8(uint64(num)&0x7f | 0x80)
+				dAtA4[j3] = uint8(uint64(num)&0x7f | 0x80)
 				num >>= 7
-				j5++
+				j3++
 			}
-			dAtA6[j5] = uint8(num)
-			j5++
+			dAtA4[j3] = uint8(num)
+			j3++
 		}
-		i -= j5
-		copy(dAtA[i:], dAtA6[:j5])
-		i = encodeVarintSet(dAtA, i, uint64(j5))
+		i -= j3
+		copy(dAtA[i:], dAtA4[:j3])
+		i = encodeVarintSet(dAtA, i, uint64(j3))
 		i--
 		dAtA[i] = 0x12
 	}
@@ -669,55 +626,6 @@ func (m *AddrWithQuantity) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
-	if m.Q != 0 {
-		i = encodeVarintSet(dAtA, i, uint64(m.Q))
-		i--
-		dAtA[i] = 0x10
-	}
-	if len(m.Addr) > 0 {
-		i -= len(m.Addr)
-		copy(dAtA[i:], m.Addr)
-		i = encodeVarintSet(dAtA, i, uint64(len(m.Addr)))
-		i--
-		dAtA[i] = 0xa
-	}
-	return len(dAtA) - i, nil
-}
-
-func (m *ContributorDistribution) Marshal() (dAtA []byte, err error) {
-	size := m.Size()
-	dAtA = make([]byte, size)
-	n, err := m.MarshalToSizedBuffer(dAtA[:size])
-	if err != nil {
-		return nil, err
-	}
-	return dAtA[:n], nil
-}
-
-func (m *ContributorDistribution) MarshalTo(dAtA []byte) (int, error) {
-	size := m.Size()
-	return m.MarshalToSizedBuffer(dAtA[:size])
-}
-
-func (m *ContributorDistribution) MarshalToSizedBuffer(dAtA []byte) (int, error) {
-	i := len(dAtA)
-	_ = i
-	var l int
-	_ = l
-	if len(m.Contributors) > 0 {
-		for iNdEx := len(m.Contributors) - 1; iNdEx >= 0; iNdEx-- {
-			{
-				size, err := m.Contributors[iNdEx].MarshalToSizedBuffer(dAtA[:i])
-				if err != nil {
-					return 0, err
-				}
-				i -= size
-				i = encodeVarintSet(dAtA, i, uint64(size))
-			}
-			i--
-			dAtA[i] = 0x12
-		}
-	}
 	if m.Payment != nil {
 		{
 			size, err := m.Payment.MarshalToSizedBuffer(dAtA[:i])
@@ -727,6 +635,18 @@ func (m *ContributorDistribution) MarshalToSizedBuffer(dAtA []byte) (int, error)
 			i -= size
 			i = encodeVarintSet(dAtA, i, uint64(size))
 		}
+		i--
+		dAtA[i] = 0x1a
+	}
+	if m.Q != 0 {
+		i = encodeVarintSet(dAtA, i, uint64(m.Q))
+		i--
+		dAtA[i] = 0x10
+	}
+	if len(m.Addr) > 0 {
+		i -= len(m.Addr)
+		copy(dAtA[i:], m.Addr)
+		i = encodeVarintSet(dAtA, i, uint64(len(m.Addr)))
 		i--
 		dAtA[i] = 0xa
 	}
@@ -788,9 +708,11 @@ func (m *Set) Size() (n int) {
 	if m.TimeStamp != 0 {
 		n += 1 + sovSet(uint64(m.TimeStamp))
 	}
-	if m.ContributorsDistribution != nil {
-		l = m.ContributorsDistribution.Size()
-		n += 1 + l + sovSet(uint64(l))
+	if len(m.ContributorsDistribution) > 0 {
+		for _, e := range m.ContributorsDistribution {
+			l = e.Size()
+			n += 1 + l + sovSet(uint64(l))
+		}
 	}
 	return n
 }
@@ -840,9 +762,11 @@ func (m *OutpSet) Size() (n int) {
 	if m.TimeStamp != 0 {
 		n += 1 + sovSet(uint64(m.TimeStamp))
 	}
-	if m.ContributorsDistribution != nil {
-		l = m.ContributorsDistribution.Size()
-		n += 1 + l + sovSet(uint64(l))
+	if len(m.ContributorsDistribution) > 0 {
+		for _, e := range m.ContributorsDistribution {
+			l = e.Size()
+			n += 1 + l + sovSet(uint64(l))
+		}
 	}
 	return n
 }
@@ -860,24 +784,9 @@ func (m *AddrWithQuantity) Size() (n int) {
 	if m.Q != 0 {
 		n += 1 + sovSet(uint64(m.Q))
 	}
-	return n
-}
-
-func (m *ContributorDistribution) Size() (n int) {
-	if m == nil {
-		return 0
-	}
-	var l int
-	_ = l
 	if m.Payment != nil {
 		l = m.Payment.Size()
 		n += 1 + l + sovSet(uint64(l))
-	}
-	if len(m.Contributors) > 0 {
-		for _, e := range m.Contributors {
-			l = e.Size()
-			n += 1 + l + sovSet(uint64(l))
-		}
 	}
 	return n
 }
@@ -1239,10 +1148,8 @@ func (m *Set) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			if m.ContributorsDistribution == nil {
-				m.ContributorsDistribution = &ContributorDistribution{}
-			}
-			if err := m.ContributorsDistribution.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+			m.ContributorsDistribution = append(m.ContributorsDistribution, &AddrWithQuantity{})
+			if err := m.ContributorsDistribution[len(m.ContributorsDistribution)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
 			iNdEx = postIndex
@@ -1631,10 +1538,8 @@ func (m *OutpSet) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			if m.ContributorsDistribution == nil {
-				m.ContributorsDistribution = &ContributorDistribution{}
-			}
-			if err := m.ContributorsDistribution.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+			m.ContributorsDistribution = append(m.ContributorsDistribution, &AddrWithQuantity{})
+			if err := m.ContributorsDistribution[len(m.ContributorsDistribution)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
 			iNdEx = postIndex
@@ -1739,57 +1644,7 @@ func (m *AddrWithQuantity) Unmarshal(dAtA []byte) error {
 					break
 				}
 			}
-		default:
-			iNdEx = preIndex
-			skippy, err := skipSet(dAtA[iNdEx:])
-			if err != nil {
-				return err
-			}
-			if (skippy < 0) || (iNdEx+skippy) < 0 {
-				return ErrInvalidLengthSet
-			}
-			if (iNdEx + skippy) > l {
-				return io.ErrUnexpectedEOF
-			}
-			iNdEx += skippy
-		}
-	}
-
-	if iNdEx > l {
-		return io.ErrUnexpectedEOF
-	}
-	return nil
-}
-func (m *ContributorDistribution) Unmarshal(dAtA []byte) error {
-	l := len(dAtA)
-	iNdEx := 0
-	for iNdEx < l {
-		preIndex := iNdEx
-		var wire uint64
-		for shift := uint(0); ; shift += 7 {
-			if shift >= 64 {
-				return ErrIntOverflowSet
-			}
-			if iNdEx >= l {
-				return io.ErrUnexpectedEOF
-			}
-			b := dAtA[iNdEx]
-			iNdEx++
-			wire |= uint64(b&0x7F) << shift
-			if b < 0x80 {
-				break
-			}
-		}
-		fieldNum := int32(wire >> 3)
-		wireType := int(wire & 0x7)
-		if wireType == 4 {
-			return fmt.Errorf("proto: ContributorDistribution: wiretype end group for non-group")
-		}
-		if fieldNum <= 0 {
-			return fmt.Errorf("proto: ContributorDistribution: illegal tag %d (wire type %d)", fieldNum, wire)
-		}
-		switch fieldNum {
-		case 1:
+		case 3:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Payment", wireType)
 			}
@@ -1822,40 +1677,6 @@ func (m *ContributorDistribution) Unmarshal(dAtA []byte) error {
 				m.Payment = &types.Coin{}
 			}
 			if err := m.Payment.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
-				return err
-			}
-			iNdEx = postIndex
-		case 2:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Contributors", wireType)
-			}
-			var msglen int
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowSet
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				msglen |= int(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			if msglen < 0 {
-				return ErrInvalidLengthSet
-			}
-			postIndex := iNdEx + msglen
-			if postIndex < 0 {
-				return ErrInvalidLengthSet
-			}
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			m.Contributors = append(m.Contributors, &AddrWithQuantity{})
-			if err := m.Contributors[len(m.Contributors)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
 			iNdEx = postIndex
