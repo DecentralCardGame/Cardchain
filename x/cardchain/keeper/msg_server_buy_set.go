@@ -34,14 +34,13 @@ func (k msgServer) BuyBoosterPack(goCtx context.Context, msg *types.MsgBuyBooste
 	)
 
 	// payment
-	contribs := k.GetAllSetContributors(ctx, *set)
-	for _, contrib := range contribs {
-		contribAddr, err := sdk.AccAddressFromBech32(contrib)
+	for _, contrib := range set.ContributorsDistribution.Contributors {
+		contribAddr, err := sdk.AccAddressFromBech32(contrib.Addr)
 		if err != nil {
 			return nil, sdkerrors.Wrap(types.ErrInvalidAccAddress, "Unable to convert to AccAddress")
 		}
 
-		err = k.BankKeeper.SendCoins(ctx, creator.Addr, contribAddr, sdk.Coins{QuoCoin(params.SetPrice, int64(len(contribs)))})
+		err = k.BankKeeper.SendCoins(ctx, creator.Addr, contribAddr, sdk.Coins{MulCoin(*set.ContributorsDistribution.Payment, int64(contrib.Q))})
 		if err != nil {
 			return nil, sdkerrors.Wrap(errors.ErrInsufficientFunds, err.Error())
 		}
