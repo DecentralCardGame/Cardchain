@@ -1,6 +1,8 @@
 syntax = "proto3";
 package DecentralCardGame.cardchain.cardchain;
 
+import "cosmos/base/v1beta1/coin.proto";
+
 option go_package = "github.com/DecentralCardGame/Cardchain/x/cardchain/types";
 
 message Set {
@@ -13,6 +15,7 @@ message Set {
   uint64 artworkId = 7;
   CStatus status = 8;
   int64 timeStamp = 9;
+  repeated AddrWithQuantity contributorsDistribution = 10;
 }
 
 message OutpSet {
@@ -25,6 +28,7 @@ message OutpSet {
   string artwork = 7;
   CStatus status = 8;
   int64 timeStamp = 9;
+  repeated AddrWithQuantity contributorsDistribution = 10;
 }
 
 enum CStatus {
@@ -32,4 +36,10 @@ enum CStatus {
   finalized = 1;
   active = 2;
   archived = 3;
+}
+
+message AddrWithQuantity {
+ string addr = 1;
+ uint32 q = 2;
+ cosmos.base.v1beta1.Coin payment = 3;
 }

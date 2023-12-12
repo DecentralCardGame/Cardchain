@@ -41,6 +41,7 @@ func (k msgServer) FinalizeSet(goCtx context.Context, msg *types.MsgFinalizeSet)
 	}
 
 	set.Status = types.CStatus_finalized
+	set.ContributorsDistribution = k.GetContributorDistribution(ctx, *set)
 
 	k.Sets.Set(ctx, msg.SetId, set)
 

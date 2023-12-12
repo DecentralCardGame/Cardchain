@@ -23,9 +23,6 @@ func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) 
 	for id, council := range genState.Councils {
 		k.Councils.Set(ctx, uint64(id), council)
 	}
-	for id, set := range genState.Sets {
-		k.Sets.Set(ctx, uint64(id), set)
-	}
 	for id, sellOffer := range genState.SellOffers {
 		k.SellOffers.Set(ctx, uint64(id), sellOffer)
 	}
@@ -66,6 +63,12 @@ func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) 
 		genState.Params.MatchWorkerDelay = types.DefaultMatchWorkerDelay
 	}
 	k.SetParams(ctx, genState.Params)
+	for id, set := range genState.Sets {
+		if set.Status == types.CStatus_active || set.Status == types.CStatus_finalized {
+			set.ContributorsDistribution = k.GetContributorDistribution(ctx, *set)
+		}
+		k.Sets.Set(ctx, uint64(id), set)
+	}
 }
 
 // ExportGenesis returns the capability module's exported genesis.

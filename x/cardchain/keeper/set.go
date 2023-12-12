@@ -28,16 +28,41 @@ func (k Keeper) CollectSetCreationFee(ctx sdk.Context, creator string) error {
 	return k.CollectSetFee(ctx, k.GetParams(ctx).SetCreationFee, creator)
 }
 
-// GetAllSetContributors Returns an array of all contributors of a set in their respective frequencies
-func (k Keeper) GetAllSetContributors(ctx sdk.Context, set types.Set) []string {
-	contribs := []string{set.StoryWriter, set.StoryWriter, set.Artist, set.Artist, set.Contributors[0], set.Contributors[0], set.Contributors[0], set.Contributors[0]}
+// GetContributorDistribution Returns an array of all contributors of a set in their respective frequencies
+func (k Keeper) GetContributorDistribution(ctx sdk.Context, set types.Set) []*types.AddrWithQuantity {
+	params := k.GetParams(ctx)
+	contribs := []*types.AddrWithQuantity{{Addr: set.StoryWriter, Q:2}, {Addr: set.Artist, Q: 2}, {Addr: set.Contributors[0], Q: 4}}
 	for _, cardId := range set.Cards {
 		var card = k.Cards.Get(ctx, cardId)
 		if card.Owner != "" {
-			contribs = append(contribs, card.Owner, card.Artist)
+			for _, addr := range []string{card.Owner, card.Artist} {
+				incQ(&contribs, addr)
+			}
 		}
 	}
+
+	var amount uint32
+	for _, contrib := range contribs {
+		amount += contrib.Q
+	}
+
+	var payment = QuoCoin(params.SetPrice, int64(amount))
+	for _, contrib := range contribs {
+		p := MulCoin(payment, int64(contrib.Q))
+		contrib.Payment = &p
+	}
+
 	return contribs
+}
+
+func incQ(addrsWithQ *[]*types.AddrWithQuantity, addr string) {
+	for _, addrWithQ := range *addrsWithQ {
+		if addrWithQ.Addr == addr {
+			addrWithQ.Q += 1
+			return
+		}
+	}
+	*addrsWithQ = append(*addrsWithQ, &types.AddrWithQuantity{Addr: addr, Q: 1})
 }
 
 // GetActiveSets Return a list of all active sets ids

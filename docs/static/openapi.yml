@@ -33877,6 +33877,31 @@ paths:
               timeStamp:
                 type: string
                 format: int64
+              contributorsDistribution:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    addr:
+                      type: string
+                    q:
+                      type: integer
+                      format: int64
+                    payment:
+                      type: object
+                      properties:
+                        denom:
+                          type: string
+                        amount:
+                          type: string
+                      description: >-
+                        Coin defines a token with a denomination and an amount.
+
+
+                        NOTE: The amount field is an Int which implements the
+                        custom method
+
+                        signatures required by gogoproto.
         default:
           description: An unexpected error response.
           schema:
@@ -68583,6 +68608,26 @@ definitions:
             NOTE: The amount field is an Int which implements the custom method
             signatures required by gogoproto.
     description: Period defines a length of time and amount of coins that will vest.
+  DecentralCardGame.cardchain.cardchain.AddrWithQuantity:
+    type: object
+    properties:
+      addr:
+        type: string
+      q:
+        type: integer
+        format: int64
+      payment:
+        type: object
+        properties:
+          denom:
+            type: string
+          amount:
+            type: string
+        description: |-
+          Coin defines a token with a denomination and an amount.
+
+          NOTE: The amount field is an Int which implements the custom method
+          signatures required by gogoproto.
   DecentralCardGame.cardchain.cardchain.AirDrops:
     type: object
     properties:
@@ -69071,6 +69116,31 @@ definitions:
       timeStamp:
         type: string
         format: int64
+      contributorsDistribution:
+        type: array
+        items:
+          type: object
+          properties:
+            addr:
+              type: string
+            q:
+              type: integer
+              format: int64
+            payment:
+              type: object
+              properties:
+                denom:
+                  type: string
+                amount:
+                  type: string
+              description: >-
+                Coin defines a token with a denomination and an amount.
+
+
+                NOTE: The amount field is an Int which implements the custom
+                method
+
+                signatures required by gogoproto.
   DecentralCardGame.cardchain.cardchain.Params:
     type: object
     properties:
