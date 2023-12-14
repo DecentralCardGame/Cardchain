@@ -49,10 +49,14 @@ func (k msgServer) FinalizeSet(goCtx context.Context, msg *types.MsgFinalizeSet)
 	return &types.MsgFinalizeSetResponse{}, nil
 }
 
-func (k Keeper) GetCardRaritiesInSet(ctx sdk.Context, set *types.Set) (rarityNums []*types.InnerRarities) {
+func (k Keeper) GetCardRaritiesInSet(ctx sdk.Context, set *types.Set) []*types.InnerRarities {
+	var rarityNums []*types.InnerRarities = make([]*types.InnerRarities, 5)
+	for idx := range rarityNums {
+		rarityNums[idx] = &types.InnerRarities{}
+	}
 	for _, cardId := range set.Cards {
 		card := k.Cards.Get(ctx, cardId)
 		rarityNums[int(card.Rarity)].R = append(rarityNums[int(card.Rarity)].R, cardId)
 	}
-	return
+	return rarityNums[:]
 }
