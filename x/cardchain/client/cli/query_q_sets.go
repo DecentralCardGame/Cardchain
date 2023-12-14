@@ -24,7 +24,7 @@ func CmdQSets() *cobra.Command {
 				ignoreStatus bool = false
 			)
 
-			if slices.Contains([]string{"\"\"", "''"}, args[0]) {
+			if !slices.Contains([]string{"\"\"", "''"}, args[0]) {
 				reqStatus = types.CStatus(types.CStatus_value[args[0]])
 			} else {
 				ignoreStatus = true
