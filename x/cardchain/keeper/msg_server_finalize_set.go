@@ -42,8 +42,17 @@ func (k msgServer) FinalizeSet(goCtx context.Context, msg *types.MsgFinalizeSet)
 
 	set.Status = types.CStatus_finalized
 	set.ContributorsDistribution = k.GetContributorDistribution(ctx, *set)
+	set.Rarities = k.GetCardRaritiesInSet(ctx, set)
 
 	k.Sets.Set(ctx, msg.SetId, set)
 
 	return &types.MsgFinalizeSetResponse{}, nil
+}
+
+func (k Keeper) GetCardRaritiesInSet(ctx sdk.Context, set *types.Set) (rarityNums []*types.InnerRarities) {
+	for _, cardId := range set.Cards {
+		card := k.Cards.Get(ctx, cardId)
+		rarityNums[int(card.Rarity)].R = append(rarityNums[int(card.Rarity)].R, cardId)
+	}
+	return
 }

@@ -66,6 +66,7 @@ func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) 
 	for id, set := range genState.Sets {
 		if set.Status == types.CStatus_active || set.Status == types.CStatus_finalized {
 			set.ContributorsDistribution = k.GetContributorDistribution(ctx, *set)
+			set.Rarities = k.GetCardRaritiesInSet(ctx, set)
 		}
 		k.Sets.Set(ctx, uint64(id), set)
 	}

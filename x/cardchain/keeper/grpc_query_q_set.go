@@ -31,5 +31,6 @@ func (k Keeper) QSet(goCtx context.Context, req *types.QueryQSetRequest) (*types
 		Status:                   set.Status,
 		TimeStamp:                set.TimeStamp,
 		ContributorsDistribution: set.ContributorsDistribution,
+		Rarities:                 set.Rarities,
 	}, nil
 }
