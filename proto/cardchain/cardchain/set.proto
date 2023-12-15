@@ -16,6 +16,11 @@ message Set {
   CStatus status = 8;
   int64 timeStamp = 9;
   repeated AddrWithQuantity contributorsDistribution = 10;
+  repeated InnerRarities Rarities = 11;
+}
+
+message InnerRarities {
+  repeated uint64 R = 1;
 }
 
 message OutpSet {
@@ -29,6 +34,7 @@ message OutpSet {
   CStatus status = 8;
   int64 timeStamp = 9;
   repeated AddrWithQuantity contributorsDistribution = 10;
+  repeated InnerRarities Rarities = 11;
 }
 
 enum CStatus {
