@@ -114,13 +114,12 @@ func (k Keeper) distributeCoins(ctx sdk.Context, match *types.Match, outcome typ
 	match.CoinsDistributed = true
 
 	if outcome != types.Outcome_Aborted {
-		for idx, address := range addresses {
-			for _, cardId := range [][]uint64{match.PlayerA.PlayedCards, match.PlayerB.PlayedCards}[idx] {
-				err = k.AddVoteRight(ctx, address, cardId)
-				if err != nil {
-					return sdkerrors.Wrap(types.ErrUserDoesNotExist, err.Error())
-				}
+		for _, address := range addresses {
+			user, err := k.GetUser(ctx, address)
+			if err != nil {
+				return sdkerrors.Wrap(types.ErrUserDoesNotExist, err.Error())
 			}
+			k.SetUser(ctx, address, user)
 		}
 	}
 
@@ -174,10 +173,9 @@ func (k Keeper) HandleMatchOutcome(ctx sdk.Context, match *types.Match) error {
 
 	err = k.voteMatchCards(ctx, match)
 	if err != nil {
-		return err
+		k.Logger(ctx).Error(":: Error while voting, skipping, " + err.Error())
 	}
 
-	// TODO: Votes
 	return nil
 }
 
@@ -197,12 +195,18 @@ func (k Keeper) voteMatchCards(ctx sdk.Context, match *types.Match) error {
 		} else {
 			otherPlayerCards = otherPlayer.Deck
 		}
+
+		for _, card := range otherPlayerCards {
+			k.AddVoteRightToUser(ctx, &users[idx].User, card)
+		}
+
 		for _, vote := range player.VotedCards {
 			if slices.Contains(otherPlayerCards, vote.CardId) {
 				cleanedVotes = append(cleanedVotes, vote)
 			}
 		}
-		err = k.multiVote(ctx, users[idx], cleanedVotes, true)
+
+		err = k.multiVote(ctx, users[idx], cleanedVotes)
 		if err != nil {
 			return err
 		}
@@ -213,14 +217,17 @@ func (k Keeper) voteMatchCards(ctx sdk.Context, match *types.Match) error {
 
 func (k Keeper) MatchWorker(ctx sdk.Context) {
 	now := uint64(time.Now().Unix())
+	matchWorkerDelay := k.GetParams(ctx).MatchWorkerDelay
 	if ctx.BlockHeight()%20 == 0 {
 		matchIter := k.Matches.GetItemIterator(ctx)
 		for ; matchIter.Valid(); matchIter.Next() {
 			id, match := matchIter.Value()
-			if !match.CoinsDistributed && match.Timestamp != 0 && match.Timestamp+k.GetParams(ctx).MatchWorkerDelay < now {
+			if !match.CoinsDistributed && match.Timestamp != 0 && match.Timestamp+matchWorkerDelay < now {
 				err := k.HandleMatchOutcome(ctx, match)
 				if err != nil {
 					k.Logger(ctx).Error(fmt.Sprintf(":: Error with matchWorker: %s", err))
+					match.Outcome = types.Outcome_Aborted
+					match.CoinsDistributed = true
 				}
 				k.Matches.Set(ctx, id, match)
 			}

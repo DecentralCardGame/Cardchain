@@ -5,6 +5,7 @@ package types
 
 import (
 	fmt "fmt"
+	types "github.com/cosmos/cosmos-sdk/types"
 	proto "github.com/gogo/protobuf/proto"
 	io "io"
 	math "math"
@@ -54,15 +55,17 @@ func (CStatus) EnumDescriptor() ([]byte, []int) {
 }
 
 type Set struct {
-	Name         string   `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
-	Cards        []uint64 `protobuf:"varint,2,rep,packed,name=cards,proto3" json:"cards,omitempty"`
-	Artist       string   `protobuf:"bytes,3,opt,name=artist,proto3" json:"artist,omitempty"`
-	StoryWriter  string   `protobuf:"bytes,4,opt,name=storyWriter,proto3" json:"storyWriter,omitempty"`
-	Contributors []string `protobuf:"bytes,5,rep,name=contributors,proto3" json:"contributors,omitempty"`
-	Story        string   `protobuf:"bytes,6,opt,name=story,proto3" json:"story,omitempty"`
-	ArtworkId    uint64   `protobuf:"varint,7,opt,name=artworkId,proto3" json:"artworkId,omitempty"`
-	Status       CStatus  `protobuf:"varint,8,opt,name=status,proto3,enum=DecentralCardGame.cardchain.cardchain.CStatus" json:"status,omitempty"`
-	TimeStamp    int64    `protobuf:"varint,9,opt,name=timeStamp,proto3" json:"timeStamp,omitempty"`
+	Name                     string              `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	Cards                    []uint64            `protobuf:"varint,2,rep,packed,name=cards,proto3" json:"cards,omitempty"`
+	Artist                   string              `protobuf:"bytes,3,opt,name=artist,proto3" json:"artist,omitempty"`
+	StoryWriter              string              `protobuf:"bytes,4,opt,name=storyWriter,proto3" json:"storyWriter,omitempty"`
+	Contributors             []string            `protobuf:"bytes,5,rep,name=contributors,proto3" json:"contributors,omitempty"`
+	Story                    string              `protobuf:"bytes,6,opt,name=story,proto3" json:"story,omitempty"`
+	ArtworkId                uint64              `protobuf:"varint,7,opt,name=artworkId,proto3" json:"artworkId,omitempty"`
+	Status                   CStatus             `protobuf:"varint,8,opt,name=status,proto3,enum=DecentralCardGame.cardchain.cardchain.CStatus" json:"status,omitempty"`
+	TimeStamp                int64               `protobuf:"varint,9,opt,name=timeStamp,proto3" json:"timeStamp,omitempty"`
+	ContributorsDistribution []*AddrWithQuantity `protobuf:"bytes,10,rep,name=contributorsDistribution,proto3" json:"contributorsDistribution,omitempty"`
+	Rarities                 []*InnerRarities    `protobuf:"bytes,11,rep,name=Rarities,proto3" json:"Rarities,omitempty"`
 }
 
 func (m *Set) Reset()         { *m = Set{} }
@@ -161,23 +164,83 @@ func (m *Set) GetTimeStamp() int64 {
 	return 0
 }
 
+func (m *Set) GetContributorsDistribution() []*AddrWithQuantity {
+	if m != nil {
+		return m.ContributorsDistribution
+	}
+	return nil
+}
+
+func (m *Set) GetRarities() []*InnerRarities {
+	if m != nil {
+		return m.Rarities
+	}
+	return nil
+}
+
+type InnerRarities struct {
+	R []uint64 `protobuf:"varint,1,rep,packed,name=R,proto3" json:"R,omitempty"`
+}
+
+func (m *InnerRarities) Reset()         { *m = InnerRarities{} }
+func (m *InnerRarities) String() string { return proto.CompactTextString(m) }
+func (*InnerRarities) ProtoMessage()    {}
+func (*InnerRarities) Descriptor() ([]byte, []int) {
+	return fileDescriptor_4433f04964645edd, []int{1}
+}
+func (m *InnerRarities) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *InnerRarities) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_InnerRarities.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *InnerRarities) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_InnerRarities.Merge(m, src)
+}
+func (m *InnerRarities) XXX_Size() int {
+	return m.Size()
+}
+func (m *InnerRarities) XXX_DiscardUnknown() {
+	xxx_messageInfo_InnerRarities.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_InnerRarities proto.InternalMessageInfo
+
+func (m *InnerRarities) GetR() []uint64 {
+	if m != nil {
+		return m.R
+	}
+	return nil
+}
+
 type OutpSet struct {
-	Name         string   `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
-	Cards        []uint64 `protobuf:"varint,2,rep,packed,name=cards,proto3" json:"cards,omitempty"`
-	Artist       string   `protobuf:"bytes,3,opt,name=artist,proto3" json:"artist,omitempty"`
-	StoryWriter  string   `protobuf:"bytes,4,opt,name=storyWriter,proto3" json:"storyWriter,omitempty"`
-	Contributors []string `protobuf:"bytes,5,rep,name=contributors,proto3" json:"contributors,omitempty"`
-	Story        string   `protobuf:"bytes,6,opt,name=story,proto3" json:"story,omitempty"`
-	Artwork      string   `protobuf:"bytes,7,opt,name=artwork,proto3" json:"artwork,omitempty"`
-	Status       CStatus  `protobuf:"varint,8,opt,name=status,proto3,enum=DecentralCardGame.cardchain.cardchain.CStatus" json:"status,omitempty"`
-	TimeStamp    int64    `protobuf:"varint,9,opt,name=timeStamp,proto3" json:"timeStamp,omitempty"`
+	Name                     string              `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	Cards                    []uint64            `protobuf:"varint,2,rep,packed,name=cards,proto3" json:"cards,omitempty"`
+	Artist                   string              `protobuf:"bytes,3,opt,name=artist,proto3" json:"artist,omitempty"`
+	StoryWriter              string              `protobuf:"bytes,4,opt,name=storyWriter,proto3" json:"storyWriter,omitempty"`
+	Contributors             []string            `protobuf:"bytes,5,rep,name=contributors,proto3" json:"contributors,omitempty"`
+	Story                    string              `protobuf:"bytes,6,opt,name=story,proto3" json:"story,omitempty"`
+	Artwork                  string              `protobuf:"bytes,7,opt,name=artwork,proto3" json:"artwork,omitempty"`
+	Status                   CStatus             `protobuf:"varint,8,opt,name=status,proto3,enum=DecentralCardGame.cardchain.cardchain.CStatus" json:"status,omitempty"`
+	TimeStamp                int64               `protobuf:"varint,9,opt,name=timeStamp,proto3" json:"timeStamp,omitempty"`
+	ContributorsDistribution []*AddrWithQuantity `protobuf:"bytes,10,rep,name=contributorsDistribution,proto3" json:"contributorsDistribution,omitempty"`
+	Rarities                 []*InnerRarities    `protobuf:"bytes,11,rep,name=Rarities,proto3" json:"Rarities,omitempty"`
 }
 
 func (m *OutpSet) Reset()         { *m = OutpSet{} }
 func (m *OutpSet) String() string { return proto.CompactTextString(m) }
 func (*OutpSet) ProtoMessage()    {}
 func (*OutpSet) Descriptor() ([]byte, []int) {
-	return fileDescriptor_4433f04964645edd, []int{1}
+	return fileDescriptor_4433f04964645edd, []int{2}
 }
 func (m *OutpSet) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -269,40 +332,126 @@ func (m *OutpSet) GetTimeStamp() int64 {
 	return 0
 }
 
+func (m *OutpSet) GetContributorsDistribution() []*AddrWithQuantity {
+	if m != nil {
+		return m.ContributorsDistribution
+	}
+	return nil
+}
+
+func (m *OutpSet) GetRarities() []*InnerRarities {
+	if m != nil {
+		return m.Rarities
+	}
+	return nil
+}
+
+type AddrWithQuantity struct {
+	Addr    string      `protobuf:"bytes,1,opt,name=addr,proto3" json:"addr,omitempty"`
+	Q       uint32      `protobuf:"varint,2,opt,name=q,proto3" json:"q,omitempty"`
+	Payment *types.Coin `protobuf:"bytes,3,opt,name=payment,proto3" json:"payment,omitempty"`
+}
+
+func (m *AddrWithQuantity) Reset()         { *m = AddrWithQuantity{} }
+func (m *AddrWithQuantity) String() string { return proto.CompactTextString(m) }
+func (*AddrWithQuantity) ProtoMessage()    {}
+func (*AddrWithQuantity) Descriptor() ([]byte, []int) {
+	return fileDescriptor_4433f04964645edd, []int{3}
+}
+func (m *AddrWithQuantity) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *AddrWithQuantity) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_AddrWithQuantity.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *AddrWithQuantity) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_AddrWithQuantity.Merge(m, src)
+}
+func (m *AddrWithQuantity) XXX_Size() int {
+	return m.Size()
+}
+func (m *AddrWithQuantity) XXX_DiscardUnknown() {
+	xxx_messageInfo_AddrWithQuantity.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_AddrWithQuantity proto.InternalMessageInfo
+
+func (m *AddrWithQuantity) GetAddr() string {
+	if m != nil {
+		return m.Addr
+	}
+	return ""
+}
+
+func (m *AddrWithQuantity) GetQ() uint32 {
+	if m != nil {
+		return m.Q
+	}
+	return 0
+}
+
+func (m *AddrWithQuantity) GetPayment() *types.Coin {
+	if m != nil {
+		return m.Payment
+	}
+	return nil
+}
+
 func init() {
 	proto.RegisterEnum("DecentralCardGame.cardchain.cardchain.CStatus", CStatus_name, CStatus_value)
 	proto.RegisterType((*Set)(nil), "DecentralCardGame.cardchain.cardchain.Set")
+	proto.RegisterType((*InnerRarities)(nil), "DecentralCardGame.cardchain.cardchain.InnerRarities")
 	proto.RegisterType((*OutpSet)(nil), "DecentralCardGame.cardchain.cardchain.OutpSet")
+	proto.RegisterType((*AddrWithQuantity)(nil), "DecentralCardGame.cardchain.cardchain.AddrWithQuantity")
 }
 
 func init() { proto.RegisterFile("cardchain/cardchain/set.proto", fileDescriptor_4433f04964645edd) }
 
 var fileDescriptor_4433f04964645edd = []byte{
-	// 382 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xcc, 0x53, 0xcd, 0x6a, 0xdb, 0x40,
-	0x18, 0xd4, 0x5a, 0xb2, 0x64, 0x6d, 0xdd, 0x22, 0x96, 0x52, 0xf6, 0xd0, 0x0a, 0x61, 0x28, 0x88,
-	0x1e, 0x64, 0x68, 0x2f, 0x3d, 0xf5, 0x50, 0x97, 0x96, 0x9e, 0x0a, 0xeb, 0x43, 0x21, 0xb7, 0xb5,
-	0xb4, 0xb1, 0x97, 0x58, 0x3f, 0xec, 0x7e, 0x72, 0xe2, 0x3c, 0x45, 0xde, 0x22, 0xaf, 0x92, 0xa3,
-	0x8f, 0x39, 0x06, 0xfb, 0x45, 0x82, 0xd6, 0x8a, 0xe5, 0x90, 0x4b, 0x4e, 0x21, 0xb7, 0x6f, 0xe6,
-	0x9b, 0xe1, 0xdb, 0x1d, 0x18, 0xfc, 0x29, 0xe5, 0x2a, 0x4b, 0x17, 0x5c, 0x16, 0xe3, 0x6e, 0xd2,
-	0x02, 0x92, 0x4a, 0x95, 0x50, 0x92, 0xcf, 0xbf, 0x44, 0x2a, 0x0a, 0x50, 0x7c, 0x39, 0xe1, 0x2a,
-	0xfb, 0xc3, 0x73, 0x91, 0x1c, 0x64, 0xdd, 0x34, 0xba, 0xee, 0x61, 0x7b, 0x2a, 0x80, 0x10, 0xec,
-	0x14, 0x3c, 0x17, 0x14, 0x45, 0x28, 0xf6, 0x99, 0x99, 0xc9, 0x7b, 0xdc, 0x6f, 0x84, 0x9a, 0xf6,
-	0x22, 0x3b, 0x76, 0xd8, 0x1e, 0x90, 0x0f, 0xd8, 0xe5, 0x0a, 0xa4, 0x06, 0x6a, 0x1b, 0x6d, 0x8b,
-	0x48, 0x84, 0xdf, 0x68, 0x28, 0xd5, 0xfa, 0xbf, 0x92, 0x20, 0x14, 0x75, 0xcc, 0xf2, 0x98, 0x22,
-	0x23, 0x3c, 0x4c, 0xcb, 0x02, 0x94, 0x9c, 0xd5, 0x50, 0x2a, 0x4d, 0xfb, 0x91, 0x1d, 0xfb, 0xec,
-	0x11, 0xd7, 0xdc, 0x34, 0x16, 0xea, 0x1a, 0xff, 0x1e, 0x90, 0x8f, 0xd8, 0xe7, 0x0a, 0xce, 0x4b,
-	0x75, 0xf6, 0x37, 0xa3, 0x5e, 0x84, 0x62, 0x87, 0x75, 0x04, 0xf9, 0x8d, 0x5d, 0x0d, 0x1c, 0x6a,
-	0x4d, 0x07, 0x11, 0x8a, 0xdf, 0x7d, 0x4d, 0x92, 0x67, 0xfd, 0x3d, 0x99, 0x4c, 0x8d, 0x8b, 0xb5,
-	0xee, 0xe6, 0x0a, 0xc8, 0x5c, 0x4c, 0x81, 0xe7, 0x15, 0xf5, 0x23, 0x14, 0xdb, 0xac, 0x23, 0x9a,
-	0xa4, 0xbc, 0x7f, 0x35, 0x54, 0xaf, 0x3f, 0x2d, 0x8a, 0xbd, 0x36, 0x1c, 0x93, 0x95, 0xcf, 0x1e,
-	0xe0, 0xcb, 0x24, 0xf5, 0xe5, 0x07, 0xf6, 0x5a, 0x03, 0xc1, 0xd8, 0xcd, 0x84, 0x96, 0xf3, 0x22,
-	0xb0, 0xc8, 0x5b, 0xec, 0x9f, 0xca, 0x82, 0x2f, 0xe5, 0xa5, 0xc8, 0x02, 0xd4, 0xac, 0x78, 0x0a,
-	0x72, 0x25, 0x82, 0x1e, 0x19, 0xe2, 0x01, 0x57, 0xe9, 0x42, 0xae, 0x44, 0x16, 0xd8, 0x3f, 0xd9,
-	0xcd, 0x36, 0x44, 0x9b, 0x6d, 0x88, 0xee, 0xb6, 0x21, 0xba, 0xda, 0x85, 0xd6, 0x66, 0x17, 0x5a,
-	0xb7, 0xbb, 0xd0, 0x3a, 0xf9, 0x3e, 0x97, 0xb0, 0xa8, 0x67, 0x49, 0x5a, 0xe6, 0xe3, 0x27, 0x2f,
-	0x1f, 0x4f, 0x0e, 0x35, 0xb8, 0x38, 0xaa, 0x04, 0xac, 0x2b, 0xa1, 0x67, 0xae, 0x69, 0xc5, 0xb7,
-	0xfb, 0x00, 0x00, 0x00, 0xff, 0xff, 0x98, 0x0f, 0xc5, 0x59, 0x36, 0x03, 0x00, 0x00,
+	// 534 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xec, 0x54, 0x4f, 0x8b, 0x13, 0x4f,
+	0x10, 0x4d, 0xef, 0x64, 0x93, 0x9d, 0x4a, 0xf2, 0x23, 0x34, 0x3f, 0xa4, 0x15, 0x77, 0x18, 0x02,
+	0xc2, 0xe0, 0x61, 0x86, 0xcd, 0x0a, 0x7a, 0x12, 0x34, 0x8b, 0xb2, 0x27, 0xb5, 0x73, 0x58, 0xf0,
+	0xd6, 0x99, 0x69, 0x37, 0x8d, 0x3b, 0xdd, 0xd9, 0xee, 0x4a, 0x34, 0x7e, 0x0a, 0x3f, 0x96, 0xc7,
+	0x3d, 0x7a, 0x94, 0xe4, 0xee, 0x67, 0x90, 0x99, 0xc9, 0xbf, 0x55, 0x84, 0x78, 0xf3, 0xe0, 0xad,
+	0xaa, 0xba, 0x5e, 0xbd, 0xa6, 0xea, 0xf1, 0xe0, 0x38, 0x15, 0x36, 0x4b, 0xc7, 0x42, 0xe9, 0x64,
+	0x1b, 0x39, 0x89, 0xf1, 0xc4, 0x1a, 0x34, 0xf4, 0xc1, 0x99, 0x4c, 0xa5, 0x46, 0x2b, 0xae, 0x06,
+	0xc2, 0x66, 0x2f, 0x45, 0x2e, 0xe3, 0x4d, 0xdb, 0x36, 0xba, 0x17, 0xa4, 0xc6, 0xe5, 0xc6, 0x25,
+	0x23, 0xe1, 0x64, 0x32, 0x3b, 0x19, 0x49, 0x14, 0x27, 0x49, 0x6a, 0x94, 0xae, 0xc6, 0xf4, 0xbe,
+	0x7b, 0xe0, 0x0d, 0x25, 0x52, 0x0a, 0x75, 0x2d, 0x72, 0xc9, 0x48, 0x48, 0x22, 0x9f, 0x97, 0x31,
+	0xfd, 0x1f, 0x0e, 0x8b, 0x41, 0x8e, 0x1d, 0x84, 0x5e, 0x54, 0xe7, 0x55, 0x42, 0xef, 0x40, 0x43,
+	0x58, 0x54, 0x0e, 0x99, 0x57, 0xf6, 0xae, 0x32, 0x1a, 0x42, 0xcb, 0xa1, 0xb1, 0xf3, 0x0b, 0xab,
+	0x50, 0x5a, 0x56, 0x2f, 0x1f, 0x77, 0x4b, 0xb4, 0x07, 0xed, 0xd4, 0x68, 0xb4, 0x6a, 0x34, 0x45,
+	0x63, 0x1d, 0x3b, 0x0c, 0xbd, 0xc8, 0xe7, 0xb7, 0x6a, 0x05, 0x67, 0x09, 0x61, 0x8d, 0x12, 0x5f,
+	0x25, 0xf4, 0x3e, 0xf8, 0xc2, 0xe2, 0x07, 0x63, 0xdf, 0x9f, 0x67, 0xac, 0x19, 0x92, 0xa8, 0xce,
+	0xb7, 0x05, 0xfa, 0x02, 0x1a, 0x0e, 0x05, 0x4e, 0x1d, 0x3b, 0x0a, 0x49, 0xf4, 0x5f, 0x3f, 0x8e,
+	0xf7, 0xda, 0x4d, 0x3c, 0x18, 0x96, 0x28, 0xbe, 0x42, 0x17, 0x2c, 0xa8, 0x72, 0x39, 0x44, 0x91,
+	0x4f, 0x98, 0x1f, 0x92, 0xc8, 0xe3, 0xdb, 0x02, 0x75, 0xc0, 0x76, 0x7f, 0x7a, 0xa6, 0x5c, 0x15,
+	0x2b, 0xa3, 0x19, 0x84, 0x5e, 0xd4, 0xea, 0x3f, 0xde, 0x93, 0xf7, 0x59, 0x96, 0xd9, 0x0b, 0x85,
+	0xe3, 0x37, 0x53, 0xa1, 0x51, 0xe1, 0x9c, 0xff, 0x76, 0x30, 0x7d, 0x0d, 0x47, 0x5c, 0x58, 0x85,
+	0x4a, 0x3a, 0xd6, 0x2a, 0x49, 0x1e, 0xed, 0x49, 0x72, 0xae, 0xb5, 0xb4, 0x6b, 0x2c, 0xdf, 0x4c,
+	0xe9, 0x1d, 0x43, 0xe7, 0xd6, 0x13, 0x6d, 0x03, 0xe1, 0x8c, 0x94, 0x17, 0x26, 0xbc, 0xd0, 0x43,
+	0xf3, 0xd5, 0x14, 0x27, 0x7f, 0xbf, 0x26, 0x18, 0x34, 0x57, 0x12, 0x28, 0x15, 0xe1, 0xf3, 0x75,
+	0xfa, 0x4f, 0x0f, 0x7f, 0xa2, 0x07, 0x05, 0xdd, 0x9f, 0xf9, 0x8b, 0xc3, 0x8b, 0x2c, 0xb3, 0xeb,
+	0xc3, 0x17, 0x71, 0x21, 0x93, 0x6b, 0x76, 0x10, 0x92, 0xa8, 0xc3, 0xc9, 0x35, 0x3d, 0x85, 0xe6,
+	0x44, 0xcc, 0x73, 0xa9, 0xab, 0x8b, 0xb7, 0xfa, 0x77, 0xe3, 0xca, 0x68, 0xe2, 0xc2, 0x68, 0xe2,
+	0x95, 0xd1, 0xc4, 0x03, 0xa3, 0x34, 0x5f, 0x77, 0x3e, 0x7c, 0x0a, 0xcd, 0xd5, 0x8a, 0x29, 0x40,
+	0x23, 0x93, 0x4e, 0x5d, 0xea, 0x6e, 0x8d, 0x76, 0xc0, 0x7f, 0xa7, 0xb4, 0xb8, 0x52, 0x9f, 0x64,
+	0xd6, 0x25, 0xc5, 0x93, 0x48, 0x51, 0xcd, 0x64, 0xf7, 0x80, 0xb6, 0xe1, 0x48, 0xd8, 0x74, 0xac,
+	0x66, 0x32, 0xeb, 0x7a, 0xcf, 0xf9, 0x97, 0x45, 0x40, 0x6e, 0x16, 0x01, 0xf9, 0xb6, 0x08, 0xc8,
+	0xe7, 0x65, 0x50, 0xbb, 0x59, 0x06, 0xb5, 0xaf, 0xcb, 0xa0, 0xf6, 0xf6, 0xc9, 0xa5, 0xc2, 0xf1,
+	0x74, 0x14, 0xa7, 0x26, 0x4f, 0x7e, 0x59, 0x47, 0x32, 0xd8, 0xd8, 0xe7, 0xc7, 0x1d, 0x2b, 0xc5,
+	0xf9, 0x44, 0xba, 0x51, 0xa3, 0xb4, 0xc1, 0xd3, 0x1f, 0x01, 0x00, 0x00, 0xff, 0xff, 0xdc, 0xf5,
+	0x5a, 0x15, 0x6e, 0x05, 0x00, 0x00,
 }
 
 func (m *Set) Marshal() (dAtA []byte, err error) {
@@ -325,6 +474,34 @@ func (m *Set) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
+	if len(m.Rarities) > 0 {
+		for iNdEx := len(m.Rarities) - 1; iNdEx >= 0; iNdEx-- {
+			{
+				size, err := m.Rarities[iNdEx].MarshalToSizedBuffer(dAtA[:i])
+				if err != nil {
+					return 0, err
+				}
+				i -= size
+				i = encodeVarintSet(dAtA, i, uint64(size))
+			}
+			i--
+			dAtA[i] = 0x5a
+		}
+	}
+	if len(m.ContributorsDistribution) > 0 {
+		for iNdEx := len(m.ContributorsDistribution) - 1; iNdEx >= 0; iNdEx-- {
+			{
+				size, err := m.ContributorsDistribution[iNdEx].MarshalToSizedBuffer(dAtA[:i])
+				if err != nil {
+					return 0, err
+				}
+				i -= size
+				i = encodeVarintSet(dAtA, i, uint64(size))
+			}
+			i--
+			dAtA[i] = 0x52
+		}
+	}
 	if m.TimeStamp != 0 {
 		i = encodeVarintSet(dAtA, i, uint64(m.TimeStamp))
 		i--
@@ -398,6 +575,47 @@ func (m *Set) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	return len(dAtA) - i, nil
 }
 
+func (m *InnerRarities) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *InnerRarities) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *InnerRarities) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.R) > 0 {
+		dAtA4 := make([]byte, len(m.R)*10)
+		var j3 int
+		for _, num := range m.R {
+			for num >= 1<<7 {
+				dAtA4[j3] = uint8(uint64(num)&0x7f | 0x80)
+				num >>= 7
+				j3++
+			}
+			dAtA4[j3] = uint8(num)
+			j3++
+		}
+		i -= j3
+		copy(dAtA[i:], dAtA4[:j3])
+		i = encodeVarintSet(dAtA, i, uint64(j3))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
 func (m *OutpSet) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
@@ -418,6 +636,34 @@ func (m *OutpSet) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
+	if len(m.Rarities) > 0 {
+		for iNdEx := len(m.Rarities) - 1; iNdEx >= 0; iNdEx-- {
+			{
+				size, err := m.Rarities[iNdEx].MarshalToSizedBuffer(dAtA[:i])
+				if err != nil {
+					return 0, err
+				}
+				i -= size
+				i = encodeVarintSet(dAtA, i, uint64(size))
+			}
+			i--
+			dAtA[i] = 0x5a
+		}
+	}
+	if len(m.ContributorsDistribution) > 0 {
+		for iNdEx := len(m.ContributorsDistribution) - 1; iNdEx >= 0; iNdEx-- {
+			{
+				size, err := m.ContributorsDistribution[iNdEx].MarshalToSizedBuffer(dAtA[:i])
+				if err != nil {
+					return 0, err
+				}
+				i -= size
+				i = encodeVarintSet(dAtA, i, uint64(size))
+			}
+			i--
+			dAtA[i] = 0x52
+		}
+	}
 	if m.TimeStamp != 0 {
 		i = encodeVarintSet(dAtA, i, uint64(m.TimeStamp))
 		i--
@@ -466,20 +712,20 @@ func (m *OutpSet) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 		dAtA[i] = 0x1a
 	}
 	if len(m.Cards) > 0 {
-		dAtA4 := make([]byte, len(m.Cards)*10)
-		var j3 int
+		dAtA6 := make([]byte, len(m.Cards)*10)
+		var j5 int
 		for _, num := range m.Cards {
 			for num >= 1<<7 {
-				dAtA4[j3] = uint8(uint64(num)&0x7f | 0x80)
+				dAtA6[j5] = uint8(uint64(num)&0x7f | 0x80)
 				num >>= 7
-				j3++
+				j5++
 			}
-			dAtA4[j3] = uint8(num)
-			j3++
+			dAtA6[j5] = uint8(num)
+			j5++
 		}
-		i -= j3
-		copy(dAtA[i:], dAtA4[:j3])
-		i = encodeVarintSet(dAtA, i, uint64(j3))
+		i -= j5
+		copy(dAtA[i:], dAtA6[:j5])
+		i = encodeVarintSet(dAtA, i, uint64(j5))
 		i--
 		dAtA[i] = 0x12
 	}
@@ -487,6 +733,53 @@ func (m *OutpSet) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 		i -= len(m.Name)
 		copy(dAtA[i:], m.Name)
 		i = encodeVarintSet(dAtA, i, uint64(len(m.Name)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *AddrWithQuantity) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *AddrWithQuantity) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *AddrWithQuantity) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.Payment != nil {
+		{
+			size, err := m.Payment.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintSet(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0x1a
+	}
+	if m.Q != 0 {
+		i = encodeVarintSet(dAtA, i, uint64(m.Q))
+		i--
+		dAtA[i] = 0x10
+	}
+	if len(m.Addr) > 0 {
+		i -= len(m.Addr)
+		copy(dAtA[i:], m.Addr)
+		i = encodeVarintSet(dAtA, i, uint64(len(m.Addr)))
 		i--
 		dAtA[i] = 0xa
 	}
@@ -548,6 +841,34 @@ func (m *Set) Size() (n int) {
 	if m.TimeStamp != 0 {
 		n += 1 + sovSet(uint64(m.TimeStamp))
 	}
+	if len(m.ContributorsDistribution) > 0 {
+		for _, e := range m.ContributorsDistribution {
+			l = e.Size()
+			n += 1 + l + sovSet(uint64(l))
+		}
+	}
+	if len(m.Rarities) > 0 {
+		for _, e := range m.Rarities {
+			l = e.Size()
+			n += 1 + l + sovSet(uint64(l))
+		}
+	}
+	return n
+}
+
+func (m *InnerRarities) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if len(m.R) > 0 {
+		l = 0
+		for _, e := range m.R {
+			l += sovSet(uint64(e))
+		}
+		n += 1 + sovSet(uint64(l)) + l
+	}
 	return n
 }
 
@@ -595,6 +916,38 @@ func (m *OutpSet) Size() (n int) {
 	}
 	if m.TimeStamp != 0 {
 		n += 1 + sovSet(uint64(m.TimeStamp))
+	}
+	if len(m.ContributorsDistribution) > 0 {
+		for _, e := range m.ContributorsDistribution {
+			l = e.Size()
+			n += 1 + l + sovSet(uint64(l))
+		}
+	}
+	if len(m.Rarities) > 0 {
+		for _, e := range m.Rarities {
+			l = e.Size()
+			n += 1 + l + sovSet(uint64(l))
+		}
+	}
+	return n
+}
+
+func (m *AddrWithQuantity) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.Addr)
+	if l > 0 {
+		n += 1 + l + sovSet(uint64(l))
+	}
+	if m.Q != 0 {
+		n += 1 + sovSet(uint64(m.Q))
+	}
+	if m.Payment != nil {
+		l = m.Payment.Size()
+		n += 1 + l + sovSet(uint64(l))
 	}
 	return n
 }
@@ -926,6 +1279,200 @@ func (m *Set) Unmarshal(dAtA []byte) error {
 				if b < 0x80 {
 					break
 				}
+			}
+		case 10:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ContributorsDistribution", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowSet
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthSet
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthSet
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ContributorsDistribution = append(m.ContributorsDistribution, &AddrWithQuantity{})
+			if err := m.ContributorsDistribution[len(m.ContributorsDistribution)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 11:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Rarities", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowSet
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthSet
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthSet
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Rarities = append(m.Rarities, &InnerRarities{})
+			if err := m.Rarities[len(m.Rarities)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipSet(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthSet
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *InnerRarities) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowSet
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: InnerRarities: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: InnerRarities: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType == 0 {
+				var v uint64
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return ErrIntOverflowSet
+					}
+					if iNdEx >= l {
+						return io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					v |= uint64(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+				m.R = append(m.R, v)
+			} else if wireType == 2 {
+				var packedLen int
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return ErrIntOverflowSet
+					}
+					if iNdEx >= l {
+						return io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					packedLen |= int(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+				if packedLen < 0 {
+					return ErrInvalidLengthSet
+				}
+				postIndex := iNdEx + packedLen
+				if postIndex < 0 {
+					return ErrInvalidLengthSet
+				}
+				if postIndex > l {
+					return io.ErrUnexpectedEOF
+				}
+				var elementCount int
+				var count int
+				for _, integer := range dAtA[iNdEx:postIndex] {
+					if integer < 128 {
+						count++
+					}
+				}
+				elementCount = count
+				if elementCount != 0 && len(m.R) == 0 {
+					m.R = make([]uint64, 0, elementCount)
+				}
+				for iNdEx < postIndex {
+					var v uint64
+					for shift := uint(0); ; shift += 7 {
+						if shift >= 64 {
+							return ErrIntOverflowSet
+						}
+						if iNdEx >= l {
+							return io.ErrUnexpectedEOF
+						}
+						b := dAtA[iNdEx]
+						iNdEx++
+						v |= uint64(b&0x7F) << shift
+						if b < 0x80 {
+							break
+						}
+					}
+					m.R = append(m.R, v)
+				}
+			} else {
+				return fmt.Errorf("proto: wrong wireType = %d for field R", wireType)
 			}
 		default:
 			iNdEx = preIndex
@@ -1283,6 +1830,211 @@ func (m *OutpSet) Unmarshal(dAtA []byte) error {
 					break
 				}
 			}
+		case 10:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ContributorsDistribution", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowSet
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthSet
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthSet
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ContributorsDistribution = append(m.ContributorsDistribution, &AddrWithQuantity{})
+			if err := m.ContributorsDistribution[len(m.ContributorsDistribution)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 11:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Rarities", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowSet
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthSet
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthSet
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Rarities = append(m.Rarities, &InnerRarities{})
+			if err := m.Rarities[len(m.Rarities)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipSet(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthSet
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *AddrWithQuantity) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowSet
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: AddrWithQuantity: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: AddrWithQuantity: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Addr", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowSet
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthSet
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthSet
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Addr = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Q", wireType)
+			}
+			m.Q = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowSet
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Q |= uint32(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Payment", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowSet
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthSet
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthSet
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Payment == nil {
+				m.Payment = &types.Coin{}
+			}
+			if err := m.Payment.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
 			skippy, err := skipSet(dAtA[iNdEx:])

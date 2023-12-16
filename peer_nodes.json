@@ -1,5 +1,6 @@
 {
 	"rpcs": [
+		"http://202.61.225.157:26657",
 		"https://cardchain-testnet-rpc.itrocket.net",
 		"http://crowd.rpc.t.stavr.tech:21207",
 		"https://rpc-testnet-cardchain.nodeist.net"
@@ -10,6 +11,7 @@
 		"rpc-testnet-cardchain.nodeist.net:26656"
 	],
 	"snap_rpcs": [
+		"http://202.61.225.157:26657",
 		"https://cardchain-testnet-rpc.itrocket.net:443",
 		"http://crowd.rpc.t.stavr.tech:21207",
 		"https://rpc-testnet-cardchain.nodeist.net:443"

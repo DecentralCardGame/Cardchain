@@ -25,11 +25,14 @@ func (k msgServer) ReportMatch(goCtx context.Context, msg *types.MsgReportMatch)
 	if msg.Creator != match.Reporter {
 		return nil, sdkerrors.Wrapf(errors.ErrUnauthorized, "Wrong Reporter, reporter is %s", match.Reporter)
 	}
-	if !match.CoinsDistributed {
+	if match.CoinsDistributed {
 		return nil, sdkerrors.Wrap(errors.ErrUnauthorized, "Match already reported")
 	}
 
+	match.PlayerA.PlayedCards = msg.PlayedCardsA
+	match.PlayerB.PlayedCards = msg.PlayedCardsB
 	match.Outcome = msg.Outcome
+	match.ServerConfirmed = true
 	match.Timestamp = uint64(time.Now().Unix())
 
 	err = k.TryHandleMatchOutcome(ctx, match)

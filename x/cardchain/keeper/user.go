@@ -45,7 +45,7 @@ func (k Keeper) InitUser(ctx sdk.Context, address sdk.AccAddress, alias string) 
 		return err
 	}
 	if !matchesEnabled {
-		newUser.VoteRights = k.GetVoteRightToAllCards(ctx, ctx.BlockHeight()+k.GetParams(ctx).VotingRightsExpirationTime)
+		newUser.VotableCards = k.GetAllVotableCards(ctx)
 	}
 
 	userObj := User{newUser, address}

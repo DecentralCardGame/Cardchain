@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-ARGS="--node tcp://localhost:26659 --gas auto"
+ARGS="--node tcp://localhost:26657 --gas auto"
 
 Cardchaind keys add $1
 

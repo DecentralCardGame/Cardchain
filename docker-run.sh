@@ -5,6 +5,7 @@
 echo -e "\033[0;32mfasten your seatbelts\033[0m"
 FAUCET_SECRET_KEY="0x6F1f5bd93f3D59d6eed1d5ec40E29C1821029759"
 CHAIN_ID=Cardchain
+USE_SNAP=true
 
 if [ -z "$FAUCET_SECRET_KEY" ]
 then

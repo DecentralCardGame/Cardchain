@@ -50,11 +50,6 @@ service Query {
 		option (google.api.http).get = "/DecentralCardGame/Cardchain/cardchain/q_voting_results";
 	}
 
-// Queries a list of QVotableCards items.
-	rpc QVotableCards(QueryQVotableCardsRequest) returns (QueryQVotableCardsResponse) {
-		option (google.api.http).get = "/DecentralCardGame/Cardchain/cardchain/q_votable_cards/{address}";
-	}
-
 // Queries a list of QCards items.
 	rpc QCards(QueryQCardsRequest) returns (QueryQCardsResponse) {
 		option (google.api.http).get = "/DecentralCardGame/Cardchain/cardchain/q_cards/{status}";
@@ -154,16 +149,6 @@ message QueryQVotingResultsResponse {
   VotingResults lastVotingResults = 1;
 }
 
-message QueryQVotableCardsRequest {
-  string address = 1;
-}
-
-message QueryQVotableCardsResponse {
-  bool unregistered = 1;
-  bool noVoteRights = 2;
-  repeated VoteRight voteRights = 3;
-}
-
 message QueryQCardsRequest {
   enum Status {
     scheme = 0;
@@ -187,6 +172,7 @@ message QueryQCardsRequest {
   string keywordsContains = 7;
   string notesContains = 8;
   bool onlyStarterCard = 9;
+  bool onlyBalanceAnchors = 10;
 }
 
 message QueryQCardsResponse {

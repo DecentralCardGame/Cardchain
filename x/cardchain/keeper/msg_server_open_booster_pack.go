@@ -31,20 +31,21 @@ func (k msgServer) OpenBoosterPack(goCtx context.Context, msg *types.MsgOpenBoos
 		cardsList     []uint64
 		cleanedRatios [3]uint64
 	)
-	set := k.Sets.Get(ctx, creator.BoosterPacks[msg.BoosterPackId].SetId)
-	rarityNums := k.getCardRaritiesInSet(ctx, set)
-	for idx, ratio := range creator.BoosterPacks[msg.BoosterPackId].DropRatiosPerPack {
-		if len(rarityNums[idx+2]) == 0 {
+	pack := creator.BoosterPacks[msg.BoosterPackId]
+	set := k.Sets.Get(ctx, pack.SetId)
+
+	for idx, ratio := range pack.DropRatiosPerPack {
+		if len(set.Rarities[idx+2].R) == 0 {
 			cleanedRatios[idx] = 0
 		} else {
 			cleanedRatios[idx] = ratio
 		}
 	}
 
-	for idx, num := range creator.BoosterPacks[msg.BoosterPackId].RaritiesPerPack {
+	for idx, num := range pack.RaritiesPerPack {
 		for i := 0; i < int(num); i++ {
 			if idx != 2 {
-				cardsList = append(cardsList, rarityNums[idx][rand.Intn(len(rarityNums[idx]))])
+				cardsList = append(cardsList, set.Rarities[idx].R[rand.Intn(len(set.Rarities[idx].R))])
 			} else {
 				res := uint64(rand.Intn(int(cleanedRatios[0] + cleanedRatios[1] + cleanedRatios[2])))
 				j := 4
@@ -53,7 +54,7 @@ func (k msgServer) OpenBoosterPack(goCtx context.Context, msg *types.MsgOpenBoos
 				} else if res < cleanedRatios[0]+cleanedRatios[1] {
 					j = 3
 				}
-				cardsList = append(cardsList, rarityNums[j][rand.Intn(len(rarityNums[j]))])
+				cardsList = append(cardsList, set.Rarities[j].R[rand.Intn(len(set.Rarities[j].R))])
 			}
 		}
 	}
@@ -68,12 +69,4 @@ func (k msgServer) OpenBoosterPack(goCtx context.Context, msg *types.MsgOpenBoos
 	k.SetUserFromUser(ctx, creator)
 
 	return &types.MsgOpenBoosterPackResponse{CardIds: cardsList}, nil
-}
-
-func (k Keeper) getCardRaritiesInSet(ctx sdk.Context, set *types.Set) (rarityNums [5][]uint64) {
-	for _, cardId := range set.Cards {
-		card := k.Cards.Get(ctx, cardId)
-		rarityNums[int(card.Rarity)] = append(rarityNums[int(card.Rarity)], cardId)
-	}
-	return
 }

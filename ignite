@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # Ingite wrapper to ensure ignite version compatibility
 # Takes optional `--path <path>` option to specify an ingite installation at a different location then the default one

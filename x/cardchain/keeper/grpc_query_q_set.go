@@ -21,14 +21,16 @@ func (k Keeper) QSet(goCtx context.Context, req *types.QueryQSetRequest) (*types
 	image := k.Images.Get(ctx, set.ArtworkId)
 
 	return &types.OutpSet{
-		Name:         set.Name,
-		Cards:        set.Cards,
-		Artist:       set.Artist,
-		StoryWriter:  set.StoryWriter,
-		Contributors: set.Contributors,
-		Story:        set.Story,
-		Artwork:      string(image.Image),
-		Status:       set.Status,
-		TimeStamp:    set.TimeStamp,
+		Name:                     set.Name,
+		Cards:                    set.Cards,
+		Artist:                   set.Artist,
+		StoryWriter:              set.StoryWriter,
+		Contributors:             set.Contributors,
+		Story:                    set.Story,
+		Artwork:                  string(image.Image),
+		Status:                   set.Status,
+		TimeStamp:                set.TimeStamp,
+		ContributorsDistribution: set.ContributorsDistribution,
+		Rarities:                 set.Rarities,
 	}, nil
 }

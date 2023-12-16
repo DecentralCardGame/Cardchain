@@ -36,7 +36,7 @@ func CmdReportMatch() *cobra.Command {
 				return err
 			}
 
-			argOutcome := types.Outcome(types.Outcome_value[args[4]])
+			argOutcome := types.Outcome(types.Outcome_value[args[3]])
 
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
