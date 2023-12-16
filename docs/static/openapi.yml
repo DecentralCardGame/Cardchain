@@ -33902,6 +33902,16 @@ paths:
                         custom method
 
                         signatures required by gogoproto.
+              Rarities:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    R:
+                      type: array
+                      items:
+                        type: string
+                        format: uint64
         default:
           description: An unexpected error response.
           schema:
@@ -68761,6 +68771,14 @@ definitions:
         type: boolean
       card:
         type: boolean
+  DecentralCardGame.cardchain.cardchain.InnerRarities:
+    type: object
+    properties:
+      R:
+        type: array
+        items:
+          type: string
+          format: uint64
   DecentralCardGame.cardchain.cardchain.Match:
     type: object
     properties:
@@ -69141,6 +69159,16 @@ definitions:
                 method
 
                 signatures required by gogoproto.
+      Rarities:
+        type: array
+        items:
+          type: object
+          properties:
+            R:
+              type: array
+              items:
+                type: string
+                format: uint64
   DecentralCardGame.cardchain.cardchain.Params:
     type: object
     properties:
