@@ -48,7 +48,8 @@ SEEDS=""
 echo "peers is:" $PEERS
 sed -i.bak -e "s/^seeds *=.*/seeds = \"$SEEDS\"/; s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $HOME/.Cardchain/config/config.toml
 
-if [ -z $USE_SNAP ] then
+if [ -z $USE_SNAP ] 
+then
 
 	mapfile -t snap_rpcs < <(
 	  jq -r '.snap_rpcs[]' peer_nodes.json
@@ -78,7 +79,8 @@ if [ -z $USE_SNAP ] then
 	sed -i.bak -E "s|^(enable[[:space:]]+=[[:space:]]+).*$|\1true| ; \
 	s|^(rpc_servers[[:space:]]+=[[:space:]]+).*$|\1\"$SNAP_RPC,$SNAP_RPC\"| ; \
 	s|^(trust_height[[:space:]]+=[[:space:]]+).*$|\1$BLOCK_HEIGHT| ; \
-	s|^(trust_hash[[:space:]]+=[[:space:]]+).*$|\1\"$TRUST_HASH\"|" $HOME/.Cardchain/config/config.toml; \
+	s|^(trust_hash[[:space:]]+=[[:space:]]+).*$|\1\"$TRUST_HASH\"|" $HOME/.Cardchain/config/config.toml ; \
+
 fi
 
 # config pruning
