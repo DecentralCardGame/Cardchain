@@ -125,6 +125,7 @@ for idx, addr in enumerate(old_dict["app_state"]["cardchain"]["addresses"]):
 for user in new_dict["app_state"]["cardchain"]["users"]:
     if "voteRights" in user:
         del user["voteRights"]
+    user["boosterPacks"] = [pack for pack in user["boosterPacks"] if pack["setId"] not in ["0", "2"]]  # turn of later
 
 with open(file_path_new, "w") as file:
     json.dump(new_dict, file, indent=2)
