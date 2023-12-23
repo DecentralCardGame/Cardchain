@@ -156,8 +156,6 @@ func (am AppModule) InitGenesis(ctx sdk.Context, cdc codec.JSONCodec, gs json.Ra
 	// Initialize global index to index in genesis state
 	cdc.MustUnmarshalJSON(gs, &genState)
 
-	rand.Seed(1)
-
 	InitGenesis(ctx, am.keeper, genState)
 
 	return []abci.ValidatorUpdate{}
