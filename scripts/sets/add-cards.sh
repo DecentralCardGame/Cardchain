@@ -4,6 +4,7 @@ if [ $# -lt 1 ]; then
   exit 2
 fi
 
+#technology
 Cardchaind tx cardchain add-card-to-set $1	71 --from jannik
 Cardchaind tx cardchain add-card-to-set $1	44 --from jannik
 Cardchaind tx cardchain add-card-to-set $1	142 --from jannik
@@ -35,9 +36,10 @@ Cardchaind tx cardchain add-card-to-set $1	139 --from jannik
 Cardchaind tx cardchain add-card-to-set $1	253 --from jannik
 Cardchaind tx cardchain add-card-to-set $1	381 --from jannik
 Cardchaind tx cardchain add-card-to-set $1 412 --from jannik
+#nature
 Cardchaind tx cardchain add-card-to-set $1	407 --from jannik
 Cardchaind tx cardchain add-card-to-set $1	73 --from jannik
-Cardchaind tx cardchain add-card-to-set $1	411 --from jannik	SHIT
+Cardchaind tx cardchain add-card-to-set $1	411 --from jannik
 Cardchaind tx cardchain add-card-to-set $1	154 --from jannik
 Cardchaind tx cardchain add-card-to-set $1	147 --from jannik
 Cardchaind tx cardchain add-card-to-set $1	156 --from jannik
@@ -65,6 +67,7 @@ Cardchaind tx cardchain add-card-to-set $1	397 --from jannik
 Cardchaind tx cardchain add-card-to-set $1	159 --from jannik
 Cardchaind tx cardchain add-card-to-set $1	410 --from jannik
 Cardchaind tx cardchain add-card-to-set $1	158 --from jannik
+#mysticism
 Cardchaind tx cardchain add-card-to-set $1	47 --from jannik
 Cardchaind tx cardchain add-card-to-set $1	36 --from jannik
 Cardchaind tx cardchain add-card-to-set $1	65 --from jannik
@@ -95,6 +98,7 @@ Cardchaind tx cardchain add-card-to-set $1	24 --from jannik
 Cardchaind tx cardchain add-card-to-set $1	102 --from jannik
 Cardchaind tx cardchain add-card-to-set $1	104 --from jannik
 Cardchaind tx cardchain add-card-to-set $1	224 --from jannik
+#culture
 Cardchaind tx cardchain add-card-to-set $1	255 --from jannik
 Cardchaind tx cardchain add-card-to-set $1	41 --from jannik
 Cardchaind tx cardchain add-card-to-set $1	8 --from jannik
@@ -124,3 +128,26 @@ Cardchaind tx cardchain add-card-to-set $1 141 --from jannik
 Cardchaind tx cardchain add-card-to-set $1	257 --from jannik
 Cardchaind tx cardchain add-card-to-set $1	16 --from jannik
 Cardchaind tx cardchain add-card-to-set $1	138 --from jannik
+# multi class
+Cardchaind tx cardchain add-card-to-set $1	562 --from jannik
+Cardchaind tx cardchain add-card-to-set $1	189 --from jannik
+Cardchaind tx cardchain add-card-to-set $1	152 --from jannik
+Cardchaind tx cardchain add-card-to-set $1	126 --from jannik
+Cardchaind tx cardchain add-card-to-set $1	514 --from jannik
+Cardchaind tx cardchain add-card-to-set $1	379 --from jannik
+Cardchaind tx cardchain add-card-to-set $1	238 --from jannik
+Cardchaind tx cardchain add-card-to-set $1	128 --from jannik
+Cardchaind tx cardchain add-card-to-set $1	118 --from jannik
+Cardchaind tx cardchain add-card-to-set $1	13 --from jannik
+Cardchaind tx cardchain add-card-to-set $1	132 --from jannik
+Cardchaind tx cardchain add-card-to-set $1	87 --from jannik
+Cardchaind tx cardchain add-card-to-set $1	29 --from jannik
+Cardchaind tx cardchain add-card-to-set $1	1 --from jannik
+Cardchaind tx cardchain add-card-to-set $1	397 --from jannik
+Cardchaind tx cardchain add-card-to-set $1	131 --from jannik
+Cardchaind tx cardchain add-card-to-set $1	129 --from jannik
+Cardchaind tx cardchain add-card-to-set $1	120 --from jannik
+Cardchaind tx cardchain add-card-to-set $1	507 --from jannik
+Cardchaind tx cardchain add-card-to-set $1	215 --from jannik
+Cardchaind tx cardchain add-card-to-set $1	124 --from jannik
+Cardchaind tx cardchain add-card-to-set $1	115 --from jannik

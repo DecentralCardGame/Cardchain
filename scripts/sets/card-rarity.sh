@@ -4,6 +4,7 @@ if [ $# -lt 1 ]; then
   exit 2
 fi
 
+#technology
 Cardchaind tx cardchain set-card-rarity	71 $1 common --from jannik
 Cardchaind tx cardchain set-card-rarity	44 $1 common --from jannik
 Cardchaind tx cardchain set-card-rarity	142 $1 uncommon --from jannik
@@ -35,6 +36,7 @@ Cardchaind tx cardchain set-card-rarity	139 $1 uncommon --from jannik
 Cardchaind tx cardchain set-card-rarity	253 $1 uncommon --from jannik
 Cardchaind tx cardchain set-card-rarity	381 $1 uncommon --from jannik
 Cardchaind tx cardchain set-card-rarity	412 $1 rare --from jannik
+#nature
 Cardchaind tx cardchain set-card-rarity	407 $1 uncommon --from jannik
 Cardchaind tx cardchain set-card-rarity	73 $1 common --from jannik
 Cardchaind tx cardchain set-card-rarity	411 $1 common --from jannik		SHIT
@@ -65,6 +67,7 @@ Cardchaind tx cardchain set-card-rarity	397 $1 rare --from jannik
 Cardchaind tx cardchain set-card-rarity	159 $1 rare --from jannik
 Cardchaind tx cardchain set-card-rarity	410 $1 uncommon --from jannik
 Cardchaind tx cardchain set-card-rarity	158 $1 uncommon --from jannik
+#mysticism
 Cardchaind tx cardchain set-card-rarity	47 $1 common --from jannik
 Cardchaind tx cardchain set-card-rarity	36 $1 uncommon --from jannik
 Cardchaind tx cardchain set-card-rarity	65 $1 uncommon --from jannik
@@ -95,6 +98,7 @@ Cardchaind tx cardchain set-card-rarity	24 $1 uncommon --from jannik
 Cardchaind tx cardchain set-card-rarity	102 $1 uncommon --from jannik
 Cardchaind tx cardchain set-card-rarity	104 $1 uncommon --from jannik
 Cardchaind tx cardchain set-card-rarity	224 $1 rare --from jannik
+#culture
 Cardchaind tx cardchain set-card-rarity	255 $1 uncommon --from jannik
 Cardchaind tx cardchain set-card-rarity	41 $1 common --from jannik
 Cardchaind tx cardchain set-card-rarity	8 $1 common --from jannik
@@ -124,3 +128,26 @@ Cardchaind tx cardchain set-card-rarity	141 $1 rare --from jannik
 Cardchaind tx cardchain set-card-rarity	257 $1 common --from jannik
 Cardchaind tx cardchain set-card-rarity	16 $1 rare --from jannik
 Cardchaind tx cardchain set-card-rarity	138 $1 uncommon --from jannik
+# multi class
+Cardchaind tx cardchain set-card-rarity 562 $1 common --from jannik
+Cardchaind tx cardchain set-card-rarity 189 $1 common --from jannik
+Cardchaind tx cardchain set-card-rarity 152 $1 common --from jannik
+Cardchaind tx cardchain set-card-rarity 126 $1 common --from jannik
+Cardchaind tx cardchain set-card-rarity 514 $1 common --from jannik
+Cardchaind tx cardchain set-card-rarity 379 $1 common --from jannik
+Cardchaind tx cardchain set-card-rarity 238 $1 common --from jannik
+Cardchaind tx cardchain set-card-rarity 128 $1 uncommon --from jannik
+Cardchaind tx cardchain set-card-rarity 118 $1 uncommon --from jannik
+Cardchaind tx cardchain set-card-rarity 13  $1 uncommon --from jannik
+Cardchaind tx cardchain set-card-rarity 132 $1 uncommon --from jannik
+Cardchaind tx cardchain set-card-rarity 87  $1 uncommon --from jannik
+Cardchaind tx cardchain set-card-rarity 29  $1 uncommon --from jannik
+Cardchaind tx cardchain set-card-rarity 1   $1 uncommon --from jannik
+Cardchaind tx cardchain set-card-rarity 397 $1 rare --from jannik
+Cardchaind tx cardchain set-card-rarity 131 $1 rare --from jannik
+Cardchaind tx cardchain set-card-rarity 129 $1 rare --from jannik
+Cardchaind tx cardchain set-card-rarity 120 $1 rare --from jannik
+Cardchaind tx cardchain set-card-rarity 507 $1 rare --from jannik
+Cardchaind tx cardchain set-card-rarity 215 $1 rare --from jannik
+Cardchaind tx cardchain set-card-rarity 124 $1 rare --from jannik
+Cardchaind tx cardchain set-card-rarity 115 $1 rare --from jannik

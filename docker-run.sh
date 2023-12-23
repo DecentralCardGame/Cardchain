@@ -4,8 +4,7 @@
 
 echo -e "\033[0;32mfasten your seatbelts\033[0m"
 FAUCET_SECRET_KEY="0x6F1f5bd93f3D59d6eed1d5ec40E29C1821029759"
-CHAIN_ID=Cardchain
-USE_SNAP=true
+USE_SNAP=false
 
 if [ -z "$FAUCET_SECRET_KEY" ]
 then
@@ -49,35 +48,40 @@ SEEDS=""
 echo "peers is:" $PEERS
 sed -i.bak -e "s/^seeds *=.*/seeds = \"$SEEDS\"/; s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $HOME/.Cardchain/config/config.toml
 
-mapfile -t snap_rpcs < <(
-  jq -r '.snap_rpcs[]' peer_nodes.json
-)
-
-for i in "${snap_rpcs[@]}"; do
- 	if curl --output /dev/null --silent --head --fail --connect-timeout 5 $i; then
-   		echo "URL exists: $i"
- 		SNAP_RPC=$i
- 		break
- 	else
-   		echo "not reachable $i"
- 	fi
-done
-if [ -z "$SNAP_RPC" ]
+if [ -z $USE_SNAP ] 
 then
-	echo -e "\033[0;31mNo SNAP_RPC available\033[0m"
-	exit
+
+	mapfile -t snap_rpcs < <(
+	  jq -r '.snap_rpcs[]' peer_nodes.json
+	)
+
+	for i in "${snap_rpcs[@]}"; do
+	 	if curl --output /dev/null --silent --head --fail --connect-timeout 5 $i; then
+	   		echo "URL exists: $i"
+	 		SNAP_RPC=$i
+	 		break
+	 	else
+	   		echo "not reachable $i"
+	 	fi
+	done
+	if [ -z "$SNAP_RPC" ]
+	then
+		echo -e "\033[0;31mNo SNAP_RPC available\033[0m"
+		exit
+	fi
+
+	LATEST_HEIGHT=$(curl -s $SNAP_RPC/block | jq -r .result.block.header.height)
+	echo $LATEST_HEIGHT
+	BLOCK_HEIGHT=$((LATEST_HEIGHT)); \
+	TRUST_HASH=$(curl -s "$SNAP_RPC/block?height=$BLOCK_HEIGHT" | jq -r .result.block_id.hash)
+	echo -e "\033[0;36mlatest height: $LATEST_HEIGHT \nblock height: $BLOCK_HEIGHT \ntrust hash: $TRUST_HASH \033[0m"
+
+	sed -i.bak -E "s|^(enable[[:space:]]+=[[:space:]]+).*$|\1true| ; \
+	s|^(rpc_servers[[:space:]]+=[[:space:]]+).*$|\1\"$SNAP_RPC,$SNAP_RPC\"| ; \
+	s|^(trust_height[[:space:]]+=[[:space:]]+).*$|\1$BLOCK_HEIGHT| ; \
+	s|^(trust_hash[[:space:]]+=[[:space:]]+).*$|\1\"$TRUST_HASH\"|" $HOME/.Cardchain/config/config.toml ; \
+
 fi
-
-LATEST_HEIGHT=$(curl -s $SNAP_RPC/block | jq -r .result.block.header.height)
-echo $LATEST_HEIGHT
-BLOCK_HEIGHT=$((LATEST_HEIGHT)); \
-TRUST_HASH=$(curl -s "$SNAP_RPC/block?height=$BLOCK_HEIGHT" | jq -r .result.block_id.hash)
-echo -e "\033[0;36mlatest height: $LATEST_HEIGHT \nblock height: $BLOCK_HEIGHT \ntrust hash: $TRUST_HASH \033[0m"
-
-sed -i.bak -E "s|^(enable[[:space:]]+=[[:space:]]+).*$|\1true| ; \
-s|^(rpc_servers[[:space:]]+=[[:space:]]+).*$|\1\"$SNAP_RPC,$SNAP_RPC\"| ; \
-s|^(trust_height[[:space:]]+=[[:space:]]+).*$|\1$BLOCK_HEIGHT| ; \
-s|^(trust_hash[[:space:]]+=[[:space:]]+).*$|\1\"$TRUST_HASH\"|" $HOME/.Cardchain/config/config.toml; \
 
 # config pruning
 indexer="kv"
