@@ -3,7 +3,6 @@ package keeper
 import (
 	"fmt"
 	"slices"
-	"time"
 
 	sdkerrors "cosmossdk.io/errors"
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
@@ -216,7 +215,7 @@ func (k Keeper) voteMatchCards(ctx sdk.Context, match *types.Match) error {
 }
 
 func (k Keeper) MatchWorker(ctx sdk.Context) {
-	now := uint64(time.Now().Unix())
+	now := uint64(ctx.BlockHeight())
 	matchWorkerDelay := k.GetParams(ctx).MatchWorkerDelay
 	if ctx.BlockHeight()%20 == 0 {
 		matchIter := k.Matches.GetItemIterator(ctx)

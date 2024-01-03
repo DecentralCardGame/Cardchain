@@ -12,7 +12,7 @@ import (
 
 var _ paramtypes.ParamSet = (*Params)(nil)
 
-const DefaultMatchWorkerDelay = 20 * 60
+const DefaultMatchWorkerDelay = 170
 
 // ParamKeyTable the param key table for launch module
 func ParamKeyTable() paramtypes.KeyTable {

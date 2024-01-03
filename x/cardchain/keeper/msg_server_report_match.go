@@ -2,7 +2,6 @@ package keeper
 
 import (
 	"context"
-	"time"
 
 	sdkerrors "cosmossdk.io/errors"
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
@@ -33,7 +32,7 @@ func (k msgServer) ReportMatch(goCtx context.Context, msg *types.MsgReportMatch)
 	match.PlayerB.PlayedCards = msg.PlayedCardsB
 	match.Outcome = msg.Outcome
 	match.ServerConfirmed = true
-	match.Timestamp = uint64(time.Now().Unix())
+	match.Timestamp = uint64(ctx.BlockHeight())
 
 	err = k.TryHandleMatchOutcome(ctx, match)
 	if err != nil {
