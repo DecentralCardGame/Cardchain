@@ -33104,6 +33104,56 @@ paths:
           in: path
           required: true
           type: string
+          format: uint64
+      tags:
+        - Query
+  /DecentralCardGame/Cardchain/cardchain/q_card_contents/{cardIds}:
+    get:
+      summary: Queries a list of QCardContents items.
+      operationId: DecentralCardGameCardchainCardchainQCardContents
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              cards:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    content:
+                      type: string
+                    hash:
+                      type: string
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: cardIds
+          in: path
+          required: true
+          type: array
+          items:
+            type: string
+            format: uint64
+          collectionFormat: csv
+          minItems: 1
       tags:
         - Query
   /DecentralCardGame/Cardchain/cardchain/q_cardchain_info:
@@ -69318,6 +69368,18 @@ definitions:
         type: string
       hash:
         type: string
+  DecentralCardGame.cardchain.cardchain.QueryQCardContentsResponse:
+    type: object
+    properties:
+      cards:
+        type: array
+        items:
+          type: object
+          properties:
+            content:
+              type: string
+            hash:
+              type: string
   DecentralCardGame.cardchain.cardchain.QueryQCardchainInfoResponse:
     type: object
     properties:

@@ -6,7 +6,7 @@ import (
 
 const (
 	// ProposalTypeChange defines the type for a ParameterChangeProposal
-	ProposalTypeFlagEnable     = "FeatureFlagEnable"
+	ProposalTypeFlagEnable = "FeatureFlagEnable"
 )
 
 func (c *FlagEnableProposal) ProposalRoute() string { return RouterKey }
@@ -21,7 +21,6 @@ func (c *FlagEnableProposal) ValidateBasic() error {
 	// TODO More validation
 	return nil
 }
-
 
 func init() {
 	govtypes.RegisterProposalType(ProposalTypeFlagEnable)
