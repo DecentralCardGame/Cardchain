@@ -3,12 +3,12 @@
 echo "please give write permission to backup folder:"
 sudo chmod o+w backup
 
-PID=$(docker-compose exec blockchain pidof Cardchaind)
+PID=$(docker-compose exec blockchain pidof cardchaind)
 echo PID:$PID
 
-docker-compose exec blockchain pkill Cardchaind
+docker-compose exec blockchain pkill cardchaind
 
-while $(docker-compose exec blockchain pkill -0 Cardchaind); do
+while $(docker-compose exec blockchain pkill -0 cardchaind); do
 	sleep 1
 done 
 

@@ -46,7 +46,7 @@ fi
 
 SEEDS=""
 echo "peers is:" $PEERS
-sed -i.bak -e "s/^seeds *=.*/seeds = \"$SEEDS\"/; s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $HOME/.Cardchain/config/config.toml
+sed -i.bak -e "s/^seeds *=.*/seeds = \"$SEEDS\"/; s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $HOME/.cardchain/config/config.toml
 
 if [ -z $USE_SNAP ] 
 then
@@ -79,7 +79,7 @@ then
 	sed -i.bak -E "s|^(enable[[:space:]]+=[[:space:]]+).*$|\1true| ; \
 	s|^(rpc_servers[[:space:]]+=[[:space:]]+).*$|\1\"$SNAP_RPC,$SNAP_RPC\"| ; \
 	s|^(trust_height[[:space:]]+=[[:space:]]+).*$|\1$BLOCK_HEIGHT| ; \
-	s|^(trust_hash[[:space:]]+=[[:space:]]+).*$|\1\"$TRUST_HASH\"|" $HOME/.Cardchain/config/config.toml ; \
+	s|^(trust_hash[[:space:]]+=[[:space:]]+).*$|\1\"$TRUST_HASH\"|" $HOME/.cardchain/config/config.toml ; \
 
 fi
 
@@ -90,24 +90,24 @@ pruning_keep_recent="100"
 pruning_keep_every="0"
 pruning_interval="10"
 
-sed -i -e "s/^indexer *=.*/indexer = \"$indexer\"/" $HOME/.Cardchain/config/config.toml
-sed -i -e "s/^pruning *=.*/pruning = \"$pruning\"/" $HOME/.Cardchain/config/app.toml
-sed -i -e "s/^pruning-keep-recent *=.*/pruning-keep-recent = \"$pruning_keep_recent\"/" $HOME/.Cardchain/config/app.toml
-sed -i -e "s/^pruning-keep-every *=.*/pruning-keep-every = \"$pruning_keep_every\"/" $HOME/.Cardchain/config/app.toml
-sed -i -e "s/^pruning-interval *=.*/pruning-interval = \"$pruning_interval\"/" $HOME/.Cardchain/config/app.toml
+sed -i -e "s/^indexer *=.*/indexer = \"$indexer\"/" $HOME/.cardchain/config/config.toml
+sed -i -e "s/^pruning *=.*/pruning = \"$pruning\"/" $HOME/.cardchain/config/app.toml
+sed -i -e "s/^pruning-keep-recent *=.*/pruning-keep-recent = \"$pruning_keep_recent\"/" $HOME/.cardchain/config/app.toml
+sed -i -e "s/^pruning-keep-every *=.*/pruning-keep-every = \"$pruning_keep_every\"/" $HOME/.cardchain/config/app.toml
+sed -i -e "s/^pruning-interval *=.*/pruning-interval = \"$pruning_interval\"/" $HOME/.cardchain/config/app.toml
 
 echo -e "\033[0;32mstarting faucet \033[0m"
 sed -i -e "s/^SECRET_KEY *=.*/SECRET_KEY = \"$FAUCET_SECRET_KEY\"/" go-faucet-master/.env
 cd go-faucet-master
 ./go-faucet &
-echo -e "\033[0;31mfaucet adress: \033[0;36m $(Cardchaind keys show alice --address) \033[0;31m must be registered!\033[0m use scripts/register_faucet.sh for that"
-echo $(Cardchaind keys show alice --address) > /backup/faucetaddress.txt
+echo -e "\033[0;31mfaucet adress: \033[0;36m $(cardchaind keys show alice --address) \033[0;31m must be registered!\033[0m use scripts/register_faucet.sh for that"
+echo $(cardchaind keys show alice --address) > /backup/faucetaddress.txt
 
 echo -e "\033[0;32mstarting Blockchain\033[0m"
-Cardchaind start
+cardchaind start
 
-# backup area (this will be executed if the Cardchaind process is killed)
+# backup area (this will be executed if the cardchaind process is killed)
 now=$(date +"%d.%m.%Y")
-Cardchaind export > /backup/genesis$now.json
+cardchaind export > /backup/genesis$now.json
 echo "BACKUP should be in /backup/genesis$now - don't forget to use migrate_with_data.py script in case you need it"
 echo "fail? is backup folder owned by root? (no idea how this happens though)"
