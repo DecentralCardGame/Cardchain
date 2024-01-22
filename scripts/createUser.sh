@@ -2,6 +2,6 @@
 
 ARGS="--node tcp://localhost:26657 --gas auto"
 
-Cardchaind keys add $1
+cardchaind keys add $1
 
-Cardchaind tx cardchain createuser $(Cardchaind keys show $1 --address) $1 --from alice $ARGS
+cardchaind tx cardchain createuser $(cardchaind keys show $1 --address) $1 --from alice $ARGS

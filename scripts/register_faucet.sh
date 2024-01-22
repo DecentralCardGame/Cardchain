@@ -23,5 +23,5 @@ then
 	exit
 fi
 
-Cardchaind tx cardchain createuser $(cat ../backup/faucetaddress.txt) faucet --from jannik --gas auto --node $RPC
+cardchaind tx cardchain createuser $(cat ../backup/faucetaddress.txt) faucet --from jannik --gas auto --node $RPC
 

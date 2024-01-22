@@ -4,8 +4,8 @@ if [ $# -lt 1 ]; then
   exit 2
 fi
 
-Cardchaind tx cardchain finalize-set $1 --from jannik --gas auto
+cardchaind tx cardchain finalize-set $1 --from jannik --gas auto
 
-Cardchaind tx gov submit-legacy-proposal set-proposal 1 10000000ubpf --from jannik --gas auto
+cardchaind tx gov submit-legacy-proposal set-proposal 1 10000000ubpf --from jannik --gas auto
 
-Cardchaind q gov proposals
+cardchaind q gov proposals
