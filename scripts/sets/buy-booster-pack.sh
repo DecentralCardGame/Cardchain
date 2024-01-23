@@ -4,4 +4,4 @@ if [ $# -lt 1 ]; then
   exit 2
 fi
 
-Cardchaind tx cardchain buy-booster-pack 1 --from jannik --gas auto
+cardchaind tx cardchain buy-booster-pack 1 --from jannik --gas auto

@@ -124,7 +124,7 @@ import (
 
 const (
 	AccountAddressPrefix = "cc"
-	Name                 = "Cardchain"
+	Name                 = "cardchain"
 	BondDenom            = "ubpf"
 	// epochBlockTime defines how many blocks are one buffnerf epoch
 	epochBlockTime = 120000 // this is 1 week with 5s block time
@@ -213,7 +213,7 @@ func init() {
 		panic(err)
 	}
 
-	DefaultNodeHome = filepath.Join(userHomeDir, "."+Name)
+	DefaultNodeHome = filepath.Join(userHomeDir, "."+Name+"d")
 }
 
 // App extends an ABCI application, but with most of its parameters exported.
