@@ -3,7 +3,7 @@ package cli
 import (
 	"github.com/DecentralCardGame/Cardchain/x/featureflag/types"
 	"strconv"
-	
+
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/tx"
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -30,8 +30,8 @@ func CmdSubmitFlagEnableProposal() *cobra.Command {
 			proposal := types.FlagEnableProposal{
 				Title:       "Request to enable featureflag `" + args[1] + "` for module `" + args[0] + "`",
 				Description: "See `" + args[0] + "-" + args[1] + "` for more information on the set.",
-				Module: args[0],
-				Name: args[1],
+				Module:      args[0],
+				Name:        args[1],
 			}
 
 			deposit, err := sdk.ParseCoinsNormalized(argDeposit)
@@ -47,6 +47,6 @@ func CmdSubmitFlagEnableProposal() *cobra.Command {
 			return tx.GenerateOrBroadcastTxCLI(clientCtx, cmd.Flags(), msg)
 		},
 	}
-	
+
 	return cmd
 }

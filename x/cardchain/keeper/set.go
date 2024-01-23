@@ -31,7 +31,7 @@ func (k Keeper) CollectSetCreationFee(ctx sdk.Context, creator string) error {
 // GetContributorDistribution Returns an array of all contributors of a set in their respective frequencies
 func (k Keeper) GetContributorDistribution(ctx sdk.Context, set types.Set) []*types.AddrWithQuantity {
 	params := k.GetParams(ctx)
-	contribs := []*types.AddrWithQuantity{{Addr: set.StoryWriter, Q:2}, {Addr: set.Artist, Q: 2}, {Addr: set.Contributors[0], Q: 4}}
+	contribs := []*types.AddrWithQuantity{{Addr: set.StoryWriter, Q: 2}, {Addr: set.Artist, Q: 2}, {Addr: set.Contributors[0], Q: 4}}
 	for _, cardId := range set.Cards {
 		var card = k.Cards.Get(ctx, cardId)
 		if card.Owner != "" {

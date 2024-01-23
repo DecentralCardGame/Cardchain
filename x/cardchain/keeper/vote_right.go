@@ -76,7 +76,7 @@ func (k Keeper) RemoveExpiredVoteRights(ctx sdk.Context) {
 
 	for idx, user := range allUsers {
 		user.VotableCards = []uint64{}
-		user.VotedCards =  []uint64{}
+		user.VotedCards = []uint64{}
 		k.SetUser(ctx, allAddrs[idx], *user)
 	}
 }
