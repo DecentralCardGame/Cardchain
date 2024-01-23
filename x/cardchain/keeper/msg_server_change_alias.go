@@ -15,6 +15,11 @@ func (k msgServer) ChangeAlias(goCtx context.Context, msg *types.MsgChangeAlias)
 		return nil, err
 	}
 	
+	err = checkAliasLimit(msg.Alias)
+	if err != nil {
+		return nil, err
+	}
+
 	user.Alias = msg.Alias
 	
 	k.SetUserFromUser(ctx, user)
