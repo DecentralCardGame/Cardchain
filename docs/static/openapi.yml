@@ -68997,6 +68997,8 @@ definitions:
       cardId:
         type: string
         format: uint64
+  DecentralCardGame.cardchain.cardchain.MsgChangeAliasResponse:
+    type: object
   DecentralCardGame.cardchain.cardchain.MsgChangeArtistResponse:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgCommitCouncilResponseResponse:

@@ -196,6 +196,10 @@ const (
 	// TODO: Determine the simulation weight value
 	defaultWeightMsgSetSetName int = 100
 
+	opWeightMsgChangeAlias = "op_weight_msg_change_alias"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgChangeAlias int = 100
+
 	// this line is used by starport scaffolding # simapp/module/const
 )
 
@@ -667,6 +671,17 @@ func (am AppModule) WeightedOperations(simState module.SimulationState) []simtyp
 	operations = append(operations, simulation.NewWeightedOperation(
 		weightMsgSetSetName,
 		cardchainsimulation.SimulateMsgSetSetName(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
+	var weightMsgChangeAlias int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgChangeAlias, &weightMsgChangeAlias, nil,
+		func(_ *rand.Rand) {
+			weightMsgChangeAlias = defaultWeightMsgChangeAlias
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgChangeAlias,
+		cardchainsimulation.SimulateMsgChangeAlias(am.accountKeeper, am.bankKeeper, am.keeper),
 	))
 
 	// this line is used by starport scaffolding # simapp/module/operation
