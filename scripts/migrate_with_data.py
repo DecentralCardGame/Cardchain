@@ -10,6 +10,8 @@ args = sys.argv
 assert len(args) == 3, f"Error: Syntax: {args[0]} [old_genesis] [new_genesis]"
 
 __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
+subfolder_name = "genesis_balances"
+subfolder_path = os.path.join(__location__, subfolder_name)
 
 gameserver_addr = ["cc1z94z55n2rr4rmjf4ea0m7ykgh9a8urwzrlsxt4", "cc1ch66e3f0szxy8q976rsq5y07esmgdqzj70dfpu"]
 alpha_creator = "cc14km80077s0hch3sh38wh2hfk7kxfau4456r3ej"
@@ -18,13 +20,28 @@ del_cards = []  # [370, 346, 258]
 file_path_old = args[1]
 file_path_new = args[2]
 
-genesisAccs = []
-# here we load the balances of addresses that start with balances on CC
-with open(os.path.join(__location__, "./genesis_balances.tsv"), "r", encoding="utf8") as genesis_file:
-    tsv_reader = csv.DictReader(genesis_file, delimiter="\t")
-    for entry in tsv_reader:
-        genesisAccs.append((entry["Address"], entry["Balance"]))
-        # print(f"{genesisAddresses} has {genesisBalances}")
+address_balances = {}
+
+# Loop through all .tsv files in the subfolder
+for filename in os.listdir(subfolder_path):
+    if filename.endswith(".tsv"):
+        file_path = os.path.join(subfolder_path, filename)
+        
+        # Open the current .tsv file
+        with open(file_path, "r", encoding="utf8") as genesis_file:
+            tsv_reader = csv.DictReader(genesis_file, delimiter="\t")
+            for entry in tsv_reader:
+                address = entry["Address"]
+                balance = float(entry["Balance"])
+
+                # Update the total balance for the address in the dictionary
+                if address in address_balances:
+                    address_balances[address] += balance
+                else:
+                    address_balances[address] = balance
+
+# Convert the dictionary to a list of tuples (address, total_balance)
+genesisAccs = list(address_balances.items())
 
 rarities = []
 # here we load the table with card rarities
