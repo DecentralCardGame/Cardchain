@@ -61,7 +61,7 @@ service Query {
 
   // Queries a list of QCards items.
   rpc QCards (QueryQCardsRequest) returns (QueryQCardsResponse) {
-    option (google.api.http).get = "/DecentralCardGame/Cardchain/cardchain/q_cards/{status}";
+    option (google.api.http).get = "/DecentralCardGame/Cardchain/cardchain/q_cards";
 
   }
 
@@ -173,29 +173,17 @@ message QueryQVotingResultsResponse {
 }
 
 message QueryQCardsRequest {
-  enum Status {
-    scheme         =  0;
-    prototype      =  1;
-    trial          =  2;
-    permanent      =  3;
-    suspended      =  4;
-    banned         =  5;
-    bannedSoon     =  6;
-    bannedVerySoon =  7;
-    none           =  8;
-    playable       =  9;
-    unplayable     = 10;
-  }
   string owner              =  1;
-  Status status             =  2;
-  string cardType           =  3;
-  string classes            =  4;
+  repeated Status statuses             =  2;
+  repeated CardType cardTypes           =  3;
+  repeated CardClass classes            =  4;
   string sortBy             =  5;
   string nameContains       =  6;
   string keywordsContains   =  7;
   string notesContains      =  8;
   bool   onlyStarterCard    =  9;
   bool   onlyBalanceAnchors = 10;
+  repeated CardRarity rarities = 11;
 }
 
 message QueryQCardsResponse {

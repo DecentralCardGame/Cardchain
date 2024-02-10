@@ -33208,7 +33208,7 @@ paths:
                   additionalProperties: {}
       tags:
         - Query
-  /DecentralCardGame/Cardchain/cardchain/q_cards/{status}:
+  /DecentralCardGame/Cardchain/cardchain/q_cards:
     get:
       summary: Queries a list of QCards items.
       operationId: DecentralCardGameCardchainCardchainQCards
@@ -33242,34 +33242,51 @@ paths:
                       type: string
                   additionalProperties: {}
       parameters:
-        - name: status
-          in: path
-          required: true
-          type: string
-          enum:
-            - scheme
-            - prototype
-            - trial
-            - permanent
-            - suspended
-            - banned
-            - bannedSoon
-            - bannedVerySoon
-            - none
-            - playable
-            - unplayable
         - name: owner
           in: query
           required: false
           type: string
-        - name: cardType
+        - name: statuses
           in: query
           required: false
-          type: string
+          type: array
+          items:
+            type: string
+            enum:
+              - scheme
+              - prototype
+              - trial
+              - permanent
+              - suspended
+              - banned
+              - bannedSoon
+              - bannedVerySoon
+              - none
+          collectionFormat: multi
+        - name: cardTypes
+          in: query
+          required: false
+          type: array
+          items:
+            type: string
+            enum:
+              - place
+              - action
+              - entity
+              - headquarter
+          collectionFormat: multi
         - name: classes
           in: query
           required: false
-          type: string
+          type: array
+          items:
+            type: string
+            enum:
+              - nature
+              - culture
+              - mysticism
+              - technology
+          collectionFormat: multi
         - name: sortBy
           in: query
           required: false
@@ -33294,6 +33311,19 @@ paths:
           in: query
           required: false
           type: boolean
+        - name: rarities
+          in: query
+          required: false
+          type: array
+          items:
+            type: string
+            enum:
+              - common
+              - uncommon
+              - rare
+              - exceptional
+              - unique
+          collectionFormat: multi
       tags:
         - Query
   /DecentralCardGame/Cardchain/cardchain/q_council/{councilId}:
@@ -68732,6 +68762,14 @@ definitions:
       - active
       - archived
     default: design
+  DecentralCardGame.cardchain.cardchain.CardClass:
+    type: string
+    enum:
+      - nature
+      - culture
+      - mysticism
+      - technology
+    default: nature
   DecentralCardGame.cardchain.cardchain.CardRarity:
     type: string
     enum:
@@ -68741,6 +68779,14 @@ definitions:
       - exceptional
       - unique
     default: common
+  DecentralCardGame.cardchain.cardchain.CardType:
+    type: string
+    enum:
+      - place
+      - action
+      - entity
+      - headquarter
+    default: place
   DecentralCardGame.cardchain.cardchain.CouncelingStatus:
     type: string
     enum:
@@ -69407,21 +69453,6 @@ definitions:
       lastCardModified:
         type: string
         format: uint64
-  DecentralCardGame.cardchain.cardchain.QueryQCardsRequest.Status:
-    type: string
-    enum:
-      - scheme
-      - prototype
-      - trial
-      - permanent
-      - suspended
-      - banned
-      - bannedSoon
-      - bannedVerySoon
-      - none
-      - playable
-      - unplayable
-    default: scheme
   DecentralCardGame.cardchain.cardchain.QueryQCardsResponse:
     type: object
     properties:
