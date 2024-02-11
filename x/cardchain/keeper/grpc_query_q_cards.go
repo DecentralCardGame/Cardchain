@@ -3,7 +3,6 @@ package keeper
 import (
 	"context"
 	"encoding/json"
-	"fmt"
 	"slices"
 	"sort"
 	"strconv"
@@ -37,8 +36,6 @@ func (k Keeper) QCards(goCtx context.Context, req *types.QueryQCardsRequest) (*t
 
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	fmt.Printf("---> Hier: %#v\n", req)
-
 	checkName := func(cardName cardobject.CardName) bool {
 		if req.NameContains != "" && !strings.Contains(strings.ToLower(string(cardName)), strings.ToLower(req.NameContains)) {
 			return false
@@ -52,7 +49,6 @@ func (k Keeper) QCards(goCtx context.Context, req *types.QueryQCardsRequest) (*t
 		return false
 	}
 	checkClasses := func(cardobjClass cardobject.Class) bool {
-		fmt.Printf("%v, %v\n", cardobjClass, req.Classes)
 		if len(req.Classes) == 0 {
 			return true
 		}
