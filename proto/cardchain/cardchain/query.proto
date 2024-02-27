@@ -184,6 +184,7 @@ message QueryQCardsRequest {
   bool   onlyStarterCard    =  9;
   bool   onlyBalanceAnchors = 10;
   repeated CardRarity rarities = 11;
+  bool multiClassOnly = 12;
 }
 
 message QueryQCardsResponse {

@@ -52,19 +52,35 @@ func (k Keeper) QCards(goCtx context.Context, req *types.QueryQCardsRequest) (*t
 		if len(req.Classes) == 0 {
 			return true
 		}
-		if bool(cardobjClass.Mysticism) && slices.Contains(req.Classes, types.CardClass_mysticism) {
+		if !req.MultiClassOnly {
+			if bool(cardobjClass.Mysticism) && slices.Contains(req.Classes, types.CardClass_mysticism) {
+				return true
+			}
+			if bool(cardobjClass.Nature) && slices.Contains(req.Classes, types.CardClass_nature) {
+				return true
+			}
+			if bool(cardobjClass.Technology) && slices.Contains(req.Classes, types.CardClass_technology) {
+				return true
+			}
+			if bool(cardobjClass.Culture) && slices.Contains(req.Classes, types.CardClass_culture) {
+				return true
+			}
+			return false
+		} else {
+			if bool(cardobjClass.Mysticism) != slices.Contains(req.Classes, types.CardClass_mysticism) {
+				return false
+			}
+			if bool(cardobjClass.Nature) != slices.Contains(req.Classes, types.CardClass_nature) {
+				return false
+			}
+			if bool(cardobjClass.Technology) != slices.Contains(req.Classes, types.CardClass_technology) {
+				return false
+			}
+			if bool(cardobjClass.Culture) != slices.Contains(req.Classes, types.CardClass_culture) {
+				return false
+			}
 			return true
 		}
-		if bool(cardobjClass.Nature) && slices.Contains(req.Classes, types.CardClass_nature) {
-			return true
-		}
-		if bool(cardobjClass.Technology) && slices.Contains(req.Classes, types.CardClass_technology) {
-			return true
-		}
-		if bool(cardobjClass.Culture) && slices.Contains(req.Classes, types.CardClass_culture) {
-			return true
-		}
-		return false
 	}
 
 	iterator := k.Cards.GetItemIterator(ctx)
