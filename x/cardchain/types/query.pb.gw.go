@@ -250,33 +250,12 @@ func local_request_Query_QVotingResults_0(ctx context.Context, marshaler runtime
 }
 
 var (
-	filter_Query_QCards_0 = &utilities.DoubleArray{Encoding: map[string]int{"status": 0}, Base: []int{1, 1, 0}, Check: []int{0, 1, 2}}
+	filter_Query_QCards_0 = &utilities.DoubleArray{Encoding: map[string]int{}, Base: []int(nil), Check: []int(nil)}
 )
 
 func request_Query_QCards_0(ctx context.Context, marshaler runtime.Marshaler, client QueryClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq QueryQCardsRequest
 	var metadata runtime.ServerMetadata
-
-	var (
-		val string
-		e   int32
-		ok  bool
-		err error
-		_   = err
-	)
-
-	val, ok = pathParams["status"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "status")
-	}
-
-	e, err = runtime.Enum(val, QueryQCardsRequest_Status_value)
-
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "status", err)
-	}
-
-	protoReq.Status = QueryQCardsRequest_Status(e)
 
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
@@ -293,27 +272,6 @@ func request_Query_QCards_0(ctx context.Context, marshaler runtime.Marshaler, cl
 func local_request_Query_QCards_0(ctx context.Context, marshaler runtime.Marshaler, server QueryServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq QueryQCardsRequest
 	var metadata runtime.ServerMetadata
-
-	var (
-		val string
-		e   int32
-		ok  bool
-		err error
-		_   = err
-	)
-
-	val, ok = pathParams["status"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "status")
-	}
-
-	e, err = runtime.Enum(val, QueryQCardsRequest_Status_value)
-
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "status", err)
-	}
-
-	protoReq.Status = QueryQCardsRequest_Status(e)
 
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
@@ -1713,7 +1671,7 @@ var (
 
 	pattern_Query_QVotingResults_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"DecentralCardGame", "Cardchain", "cardchain", "q_voting_results"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_QCards_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"DecentralCardGame", "Cardchain", "cardchain", "q_cards", "status"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_QCards_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"DecentralCardGame", "Cardchain", "cardchain", "q_cards"}, "", runtime.AssumeColonVerbOpt(true)))
 
 	pattern_Query_QMatch_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"DecentralCardGame", "Cardchain", "cardchain", "q_match", "matchId"}, "", runtime.AssumeColonVerbOpt(true)))
 

@@ -68,6 +68,20 @@ enum CardRarity {
   unique = 4;
 }
 
+enum CardClass {
+  nature = 0;
+  culture = 1;
+  mysticism = 2;
+  technology = 3;
+}
+
+enum CardType {
+  place = 0;
+  action = 1;
+  entity = 2;
+  headquarter = 3;
+}
+
 message TimeStamp {
 	uint64 timeStamp = 1; 
 }
