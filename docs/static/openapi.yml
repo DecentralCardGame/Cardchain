@@ -33104,6 +33104,56 @@ paths:
           in: path
           required: true
           type: string
+          format: uint64
+      tags:
+        - Query
+  /DecentralCardGame/Cardchain/cardchain/q_card_contents/{cardIds}:
+    get:
+      summary: Queries a list of QCardContents items.
+      operationId: DecentralCardGameCardchainCardchainQCardContents
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              cards:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    content:
+                      type: string
+                    hash:
+                      type: string
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: cardIds
+          in: path
+          required: true
+          type: array
+          items:
+            type: string
+            format: uint64
+          collectionFormat: csv
+          minItems: 1
       tags:
         - Query
   /DecentralCardGame/Cardchain/cardchain/q_cardchain_info:
@@ -33158,7 +33208,7 @@ paths:
                   additionalProperties: {}
       tags:
         - Query
-  /DecentralCardGame/Cardchain/cardchain/q_cards/{status}:
+  /DecentralCardGame/Cardchain/cardchain/q_cards:
     get:
       summary: Queries a list of QCards items.
       operationId: DecentralCardGameCardchainCardchainQCards
@@ -33192,34 +33242,51 @@ paths:
                       type: string
                   additionalProperties: {}
       parameters:
-        - name: status
-          in: path
-          required: true
-          type: string
-          enum:
-            - scheme
-            - prototype
-            - trial
-            - permanent
-            - suspended
-            - banned
-            - bannedSoon
-            - bannedVerySoon
-            - none
-            - playable
-            - unplayable
         - name: owner
           in: query
           required: false
           type: string
-        - name: cardType
+        - name: statuses
           in: query
           required: false
-          type: string
+          type: array
+          items:
+            type: string
+            enum:
+              - scheme
+              - prototype
+              - trial
+              - permanent
+              - suspended
+              - banned
+              - bannedSoon
+              - bannedVerySoon
+              - none
+          collectionFormat: multi
+        - name: cardTypes
+          in: query
+          required: false
+          type: array
+          items:
+            type: string
+            enum:
+              - place
+              - action
+              - entity
+              - headquarter
+          collectionFormat: multi
         - name: classes
           in: query
           required: false
-          type: string
+          type: array
+          items:
+            type: string
+            enum:
+              - nature
+              - culture
+              - mysticism
+              - technology
+          collectionFormat: multi
         - name: sortBy
           in: query
           required: false
@@ -33241,6 +33308,23 @@ paths:
           required: false
           type: boolean
         - name: onlyBalanceAnchors
+          in: query
+          required: false
+          type: boolean
+        - name: rarities
+          in: query
+          required: false
+          type: array
+          items:
+            type: string
+            enum:
+              - common
+              - uncommon
+              - rare
+              - exceptional
+              - unique
+          collectionFormat: multi
+        - name: multiClassOnly
           in: query
           required: false
           type: boolean
@@ -68682,6 +68766,14 @@ definitions:
       - active
       - archived
     default: design
+  DecentralCardGame.cardchain.cardchain.CardClass:
+    type: string
+    enum:
+      - nature
+      - culture
+      - mysticism
+      - technology
+    default: nature
   DecentralCardGame.cardchain.cardchain.CardRarity:
     type: string
     enum:
@@ -68691,6 +68783,14 @@ definitions:
       - exceptional
       - unique
     default: common
+  DecentralCardGame.cardchain.cardchain.CardType:
+    type: string
+    enum:
+      - place
+      - action
+      - entity
+      - headquarter
+    default: place
   DecentralCardGame.cardchain.cardchain.CouncelingStatus:
     type: string
     enum:
@@ -68947,6 +69047,8 @@ definitions:
       cardId:
         type: string
         format: uint64
+  DecentralCardGame.cardchain.cardchain.MsgChangeAliasResponse:
+    type: object
   DecentralCardGame.cardchain.cardchain.MsgChangeArtistResponse:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgCommitCouncilResponseResponse:
@@ -69318,6 +69420,18 @@ definitions:
         type: string
       hash:
         type: string
+  DecentralCardGame.cardchain.cardchain.QueryQCardContentsResponse:
+    type: object
+    properties:
+      cards:
+        type: array
+        items:
+          type: object
+          properties:
+            content:
+              type: string
+            hash:
+              type: string
   DecentralCardGame.cardchain.cardchain.QueryQCardchainInfoResponse:
     type: object
     properties:
@@ -69343,21 +69457,6 @@ definitions:
       lastCardModified:
         type: string
         format: uint64
-  DecentralCardGame.cardchain.cardchain.QueryQCardsRequest.Status:
-    type: string
-    enum:
-      - scheme
-      - prototype
-      - trial
-      - permanent
-      - suspended
-      - banned
-      - bannedSoon
-      - bannedVerySoon
-      - none
-      - playable
-      - unplayable
-    default: scheme
   DecentralCardGame.cardchain.cardchain.QueryQCardsResponse:
     type: object
     properties:

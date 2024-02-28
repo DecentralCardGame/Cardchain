@@ -6,6 +6,8 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
+const MAX_ALIAS_LEN = 25
+
 // User Combines types.User and it's account address for better usability
 type User struct {
 	types.User
@@ -33,9 +35,13 @@ func (k Keeper) InitUser(ctx sdk.Context, address sdk.AccAddress, alias string) 
 		alias = "newbie"
 	}
 	newUser := types.NewUser()
+	err := checkAliasLimit(alias)
+	if err != nil {
+		return err
+	}
 	newUser.Alias = alias
 	newUser.Cards = k.GetAllStarterCards(ctx)
-	err := k.MintCoinsToAddr(ctx, address, sdk.Coins{sdk.NewInt64Coin("ucredits", 10000000000)})
+	err = k.MintCoinsToAddr(ctx, address, sdk.Coins{sdk.NewInt64Coin("ucredits", 10000000000)})
 	if err != nil {
 		return err
 	}
@@ -107,7 +113,15 @@ func (k Keeper) GetAllUsers(ctx sdk.Context) (allUsers []*types.User, allAddress
 		k.cdc.MustUnmarshal(iterator.Value(), &gottenUser)
 
 		allUsers = append(allUsers, &gottenUser)
-		allAddresses = append(allAddresses, sdk.AccAddress(iterator.Key()))
+		allAddresses = append(allAddresses, iterator.Key())
 	}
 	return
+}
+
+func checkAliasLimit(alias string) error {
+	if len(alias) > MAX_ALIAS_LEN {
+		return sdkerrors.Wrapf(types.InvalidAlias, "alias is too long (%d) maximum is %d", len(alias), MAX_ALIAS_LEN)
+	}
+
+	return nil
 }

@@ -19,7 +19,7 @@ func CmdQFlag() *cobra.Command {
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
 			reqModule := args[0]
 			reqName := args[1]
-			
+
 			clientCtx, err := client.GetClientQueryContext(cmd)
 			if err != nil {
 				return err
@@ -29,7 +29,7 @@ func CmdQFlag() *cobra.Command {
 
 			params := &types.QueryQFlagRequest{
 				Module: reqModule,
-				Name: reqName,
+				Name:   reqName,
 			}
 
 			res, err := queryClient.QFlag(cmd.Context(), params)

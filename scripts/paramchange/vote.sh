@@ -6,4 +6,4 @@ fi
 
 echo "voting! (I hope you have staked ubpf)"
 
-Cardchaind tx gov vote $1 yes --from jannik
+cardchaind tx gov vote $1 yes --from jannik

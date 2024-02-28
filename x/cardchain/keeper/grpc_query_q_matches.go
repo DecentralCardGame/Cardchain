@@ -19,8 +19,6 @@ func (k Keeper) QMatches(goCtx context.Context, req *types.QueryQMatchesRequest)
 		matchesList []*types.Match
 		matchIds    []uint64
 	)
-	allUsersInMatch := true
-	allCardsInMatch := true
 
 	if req.Ignore == nil {
 		newIgnore := types.NewIgnoreMatches()
@@ -31,6 +29,9 @@ func (k Keeper) QMatches(goCtx context.Context, req *types.QueryQMatchesRequest)
 
 	iter := k.Matches.GetItemIterator(ctx)
 	for ; iter.Valid(); iter.Next() {
+		allUsersInMatch := true
+		allCardsInMatch := true
+
 		// Checks for timestamp
 		idx, match := iter.Value()
 		if req.TimestampUp != 0 || req.TimestampDown != 0 {

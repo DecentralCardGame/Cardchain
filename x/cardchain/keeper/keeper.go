@@ -80,7 +80,7 @@ func NewKeeper(
 		Servers:         gtk.NewGTK[*types.Server](serversStoreKey, internalStoreKey, cdc, gtk.GetEmpty[types.Server]),
 
 		FeatureFlagModuleInstance: featureFlagKeeper.GetModuleInstance(types.ModuleName, []string{string(types.FeatureFlagName_Council), string(types.FeatureFlagName_Matches)}),
-		BankKeeper: bankKeeper,
+		BankKeeper:                bankKeeper,
 	}
 }
 

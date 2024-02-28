@@ -1,6 +1,7 @@
 version: 1
 build:
   main: cmd/Cardchaind/
+  binary: "cardchaind"
   proto:
     path: proto
     third_party_paths:
@@ -87,7 +88,7 @@ genesis:
     staking:
       params:
         bond_denom: ubpf
-  chain_id: cardtestnet-8
+  chain_id: carddevnet-2
 validators:
 - name: alice
   bonded: 5000000ubpf
