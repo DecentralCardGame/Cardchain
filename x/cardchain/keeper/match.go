@@ -46,7 +46,7 @@ func (k Keeper) calculateMatchReward(ctx sdk.Context, outcome types.Outcome) (am
 func (k Keeper) getMatchReward(ctx sdk.Context) sdk.Coin {
 	pool := k.Pools.Get(ctx, WinnersPoolKey)
 	reward := QuoCoin(*pool, k.GetParams(ctx).WinnerReward)
-	if reward.Amount.Int64() > 1000000 {
+	if reward.Amount.GTE(sdk.NewInt(1000000)) {
 		return sdk.NewInt64Coin(reward.Denom, 1000000)
 	}
 	return reward
