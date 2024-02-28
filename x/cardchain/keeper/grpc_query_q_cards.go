@@ -26,7 +26,6 @@ type Result struct {
 
 func (k Keeper) QCards(goCtx context.Context, req *types.QueryQCardsRequest) (*types.QueryQCardsResponse, error) {
 	var (
-		states    []types.Status
 		cardsList []uint64
 		results   []Result
 	)
@@ -36,29 +35,6 @@ func (k Keeper) QCards(goCtx context.Context, req *types.QueryQCardsRequest) (*t
 	}
 
 	ctx := sdk.UnwrapSDKContext(goCtx)
-
-	// This one fixes escaping
-	for _, arg := range []*string{&req.Owner, &req.CardType, &req.Classes, &req.SortBy, &req.NameContains, &req.KeywordsContains, &req.NotesContains} {
-		if *arg == "\"\"" {
-			*arg = ""
-		}
-	}
-
-	switch req.Status {
-	case types.QueryQCardsRequest_playable:
-		states = []types.Status{types.Status_trial, types.Status_permanent}
-	case types.QueryQCardsRequest_unplayable:
-		states = []types.Status{
-			types.Status_scheme,
-			types.Status_prototype,
-			types.Status_suspended,
-			types.Status_banned,
-			types.Status_bannedSoon,
-			types.Status_bannedVerySoon,
-		}
-	default:
-		states = []types.Status{types.Status(types.Status_value[req.Status.String()])}
-	}
 
 	checkName := func(cardName cardobject.CardName) bool {
 		if req.NameContains != "" && !strings.Contains(strings.ToLower(string(cardName)), strings.ToLower(req.NameContains)) {
@@ -73,31 +49,34 @@ func (k Keeper) QCards(goCtx context.Context, req *types.QueryQCardsRequest) (*t
 		return false
 	}
 	checkClasses := func(cardobjClass cardobject.Class) bool {
-		if strings.Contains(req.Classes, "OR") {
-			if bool(cardobjClass.Mysticism) && strings.Contains(req.Classes, "Mysticism") {
+		if len(req.Classes) == 0 {
+			return true
+		}
+		if !req.MultiClassOnly {
+			if bool(cardobjClass.Mysticism) && slices.Contains(req.Classes, types.CardClass_mysticism) {
 				return true
 			}
-			if bool(cardobjClass.Nature) == true && strings.Contains(req.Classes, "Nature") {
+			if bool(cardobjClass.Nature) && slices.Contains(req.Classes, types.CardClass_nature) {
 				return true
 			}
-			if bool(cardobjClass.Technology) && strings.Contains(req.Classes, "Technology") {
+			if bool(cardobjClass.Technology) && slices.Contains(req.Classes, types.CardClass_technology) {
 				return true
 			}
-			if bool(cardobjClass.Culture) && strings.Contains(req.Classes, "Culture") {
+			if bool(cardobjClass.Culture) && slices.Contains(req.Classes, types.CardClass_culture) {
 				return true
 			}
 			return false
 		} else {
-			if bool(cardobjClass.Mysticism) != strings.Contains(req.Classes, "Mysticism") {
+			if bool(cardobjClass.Mysticism) != slices.Contains(req.Classes, types.CardClass_mysticism) {
 				return false
 			}
-			if bool(cardobjClass.Nature) != strings.Contains(req.Classes, "Nature") {
+			if bool(cardobjClass.Nature) != slices.Contains(req.Classes, types.CardClass_nature) {
 				return false
 			}
-			if bool(cardobjClass.Technology) != strings.Contains(req.Classes, "Technology") {
+			if bool(cardobjClass.Technology) != slices.Contains(req.Classes, types.CardClass_technology) {
 				return false
 			}
-			if bool(cardobjClass.Culture) != strings.Contains(req.Classes, "Culture") {
+			if bool(cardobjClass.Culture) != slices.Contains(req.Classes, types.CardClass_culture) {
 				return false
 			}
 			return true
@@ -119,23 +98,30 @@ func (k Keeper) QCards(goCtx context.Context, req *types.QueryQCardsRequest) (*t
 			continue
 		}
 
-		// first skip all cards with irrelevant status
-		if gottenCard.Status == types.Status_none || gottenCard.Status == types.Status_scheme {
-			continue
-		}
-
 		// then check if a status constrain was given and skip the card if it has the wrong status
-		if req.Status != types.QueryQCardsRequest_none {
-			if !slices.Contains(states, gottenCard.Status) {
+		if len(req.Statuses) != 0 {
+			if !slices.Contains(req.Statuses, gottenCard.Status) {
+				continue
+			}
+		} else {
+			// first skip all cards with irrelevant status
+			if gottenCard.Status == types.Status_none || gottenCard.Status == types.Status_scheme {
 				continue
 			}
 		}
+
+		// rarity
+		if len(req.Rarities) != 0 && !slices.Contains(req.Rarities, gottenCard.Rarity) {
+			continue
+		}
+
 		// then check if an owner constrain was given and skip the card if it has the wrong owner
 		if req.Owner != "" {
 			if gottenCard.Owner != req.Owner {
 				continue
 			}
 		}
+
 		// then check if the notes should contain something and skip the card if it does not
 		if req.NotesContains != "" {
 			if !strings.Contains(gottenCard.Notes, req.NotesContains) {
@@ -144,17 +130,17 @@ func (k Keeper) QCards(goCtx context.Context, req *types.QueryQCardsRequest) (*t
 		}
 
 		// lastly check if this is a special request and skip the card if it does not meet it
-		if req.NameContains != "" || req.CardType != "" || req.SortBy != "" || req.Classes != "" || req.KeywordsContains != "" {
+		if req.NameContains != "" || len(req.CardTypes) != 0 || req.SortBy != "" || len(req.Classes) != 0 || req.KeywordsContains != "" {
 			cardobj, err := keywords.Unmarshal(gottenCard.Content)
 			if err != nil {
 				return nil, sdkerrors.Wrap(errors.ErrJSONMarshal, err.Error()+"cardid="+strconv.FormatUint(idx, 10))
 			}
 
 			if cardobj.Action != nil {
-				if req.CardType != "" && req.CardType != "Action" {
+				if len(req.CardTypes) != 0 && !slices.Contains(req.CardTypes, types.CardType_action) {
 					continue
 				}
-				if req.Classes != "" && !checkClasses(cardobj.Action.Class) {
+				if !checkClasses(cardobj.Action.Class) {
 					continue
 				}
 				if !checkName(cardobj.Action.CardName) {
@@ -175,10 +161,10 @@ func (k Keeper) QCards(goCtx context.Context, req *types.QueryQCardsRequest) (*t
 				}
 			}
 			if cardobj.Entity != nil {
-				if req.CardType != "" && req.CardType != "Entity" {
+				if len(req.CardTypes) != 0 && !slices.Contains(req.CardTypes, types.CardType_entity) {
 					continue
 				}
-				if req.Classes != "" && !checkClasses(cardobj.Entity.Class) {
+				if !checkClasses(cardobj.Entity.Class) {
 					continue
 				}
 				if !checkName(cardobj.Entity.CardName) {
@@ -199,10 +185,10 @@ func (k Keeper) QCards(goCtx context.Context, req *types.QueryQCardsRequest) (*t
 				}
 			}
 			if cardobj.Headquarter != nil {
-				if req.CardType != "" && req.CardType != "Headquarter" {
+				if len(req.CardTypes) != 0 && !slices.Contains(req.CardTypes, types.CardType_headquarter) {
 					continue
 				}
-				if req.Classes != "" && !checkClasses(cardobj.Headquarter.Class) {
+				if !checkClasses(cardobj.Headquarter.Class) {
 					continue
 				}
 				if !checkName(cardobj.Headquarter.CardName) {
@@ -223,13 +209,13 @@ func (k Keeper) QCards(goCtx context.Context, req *types.QueryQCardsRequest) (*t
 				}
 			}
 			if cardobj.Place != nil {
-				if req.CardType != "" && req.CardType != "Place" {
+				if len(req.CardTypes) != 0 && !slices.Contains(req.CardTypes, types.CardType_place) {
 					continue
 				}
 				if !checkName(cardobj.Place.CardName) {
 					continue
 				}
-				if req.Classes != "" && !checkClasses(cardobj.Place.Class) {
+				if !checkClasses(cardobj.Place.Class) {
 					continue
 				}
 				if req.KeywordsContains != "" {
