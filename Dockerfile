@@ -47,6 +47,8 @@ COPY --chown=tendermint:tendermint . .
 RUN ignite chain build
 RUN ignite chain init
 
+RUN mv $HOME/.Cardchain $HOME/.cardchaind
+
 COPY scripts/download_genesis.py download_genesis.py
 RUN python3 download_genesis.py
 RUN mv genesis.json $HOME/.cardchaind/config/genesis.json

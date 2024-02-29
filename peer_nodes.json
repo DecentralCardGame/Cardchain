@@ -1,12 +1,12 @@
 {
 	"rpcs": [
-		"http://202.61.225.157:26657",
+		"http://202.61.225.157:20057",
 		"https://cardchain-testnet-rpc.itrocket.net",
 		"http://crowd.rpc.t.stavr.tech:21207",
 		"https://rpc-testnet-cardchain.nodeist.net"
 	],
 	"peers": [
-		"202.61.225.157:26656",
+		"202.61.225.157:20056",
 		"cardchain-testnet-peer.itrocket.net:31656",
 		"crowd.peer.stavr.tech:21206",
 		"rpc-testnet-cardchain.nodeist.net:26656"
