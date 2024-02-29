@@ -803,7 +803,7 @@ func (app *App) EndBlocker(ctx sdk.Context, req abci.RequestEndBlock) abci.Respo
 	}
 
 	if app.LastBlockHeight()%500 == 0 { //HourlyFaucet
-		app.CardchainKeeper.AddPoolCredits(ctx, cardchainmodulekeeper.PublicPoolKey, app.CardchainKeeper.GetParams(ctx).HourlyFaucet)
+		app.CardchainKeeper.DistributeHourlyFaucet(ctx)
 
 		incentives := cardchainmodulekeeper.QuoCoin(*app.CardchainKeeper.Pools.Get(ctx, cardchainmodulekeeper.PublicPoolKey), 10)
 		app.CardchainKeeper.SubPoolCredits(ctx, cardchainmodulekeeper.PublicPoolKey, incentives)

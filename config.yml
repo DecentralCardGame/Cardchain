@@ -40,12 +40,10 @@ genesis:
       denom_metadata:
         - base: ubpf
           denom_units:
-            - aliases:
-              - microbpf
+            - aliases: [microbpf]
               denom: ubpf
               exponent: 0
-            - aliases:
-              - millibpf
+            - aliases: [millibpf]
               denom: mbpf
               exponent: 3
             - aliases: []
@@ -88,7 +86,7 @@ genesis:
     staking:
       params:
         bond_denom: ubpf
-  chain_id: cardtestnet-9
+  chain_id: cardtestnet-10
 validators:
   - name: alice
     bonded: 5000000ubpf
