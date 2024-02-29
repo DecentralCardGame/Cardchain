@@ -24,3 +24,11 @@ func (k Keeper) SubPoolCredits(ctx sdk.Context, poolName string, amount sdk.Coin
 	newPool := pool.Sub(amount)
 	k.Pools.Set(ctx, poolName, &newPool)
 }
+
+// DistributeHourlyFaucet distributes hourly faucet
+func (k Keeper) DistributeHourlyFaucet(ctx sdk.Context) {
+	pool := k.Pools.Get(ctx, PublicPoolKey)
+	if pool.Amount.LT(sdk.NewInt(1_000_000_000_000_000)) {
+		k.AddPoolCredits(ctx, PublicPoolKey, k.GetParams(ctx).HourlyFaucet)
+	}
+}
