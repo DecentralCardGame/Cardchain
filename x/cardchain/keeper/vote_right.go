@@ -14,7 +14,7 @@ func (k Keeper) GetVoteReward(ctx sdk.Context) sdk.Coin {
 
 	pool := k.Pools.Get(ctx, BalancersPoolKey)
 	reward := QuoCoin(*pool, params.VotePoolFraction)
-	if reward.Amount.Int64() > params.VotingRewardCap {
+	if reward.Amount.GTE(sdk.NewInt(params.VotingRewardCap)) {
 		return sdk.NewInt64Coin(reward.Denom, params.VotingRewardCap)
 	}
 	return reward
