@@ -200,6 +200,10 @@ const (
 	// TODO: Determine the simulation weight value
 	defaultWeightMsgChangeAlias int = 100
 
+	opWeightMsgInviteEarlyAccess = "op_weight_msg_invite_early_access"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgInviteEarlyAccess int = 100
+
 	// this line is used by starport scaffolding # simapp/module/const
 )
 
@@ -682,6 +686,17 @@ func (am AppModule) WeightedOperations(simState module.SimulationState) []simtyp
 	operations = append(operations, simulation.NewWeightedOperation(
 		weightMsgChangeAlias,
 		cardchainsimulation.SimulateMsgChangeAlias(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
+	var weightMsgInviteEarlyAccess int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgInviteEarlyAccess, &weightMsgInviteEarlyAccess, nil,
+		func(_ *rand.Rand) {
+			weightMsgInviteEarlyAccess = defaultWeightMsgInviteEarlyAccess
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgInviteEarlyAccess,
+		cardchainsimulation.SimulateMsgInviteEarlyAccess(am.accountKeeper, am.bankKeeper, am.keeper),
 	))
 
 	// this line is used by starport scaffolding # simapp/module/operation

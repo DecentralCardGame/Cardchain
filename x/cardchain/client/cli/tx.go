@@ -70,6 +70,7 @@ func GetTxCmd() *cobra.Command {
 	cmd.AddCommand(CmdMsgOpenMatch())
 	cmd.AddCommand(CmdSetSetName())
 	cmd.AddCommand(CmdChangeAlias())
+	cmd.AddCommand(CmdInviteEarlyAccess())
 	// this line is used by starport scaffolding # 1
 
 	return cmd

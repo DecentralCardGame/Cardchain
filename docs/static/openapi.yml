@@ -34184,6 +34184,15 @@ paths:
                 items:
                   type: string
                   format: uint64
+              earlyAccess:
+                type: object
+                properties:
+                  active:
+                    type: boolean
+                  invitedByUser:
+                    type: string
+                  invitedUser:
+                    type: string
         default:
           description: An unexpected error response.
           schema:
@@ -68859,6 +68868,15 @@ definitions:
       - openCouncil
       - startedCouncil
     default: available
+  DecentralCardGame.cardchain.cardchain.EarlyAccess:
+    type: object
+    properties:
+      active:
+        type: boolean
+      invitedByUser:
+        type: string
+      invitedUser:
+        type: string
   DecentralCardGame.cardchain.cardchain.IgnoreMatches:
     type: object
     properties:
@@ -69066,6 +69084,8 @@ definitions:
   DecentralCardGame.cardchain.cardchain.MsgDonateToCardResponse:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgFinalizeSetResponse:
+    type: object
+  DecentralCardGame.cardchain.cardchain.MsgInviteEarlyAccessResponse:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgMultiVoteCardResponse:
     type: object
@@ -69828,6 +69848,15 @@ definitions:
         items:
           type: string
           format: uint64
+      earlyAccess:
+        type: object
+        properties:
+          active:
+            type: boolean
+          invitedByUser:
+            type: string
+          invitedUser:
+            type: string
   DecentralCardGame.cardchain.cardchain.VoteType:
     type: string
     enum:
