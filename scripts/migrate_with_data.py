@@ -43,15 +43,14 @@ with open(os.path.join(__location__, "./card_starters.tsv"), "r", encoding="utf8
 # this loads the old genesis file
 with open(file_path_old, "r") as file:
     old_dict = json.load(file)
-    #old_dict = json.loads(file.read().replace("collection", "set").replace("Collection", "Set"))
+    # old_dict = json.loads(file.read().replace("collection", "set").replace("Collection", "Set"))
 
 # this loads the new genesis file
 with open(file_path_new, "r") as file:
     new_dict = json.load(file)
 
-
 # delete all sets
-#old_dict["app_state"]["cardchain"]["sets"] = []
+# old_dict["app_state"]["cardchain"]["sets"] = []
 
 
 params = new_dict["app_state"]["cardchain"]["params"]
@@ -126,6 +125,10 @@ for user in new_dict["app_state"]["cardchain"]["users"]:
     if "voteRights" in user:
         del user["voteRights"]
     user["boosterPacks"] = [pack for pack in user["boosterPacks"] if pack["setId"] not in ["0", "2"]]  # turn of later
+    user["earlyAccess"] = user.get(
+        "earlyAccess",
+        {"active": False, "invitedUser": "", "invitedByUser": ""}
+    )  # add earlyAccess
 
 with open(file_path_new, "w") as file:
     json.dump(new_dict, file, indent=2)
