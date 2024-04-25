@@ -9,7 +9,7 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
-func (k msgServer) InviteEarlyAccess(goCtx context.Context, msg *types.MsgInviteEarlyAccess) (*types.MsgInviteEarlyAccessResponse, error) {
+func (k msgServer) DisinviteEarlyAccess(goCtx context.Context, msg *types.MsgDisinviteEarlyAccess) (*types.MsgDisinviteEarlyAccessResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
 	inviter, err := k.GetUserFromString(ctx, msg.Creator)
@@ -21,28 +21,21 @@ func (k msgServer) InviteEarlyAccess(goCtx context.Context, msg *types.MsgInvite
 		return nil, sdkerrors.Wrapf(errors.ErrUnauthorized, "inviter has to be enroled in early access to invite users")
 	}
 
-	if inviter.EarlyAccess.InvitedUser != "" {
-		return nil, sdkerrors.Wrapf(errors.ErrUnauthorized, "inviter has already invited user %s", inviter.EarlyAccess.InvitedUser)
-	}
-
 	invited, err := k.GetUserFromString(ctx, msg.User)
 	if err != nil {
 		return nil, err
 	}
 
-	if invited.EarlyAccess != nil && invited.EarlyAccess.Active {
-		return nil, sdkerrors.Wrapf(errors.ErrUnauthorized, "invited user is already enroled in early access")
+	if invited.EarlyAccess == nil || !invited.EarlyAccess.Active || invited.EarlyAccess.InvitedByUser != msg.Creator || inviter.EarlyAccess.InvitedUser != msg.User {
+		return nil, sdkerrors.Wrapf(errors.ErrUnauthorized, "invited user has not been invited to early access by the creator")
 	}
 
-	invited.EarlyAccess = &types.EarlyAccess{
-		Active:        true,
-		InvitedByUser: msg.Creator,
-	}
-
-	inviter.EarlyAccess.InvitedUser = msg.User
+	inviter.EarlyAccess.InvitedUser = ""
+	invited.EarlyAccess.Active = false
+	invited.EarlyAccess.InvitedByUser = ""
 
 	k.SetUserFromUser(ctx, inviter)
 	k.SetUserFromUser(ctx, invited)
 
-	return &types.MsgInviteEarlyAccessResponse{}, nil
+	return &types.MsgDisinviteEarlyAccessResponse{}, nil
 }
