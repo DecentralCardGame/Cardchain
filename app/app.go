@@ -124,7 +124,7 @@ import (
 
 const (
 	AccountAddressPrefix = "cc"
-	Name                 = "Cardchain"
+	Name                 = "cardchain"
 	BondDenom            = "ubpf"
 	// epochBlockTime defines how many blocks are one buffnerf epoch
 	epochBlockTime = 120000 // this is 1 week with 5s block time
@@ -213,7 +213,7 @@ func init() {
 		panic(err)
 	}
 
-	DefaultNodeHome = filepath.Join(userHomeDir, "."+Name)
+	DefaultNodeHome = filepath.Join(userHomeDir, "."+Name+"d")
 }
 
 // App extends an ABCI application, but with most of its parameters exported.
@@ -797,13 +797,13 @@ func (app *App) EndBlocker(ctx sdk.Context, req abci.RequestEndBlock) abci.Respo
 	if app.LastBlockHeight()%epochBlockTime == 0 {
 		cardchainmodule.UpdateNerfLevels(ctx, app.CardchainKeeper)
 		matchesEnabled, _ := app.CardchainKeeper.FeatureFlagModuleInstance.Get(ctx, string(cardchainmoduletypes.FeatureFlagName_Matches))
-		if matchesEnabled {  // Only give voterigths to all users, when matches are not anabled
+		if matchesEnabled { // Only give voterigths to all users, when matches are not anabled
 			app.CardchainKeeper.AddVoteRightsToAllUsers(ctx)
 		}
 	}
 
 	if app.LastBlockHeight()%500 == 0 { //HourlyFaucet
-		app.CardchainKeeper.AddPoolCredits(ctx, cardchainmodulekeeper.PublicPoolKey, app.CardchainKeeper.GetParams(ctx).HourlyFaucet)
+		app.CardchainKeeper.DistributeHourlyFaucet(ctx)
 
 		incentives := cardchainmodulekeeper.QuoCoin(*app.CardchainKeeper.Pools.Get(ctx, cardchainmodulekeeper.PublicPoolKey), 10)
 		app.CardchainKeeper.SubPoolCredits(ctx, cardchainmodulekeeper.PublicPoolKey, incentives)

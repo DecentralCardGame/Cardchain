@@ -27,12 +27,12 @@ func handleFlagEnableProposal(ctx sdk.Context, k keeper.Keeper, p *types.FlagEna
 	if err != nil {
 		return err
 	}
-	
+
 	key := keeper.GetKey(p.Module, p.Name)
-	
+
 	flag := k.GetFlag(ctx, key)
 	flag.Set = true
 	k.SetFlag(ctx, key, flag)
-	
+
 	return nil
 }

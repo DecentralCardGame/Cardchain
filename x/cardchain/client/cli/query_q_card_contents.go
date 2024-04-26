@@ -1,41 +1,45 @@
 package cli
 
 import (
-	"github.com/spf13/cast"
 	"strconv"
 
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/flags"
+	"github.com/spf13/cast"
 	"github.com/spf13/cobra"
 )
 
 var _ = strconv.Itoa(0)
 
-func CmdQCardContent() *cobra.Command {
+func CmdQCardContents() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "q-card-content [card-id]",
-		Short: "Query qCardContent",
-		Args:  cobra.ExactArgs(1),
+		Use:   "q-card-contents [card-ids]",
+		Short: "Query q_card_contents",
+		Args:  cobra.MinimumNArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
-			reqCardId, err := cast.ToUint64E(args[0])
-			if err != nil {
-				return err
+			var reqCardIds []uint64
+			for _, id := range args[0:] {
+				convId, err := cast.ToUint64E(id)
+				if err != nil {
+					return err
+				}
+				reqCardIds = append(reqCardIds, convId)
 			}
 
-			clientCtx, err := client.GetClientTxContext(cmd)
+			clientCtx, err := client.GetClientQueryContext(cmd)
 			if err != nil {
 				return err
 			}
 
 			queryClient := types.NewQueryClient(clientCtx)
 
-			params := &types.QueryQCardContentRequest{
+			params := &types.QueryQCardContentsRequest{
 
-				CardId: reqCardId,
+				CardIds: reqCardIds,
 			}
 
-			res, err := queryClient.QCardContent(cmd.Context(), params)
+			res, err := queryClient.QCardContents(cmd.Context(), params)
 			if err != nil {
 				return err
 			}

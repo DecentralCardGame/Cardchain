@@ -51,11 +51,11 @@ func CmdQSets() *cobra.Command {
 
 			params := &types.QueryQSetsRequest{
 
-				Status:       reqStatus,
-				IgnoreStatus: ignoreStatus,
-				Contributors: argContributors,
+				Status:        reqStatus,
+				IgnoreStatus:  ignoreStatus,
+				Contributors:  argContributors,
 				ContainsCards: argContainsCards,
-				Owner: args[3],
+				Owner:         args[3],
 			}
 
 			res, err := queryClient.QSets(cmd.Context(), params)

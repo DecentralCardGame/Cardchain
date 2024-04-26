@@ -47,10 +47,12 @@ COPY --chown=tendermint:tendermint . .
 RUN ignite chain build
 RUN ignite chain init
 
+RUN mv $HOME/.Cardchain $HOME/.cardchaind
+
 COPY scripts/download_genesis.py download_genesis.py
 RUN python3 download_genesis.py
-RUN mv genesis.json $HOME/.Cardchain/config/genesis.json
-RUN	wget -O $HOME/.Cardchain/config/addrbook.json "https://raw.githubusercontent.com/DecentralCardGame/Testnet/main/addrbook.json"
+RUN mv genesis.json $HOME/.cardchaind/config/genesis.json
+RUN	wget -O $HOME/.cardchaind/config/addrbook.json "https://raw.githubusercontent.com/DecentralCardGame/Testnet/main/addrbook.json"
 
 RUN chmod +x ./docker-run.sh
 ENTRYPOINT bash docker-run.sh

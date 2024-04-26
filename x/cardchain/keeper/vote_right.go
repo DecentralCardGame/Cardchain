@@ -14,7 +14,7 @@ func (k Keeper) GetVoteReward(ctx sdk.Context) sdk.Coin {
 
 	pool := k.Pools.Get(ctx, BalancersPoolKey)
 	reward := QuoCoin(*pool, params.VotePoolFraction)
-	if reward.Amount.Int64() > params.VotingRewardCap {
+	if reward.Amount.GTE(sdk.NewInt(params.VotingRewardCap)) {
 		return sdk.NewInt64Coin(reward.Denom, params.VotingRewardCap)
 	}
 	return reward
@@ -76,7 +76,7 @@ func (k Keeper) RemoveExpiredVoteRights(ctx sdk.Context) {
 
 	for idx, user := range allUsers {
 		user.VotableCards = []uint64{}
-		user.VotedCards =  []uint64{}
+		user.VotedCards = []uint64{}
 		k.SetUser(ctx, allAddrs[idx], *user)
 	}
 }

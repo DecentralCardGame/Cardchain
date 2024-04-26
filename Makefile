@@ -20,7 +20,7 @@ $(BUILDDIR)/:
 
 # Install binary to ~/go/bin/
 install: build
-	cp $(BUILDDIR)/Cardchaind ~/go/bin/
+	cp $(BUILDDIR)/cardchaind ~/go/bin/
 
 # Verify dependencies
 go.sum: go.mod

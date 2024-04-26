@@ -15,48 +15,49 @@ option go_package = "github.com/DecentralCardGame/Cardchain/x/cardchain/types";
 
 // Msg defines the Msg service.
 service Msg {
-  rpc Createuser                      (MsgCreateuser                     ) returns (MsgCreateuserResponse                     );
-  rpc BuyCardScheme                   (MsgBuyCardScheme                  ) returns (MsgBuyCardSchemeResponse                  );
-  rpc VoteCard                        (MsgVoteCard                       ) returns (MsgVoteCardResponse                       );
-  rpc SaveCardContent                 (MsgSaveCardContent                ) returns (MsgSaveCardContentResponse                );
-  rpc TransferCard                    (MsgTransferCard                   ) returns (MsgTransferCardResponse                   );
-  rpc DonateToCard                    (MsgDonateToCard                   ) returns (MsgDonateToCardResponse                   );
-  rpc AddArtwork                      (MsgAddArtwork                     ) returns (MsgAddArtworkResponse                     );
-  rpc ChangeArtist                    (MsgChangeArtist                   ) returns (MsgChangeArtistResponse                   );
-  rpc RegisterForCouncil              (MsgRegisterForCouncil             ) returns (MsgRegisterForCouncilResponse             );
-  rpc ReportMatch                     (MsgReportMatch                    ) returns (MsgReportMatchResponse                    );
-  rpc ApointMatchReporter             (MsgApointMatchReporter            ) returns (MsgApointMatchReporterResponse            );
-  rpc CreateSet                (MsgCreateSet               ) returns (MsgCreateSetResponse               );
-  rpc AddCardToSet             (MsgAddCardToSet            ) returns (MsgAddCardToSetResponse            );
-  rpc FinalizeSet              (MsgFinalizeSet             ) returns (MsgFinalizeSetResponse             );
-  rpc BuyBoosterPack                   (MsgBuyBoosterPack                  ) returns (MsgBuyBoosterPackResponse                  );
-  rpc RemoveCardFromSet        (MsgRemoveCardFromSet       ) returns (MsgRemoveCardFromSetResponse       );
-  rpc RemoveContributorFromSet (MsgRemoveContributorFromSet) returns (MsgRemoveContributorFromSetResponse);
-  rpc AddContributorToSet      (MsgAddContributorToSet     ) returns (MsgAddContributorToSetResponse     );
-  rpc CreateSellOffer                 (MsgCreateSellOffer                ) returns (MsgCreateSellOfferResponse                );
-  rpc BuyCard                         (MsgBuyCard                        ) returns (MsgBuyCardResponse                        );
-  rpc RemoveSellOffer                 (MsgRemoveSellOffer                ) returns (MsgRemoveSellOfferResponse                );
-  rpc AddArtworkToSet          (MsgAddArtworkToSet         ) returns (MsgAddArtworkToSetResponse         );
-  rpc AddStoryToSet            (MsgAddStoryToSet           ) returns (MsgAddStoryToSetResponse           );
-  rpc SetCardRarity                   (MsgSetCardRarity                  ) returns (MsgSetCardRarityResponse                  );
-  rpc CreateCouncil                   (MsgCreateCouncil                  ) returns (MsgCreateCouncilResponse                  );
-  rpc CommitCouncilResponse           (MsgCommitCouncilResponse          ) returns (MsgCommitCouncilResponseResponse          );
-  rpc RevealCouncilResponse           (MsgRevealCouncilResponse          ) returns (MsgRevealCouncilResponseResponse          );
-  rpc RestartCouncil                  (MsgRestartCouncil                 ) returns (MsgRestartCouncilResponse                 );
-  rpc RewokeCouncilRegistration       (MsgRewokeCouncilRegistration      ) returns (MsgRewokeCouncilRegistrationResponse      );
-  rpc ConfirmMatch                    (MsgConfirmMatch                   ) returns (MsgConfirmMatchResponse                   );
-  rpc SetProfileCard                  (MsgSetProfileCard                 ) returns (MsgSetProfileCardResponse                 );
-  rpc OpenBoosterPack                 (MsgOpenBoosterPack                ) returns (MsgOpenBoosterPackResponse                );
-  rpc TransferBoosterPack             (MsgTransferBoosterPack            ) returns (MsgTransferBoosterPackResponse            );
-  rpc SetSetStoryWriter        (MsgSetSetStoryWriter       ) returns (MsgSetSetStoryWriterResponse       );
-  rpc SetSetArtist             (MsgSetSetArtist            ) returns (MsgSetSetArtistResponse            );
-  rpc SetUserWebsite                  (MsgSetUserWebsite                 ) returns (MsgSetUserWebsiteResponse                 );
-  rpc SetUserBiography                (MsgSetUserBiography               ) returns (MsgSetUserBiographyResponse               );
+  rpc Createuser                (MsgCreateuser               ) returns (MsgCreateuserResponse               );
+  rpc BuyCardScheme             (MsgBuyCardScheme            ) returns (MsgBuyCardSchemeResponse            );
+  rpc VoteCard                  (MsgVoteCard                 ) returns (MsgVoteCardResponse                 );
+  rpc SaveCardContent           (MsgSaveCardContent          ) returns (MsgSaveCardContentResponse          );
+  rpc TransferCard              (MsgTransferCard             ) returns (MsgTransferCardResponse             );
+  rpc DonateToCard              (MsgDonateToCard             ) returns (MsgDonateToCardResponse             );
+  rpc AddArtwork                (MsgAddArtwork               ) returns (MsgAddArtworkResponse               );
+  rpc ChangeArtist              (MsgChangeArtist             ) returns (MsgChangeArtistResponse             );
+  rpc RegisterForCouncil        (MsgRegisterForCouncil       ) returns (MsgRegisterForCouncilResponse       );
+  rpc ReportMatch               (MsgReportMatch              ) returns (MsgReportMatchResponse              );
+  rpc ApointMatchReporter       (MsgApointMatchReporter      ) returns (MsgApointMatchReporterResponse      );
+  rpc CreateSet                 (MsgCreateSet                ) returns (MsgCreateSetResponse                );
+  rpc AddCardToSet              (MsgAddCardToSet             ) returns (MsgAddCardToSetResponse             );
+  rpc FinalizeSet               (MsgFinalizeSet              ) returns (MsgFinalizeSetResponse              );
+  rpc BuyBoosterPack            (MsgBuyBoosterPack           ) returns (MsgBuyBoosterPackResponse           );
+  rpc RemoveCardFromSet         (MsgRemoveCardFromSet        ) returns (MsgRemoveCardFromSetResponse        );
+  rpc RemoveContributorFromSet  (MsgRemoveContributorFromSet ) returns (MsgRemoveContributorFromSetResponse );
+  rpc AddContributorToSet       (MsgAddContributorToSet      ) returns (MsgAddContributorToSetResponse      );
+  rpc CreateSellOffer           (MsgCreateSellOffer          ) returns (MsgCreateSellOfferResponse          );
+  rpc BuyCard                   (MsgBuyCard                  ) returns (MsgBuyCardResponse                  );
+  rpc RemoveSellOffer           (MsgRemoveSellOffer          ) returns (MsgRemoveSellOfferResponse          );
+  rpc AddArtworkToSet           (MsgAddArtworkToSet          ) returns (MsgAddArtworkToSetResponse          );
+  rpc AddStoryToSet             (MsgAddStoryToSet            ) returns (MsgAddStoryToSetResponse            );
+  rpc SetCardRarity             (MsgSetCardRarity            ) returns (MsgSetCardRarityResponse            );
+  rpc CreateCouncil             (MsgCreateCouncil            ) returns (MsgCreateCouncilResponse            );
+  rpc CommitCouncilResponse     (MsgCommitCouncilResponse    ) returns (MsgCommitCouncilResponseResponse    );
+  rpc RevealCouncilResponse     (MsgRevealCouncilResponse    ) returns (MsgRevealCouncilResponseResponse    );
+  rpc RestartCouncil            (MsgRestartCouncil           ) returns (MsgRestartCouncilResponse           );
+  rpc RewokeCouncilRegistration (MsgRewokeCouncilRegistration) returns (MsgRewokeCouncilRegistrationResponse);
+  rpc ConfirmMatch              (MsgConfirmMatch             ) returns (MsgConfirmMatchResponse             );
+  rpc SetProfileCard            (MsgSetProfileCard           ) returns (MsgSetProfileCardResponse           );
+  rpc OpenBoosterPack           (MsgOpenBoosterPack          ) returns (MsgOpenBoosterPackResponse          );
+  rpc TransferBoosterPack       (MsgTransferBoosterPack      ) returns (MsgTransferBoosterPackResponse      );
+  rpc SetSetStoryWriter         (MsgSetSetStoryWriter        ) returns (MsgSetSetStoryWriterResponse        );
+  rpc SetSetArtist              (MsgSetSetArtist             ) returns (MsgSetSetArtistResponse             );
+  rpc SetUserWebsite            (MsgSetUserWebsite           ) returns (MsgSetUserWebsiteResponse           );
+  rpc SetUserBiography          (MsgSetUserBiography         ) returns (MsgSetUserBiographyResponse         );
   
   // this line is used by starport scaffolding # proto/tx/rpc
-  rpc MultiVoteCard     (MsgMultiVoteCard    ) returns (MsgMultiVoteCardResponse    );
-  rpc OpenMatch      (MsgOpenMatch     ) returns (MsgOpenMatchResponse     );
-  rpc SetSetName (MsgSetSetName) returns (MsgSetSetNameResponse);
+  rpc MultiVoteCard (MsgMultiVoteCard) returns (MsgMultiVoteCardResponse);
+  rpc OpenMatch     (MsgOpenMatch    ) returns (MsgOpenMatchResponse    );
+  rpc SetSetName    (MsgSetSetName   ) returns (MsgSetSetNameResponse   );
+  rpc ChangeAlias   (MsgChangeAlias  ) returns (MsgChangeAliasResponse  );
 }
 message MsgCreateuser {
   string creator = 1;
@@ -73,7 +74,7 @@ message MsgBuyCardScheme {
   cosmos.base.v1beta1.Coin bid     = 2 [(gogoproto.nullable) = false, (gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coin"];
 
   /*
-                                       string bid = 2;
+                                               string bid = 2;
    */}
 
 message MsgBuyCardSchemeResponse {
@@ -81,8 +82,8 @@ message MsgBuyCardSchemeResponse {
 }
 
 message MsgVoteCard {
-  string creator  = 1;
-  uint64 cardId   = 2;
+  string   creator  = 1;
+  uint64   cardId   = 2;
   VoteType voteType = 3;
 }
 
@@ -175,23 +176,23 @@ message MsgCreateSet {
 message MsgCreateSetResponse {}
 
 message MsgAddCardToSet {
-  string creator      = 1;
-  uint64 setId = 2;
-  uint64 cardId       = 3;
+  string creator = 1;
+  uint64 setId   = 2;
+  uint64 cardId  = 3;
 }
 
 message MsgAddCardToSetResponse {}
 
 message MsgFinalizeSet {
-  string creator      = 1;
-  uint64 setId = 2;
+  string creator = 1;
+  uint64 setId   = 2;
 }
 
 message MsgFinalizeSetResponse {}
 
 message MsgBuyBoosterPack {
-  string creator      = 1;
-  uint64 setId = 2;
+  string creator = 1;
+  uint64 setId   = 2;
 }
 
 message MsgBuyBoosterPackResponse {
@@ -199,25 +200,25 @@ message MsgBuyBoosterPackResponse {
 }
 
 message MsgRemoveCardFromSet {
-  string creator      = 1;
-  uint64 setId = 2;
-  uint64 cardId       = 3;
+  string creator = 1;
+  uint64 setId   = 2;
+  uint64 cardId  = 3;
 }
 
 message MsgRemoveCardFromSetResponse {}
 
 message MsgRemoveContributorFromSet {
-  string creator      = 1;
-  uint64 setId = 2;
-  string user         = 3;
+  string creator = 1;
+  uint64 setId   = 2;
+  string user    = 3;
 }
 
 message MsgRemoveContributorFromSetResponse {}
 
 message MsgAddContributorToSet {
-  string creator      = 1;
-  uint64 setId = 2;
-  string user         = 3;
+  string creator = 1;
+  uint64 setId   = 2;
+  string user    = 3;
 }
 
 message MsgAddContributorToSetResponse {}
@@ -245,26 +246,26 @@ message MsgRemoveSellOffer {
 message MsgRemoveSellOfferResponse {}
 
 message MsgAddArtworkToSet {
-  string creator      = 1;
-  uint64 setId = 2;
-  bytes  image        = 3;
+  string creator = 1;
+  uint64 setId   = 2;
+  bytes  image   = 3;
 }
 
 message MsgAddArtworkToSetResponse {}
 
 message MsgAddStoryToSet {
-  string creator      = 1;
-  uint64 setId = 2;
-  string story        = 3;
+  string creator = 1;
+  uint64 setId   = 2;
+  string story   = 3;
 }
 
 message MsgAddStoryToSetResponse {}
 
 message MsgSetCardRarity {
-  string creator      = 1;
-  uint64 cardId       = 2;
-  uint64 setId = 3;
-  CardRarity rarity       = 4;
+  string     creator = 1;
+  uint64     cardId  = 2;
+  uint64     setId   = 3;
+  CardRarity rarity  = 4;
 }
 
 message MsgSetCardRarityResponse {}
@@ -342,17 +343,17 @@ message MsgTransferBoosterPack {
 message MsgTransferBoosterPackResponse {}
 
 message MsgSetSetStoryWriter {
-  string creator      = 1;
-  uint64 setId = 2;
-  string storyWriter  = 3;
+  string creator     = 1;
+  uint64 setId       = 2;
+  string storyWriter = 3;
 }
 
 message MsgSetSetStoryWriterResponse {}
 
 message MsgSetSetArtist {
-  string creator      = 1;
-  uint64 setId = 2;
-  string artist       = 3;
+  string creator = 1;
+  uint64 setId   = 2;
+  string artist  = 3;
 }
 
 message MsgSetSetArtistResponse {}
@@ -392,10 +393,17 @@ message MsgOpenMatchResponse {
 }
 
 message MsgSetSetName {
-  string creator      = 1;
-  uint64 setId = 2;
-  string name         = 3;
+  string creator = 1;
+  uint64 setId   = 2;
+  string name    = 3;
 }
 
 message MsgSetSetNameResponse {}
+
+message MsgChangeAlias {
+  string creator = 1;
+  string alias   = 2;
+}
+
+message MsgChangeAliasResponse {}
 
