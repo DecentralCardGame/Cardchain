@@ -31,8 +31,7 @@ func (k msgServer) DisinviteEarlyAccess(goCtx context.Context, msg *types.MsgDis
 	}
 
 	inviter.EarlyAccess.InvitedUser = ""
-	invited.EarlyAccess.Active = false
-	invited.EarlyAccess.InvitedByUser = ""
+	removeEarlyAccessFromUser(&invited)
 
 	k.SetUserFromUser(ctx, inviter)
 	k.SetUserFromUser(ctx, invited)

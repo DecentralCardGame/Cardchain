@@ -87,7 +87,7 @@ func handleEarlyAccessProposal(ctx sdk.Context, k keeper.Keeper, p *types.EarlyA
 			return err
 		}
 
-		user.EarlyAccess = &types.EarlyAccess{Active: true}
+		keeper.AddEarlyAccessToUser(&user, "")
 
 		k.SetUserFromUser(ctx, user)
 	}

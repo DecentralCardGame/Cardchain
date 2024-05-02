@@ -22,7 +22,9 @@ func (k msgServer) InviteEarlyAccess(goCtx context.Context, msg *types.MsgInvite
 	}
 
 	if inviter.EarlyAccess.InvitedUser != "" {
-		return nil, sdkerrors.Wrapf(errors.ErrUnauthorized, "inviter has already invited user %s", inviter.EarlyAccess.InvitedUser)
+		oldInvitee, _ := k.GetUserFromString(ctx, inviter.EarlyAccess.InvitedUser)
+		removeEarlyAccessFromUser(&oldInvitee)
+		k.SetUserFromUser(ctx, oldInvitee)
 	}
 
 	invited, err := k.GetUserFromString(ctx, msg.User)
@@ -34,10 +36,7 @@ func (k msgServer) InviteEarlyAccess(goCtx context.Context, msg *types.MsgInvite
 		return nil, sdkerrors.Wrapf(errors.ErrUnauthorized, "invited user is already enroled in early access")
 	}
 
-	invited.EarlyAccess = &types.EarlyAccess{
-		Active:        true,
-		InvitedByUser: msg.Creator,
-	}
+	AddEarlyAccessToUser(&invited, msg.Creator)
 
 	inviter.EarlyAccess.InvitedUser = msg.User
 
