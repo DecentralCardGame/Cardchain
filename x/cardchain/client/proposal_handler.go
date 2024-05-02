@@ -9,3 +9,4 @@ import (
 var CopyrightProposalHandler = govclient.NewProposalHandler(cli.CmdSubmitCopyrightProposal)
 var MatchReporterProposalHandler = govclient.NewProposalHandler(cli.CmdSubmitMatchReporterProposal)
 var SetProposalHandler = govclient.NewProposalHandler(cli.CmdSubmitSetProposal)
+var EarlyAccessProposalHandler = govclient.NewProposalHandler(cli.CmdSubmitEarlyAccessProposal)

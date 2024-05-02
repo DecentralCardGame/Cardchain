@@ -1,0 +1,11 @@
+syntax = "proto3";
+package decentralcardgame.cardchain.cardchain;
+
+option go_package = "github.com/DecentralCardGame/Cardchain/x/cardchain/types";
+
+message EarlyAccessProposal {
+  string title = 1;
+  string description = 2;
+  string link = 3;
+  repeated string users = 4; 
+}

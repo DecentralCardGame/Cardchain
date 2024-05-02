@@ -17,6 +17,7 @@ func RegisterCodec(cdc *codec.LegacyAmino) {
 	cdc.RegisterConcrete(&MsgDonateToCard{}, "cardchain/DonateToCard", nil)
 	cdc.RegisterConcrete(&MsgAddArtwork{}, "cardchain/AddArtwork", nil)
 	cdc.RegisterConcrete(&CopyrightProposal{}, "cardchain/CopyrightProposal", nil)
+	cdc.RegisterConcrete(&EarlyAccessProposal{}, "cardchain/EarlyAccessProposal", nil)
 	cdc.RegisterConcrete(&MatchReporterProposal{}, "cardchain/MatchReporterProposal", nil)
 	cdc.RegisterConcrete(&SetProposal{}, "cardchain/SetProposal", nil)
 	cdc.RegisterConcrete(&MsgChangeArtist{}, "cardchain/ChangeArtist", nil)
@@ -88,6 +89,9 @@ func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {
 	)
 	registry.RegisterImplementations((*govtypes.Content)(nil),
 		&SetProposal{},
+	)
+	registry.RegisterImplementations((*govtypes.Content)(nil),
+		&EarlyAccessProposal{},
 	)
 	registry.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgChangeArtist{},

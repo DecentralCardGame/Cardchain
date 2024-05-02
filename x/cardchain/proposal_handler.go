@@ -21,6 +21,8 @@ func NewProposalHandler(k keeper.Keeper) govtypes.Handler {
 			return handleMatchReporterProposal(ctx, k, c)
 		case *types.SetProposal:
 			return handleSetProposal(ctx, k, c)
+		case *types.EarlyAccessProposal:
+			return handleEarlyAccessProposal(ctx, k, c)
 
 		default:
 			return sdkerrors.Wrapf(errors.ErrUnknownRequest, "unrecognized proposal content type: %T", c)
@@ -74,6 +76,21 @@ func handleSetProposal(ctx sdk.Context, k keeper.Keeper, p *types.SetProposal) e
 	set.TimeStamp = ctx.BlockHeight()
 
 	k.Sets.Set(ctx, p.SetId, set)
+
+	return nil
+}
+
+func handleEarlyAccessProposal(ctx sdk.Context, k keeper.Keeper, p *types.EarlyAccessProposal) error {
+	for _, addr := range p.Users {
+		user, err := k.GetUserFromString(ctx, addr)
+		if err != nil {
+			return err
+		}
+
+		user.EarlyAccess = &types.EarlyAccess{Active: true}
+
+		k.SetUserFromUser(ctx, user)
+	}
 
 	return nil
 }

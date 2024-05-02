@@ -12,6 +12,7 @@ assert len(args) == 3, f"Error: Syntax: {args[0]} [old_genesis] [new_genesis]"
 __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
 
 gameserver_addr = ["cc1z94z55n2rr4rmjf4ea0m7ykgh9a8urwzrlsxt4", "cc1ch66e3f0szxy8q976rsq5y07esmgdqzj70dfpu"]
+early_access_addr = ["cc14km80077s0hch3sh38wh2hfk7kxfau4456r3ej"]
 alpha_creator = "cc14km80077s0hch3sh38wh2hfk7kxfau4456r3ej"
 del_cards = []  # [370, 346, 258]
 
@@ -121,7 +122,7 @@ for idx, addr in enumerate(old_dict["app_state"]["cardchain"]["addresses"]):
             break
 
 # Remove deprecated voteRights from users
-for user in new_dict["app_state"]["cardchain"]["users"]:
+for addr, user in zip(new_dict["app_state"]["cardchain"]["addresses"], new_dict["app_state"]["cardchain"]["users"]):
     if "voteRights" in user:
         del user["voteRights"]
     user["boosterPacks"] = [pack for pack in user["boosterPacks"] if pack["setId"] not in ["0", "2"]]  # turn of later
@@ -129,6 +130,8 @@ for user in new_dict["app_state"]["cardchain"]["users"]:
         "earlyAccess",
         {"active": False, "invitedUser": "", "invitedByUser": ""}
     )  # add earlyAccess
+    if addr in early_access_addr:
+        user["earlyAccess"]["active"] = True
 
 with open(file_path_new, "w") as file:
     json.dump(new_dict, file, indent=2)

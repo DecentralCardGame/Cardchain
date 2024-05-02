@@ -147,6 +147,7 @@ func getGovProposalHandlers() []govclient.ProposalHandler {
 		cardchainclient.CopyrightProposalHandler,
 		cardchainclient.MatchReporterProposalHandler,
 		cardchainclient.SetProposalHandler,
+		cardchainclient.EarlyAccessProposalHandler,
 		featureflagclient.ProposalHandler,
 		// this line is used by starport scaffolding # stargate/app/govProposalHandler
 	)
