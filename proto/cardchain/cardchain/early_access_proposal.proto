@@ -1,5 +1,5 @@
 syntax = "proto3";
-package decentralcardgame.cardchain.cardchain;
+package DecentralCardGame.cardchain.cardchain;
 
 option go_package = "github.com/DecentralCardGame/Cardchain/x/cardchain/types";
 
