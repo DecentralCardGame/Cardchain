@@ -12,6 +12,7 @@ assert len(args) == 3, f"Error: Syntax: {args[0]} [old_genesis] [new_genesis]"
 __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
 
 gameserver_addr = ["cc1z94z55n2rr4rmjf4ea0m7ykgh9a8urwzrlsxt4", "cc1ch66e3f0szxy8q976rsq5y07esmgdqzj70dfpu"]
+early_access_addr = ["cc14km80077s0hch3sh38wh2hfk7kxfau4456r3ej"]
 alpha_creator = "cc14km80077s0hch3sh38wh2hfk7kxfau4456r3ej"
 del_cards = []  # [370, 346, 258]
 
@@ -43,15 +44,14 @@ with open(os.path.join(__location__, "./card_starters.tsv"), "r", encoding="utf8
 # this loads the old genesis file
 with open(file_path_old, "r") as file:
     old_dict = json.load(file)
-    #old_dict = json.loads(file.read().replace("collection", "set").replace("Collection", "Set"))
+    # old_dict = json.loads(file.read().replace("collection", "set").replace("Collection", "Set"))
 
 # this loads the new genesis file
 with open(file_path_new, "r") as file:
     new_dict = json.load(file)
 
-
 # delete all sets
-#old_dict["app_state"]["cardchain"]["sets"] = []
+# old_dict["app_state"]["cardchain"]["sets"] = []
 
 
 params = new_dict["app_state"]["cardchain"]["params"]
@@ -122,10 +122,16 @@ for idx, addr in enumerate(old_dict["app_state"]["cardchain"]["addresses"]):
             break
 
 # Remove deprecated voteRights from users
-for user in new_dict["app_state"]["cardchain"]["users"]:
+for addr, user in zip(new_dict["app_state"]["cardchain"]["addresses"], new_dict["app_state"]["cardchain"]["users"]):
     if "voteRights" in user:
         del user["voteRights"]
     user["boosterPacks"] = [pack for pack in user["boosterPacks"] if pack["setId"] not in ["0", "2"]]  # turn of later
+    user["earlyAccess"] = user.get(
+        "earlyAccess",
+        {"active": False, "invitedUser": "", "invitedByUser": ""}
+    )  # add earlyAccess
+    if addr in early_access_addr:
+        user["earlyAccess"]["active"] = True
 
 with open(file_path_new, "w") as file:
     json.dump(new_dict, file, indent=2)
