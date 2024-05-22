@@ -8,3 +8,4 @@ release/
 .DS_Store
 /build
 /cs
+/goat/node_modules

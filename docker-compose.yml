@@ -15,6 +15,13 @@ services:
       - 9091:9091
       - 4500:4500
 
+  goat:
+    build: ./goat/
+    ports:
+      - 31337:31337
+    command: 
+
+
   herd:
     image: nginx:latest
     container_name: herd
