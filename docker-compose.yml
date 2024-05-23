@@ -38,3 +38,4 @@ services:
     command: /bin/bash -c "exec nginx -g 'daemon off;'"
     depends_on: 
       - blockchain
+      - goat
