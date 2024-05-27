@@ -1,6 +1,6 @@
 const express = require('express');
 const axios = require('axios');
-const querystring = require('node:querystring'); 
+const querystring = require('node:querystring');
 
 const app = express();
 const PORT = process.env.PORT || 31337;
@@ -13,7 +13,7 @@ const fetchUser = code => {
 		'client_secret': 'SdY9h2ilQb42AKV3dL8pscd9vcvUc0Bo',
 		'grant_type': 'authorization_code',
 		'code': code,
-		'redirect_uri': 'http://localhost:5173/#/discord',
+		'redirect_uri': 'https://crowdcontrol.network/#/discord',
 		'scope': 'identify'
     })
     let headers = {
@@ -46,7 +46,7 @@ app.get('/', (req, res) => {
 	})
 	.catch(err => {
 		console.error(err.response)
-		res.status(500).send(err)
+		res.status(500).send(err.message)
 	})
 		
 });
