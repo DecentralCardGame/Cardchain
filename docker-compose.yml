@@ -19,8 +19,6 @@ services:
     build: ./goat/
     ports:
       - 31337:31337
-    command: 
-
 
   herd:
     image: nginx:latest
