@@ -310,7 +310,7 @@ func New(
 		cardchainmoduletypes.SetsStoreKey, cardchainmoduletypes.SellOffersStoreKey, cardchainmoduletypes.PoolsStoreKey,
 		cardchainmoduletypes.RunningAveragesStoreKey, cardchainmoduletypes.CouncilsStoreKey,
 		cardchainmoduletypes.ImagesStoreKey, cardchainmoduletypes.InternalStoreKey,
-		cardchainmoduletypes.ServersStoreKey,
+		cardchainmoduletypes.ServersStoreKey, cardchainmoduletypes.ZealyStoreKey,
 		featureflagmoduletypes.StoreKey,
 		// this line is used by starport scaffolding # stargate/app/storeKey
 	)
@@ -528,6 +528,7 @@ func New(
 		keys[cardchainmoduletypes.RunningAveragesStoreKey],
 		keys[cardchainmoduletypes.ImagesStoreKey],
 		keys[cardchainmoduletypes.ServersStoreKey],
+		keys[cardchainmoduletypes.ZealyStoreKey],
 		keys[cardchainmoduletypes.InternalStoreKey],
 		app.GetSubspace(cardchainmoduletypes.ModuleName),
 		app.FeatureflagKeeper,

@@ -34,6 +34,7 @@ type Keeper struct {
 	RunningAverages gtk.KeywordedGenericTypeKeeper[*types.RunningAverage]
 	Pools           gtk.KeywordedGenericTypeKeeper[*sdk.Coin]
 	Images          gtk.GenericTypeKeeper[*types.Image]
+	Zealy           gtk.GenericTypeKeeper[*types.Zealy]
 
 	FeatureFlagModuleInstance ffKeeper.ModuleInstance
 	BankKeeper                types.BankKeeper
@@ -52,6 +53,7 @@ func NewKeeper(
 	runningAveragesStoreKey storetypes.StoreKey,
 	imagesStorekey storetypes.StoreKey,
 	serversStoreKey storetypes.StoreKey,
+	zealyStoreKey storetypes.StoreKey,
 	internalStoreKey storetypes.StoreKey,
 	ps paramtypes.Subspace,
 
@@ -78,6 +80,7 @@ func NewKeeper(
 		Pools:           gtk.NewKGTK[*sdk.Coin](poolsStoreKey, internalStoreKey, cdc, gtk.GetEmpty[sdk.Coin], []string{PublicPoolKey, WinnersPoolKey, BalancersPoolKey}),
 		Images:          gtk.NewGTK[*types.Image](imagesStorekey, internalStoreKey, cdc, gtk.GetEmpty[types.Image]),
 		Servers:         gtk.NewGTK[*types.Server](serversStoreKey, internalStoreKey, cdc, gtk.GetEmpty[types.Server]),
+		Zealy:           gtk.NewGTK[*types.Zealy](zealyStoreKey, internalStoreKey, cdc, gtk.GetEmpty[types.Zealy]),
 
 		FeatureFlagModuleInstance: featureFlagKeeper.GetModuleInstance(types.ModuleName, []string{string(types.FeatureFlagName_Council), string(types.FeatureFlagName_Matches)}),
 		BankKeeper:                bankKeeper,
