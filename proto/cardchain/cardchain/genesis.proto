@@ -12,6 +12,7 @@ import "cardchain/cardchain/running_average.proto";
 import "cardchain/cardchain/council.proto";
 import "cardchain/cardchain/image.proto";
 import "cardchain/cardchain/server.proto";
+import "cardchain/cardchain/zealy.proto";
 import "cosmos/base/v1beta1/coin.proto";
 // this line is used by starport scaffolding # genesis/proto/import
 
@@ -33,5 +34,6 @@ message GenesisState {
   repeated Image images = 14;
   repeated Server Servers = 15;
   TimeStamp lastCardModified = 16;
+  repeated Zealy zealys = 17;
   // this line is used by starport scaffolding # genesis/proto/state
 }

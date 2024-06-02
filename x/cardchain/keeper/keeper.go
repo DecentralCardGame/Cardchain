@@ -22,6 +22,7 @@ import (
 type Keeper struct {
 	cdc              codec.BinaryCodec // The wire codec for binary encoding/decoding.
 	UsersStoreKey    storetypes.StoreKey
+	zealyStoreKey    storetypes.StoreKey
 	InternalStoreKey storetypes.StoreKey
 	paramstore       paramtypes.Subspace
 
@@ -68,6 +69,7 @@ func NewKeeper(
 	return &Keeper{
 		cdc:              cdc,
 		UsersStoreKey:    usersStoreKey,
+		zealyStoreKey:    zealyStoreKey,
 		InternalStoreKey: internalStoreKey,
 		paramstore:       ps,
 
@@ -80,7 +82,6 @@ func NewKeeper(
 		Pools:           gtk.NewKGTK[*sdk.Coin](poolsStoreKey, internalStoreKey, cdc, gtk.GetEmpty[sdk.Coin], []string{PublicPoolKey, WinnersPoolKey, BalancersPoolKey}),
 		Images:          gtk.NewGTK[*types.Image](imagesStorekey, internalStoreKey, cdc, gtk.GetEmpty[types.Image]),
 		Servers:         gtk.NewGTK[*types.Server](serversStoreKey, internalStoreKey, cdc, gtk.GetEmpty[types.Server]),
-		Zealy:           gtk.NewGTK[*types.Zealy](zealyStoreKey, internalStoreKey, cdc, gtk.GetEmpty[types.Zealy]),
 
 		FeatureFlagModuleInstance: featureFlagKeeper.GetModuleInstance(types.ModuleName, []string{string(types.FeatureFlagName_Council), string(types.FeatureFlagName_Matches)}),
 		BankKeeper:                bankKeeper,

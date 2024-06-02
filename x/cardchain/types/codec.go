@@ -56,6 +56,7 @@ func RegisterCodec(cdc *codec.LegacyAmino) {
 	cdc.RegisterConcrete(&MsgChangeAlias{}, "cardchain/ChangeAlias", nil)
 	cdc.RegisterConcrete(&MsgInviteEarlyAccess{}, "cardchain/InviteEarlyAccess", nil)
 	cdc.RegisterConcrete(&MsgDisinviteEarlyAccess{}, "cardchain/DisinviteEarlyAccess", nil)
+	cdc.RegisterConcrete(&MsgConnectZealyAccount{}, "cardchain/ConnectZealyAccount", nil)
 	// this line is used by starport scaffolding # 2
 }
 
@@ -200,6 +201,9 @@ func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {
 	)
 	registry.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgDisinviteEarlyAccess{},
+	)
+	registry.RegisterImplementations((*sdk.Msg)(nil),
+		&MsgConnectZealyAccount{},
 	)
 	// this line is used by starport scaffolding # 3
 

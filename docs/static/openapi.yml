@@ -69073,6 +69073,8 @@ definitions:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgConfirmMatchResponse:
     type: object
+  DecentralCardGame.cardchain.cardchain.MsgConnectZealyAccountResponse:
+    type: object
   DecentralCardGame.cardchain.cardchain.MsgCreateCouncilResponse:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgCreateSellOfferResponse:
