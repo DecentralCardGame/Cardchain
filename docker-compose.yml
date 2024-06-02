@@ -15,6 +15,11 @@ services:
       - 9091:9091
       - 4500:4500
 
+  goat:
+    build: ./goat/
+    ports:
+      - 31337:31337
+
   herd:
     image: nginx:latest
     container_name: herd
@@ -31,3 +36,4 @@ services:
     command: /bin/bash -c "exec nginx -g 'daemon off;'"
     depends_on: 
       - blockchain
+      - goat
