@@ -32971,6 +32971,43 @@ paths:
                   additionalProperties: {}
       tags:
         - Query
+  /DecentralCardGame/Cardchain/cardchain/q_account_from_zealy/{zealyId}:
+    get:
+      summary: Queries a list of QAccountFromZealy items.
+      operationId: DecentralCardGameCardchainCardchainQAccountFromZealy
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              address:
+                type: string
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: zealyId
+          in: path
+          required: true
+          type: string
+      tags:
+        - Query
   /DecentralCardGame/Cardchain/cardchain/q_card/{cardId}:
     get:
       summary: Queries a list of QCard items.
@@ -69437,6 +69474,11 @@ definitions:
             type: string
             format: uint64
     description: QueryParamsResponse is response type for the Query/Params RPC method.
+  DecentralCardGame.cardchain.cardchain.QueryQAccountFromZealyResponse:
+    type: object
+    properties:
+      address:
+        type: string
   DecentralCardGame.cardchain.cardchain.QueryQCardContentResponse:
     type: object
     properties:
