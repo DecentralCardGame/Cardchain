@@ -208,6 +208,10 @@ const (
 	// TODO: Determine the simulation weight value
 	defaultWeightMsgDisinviteEarlyAccess int = 100
 
+	opWeightMsgConnectZealyAccount = "op_weight_msg_connect_zealy_account"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgConnectZealyAccount int = 100
+
 	// this line is used by starport scaffolding # simapp/module/const
 )
 
@@ -712,6 +716,17 @@ func (am AppModule) WeightedOperations(simState module.SimulationState) []simtyp
 	operations = append(operations, simulation.NewWeightedOperation(
 		weightMsgDisinviteEarlyAccess,
 		cardchainsimulation.SimulateMsgDisinviteEarlyAccess(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
+	var weightMsgConnectZealyAccount int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgConnectZealyAccount, &weightMsgConnectZealyAccount, nil,
+		func(_ *rand.Rand) {
+			weightMsgConnectZealyAccount = defaultWeightMsgConnectZealyAccount
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgConnectZealyAccount,
+		cardchainsimulation.SimulateMsgConnectZealyAccount(am.accountKeeper, am.bankKeeper, am.keeper),
 	))
 
 	// this line is used by starport scaffolding # simapp/module/operation

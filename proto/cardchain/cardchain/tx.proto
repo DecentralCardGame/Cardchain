@@ -60,6 +60,7 @@ service Msg {
   rpc ChangeAlias          (MsgChangeAlias         ) returns (MsgChangeAliasResponse         );
   rpc InviteEarlyAccess    (MsgInviteEarlyAccess   ) returns (MsgInviteEarlyAccessResponse   );
   rpc DisinviteEarlyAccess (MsgDisinviteEarlyAccess) returns (MsgDisinviteEarlyAccessResponse);
+  rpc ConnectZealyAccount  (MsgConnectZealyAccount ) returns (MsgConnectZealyAccountResponse );
 }
 message MsgCreateuser {
   string creator = 1;
@@ -76,7 +77,7 @@ message MsgBuyCardScheme {
   cosmos.base.v1beta1.Coin bid     = 2 [(gogoproto.nullable) = false, (gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coin"];
 
   /*
-                                                               string bid = 2;
+                                                                       string bid = 2;
    */}
 
 message MsgBuyCardSchemeResponse {
@@ -422,4 +423,11 @@ message MsgDisinviteEarlyAccess {
 }
 
 message MsgDisinviteEarlyAccessResponse {}
+
+message MsgConnectZealyAccount {
+  string creator = 1;
+  string zealyId = 2;
+}
+
+message MsgConnectZealyAccountResponse {}
 

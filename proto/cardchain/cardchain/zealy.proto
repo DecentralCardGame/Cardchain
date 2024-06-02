@@ -1,0 +1,10 @@
+syntax = "proto3";
+package DecentralCardGame.cardchain.cardchain;
+
+option go_package = "github.com/DecentralCardGame/Cardchain/x/cardchain/types";
+
+message Zealy {
+
+  string address = 1;
+  string zealyId = 2;
+}
