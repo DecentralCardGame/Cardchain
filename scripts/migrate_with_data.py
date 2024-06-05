@@ -12,7 +12,7 @@ assert len(args) == 3, f"Error: Syntax: {args[0]} [old_genesis] [new_genesis]"
 __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
 
 gameserver_addr = ["cc1z94z55n2rr4rmjf4ea0m7ykgh9a8urwzrlsxt4", "cc1ch66e3f0szxy8q976rsq5y07esmgdqzj70dfpu"]
-early_access_addr = ["cc14km80077s0hch3sh38wh2hfk7kxfau4456r3ej"]
+early_access_addr = ["cc14km80077s0hch3sh38wh2hfk7kxfau4456r3ej", "cc1tmhtms6ahkrxltx3hkmmf2dteqj4pv0thwhdxa"]
 alpha_creator = "cc14km80077s0hch3sh38wh2hfk7kxfau4456r3ej"
 del_cards = []  # [370, 346, 258]
 
