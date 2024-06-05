@@ -4,7 +4,7 @@
 
 echo -e "\033[0;32mfasten your seatbelts\033[0m"
 FAUCET_SECRET_KEY="0x6F1f5bd93f3D59d6eed1d5ec40E29C1821029759"
-USE_SNAP=false
+USE_SNAP=true
 
 if [ -z "$FAUCET_SECRET_KEY" ]
 then
@@ -48,9 +48,8 @@ SEEDS=""
 echo "peers is:" $PEERS
 sed -i.bak -e "s/^seeds *=.*/seeds = \"$SEEDS\"/; s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $HOME/.cardchaind/config/config.toml
 
-if [ -z $USE_SNAP ] 
-then
-
+if $USE_SNAP; then
+	echo -e "\033[0;32m~~ USING SNAP! ~~\033[0m"
 	mapfile -t snap_rpcs < <(
 	  jq -r '.snap_rpcs[]' peer_nodes.json
 	)
