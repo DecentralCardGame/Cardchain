@@ -1,8 +1,9 @@
 package cli
 
 import (
-	"github.com/DecentralCardGame/Cardchain/x/featureflag/types"
 	"strconv"
+
+	"github.com/DecentralCardGame/Cardchain/x/featureflag/types"
 
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/tx"
