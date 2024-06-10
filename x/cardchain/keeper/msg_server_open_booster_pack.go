@@ -13,8 +13,6 @@ import (
 func (k msgServer) OpenBoosterPack(goCtx context.Context, msg *types.MsgOpenBoosterPack) (*types.MsgOpenBoosterPackResponse, error) {
     ctx := sdk.UnwrapSDKContext(goCtx)
 
-    rand.Seed(ctx.BlockTime().Unix())
-
     creator, err := k.GetUserFromString(ctx, msg.Creator)
     if err != nil {
         return nil, sdkerrors.Wrap(types.ErrUserDoesNotExist, err.Error())
