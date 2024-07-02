@@ -1,39 +1,47 @@
-CCAddress	EarlyAccessToGame	BoosterPacks	Airdrop
-cc1xngsk4kdhhaev9mqezzpgqxejcus5xrk8486ay	TRUE	2	150
-cc1svkkpzsqs6h897emc2q2agnlf2c05a5wuxhtu6	TRUE	2	150
-cc1yyc302aevlh8egsvy7fse22ssu3tp7dyuvalsu	TRUE	2	150
-cc18jd8x7wvewadpcgkhafy9x2vf9zupzdvcs5v0p	TRUE	2	150
-cc1f283sl8q27j45qskshrysy6n3m9t656ayfl5v5	TRUE	1	100
-cc1pm0c5d2fjn9tvd7cpwc28t4xhjuqxvlreg2ml5	TRUE	1	100
-cc1vsknh04kly7lntt8lt909qjwfsa7k7hhwn9rxz	TRUE	1	100
-cc12r9ftz68ze7c7s9ywewy8ug3harnfpy25auj8s	TRUE	1	100
-cc18htpt4u8ttyxwy090yxjaw27vq2qxfs7lng77d	TRUE	1	50
-cc1lp7kkawahs5779zqxm78u26x5nyxaddats3l0f	TRUE	1	50
-cc10vl2ma5mnsalf3nmq3a50njlcccdxzkthpyw6a	TRUE	1	50
-cc140zwm203xeu885hckvurz46mu00ugsk4cg6wnf	TRUE	1	50
-cc1q29qepu2ywsyjghg3vh9nljmkzc4mux2lnlcjz	TRUE	1	50
-cc1wjvl60fy6x39amqfyqnu607sn0f8998a0euvw8	TRUE	1	50
-cc1fa3uq6t3stngjpzz8406ygl6jdvayk56j3kyu3	TRUE	1	50
-cc1w86yyvxvdzdh2fl296g9v0mvwqdx66d0l0jr92	TRUE	1	50
-cc1nvmkqttunypn96qk4yx4eyfepkfppxf7kzrrcc	TRUE	1	50
-cc13yxz7e07kllz9hzsghrutmvggem9m8xqfajyuh	TRUE	1	50
-cc1symmz8dn7usd5js5uddf4wfa0g4w3dt9pklnfu	TRUE	1	50
-cc1fys60cv37pkga725vctp7gekch5jc94w8xnme3	TRUE	1	50
-cc1gpzff8zagwcauacgez9fehcwaveewlm2u96tnh	TRUE	1	50
-cc1szw62mcf646hzj60qxlrfsrx3j57wdz5yvgz7	TRUE	0	30
-cc1pxwlx23n5taxttz6x8lkfl3nmvhkp3p77cfzyz	TRUE	0	30
-cc1nd40jtjv5w463jgl9g6cfpyd3y6aws644p6gjp	TRUE	0	30
-cc1mwqyt2f7u69wcv7gxspv9m4jlq29gdadyfww0d	TRUE	0	30
-cc1fgwaqndwpl2hmk6vv98vt07fkefvx46wtdkt2h	TRUE	0	30
-cc1dn50kpwc8vxajpllam4l62zk4g37x2m0c7qgs9	TRUE	0	20
-cc15rhmyuqj2a3qtufcw7zk45wx9gvge07c8585ha	TRUE	0	0
-cc1rcxy6kk828m48utyyauxg29umxgn6s5pvn0674	TRUE	0	0
-cc1cawrg807fk0esn3j8g7dlrraks7ffx9rfp07xy	TRUE	0	0
-cc1nd37jcen8j7q9kkaf7w852ew3wlmf3s0uxz8nj	TRUE	0	0
-cc14vsg3gz8q4yvmx3hnuqvh658z6vkyp3z3k03z5	TRUE	0	0
-cc183ret5jld325hj0kpsm08wq9nu0nvfl6y3wspa	TRUE	0	0
-cc1has2wgz58xw0sfaa60z437dl3vs7u52gmury3y	TRUE	0	0
-cc1m9dwd037y7ma059xsnzwey92xk3v8jmy6lsuys	TRUE	0	0
-cc1484f0rayg6ackhjqtc786r96sd46fnwgyvgvsp	TRUE	0	0
-cc1x6ftcjwljlt7rh03j93wtzazqzqeqwc2tlzpas	TRUE	0	0
-cc12qv7fl840uekmvvxc745048p4ngrn2dyms8j5n	TRUE	0	0
+CCAddress	EarlyAccessToGame	BoosterPacks	Airdrop	Credits
+cc10ssdxk9zje7nqpeh7qgwl9jam7nywrzr62f0ks	TRUE		20	
+cc10vl2ma5mnsalf3nmq3a50njlcccdxzkthpyw6a	TRUE	2	100	20
+cc12qv7fl840uekmvvxc745048p4ngrn2dyms8j5n	TRUE			10
+cc12r9ftz68ze7c7s9ywewy8ug3harnfpy25auj8s	TRUE	2	150	20
+cc13yxz7e07kllz9hzsghrutmvggem9m8xqfajyuh	TRUE	1	80	20
+cc140zwm203xeu885hckvurz46mu00ugsk4cg6wnf	TRUE	1	80	20
+cc1484f0rayg6ackhjqtc786r96sd46fnwgyvgvsp	TRUE			10
+cc14vsg3gz8q4yvmx3hnuqvh658z6vkyp3z3k03z5	TRUE			10
+cc15rhmyuqj2a3qtufcw7zk45wx9gvge07c8585ha	TRUE			10
+cc183ret5jld325hj0kpsm08wq9nu0nvfl6y3wspa	TRUE			10
+cc18htpt4u8ttyxwy090yxjaw27vq2qxfs7lng77d	TRUE	2	150	20
+cc18jd8x7wvewadpcgkhafy9x2vf9zupzdvcs5v0p	TRUE	3	200	20
+cc1cawrg807fk0esn3j8g7dlrraks7ffx9rfp07xy	TRUE			10
+cc1dn50kpwc8vxajpllam4l62zk4g37x2m0c7qgs9	TRUE		20	10
+cc1f283sl8q27j45qskshrysy6n3m9t656ayfl5v5	TRUE	3	250	20
+cc1fa3uq6t3stngjpzz8406ygl6jdvayk56j3kyu3	TRUE	1	80	20
+cc1fgwaqndwpl2hmk6vv98vt07fkefvx46wtdkt2h	TRUE		30	10
+cc1fkzj2d0h3c5jgvvwwstww8w5czj6mvjgdl0lxp	TRUE	1	50	10
+cc1fys60cv37pkga725vctp7gekch5jc94w8xnme3	TRUE	1	80	20
+cc1gpzff8zagwcauacgez9fehcwaveewlm2u96tnh	TRUE	1	50	10
+cc1has2wgz58xw0sfaa60z437dl3vs7u52gmury3y	TRUE	1	50	20
+cc1k2tyxj9pjxskpnqf87prkr9whzagnx5a04wg9k	TRUE		30	10
+cc1lp7kkawahs5779zqxm78u26x5nyxaddats3l0f	TRUE	2	100	20
+cc1m9dwd037y7ma059xsnzwey92xk3v8jmy6lsuys	TRUE		30	20
+cc1mkqsckk0qavvnskshfgwhuq0hvd9vrwzzta4vc	TRUE		30	10
+cc1mwqyt2f7u69wcv7gxspv9m4jlq29gdadyfww0d	TRUE	2	180	20
+cc1nd37jcen8j7q9kkaf7w852ew3wlmf3s0uxz8nj	TRUE	1	50	20
+cc1nd40jtjv5w463jgl9g6cfpyd3y6aws644p6gjp	TRUE	1	80	20
+cc1nvmkqttunypn96qk4yx4eyfepkfppxf7kzrrcc	TRUE	1	80	20
+cc1pm0c5d2fjn9tvd7cpwc28t4xhjuqxvlreg2ml5	TRUE	2	150	20
+cc1pxwlx23n5taxttz6x8lkfl3nmvhkp3p77cfzyz	TRUE		30	10
+cc1q29qepu2ywsyjghg3vh9nljmkzc4mux2lnlcjz	TRUE	1	80	20
+cc1rcxy6kk828m48utyyauxg29umxgn6s5pvn0674	TRUE	1	50	20
+cc1smcvnxuvy3w2xe3r42w9g0pvusngv97l27krqu	TRUE		30	20
+cc1svkkpzsqs6h897emc2q2agnlf2c05a5wuxhtu6	TRUE	3	200	20
+cc1symmz8dn7usd5js5uddf4wfa0g4w3dt9pklnfu	TRUE	1	80	20
+cc1szj8cguttxn27xg4rg6xlag8qe6ajd4kqsca5k	TRUE	1	50	10
+cc1szw62mcf646hzj60qxlrfsrx3j57wdz5yvgz7	TRUE		50	10
+cc1thed02lmuf9jw60t7090ndp4d96c5q8h24ecjk	TRUE	1	50	10
+cc1vsknh04kly7lntt8lt909qjwfsa7k7hhwn9rxz	TRUE	1	130	20
+cc1w86yyvxvdzdh2fl296g9v0mvwqdx66d0l0jr92	TRUE	1	80	20
+cc1wjvl60fy6x39amqfyqnu607sn0f8998a0euvw8	TRUE	2	100	20
+cc1x6ftcjwljlt7rh03j93wtzazqzqeqwc2tlzpas	TRUE			10
+cc1xngsk4kdhhaev9mqezzpgqxejcus5xrk8486ay	TRUE	2	150	10
+cc1y4lg7qhx2yusxvekhwj8gzh2vu006kk0galqpz	TRUE	3	200	10
+cc1yyc302aevlh8egsvy7fse22ssu3tp7dyuvalsu	TRUE	2	150	10
