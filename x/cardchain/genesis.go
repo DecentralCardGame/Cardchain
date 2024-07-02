@@ -44,6 +44,9 @@ func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) 
 	if genState.LastCardModified != nil {
 		k.SetLastCardModified(ctx, *genState.LastCardModified)
 	}
+	for _, zealy := range genState.Zealys {
+		k.SetZealy(ctx, zealy.ZealyId, *zealy)
+	}
 	k.Logger(ctx).Info("reading cards with id:")
 	for currId, record := range genState.CardRecords {
 		_, err := keywords.Unmarshal(record.Content)
@@ -89,6 +92,7 @@ func ExportGenesis(ctx sdk.Context, k keeper.Keeper) *types.GenesisState {
 	images := k.Images.GetAll(ctx)
 	servers := k.Servers.GetAll(ctx)
 	users, accAddresses := k.GetAllUsers(ctx)
+	zealys, _ := k.GetAllZealys(ctx)
 	var addresses []string
 	for _, addr := range accAddresses {
 		addresses = append(addresses, addr.String())
@@ -108,5 +112,6 @@ func ExportGenesis(ctx sdk.Context, k keeper.Keeper) *types.GenesisState {
 		RunningAverages:  runningAverages,
 		Servers:          servers,
 		LastCardModified: &lastCardModified,
+		Zealys:           zealys,
 	}
 }

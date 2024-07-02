@@ -67,6 +67,7 @@ func (k msgServer) SaveCardContent(goCtx context.Context, msg *types.MsgSaveCard
 		card.Status = types.Status_permanent
 	}
 	k.Cards.Set(ctx, msg.CardId, card)
+	k.SetLastCardModifiedNow(ctx)
 
 	return &types.MsgSaveCardContentResponse{AirdropClaimed: claimedAirdrop}, nil
 }

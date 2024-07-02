@@ -3,9 +3,10 @@ package keeper
 import (
 	"encoding/json"
 	"fmt"
+	"sort"
+
 	ffKeeper "github.com/DecentralCardGame/Cardchain/x/featureflag/keeper"
 	"github.com/cosmos/cosmos-sdk/types/errors"
-	"sort"
 
 	gtk "github.com/DecentralCardGame/Cardchain/types/generic_type_keeper"
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
@@ -22,6 +23,7 @@ import (
 type Keeper struct {
 	cdc              codec.BinaryCodec // The wire codec for binary encoding/decoding.
 	UsersStoreKey    storetypes.StoreKey
+	zealyStoreKey    storetypes.StoreKey
 	InternalStoreKey storetypes.StoreKey
 	paramstore       paramtypes.Subspace
 
@@ -52,6 +54,7 @@ func NewKeeper(
 	runningAveragesStoreKey storetypes.StoreKey,
 	imagesStorekey storetypes.StoreKey,
 	serversStoreKey storetypes.StoreKey,
+	zealyStoreKey storetypes.StoreKey,
 	internalStoreKey storetypes.StoreKey,
 	ps paramtypes.Subspace,
 
@@ -66,6 +69,7 @@ func NewKeeper(
 	return &Keeper{
 		cdc:              cdc,
 		UsersStoreKey:    usersStoreKey,
+		zealyStoreKey:    zealyStoreKey,
 		InternalStoreKey: internalStoreKey,
 		paramstore:       ps,
 

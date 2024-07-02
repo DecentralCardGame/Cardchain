@@ -55,15 +55,3 @@ func (k Keeper) SetCardToTrial(ctx sdk.Context, cardId uint64, votePool sdk.Coin
 	k.Cards.Set(ctx, cardId, card)
 	k.SetLastCardModifiedNow(ctx)
 }
-
-func (k Keeper) GetAllStarterCards(ctx sdk.Context) (cards []uint64) {
-	iter := k.Cards.GetItemIterator(ctx)
-
-	for ; iter.Valid(); iter.Next() {
-		idx, gottenCard := iter.Value()
-		if gottenCard.StarterCard {
-			cards = append(cards, idx)
-		}
-	}
-	return
-}

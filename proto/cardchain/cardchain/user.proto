@@ -19,6 +19,7 @@ message User {
   string biography = 12;
   repeated uint64 votableCards = 13;
   repeated uint64 votedCards = 14;
+  EarlyAccess earlyAccess = 15;
 }
 
 enum CouncilStatus {
@@ -26,6 +27,12 @@ enum CouncilStatus {
   unavailable = 1;
   openCouncil = 2;
   startedCouncil = 3;
+}
+
+message EarlyAccess {
+  bool active = 1;
+  string invitedByUser = 2;
+  string invitedUser = 3;
 }
 
 message BoosterPack {

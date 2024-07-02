@@ -12,6 +12,7 @@ const (
 	ProposalTypeCopyright     = "Copyright"
 	ProposalTypeMatchReporter = "MatchReporter"
 	ProposalTypeSet           = "Set"
+	ProposalTypeEarlyAccess   = "EarlyAccess"
 )
 
 func (c *CopyrightProposal) ProposalRoute() string { return RouterKey }
@@ -53,8 +54,22 @@ func (c *SetProposal) ValidateBasic() error {
 	return nil
 }
 
+func (c *EarlyAccessProposal) ProposalRoute() string { return RouterKey }
+
+func (c *EarlyAccessProposal) ProposalType() string { return ProposalTypeEarlyAccess }
+
+func (c *EarlyAccessProposal) ValidateBasic() error {
+	err := govtypes.ValidateAbstract(c)
+	if err != nil {
+		return err
+	}
+	// TODO More validation
+	return nil
+}
+
 func init() {
 	govtypes.RegisterProposalType(ProposalTypeCopyright)
 	govtypes.RegisterProposalType(ProposalTypeMatchReporter)
 	govtypes.RegisterProposalType(ProposalTypeSet)
+	govtypes.RegisterProposalType(ProposalTypeEarlyAccess)
 }

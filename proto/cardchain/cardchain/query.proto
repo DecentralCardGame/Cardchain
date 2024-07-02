@@ -126,6 +126,12 @@ service Query {
     option (google.api.http).get = "/DecentralCardGame/Cardchain/cardchain/q_card_contents/{cardIds}";
 
   }
+
+  // Queries a list of QAccountFromZealy items.
+  rpc QAccountFromZealy (QueryQAccountFromZealyRequest) returns (QueryQAccountFromZealyResponse) {
+    option (google.api.http).get = "/DecentralCardGame/Cardchain/cardchain/q_account_from_zealy/{zealyId}";
+
+  }
 }
 // QueryParamsRequest is request type for the Query/Params RPC method.
 message QueryParamsRequest {}
@@ -173,18 +179,18 @@ message QueryQVotingResultsResponse {
 }
 
 message QueryQCardsRequest {
-  string owner              =  1;
-  repeated Status statuses             =  2;
-  repeated CardType cardTypes           =  3;
-  repeated CardClass classes            =  4;
-  string sortBy             =  5;
-  string nameContains       =  6;
-  string keywordsContains   =  7;
-  string notesContains      =  8;
-  bool   onlyStarterCard    =  9;
-  bool   onlyBalanceAnchors = 10;
-  repeated CardRarity rarities = 11;
-  bool multiClassOnly = 12;
+           string     owner              =  1;
+  repeated Status     statuses           =  2;
+  repeated CardType   cardTypes          =  3;
+  repeated CardClass  classes            =  4;
+           string     sortBy             =  5;
+           string     nameContains       =  6;
+           string     keywordsContains   =  7;
+           string     notesContains      =  8;
+           bool       onlyStarterCard    =  9;
+           bool       onlyBalanceAnchors = 10;
+  repeated CardRarity rarities           = 11;
+           bool       multiClassOnly     = 12;
 }
 
 message QueryQCardsResponse {
@@ -225,7 +231,6 @@ message QueryQMatchesResponse {
   repeated uint64 matchesList = 1;
   repeated Match  matches     = 2;
 }
-
 
 /*
  message QueryQSellOffersRequest {
@@ -286,7 +291,6 @@ message QueryRarityDistributionResponse {
   repeated uint32 wanted  = 2;
 }
 
-
 // this line is used by starport scaffolding # 3
 message QueryQCardContentsRequest {
   repeated uint64 cardIds = 1;
@@ -294,5 +298,13 @@ message QueryQCardContentsRequest {
 
 message QueryQCardContentsResponse {
   repeated QueryQCardContentResponse cards = 1;
+}
+
+message QueryQAccountFromZealyRequest {
+  string zealyId = 1;
+}
+
+message QueryQAccountFromZealyResponse {
+  string address = 1;
 }
 

@@ -46,6 +46,7 @@ func NewUser() User {
 		CouncilStatus:    CouncilStatus_unavailable,
 		ReportMatches:    false,
 		AirDrops:         &AirDrops{},
+		EarlyAccess:      &EarlyAccess{},
 	}
 }
 

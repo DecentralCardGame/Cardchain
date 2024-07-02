@@ -1,10 +1,11 @@
 package keeper
 
 import (
+	"math/big"
+
 	sdkerrors "cosmossdk.io/errors"
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"math/big"
 )
 
 // MulCoin multiplies a Coin with an int
