@@ -133,7 +133,7 @@ func (k Keeper) QCards(goCtx context.Context, req *types.QueryQCardsRequest) (*t
 		if req.NameContains != "" || len(req.CardTypes) != 0 || req.SortBy != "" || len(req.Classes) != 0 || req.KeywordsContains != "" {
 			cardobj, err := keywords.Unmarshal(gottenCard.Content)
 			if err != nil {
-				return nil, sdkerrors.Wrap(errors.ErrJSONMarshal, err.Error()+"cardid="+strconv.FormatUint(idx, 10))
+				return nil, sdkerrors.Wrap(errors.ErrJSONMarshal, err.Error()+" cardid="+strconv.FormatUint(idx, 10))
 			}
 
 			if cardobj.Action != nil {
