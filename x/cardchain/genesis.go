@@ -1,10 +1,12 @@
 package cardchain
 
 import (
+	"encoding/json"
 	"fmt"
 
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/keeper"
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
+	"github.com/DecentralCardGame/cardobject/cardobject"
 	"github.com/DecentralCardGame/cardobject/keywords"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
@@ -49,9 +51,27 @@ func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) 
 	}
 	k.Logger(ctx).Info("reading cards with id:")
 	for currId, record := range genState.CardRecords {
-		_, err := keywords.Unmarshal(record.Content)
-		if err != nil {
-			k.Logger(ctx).Error(fmt.Sprintf("%d :\n\t%s\n\t%s\n-----", currId, err.Error(), record.Content))
+		if len(record.Content) != 0 {
+			_, err := keywords.Unmarshal(record.Content)
+
+			if err != nil {
+				k.Logger(ctx).Info(fmt.Sprintf("Failed to read %d :\n\t%s\n\t%s\n-----", currId, err.Error(), record.Content))
+				var card keywords.Card
+				json.Unmarshal(record.Content, &card)
+
+				switch card.GetType() {
+				case cardobject.ENTITYTYPE:
+					card.Entity.Abilities.Clear()
+				case cardobject.PLACETYPE:
+					card.Place.Abilities.Clear()
+				case cardobject.HEADQUARTERTYPE:
+					card.Headquarter.Abilities.Clear()
+				case cardobject.ACTIONTYPE:
+					card.Action.Effects.Clear()
+				}
+				jsonBytes, _ := json.Marshal(card)
+				record.Content = jsonBytes
+			}
 		}
 
 		k.Cards.Set(ctx, uint64(currId), record)
