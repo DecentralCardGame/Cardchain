@@ -16,7 +16,6 @@ files.forEach(file => {
 
 let saveableData = []
 R.forEachObjIndexed(entry => {
-		console.log(entry)
 		saveableData.push(entry)
 	},
 	R.mergeAll(data)
