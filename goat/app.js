@@ -5,8 +5,6 @@ const querystring = require('node:querystring');
 const app = express();
 const PORT = process.env.PORT || 31337;
 
-//let codeValue = 'oHISzAR5RdTef7jVntWuA48Gf044Vr'
-
 const fetchUser = code => {
 	let query = querystring.stringify({
 		'client_id': '1242405621815316502',
