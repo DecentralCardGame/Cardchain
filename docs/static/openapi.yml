@@ -33042,6 +33042,7 @@ paths:
                   - bannedSoon
                   - bannedVerySoon
                   - none
+                  - adventureItem
                 default: scheme
               votePool:
                 type: string
@@ -33299,6 +33300,7 @@ paths:
               - bannedSoon
               - bannedVerySoon
               - none
+              - adventureItem
           collectionFormat: multi
         - name: cardTypes
           in: query
@@ -34230,6 +34232,16 @@ paths:
                     type: string
                   invitedUser:
                     type: string
+              OpenEncounters:
+                type: array
+                items:
+                  type: string
+                  format: uint64
+              WonEncounters:
+                type: array
+                items:
+                  type: string
+                  format: uint64
         default:
           description: An unexpected error response.
           schema:
@@ -69227,6 +69239,7 @@ definitions:
           - bannedSoon
           - bannedVerySoon
           - none
+          - adventureItem
         default: scheme
       votePool:
         type: string
@@ -69808,6 +69821,7 @@ definitions:
       - bannedSoon
       - bannedVerySoon
       - none
+      - adventureItem
     default: scheme
   DecentralCardGame.cardchain.cardchain.User:
     type: object
@@ -69903,6 +69917,16 @@ definitions:
             type: string
           invitedUser:
             type: string
+      OpenEncounters:
+        type: array
+        items:
+          type: string
+          format: uint64
+      WonEncounters:
+        type: array
+        items:
+          type: string
+          format: uint64
   DecentralCardGame.cardchain.cardchain.VoteType:
     type: string
     enum:

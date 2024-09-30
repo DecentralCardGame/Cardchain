@@ -20,6 +20,8 @@ message User {
   repeated uint64 votableCards = 13;
   repeated uint64 votedCards = 14;
   EarlyAccess earlyAccess = 15;
+  repeated uint64 OpenEncounters = 16;
+  repeated uint64 WonEncounters = 17;  
 }
 
 enum CouncilStatus {

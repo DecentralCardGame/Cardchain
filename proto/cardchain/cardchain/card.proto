@@ -58,6 +58,7 @@ enum Status {
   bannedSoon = 6;
   bannedVerySoon = 7;
   none = 8;
+  adventureItem = 9;
 }
 
 enum CardRarity {
