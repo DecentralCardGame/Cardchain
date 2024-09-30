@@ -69136,6 +69136,12 @@ definitions:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgDonateToCardResponse:
     type: object
+  DecentralCardGame.cardchain.cardchain.MsgEncounterCloseResponse:
+    type: object
+  DecentralCardGame.cardchain.cardchain.MsgEncounterCreateResponse:
+    type: object
+  DecentralCardGame.cardchain.cardchain.MsgEncounterDoResponse:
+    type: object
   DecentralCardGame.cardchain.cardchain.MsgFinalizeSetResponse:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgInviteEarlyAccessResponse:

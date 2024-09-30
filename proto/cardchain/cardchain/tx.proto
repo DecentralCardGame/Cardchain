@@ -61,6 +61,9 @@ service Msg {
   rpc InviteEarlyAccess    (MsgInviteEarlyAccess   ) returns (MsgInviteEarlyAccessResponse   );
   rpc DisinviteEarlyAccess (MsgDisinviteEarlyAccess) returns (MsgDisinviteEarlyAccessResponse);
   rpc ConnectZealyAccount  (MsgConnectZealyAccount ) returns (MsgConnectZealyAccountResponse );
+  rpc EncounterCreate      (MsgEncounterCreate     ) returns (MsgEncounterCreateResponse     );
+  rpc EncounterDo          (MsgEncounterDo         ) returns (MsgEncounterDoResponse         );
+  rpc EncounterClose       (MsgEncounterClose      ) returns (MsgEncounterCloseResponse      );
 }
 message MsgCreateuser {
   string creator = 1;
@@ -77,7 +80,7 @@ message MsgBuyCardScheme {
   cosmos.base.v1beta1.Coin bid     = 2 [(gogoproto.nullable) = false, (gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coin"];
 
   /*
-                                                                       string bid = 2;
+                                                                                               string bid = 2;
    */}
 
 message MsgBuyCardSchemeResponse {
@@ -430,4 +433,26 @@ message MsgConnectZealyAccount {
 }
 
 message MsgConnectZealyAccountResponse {}
+
+message MsgEncounterCreate {
+           string                   creator  =          1;
+  repeated uint64                   Drawlist =          2;
+                 map <string,string>        parameters = 3;
+}
+
+message MsgEncounterCreateResponse {}
+
+message MsgEncounterDo {
+  string creator     = 1;
+  uint64 encounterId = 2;
+}
+
+message MsgEncounterDoResponse {}
+
+message MsgEncounterClose {
+  string creator     = 1;
+  uint64 encounterId = 2;
+}
+
+message MsgEncounterCloseResponse {}
 

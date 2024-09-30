@@ -73,6 +73,9 @@ func GetTxCmd() *cobra.Command {
 	cmd.AddCommand(CmdInviteEarlyAccess())
 	cmd.AddCommand(CmdDisinviteEarlyAccess())
 	cmd.AddCommand(CmdConnectZealyAccount())
+	cmd.AddCommand(CmdEncounterCreate())
+	cmd.AddCommand(CmdEncounterDo())
+	cmd.AddCommand(CmdEncounterClose())
 	// this line is used by starport scaffolding # 1
 
 	return cmd
