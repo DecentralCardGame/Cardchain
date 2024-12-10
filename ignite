@@ -32,5 +32,6 @@ if [[ $version != $IGNITE_VERSION ]]; then
 fi
 
 echo "[Wrapper] Using $path $IGNITE_VERSION"
+echo "[Wrapper] Warning proto now has to be generated manually and '--skip-proto' should be used with chain interactions"
 
 $path $args
