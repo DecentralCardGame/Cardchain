@@ -4,7 +4,7 @@
 # Takes optional `--path <path>` option to specify an ingite installation at a different location then the default one
 # All other arguments are passed on to ignite
 
-IGNITE_VERSION="v0.26.1"
+IGNITE_VERSION="v0.26.2"
 
 
 if [[ $1 == "--path" ]]; then
@@ -32,6 +32,5 @@ if [[ $version != $IGNITE_VERSION ]]; then
 fi
 
 echo "[Wrapper] Using $path $IGNITE_VERSION"
-echo "[Wrapper] Warning proto now has to be generated manually and '--skip-proto' should be used with chain interactions"
 
 $path $args
