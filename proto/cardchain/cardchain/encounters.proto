@@ -12,4 +12,5 @@ message Encounter {
     bool proven = 3;
     string owner = 4;
     map<string, string> parameters = 5;
+    uint64 imageId = 6;
 }

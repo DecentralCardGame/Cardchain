@@ -1,6 +1,8 @@
 package types
 
 import (
+	fmt "fmt"
+
 	sdkerrors "cosmossdk.io/errors"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/errors"
@@ -45,6 +47,10 @@ func (msg *MsgEncounterCreate) ValidateBasic() error {
 
 	if len(msg.Drawlist) != 40 {
 		return sdkerrors.Wrapf(ErrInvalidData, "drawlist too long, must be 40 is '%d'", len(msg.Drawlist))
+	}
+
+	if len(msg.Image) > ArtworkMaxSize {
+		return sdkerrors.Wrap(ErrImageSizeExceeded, fmt.Sprint(len(msg.Image)))
 	}
 
 	return nil

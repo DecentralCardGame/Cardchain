@@ -20,6 +20,7 @@ func (k msgServer) EncounterCreate(goCtx context.Context, msg *types.MsgEncounte
 	}
 
 	id := k.Encounters.GetNum(ctx)
+	imageId := k.Images.GetNum(ctx)
 
 	encounter := types.Encounter{
 		Id:         id,
@@ -27,8 +28,10 @@ func (k msgServer) EncounterCreate(goCtx context.Context, msg *types.MsgEncounte
 		Proven:     false,
 		Owner:      msg.Creator,
 		Parameters: msg.Parameters,
+		ImageId:    imageId,
 	}
 
+	k.Images.Set(ctx, imageId, &types.Image{Image: msg.Image})
 	k.Encounters.Set(ctx, id, &encounter)
 
 	return &types.MsgEncounterCreateResponse{}, nil

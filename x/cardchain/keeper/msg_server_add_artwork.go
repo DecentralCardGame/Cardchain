@@ -2,7 +2,6 @@ package keeper
 
 import (
 	"context"
-	"fmt"
 
 	"github.com/cosmos/cosmos-sdk/types/errors"
 
@@ -24,10 +23,6 @@ func (k msgServer) AddArtwork(goCtx context.Context, msg *types.MsgAddArtwork) (
 
 	if card.Artist != msg.Creator {
 		return nil, sdkerrors.Wrap(errors.ErrUnauthorized, "Incorrect Artist")
-	}
-
-	if len(msg.Image) > 500000 {
-		return nil, sdkerrors.Wrap(types.ErrImageSizeExceeded, fmt.Sprint(len(msg.Image)))
 	}
 
 	card.FullArt = msg.FullArt
