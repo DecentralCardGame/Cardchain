@@ -455,6 +455,7 @@ message MsgEncounterClose {
   string creator     = 1;
   uint64 encounterId = 2;
   string user = 3;
+  bool won = 4;
 }
 
 message MsgEncounterCloseResponse {}
