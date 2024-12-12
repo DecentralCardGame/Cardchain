@@ -446,6 +446,7 @@ message MsgEncounterCreateResponse {}
 message MsgEncounterDo {
   string creator     = 1;
   uint64 encounterId = 2;
+  string user = 3;
 }
 
 message MsgEncounterDoResponse {}
@@ -453,6 +454,7 @@ message MsgEncounterDoResponse {}
 message MsgEncounterClose {
   string creator     = 1;
   uint64 encounterId = 2;
+  string user = 3;
 }
 
 message MsgEncounterCloseResponse {}
