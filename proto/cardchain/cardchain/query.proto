@@ -13,6 +13,7 @@ import "cardchain/cardchain/match.proto";
 import "cardchain/cardchain/set.proto";
 import "cardchain/cardchain/sell_offer.proto";
 import "cardchain/cardchain/council.proto";
+import "cardchain/cardchain/encounters.proto";
 import "cardchain/cardchain/server.proto";
 import "cardchain/cardchain/tx.proto";
 
@@ -314,16 +315,18 @@ message QueryQAccountFromZealyResponse { string address = 1; }
 
 message QueryQEncountersRequest {}
 
-message QueryQEncountersResponse {}
+message QueryQEncountersResponse { repeated Encounter encounters = 1; }
 
 message QueryQEncounterRequest { uint64 id = 1; }
 
-message QueryQEncounterResponse {}
+message QueryQEncounterResponse { Encounter encounter = 1; }
 
 message QueryQEncountersWithImageRequest {}
 
-message QueryQEncountersWithImageResponse {}
+message QueryQEncountersWithImageResponse {
+  repeated EncounterWithImage encounters = 1;
+}
 
 message QueryQEncounterWithImageRequest { uint64 id = 1; }
 
-message QueryQEncounterWithImageResponse {}
+message QueryQEncounterWithImageResponse { EncounterWithImage encounter = 1; }

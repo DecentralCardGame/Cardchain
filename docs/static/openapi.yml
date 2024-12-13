@@ -33461,6 +33461,29 @@ paths:
           description: A successful response.
           schema:
             type: object
+            properties:
+              encounter:
+                type: object
+                properties:
+                  Id:
+                    type: string
+                    format: uint64
+                  Drawlist:
+                    type: array
+                    items:
+                      type: string
+                      format: uint64
+                  proven:
+                    type: boolean
+                  owner:
+                    type: string
+                  parameters:
+                    type: object
+                    additionalProperties:
+                      type: string
+                  imageId:
+                    type: string
+                    format: uint64
         default:
           description: An unexpected error response.
           schema:
@@ -33496,6 +33519,35 @@ paths:
           description: A successful response.
           schema:
             type: object
+            properties:
+              encounter:
+                type: object
+                properties:
+                  encounter:
+                    type: object
+                    properties:
+                      Id:
+                        type: string
+                        format: uint64
+                      Drawlist:
+                        type: array
+                        items:
+                          type: string
+                          format: uint64
+                      proven:
+                        type: boolean
+                      owner:
+                        type: string
+                      parameters:
+                        type: object
+                        additionalProperties:
+                          type: string
+                      imageId:
+                        type: string
+                        format: uint64
+                  image:
+                    type: string
+                    format: byte
         default:
           description: An unexpected error response.
           schema:
@@ -33531,6 +33583,31 @@ paths:
           description: A successful response.
           schema:
             type: object
+            properties:
+              encounters:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    Id:
+                      type: string
+                      format: uint64
+                    Drawlist:
+                      type: array
+                      items:
+                        type: string
+                        format: uint64
+                    proven:
+                      type: boolean
+                    owner:
+                      type: string
+                    parameters:
+                      type: object
+                      additionalProperties:
+                        type: string
+                    imageId:
+                      type: string
+                      format: uint64
         default:
           description: An unexpected error response.
           schema:
@@ -33560,6 +33637,37 @@ paths:
           description: A successful response.
           schema:
             type: object
+            properties:
+              encounters:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    encounter:
+                      type: object
+                      properties:
+                        Id:
+                          type: string
+                          format: uint64
+                        Drawlist:
+                          type: array
+                          items:
+                            type: string
+                            format: uint64
+                        proven:
+                          type: boolean
+                        owner:
+                          type: string
+                        parameters:
+                          type: object
+                          additionalProperties:
+                            type: string
+                        imageId:
+                          type: string
+                          format: uint64
+                    image:
+                      type: string
+                      format: byte
         default:
           description: An unexpected error response.
           schema:
@@ -69054,6 +69162,56 @@ definitions:
         type: string
       invitedUser:
         type: string
+  DecentralCardGame.cardchain.cardchain.Encounter:
+    type: object
+    properties:
+      Id:
+        type: string
+        format: uint64
+      Drawlist:
+        type: array
+        items:
+          type: string
+          format: uint64
+      proven:
+        type: boolean
+      owner:
+        type: string
+      parameters:
+        type: object
+        additionalProperties:
+          type: string
+      imageId:
+        type: string
+        format: uint64
+  DecentralCardGame.cardchain.cardchain.EncounterWithImage:
+    type: object
+    properties:
+      encounter:
+        type: object
+        properties:
+          Id:
+            type: string
+            format: uint64
+          Drawlist:
+            type: array
+            items:
+              type: string
+              format: uint64
+          proven:
+            type: boolean
+          owner:
+            type: string
+          parameters:
+            type: object
+            additionalProperties:
+              type: string
+          imageId:
+            type: string
+            format: uint64
+      image:
+        type: string
+        format: byte
   DecentralCardGame.cardchain.cardchain.IgnoreMatches:
     type: object
     properties:
@@ -69680,12 +69838,120 @@ definitions:
           format: uint64
   DecentralCardGame.cardchain.cardchain.QueryQEncounterResponse:
     type: object
+    properties:
+      encounter:
+        type: object
+        properties:
+          Id:
+            type: string
+            format: uint64
+          Drawlist:
+            type: array
+            items:
+              type: string
+              format: uint64
+          proven:
+            type: boolean
+          owner:
+            type: string
+          parameters:
+            type: object
+            additionalProperties:
+              type: string
+          imageId:
+            type: string
+            format: uint64
   DecentralCardGame.cardchain.cardchain.QueryQEncounterWithImageResponse:
     type: object
+    properties:
+      encounter:
+        type: object
+        properties:
+          encounter:
+            type: object
+            properties:
+              Id:
+                type: string
+                format: uint64
+              Drawlist:
+                type: array
+                items:
+                  type: string
+                  format: uint64
+              proven:
+                type: boolean
+              owner:
+                type: string
+              parameters:
+                type: object
+                additionalProperties:
+                  type: string
+              imageId:
+                type: string
+                format: uint64
+          image:
+            type: string
+            format: byte
   DecentralCardGame.cardchain.cardchain.QueryQEncountersResponse:
     type: object
+    properties:
+      encounters:
+        type: array
+        items:
+          type: object
+          properties:
+            Id:
+              type: string
+              format: uint64
+            Drawlist:
+              type: array
+              items:
+                type: string
+                format: uint64
+            proven:
+              type: boolean
+            owner:
+              type: string
+            parameters:
+              type: object
+              additionalProperties:
+                type: string
+            imageId:
+              type: string
+              format: uint64
   DecentralCardGame.cardchain.cardchain.QueryQEncountersWithImageResponse:
     type: object
+    properties:
+      encounters:
+        type: array
+        items:
+          type: object
+          properties:
+            encounter:
+              type: object
+              properties:
+                Id:
+                  type: string
+                  format: uint64
+                Drawlist:
+                  type: array
+                  items:
+                    type: string
+                    format: uint64
+                proven:
+                  type: boolean
+                owner:
+                  type: string
+                parameters:
+                  type: object
+                  additionalProperties:
+                    type: string
+                imageId:
+                  type: string
+                  format: uint64
+            image:
+              type: string
+              format: byte
   DecentralCardGame.cardchain.cardchain.QueryQMatchesResponse:
     type: object
     properties:

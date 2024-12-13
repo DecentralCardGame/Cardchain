@@ -16,8 +16,10 @@ func (k Keeper) QEncounterWithImage(goCtx context.Context, req *types.QueryQEnco
 
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	// TODO: Process the query
-	_ = ctx
+	encounter := k.Encounters.Get(ctx, req.Id)
 
-	return &types.QueryQEncounterWithImageResponse{}, nil
+	return &types.QueryQEncounterWithImageResponse{Encounter: &types.EncounterWithImage{
+		Encounter: encounter,
+		Image:     k.Images.Get(ctx, encounter.ImageId).Image,
+	}}, nil
 }
