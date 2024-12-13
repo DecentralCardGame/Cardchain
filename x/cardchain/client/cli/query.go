@@ -59,6 +59,14 @@ func GetQueryCmd(queryRoute string) *cobra.Command {
 
 	cmd.AddCommand(CmdQAccountFromZealy())
 
+	cmd.AddCommand(CmdQEncounters())
+
+	cmd.AddCommand(CmdQEncounter())
+
+	cmd.AddCommand(CmdQEncountersWithImage())
+
+	cmd.AddCommand(CmdQEncounterWithImage())
+
 	// this line is used by starport scaffolding # 1
 
 	return cmd

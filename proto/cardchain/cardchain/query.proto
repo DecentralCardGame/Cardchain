@@ -24,113 +24,145 @@ option go_package = "github.com/DecentralCardGame/Cardchain/x/cardchain/types";
 service Query {
 
   // Parameters queries the parameters of the module.
-  rpc Params (QueryParamsRequest) returns (QueryParamsResponse) {
-    option (google.api.http).get = "/DecentralCardGame/Cardchain/cardchain/params";
-
+  rpc Params(QueryParamsRequest) returns (QueryParamsResponse) {
+    option (google.api.http).get =
+        "/DecentralCardGame/Cardchain/cardchain/params";
   }
 
   // Queries a list of QCard items.
-  rpc QCard (QueryQCardRequest) returns (OutpCard) {
-    option (google.api.http).get = "/DecentralCardGame/Cardchain/cardchain/q_card/{cardId}";
-
+  rpc QCard(QueryQCardRequest) returns (OutpCard) {
+    option (google.api.http).get =
+        "/DecentralCardGame/Cardchain/cardchain/q_card/{cardId}";
   }
 
   // Queries a list of QCardContent items.
-  rpc QCardContent (QueryQCardContentRequest) returns (QueryQCardContentResponse) {
-    option (google.api.http).get = "/DecentralCardGame/Cardchain/cardchain/q_card_content/{cardId}";
-
+  rpc QCardContent(QueryQCardContentRequest)
+      returns (QueryQCardContentResponse) {
+    option (google.api.http).get =
+        "/DecentralCardGame/Cardchain/cardchain/q_card_content/{cardId}";
   }
 
   // Queries a list of QUser items.
-  rpc QUser (QueryQUserRequest) returns (User) {
-    option (google.api.http).get = "/DecentralCardGame/Cardchain/cardchain/q_user/{address}";
-
+  rpc QUser(QueryQUserRequest) returns (User) {
+    option (google.api.http).get =
+        "/DecentralCardGame/Cardchain/cardchain/q_user/{address}";
   }
 
   // Queries a list of QCardchainInfo items.
-  rpc QCardchainInfo (QueryQCardchainInfoRequest) returns (QueryQCardchainInfoResponse) {
-    option (google.api.http).get = "/DecentralCardGame/Cardchain/cardchain/q_cardchain_info";
-
+  rpc QCardchainInfo(QueryQCardchainInfoRequest)
+      returns (QueryQCardchainInfoResponse) {
+    option (google.api.http).get =
+        "/DecentralCardGame/Cardchain/cardchain/q_cardchain_info";
   }
 
   // Queries a list of QVotingResults items.
-  rpc QVotingResults (QueryQVotingResultsRequest) returns (QueryQVotingResultsResponse) {
-    option (google.api.http).get = "/DecentralCardGame/Cardchain/cardchain/q_voting_results";
-
+  rpc QVotingResults(QueryQVotingResultsRequest)
+      returns (QueryQVotingResultsResponse) {
+    option (google.api.http).get =
+        "/DecentralCardGame/Cardchain/cardchain/q_voting_results";
   }
 
   // Queries a list of QCards items.
-  rpc QCards (QueryQCardsRequest) returns (QueryQCardsResponse) {
-    option (google.api.http).get = "/DecentralCardGame/Cardchain/cardchain/q_cards";
-
+  rpc QCards(QueryQCardsRequest) returns (QueryQCardsResponse) {
+    option (google.api.http).get =
+        "/DecentralCardGame/Cardchain/cardchain/q_cards";
   }
 
   // Queries a list of QMatch items.
-  rpc QMatch (QueryQMatchRequest) returns (Match) {
-    option (google.api.http).get = "/DecentralCardGame/Cardchain/cardchain/q_match/{matchId}";
-
+  rpc QMatch(QueryQMatchRequest) returns (Match) {
+    option (google.api.http).get =
+        "/DecentralCardGame/Cardchain/cardchain/q_match/{matchId}";
   }
 
   // Queries a list of QSet items.
-  rpc QSet (QueryQSetRequest) returns (OutpSet) {
-    option (google.api.http).get = "/DecentralCardGame/Cardchain/cardchain/q_set/{setId}";
-
+  rpc QSet(QueryQSetRequest) returns (OutpSet) {
+    option (google.api.http).get =
+        "/DecentralCardGame/Cardchain/cardchain/q_set/{setId}";
   }
 
   // Queries a list of QSellOffer items.
-  rpc QSellOffer (QueryQSellOfferRequest) returns (SellOffer) {
-    option (google.api.http).get = "/DecentralCardGame/Cardchain/cardchain/q_sell_offer/{sellOfferId}";
-
+  rpc QSellOffer(QueryQSellOfferRequest) returns (SellOffer) {
+    option (google.api.http).get =
+        "/DecentralCardGame/Cardchain/cardchain/q_sell_offer/{sellOfferId}";
   }
 
   // Queries a list of QCouncil items.
-  rpc QCouncil (QueryQCouncilRequest) returns (Council) {
-    option (google.api.http).get = "/DecentralCardGame/Cardchain/cardchain/q_council/{councilId}";
-
+  rpc QCouncil(QueryQCouncilRequest) returns (Council) {
+    option (google.api.http).get =
+        "/DecentralCardGame/Cardchain/cardchain/q_council/{councilId}";
   }
 
   // Queries a list of QMatches items.
-  rpc QMatches (QueryQMatchesRequest) returns (QueryQMatchesResponse) {
-    option (google.api.http).get = "/DecentralCardGame/Cardchain/cardchain/q_matches";
-
+  rpc QMatches(QueryQMatchesRequest) returns (QueryQMatchesResponse) {
+    option (google.api.http).get =
+        "/DecentralCardGame/Cardchain/cardchain/q_matches";
   }
 
   // Queries a list of QSellOffers items.
-  rpc QSellOffers (QueryQSellOffersRequest) returns (QueryQSellOffersResponse) {
-    option (google.api.http).get = "/DecentralCardGame/Cardchain/cardchain/q_sell_offers/{status}";
-
+  rpc QSellOffers(QueryQSellOffersRequest) returns (QueryQSellOffersResponse) {
+    option (google.api.http).get =
+        "/DecentralCardGame/Cardchain/cardchain/q_sell_offers/{status}";
   }
 
   // Queries a list of QServer items.
-  rpc QServer (QueryQServerRequest) returns (Server) {
-    option (google.api.http).get = "/DecentralCardGame/Cardchain/cardchain/q_server/{id}";
-
+  rpc QServer(QueryQServerRequest) returns (Server) {
+    option (google.api.http).get =
+        "/DecentralCardGame/Cardchain/cardchain/q_server/{id}";
   }
 
   // Queries a list of QSets items.
-  rpc QSets (QueryQSetsRequest) returns (QueryQSetsResponse) {
-    option (google.api.http).get = "/DecentralCardGame/Cardchain/cardchain/q_sets/{status}/{ignoreStatus}";
-
+  rpc QSets(QueryQSetsRequest) returns (QueryQSetsResponse) {
+    option (google.api.http).get =
+        "/DecentralCardGame/Cardchain/cardchain/q_sets/{status}/{ignoreStatus}";
   }
 
   // Queries a list of RarityDistribution items.
-  rpc RarityDistribution (QueryRarityDistributionRequest) returns (QueryRarityDistributionResponse) {
-    option (google.api.http).get = "/DecentralCardGame/Cardchain/cardchain/rarity_distribution/{setId}";
-
+  rpc RarityDistribution(QueryRarityDistributionRequest)
+      returns (QueryRarityDistributionResponse) {
+    option (google.api.http).get =
+        "/DecentralCardGame/Cardchain/cardchain/rarity_distribution/{setId}";
   }
 
   // this line is used by starport scaffolding # 2
 
   // Queries a list of QCardContents items.
-  rpc QCardContents (QueryQCardContentsRequest) returns (QueryQCardContentsResponse) {
-    option (google.api.http).get = "/DecentralCardGame/Cardchain/cardchain/q_card_contents/{cardIds}";
-
+  rpc QCardContents(QueryQCardContentsRequest)
+      returns (QueryQCardContentsResponse) {
+    option (google.api.http).get =
+        "/DecentralCardGame/Cardchain/cardchain/q_card_contents/{cardIds}";
   }
 
   // Queries a list of QAccountFromZealy items.
-  rpc QAccountFromZealy (QueryQAccountFromZealyRequest) returns (QueryQAccountFromZealyResponse) {
-    option (google.api.http).get = "/DecentralCardGame/Cardchain/cardchain/q_account_from_zealy/{zealyId}";
+  rpc QAccountFromZealy(QueryQAccountFromZealyRequest)
+      returns (QueryQAccountFromZealyResponse) {
+    option (google.api.http).get =
+        "/DecentralCardGame/Cardchain/cardchain/q_account_from_zealy/{zealyId}";
+  }
 
+  // Queries a list of QEncounters items.
+  rpc QEncounters(QueryQEncountersRequest) returns (QueryQEncountersResponse) {
+    option (google.api.http).get =
+        "/DecentralCardGame/Cardchain/cardchain/q_encounters";
+  }
+
+  // Queries a list of QEncounter items.
+  rpc QEncounter(QueryQEncounterRequest) returns (QueryQEncounterResponse) {
+    option (google.api.http).get =
+        "/DecentralCardGame/Cardchain/cardchain/q_encounter/{id}";
+  }
+
+  // Queries a list of QEncountersWithImage items.
+  rpc QEncountersWithImage(QueryQEncountersWithImageRequest)
+      returns (QueryQEncountersWithImageResponse) {
+    option (google.api.http).get =
+        "/DecentralCardGame/Cardchain/cardchain/q_encounters_with_image";
+  }
+
+  // Queries a list of QEncounterWithImage items.
+  rpc QEncounterWithImage(QueryQEncounterWithImageRequest)
+      returns (QueryQEncounterWithImageResponse) {
+    option (google.api.http).get =
+        "/DecentralCardGame/Cardchain/cardchain/q_encounter_with_image/{id}";
   }
 }
 // QueryParamsRequest is request type for the Query/Params RPC method.
@@ -140,96 +172,79 @@ message QueryParamsRequest {}
 message QueryParamsResponse {
 
   // params holds all the parameters of this module.
-  Params params = 1 [(gogoproto.nullable) = false];
+  Params params = 1 [ (gogoproto.nullable) = false ];
 }
 
-message QueryQCardRequest {
-  string cardId = 1;
-}
+message QueryQCardRequest { string cardId = 1; }
 
-message QueryQCardContentRequest {
-  uint64 cardId = 1;
-}
+message QueryQCardContentRequest { uint64 cardId = 1; }
 
 message QueryQCardContentResponse {
   string content = 1;
-  string hash    = 2;
+  string hash = 2;
 }
 
-message QueryQUserRequest {
-  string address = 1;
-}
+message QueryQUserRequest { string address = 1; }
 
 message QueryQCardchainInfoRequest {}
 
 message QueryQCardchainInfoResponse {
-           string cardAuctionPrice = 1 [(gogoproto.nullable) = false, (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Coin"];
-  repeated uint64 activeSets       = 2;
-           uint64 cardsNumber      = 3;
-           uint64 matchesNumber    = 4;
-           uint64 sellOffersNumber = 5;
-           uint64 councilsNumber   = 6;
-           uint64 lastCardModified = 7;
+  string cardAuctionPrice = 1 [
+    (gogoproto.nullable) = false,
+    (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Coin"
+  ];
+  repeated uint64 activeSets = 2;
+  uint64 cardsNumber = 3;
+  uint64 matchesNumber = 4;
+  uint64 sellOffersNumber = 5;
+  uint64 councilsNumber = 6;
+  uint64 lastCardModified = 7;
 }
 
 message QueryQVotingResultsRequest {}
 
-message QueryQVotingResultsResponse {
-  VotingResults lastVotingResults = 1;
-}
+message QueryQVotingResultsResponse { VotingResults lastVotingResults = 1; }
 
 message QueryQCardsRequest {
-           string     owner              =  1;
-  repeated Status     statuses           =  2;
-  repeated CardType   cardTypes          =  3;
-  repeated CardClass  classes            =  4;
-           string     sortBy             =  5;
-           string     nameContains       =  6;
-           string     keywordsContains   =  7;
-           string     notesContains      =  8;
-           bool       onlyStarterCard    =  9;
-           bool       onlyBalanceAnchors = 10;
-  repeated CardRarity rarities           = 11;
-           bool       multiClassOnly     = 12;
+  string owner = 1;
+  repeated Status statuses = 2;
+  repeated CardType cardTypes = 3;
+  repeated CardClass classes = 4;
+  string sortBy = 5;
+  string nameContains = 6;
+  string keywordsContains = 7;
+  string notesContains = 8;
+  bool onlyStarterCard = 9;
+  bool onlyBalanceAnchors = 10;
+  repeated CardRarity rarities = 11;
+  bool multiClassOnly = 12;
 }
 
-message QueryQCardsResponse {
-  repeated uint64 cardsList = 1;
-}
+message QueryQCardsResponse { repeated uint64 cardsList = 1; }
 
-message QueryQMatchRequest {
-  uint64 matchId = 1;
-}
+message QueryQMatchRequest { uint64 matchId = 1; }
 
-message QueryQSetRequest {
-  uint64 setId = 1;
-}
+message QueryQSetRequest { uint64 setId = 1; }
 
-message QueryQSellOfferRequest {
-  uint64 sellOfferId = 1;
-}
+message QueryQSellOfferRequest { uint64 sellOfferId = 1; }
 
-message QueryQCouncilRequest {
-  uint64 councilId = 1;
-}
+message QueryQCouncilRequest { uint64 councilId = 1; }
 
 message QueryQMatchesRequest {
-           uint64        timestampDown = 1;
-           uint64        timestampUp   = 2;
-  repeated string        containsUsers = 3;
-           string        reporter      = 4;
-           Outcome       outcome       = 5;
-  repeated uint64        cardsPlayed   = 6;
-           IgnoreMatches ignore        = 7;
+  uint64 timestampDown = 1;
+  uint64 timestampUp = 2;
+  repeated string containsUsers = 3;
+  string reporter = 4;
+  Outcome outcome = 5;
+  repeated uint64 cardsPlayed = 6;
+  IgnoreMatches ignore = 7;
 }
 
-message IgnoreMatches {
-  bool outcome = 1;
-}
+message IgnoreMatches { bool outcome = 1; }
 
 message QueryQMatchesResponse {
   repeated uint64 matchesList = 1;
-  repeated Match  matches     = 2;
+  repeated Match matches = 2;
 }
 
 /*
@@ -244,67 +259,71 @@ message QueryQMatchesResponse {
   }
   Query query = 1;
 }
- */message QueryQSellOffersRequest {
-  string           priceDown = 1;
-  string           priceUp   = 2;
-  string           seller    = 3;
-  string           buyer     = 4;
-  uint64           card      = 5;
-  SellOfferStatus  status    = 6;
-  IgnoreSellOffers ignore    = 7;
+ */
+message QueryQSellOffersRequest {
+  string priceDown = 1;
+  string priceUp = 2;
+  string seller = 3;
+  string buyer = 4;
+  uint64 card = 5;
+  SellOfferStatus status = 6;
+  IgnoreSellOffers ignore = 7;
 }
 
 message IgnoreSellOffers {
   bool status = 1;
-  bool card   = 2;
+  bool card = 2;
 }
 
 message QueryQSellOffersResponse {
-  repeated uint64    sellOffersIds = 1;
-  repeated SellOffer sellOffers    = 2;
+  repeated uint64 sellOffersIds = 1;
+  repeated SellOffer sellOffers = 2;
 }
 
-message QueryQServerRequest {
-  uint64 id = 1;
-}
+message QueryQServerRequest { uint64 id = 1; }
 
 message QueryQServerResponse {}
 
 message QueryQSetsRequest {
-           CStatus status        = 1;
-           bool    ignoreStatus  = 2;
-  repeated string  contributors  = 3;
-  repeated uint64  containsCards = 4;
-           string  owner         = 5;
+  CStatus status = 1;
+  bool ignoreStatus = 2;
+  repeated string contributors = 3;
+  repeated uint64 containsCards = 4;
+  string owner = 5;
 }
 
-message QueryQSetsResponse {
-  repeated uint64 setIds = 1;
-}
+message QueryQSetsResponse { repeated uint64 setIds = 1; }
 
-message QueryRarityDistributionRequest {
-  uint64 setId = 1;
-}
+message QueryRarityDistributionRequest { uint64 setId = 1; }
 
 message QueryRarityDistributionResponse {
   repeated uint32 current = 1;
-  repeated uint32 wanted  = 2;
+  repeated uint32 wanted = 2;
 }
 
 // this line is used by starport scaffolding # 3
-message QueryQCardContentsRequest {
-  repeated uint64 cardIds = 1;
-}
+message QueryQCardContentsRequest { repeated uint64 cardIds = 1; }
 
 message QueryQCardContentsResponse {
   repeated QueryQCardContentResponse cards = 1;
 }
 
-message QueryQAccountFromZealyRequest {
-  string zealyId = 1;
-}
+message QueryQAccountFromZealyRequest { string zealyId = 1; }
 
-message QueryQAccountFromZealyResponse {
-  string address = 1;
-}
+message QueryQAccountFromZealyResponse { string address = 1; }
 
+message QueryQEncountersRequest {}
+
+message QueryQEncountersResponse {}
+
+message QueryQEncounterRequest { uint64 id = 1; }
+
+message QueryQEncounterResponse {}
+
+message QueryQEncountersWithImageRequest {}
+
+message QueryQEncountersWithImageResponse {}
+
+message QueryQEncounterWithImageRequest { uint64 id = 1; }
+
+message QueryQEncounterWithImageResponse {}
