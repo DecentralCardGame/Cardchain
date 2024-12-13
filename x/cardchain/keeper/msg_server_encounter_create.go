@@ -41,8 +41,6 @@ func (k msgServer) EncounterCreate(goCtx context.Context, msg *types.MsgEncounte
 	k.Encounters.Set(ctx, id, &encounter)
 	k.SetUserFromUser(ctx, creator)
 
-	// TODO: remove bought cards used for encounter from owned cards from that user (not drafts or permanents)
-
 	return &types.MsgEncounterCreateResponse{}, nil
 }
 
