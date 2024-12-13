@@ -9,10 +9,12 @@ const TypeMsgEncounterClose = "encounter_close"
 
 var _ sdk.Msg = &MsgEncounterClose{}
 
-func NewMsgEncounterClose(creator string, encounterId uint64) *MsgEncounterClose {
+func NewMsgEncounterClose(creator string, encounterId uint64, user string, won bool) *MsgEncounterClose {
 	return &MsgEncounterClose{
 		Creator:     creator,
 		EncounterId: encounterId,
+		User:        user,
+		Won:         won,
 	}
 }
 

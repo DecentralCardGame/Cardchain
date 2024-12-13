@@ -15,11 +15,16 @@ var _ = strconv.Itoa(0)
 
 func CmdEncounterClose() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "encounter-close [encounter-id]",
+		Use:   "encounter-close [encounter-id] [user] [won]",
 		Short: "Broadcast message EncounterClose",
-		Args:  cobra.ExactArgs(1),
+		Args:  cobra.ExactArgs(3),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
 			argEncounterId, err := cast.ToUint64E(args[0])
+			if err != nil {
+				return err
+			}
+
+			argWon, err := cast.ToBoolE(args[2])
 			if err != nil {
 				return err
 			}
@@ -32,6 +37,8 @@ func CmdEncounterClose() *cobra.Command {
 			msg := types.NewMsgEncounterClose(
 				clientCtx.GetFromAddress().String(),
 				argEncounterId,
+				args[1],
+				argWon,
 			)
 			if err := msg.ValidateBasic(); err != nil {
 				return err

@@ -15,9 +15,9 @@ var _ = strconv.Itoa(0)
 
 func CmdEncounterDo() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "encounter-do [encounter-id]",
+		Use:   "encounter-do [encounter-id] [user]",
 		Short: "Broadcast message EncounterDo",
-		Args:  cobra.ExactArgs(1),
+		Args:  cobra.ExactArgs(2),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
 			argEncounterId, err := cast.ToUint64E(args[0])
 			if err != nil {
@@ -32,6 +32,7 @@ func CmdEncounterDo() *cobra.Command {
 			msg := types.NewMsgEncounterDo(
 				clientCtx.GetFromAddress().String(),
 				argEncounterId,
+				args[1],
 			)
 			if err := msg.ValidateBasic(); err != nil {
 				return err

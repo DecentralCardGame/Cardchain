@@ -1,6 +1,7 @@
 package cli
 
 import (
+	"encoding/json"
 	"strconv"
 
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
@@ -14,10 +15,21 @@ var _ = strconv.Itoa(0)
 
 func CmdEncounterCreate() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "encounter-create",
+		Use:   "encounter-create [drawlist] [parameters] [image]",
 		Short: "Broadcast message EncounterCreate",
-		Args:  cobra.ExactArgs(0),
+		Args:  cobra.ExactArgs(3),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
+			var reqDrawlist []uint64
+			err = json.Unmarshal([]byte(args[0]), &reqDrawlist)
+			if err != nil {
+				return err
+			}
+
+			var reqParameters map[string]string
+			err = json.Unmarshal([]byte(args[1]), &reqParameters)
+			if err != nil {
+				return err
+			}
 
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
@@ -26,6 +38,9 @@ func CmdEncounterCreate() *cobra.Command {
 
 			msg := types.NewMsgEncounterCreate(
 				clientCtx.GetFromAddress().String(),
+				reqDrawlist,
+				reqParameters,
+				[]byte(args[1]),
 			)
 			if err := msg.ValidateBasic(); err != nil {
 				return err

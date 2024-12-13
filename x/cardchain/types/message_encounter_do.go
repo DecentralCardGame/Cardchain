@@ -9,10 +9,11 @@ const TypeMsgEncounterDo = "encounter_do"
 
 var _ sdk.Msg = &MsgEncounterDo{}
 
-func NewMsgEncounterDo(creator string, encounterId uint64) *MsgEncounterDo {
+func NewMsgEncounterDo(creator string, encounterId uint64, user string) *MsgEncounterDo {
 	return &MsgEncounterDo{
 		Creator:     creator,
 		EncounterId: encounterId,
+		User:        user,
 	}
 }
 
