@@ -33484,6 +33484,8 @@ paths:
                   imageId:
                     type: string
                     format: uint64
+                  name:
+                    type: string
         default:
           description: An unexpected error response.
           schema:
@@ -33545,6 +33547,8 @@ paths:
                       imageId:
                         type: string
                         format: uint64
+                      name:
+                        type: string
                   image:
                     type: string
                     format: byte
@@ -33608,6 +33612,8 @@ paths:
                     imageId:
                       type: string
                       format: uint64
+                    name:
+                      type: string
         default:
           description: An unexpected error response.
           schema:
@@ -33665,6 +33671,8 @@ paths:
                         imageId:
                           type: string
                           format: uint64
+                        name:
+                          type: string
                     image:
                       type: string
                       format: byte
@@ -69184,6 +69192,8 @@ definitions:
       imageId:
         type: string
         format: uint64
+      name:
+        type: string
   DecentralCardGame.cardchain.cardchain.EncounterWithImage:
     type: object
     properties:
@@ -69209,6 +69219,8 @@ definitions:
           imageId:
             type: string
             format: uint64
+          name:
+            type: string
       image:
         type: string
         format: byte
@@ -69861,6 +69873,8 @@ definitions:
           imageId:
             type: string
             format: uint64
+          name:
+            type: string
   DecentralCardGame.cardchain.cardchain.QueryQEncounterWithImageResponse:
     type: object
     properties:
@@ -69889,6 +69903,8 @@ definitions:
               imageId:
                 type: string
                 format: uint64
+              name:
+                type: string
           image:
             type: string
             format: byte
@@ -69919,6 +69935,8 @@ definitions:
             imageId:
               type: string
               format: uint64
+            name:
+              type: string
   DecentralCardGame.cardchain.cardchain.QueryQEncountersWithImageResponse:
     type: object
     properties:
@@ -69949,6 +69967,8 @@ definitions:
                 imageId:
                   type: string
                   format: uint64
+                name:
+                  type: string
             image:
               type: string
               format: byte

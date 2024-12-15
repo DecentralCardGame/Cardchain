@@ -30,7 +30,7 @@ func (k msgServer) EncounterClose(goCtx context.Context, msg *types.MsgEncounter
 	index := slices.Index(user.OpenEncounters, msg.EncounterId)
 
 	if index == -1 {
-		return nil, sdkerrors.Wrapf(errors.ErrUnauthorized, "encounter %d isnt open for user", msg.EncounterId)
+		return nil, sdkerrors.Wrapf(errors.ErrUnauthorized, "encounter %d isn't open for user", msg.EncounterId)
 	}
 
 	user.OpenEncounters = append(user.OpenEncounters[:index], user.OpenEncounters[index+1:]...)
@@ -38,6 +38,12 @@ func (k msgServer) EncounterClose(goCtx context.Context, msg *types.MsgEncounter
 	if msg.Won {
 		user.WonEncounters = append(user.WonEncounters, msg.EncounterId)
 		// TODO: Treasury reward here
+
+		encounter := k.Encounters.Get(ctx, msg.EncounterId)
+		if !encounter.Proven {
+			encounter.Proven = true
+			k.Encounters.Set(ctx, msg.EncounterId, encounter)
+		}
 	}
 
 	return &types.MsgEncounterCloseResponse{}, nil
