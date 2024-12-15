@@ -12,9 +12,10 @@ const TypeMsgEncounterCreate = "encounter_create"
 
 var _ sdk.Msg = &MsgEncounterCreate{}
 
-func NewMsgEncounterCreate(creator string, drawlist []uint64, parameters map[string]string, image []byte) *MsgEncounterCreate {
+func NewMsgEncounterCreate(creator string, name string, drawlist []uint64, parameters map[string]string, image []byte) *MsgEncounterCreate {
 	return &MsgEncounterCreate{
 		Creator:    creator,
+		Name:       name,
 		Drawlist:   drawlist,
 		Parameters: parameters,
 		Image:      image,
@@ -49,7 +50,11 @@ func (msg *MsgEncounterCreate) ValidateBasic() error {
 	}
 
 	if len(msg.Drawlist) != 40 {
-		return sdkerrors.Wrapf(ErrInvalidData, "drawlist too long, must be 40 is '%d'", len(msg.Drawlist))
+		return sdkerrors.Wrapf(ErrInvalidData, "invalid drawlist length, must be 40 is '%d'", len(msg.Drawlist))
+	}
+
+	if msg.Name == "" {
+		return sdkerrors.Wrap(ErrInvalidData, "encounter needs a name")
 	}
 
 	if len(msg.Image) > ArtworkMaxSize {

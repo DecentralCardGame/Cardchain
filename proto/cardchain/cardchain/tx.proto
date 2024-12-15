@@ -441,9 +441,10 @@ message MsgBuyCardScheme {
 
   message MsgEncounterCreate {
     string creator = 1;
-    repeated uint64 Drawlist = 2;
-    map<string, string> parameters = 3;
-    bytes image = 4;
+    string name = 2;
+    repeated uint64 Drawlist = 3;
+    map<string, string> parameters = 4;
+    bytes image = 5;
   }
 
   message MsgEncounterCreateResponse {}

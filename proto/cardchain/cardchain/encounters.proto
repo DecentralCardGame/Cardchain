@@ -12,6 +12,7 @@ message Encounter {
   string owner = 4;
   map<string, string> parameters = 5;
   uint64 imageId = 6;
+  string name = 7;
 }
 
 message EncounterWithImage {

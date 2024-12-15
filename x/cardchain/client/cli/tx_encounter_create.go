@@ -15,18 +15,18 @@ var _ = strconv.Itoa(0)
 
 func CmdEncounterCreate() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "encounter-create [drawlist] [parameters] [image]",
+		Use:   "encounter-create [name] [drawlist] [parameters] [image]",
 		Short: "Broadcast message EncounterCreate",
-		Args:  cobra.ExactArgs(3),
+		Args:  cobra.ExactArgs(4),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
 			var reqDrawlist []uint64
-			err = json.Unmarshal([]byte(args[0]), &reqDrawlist)
+			err = json.Unmarshal([]byte(args[1]), &reqDrawlist)
 			if err != nil {
 				return err
 			}
 
 			var reqParameters map[string]string
-			err = json.Unmarshal([]byte(args[1]), &reqParameters)
+			err = json.Unmarshal([]byte(args[2]), &reqParameters)
 			if err != nil {
 				return err
 			}
@@ -38,9 +38,10 @@ func CmdEncounterCreate() *cobra.Command {
 
 			msg := types.NewMsgEncounterCreate(
 				clientCtx.GetFromAddress().String(),
+				args[0],
 				reqDrawlist,
 				reqParameters,
-				[]byte(args[1]),
+				[]byte(args[3]),
 			)
 			if err := msg.ValidateBasic(); err != nil {
 				return err
