@@ -46,5 +46,7 @@ func (k msgServer) EncounterClose(goCtx context.Context, msg *types.MsgEncounter
 		}
 	}
 
+	k.SetUserFromUser(ctx, user)
+
 	return &types.MsgEncounterCloseResponse{}, nil
 }
