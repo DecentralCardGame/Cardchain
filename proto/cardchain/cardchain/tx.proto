@@ -15,419 +15,453 @@ option go_package = "github.com/DecentralCardGame/Cardchain/x/cardchain/types";
 
 // Msg defines the Msg service.
 service Msg {
-  rpc Createuser                (MsgCreateuser               ) returns (MsgCreateuserResponse               );
-  rpc BuyCardScheme             (MsgBuyCardScheme            ) returns (MsgBuyCardSchemeResponse            );
-  rpc VoteCard                  (MsgVoteCard                 ) returns (MsgVoteCardResponse                 );
-  rpc SaveCardContent           (MsgSaveCardContent          ) returns (MsgSaveCardContentResponse          );
-  rpc TransferCard              (MsgTransferCard             ) returns (MsgTransferCardResponse             );
-  rpc DonateToCard              (MsgDonateToCard             ) returns (MsgDonateToCardResponse             );
-  rpc AddArtwork                (MsgAddArtwork               ) returns (MsgAddArtworkResponse               );
-  rpc ChangeArtist              (MsgChangeArtist             ) returns (MsgChangeArtistResponse             );
-  rpc RegisterForCouncil        (MsgRegisterForCouncil       ) returns (MsgRegisterForCouncilResponse       );
-  rpc ReportMatch               (MsgReportMatch              ) returns (MsgReportMatchResponse              );
-  rpc ApointMatchReporter       (MsgApointMatchReporter      ) returns (MsgApointMatchReporterResponse      );
-  rpc CreateSet                 (MsgCreateSet                ) returns (MsgCreateSetResponse                );
-  rpc AddCardToSet              (MsgAddCardToSet             ) returns (MsgAddCardToSetResponse             );
-  rpc FinalizeSet               (MsgFinalizeSet              ) returns (MsgFinalizeSetResponse              );
-  rpc BuyBoosterPack            (MsgBuyBoosterPack           ) returns (MsgBuyBoosterPackResponse           );
-  rpc RemoveCardFromSet         (MsgRemoveCardFromSet        ) returns (MsgRemoveCardFromSetResponse        );
-  rpc RemoveContributorFromSet  (MsgRemoveContributorFromSet ) returns (MsgRemoveContributorFromSetResponse );
-  rpc AddContributorToSet       (MsgAddContributorToSet      ) returns (MsgAddContributorToSetResponse      );
-  rpc CreateSellOffer           (MsgCreateSellOffer          ) returns (MsgCreateSellOfferResponse          );
-  rpc BuyCard                   (MsgBuyCard                  ) returns (MsgBuyCardResponse                  );
-  rpc RemoveSellOffer           (MsgRemoveSellOffer          ) returns (MsgRemoveSellOfferResponse          );
-  rpc AddArtworkToSet           (MsgAddArtworkToSet          ) returns (MsgAddArtworkToSetResponse          );
-  rpc AddStoryToSet             (MsgAddStoryToSet            ) returns (MsgAddStoryToSetResponse            );
-  rpc SetCardRarity             (MsgSetCardRarity            ) returns (MsgSetCardRarityResponse            );
-  rpc CreateCouncil             (MsgCreateCouncil            ) returns (MsgCreateCouncilResponse            );
-  rpc CommitCouncilResponse     (MsgCommitCouncilResponse    ) returns (MsgCommitCouncilResponseResponse    );
-  rpc RevealCouncilResponse     (MsgRevealCouncilResponse    ) returns (MsgRevealCouncilResponseResponse    );
-  rpc RestartCouncil            (MsgRestartCouncil           ) returns (MsgRestartCouncilResponse           );
-  rpc RewokeCouncilRegistration (MsgRewokeCouncilRegistration) returns (MsgRewokeCouncilRegistrationResponse);
-  rpc ConfirmMatch              (MsgConfirmMatch             ) returns (MsgConfirmMatchResponse             );
-  rpc SetProfileCard            (MsgSetProfileCard           ) returns (MsgSetProfileCardResponse           );
-  rpc OpenBoosterPack           (MsgOpenBoosterPack          ) returns (MsgOpenBoosterPackResponse          );
-  rpc TransferBoosterPack       (MsgTransferBoosterPack      ) returns (MsgTransferBoosterPackResponse      );
-  rpc SetSetStoryWriter         (MsgSetSetStoryWriter        ) returns (MsgSetSetStoryWriterResponse        );
-  rpc SetSetArtist              (MsgSetSetArtist             ) returns (MsgSetSetArtistResponse             );
-  rpc SetUserWebsite            (MsgSetUserWebsite           ) returns (MsgSetUserWebsiteResponse           );
-  rpc SetUserBiography          (MsgSetUserBiography         ) returns (MsgSetUserBiographyResponse         );
-  
+  rpc Createuser(MsgCreateuser) returns (MsgCreateuserResponse);
+  rpc BuyCardScheme(MsgBuyCardScheme) returns (MsgBuyCardSchemeResponse);
+  rpc VoteCard(MsgVoteCard) returns (MsgVoteCardResponse);
+  rpc SaveCardContent(MsgSaveCardContent) returns (MsgSaveCardContentResponse);
+  rpc TransferCard(MsgTransferCard) returns (MsgTransferCardResponse);
+  rpc DonateToCard(MsgDonateToCard) returns (MsgDonateToCardResponse);
+  rpc AddArtwork(MsgAddArtwork) returns (MsgAddArtworkResponse);
+  rpc ChangeArtist(MsgChangeArtist) returns (MsgChangeArtistResponse);
+  rpc RegisterForCouncil(MsgRegisterForCouncil)
+      returns (MsgRegisterForCouncilResponse);
+  rpc ReportMatch(MsgReportMatch) returns (MsgReportMatchResponse);
+  rpc ApointMatchReporter(MsgApointMatchReporter)
+      returns (MsgApointMatchReporterResponse);
+  rpc CreateSet(MsgCreateSet) returns (MsgCreateSetResponse);
+  rpc AddCardToSet(MsgAddCardToSet) returns (MsgAddCardToSetResponse);
+  rpc FinalizeSet(MsgFinalizeSet) returns (MsgFinalizeSetResponse);
+  rpc BuyBoosterPack(MsgBuyBoosterPack) returns (MsgBuyBoosterPackResponse);
+  rpc RemoveCardFromSet(MsgRemoveCardFromSet)
+      returns (MsgRemoveCardFromSetResponse);
+  rpc RemoveContributorFromSet(MsgRemoveContributorFromSet)
+      returns (MsgRemoveContributorFromSetResponse);
+  rpc AddContributorToSet(MsgAddContributorToSet)
+      returns (MsgAddContributorToSetResponse);
+  rpc CreateSellOffer(MsgCreateSellOffer) returns (MsgCreateSellOfferResponse);
+  rpc BuyCard(MsgBuyCard) returns (MsgBuyCardResponse);
+  rpc RemoveSellOffer(MsgRemoveSellOffer) returns (MsgRemoveSellOfferResponse);
+  rpc AddArtworkToSet(MsgAddArtworkToSet) returns (MsgAddArtworkToSetResponse);
+  rpc AddStoryToSet(MsgAddStoryToSet) returns (MsgAddStoryToSetResponse);
+  rpc SetCardRarity(MsgSetCardRarity) returns (MsgSetCardRarityResponse);
+  rpc CreateCouncil(MsgCreateCouncil) returns (MsgCreateCouncilResponse);
+  rpc CommitCouncilResponse(MsgCommitCouncilResponse)
+      returns (MsgCommitCouncilResponseResponse);
+  rpc RevealCouncilResponse(MsgRevealCouncilResponse)
+      returns (MsgRevealCouncilResponseResponse);
+  rpc RestartCouncil(MsgRestartCouncil) returns (MsgRestartCouncilResponse);
+  rpc RewokeCouncilRegistration(MsgRewokeCouncilRegistration)
+      returns (MsgRewokeCouncilRegistrationResponse);
+  rpc ConfirmMatch(MsgConfirmMatch) returns (MsgConfirmMatchResponse);
+  rpc SetProfileCard(MsgSetProfileCard) returns (MsgSetProfileCardResponse);
+  rpc OpenBoosterPack(MsgOpenBoosterPack) returns (MsgOpenBoosterPackResponse);
+  rpc TransferBoosterPack(MsgTransferBoosterPack)
+      returns (MsgTransferBoosterPackResponse);
+  rpc SetSetStoryWriter(MsgSetSetStoryWriter)
+      returns (MsgSetSetStoryWriterResponse);
+  rpc SetSetArtist(MsgSetSetArtist) returns (MsgSetSetArtistResponse);
+  rpc SetUserWebsite(MsgSetUserWebsite) returns (MsgSetUserWebsiteResponse);
+  rpc SetUserBiography(MsgSetUserBiography)
+      returns (MsgSetUserBiographyResponse);
+
   // this line is used by starport scaffolding # proto/tx/rpc
-  rpc MultiVoteCard        (MsgMultiVoteCard       ) returns (MsgMultiVoteCardResponse       );
-  rpc OpenMatch            (MsgOpenMatch           ) returns (MsgOpenMatchResponse           );
-  rpc SetSetName           (MsgSetSetName          ) returns (MsgSetSetNameResponse          );
-  rpc ChangeAlias          (MsgChangeAlias         ) returns (MsgChangeAliasResponse         );
-  rpc InviteEarlyAccess    (MsgInviteEarlyAccess   ) returns (MsgInviteEarlyAccessResponse   );
-  rpc DisinviteEarlyAccess (MsgDisinviteEarlyAccess) returns (MsgDisinviteEarlyAccessResponse);
-  rpc ConnectZealyAccount  (MsgConnectZealyAccount ) returns (MsgConnectZealyAccountResponse );
+  rpc MultiVoteCard(MsgMultiVoteCard) returns (MsgMultiVoteCardResponse);
+  rpc OpenMatch(MsgOpenMatch) returns (MsgOpenMatchResponse);
+  rpc SetSetName(MsgSetSetName) returns (MsgSetSetNameResponse);
+  rpc ChangeAlias(MsgChangeAlias) returns (MsgChangeAliasResponse);
+  rpc InviteEarlyAccess(MsgInviteEarlyAccess)
+      returns (MsgInviteEarlyAccessResponse);
+  rpc DisinviteEarlyAccess(MsgDisinviteEarlyAccess)
+      returns (MsgDisinviteEarlyAccessResponse);
+  rpc ConnectZealyAccount(MsgConnectZealyAccount)
+      returns (MsgConnectZealyAccountResponse);
+  rpc EncounterCreate(MsgEncounterCreate) returns (MsgEncounterCreateResponse);
+  rpc EncounterDo(MsgEncounterDo) returns (MsgEncounterDoResponse);
+  rpc EncounterClose(MsgEncounterClose) returns (MsgEncounterCloseResponse);
 }
 message MsgCreateuser {
   string creator = 1;
   string newUser = 2;
-  string alias   = 3;
+  string alias = 3;
 }
 
 message MsgCreateuserResponse {}
 
 message MsgBuyCardScheme {
-  option           (gogoproto.equal) = false;
+  option (gogoproto.equal) = false;
   option (gogoproto.goproto_getters) = false;
-  string                   creator = 1;
-  cosmos.base.v1beta1.Coin bid     = 2 [(gogoproto.nullable) = false, (gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coin"];
+  string creator = 1;
+  cosmos.base.v1beta1.Coin bid = 2 [
+    (gogoproto.nullable) = false,
+    (gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coin"
+  ];
 
   /*
-                                                                       string bid = 2;
+                                                                                               string bid = 2;
    */}
 
-message MsgBuyCardSchemeResponse {
-  uint64 cardId = 1;
-}
-
-message MsgVoteCard {
-  string   creator  = 1;
-  uint64   cardId   = 2;
-  VoteType voteType = 3;
-}
-
-message MsgVoteCardResponse {
-  bool airdropClaimed = 1;
-}
-
-message MsgSaveCardContent {
-  string creator = 1;
-  uint64 cardId  = 2;
-  bytes  content = 3;
-  
-  //  bytes image = 4;
-  //  string fullArt = 5;
-  string notes         = 4;
-  string artist        = 5;
-  bool   balanceAnchor = 6;
-}
-
-message MsgSaveCardContentResponse {
-  bool airdropClaimed = 1;
-}
-
-message MsgTransferCard {
-  string creator  = 1;
-  uint64 cardId   = 2;
-  string receiver = 4;
-}
-
-message MsgTransferCardResponse {}
-
-message MsgDonateToCard {
-  string creator = 1;
-  uint64 cardId  = 2;
-  string amount  = 3 [(gogoproto.nullable) = false, (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Coin"];
-}
-
-message MsgDonateToCardResponse {}
-
-message MsgAddArtwork {
-  string creator = 1;
-  uint64 cardId  = 2;
-  bytes  image   = 3;
-  bool   fullArt = 4;
-}
-
-message MsgAddArtworkResponse {}
-
-message MsgChangeArtist {
-  string creator = 1;
-  uint64 cardID  = 2;
-  string artist  = 3;
-}
-
-message MsgChangeArtistResponse {}
-
-message MsgRegisterForCouncil {
-  string creator = 1;
-}
-
-message MsgRegisterForCouncilResponse {}
-
-message MsgReportMatch {
-           string  creator      = 1;
-           uint64  matchId      = 2;
-  repeated uint64  playedCardsA = 3;
-  repeated uint64  playedCardsB = 4;
-           Outcome outcome      = 5;
-}
-
-message MsgReportMatchResponse {
-  uint64 matchId = 1;
-}
-
-message MsgApointMatchReporter {
-  string creator  = 1;
-  string reporter = 2;
-}
-
-message MsgApointMatchReporterResponse {}
-
-message MsgCreateSet {
-           string creator      = 1;
-           string name         = 2;
-           string artist       = 3;
-           string storyWriter  = 4;
-  repeated string contributors = 5;
-}
-
-message MsgCreateSetResponse {}
-
-message MsgAddCardToSet {
-  string creator = 1;
-  uint64 setId   = 2;
-  uint64 cardId  = 3;
-}
+  message MsgBuyCardSchemeResponse { uint64 cardId = 1; }
+
+  message MsgVoteCard {
+    string creator = 1;
+    uint64 cardId = 2;
+    VoteType voteType = 3;
+  }
+
+  message MsgVoteCardResponse { bool airdropClaimed = 1; }
+
+  message MsgSaveCardContent {
+    string creator = 1;
+    uint64 cardId = 2;
+    bytes content = 3;
+
+    //  bytes image = 4;
+    //  string fullArt = 5;
+    string notes = 4;
+    string artist = 5;
+    bool balanceAnchor = 6;
+  }
+
+  message MsgSaveCardContentResponse { bool airdropClaimed = 1; }
+
+  message MsgTransferCard {
+    string creator = 1;
+    uint64 cardId = 2;
+    string receiver = 4;
+  }
+
+  message MsgTransferCardResponse {}
+
+  message MsgDonateToCard {
+    string creator = 1;
+    uint64 cardId = 2;
+    string amount = 3 [
+      (gogoproto.nullable) = false,
+      (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Coin"
+    ];
+  }
+
+  message MsgDonateToCardResponse {}
+
+  message MsgAddArtwork {
+    string creator = 1;
+    uint64 cardId = 2;
+    bytes image = 3;
+    bool fullArt = 4;
+  }
+
+  message MsgAddArtworkResponse {}
+
+  message MsgChangeArtist {
+    string creator = 1;
+    uint64 cardID = 2;
+    string artist = 3;
+  }
+
+  message MsgChangeArtistResponse {}
+
+  message MsgRegisterForCouncil { string creator = 1; }
+
+  message MsgRegisterForCouncilResponse {}
+
+  message MsgReportMatch {
+    string creator = 1;
+    uint64 matchId = 2;
+    repeated uint64 playedCardsA = 3;
+    repeated uint64 playedCardsB = 4;
+    Outcome outcome = 5;
+  }
+
+  message MsgReportMatchResponse { uint64 matchId = 1; }
+
+  message MsgApointMatchReporter {
+    string creator = 1;
+    string reporter = 2;
+  }
+
+  message MsgApointMatchReporterResponse {}
+
+  message MsgCreateSet {
+    string creator = 1;
+    string name = 2;
+    string artist = 3;
+    string storyWriter = 4;
+    repeated string contributors = 5;
+  }
+
+  message MsgCreateSetResponse {}
+
+  message MsgAddCardToSet {
+    string creator = 1;
+    uint64 setId = 2;
+    uint64 cardId = 3;
+  }
+
+  message MsgAddCardToSetResponse {}
+
+  message MsgFinalizeSet {
+    string creator = 1;
+    uint64 setId = 2;
+  }
+
+  message MsgFinalizeSetResponse {}
+
+  message MsgBuyBoosterPack {
+    string creator = 1;
+    uint64 setId = 2;
+  }
+
+  message MsgBuyBoosterPackResponse { bool airdropClaimed = 1; }
+
+  message MsgRemoveCardFromSet {
+    string creator = 1;
+    uint64 setId = 2;
+    uint64 cardId = 3;
+  }
+
+  message MsgRemoveCardFromSetResponse {}
 
-message MsgAddCardToSetResponse {}
-
-message MsgFinalizeSet {
-  string creator = 1;
-  uint64 setId   = 2;
-}
+  message MsgRemoveContributorFromSet {
+    string creator = 1;
+    uint64 setId = 2;
+    string user = 3;
+  }
 
-message MsgFinalizeSetResponse {}
+  message MsgRemoveContributorFromSetResponse {}
 
-message MsgBuyBoosterPack {
-  string creator = 1;
-  uint64 setId   = 2;
-}
-
-message MsgBuyBoosterPackResponse {
-  bool airdropClaimed = 1;
-}
-
-message MsgRemoveCardFromSet {
-  string creator = 1;
-  uint64 setId   = 2;
-  uint64 cardId  = 3;
-}
+  message MsgAddContributorToSet {
+    string creator = 1;
+    uint64 setId = 2;
+    string user = 3;
+  }
 
-message MsgRemoveCardFromSetResponse {}
-
-message MsgRemoveContributorFromSet {
-  string creator = 1;
-  uint64 setId   = 2;
-  string user    = 3;
-}
+  message MsgAddContributorToSetResponse {}
 
-message MsgRemoveContributorFromSetResponse {}
-
-message MsgAddContributorToSet {
-  string creator = 1;
-  uint64 setId   = 2;
-  string user    = 3;
-}
+  message MsgCreateSellOffer {
+    string creator = 1;
+    uint64 card = 2;
+    string price = 3 [
+      (gogoproto.nullable) = false,
+      (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Coin"
+    ];
+  }
 
-message MsgAddContributorToSetResponse {}
-
-message MsgCreateSellOffer {
-  string creator = 1;
-  uint64 card    = 2;
-  string price   = 3 [(gogoproto.nullable) = false, (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Coin"];
-}
+  message MsgCreateSellOfferResponse {}
 
-message MsgCreateSellOfferResponse {}
+  message MsgBuyCard {
+    string creator = 1;
+    uint64 sellOfferId = 2;
+  }
 
-message MsgBuyCard {
-  string creator     = 1;
-  uint64 sellOfferId = 2;
-}
+  message MsgBuyCardResponse {}
 
-message MsgBuyCardResponse {}
+  message MsgRemoveSellOffer {
+    string creator = 1;
+    uint64 sellOfferId = 2;
+  }
 
-message MsgRemoveSellOffer {
-  string creator     = 1;
-  uint64 sellOfferId = 2;
-}
+  message MsgRemoveSellOfferResponse {}
 
-message MsgRemoveSellOfferResponse {}
+  message MsgAddArtworkToSet {
+    string creator = 1;
+    uint64 setId = 2;
+    bytes image = 3;
+  }
 
-message MsgAddArtworkToSet {
-  string creator = 1;
-  uint64 setId   = 2;
-  bytes  image   = 3;
-}
+  message MsgAddArtworkToSetResponse {}
 
-message MsgAddArtworkToSetResponse {}
+  message MsgAddStoryToSet {
+    string creator = 1;
+    uint64 setId = 2;
+    string story = 3;
+  }
 
-message MsgAddStoryToSet {
-  string creator = 1;
-  uint64 setId   = 2;
-  string story   = 3;
-}
+  message MsgAddStoryToSetResponse {}
 
-message MsgAddStoryToSetResponse {}
+  message MsgSetCardRarity {
+    string creator = 1;
+    uint64 cardId = 2;
+    uint64 setId = 3;
+    CardRarity rarity = 4;
+  }
 
-message MsgSetCardRarity {
-  string     creator = 1;
-  uint64     cardId  = 2;
-  uint64     setId   = 3;
-  CardRarity rarity  = 4;
-}
+  message MsgSetCardRarityResponse {}
 
-message MsgSetCardRarityResponse {}
+  message MsgCreateCouncil {
+    string creator = 1;
+    uint64 cardId = 2;
+  }
 
-message MsgCreateCouncil {
-  string creator = 1;
-  uint64 cardId  = 2;
-}
+  message MsgCreateCouncilResponse {}
 
-message MsgCreateCouncilResponse {}
+  // Add revision
+  message MsgCommitCouncilResponse {
+    string creator = 1;
+    string response = 2;
+    uint64 councilId = 3;
+    string suggestion = 4;
+  }
 
-// Add revision
-message MsgCommitCouncilResponse {
-  string creator    = 1;
-  string response   = 2;
-  uint64 councilId  = 3;
-  string suggestion = 4;
-}
+  message MsgCommitCouncilResponseResponse {}
 
-message MsgCommitCouncilResponseResponse {}
-
-message MsgRevealCouncilResponse {
-  string   creator   = 1;
-  Response response  = 2;
-  string   secret    = 3;
-  uint64   councilId = 4;
-}
+  message MsgRevealCouncilResponse {
+    string creator = 1;
+    Response response = 2;
+    string secret = 3;
+    uint64 councilId = 4;
+  }
 
-message MsgRevealCouncilResponseResponse {}
-
-message MsgRestartCouncil {
-  string creator   = 1;
-  uint64 councilId = 2;
-}
+  message MsgRevealCouncilResponseResponse {}
 
-message MsgRestartCouncilResponse {}
-
-message MsgRewokeCouncilRegistration {
-  string creator = 1;
-}
-
-message MsgRewokeCouncilRegistrationResponse {}
+  message MsgRestartCouncil {
+    string creator = 1;
+    uint64 councilId = 2;
+  }
 
-message MsgConfirmMatch {
-           string     creator    = 1;
-           uint64     matchId    = 2;
-           Outcome    outcome    = 3;
-  repeated SingleVote votedCards = 4;
-}
+  message MsgRestartCouncilResponse {}
 
-message MsgConfirmMatchResponse {}
+  message MsgRewokeCouncilRegistration { string creator = 1; }
 
-message MsgSetProfileCard {
-  string creator = 1;
-  uint64 cardId  = 2;
-}
+  message MsgRewokeCouncilRegistrationResponse {}
 
-message MsgSetProfileCardResponse {}
+  message MsgConfirmMatch {
+    string creator = 1;
+    uint64 matchId = 2;
+    Outcome outcome = 3;
+    repeated SingleVote votedCards = 4;
+  }
 
-message MsgOpenBoosterPack {
-  string creator       = 1;
-  uint64 boosterPackId = 2;
-}
+  message MsgConfirmMatchResponse {}
 
-message MsgOpenBoosterPackResponse {
-  repeated uint64 cardIds = 1;
-}
+  message MsgSetProfileCard {
+    string creator = 1;
+    uint64 cardId = 2;
+  }
 
-message MsgTransferBoosterPack {
-  string creator       = 1;
-  uint64 boosterPackId = 2;
-  string receiver      = 3;
-}
+  message MsgSetProfileCardResponse {}
 
-message MsgTransferBoosterPackResponse {}
+  message MsgOpenBoosterPack {
+    string creator = 1;
+    uint64 boosterPackId = 2;
+  }
 
-message MsgSetSetStoryWriter {
-  string creator     = 1;
-  uint64 setId       = 2;
-  string storyWriter = 3;
-}
+  message MsgOpenBoosterPackResponse { repeated uint64 cardIds = 1; }
 
-message MsgSetSetStoryWriterResponse {}
+  message MsgTransferBoosterPack {
+    string creator = 1;
+    uint64 boosterPackId = 2;
+    string receiver = 3;
+  }
 
-message MsgSetSetArtist {
-  string creator = 1;
-  uint64 setId   = 2;
-  string artist  = 3;
-}
+  message MsgTransferBoosterPackResponse {}
 
-message MsgSetSetArtistResponse {}
+  message MsgSetSetStoryWriter {
+    string creator = 1;
+    uint64 setId = 2;
+    string storyWriter = 3;
+  }
 
-message MsgSetUserWebsite {
-  string creator = 1;
-  string website = 2;
-}
+  message MsgSetSetStoryWriterResponse {}
 
-message MsgSetUserWebsiteResponse {}
+  message MsgSetSetArtist {
+    string creator = 1;
+    uint64 setId = 2;
+    string artist = 3;
+  }
 
-message MsgSetUserBiography {
-  string creator   = 1;
-  string biography = 2;
-}
+  message MsgSetSetArtistResponse {}
 
-message MsgSetUserBiographyResponse {}
+  message MsgSetUserWebsite {
+    string creator = 1;
+    string website = 2;
+  }
 
-// this line is used by starport scaffolding # proto/tx/message
-message MsgMultiVoteCard {
-           string     creator = 1;
-  repeated SingleVote votes   = 2;
-}
+  message MsgSetUserWebsiteResponse {}
 
-message MsgMultiVoteCardResponse {}
+  message MsgSetUserBiography {
+    string creator = 1;
+    string biography = 2;
+  }
 
-message MsgOpenMatch {
-           string creator     = 1;
-           string playerA     = 2;
-           string playerB     = 3;
-  repeated uint64 playerADeck = 4;
-  repeated uint64 playerBDeck = 5;
-}
+  message MsgSetUserBiographyResponse {}
 
-message MsgOpenMatchResponse {
-  uint64 matchId = 1;
-}
+  // this line is used by starport scaffolding # proto/tx/message
+  message MsgMultiVoteCard {
+    string creator = 1;
+    repeated SingleVote votes = 2;
+  }
 
-message MsgSetSetName {
-  string creator = 1;
-  uint64 setId   = 2;
-  string name    = 3;
-}
+  message MsgMultiVoteCardResponse {}
 
-message MsgSetSetNameResponse {}
+  message MsgOpenMatch {
+    string creator = 1;
+    string playerA = 2;
+    string playerB = 3;
+    repeated uint64 playerADeck = 4;
+    repeated uint64 playerBDeck = 5;
+  }
 
-message MsgChangeAlias {
-  string creator = 1;
-  string alias   = 2;
-}
+  message MsgOpenMatchResponse { uint64 matchId = 1; }
 
-message MsgChangeAliasResponse {}
+  message MsgSetSetName {
+    string creator = 1;
+    uint64 setId = 2;
+    string name = 3;
+  }
 
-message MsgInviteEarlyAccess {
-  string creator = 1;
-  string user    = 2;
-}
+  message MsgSetSetNameResponse {}
 
-message MsgInviteEarlyAccessResponse {}
+  message MsgChangeAlias {
+    string creator = 1;
+    string alias = 2;
+  }
 
-message MsgDisinviteEarlyAccess {
-  string creator = 1;
-  string user    = 2;
-}
+  message MsgChangeAliasResponse {}
 
-message MsgDisinviteEarlyAccessResponse {}
+  message MsgInviteEarlyAccess {
+    string creator = 1;
+    string user = 2;
+  }
 
-message MsgConnectZealyAccount {
-  string creator = 1;
-  string zealyId = 2;
-}
+  message MsgInviteEarlyAccessResponse {}
 
-message MsgConnectZealyAccountResponse {}
+  message MsgDisinviteEarlyAccess {
+    string creator = 1;
+    string user = 2;
+  }
 
+  message MsgDisinviteEarlyAccessResponse {}
+
+  message MsgConnectZealyAccount {
+    string creator = 1;
+    string zealyId = 2;
+  }
+
+  message MsgConnectZealyAccountResponse {}
+
+  message MsgEncounterCreate {
+    string creator = 1;
+    string name = 2;
+    repeated uint64 Drawlist = 3;
+    map<string, string> parameters = 4;
+    bytes image = 5;
+  }
+
+  message MsgEncounterCreateResponse {}
+
+  message MsgEncounterDo {
+    string creator = 1;
+    uint64 encounterId = 2;
+    string user = 3;
+  }
+
+  message MsgEncounterDoResponse {}
+
+  message MsgEncounterClose {
+    string creator = 1;
+    uint64 encounterId = 2;
+    string user = 3;
+    bool won = 4;
+  }
+
+  message MsgEncounterCloseResponse {}

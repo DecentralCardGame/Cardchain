@@ -33042,6 +33042,7 @@ paths:
                   - bannedSoon
                   - bannedVerySoon
                   - none
+                  - adventureItem
                 default: scheme
               votePool:
                 type: string
@@ -33299,6 +33300,7 @@ paths:
               - bannedSoon
               - bannedVerySoon
               - none
+              - adventureItem
           collectionFormat: multi
         - name: cardTypes
           in: query
@@ -33448,6 +33450,250 @@ paths:
           required: true
           type: string
           format: uint64
+      tags:
+        - Query
+  /DecentralCardGame/Cardchain/cardchain/q_encounter/{id}:
+    get:
+      summary: Queries a list of QEncounter items.
+      operationId: DecentralCardGameCardchainCardchainQEncounter
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              encounter:
+                type: object
+                properties:
+                  Id:
+                    type: string
+                    format: uint64
+                  Drawlist:
+                    type: array
+                    items:
+                      type: string
+                      format: uint64
+                  proven:
+                    type: boolean
+                  owner:
+                    type: string
+                  parameters:
+                    type: object
+                    additionalProperties:
+                      type: string
+                  imageId:
+                    type: string
+                    format: uint64
+                  name:
+                    type: string
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+          format: uint64
+      tags:
+        - Query
+  /DecentralCardGame/Cardchain/cardchain/q_encounter_with_image/{id}:
+    get:
+      summary: Queries a list of QEncounterWithImage items.
+      operationId: DecentralCardGameCardchainCardchainQEncounterWithImage
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              encounter:
+                type: object
+                properties:
+                  encounter:
+                    type: object
+                    properties:
+                      Id:
+                        type: string
+                        format: uint64
+                      Drawlist:
+                        type: array
+                        items:
+                          type: string
+                          format: uint64
+                      proven:
+                        type: boolean
+                      owner:
+                        type: string
+                      parameters:
+                        type: object
+                        additionalProperties:
+                          type: string
+                      imageId:
+                        type: string
+                        format: uint64
+                      name:
+                        type: string
+                  image:
+                    type: string
+                    format: byte
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+          format: uint64
+      tags:
+        - Query
+  /DecentralCardGame/Cardchain/cardchain/q_encounters:
+    get:
+      summary: Queries a list of QEncounters items.
+      operationId: DecentralCardGameCardchainCardchainQEncounters
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              encounters:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    Id:
+                      type: string
+                      format: uint64
+                    Drawlist:
+                      type: array
+                      items:
+                        type: string
+                        format: uint64
+                    proven:
+                      type: boolean
+                    owner:
+                      type: string
+                    parameters:
+                      type: object
+                      additionalProperties:
+                        type: string
+                    imageId:
+                      type: string
+                      format: uint64
+                    name:
+                      type: string
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      tags:
+        - Query
+  /DecentralCardGame/Cardchain/cardchain/q_encounters_with_image:
+    get:
+      summary: Queries a list of QEncountersWithImage items.
+      operationId: DecentralCardGameCardchainCardchainQEncountersWithImage
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              encounters:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    encounter:
+                      type: object
+                      properties:
+                        Id:
+                          type: string
+                          format: uint64
+                        Drawlist:
+                          type: array
+                          items:
+                            type: string
+                            format: uint64
+                        proven:
+                          type: boolean
+                        owner:
+                          type: string
+                        parameters:
+                          type: object
+                          additionalProperties:
+                            type: string
+                        imageId:
+                          type: string
+                          format: uint64
+                        name:
+                          type: string
+                    image:
+                      type: string
+                      format: byte
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
       tags:
         - Query
   /DecentralCardGame/Cardchain/cardchain/q_match/{matchId}:
@@ -34230,6 +34476,16 @@ paths:
                     type: string
                   invitedUser:
                     type: string
+              OpenEncounters:
+                type: array
+                items:
+                  type: string
+                  format: uint64
+              WonEncounters:
+                type: array
+                items:
+                  type: string
+                  format: uint64
         default:
           description: An unexpected error response.
           schema:
@@ -68914,6 +69170,60 @@ definitions:
         type: string
       invitedUser:
         type: string
+  DecentralCardGame.cardchain.cardchain.Encounter:
+    type: object
+    properties:
+      Id:
+        type: string
+        format: uint64
+      Drawlist:
+        type: array
+        items:
+          type: string
+          format: uint64
+      proven:
+        type: boolean
+      owner:
+        type: string
+      parameters:
+        type: object
+        additionalProperties:
+          type: string
+      imageId:
+        type: string
+        format: uint64
+      name:
+        type: string
+  DecentralCardGame.cardchain.cardchain.EncounterWithImage:
+    type: object
+    properties:
+      encounter:
+        type: object
+        properties:
+          Id:
+            type: string
+            format: uint64
+          Drawlist:
+            type: array
+            items:
+              type: string
+              format: uint64
+          proven:
+            type: boolean
+          owner:
+            type: string
+          parameters:
+            type: object
+            additionalProperties:
+              type: string
+          imageId:
+            type: string
+            format: uint64
+          name:
+            type: string
+      image:
+        type: string
+        format: byte
   DecentralCardGame.cardchain.cardchain.IgnoreMatches:
     type: object
     properties:
@@ -69124,6 +69434,12 @@ definitions:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgDonateToCardResponse:
     type: object
+  DecentralCardGame.cardchain.cardchain.MsgEncounterCloseResponse:
+    type: object
+  DecentralCardGame.cardchain.cardchain.MsgEncounterCreateResponse:
+    type: object
+  DecentralCardGame.cardchain.cardchain.MsgEncounterDoResponse:
+    type: object
   DecentralCardGame.cardchain.cardchain.MsgFinalizeSetResponse:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgInviteEarlyAccessResponse:
@@ -69227,6 +69543,7 @@ definitions:
           - bannedSoon
           - bannedVerySoon
           - none
+          - adventureItem
         default: scheme
       votePool:
         type: string
@@ -69531,6 +69848,130 @@ definitions:
         items:
           type: string
           format: uint64
+  DecentralCardGame.cardchain.cardchain.QueryQEncounterResponse:
+    type: object
+    properties:
+      encounter:
+        type: object
+        properties:
+          Id:
+            type: string
+            format: uint64
+          Drawlist:
+            type: array
+            items:
+              type: string
+              format: uint64
+          proven:
+            type: boolean
+          owner:
+            type: string
+          parameters:
+            type: object
+            additionalProperties:
+              type: string
+          imageId:
+            type: string
+            format: uint64
+          name:
+            type: string
+  DecentralCardGame.cardchain.cardchain.QueryQEncounterWithImageResponse:
+    type: object
+    properties:
+      encounter:
+        type: object
+        properties:
+          encounter:
+            type: object
+            properties:
+              Id:
+                type: string
+                format: uint64
+              Drawlist:
+                type: array
+                items:
+                  type: string
+                  format: uint64
+              proven:
+                type: boolean
+              owner:
+                type: string
+              parameters:
+                type: object
+                additionalProperties:
+                  type: string
+              imageId:
+                type: string
+                format: uint64
+              name:
+                type: string
+          image:
+            type: string
+            format: byte
+  DecentralCardGame.cardchain.cardchain.QueryQEncountersResponse:
+    type: object
+    properties:
+      encounters:
+        type: array
+        items:
+          type: object
+          properties:
+            Id:
+              type: string
+              format: uint64
+            Drawlist:
+              type: array
+              items:
+                type: string
+                format: uint64
+            proven:
+              type: boolean
+            owner:
+              type: string
+            parameters:
+              type: object
+              additionalProperties:
+                type: string
+            imageId:
+              type: string
+              format: uint64
+            name:
+              type: string
+  DecentralCardGame.cardchain.cardchain.QueryQEncountersWithImageResponse:
+    type: object
+    properties:
+      encounters:
+        type: array
+        items:
+          type: object
+          properties:
+            encounter:
+              type: object
+              properties:
+                Id:
+                  type: string
+                  format: uint64
+                Drawlist:
+                  type: array
+                  items:
+                    type: string
+                    format: uint64
+                proven:
+                  type: boolean
+                owner:
+                  type: string
+                parameters:
+                  type: object
+                  additionalProperties:
+                    type: string
+                imageId:
+                  type: string
+                  format: uint64
+                name:
+                  type: string
+            image:
+              type: string
+              format: byte
   DecentralCardGame.cardchain.cardchain.QueryQMatchesResponse:
     type: object
     properties:
@@ -69808,6 +70249,7 @@ definitions:
       - bannedSoon
       - bannedVerySoon
       - none
+      - adventureItem
     default: scheme
   DecentralCardGame.cardchain.cardchain.User:
     type: object
@@ -69903,6 +70345,16 @@ definitions:
             type: string
           invitedUser:
             type: string
+      OpenEncounters:
+        type: array
+        items:
+          type: string
+          format: uint64
+      WonEncounters:
+        type: array
+        items:
+          type: string
+          format: uint64
   DecentralCardGame.cardchain.cardchain.VoteType:
     type: string
     enum:
