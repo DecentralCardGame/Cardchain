@@ -28,7 +28,31 @@ func (am AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 					RpcMethod: "UpdateParams",
 					Skip:      true, // skipped because authority gated
 				},
-				// this line is used by ignite scaffolding # autocli/tx
+				{
+					RpcMethod:      "UserCreate",
+					Use:            "user-create [new-user] [alias]",
+					Short:          "Send a UserCreate tx",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "newUser"}, {ProtoField: "alias"}},
+				},
+				{
+					RpcMethod:      "CardSchemeBuy",
+					Use:            "card-scheme-buy [bid]",
+					Short:          "Send a CardSchemeBuy tx",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "bid"}},
+				},
+				{
+					RpcMethod:      "CardSaveContent",
+					Use:            "card-save-content [card-id] [content] [notes] [artist] [balance-anchor]",
+					Short:          "Send a CardSaveContent tx",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "cardId"}, {ProtoField: "content"}, {ProtoField: "notes"}, {ProtoField: "artist"}, {ProtoField: "balanceAnchor"}},
+				},
+				{
+			RpcMethod: "CardVote",
+			Use: "card-vote [vote]",
+			Short: "Send a CardVote tx",
+			PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "vote"},},
+		},
+		// this line is used by ignite scaffolding # autocli/tx
 			},
 		},
 	}

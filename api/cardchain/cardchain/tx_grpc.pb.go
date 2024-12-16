@@ -8,7 +8,6 @@ package cardchain
 
 import (
 	context "context"
-
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -20,7 +19,11 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	Msg_UpdateParams_FullMethodName = "/cardchain.cardchain.Msg/UpdateParams"
+	Msg_UpdateParams_FullMethodName    = "/cardchain.cardchain.Msg/UpdateParams"
+	Msg_UserCreate_FullMethodName      = "/cardchain.cardchain.Msg/UserCreate"
+	Msg_CardSchemeBuy_FullMethodName   = "/cardchain.cardchain.Msg/CardSchemeBuy"
+	Msg_CardSaveContent_FullMethodName = "/cardchain.cardchain.Msg/CardSaveContent"
+	Msg_CardVote_FullMethodName        = "/cardchain.cardchain.Msg/CardVote"
 )
 
 // MsgClient is the client API for Msg service.
@@ -30,6 +33,10 @@ type MsgClient interface {
 	// UpdateParams defines a (governance) operation for updating the module
 	// parameters. The authority defaults to the x/gov module account.
 	UpdateParams(ctx context.Context, in *MsgUpdateParams, opts ...grpc.CallOption) (*MsgUpdateParamsResponse, error)
+	UserCreate(ctx context.Context, in *MsgUserCreate, opts ...grpc.CallOption) (*MsgUserCreateResponse, error)
+	CardSchemeBuy(ctx context.Context, in *MsgCardSchemeBuy, opts ...grpc.CallOption) (*MsgCardSchemeBuyResponse, error)
+	CardSaveContent(ctx context.Context, in *MsgCardSaveContent, opts ...grpc.CallOption) (*MsgCardSaveContentResponse, error)
+	CardVote(ctx context.Context, in *MsgCardVote, opts ...grpc.CallOption) (*MsgCardVoteResponse, error)
 }
 
 type msgClient struct {
@@ -49,6 +56,42 @@ func (c *msgClient) UpdateParams(ctx context.Context, in *MsgUpdateParams, opts 
 	return out, nil
 }
 
+func (c *msgClient) UserCreate(ctx context.Context, in *MsgUserCreate, opts ...grpc.CallOption) (*MsgUserCreateResponse, error) {
+	out := new(MsgUserCreateResponse)
+	err := c.cc.Invoke(ctx, Msg_UserCreate_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *msgClient) CardSchemeBuy(ctx context.Context, in *MsgCardSchemeBuy, opts ...grpc.CallOption) (*MsgCardSchemeBuyResponse, error) {
+	out := new(MsgCardSchemeBuyResponse)
+	err := c.cc.Invoke(ctx, Msg_CardSchemeBuy_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *msgClient) CardSaveContent(ctx context.Context, in *MsgCardSaveContent, opts ...grpc.CallOption) (*MsgCardSaveContentResponse, error) {
+	out := new(MsgCardSaveContentResponse)
+	err := c.cc.Invoke(ctx, Msg_CardSaveContent_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *msgClient) CardVote(ctx context.Context, in *MsgCardVote, opts ...grpc.CallOption) (*MsgCardVoteResponse, error) {
+	out := new(MsgCardVoteResponse)
+	err := c.cc.Invoke(ctx, Msg_CardVote_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // MsgServer is the server API for Msg service.
 // All implementations must embed UnimplementedMsgServer
 // for forward compatibility
@@ -56,6 +99,10 @@ type MsgServer interface {
 	// UpdateParams defines a (governance) operation for updating the module
 	// parameters. The authority defaults to the x/gov module account.
 	UpdateParams(context.Context, *MsgUpdateParams) (*MsgUpdateParamsResponse, error)
+	UserCreate(context.Context, *MsgUserCreate) (*MsgUserCreateResponse, error)
+	CardSchemeBuy(context.Context, *MsgCardSchemeBuy) (*MsgCardSchemeBuyResponse, error)
+	CardSaveContent(context.Context, *MsgCardSaveContent) (*MsgCardSaveContentResponse, error)
+	CardVote(context.Context, *MsgCardVote) (*MsgCardVoteResponse, error)
 	mustEmbedUnimplementedMsgServer()
 }
 
@@ -65,6 +112,18 @@ type UnimplementedMsgServer struct {
 
 func (UnimplementedMsgServer) UpdateParams(context.Context, *MsgUpdateParams) (*MsgUpdateParamsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateParams not implemented")
+}
+func (UnimplementedMsgServer) UserCreate(context.Context, *MsgUserCreate) (*MsgUserCreateResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UserCreate not implemented")
+}
+func (UnimplementedMsgServer) CardSchemeBuy(context.Context, *MsgCardSchemeBuy) (*MsgCardSchemeBuyResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CardSchemeBuy not implemented")
+}
+func (UnimplementedMsgServer) CardSaveContent(context.Context, *MsgCardSaveContent) (*MsgCardSaveContentResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CardSaveContent not implemented")
+}
+func (UnimplementedMsgServer) CardVote(context.Context, *MsgCardVote) (*MsgCardVoteResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CardVote not implemented")
 }
 func (UnimplementedMsgServer) mustEmbedUnimplementedMsgServer() {}
 
@@ -97,6 +156,78 @@ func _Msg_UpdateParams_Handler(srv interface{}, ctx context.Context, dec func(in
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Msg_UserCreate_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgUserCreate)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).UserCreate(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Msg_UserCreate_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).UserCreate(ctx, req.(*MsgUserCreate))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Msg_CardSchemeBuy_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgCardSchemeBuy)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).CardSchemeBuy(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Msg_CardSchemeBuy_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).CardSchemeBuy(ctx, req.(*MsgCardSchemeBuy))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Msg_CardSaveContent_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgCardSaveContent)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).CardSaveContent(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Msg_CardSaveContent_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).CardSaveContent(ctx, req.(*MsgCardSaveContent))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Msg_CardVote_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgCardVote)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).CardVote(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Msg_CardVote_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).CardVote(ctx, req.(*MsgCardVote))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Msg_ServiceDesc is the grpc.ServiceDesc for Msg service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -107,6 +238,22 @@ var Msg_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UpdateParams",
 			Handler:    _Msg_UpdateParams_Handler,
+		},
+		{
+			MethodName: "UserCreate",
+			Handler:    _Msg_UserCreate_Handler,
+		},
+		{
+			MethodName: "CardSchemeBuy",
+			Handler:    _Msg_CardSchemeBuy_Handler,
+		},
+		{
+			MethodName: "CardSaveContent",
+			Handler:    _Msg_CardSaveContent_Handler,
+		},
+		{
+			MethodName: "CardVote",
+			Handler:    _Msg_CardVote_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

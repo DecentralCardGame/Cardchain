@@ -8,7 +8,19 @@ import (
 )
 
 func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {
-	// this line is used by starport scaffolding # 3
+	registry.RegisterImplementations((*sdk.Msg)(nil),
+		&MsgUserCreate{},
+	)
+	registry.RegisterImplementations((*sdk.Msg)(nil),
+		&MsgCardSchemeBuy{},
+	)
+	registry.RegisterImplementations((*sdk.Msg)(nil),
+		&MsgCardSaveContent{},
+	)
+	registry.RegisterImplementations((*sdk.Msg)(nil),
+	&MsgCardVote{},
+)
+// this line is used by starport scaffolding # 3
 
 	registry.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgUpdateParams{},
