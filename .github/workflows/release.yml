@@ -25,16 +25,16 @@ jobs:
         
       - name: Prepare Release Variables 
         id: vars
-        uses: ignite/cli/actions/release/vars@v0.26.1
+        uses: ignite/cli/actions/release/vars@main
 
       - name: Issue Release Assets 
-        uses: ignite/cli/actions/cli@v0.26.1
+        uses: ignite/cli/actions/cli@main
         if: ${{ steps.vars.outputs.should_release == 'true' }}
         with:
-          args: chain build --release --release.prefix ${{ steps.vars.outputs.tarball_prefix }} -t linux:amd64 -t darwin:amd64 --yes
+          args: chain build --release --release.prefix ${{ steps.vars.outputs.tarball_prefix }} -t linux:amd64 -t darwin:amd64 -t darwin:arm64
 
       - name: Delete the "latest" Release
-        uses: dev-drprasad/delete-tag-and-release@v0.2.1 
+        uses: dev-drprasad/delete-tag-and-release@v0.2.0
         if: ${{ steps.vars.outputs.is_release_type_latest == 'true' }}
         with:
           tag_name: ${{ steps.vars.outputs.tag_name }}
