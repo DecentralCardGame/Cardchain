@@ -1,7 +1,0 @@
-{
-	"chain-id": "carddevnet-2",
-	"keyring-backend": "test",
-	"output": "text",
-	"node": "tcp://lxgr.xyz:26657",
-	"broadcast-mode": "block"
-}

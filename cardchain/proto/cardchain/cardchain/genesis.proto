@@ -1,0 +1,12 @@
+syntax = "proto3";
+package cardchain.cardchain;
+
+import "gogoproto/gogo.proto";
+import "cardchain/cardchain/params.proto";
+
+option go_package = "cardchain/x/cardchain/types";
+
+// GenesisState defines the cardchain module's genesis state.
+message GenesisState {
+  Params params = 1 [(gogoproto.nullable) = false];
+}
