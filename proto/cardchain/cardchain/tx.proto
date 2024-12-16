@@ -10,6 +10,8 @@ import "cardchain/cardchain/params.proto";
 import "cosmos/base/v1beta1/coin.proto";
 import "cardchain/cardchain/voting.proto";
 import "cardchain/cardchain/match.proto";
+import "cardchain/cardchain/council.proto";
+import "cardchain/cardchain/card.proto";
 
 option go_package = "github.com/DecentralCardGame/cardchain/x/cardchain/types";
 
@@ -50,6 +52,11 @@ service Msg {
   rpc SellOfferCreate(MsgSellOfferCreate) returns (MsgSellOfferCreateResponse);
   rpc SellOfferBuy(MsgSellOfferBuy) returns (MsgSellOfferBuyResponse);
   rpc SellOfferRemove(MsgSellOfferRemove) returns (MsgSellOfferRemoveResponse);
+  rpc CardRaritySet(MsgCardRaritySet) returns (MsgCardRaritySetResponse);
+  rpc CouncilResponseCommit(MsgCouncilResponseCommit)
+      returns (MsgCouncilResponseCommitResponse);
+  rpc CouncilResponseReveal(MsgCouncilResponseReveal)
+      returns (MsgCouncilResponseRevealResponse);
 }
 // MsgUpdateParams is the Msg/UpdateParams request type.
 message MsgUpdateParams {
@@ -291,3 +298,33 @@ message MsgSellOfferRemove {
 }
 
 message MsgSellOfferRemoveResponse {}
+
+message MsgCardRaritySet {
+  option (cosmos.msg.v1.signer) = "creator";
+  string creator = 1;
+  uint64 cardId = 2;
+  uint64 setId = 3;
+  CardRarity rarity = 4;
+}
+
+message MsgCardRaritySetResponse {}
+
+message MsgCouncilResponseCommit {
+  option (cosmos.msg.v1.signer) = "creator";
+  string creator = 1;
+  uint64 councilId = 2;
+  string reponse = 3;
+  string suggestion = 4;
+}
+
+message MsgCouncilResponseCommitResponse {}
+
+message MsgCouncilResponseReveal {
+  option (cosmos.msg.v1.signer) = "creator";
+  string creator = 1;
+  uint64 councilId = 2;
+  Response reponse = 3;
+  string secret = 4;
+}
+
+message MsgCouncilResponseRevealResponse {}

@@ -19,32 +19,35 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	Msg_UpdateParams_FullMethodName         = "/cardchain.cardchain.Msg/UpdateParams"
-	Msg_UserCreate_FullMethodName           = "/cardchain.cardchain.Msg/UserCreate"
-	Msg_CardSchemeBuy_FullMethodName        = "/cardchain.cardchain.Msg/CardSchemeBuy"
-	Msg_CardSaveContent_FullMethodName      = "/cardchain.cardchain.Msg/CardSaveContent"
-	Msg_CardVote_FullMethodName             = "/cardchain.cardchain.Msg/CardVote"
-	Msg_CardTransfer_FullMethodName         = "/cardchain.cardchain.Msg/CardTransfer"
-	Msg_CardDonate_FullMethodName           = "/cardchain.cardchain.Msg/CardDonate"
-	Msg_CardArtworkAdd_FullMethodName       = "/cardchain.cardchain.Msg/CardArtworkAdd"
-	Msg_CardArtistChange_FullMethodName     = "/cardchain.cardchain.Msg/CardArtistChange"
-	Msg_CouncilRegister_FullMethodName      = "/cardchain.cardchain.Msg/CouncilRegister"
-	Msg_CouncilDeregister_FullMethodName    = "/cardchain.cardchain.Msg/CouncilDeregister"
-	Msg_MatchReport_FullMethodName          = "/cardchain.cardchain.Msg/MatchReport"
-	Msg_CouncilCreate_FullMethodName        = "/cardchain.cardchain.Msg/CouncilCreate"
-	Msg_MatchReporterAppoint_FullMethodName = "/cardchain.cardchain.Msg/MatchReporterAppoint"
-	Msg_SetCreate_FullMethodName            = "/cardchain.cardchain.Msg/SetCreate"
-	Msg_SetCardAdd_FullMethodName           = "/cardchain.cardchain.Msg/SetCardAdd"
-	Msg_SetCardRemove_FullMethodName        = "/cardchain.cardchain.Msg/SetCardRemove"
-	Msg_SetContributorAdd_FullMethodName    = "/cardchain.cardchain.Msg/SetContributorAdd"
-	Msg_SetContributorRemove_FullMethodName = "/cardchain.cardchain.Msg/SetContributorRemove"
-	Msg_SetFinalize_FullMethodName          = "/cardchain.cardchain.Msg/SetFinalize"
-	Msg_SetArtworkAdd_FullMethodName        = "/cardchain.cardchain.Msg/SetArtworkAdd"
-	Msg_SetStoryAdd_FullMethodName          = "/cardchain.cardchain.Msg/SetStoryAdd"
-	Msg_BoosterPackBuy_FullMethodName       = "/cardchain.cardchain.Msg/BoosterPackBuy"
-	Msg_SellOfferCreate_FullMethodName      = "/cardchain.cardchain.Msg/SellOfferCreate"
-	Msg_SellOfferBuy_FullMethodName         = "/cardchain.cardchain.Msg/SellOfferBuy"
-	Msg_SellOfferRemove_FullMethodName      = "/cardchain.cardchain.Msg/SellOfferRemove"
+	Msg_UpdateParams_FullMethodName          = "/cardchain.cardchain.Msg/UpdateParams"
+	Msg_UserCreate_FullMethodName            = "/cardchain.cardchain.Msg/UserCreate"
+	Msg_CardSchemeBuy_FullMethodName         = "/cardchain.cardchain.Msg/CardSchemeBuy"
+	Msg_CardSaveContent_FullMethodName       = "/cardchain.cardchain.Msg/CardSaveContent"
+	Msg_CardVote_FullMethodName              = "/cardchain.cardchain.Msg/CardVote"
+	Msg_CardTransfer_FullMethodName          = "/cardchain.cardchain.Msg/CardTransfer"
+	Msg_CardDonate_FullMethodName            = "/cardchain.cardchain.Msg/CardDonate"
+	Msg_CardArtworkAdd_FullMethodName        = "/cardchain.cardchain.Msg/CardArtworkAdd"
+	Msg_CardArtistChange_FullMethodName      = "/cardchain.cardchain.Msg/CardArtistChange"
+	Msg_CouncilRegister_FullMethodName       = "/cardchain.cardchain.Msg/CouncilRegister"
+	Msg_CouncilDeregister_FullMethodName     = "/cardchain.cardchain.Msg/CouncilDeregister"
+	Msg_MatchReport_FullMethodName           = "/cardchain.cardchain.Msg/MatchReport"
+	Msg_CouncilCreate_FullMethodName         = "/cardchain.cardchain.Msg/CouncilCreate"
+	Msg_MatchReporterAppoint_FullMethodName  = "/cardchain.cardchain.Msg/MatchReporterAppoint"
+	Msg_SetCreate_FullMethodName             = "/cardchain.cardchain.Msg/SetCreate"
+	Msg_SetCardAdd_FullMethodName            = "/cardchain.cardchain.Msg/SetCardAdd"
+	Msg_SetCardRemove_FullMethodName         = "/cardchain.cardchain.Msg/SetCardRemove"
+	Msg_SetContributorAdd_FullMethodName     = "/cardchain.cardchain.Msg/SetContributorAdd"
+	Msg_SetContributorRemove_FullMethodName  = "/cardchain.cardchain.Msg/SetContributorRemove"
+	Msg_SetFinalize_FullMethodName           = "/cardchain.cardchain.Msg/SetFinalize"
+	Msg_SetArtworkAdd_FullMethodName         = "/cardchain.cardchain.Msg/SetArtworkAdd"
+	Msg_SetStoryAdd_FullMethodName           = "/cardchain.cardchain.Msg/SetStoryAdd"
+	Msg_BoosterPackBuy_FullMethodName        = "/cardchain.cardchain.Msg/BoosterPackBuy"
+	Msg_SellOfferCreate_FullMethodName       = "/cardchain.cardchain.Msg/SellOfferCreate"
+	Msg_SellOfferBuy_FullMethodName          = "/cardchain.cardchain.Msg/SellOfferBuy"
+	Msg_SellOfferRemove_FullMethodName       = "/cardchain.cardchain.Msg/SellOfferRemove"
+	Msg_CardRaritySet_FullMethodName         = "/cardchain.cardchain.Msg/CardRaritySet"
+	Msg_CouncilResponseCommit_FullMethodName = "/cardchain.cardchain.Msg/CouncilResponseCommit"
+	Msg_CouncilResponseReveal_FullMethodName = "/cardchain.cardchain.Msg/CouncilResponseReveal"
 )
 
 // MsgClient is the client API for Msg service.
@@ -79,6 +82,9 @@ type MsgClient interface {
 	SellOfferCreate(ctx context.Context, in *MsgSellOfferCreate, opts ...grpc.CallOption) (*MsgSellOfferCreateResponse, error)
 	SellOfferBuy(ctx context.Context, in *MsgSellOfferBuy, opts ...grpc.CallOption) (*MsgSellOfferBuyResponse, error)
 	SellOfferRemove(ctx context.Context, in *MsgSellOfferRemove, opts ...grpc.CallOption) (*MsgSellOfferRemoveResponse, error)
+	CardRaritySet(ctx context.Context, in *MsgCardRaritySet, opts ...grpc.CallOption) (*MsgCardRaritySetResponse, error)
+	CouncilResponseCommit(ctx context.Context, in *MsgCouncilResponseCommit, opts ...grpc.CallOption) (*MsgCouncilResponseCommitResponse, error)
+	CouncilResponseReveal(ctx context.Context, in *MsgCouncilResponseReveal, opts ...grpc.CallOption) (*MsgCouncilResponseRevealResponse, error)
 }
 
 type msgClient struct {
@@ -323,6 +329,33 @@ func (c *msgClient) SellOfferRemove(ctx context.Context, in *MsgSellOfferRemove,
 	return out, nil
 }
 
+func (c *msgClient) CardRaritySet(ctx context.Context, in *MsgCardRaritySet, opts ...grpc.CallOption) (*MsgCardRaritySetResponse, error) {
+	out := new(MsgCardRaritySetResponse)
+	err := c.cc.Invoke(ctx, Msg_CardRaritySet_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *msgClient) CouncilResponseCommit(ctx context.Context, in *MsgCouncilResponseCommit, opts ...grpc.CallOption) (*MsgCouncilResponseCommitResponse, error) {
+	out := new(MsgCouncilResponseCommitResponse)
+	err := c.cc.Invoke(ctx, Msg_CouncilResponseCommit_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *msgClient) CouncilResponseReveal(ctx context.Context, in *MsgCouncilResponseReveal, opts ...grpc.CallOption) (*MsgCouncilResponseRevealResponse, error) {
+	out := new(MsgCouncilResponseRevealResponse)
+	err := c.cc.Invoke(ctx, Msg_CouncilResponseReveal_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // MsgServer is the server API for Msg service.
 // All implementations must embed UnimplementedMsgServer
 // for forward compatibility
@@ -355,6 +388,9 @@ type MsgServer interface {
 	SellOfferCreate(context.Context, *MsgSellOfferCreate) (*MsgSellOfferCreateResponse, error)
 	SellOfferBuy(context.Context, *MsgSellOfferBuy) (*MsgSellOfferBuyResponse, error)
 	SellOfferRemove(context.Context, *MsgSellOfferRemove) (*MsgSellOfferRemoveResponse, error)
+	CardRaritySet(context.Context, *MsgCardRaritySet) (*MsgCardRaritySetResponse, error)
+	CouncilResponseCommit(context.Context, *MsgCouncilResponseCommit) (*MsgCouncilResponseCommitResponse, error)
+	CouncilResponseReveal(context.Context, *MsgCouncilResponseReveal) (*MsgCouncilResponseRevealResponse, error)
 	mustEmbedUnimplementedMsgServer()
 }
 
@@ -439,6 +475,15 @@ func (UnimplementedMsgServer) SellOfferBuy(context.Context, *MsgSellOfferBuy) (*
 }
 func (UnimplementedMsgServer) SellOfferRemove(context.Context, *MsgSellOfferRemove) (*MsgSellOfferRemoveResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SellOfferRemove not implemented")
+}
+func (UnimplementedMsgServer) CardRaritySet(context.Context, *MsgCardRaritySet) (*MsgCardRaritySetResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CardRaritySet not implemented")
+}
+func (UnimplementedMsgServer) CouncilResponseCommit(context.Context, *MsgCouncilResponseCommit) (*MsgCouncilResponseCommitResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CouncilResponseCommit not implemented")
+}
+func (UnimplementedMsgServer) CouncilResponseReveal(context.Context, *MsgCouncilResponseReveal) (*MsgCouncilResponseRevealResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CouncilResponseReveal not implemented")
 }
 func (UnimplementedMsgServer) mustEmbedUnimplementedMsgServer() {}
 
@@ -921,6 +966,60 @@ func _Msg_SellOfferRemove_Handler(srv interface{}, ctx context.Context, dec func
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Msg_CardRaritySet_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgCardRaritySet)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).CardRaritySet(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Msg_CardRaritySet_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).CardRaritySet(ctx, req.(*MsgCardRaritySet))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Msg_CouncilResponseCommit_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgCouncilResponseCommit)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).CouncilResponseCommit(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Msg_CouncilResponseCommit_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).CouncilResponseCommit(ctx, req.(*MsgCouncilResponseCommit))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Msg_CouncilResponseReveal_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgCouncilResponseReveal)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).CouncilResponseReveal(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Msg_CouncilResponseReveal_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).CouncilResponseReveal(ctx, req.(*MsgCouncilResponseReveal))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Msg_ServiceDesc is the grpc.ServiceDesc for Msg service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -1031,6 +1130,18 @@ var Msg_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "SellOfferRemove",
 			Handler:    _Msg_SellOfferRemove_Handler,
+		},
+		{
+			MethodName: "CardRaritySet",
+			Handler:    _Msg_CardRaritySet_Handler,
+		},
+		{
+			MethodName: "CouncilResponseCommit",
+			Handler:    _Msg_CouncilResponseCommit_Handler,
+		},
+		{
+			MethodName: "CouncilResponseReveal",
+			Handler:    _Msg_CouncilResponseReveal_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

@@ -123,6 +123,18 @@ const (
 	// TODO: Determine the simulation weight value
 	defaultWeightMsgSellOfferRemove int = 100
 
+	opWeightMsgCardRaritySet = "op_weight_msg_card_rarity_set"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgCardRaritySet int = 100
+
+	opWeightMsgCouncilResponseCommit = "op_weight_msg_council_response_commit"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgCouncilResponseCommit int = 100
+
+	opWeightMsgCouncilResponseReveal = "op_weight_msg_council_response_reveal"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgCouncilResponseReveal int = 100
+
 	// this line is used by starport scaffolding # simapp/module/const
 )
 
@@ -421,6 +433,39 @@ func (am AppModule) WeightedOperations(simState module.SimulationState) []simtyp
 		cardchainsimulation.SimulateMsgSellOfferRemove(am.accountKeeper, am.bankKeeper, am.keeper),
 	))
 
+	var weightMsgCardRaritySet int
+	simState.AppParams.GetOrGenerate(opWeightMsgCardRaritySet, &weightMsgCardRaritySet, nil,
+		func(_ *rand.Rand) {
+			weightMsgCardRaritySet = defaultWeightMsgCardRaritySet
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgCardRaritySet,
+		cardchainsimulation.SimulateMsgCardRaritySet(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
+	var weightMsgCouncilResponseCommit int
+	simState.AppParams.GetOrGenerate(opWeightMsgCouncilResponseCommit, &weightMsgCouncilResponseCommit, nil,
+		func(_ *rand.Rand) {
+			weightMsgCouncilResponseCommit = defaultWeightMsgCouncilResponseCommit
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgCouncilResponseCommit,
+		cardchainsimulation.SimulateMsgCouncilResponseCommit(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
+	var weightMsgCouncilResponseReveal int
+	simState.AppParams.GetOrGenerate(opWeightMsgCouncilResponseReveal, &weightMsgCouncilResponseReveal, nil,
+		func(_ *rand.Rand) {
+			weightMsgCouncilResponseReveal = defaultWeightMsgCouncilResponseReveal
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgCouncilResponseReveal,
+		cardchainsimulation.SimulateMsgCouncilResponseReveal(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
 	// this line is used by starport scaffolding # simapp/module/operation
 
 	return operations
@@ -626,6 +671,30 @@ func (am AppModule) ProposalMsgs(simState module.SimulationState) []simtypes.Wei
 			defaultWeightMsgSellOfferRemove,
 			func(r *rand.Rand, ctx sdk.Context, accs []simtypes.Account) sdk.Msg {
 				cardchainsimulation.SimulateMsgSellOfferRemove(am.accountKeeper, am.bankKeeper, am.keeper)
+				return nil
+			},
+		),
+		simulation.NewWeightedProposalMsg(
+			opWeightMsgCardRaritySet,
+			defaultWeightMsgCardRaritySet,
+			func(r *rand.Rand, ctx sdk.Context, accs []simtypes.Account) sdk.Msg {
+				cardchainsimulation.SimulateMsgCardRaritySet(am.accountKeeper, am.bankKeeper, am.keeper)
+				return nil
+			},
+		),
+		simulation.NewWeightedProposalMsg(
+			opWeightMsgCouncilResponseCommit,
+			defaultWeightMsgCouncilResponseCommit,
+			func(r *rand.Rand, ctx sdk.Context, accs []simtypes.Account) sdk.Msg {
+				cardchainsimulation.SimulateMsgCouncilResponseCommit(am.accountKeeper, am.bankKeeper, am.keeper)
+				return nil
+			},
+		),
+		simulation.NewWeightedProposalMsg(
+			opWeightMsgCouncilResponseReveal,
+			defaultWeightMsgCouncilResponseReveal,
+			func(r *rand.Rand, ctx sdk.Context, accs []simtypes.Account) sdk.Msg {
+				cardchainsimulation.SimulateMsgCouncilResponseReveal(am.accountKeeper, am.bankKeeper, am.keeper)
 				return nil
 			},
 		),

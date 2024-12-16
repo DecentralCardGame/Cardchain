@@ -178,6 +178,24 @@ func (am AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 					Short:          "Send a SellOfferRemove tx",
 					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "sellOfferId"}},
 				},
+				{
+					RpcMethod:      "CardRaritySet",
+					Use:            "card-rarity-set [card-id] [set-id] [rarity]",
+					Short:          "Send a CardRaritySet tx",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "cardId"}, {ProtoField: "setId"}, {ProtoField: "rarity"}},
+				},
+				{
+					RpcMethod:      "CouncilResponseCommit",
+					Use:            "council-response-commit [council-id] [reponse] [suggestion]",
+					Short:          "Send a CouncilResponseCommit tx",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "councilId"}, {ProtoField: "reponse"}, {ProtoField: "suggestion"}},
+				},
+				{
+					RpcMethod:      "CouncilResponseReveal",
+					Use:            "council-response-reveal [council-id] [reponse] [secret]",
+					Short:          "Send a CouncilResponseReveal tx",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "councilId"}, {ProtoField: "reponse"}, {ProtoField: "secret"}},
+				},
 				// this line is used by ignite scaffolding # autocli/tx
 			},
 		},
