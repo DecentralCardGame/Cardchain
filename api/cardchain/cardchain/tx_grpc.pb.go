@@ -19,18 +19,32 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	Msg_UpdateParams_FullMethodName      = "/cardchain.cardchain.Msg/UpdateParams"
-	Msg_UserCreate_FullMethodName        = "/cardchain.cardchain.Msg/UserCreate"
-	Msg_CardSchemeBuy_FullMethodName     = "/cardchain.cardchain.Msg/CardSchemeBuy"
-	Msg_CardSaveContent_FullMethodName   = "/cardchain.cardchain.Msg/CardSaveContent"
-	Msg_CardVote_FullMethodName          = "/cardchain.cardchain.Msg/CardVote"
-	Msg_CardTransfer_FullMethodName      = "/cardchain.cardchain.Msg/CardTransfer"
-	Msg_CardDonate_FullMethodName        = "/cardchain.cardchain.Msg/CardDonate"
-	Msg_CardArtworkAdd_FullMethodName    = "/cardchain.cardchain.Msg/CardArtworkAdd"
-	Msg_CardArtistChange_FullMethodName  = "/cardchain.cardchain.Msg/CardArtistChange"
-	Msg_CouncilRegister_FullMethodName   = "/cardchain.cardchain.Msg/CouncilRegister"
-	Msg_CouncilDeregister_FullMethodName = "/cardchain.cardchain.Msg/CouncilDeregister"
-	Msg_MatchReport_FullMethodName       = "/cardchain.cardchain.Msg/MatchReport"
+	Msg_UpdateParams_FullMethodName         = "/cardchain.cardchain.Msg/UpdateParams"
+	Msg_UserCreate_FullMethodName           = "/cardchain.cardchain.Msg/UserCreate"
+	Msg_CardSchemeBuy_FullMethodName        = "/cardchain.cardchain.Msg/CardSchemeBuy"
+	Msg_CardSaveContent_FullMethodName      = "/cardchain.cardchain.Msg/CardSaveContent"
+	Msg_CardVote_FullMethodName             = "/cardchain.cardchain.Msg/CardVote"
+	Msg_CardTransfer_FullMethodName         = "/cardchain.cardchain.Msg/CardTransfer"
+	Msg_CardDonate_FullMethodName           = "/cardchain.cardchain.Msg/CardDonate"
+	Msg_CardArtworkAdd_FullMethodName       = "/cardchain.cardchain.Msg/CardArtworkAdd"
+	Msg_CardArtistChange_FullMethodName     = "/cardchain.cardchain.Msg/CardArtistChange"
+	Msg_CouncilRegister_FullMethodName      = "/cardchain.cardchain.Msg/CouncilRegister"
+	Msg_CouncilDeregister_FullMethodName    = "/cardchain.cardchain.Msg/CouncilDeregister"
+	Msg_MatchReport_FullMethodName          = "/cardchain.cardchain.Msg/MatchReport"
+	Msg_CouncilCreate_FullMethodName        = "/cardchain.cardchain.Msg/CouncilCreate"
+	Msg_MatchReporterAppoint_FullMethodName = "/cardchain.cardchain.Msg/MatchReporterAppoint"
+	Msg_SetCreate_FullMethodName            = "/cardchain.cardchain.Msg/SetCreate"
+	Msg_SetCardAdd_FullMethodName           = "/cardchain.cardchain.Msg/SetCardAdd"
+	Msg_SetCardRemove_FullMethodName        = "/cardchain.cardchain.Msg/SetCardRemove"
+	Msg_SetContributorAdd_FullMethodName    = "/cardchain.cardchain.Msg/SetContributorAdd"
+	Msg_SetContributorRemove_FullMethodName = "/cardchain.cardchain.Msg/SetContributorRemove"
+	Msg_SetFinalize_FullMethodName          = "/cardchain.cardchain.Msg/SetFinalize"
+	Msg_SetArtworkAdd_FullMethodName        = "/cardchain.cardchain.Msg/SetArtworkAdd"
+	Msg_SetStoryAdd_FullMethodName          = "/cardchain.cardchain.Msg/SetStoryAdd"
+	Msg_BoosterPackBuy_FullMethodName       = "/cardchain.cardchain.Msg/BoosterPackBuy"
+	Msg_SellOfferCreate_FullMethodName      = "/cardchain.cardchain.Msg/SellOfferCreate"
+	Msg_SellOfferBuy_FullMethodName         = "/cardchain.cardchain.Msg/SellOfferBuy"
+	Msg_SellOfferRemove_FullMethodName      = "/cardchain.cardchain.Msg/SellOfferRemove"
 )
 
 // MsgClient is the client API for Msg service.
@@ -51,6 +65,20 @@ type MsgClient interface {
 	CouncilRegister(ctx context.Context, in *MsgCouncilRegister, opts ...grpc.CallOption) (*MsgCouncilRegisterResponse, error)
 	CouncilDeregister(ctx context.Context, in *MsgCouncilDeregister, opts ...grpc.CallOption) (*MsgCouncilDeregisterResponse, error)
 	MatchReport(ctx context.Context, in *MsgMatchReport, opts ...grpc.CallOption) (*MsgMatchReportResponse, error)
+	CouncilCreate(ctx context.Context, in *MsgCouncilCreate, opts ...grpc.CallOption) (*MsgCouncilCreateResponse, error)
+	MatchReporterAppoint(ctx context.Context, in *MsgMatchReporterAppoint, opts ...grpc.CallOption) (*MsgMatchReporterAppointResponse, error)
+	SetCreate(ctx context.Context, in *MsgSetCreate, opts ...grpc.CallOption) (*MsgSetCreateResponse, error)
+	SetCardAdd(ctx context.Context, in *MsgSetCardAdd, opts ...grpc.CallOption) (*MsgSetCardAddResponse, error)
+	SetCardRemove(ctx context.Context, in *MsgSetCardRemove, opts ...grpc.CallOption) (*MsgSetCardRemoveResponse, error)
+	SetContributorAdd(ctx context.Context, in *MsgSetContributorAdd, opts ...grpc.CallOption) (*MsgSetContributorAddResponse, error)
+	SetContributorRemove(ctx context.Context, in *MsgSetContributorRemove, opts ...grpc.CallOption) (*MsgSetContributorRemoveResponse, error)
+	SetFinalize(ctx context.Context, in *MsgSetFinalize, opts ...grpc.CallOption) (*MsgSetFinalizeResponse, error)
+	SetArtworkAdd(ctx context.Context, in *MsgSetArtworkAdd, opts ...grpc.CallOption) (*MsgSetArtworkAddResponse, error)
+	SetStoryAdd(ctx context.Context, in *MsgSetStoryAdd, opts ...grpc.CallOption) (*MsgSetStoryAddResponse, error)
+	BoosterPackBuy(ctx context.Context, in *MsgBoosterPackBuy, opts ...grpc.CallOption) (*MsgBoosterPackBuyResponse, error)
+	SellOfferCreate(ctx context.Context, in *MsgSellOfferCreate, opts ...grpc.CallOption) (*MsgSellOfferCreateResponse, error)
+	SellOfferBuy(ctx context.Context, in *MsgSellOfferBuy, opts ...grpc.CallOption) (*MsgSellOfferBuyResponse, error)
+	SellOfferRemove(ctx context.Context, in *MsgSellOfferRemove, opts ...grpc.CallOption) (*MsgSellOfferRemoveResponse, error)
 }
 
 type msgClient struct {
@@ -169,6 +197,132 @@ func (c *msgClient) MatchReport(ctx context.Context, in *MsgMatchReport, opts ..
 	return out, nil
 }
 
+func (c *msgClient) CouncilCreate(ctx context.Context, in *MsgCouncilCreate, opts ...grpc.CallOption) (*MsgCouncilCreateResponse, error) {
+	out := new(MsgCouncilCreateResponse)
+	err := c.cc.Invoke(ctx, Msg_CouncilCreate_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *msgClient) MatchReporterAppoint(ctx context.Context, in *MsgMatchReporterAppoint, opts ...grpc.CallOption) (*MsgMatchReporterAppointResponse, error) {
+	out := new(MsgMatchReporterAppointResponse)
+	err := c.cc.Invoke(ctx, Msg_MatchReporterAppoint_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *msgClient) SetCreate(ctx context.Context, in *MsgSetCreate, opts ...grpc.CallOption) (*MsgSetCreateResponse, error) {
+	out := new(MsgSetCreateResponse)
+	err := c.cc.Invoke(ctx, Msg_SetCreate_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *msgClient) SetCardAdd(ctx context.Context, in *MsgSetCardAdd, opts ...grpc.CallOption) (*MsgSetCardAddResponse, error) {
+	out := new(MsgSetCardAddResponse)
+	err := c.cc.Invoke(ctx, Msg_SetCardAdd_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *msgClient) SetCardRemove(ctx context.Context, in *MsgSetCardRemove, opts ...grpc.CallOption) (*MsgSetCardRemoveResponse, error) {
+	out := new(MsgSetCardRemoveResponse)
+	err := c.cc.Invoke(ctx, Msg_SetCardRemove_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *msgClient) SetContributorAdd(ctx context.Context, in *MsgSetContributorAdd, opts ...grpc.CallOption) (*MsgSetContributorAddResponse, error) {
+	out := new(MsgSetContributorAddResponse)
+	err := c.cc.Invoke(ctx, Msg_SetContributorAdd_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *msgClient) SetContributorRemove(ctx context.Context, in *MsgSetContributorRemove, opts ...grpc.CallOption) (*MsgSetContributorRemoveResponse, error) {
+	out := new(MsgSetContributorRemoveResponse)
+	err := c.cc.Invoke(ctx, Msg_SetContributorRemove_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *msgClient) SetFinalize(ctx context.Context, in *MsgSetFinalize, opts ...grpc.CallOption) (*MsgSetFinalizeResponse, error) {
+	out := new(MsgSetFinalizeResponse)
+	err := c.cc.Invoke(ctx, Msg_SetFinalize_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *msgClient) SetArtworkAdd(ctx context.Context, in *MsgSetArtworkAdd, opts ...grpc.CallOption) (*MsgSetArtworkAddResponse, error) {
+	out := new(MsgSetArtworkAddResponse)
+	err := c.cc.Invoke(ctx, Msg_SetArtworkAdd_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *msgClient) SetStoryAdd(ctx context.Context, in *MsgSetStoryAdd, opts ...grpc.CallOption) (*MsgSetStoryAddResponse, error) {
+	out := new(MsgSetStoryAddResponse)
+	err := c.cc.Invoke(ctx, Msg_SetStoryAdd_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *msgClient) BoosterPackBuy(ctx context.Context, in *MsgBoosterPackBuy, opts ...grpc.CallOption) (*MsgBoosterPackBuyResponse, error) {
+	out := new(MsgBoosterPackBuyResponse)
+	err := c.cc.Invoke(ctx, Msg_BoosterPackBuy_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *msgClient) SellOfferCreate(ctx context.Context, in *MsgSellOfferCreate, opts ...grpc.CallOption) (*MsgSellOfferCreateResponse, error) {
+	out := new(MsgSellOfferCreateResponse)
+	err := c.cc.Invoke(ctx, Msg_SellOfferCreate_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *msgClient) SellOfferBuy(ctx context.Context, in *MsgSellOfferBuy, opts ...grpc.CallOption) (*MsgSellOfferBuyResponse, error) {
+	out := new(MsgSellOfferBuyResponse)
+	err := c.cc.Invoke(ctx, Msg_SellOfferBuy_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *msgClient) SellOfferRemove(ctx context.Context, in *MsgSellOfferRemove, opts ...grpc.CallOption) (*MsgSellOfferRemoveResponse, error) {
+	out := new(MsgSellOfferRemoveResponse)
+	err := c.cc.Invoke(ctx, Msg_SellOfferRemove_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // MsgServer is the server API for Msg service.
 // All implementations must embed UnimplementedMsgServer
 // for forward compatibility
@@ -187,6 +341,20 @@ type MsgServer interface {
 	CouncilRegister(context.Context, *MsgCouncilRegister) (*MsgCouncilRegisterResponse, error)
 	CouncilDeregister(context.Context, *MsgCouncilDeregister) (*MsgCouncilDeregisterResponse, error)
 	MatchReport(context.Context, *MsgMatchReport) (*MsgMatchReportResponse, error)
+	CouncilCreate(context.Context, *MsgCouncilCreate) (*MsgCouncilCreateResponse, error)
+	MatchReporterAppoint(context.Context, *MsgMatchReporterAppoint) (*MsgMatchReporterAppointResponse, error)
+	SetCreate(context.Context, *MsgSetCreate) (*MsgSetCreateResponse, error)
+	SetCardAdd(context.Context, *MsgSetCardAdd) (*MsgSetCardAddResponse, error)
+	SetCardRemove(context.Context, *MsgSetCardRemove) (*MsgSetCardRemoveResponse, error)
+	SetContributorAdd(context.Context, *MsgSetContributorAdd) (*MsgSetContributorAddResponse, error)
+	SetContributorRemove(context.Context, *MsgSetContributorRemove) (*MsgSetContributorRemoveResponse, error)
+	SetFinalize(context.Context, *MsgSetFinalize) (*MsgSetFinalizeResponse, error)
+	SetArtworkAdd(context.Context, *MsgSetArtworkAdd) (*MsgSetArtworkAddResponse, error)
+	SetStoryAdd(context.Context, *MsgSetStoryAdd) (*MsgSetStoryAddResponse, error)
+	BoosterPackBuy(context.Context, *MsgBoosterPackBuy) (*MsgBoosterPackBuyResponse, error)
+	SellOfferCreate(context.Context, *MsgSellOfferCreate) (*MsgSellOfferCreateResponse, error)
+	SellOfferBuy(context.Context, *MsgSellOfferBuy) (*MsgSellOfferBuyResponse, error)
+	SellOfferRemove(context.Context, *MsgSellOfferRemove) (*MsgSellOfferRemoveResponse, error)
 	mustEmbedUnimplementedMsgServer()
 }
 
@@ -229,6 +397,48 @@ func (UnimplementedMsgServer) CouncilDeregister(context.Context, *MsgCouncilDere
 }
 func (UnimplementedMsgServer) MatchReport(context.Context, *MsgMatchReport) (*MsgMatchReportResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method MatchReport not implemented")
+}
+func (UnimplementedMsgServer) CouncilCreate(context.Context, *MsgCouncilCreate) (*MsgCouncilCreateResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CouncilCreate not implemented")
+}
+func (UnimplementedMsgServer) MatchReporterAppoint(context.Context, *MsgMatchReporterAppoint) (*MsgMatchReporterAppointResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method MatchReporterAppoint not implemented")
+}
+func (UnimplementedMsgServer) SetCreate(context.Context, *MsgSetCreate) (*MsgSetCreateResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SetCreate not implemented")
+}
+func (UnimplementedMsgServer) SetCardAdd(context.Context, *MsgSetCardAdd) (*MsgSetCardAddResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SetCardAdd not implemented")
+}
+func (UnimplementedMsgServer) SetCardRemove(context.Context, *MsgSetCardRemove) (*MsgSetCardRemoveResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SetCardRemove not implemented")
+}
+func (UnimplementedMsgServer) SetContributorAdd(context.Context, *MsgSetContributorAdd) (*MsgSetContributorAddResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SetContributorAdd not implemented")
+}
+func (UnimplementedMsgServer) SetContributorRemove(context.Context, *MsgSetContributorRemove) (*MsgSetContributorRemoveResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SetContributorRemove not implemented")
+}
+func (UnimplementedMsgServer) SetFinalize(context.Context, *MsgSetFinalize) (*MsgSetFinalizeResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SetFinalize not implemented")
+}
+func (UnimplementedMsgServer) SetArtworkAdd(context.Context, *MsgSetArtworkAdd) (*MsgSetArtworkAddResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SetArtworkAdd not implemented")
+}
+func (UnimplementedMsgServer) SetStoryAdd(context.Context, *MsgSetStoryAdd) (*MsgSetStoryAddResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SetStoryAdd not implemented")
+}
+func (UnimplementedMsgServer) BoosterPackBuy(context.Context, *MsgBoosterPackBuy) (*MsgBoosterPackBuyResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method BoosterPackBuy not implemented")
+}
+func (UnimplementedMsgServer) SellOfferCreate(context.Context, *MsgSellOfferCreate) (*MsgSellOfferCreateResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SellOfferCreate not implemented")
+}
+func (UnimplementedMsgServer) SellOfferBuy(context.Context, *MsgSellOfferBuy) (*MsgSellOfferBuyResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SellOfferBuy not implemented")
+}
+func (UnimplementedMsgServer) SellOfferRemove(context.Context, *MsgSellOfferRemove) (*MsgSellOfferRemoveResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SellOfferRemove not implemented")
 }
 func (UnimplementedMsgServer) mustEmbedUnimplementedMsgServer() {}
 
@@ -459,6 +669,258 @@ func _Msg_MatchReport_Handler(srv interface{}, ctx context.Context, dec func(int
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Msg_CouncilCreate_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgCouncilCreate)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).CouncilCreate(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Msg_CouncilCreate_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).CouncilCreate(ctx, req.(*MsgCouncilCreate))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Msg_MatchReporterAppoint_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgMatchReporterAppoint)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).MatchReporterAppoint(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Msg_MatchReporterAppoint_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).MatchReporterAppoint(ctx, req.(*MsgMatchReporterAppoint))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Msg_SetCreate_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgSetCreate)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).SetCreate(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Msg_SetCreate_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).SetCreate(ctx, req.(*MsgSetCreate))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Msg_SetCardAdd_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgSetCardAdd)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).SetCardAdd(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Msg_SetCardAdd_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).SetCardAdd(ctx, req.(*MsgSetCardAdd))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Msg_SetCardRemove_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgSetCardRemove)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).SetCardRemove(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Msg_SetCardRemove_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).SetCardRemove(ctx, req.(*MsgSetCardRemove))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Msg_SetContributorAdd_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgSetContributorAdd)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).SetContributorAdd(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Msg_SetContributorAdd_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).SetContributorAdd(ctx, req.(*MsgSetContributorAdd))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Msg_SetContributorRemove_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgSetContributorRemove)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).SetContributorRemove(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Msg_SetContributorRemove_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).SetContributorRemove(ctx, req.(*MsgSetContributorRemove))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Msg_SetFinalize_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgSetFinalize)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).SetFinalize(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Msg_SetFinalize_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).SetFinalize(ctx, req.(*MsgSetFinalize))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Msg_SetArtworkAdd_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgSetArtworkAdd)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).SetArtworkAdd(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Msg_SetArtworkAdd_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).SetArtworkAdd(ctx, req.(*MsgSetArtworkAdd))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Msg_SetStoryAdd_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgSetStoryAdd)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).SetStoryAdd(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Msg_SetStoryAdd_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).SetStoryAdd(ctx, req.(*MsgSetStoryAdd))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Msg_BoosterPackBuy_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgBoosterPackBuy)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).BoosterPackBuy(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Msg_BoosterPackBuy_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).BoosterPackBuy(ctx, req.(*MsgBoosterPackBuy))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Msg_SellOfferCreate_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgSellOfferCreate)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).SellOfferCreate(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Msg_SellOfferCreate_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).SellOfferCreate(ctx, req.(*MsgSellOfferCreate))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Msg_SellOfferBuy_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgSellOfferBuy)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).SellOfferBuy(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Msg_SellOfferBuy_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).SellOfferBuy(ctx, req.(*MsgSellOfferBuy))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Msg_SellOfferRemove_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgSellOfferRemove)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).SellOfferRemove(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Msg_SellOfferRemove_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).SellOfferRemove(ctx, req.(*MsgSellOfferRemove))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Msg_ServiceDesc is the grpc.ServiceDesc for Msg service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -513,6 +975,62 @@ var Msg_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "MatchReport",
 			Handler:    _Msg_MatchReport_Handler,
+		},
+		{
+			MethodName: "CouncilCreate",
+			Handler:    _Msg_CouncilCreate_Handler,
+		},
+		{
+			MethodName: "MatchReporterAppoint",
+			Handler:    _Msg_MatchReporterAppoint_Handler,
+		},
+		{
+			MethodName: "SetCreate",
+			Handler:    _Msg_SetCreate_Handler,
+		},
+		{
+			MethodName: "SetCardAdd",
+			Handler:    _Msg_SetCardAdd_Handler,
+		},
+		{
+			MethodName: "SetCardRemove",
+			Handler:    _Msg_SetCardRemove_Handler,
+		},
+		{
+			MethodName: "SetContributorAdd",
+			Handler:    _Msg_SetContributorAdd_Handler,
+		},
+		{
+			MethodName: "SetContributorRemove",
+			Handler:    _Msg_SetContributorRemove_Handler,
+		},
+		{
+			MethodName: "SetFinalize",
+			Handler:    _Msg_SetFinalize_Handler,
+		},
+		{
+			MethodName: "SetArtworkAdd",
+			Handler:    _Msg_SetArtworkAdd_Handler,
+		},
+		{
+			MethodName: "SetStoryAdd",
+			Handler:    _Msg_SetStoryAdd_Handler,
+		},
+		{
+			MethodName: "BoosterPackBuy",
+			Handler:    _Msg_BoosterPackBuy_Handler,
+		},
+		{
+			MethodName: "SellOfferCreate",
+			Handler:    _Msg_SellOfferCreate_Handler,
+		},
+		{
+			MethodName: "SellOfferBuy",
+			Handler:    _Msg_SellOfferBuy_Handler,
+		},
+		{
+			MethodName: "SellOfferRemove",
+			Handler:    _Msg_SellOfferRemove_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

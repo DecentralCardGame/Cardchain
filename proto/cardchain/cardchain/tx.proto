@@ -33,6 +33,23 @@ service Msg {
   rpc CouncilDeregister(MsgCouncilDeregister)
       returns (MsgCouncilDeregisterResponse);
   rpc MatchReport(MsgMatchReport) returns (MsgMatchReportResponse);
+  rpc CouncilCreate(MsgCouncilCreate) returns (MsgCouncilCreateResponse);
+  rpc MatchReporterAppoint(MsgMatchReporterAppoint)
+      returns (MsgMatchReporterAppointResponse);
+  rpc SetCreate(MsgSetCreate) returns (MsgSetCreateResponse);
+  rpc SetCardAdd(MsgSetCardAdd) returns (MsgSetCardAddResponse);
+  rpc SetCardRemove(MsgSetCardRemove) returns (MsgSetCardRemoveResponse);
+  rpc SetContributorAdd(MsgSetContributorAdd)
+      returns (MsgSetContributorAddResponse);
+  rpc SetContributorRemove(MsgSetContributorRemove)
+      returns (MsgSetContributorRemoveResponse);
+  rpc SetFinalize(MsgSetFinalize) returns (MsgSetFinalizeResponse);
+  rpc SetArtworkAdd(MsgSetArtworkAdd) returns (MsgSetArtworkAddResponse);
+  rpc SetStoryAdd(MsgSetStoryAdd) returns (MsgSetStoryAddResponse);
+  rpc BoosterPackBuy(MsgBoosterPackBuy) returns (MsgBoosterPackBuyResponse);
+  rpc SellOfferCreate(MsgSellOfferCreate) returns (MsgSellOfferCreateResponse);
+  rpc SellOfferBuy(MsgSellOfferBuy) returns (MsgSellOfferBuyResponse);
+  rpc SellOfferRemove(MsgSellOfferRemove) returns (MsgSellOfferRemoveResponse);
 }
 // MsgUpdateParams is the Msg/UpdateParams request type.
 message MsgUpdateParams {
@@ -152,3 +169,125 @@ message MsgMatchReport {
 }
 
 message MsgMatchReportResponse {}
+
+message MsgCouncilCreate {
+  option (cosmos.msg.v1.signer) = "creator";
+  string creator = 1;
+  uint64 cardId = 2;
+}
+
+message MsgCouncilCreateResponse {}
+
+message MsgMatchReporterAppoint {
+  option (cosmos.msg.v1.signer) = "creator";
+  string creator = 1;
+  string reporter = 2;
+}
+
+message MsgMatchReporterAppointResponse {}
+
+message MsgSetCreate {
+  option (cosmos.msg.v1.signer) = "creator";
+  string creator = 1;
+  string name = 2;
+  string artist = 3;
+  string storyWriter = 4;
+  repeated string contributors = 5;
+}
+
+message MsgSetCreateResponse {}
+
+message MsgSetCardAdd {
+  option (cosmos.msg.v1.signer) = "creator";
+  string creator = 1;
+  uint64 setId = 2;
+  uint64 cardId = 3;
+}
+
+message MsgSetCardAddResponse {}
+
+message MsgSetCardRemove {
+  option (cosmos.msg.v1.signer) = "creator";
+  string creator = 1;
+  uint64 setId = 2;
+  uint64 cardId = 3;
+}
+
+message MsgSetCardRemoveResponse {}
+
+message MsgSetContributorAdd {
+  option (cosmos.msg.v1.signer) = "creator";
+  string creator = 1;
+  uint64 setId = 2;
+  string user = 3;
+}
+
+message MsgSetContributorAddResponse {}
+
+message MsgSetContributorRemove {
+  option (cosmos.msg.v1.signer) = "creator";
+  string creator = 1;
+  uint64 setId = 2;
+  string user = 3;
+}
+
+message MsgSetContributorRemoveResponse {}
+
+message MsgSetFinalize {
+  option (cosmos.msg.v1.signer) = "creator";
+  string creator = 1;
+  uint64 setId = 2;
+}
+
+message MsgSetFinalizeResponse {}
+
+message MsgSetArtworkAdd {
+  option (cosmos.msg.v1.signer) = "creator";
+  string creator = 1;
+  uint64 setId = 2;
+  bytes image = 3;
+}
+
+message MsgSetArtworkAddResponse {}
+
+message MsgSetStoryAdd {
+  option (cosmos.msg.v1.signer) = "creator";
+  string creator = 1;
+  uint64 setId = 2;
+  string story = 3;
+}
+
+message MsgSetStoryAddResponse {}
+
+message MsgBoosterPackBuy {
+  option (cosmos.msg.v1.signer) = "creator";
+  string creator = 1;
+  uint64 setId = 2;
+}
+
+message MsgBoosterPackBuyResponse { bool airdropClaimed = 1; }
+
+message MsgSellOfferCreate {
+  option (cosmos.msg.v1.signer) = "creator";
+  string creator = 1;
+  uint64 cardId = 2;
+  cosmos.base.v1beta1.Coin price = 3 [ (gogoproto.nullable) = false ];
+}
+
+message MsgSellOfferCreateResponse {}
+
+message MsgSellOfferBuy {
+  option (cosmos.msg.v1.signer) = "creator";
+  string creator = 1;
+  uint64 sellOfferId = 2;
+}
+
+message MsgSellOfferBuyResponse {}
+
+message MsgSellOfferRemove {
+  option (cosmos.msg.v1.signer) = "creator";
+  string creator = 1;
+  uint64 sellOfferId = 2;
+}
+
+message MsgSellOfferRemoveResponse {}
