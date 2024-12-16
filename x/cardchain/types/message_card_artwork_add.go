@@ -8,7 +8,7 @@ import (
 
 var _ sdk.Msg = &MsgCardArtworkAdd{}
 
-func NewMsgCardArtworkAdd(creator string, cardId uint64, image string, fullArt bool) *MsgCardArtworkAdd {
+func NewMsgCardArtworkAdd(creator string, cardId uint64, image []byte, fullArt bool) *MsgCardArtworkAdd {
 	return &MsgCardArtworkAdd{
 		Creator: creator,
 		CardId:  cardId,

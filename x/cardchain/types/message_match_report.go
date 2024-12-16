@@ -8,7 +8,7 @@ import (
 
 var _ sdk.Msg = &MsgMatchReport{}
 
-func NewMsgMatchReport(creator string, matchId uint64, playedCardsA []uint64, playedCardsB []uint64, outcome int32) *MsgMatchReport {
+func NewMsgMatchReport(creator string, matchId uint64, playedCardsA []uint64, playedCardsB []uint64, outcome Outcome) *MsgMatchReport {
 	return &MsgMatchReport{
 		Creator:      creator,
 		MatchId:      matchId,

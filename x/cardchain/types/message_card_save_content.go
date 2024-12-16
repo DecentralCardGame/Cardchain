@@ -8,7 +8,7 @@ import (
 
 var _ sdk.Msg = &MsgCardSaveContent{}
 
-func NewMsgCardSaveContent(creator string, cardId uint64, content string, notes string, artist string, balanceAnchor bool) *MsgCardSaveContent {
+func NewMsgCardSaveContent(creator string, cardId uint64, content []byte, notes string, artist string, balanceAnchor bool) *MsgCardSaveContent {
 	return &MsgCardSaveContent{
 		Creator:       creator,
 		CardId:        cardId,
