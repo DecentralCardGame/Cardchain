@@ -1,4 +1,4 @@
-module cardchain
+module github.com/DecentralCardGame/cardchain
 
 go 1.22.7
 

@@ -11,9 +11,9 @@ import (
 
 	abci "github.com/tendermint/tendermint/abci/types"
 
-	"cardchain/x/cardchain/client/cli"
-	"cardchain/x/cardchain/keeper"
-	"cardchain/x/cardchain/types"
+	"github.com/DecentralCardGame/cardchain/x/cardchain/client/cli"
+	"github.com/DecentralCardGame/cardchain/x/cardchain/keeper"
+	"github.com/DecentralCardGame/cardchain/x/cardchain/types"
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/codec"
 	cdctypes "github.com/cosmos/cosmos-sdk/codec/types"

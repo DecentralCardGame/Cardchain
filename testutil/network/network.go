@@ -5,7 +5,7 @@ import (
 	"testing"
 	"time"
 
-	"cardchain/app"
+	"github.com/DecentralCardGame/cardchain/app"
 
 	"github.com/cosmos/cosmos-sdk/baseapp"
 	"github.com/cosmos/cosmos-sdk/crypto/hd"

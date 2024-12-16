@@ -3,9 +3,9 @@ package cardchain
 import (
 	"math/rand"
 
-	"cardchain/testutil/sample"
-	cardchainsimulation "cardchain/x/cardchain/simulation"
-	"cardchain/x/cardchain/types"
+	"github.com/DecentralCardGame/cardchain/testutil/sample"
+	cardchainsimulation "github.com/DecentralCardGame/cardchain/x/cardchain/simulation"
+	"github.com/DecentralCardGame/cardchain/x/cardchain/types"
 	"github.com/cosmos/cosmos-sdk/baseapp"
 	simappparams "github.com/cosmos/cosmos-sdk/simapp/params"
 	sdk "github.com/cosmos/cosmos-sdk/types"

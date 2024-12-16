@@ -3,10 +3,10 @@ package cardchain_test
 import (
 	"testing"
 
-	keepertest "cardchain/testutil/keeper"
-	"cardchain/testutil/nullify"
-	"cardchain/x/cardchain"
-	"cardchain/x/cardchain/types"
+	keepertest "github.com/DecentralCardGame/cardchain/testutil/keeper"
+	"github.com/DecentralCardGame/cardchain/testutil/nullify"
+	"github.com/DecentralCardGame/cardchain/x/cardchain"
+	"github.com/DecentralCardGame/cardchain/x/cardchain/types"
 	"github.com/stretchr/testify/require"
 )
 

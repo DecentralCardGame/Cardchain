@@ -103,13 +103,13 @@ import (
 	tmos "github.com/tendermint/tendermint/libs/os"
 	dbm "github.com/tendermint/tm-db"
 
-	cardchainmodule "cardchain/x/cardchain"
-	cardchainmodulekeeper "cardchain/x/cardchain/keeper"
-	cardchainmoduletypes "cardchain/x/cardchain/types"
+	cardchainmodule "github.com/DecentralCardGame/cardchain/x/cardchain"
+	cardchainmodulekeeper "github.com/DecentralCardGame/cardchain/x/cardchain/keeper"
+	cardchainmoduletypes "github.com/DecentralCardGame/cardchain/x/cardchain/types"
 	// this line is used by starport scaffolding # stargate/app/moduleImport
 
-	appparams "cardchain/app/params"
-	"cardchain/docs"
+	appparams "github.com/DecentralCardGame/cardchain/app/params"
+	"github.com/DecentralCardGame/cardchain/docs"
 )
 
 const (

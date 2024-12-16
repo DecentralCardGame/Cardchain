@@ -6,8 +6,8 @@ import (
 	"github.com/cosmos/cosmos-sdk/server"
 	svrcmd "github.com/cosmos/cosmos-sdk/server/cmd"
 
-	"cardchain/app"
-	"cardchain/cmd/cardchaind/cmd"
+	"github.com/DecentralCardGame/cardchain/app"
+	"github.com/DecentralCardGame/cardchain/cmd/cardchaind/cmd"
 )
 
 func main() {

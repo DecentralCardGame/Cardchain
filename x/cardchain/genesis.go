@@ -1,8 +1,8 @@
 package cardchain
 
 import (
-	"cardchain/x/cardchain/keeper"
-	"cardchain/x/cardchain/types"
+	"github.com/DecentralCardGame/cardchain/x/cardchain/keeper"
+	"github.com/DecentralCardGame/cardchain/x/cardchain/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 

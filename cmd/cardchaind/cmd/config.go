@@ -3,7 +3,7 @@ package cmd
 import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"cardchain/app"
+	"github.com/DecentralCardGame/cardchain/app"
 )
 
 func initSDKConfig() {

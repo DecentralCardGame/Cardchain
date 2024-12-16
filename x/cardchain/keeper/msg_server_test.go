@@ -4,9 +4,9 @@ import (
 	"context"
 	"testing"
 
-	keepertest "cardchain/testutil/keeper"
-	"cardchain/x/cardchain/keeper"
-	"cardchain/x/cardchain/types"
+	keepertest "github.com/DecentralCardGame/cardchain/testutil/keeper"
+	"github.com/DecentralCardGame/cardchain/x/cardchain/keeper"
+	"github.com/DecentralCardGame/cardchain/x/cardchain/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 

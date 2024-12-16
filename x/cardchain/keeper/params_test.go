@@ -3,8 +3,8 @@ package keeper_test
 import (
 	"testing"
 
-	testkeeper "cardchain/testutil/keeper"
-	"cardchain/x/cardchain/types"
+	testkeeper "github.com/DecentralCardGame/cardchain/testutil/keeper"
+	"github.com/DecentralCardGame/cardchain/x/cardchain/types"
 	"github.com/stretchr/testify/require"
 )
 

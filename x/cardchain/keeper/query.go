@@ -1,7 +1,7 @@
 package keeper
 
 import (
-	"cardchain/x/cardchain/types"
+	"github.com/DecentralCardGame/cardchain/x/cardchain/types"
 )
 
 var _ types.QueryServer = Keeper{}

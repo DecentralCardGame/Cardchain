@@ -3,7 +3,7 @@ package types_test
 import (
 	"testing"
 
-	"cardchain/x/cardchain/types"
+	"github.com/DecentralCardGame/cardchain/x/cardchain/types"
 	"github.com/stretchr/testify/require"
 )
 
