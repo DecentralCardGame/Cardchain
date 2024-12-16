@@ -32,11 +32,11 @@
 #ignite scaffold message CouncilResponseReveal councilId:uint reponse:int secret
 #ignite scaffold message CouncilRestart councilId:uint
 #ignite scaffold message MatchConfirm matchId:uint outcome:int votedCards:array.int
-ignite scaffold message ProfileCardSet cardId:uin
-ignite scaffold message ProfileWebsiteSet website
-ignite scaffold message ProfileBioSet bio
-ignite scaffold message BoosterPackOpen boosterPackId:uint --response cardIds:uints
-ignite scaffold message BoosterPackTransfer boosterPackId:uint receiver
-ignite scaffold message SetStoryWriterSet setId:uint storyWriter
-ignite scaffold message SetArtistSet setId:uint artist
-ignite scaffold message CardVoteMulti votes:array.int  --response airdropClaimed:bool
+#ignite scaffold message ProfileCardSet cardId:uint
+#ignite scaffold message ProfileWebsiteSet website
+#ignite scaffold message ProfileBioSet bio
+#ignite scaffold message BoosterPackOpen boosterPackId:uint --response cardIds:uints
+#ignite scaffold message BoosterPackTransfer boosterPackId:uint receiver
+#ignite scaffold message SetStoryWriterSet setId:uint storyWriter
+#ignite scaffold message SetArtistSet setId:uint artist
+#ignite scaffold message CardVoteMulti votes:array.int  --response airdropClaimed:bool

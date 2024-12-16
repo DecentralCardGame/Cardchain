@@ -59,6 +59,17 @@ service Msg {
       returns (MsgCouncilResponseRevealResponse);
   rpc CouncilRestart(MsgCouncilRestart) returns (MsgCouncilRestartResponse);
   rpc MatchConfirm(MsgMatchConfirm) returns (MsgMatchConfirmResponse);
+  rpc ProfileCardSet(MsgProfileCardSet) returns (MsgProfileCardSetResponse);
+  rpc ProfileWebsiteSet(MsgProfileWebsiteSet)
+      returns (MsgProfileWebsiteSetResponse);
+  rpc ProfileBioSet(MsgProfileBioSet) returns (MsgProfileBioSetResponse);
+  rpc BoosterPackOpen(MsgBoosterPackOpen) returns (MsgBoosterPackOpenResponse);
+  rpc BoosterPackTransfer(MsgBoosterPackTransfer)
+      returns (MsgBoosterPackTransferResponse);
+  rpc SetStoryWriterSet(MsgSetStoryWriterSet)
+      returns (MsgSetStoryWriterSetResponse);
+  rpc SetArtistSet(MsgSetArtistSet) returns (MsgSetArtistSetResponse);
+  rpc CardVoteMulti(MsgCardVoteMulti) returns (MsgCardVoteMultiResponse);
 }
 // MsgUpdateParams is the Msg/UpdateParams request type.
 message MsgUpdateParams {
@@ -348,3 +359,70 @@ message MsgMatchConfirm {
 }
 
 message MsgMatchConfirmResponse {}
+
+message MsgProfileCardSet {
+  option (cosmos.msg.v1.signer) = "creator";
+  string creator = 1;
+  uint64 cardId = 2;
+}
+
+message MsgProfileCardSetResponse {}
+
+message MsgProfileWebsiteSet {
+  option (cosmos.msg.v1.signer) = "creator";
+  string creator = 1;
+  string website = 2;
+}
+
+message MsgProfileWebsiteSetResponse {}
+
+message MsgProfileBioSet {
+  option (cosmos.msg.v1.signer) = "creator";
+  string creator = 1;
+  string bio = 2;
+}
+
+message MsgProfileBioSetResponse {}
+
+message MsgBoosterPackOpen {
+  option (cosmos.msg.v1.signer) = "creator";
+  string creator = 1;
+  uint64 boosterPackId = 2;
+}
+
+message MsgBoosterPackOpenResponse { repeated uint64 cardIds = 1; }
+
+message MsgBoosterPackTransfer {
+  option (cosmos.msg.v1.signer) = "creator";
+  string creator = 1;
+  uint64 boosterPackId = 2;
+  string receiver = 3;
+}
+
+message MsgBoosterPackTransferResponse {}
+
+message MsgSetStoryWriterSet {
+  option (cosmos.msg.v1.signer) = "creator";
+  string creator = 1;
+  uint64 setId = 2;
+  string storyWriter = 3;
+}
+
+message MsgSetStoryWriterSetResponse {}
+
+message MsgSetArtistSet {
+  option (cosmos.msg.v1.signer) = "creator";
+  string creator = 1;
+  uint64 setId = 2;
+  string artist = 3;
+}
+
+message MsgSetArtistSetResponse {}
+
+message MsgCardVoteMulti {
+  option (cosmos.msg.v1.signer) = "creator";
+  string creator = 1;
+  repeated SingleVote votes = 2;
+}
+
+message MsgCardVoteMultiResponse { bool airdropClaimed = 1; }

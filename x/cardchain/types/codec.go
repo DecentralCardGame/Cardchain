@@ -98,6 +98,30 @@ func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {
 	registry.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgMatchConfirm{},
 	)
+	registry.RegisterImplementations((*sdk.Msg)(nil),
+		&MsgProfileCardSet{},
+	)
+	registry.RegisterImplementations((*sdk.Msg)(nil),
+		&MsgProfileWebsiteSet{},
+	)
+	registry.RegisterImplementations((*sdk.Msg)(nil),
+		&MsgProfileBioSet{},
+	)
+	registry.RegisterImplementations((*sdk.Msg)(nil),
+		&MsgBoosterPackOpen{},
+	)
+	registry.RegisterImplementations((*sdk.Msg)(nil),
+		&MsgBoosterPackTransfer{},
+	)
+	registry.RegisterImplementations((*sdk.Msg)(nil),
+		&MsgSetStoryWriterSet{},
+	)
+	registry.RegisterImplementations((*sdk.Msg)(nil),
+		&MsgSetArtistSet{},
+	)
+	registry.RegisterImplementations((*sdk.Msg)(nil),
+		&MsgCardVoteMulti{},
+	)
 	// this line is used by starport scaffolding # 3
 
 	registry.RegisterImplementations((*sdk.Msg)(nil),

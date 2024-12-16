@@ -50,6 +50,14 @@ const (
 	Msg_CouncilResponseReveal_FullMethodName = "/cardchain.cardchain.Msg/CouncilResponseReveal"
 	Msg_CouncilRestart_FullMethodName        = "/cardchain.cardchain.Msg/CouncilRestart"
 	Msg_MatchConfirm_FullMethodName          = "/cardchain.cardchain.Msg/MatchConfirm"
+	Msg_ProfileCardSet_FullMethodName        = "/cardchain.cardchain.Msg/ProfileCardSet"
+	Msg_ProfileWebsiteSet_FullMethodName     = "/cardchain.cardchain.Msg/ProfileWebsiteSet"
+	Msg_ProfileBioSet_FullMethodName         = "/cardchain.cardchain.Msg/ProfileBioSet"
+	Msg_BoosterPackOpen_FullMethodName       = "/cardchain.cardchain.Msg/BoosterPackOpen"
+	Msg_BoosterPackTransfer_FullMethodName   = "/cardchain.cardchain.Msg/BoosterPackTransfer"
+	Msg_SetStoryWriterSet_FullMethodName     = "/cardchain.cardchain.Msg/SetStoryWriterSet"
+	Msg_SetArtistSet_FullMethodName          = "/cardchain.cardchain.Msg/SetArtistSet"
+	Msg_CardVoteMulti_FullMethodName         = "/cardchain.cardchain.Msg/CardVoteMulti"
 )
 
 // MsgClient is the client API for Msg service.
@@ -89,6 +97,14 @@ type MsgClient interface {
 	CouncilResponseReveal(ctx context.Context, in *MsgCouncilResponseReveal, opts ...grpc.CallOption) (*MsgCouncilResponseRevealResponse, error)
 	CouncilRestart(ctx context.Context, in *MsgCouncilRestart, opts ...grpc.CallOption) (*MsgCouncilRestartResponse, error)
 	MatchConfirm(ctx context.Context, in *MsgMatchConfirm, opts ...grpc.CallOption) (*MsgMatchConfirmResponse, error)
+	ProfileCardSet(ctx context.Context, in *MsgProfileCardSet, opts ...grpc.CallOption) (*MsgProfileCardSetResponse, error)
+	ProfileWebsiteSet(ctx context.Context, in *MsgProfileWebsiteSet, opts ...grpc.CallOption) (*MsgProfileWebsiteSetResponse, error)
+	ProfileBioSet(ctx context.Context, in *MsgProfileBioSet, opts ...grpc.CallOption) (*MsgProfileBioSetResponse, error)
+	BoosterPackOpen(ctx context.Context, in *MsgBoosterPackOpen, opts ...grpc.CallOption) (*MsgBoosterPackOpenResponse, error)
+	BoosterPackTransfer(ctx context.Context, in *MsgBoosterPackTransfer, opts ...grpc.CallOption) (*MsgBoosterPackTransferResponse, error)
+	SetStoryWriterSet(ctx context.Context, in *MsgSetStoryWriterSet, opts ...grpc.CallOption) (*MsgSetStoryWriterSetResponse, error)
+	SetArtistSet(ctx context.Context, in *MsgSetArtistSet, opts ...grpc.CallOption) (*MsgSetArtistSetResponse, error)
+	CardVoteMulti(ctx context.Context, in *MsgCardVoteMulti, opts ...grpc.CallOption) (*MsgCardVoteMultiResponse, error)
 }
 
 type msgClient struct {
@@ -378,6 +394,78 @@ func (c *msgClient) MatchConfirm(ctx context.Context, in *MsgMatchConfirm, opts 
 	return out, nil
 }
 
+func (c *msgClient) ProfileCardSet(ctx context.Context, in *MsgProfileCardSet, opts ...grpc.CallOption) (*MsgProfileCardSetResponse, error) {
+	out := new(MsgProfileCardSetResponse)
+	err := c.cc.Invoke(ctx, Msg_ProfileCardSet_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *msgClient) ProfileWebsiteSet(ctx context.Context, in *MsgProfileWebsiteSet, opts ...grpc.CallOption) (*MsgProfileWebsiteSetResponse, error) {
+	out := new(MsgProfileWebsiteSetResponse)
+	err := c.cc.Invoke(ctx, Msg_ProfileWebsiteSet_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *msgClient) ProfileBioSet(ctx context.Context, in *MsgProfileBioSet, opts ...grpc.CallOption) (*MsgProfileBioSetResponse, error) {
+	out := new(MsgProfileBioSetResponse)
+	err := c.cc.Invoke(ctx, Msg_ProfileBioSet_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *msgClient) BoosterPackOpen(ctx context.Context, in *MsgBoosterPackOpen, opts ...grpc.CallOption) (*MsgBoosterPackOpenResponse, error) {
+	out := new(MsgBoosterPackOpenResponse)
+	err := c.cc.Invoke(ctx, Msg_BoosterPackOpen_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *msgClient) BoosterPackTransfer(ctx context.Context, in *MsgBoosterPackTransfer, opts ...grpc.CallOption) (*MsgBoosterPackTransferResponse, error) {
+	out := new(MsgBoosterPackTransferResponse)
+	err := c.cc.Invoke(ctx, Msg_BoosterPackTransfer_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *msgClient) SetStoryWriterSet(ctx context.Context, in *MsgSetStoryWriterSet, opts ...grpc.CallOption) (*MsgSetStoryWriterSetResponse, error) {
+	out := new(MsgSetStoryWriterSetResponse)
+	err := c.cc.Invoke(ctx, Msg_SetStoryWriterSet_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *msgClient) SetArtistSet(ctx context.Context, in *MsgSetArtistSet, opts ...grpc.CallOption) (*MsgSetArtistSetResponse, error) {
+	out := new(MsgSetArtistSetResponse)
+	err := c.cc.Invoke(ctx, Msg_SetArtistSet_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *msgClient) CardVoteMulti(ctx context.Context, in *MsgCardVoteMulti, opts ...grpc.CallOption) (*MsgCardVoteMultiResponse, error) {
+	out := new(MsgCardVoteMultiResponse)
+	err := c.cc.Invoke(ctx, Msg_CardVoteMulti_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // MsgServer is the server API for Msg service.
 // All implementations must embed UnimplementedMsgServer
 // for forward compatibility
@@ -415,6 +503,14 @@ type MsgServer interface {
 	CouncilResponseReveal(context.Context, *MsgCouncilResponseReveal) (*MsgCouncilResponseRevealResponse, error)
 	CouncilRestart(context.Context, *MsgCouncilRestart) (*MsgCouncilRestartResponse, error)
 	MatchConfirm(context.Context, *MsgMatchConfirm) (*MsgMatchConfirmResponse, error)
+	ProfileCardSet(context.Context, *MsgProfileCardSet) (*MsgProfileCardSetResponse, error)
+	ProfileWebsiteSet(context.Context, *MsgProfileWebsiteSet) (*MsgProfileWebsiteSetResponse, error)
+	ProfileBioSet(context.Context, *MsgProfileBioSet) (*MsgProfileBioSetResponse, error)
+	BoosterPackOpen(context.Context, *MsgBoosterPackOpen) (*MsgBoosterPackOpenResponse, error)
+	BoosterPackTransfer(context.Context, *MsgBoosterPackTransfer) (*MsgBoosterPackTransferResponse, error)
+	SetStoryWriterSet(context.Context, *MsgSetStoryWriterSet) (*MsgSetStoryWriterSetResponse, error)
+	SetArtistSet(context.Context, *MsgSetArtistSet) (*MsgSetArtistSetResponse, error)
+	CardVoteMulti(context.Context, *MsgCardVoteMulti) (*MsgCardVoteMultiResponse, error)
 	mustEmbedUnimplementedMsgServer()
 }
 
@@ -514,6 +610,30 @@ func (UnimplementedMsgServer) CouncilRestart(context.Context, *MsgCouncilRestart
 }
 func (UnimplementedMsgServer) MatchConfirm(context.Context, *MsgMatchConfirm) (*MsgMatchConfirmResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method MatchConfirm not implemented")
+}
+func (UnimplementedMsgServer) ProfileCardSet(context.Context, *MsgProfileCardSet) (*MsgProfileCardSetResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ProfileCardSet not implemented")
+}
+func (UnimplementedMsgServer) ProfileWebsiteSet(context.Context, *MsgProfileWebsiteSet) (*MsgProfileWebsiteSetResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ProfileWebsiteSet not implemented")
+}
+func (UnimplementedMsgServer) ProfileBioSet(context.Context, *MsgProfileBioSet) (*MsgProfileBioSetResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ProfileBioSet not implemented")
+}
+func (UnimplementedMsgServer) BoosterPackOpen(context.Context, *MsgBoosterPackOpen) (*MsgBoosterPackOpenResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method BoosterPackOpen not implemented")
+}
+func (UnimplementedMsgServer) BoosterPackTransfer(context.Context, *MsgBoosterPackTransfer) (*MsgBoosterPackTransferResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method BoosterPackTransfer not implemented")
+}
+func (UnimplementedMsgServer) SetStoryWriterSet(context.Context, *MsgSetStoryWriterSet) (*MsgSetStoryWriterSetResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SetStoryWriterSet not implemented")
+}
+func (UnimplementedMsgServer) SetArtistSet(context.Context, *MsgSetArtistSet) (*MsgSetArtistSetResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SetArtistSet not implemented")
+}
+func (UnimplementedMsgServer) CardVoteMulti(context.Context, *MsgCardVoteMulti) (*MsgCardVoteMultiResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CardVoteMulti not implemented")
 }
 func (UnimplementedMsgServer) mustEmbedUnimplementedMsgServer() {}
 
@@ -1086,6 +1206,150 @@ func _Msg_MatchConfirm_Handler(srv interface{}, ctx context.Context, dec func(in
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Msg_ProfileCardSet_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgProfileCardSet)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).ProfileCardSet(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Msg_ProfileCardSet_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).ProfileCardSet(ctx, req.(*MsgProfileCardSet))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Msg_ProfileWebsiteSet_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgProfileWebsiteSet)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).ProfileWebsiteSet(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Msg_ProfileWebsiteSet_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).ProfileWebsiteSet(ctx, req.(*MsgProfileWebsiteSet))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Msg_ProfileBioSet_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgProfileBioSet)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).ProfileBioSet(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Msg_ProfileBioSet_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).ProfileBioSet(ctx, req.(*MsgProfileBioSet))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Msg_BoosterPackOpen_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgBoosterPackOpen)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).BoosterPackOpen(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Msg_BoosterPackOpen_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).BoosterPackOpen(ctx, req.(*MsgBoosterPackOpen))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Msg_BoosterPackTransfer_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgBoosterPackTransfer)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).BoosterPackTransfer(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Msg_BoosterPackTransfer_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).BoosterPackTransfer(ctx, req.(*MsgBoosterPackTransfer))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Msg_SetStoryWriterSet_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgSetStoryWriterSet)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).SetStoryWriterSet(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Msg_SetStoryWriterSet_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).SetStoryWriterSet(ctx, req.(*MsgSetStoryWriterSet))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Msg_SetArtistSet_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgSetArtistSet)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).SetArtistSet(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Msg_SetArtistSet_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).SetArtistSet(ctx, req.(*MsgSetArtistSet))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Msg_CardVoteMulti_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgCardVoteMulti)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).CardVoteMulti(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Msg_CardVoteMulti_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).CardVoteMulti(ctx, req.(*MsgCardVoteMulti))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Msg_ServiceDesc is the grpc.ServiceDesc for Msg service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -1216,6 +1480,38 @@ var Msg_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "MatchConfirm",
 			Handler:    _Msg_MatchConfirm_Handler,
+		},
+		{
+			MethodName: "ProfileCardSet",
+			Handler:    _Msg_ProfileCardSet_Handler,
+		},
+		{
+			MethodName: "ProfileWebsiteSet",
+			Handler:    _Msg_ProfileWebsiteSet_Handler,
+		},
+		{
+			MethodName: "ProfileBioSet",
+			Handler:    _Msg_ProfileBioSet_Handler,
+		},
+		{
+			MethodName: "BoosterPackOpen",
+			Handler:    _Msg_BoosterPackOpen_Handler,
+		},
+		{
+			MethodName: "BoosterPackTransfer",
+			Handler:    _Msg_BoosterPackTransfer_Handler,
+		},
+		{
+			MethodName: "SetStoryWriterSet",
+			Handler:    _Msg_SetStoryWriterSet_Handler,
+		},
+		{
+			MethodName: "SetArtistSet",
+			Handler:    _Msg_SetArtistSet_Handler,
+		},
+		{
+			MethodName: "CardVoteMulti",
+			Handler:    _Msg_CardVoteMulti_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

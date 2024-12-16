@@ -143,6 +143,38 @@ const (
 	// TODO: Determine the simulation weight value
 	defaultWeightMsgMatchConfirm int = 100
 
+	opWeightMsgProfileCardSet = "op_weight_msg_profile_card_set"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgProfileCardSet int = 100
+
+	opWeightMsgProfileWebsiteSet = "op_weight_msg_profile_website_set"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgProfileWebsiteSet int = 100
+
+	opWeightMsgProfileBioSet = "op_weight_msg_profile_bio_set"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgProfileBioSet int = 100
+
+	opWeightMsgBoosterPackOpen = "op_weight_msg_booster_pack_open"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgBoosterPackOpen int = 100
+
+	opWeightMsgBoosterPackTransfer = "op_weight_msg_booster_pack_transfer"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgBoosterPackTransfer int = 100
+
+	opWeightMsgSetStoryWriterSet = "op_weight_msg_set_story_writer_set"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgSetStoryWriterSet int = 100
+
+	opWeightMsgSetArtistSet = "op_weight_msg_set_artist_set"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgSetArtistSet int = 100
+
+	opWeightMsgCardVoteMulti = "op_weight_msg_card_vote_multi"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgCardVoteMulti int = 100
+
 	// this line is used by starport scaffolding # simapp/module/const
 )
 
@@ -496,6 +528,94 @@ func (am AppModule) WeightedOperations(simState module.SimulationState) []simtyp
 		cardchainsimulation.SimulateMsgMatchConfirm(am.accountKeeper, am.bankKeeper, am.keeper),
 	))
 
+	var weightMsgProfileCardSet int
+	simState.AppParams.GetOrGenerate(opWeightMsgProfileCardSet, &weightMsgProfileCardSet, nil,
+		func(_ *rand.Rand) {
+			weightMsgProfileCardSet = defaultWeightMsgProfileCardSet
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgProfileCardSet,
+		cardchainsimulation.SimulateMsgProfileCardSet(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
+	var weightMsgProfileWebsiteSet int
+	simState.AppParams.GetOrGenerate(opWeightMsgProfileWebsiteSet, &weightMsgProfileWebsiteSet, nil,
+		func(_ *rand.Rand) {
+			weightMsgProfileWebsiteSet = defaultWeightMsgProfileWebsiteSet
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgProfileWebsiteSet,
+		cardchainsimulation.SimulateMsgProfileWebsiteSet(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
+	var weightMsgProfileBioSet int
+	simState.AppParams.GetOrGenerate(opWeightMsgProfileBioSet, &weightMsgProfileBioSet, nil,
+		func(_ *rand.Rand) {
+			weightMsgProfileBioSet = defaultWeightMsgProfileBioSet
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgProfileBioSet,
+		cardchainsimulation.SimulateMsgProfileBioSet(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
+	var weightMsgBoosterPackOpen int
+	simState.AppParams.GetOrGenerate(opWeightMsgBoosterPackOpen, &weightMsgBoosterPackOpen, nil,
+		func(_ *rand.Rand) {
+			weightMsgBoosterPackOpen = defaultWeightMsgBoosterPackOpen
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgBoosterPackOpen,
+		cardchainsimulation.SimulateMsgBoosterPackOpen(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
+	var weightMsgBoosterPackTransfer int
+	simState.AppParams.GetOrGenerate(opWeightMsgBoosterPackTransfer, &weightMsgBoosterPackTransfer, nil,
+		func(_ *rand.Rand) {
+			weightMsgBoosterPackTransfer = defaultWeightMsgBoosterPackTransfer
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgBoosterPackTransfer,
+		cardchainsimulation.SimulateMsgBoosterPackTransfer(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
+	var weightMsgSetStoryWriterSet int
+	simState.AppParams.GetOrGenerate(opWeightMsgSetStoryWriterSet, &weightMsgSetStoryWriterSet, nil,
+		func(_ *rand.Rand) {
+			weightMsgSetStoryWriterSet = defaultWeightMsgSetStoryWriterSet
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgSetStoryWriterSet,
+		cardchainsimulation.SimulateMsgSetStoryWriterSet(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
+	var weightMsgSetArtistSet int
+	simState.AppParams.GetOrGenerate(opWeightMsgSetArtistSet, &weightMsgSetArtistSet, nil,
+		func(_ *rand.Rand) {
+			weightMsgSetArtistSet = defaultWeightMsgSetArtistSet
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgSetArtistSet,
+		cardchainsimulation.SimulateMsgSetArtistSet(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
+	var weightMsgCardVoteMulti int
+	simState.AppParams.GetOrGenerate(opWeightMsgCardVoteMulti, &weightMsgCardVoteMulti, nil,
+		func(_ *rand.Rand) {
+			weightMsgCardVoteMulti = defaultWeightMsgCardVoteMulti
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgCardVoteMulti,
+		cardchainsimulation.SimulateMsgCardVoteMulti(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
 	// this line is used by starport scaffolding # simapp/module/operation
 
 	return operations
@@ -741,6 +861,70 @@ func (am AppModule) ProposalMsgs(simState module.SimulationState) []simtypes.Wei
 			defaultWeightMsgMatchConfirm,
 			func(r *rand.Rand, ctx sdk.Context, accs []simtypes.Account) sdk.Msg {
 				cardchainsimulation.SimulateMsgMatchConfirm(am.accountKeeper, am.bankKeeper, am.keeper)
+				return nil
+			},
+		),
+		simulation.NewWeightedProposalMsg(
+			opWeightMsgProfileCardSet,
+			defaultWeightMsgProfileCardSet,
+			func(r *rand.Rand, ctx sdk.Context, accs []simtypes.Account) sdk.Msg {
+				cardchainsimulation.SimulateMsgProfileCardSet(am.accountKeeper, am.bankKeeper, am.keeper)
+				return nil
+			},
+		),
+		simulation.NewWeightedProposalMsg(
+			opWeightMsgProfileWebsiteSet,
+			defaultWeightMsgProfileWebsiteSet,
+			func(r *rand.Rand, ctx sdk.Context, accs []simtypes.Account) sdk.Msg {
+				cardchainsimulation.SimulateMsgProfileWebsiteSet(am.accountKeeper, am.bankKeeper, am.keeper)
+				return nil
+			},
+		),
+		simulation.NewWeightedProposalMsg(
+			opWeightMsgProfileBioSet,
+			defaultWeightMsgProfileBioSet,
+			func(r *rand.Rand, ctx sdk.Context, accs []simtypes.Account) sdk.Msg {
+				cardchainsimulation.SimulateMsgProfileBioSet(am.accountKeeper, am.bankKeeper, am.keeper)
+				return nil
+			},
+		),
+		simulation.NewWeightedProposalMsg(
+			opWeightMsgBoosterPackOpen,
+			defaultWeightMsgBoosterPackOpen,
+			func(r *rand.Rand, ctx sdk.Context, accs []simtypes.Account) sdk.Msg {
+				cardchainsimulation.SimulateMsgBoosterPackOpen(am.accountKeeper, am.bankKeeper, am.keeper)
+				return nil
+			},
+		),
+		simulation.NewWeightedProposalMsg(
+			opWeightMsgBoosterPackTransfer,
+			defaultWeightMsgBoosterPackTransfer,
+			func(r *rand.Rand, ctx sdk.Context, accs []simtypes.Account) sdk.Msg {
+				cardchainsimulation.SimulateMsgBoosterPackTransfer(am.accountKeeper, am.bankKeeper, am.keeper)
+				return nil
+			},
+		),
+		simulation.NewWeightedProposalMsg(
+			opWeightMsgSetStoryWriterSet,
+			defaultWeightMsgSetStoryWriterSet,
+			func(r *rand.Rand, ctx sdk.Context, accs []simtypes.Account) sdk.Msg {
+				cardchainsimulation.SimulateMsgSetStoryWriterSet(am.accountKeeper, am.bankKeeper, am.keeper)
+				return nil
+			},
+		),
+		simulation.NewWeightedProposalMsg(
+			opWeightMsgSetArtistSet,
+			defaultWeightMsgSetArtistSet,
+			func(r *rand.Rand, ctx sdk.Context, accs []simtypes.Account) sdk.Msg {
+				cardchainsimulation.SimulateMsgSetArtistSet(am.accountKeeper, am.bankKeeper, am.keeper)
+				return nil
+			},
+		),
+		simulation.NewWeightedProposalMsg(
+			opWeightMsgCardVoteMulti,
+			defaultWeightMsgCardVoteMulti,
+			func(r *rand.Rand, ctx sdk.Context, accs []simtypes.Account) sdk.Msg {
+				cardchainsimulation.SimulateMsgCardVoteMulti(am.accountKeeper, am.bankKeeper, am.keeper)
 				return nil
 			},
 		),
