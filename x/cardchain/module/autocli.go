@@ -196,6 +196,18 @@ func (am AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 					Short:          "Send a CouncilResponseReveal tx",
 					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "councilId"}, {ProtoField: "reponse"}, {ProtoField: "secret"}},
 				},
+				{
+					RpcMethod:      "CouncilRestart",
+					Use:            "council-restart [council-id]",
+					Short:          "Send a CouncilRestart tx",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "councilId"}},
+				},
+				{
+					RpcMethod:      "MatchConfirm",
+					Use:            "match-confirm [match-id] [outcome] [voted-cards]",
+					Short:          "Send a MatchConfirm tx",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "matchId"}, {ProtoField: "outcome"}, {ProtoField: "votedCards"}},
+				},
 				// this line is used by ignite scaffolding # autocli/tx
 			},
 		},

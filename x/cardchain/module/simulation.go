@@ -135,6 +135,14 @@ const (
 	// TODO: Determine the simulation weight value
 	defaultWeightMsgCouncilResponseReveal int = 100
 
+	opWeightMsgCouncilRestart = "op_weight_msg_council_restart"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgCouncilRestart int = 100
+
+	opWeightMsgMatchConfirm = "op_weight_msg_match_confirm"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgMatchConfirm int = 100
+
 	// this line is used by starport scaffolding # simapp/module/const
 )
 
@@ -466,6 +474,28 @@ func (am AppModule) WeightedOperations(simState module.SimulationState) []simtyp
 		cardchainsimulation.SimulateMsgCouncilResponseReveal(am.accountKeeper, am.bankKeeper, am.keeper),
 	))
 
+	var weightMsgCouncilRestart int
+	simState.AppParams.GetOrGenerate(opWeightMsgCouncilRestart, &weightMsgCouncilRestart, nil,
+		func(_ *rand.Rand) {
+			weightMsgCouncilRestart = defaultWeightMsgCouncilRestart
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgCouncilRestart,
+		cardchainsimulation.SimulateMsgCouncilRestart(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
+	var weightMsgMatchConfirm int
+	simState.AppParams.GetOrGenerate(opWeightMsgMatchConfirm, &weightMsgMatchConfirm, nil,
+		func(_ *rand.Rand) {
+			weightMsgMatchConfirm = defaultWeightMsgMatchConfirm
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgMatchConfirm,
+		cardchainsimulation.SimulateMsgMatchConfirm(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
 	// this line is used by starport scaffolding # simapp/module/operation
 
 	return operations
@@ -695,6 +725,22 @@ func (am AppModule) ProposalMsgs(simState module.SimulationState) []simtypes.Wei
 			defaultWeightMsgCouncilResponseReveal,
 			func(r *rand.Rand, ctx sdk.Context, accs []simtypes.Account) sdk.Msg {
 				cardchainsimulation.SimulateMsgCouncilResponseReveal(am.accountKeeper, am.bankKeeper, am.keeper)
+				return nil
+			},
+		),
+		simulation.NewWeightedProposalMsg(
+			opWeightMsgCouncilRestart,
+			defaultWeightMsgCouncilRestart,
+			func(r *rand.Rand, ctx sdk.Context, accs []simtypes.Account) sdk.Msg {
+				cardchainsimulation.SimulateMsgCouncilRestart(am.accountKeeper, am.bankKeeper, am.keeper)
+				return nil
+			},
+		),
+		simulation.NewWeightedProposalMsg(
+			opWeightMsgMatchConfirm,
+			defaultWeightMsgMatchConfirm,
+			func(r *rand.Rand, ctx sdk.Context, accs []simtypes.Account) sdk.Msg {
+				cardchainsimulation.SimulateMsgMatchConfirm(am.accountKeeper, am.bankKeeper, am.keeper)
 				return nil
 			},
 		),

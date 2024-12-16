@@ -26,7 +26,9 @@
 #ignite scaffold message SellOfferCreate cardId:uint price:coin
 #ignite scaffold message SellOfferBuy sellOfferId:uint
 #ignite scaffold message SellOfferRemove sellOfferId:uint
-ignite scaffold message CardRaritySet cardId:uint setId:uint rarity:int
-ignite scaffold message CouncilResponseCommit councilId:uint reponse \
-    suggestion
-ignite scaffold message CouncilResponseReveal councilId:uint reponse:int secret
+#ignite scaffold message CardRaritySet cardId:uint setId:uint rarity:int
+#ignite scaffold message CouncilResponseCommit councilId:uint reponse \
+#    suggestion
+#ignite scaffold message CouncilResponseReveal councilId:uint reponse:int secret
+#ignite scaffold message CouncilRestart councilId:uint
+ignite scaffold message MatchConfirm matchId:uint outcome:int votedCards:array.int

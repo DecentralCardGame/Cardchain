@@ -48,6 +48,8 @@ const (
 	Msg_CardRaritySet_FullMethodName         = "/cardchain.cardchain.Msg/CardRaritySet"
 	Msg_CouncilResponseCommit_FullMethodName = "/cardchain.cardchain.Msg/CouncilResponseCommit"
 	Msg_CouncilResponseReveal_FullMethodName = "/cardchain.cardchain.Msg/CouncilResponseReveal"
+	Msg_CouncilRestart_FullMethodName        = "/cardchain.cardchain.Msg/CouncilRestart"
+	Msg_MatchConfirm_FullMethodName          = "/cardchain.cardchain.Msg/MatchConfirm"
 )
 
 // MsgClient is the client API for Msg service.
@@ -85,6 +87,8 @@ type MsgClient interface {
 	CardRaritySet(ctx context.Context, in *MsgCardRaritySet, opts ...grpc.CallOption) (*MsgCardRaritySetResponse, error)
 	CouncilResponseCommit(ctx context.Context, in *MsgCouncilResponseCommit, opts ...grpc.CallOption) (*MsgCouncilResponseCommitResponse, error)
 	CouncilResponseReveal(ctx context.Context, in *MsgCouncilResponseReveal, opts ...grpc.CallOption) (*MsgCouncilResponseRevealResponse, error)
+	CouncilRestart(ctx context.Context, in *MsgCouncilRestart, opts ...grpc.CallOption) (*MsgCouncilRestartResponse, error)
+	MatchConfirm(ctx context.Context, in *MsgMatchConfirm, opts ...grpc.CallOption) (*MsgMatchConfirmResponse, error)
 }
 
 type msgClient struct {
@@ -356,6 +360,24 @@ func (c *msgClient) CouncilResponseReveal(ctx context.Context, in *MsgCouncilRes
 	return out, nil
 }
 
+func (c *msgClient) CouncilRestart(ctx context.Context, in *MsgCouncilRestart, opts ...grpc.CallOption) (*MsgCouncilRestartResponse, error) {
+	out := new(MsgCouncilRestartResponse)
+	err := c.cc.Invoke(ctx, Msg_CouncilRestart_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *msgClient) MatchConfirm(ctx context.Context, in *MsgMatchConfirm, opts ...grpc.CallOption) (*MsgMatchConfirmResponse, error) {
+	out := new(MsgMatchConfirmResponse)
+	err := c.cc.Invoke(ctx, Msg_MatchConfirm_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // MsgServer is the server API for Msg service.
 // All implementations must embed UnimplementedMsgServer
 // for forward compatibility
@@ -391,6 +413,8 @@ type MsgServer interface {
 	CardRaritySet(context.Context, *MsgCardRaritySet) (*MsgCardRaritySetResponse, error)
 	CouncilResponseCommit(context.Context, *MsgCouncilResponseCommit) (*MsgCouncilResponseCommitResponse, error)
 	CouncilResponseReveal(context.Context, *MsgCouncilResponseReveal) (*MsgCouncilResponseRevealResponse, error)
+	CouncilRestart(context.Context, *MsgCouncilRestart) (*MsgCouncilRestartResponse, error)
+	MatchConfirm(context.Context, *MsgMatchConfirm) (*MsgMatchConfirmResponse, error)
 	mustEmbedUnimplementedMsgServer()
 }
 
@@ -484,6 +508,12 @@ func (UnimplementedMsgServer) CouncilResponseCommit(context.Context, *MsgCouncil
 }
 func (UnimplementedMsgServer) CouncilResponseReveal(context.Context, *MsgCouncilResponseReveal) (*MsgCouncilResponseRevealResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CouncilResponseReveal not implemented")
+}
+func (UnimplementedMsgServer) CouncilRestart(context.Context, *MsgCouncilRestart) (*MsgCouncilRestartResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CouncilRestart not implemented")
+}
+func (UnimplementedMsgServer) MatchConfirm(context.Context, *MsgMatchConfirm) (*MsgMatchConfirmResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method MatchConfirm not implemented")
 }
 func (UnimplementedMsgServer) mustEmbedUnimplementedMsgServer() {}
 
@@ -1020,6 +1050,42 @@ func _Msg_CouncilResponseReveal_Handler(srv interface{}, ctx context.Context, de
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Msg_CouncilRestart_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgCouncilRestart)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).CouncilRestart(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Msg_CouncilRestart_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).CouncilRestart(ctx, req.(*MsgCouncilRestart))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Msg_MatchConfirm_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgMatchConfirm)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).MatchConfirm(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Msg_MatchConfirm_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).MatchConfirm(ctx, req.(*MsgMatchConfirm))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Msg_ServiceDesc is the grpc.ServiceDesc for Msg service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -1142,6 +1208,14 @@ var Msg_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CouncilResponseReveal",
 			Handler:    _Msg_CouncilResponseReveal_Handler,
+		},
+		{
+			MethodName: "CouncilRestart",
+			Handler:    _Msg_CouncilRestart_Handler,
+		},
+		{
+			MethodName: "MatchConfirm",
+			Handler:    _Msg_MatchConfirm_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
