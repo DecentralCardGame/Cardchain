@@ -66806,6 +66806,24 @@ definitions:
             NOTE: The amount field is an Int which implements the custom method
             signatures required by gogoproto.
     description: Period defines a length of time and amount of coins that will vest.
+  decentralcardgame.cardchain.cardchain.MsgCardSaveContentResponse:
+    type: object
+    properties:
+      airdropClaimed:
+        type: boolean
+  decentralcardgame.cardchain.cardchain.MsgCardSchemeBuyResponse:
+    type: object
+    properties:
+      cardId:
+        type: string
+        format: uint64
+  decentralcardgame.cardchain.cardchain.MsgCardVoteResponse:
+    type: object
+    properties:
+      airdropClaimed:
+        type: boolean
+  decentralcardgame.cardchain.cardchain.MsgUserCreateResponse:
+    type: object
   decentralcardgame.cardchain.cardchain.Params:
     type: object
     description: Params defines the parameters for the module.
@@ -66816,6 +66834,28 @@ definitions:
         description: params holds all the parameters of this module.
         type: object
     description: QueryParamsResponse is response type for the Query/Params RPC method.
+  decentralcardgame.cardchain.cardchain.SingleVote:
+    type: object
+    properties:
+      cardId:
+        type: string
+        format: uint64
+      voteType:
+        type: string
+        enum:
+          - fairEnough
+          - inappropriate
+          - overpowered
+          - underpowered
+        default: fairEnough
+  decentralcardgame.cardchain.cardchain.VoteType:
+    type: string
+    enum:
+      - fairEnough
+      - inappropriate
+      - overpowered
+      - underpowered
+    default: fairEnough
   ibc.applications.interchain_accounts.controller.v1.MsgRegisterInterchainAccountResponse:
     type: object
     properties:
