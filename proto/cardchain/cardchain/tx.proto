@@ -1,49 +1,40 @@
 syntax = "proto3";
+package cardchain.cardchain;
 
-package decentralcardgame.cardchain.cardchain;
+import "amino/amino.proto";
+import "cosmos/msg/v1/msg.proto";
+import "cosmos_proto/cosmos.proto";
+import "gogoproto/gogo.proto";
+import "cardchain/cardchain/params.proto";
 
 option go_package = "github.com/DecentralCardGame/cardchain/x/cardchain/types";
 
-import "cardchain/cardchain/voting.proto";
-import "cosmos/base/v1beta1/coin.proto";
-import "gogoproto/gogo.proto";
-
 // Msg defines the Msg service.
 service Msg {
-  rpc UserCreate(MsgUserCreate) returns (MsgUserCreateResponse);
-  rpc CardSchemeBuy(MsgCardSchemeBuy) returns (MsgCardSchemeBuyResponse);
-  rpc CardSaveContent(MsgCardSaveContent) returns (MsgCardSaveContentResponse);
-  rpc CardVote(MsgCardVote) returns (MsgCardVoteResponse);
-}
-message MsgUserCreate {
-  string creator = 1;
-  string newUser = 2;
-  string alias = 3;
+  option (cosmos.msg.v1.service) = true;
+
+  // UpdateParams defines a (governance) operation for updating the module
+  // parameters. The authority defaults to the x/gov module account.
+  rpc UpdateParams(MsgUpdateParams) returns (MsgUpdateParamsResponse);
 }
 
-message MsgUserCreateResponse {}
+// MsgUpdateParams is the Msg/UpdateParams request type.
+message MsgUpdateParams {
+  option (cosmos.msg.v1.signer) = "authority";
+  option (amino.name) = "cardchain/x/cardchain/MsgUpdateParams";
 
-message MsgCardSchemeBuy {
-  string creator = 1;
-  cosmos.base.v1beta1.Coin bid = 2 [ (gogoproto.nullable) = false ];
+  // authority is the address that controls the module (defaults to x/gov unless overwritten).
+  string authority = 1 [(cosmos_proto.scalar) = "cosmos.AddressString"];
+
+  // params defines the module parameters to update.
+  //
+  // NOTE: All parameters must be supplied.
+  Params params = 2 [
+    (gogoproto.nullable) = false,
+    (amino.dont_omitempty) = true
+  ];
 }
 
-message MsgCardSchemeBuyResponse { uint64 cardId = 1; }
-
-message MsgCardSaveContent {
-  string creator = 1;
-  uint64 cardId = 2;
-  string content = 3;
-  string notes = 4;
-  string artist = 5;
-  bool balanceAnchor = 6;
-}
-
-message MsgCardSaveContentResponse { bool airdropClaimed = 1; }
-
-message MsgCardVote {
-  string creator = 1;
-  SingleVote vote = 2;
-}
-
-message MsgCardVoteResponse { bool airdropClaimed = 1; }
+// MsgUpdateParamsResponse defines the response structure for executing a
+// MsgUpdateParams message.
+message MsgUpdateParamsResponse {}
