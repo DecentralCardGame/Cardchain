@@ -47,12 +47,54 @@ func (am AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "cardId"}, {ProtoField: "content"}, {ProtoField: "notes"}, {ProtoField: "artist"}, {ProtoField: "balanceAnchor"}},
 				},
 				{
-			RpcMethod: "CardVote",
-			Use: "card-vote [vote]",
-			Short: "Send a CardVote tx",
-			PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "vote"},},
-		},
-		// this line is used by ignite scaffolding # autocli/tx
+					RpcMethod:      "CardVote",
+					Use:            "card-vote [vote]",
+					Short:          "Send a CardVote tx",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "vote"}},
+				},
+				{
+					RpcMethod:      "CardTransfer",
+					Use:            "card-transfer [card-id] [receiver]",
+					Short:          "Send a CardTransfer tx",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "cardId"}, {ProtoField: "receiver"}},
+				},
+				{
+					RpcMethod:      "CardDonate",
+					Use:            "card-donate [card-id] [amount]",
+					Short:          "Send a CardDonate tx",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "cardId"}, {ProtoField: "amount"}},
+				},
+				{
+					RpcMethod:      "CardArtworkAdd",
+					Use:            "card-artwork-add [card-id] [image] [full-art]",
+					Short:          "Send a CardArtworkAdd tx",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "cardId"}, {ProtoField: "image"}, {ProtoField: "fullArt"}},
+				},
+				{
+					RpcMethod:      "CardArtistChange",
+					Use:            "card-artist-change [card-id] [artist]",
+					Short:          "Send a CardArtistChange tx",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "cardId"}, {ProtoField: "artist"}},
+				},
+				{
+					RpcMethod:      "CouncilRegister",
+					Use:            "council-register",
+					Short:          "Send a CouncilRegister tx",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{},
+				},
+				{
+					RpcMethod:      "CouncilDeregister",
+					Use:            "council-deregister",
+					Short:          "Send a CouncilDeregister tx",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{},
+				},
+				{
+					RpcMethod:      "MatchReport",
+					Use:            "match-report [match-id] [played-cards-a] [played-cards-b] [outcome]",
+					Short:          "Send a MatchReport tx",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "matchId"}, {ProtoField: "playedCardsA"}, {ProtoField: "playedCardsB"}, {ProtoField: "outcome"}},
+				},
+				// this line is used by ignite scaffolding # autocli/tx
 			},
 		},
 	}

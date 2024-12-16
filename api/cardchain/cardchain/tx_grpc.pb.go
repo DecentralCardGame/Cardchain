@@ -8,6 +8,7 @@ package cardchain
 
 import (
 	context "context"
+
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -19,11 +20,18 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	Msg_UpdateParams_FullMethodName    = "/cardchain.cardchain.Msg/UpdateParams"
-	Msg_UserCreate_FullMethodName      = "/cardchain.cardchain.Msg/UserCreate"
-	Msg_CardSchemeBuy_FullMethodName   = "/cardchain.cardchain.Msg/CardSchemeBuy"
-	Msg_CardSaveContent_FullMethodName = "/cardchain.cardchain.Msg/CardSaveContent"
-	Msg_CardVote_FullMethodName        = "/cardchain.cardchain.Msg/CardVote"
+	Msg_UpdateParams_FullMethodName      = "/cardchain.cardchain.Msg/UpdateParams"
+	Msg_UserCreate_FullMethodName        = "/cardchain.cardchain.Msg/UserCreate"
+	Msg_CardSchemeBuy_FullMethodName     = "/cardchain.cardchain.Msg/CardSchemeBuy"
+	Msg_CardSaveContent_FullMethodName   = "/cardchain.cardchain.Msg/CardSaveContent"
+	Msg_CardVote_FullMethodName          = "/cardchain.cardchain.Msg/CardVote"
+	Msg_CardTransfer_FullMethodName      = "/cardchain.cardchain.Msg/CardTransfer"
+	Msg_CardDonate_FullMethodName        = "/cardchain.cardchain.Msg/CardDonate"
+	Msg_CardArtworkAdd_FullMethodName    = "/cardchain.cardchain.Msg/CardArtworkAdd"
+	Msg_CardArtistChange_FullMethodName  = "/cardchain.cardchain.Msg/CardArtistChange"
+	Msg_CouncilRegister_FullMethodName   = "/cardchain.cardchain.Msg/CouncilRegister"
+	Msg_CouncilDeregister_FullMethodName = "/cardchain.cardchain.Msg/CouncilDeregister"
+	Msg_MatchReport_FullMethodName       = "/cardchain.cardchain.Msg/MatchReport"
 )
 
 // MsgClient is the client API for Msg service.
@@ -37,6 +45,13 @@ type MsgClient interface {
 	CardSchemeBuy(ctx context.Context, in *MsgCardSchemeBuy, opts ...grpc.CallOption) (*MsgCardSchemeBuyResponse, error)
 	CardSaveContent(ctx context.Context, in *MsgCardSaveContent, opts ...grpc.CallOption) (*MsgCardSaveContentResponse, error)
 	CardVote(ctx context.Context, in *MsgCardVote, opts ...grpc.CallOption) (*MsgCardVoteResponse, error)
+	CardTransfer(ctx context.Context, in *MsgCardTransfer, opts ...grpc.CallOption) (*MsgCardTransferResponse, error)
+	CardDonate(ctx context.Context, in *MsgCardDonate, opts ...grpc.CallOption) (*MsgCardDonateResponse, error)
+	CardArtworkAdd(ctx context.Context, in *MsgCardArtworkAdd, opts ...grpc.CallOption) (*MsgCardArtworkAddResponse, error)
+	CardArtistChange(ctx context.Context, in *MsgCardArtistChange, opts ...grpc.CallOption) (*MsgCardArtistChangeResponse, error)
+	CouncilRegister(ctx context.Context, in *MsgCouncilRegister, opts ...grpc.CallOption) (*MsgCouncilRegisterResponse, error)
+	CouncilDeregister(ctx context.Context, in *MsgCouncilDeregister, opts ...grpc.CallOption) (*MsgCouncilDeregisterResponse, error)
+	MatchReport(ctx context.Context, in *MsgMatchReport, opts ...grpc.CallOption) (*MsgMatchReportResponse, error)
 }
 
 type msgClient struct {
@@ -92,6 +107,69 @@ func (c *msgClient) CardVote(ctx context.Context, in *MsgCardVote, opts ...grpc.
 	return out, nil
 }
 
+func (c *msgClient) CardTransfer(ctx context.Context, in *MsgCardTransfer, opts ...grpc.CallOption) (*MsgCardTransferResponse, error) {
+	out := new(MsgCardTransferResponse)
+	err := c.cc.Invoke(ctx, Msg_CardTransfer_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *msgClient) CardDonate(ctx context.Context, in *MsgCardDonate, opts ...grpc.CallOption) (*MsgCardDonateResponse, error) {
+	out := new(MsgCardDonateResponse)
+	err := c.cc.Invoke(ctx, Msg_CardDonate_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *msgClient) CardArtworkAdd(ctx context.Context, in *MsgCardArtworkAdd, opts ...grpc.CallOption) (*MsgCardArtworkAddResponse, error) {
+	out := new(MsgCardArtworkAddResponse)
+	err := c.cc.Invoke(ctx, Msg_CardArtworkAdd_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *msgClient) CardArtistChange(ctx context.Context, in *MsgCardArtistChange, opts ...grpc.CallOption) (*MsgCardArtistChangeResponse, error) {
+	out := new(MsgCardArtistChangeResponse)
+	err := c.cc.Invoke(ctx, Msg_CardArtistChange_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *msgClient) CouncilRegister(ctx context.Context, in *MsgCouncilRegister, opts ...grpc.CallOption) (*MsgCouncilRegisterResponse, error) {
+	out := new(MsgCouncilRegisterResponse)
+	err := c.cc.Invoke(ctx, Msg_CouncilRegister_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *msgClient) CouncilDeregister(ctx context.Context, in *MsgCouncilDeregister, opts ...grpc.CallOption) (*MsgCouncilDeregisterResponse, error) {
+	out := new(MsgCouncilDeregisterResponse)
+	err := c.cc.Invoke(ctx, Msg_CouncilDeregister_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *msgClient) MatchReport(ctx context.Context, in *MsgMatchReport, opts ...grpc.CallOption) (*MsgMatchReportResponse, error) {
+	out := new(MsgMatchReportResponse)
+	err := c.cc.Invoke(ctx, Msg_MatchReport_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // MsgServer is the server API for Msg service.
 // All implementations must embed UnimplementedMsgServer
 // for forward compatibility
@@ -103,6 +181,13 @@ type MsgServer interface {
 	CardSchemeBuy(context.Context, *MsgCardSchemeBuy) (*MsgCardSchemeBuyResponse, error)
 	CardSaveContent(context.Context, *MsgCardSaveContent) (*MsgCardSaveContentResponse, error)
 	CardVote(context.Context, *MsgCardVote) (*MsgCardVoteResponse, error)
+	CardTransfer(context.Context, *MsgCardTransfer) (*MsgCardTransferResponse, error)
+	CardDonate(context.Context, *MsgCardDonate) (*MsgCardDonateResponse, error)
+	CardArtworkAdd(context.Context, *MsgCardArtworkAdd) (*MsgCardArtworkAddResponse, error)
+	CardArtistChange(context.Context, *MsgCardArtistChange) (*MsgCardArtistChangeResponse, error)
+	CouncilRegister(context.Context, *MsgCouncilRegister) (*MsgCouncilRegisterResponse, error)
+	CouncilDeregister(context.Context, *MsgCouncilDeregister) (*MsgCouncilDeregisterResponse, error)
+	MatchReport(context.Context, *MsgMatchReport) (*MsgMatchReportResponse, error)
 	mustEmbedUnimplementedMsgServer()
 }
 
@@ -124,6 +209,27 @@ func (UnimplementedMsgServer) CardSaveContent(context.Context, *MsgCardSaveConte
 }
 func (UnimplementedMsgServer) CardVote(context.Context, *MsgCardVote) (*MsgCardVoteResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CardVote not implemented")
+}
+func (UnimplementedMsgServer) CardTransfer(context.Context, *MsgCardTransfer) (*MsgCardTransferResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CardTransfer not implemented")
+}
+func (UnimplementedMsgServer) CardDonate(context.Context, *MsgCardDonate) (*MsgCardDonateResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CardDonate not implemented")
+}
+func (UnimplementedMsgServer) CardArtworkAdd(context.Context, *MsgCardArtworkAdd) (*MsgCardArtworkAddResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CardArtworkAdd not implemented")
+}
+func (UnimplementedMsgServer) CardArtistChange(context.Context, *MsgCardArtistChange) (*MsgCardArtistChangeResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CardArtistChange not implemented")
+}
+func (UnimplementedMsgServer) CouncilRegister(context.Context, *MsgCouncilRegister) (*MsgCouncilRegisterResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CouncilRegister not implemented")
+}
+func (UnimplementedMsgServer) CouncilDeregister(context.Context, *MsgCouncilDeregister) (*MsgCouncilDeregisterResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CouncilDeregister not implemented")
+}
+func (UnimplementedMsgServer) MatchReport(context.Context, *MsgMatchReport) (*MsgMatchReportResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method MatchReport not implemented")
 }
 func (UnimplementedMsgServer) mustEmbedUnimplementedMsgServer() {}
 
@@ -228,6 +334,132 @@ func _Msg_CardVote_Handler(srv interface{}, ctx context.Context, dec func(interf
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Msg_CardTransfer_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgCardTransfer)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).CardTransfer(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Msg_CardTransfer_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).CardTransfer(ctx, req.(*MsgCardTransfer))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Msg_CardDonate_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgCardDonate)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).CardDonate(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Msg_CardDonate_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).CardDonate(ctx, req.(*MsgCardDonate))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Msg_CardArtworkAdd_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgCardArtworkAdd)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).CardArtworkAdd(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Msg_CardArtworkAdd_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).CardArtworkAdd(ctx, req.(*MsgCardArtworkAdd))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Msg_CardArtistChange_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgCardArtistChange)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).CardArtistChange(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Msg_CardArtistChange_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).CardArtistChange(ctx, req.(*MsgCardArtistChange))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Msg_CouncilRegister_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgCouncilRegister)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).CouncilRegister(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Msg_CouncilRegister_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).CouncilRegister(ctx, req.(*MsgCouncilRegister))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Msg_CouncilDeregister_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgCouncilDeregister)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).CouncilDeregister(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Msg_CouncilDeregister_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).CouncilDeregister(ctx, req.(*MsgCouncilDeregister))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Msg_MatchReport_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgMatchReport)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).MatchReport(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Msg_MatchReport_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).MatchReport(ctx, req.(*MsgMatchReport))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Msg_ServiceDesc is the grpc.ServiceDesc for Msg service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -254,6 +486,34 @@ var Msg_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CardVote",
 			Handler:    _Msg_CardVote_Handler,
+		},
+		{
+			MethodName: "CardTransfer",
+			Handler:    _Msg_CardTransfer_Handler,
+		},
+		{
+			MethodName: "CardDonate",
+			Handler:    _Msg_CardDonate_Handler,
+		},
+		{
+			MethodName: "CardArtworkAdd",
+			Handler:    _Msg_CardArtworkAdd_Handler,
+		},
+		{
+			MethodName: "CardArtistChange",
+			Handler:    _Msg_CardArtistChange_Handler,
+		},
+		{
+			MethodName: "CouncilRegister",
+			Handler:    _Msg_CouncilRegister_Handler,
+		},
+		{
+			MethodName: "CouncilDeregister",
+			Handler:    _Msg_CouncilDeregister_Handler,
+		},
+		{
+			MethodName: "MatchReport",
+			Handler:    _Msg_MatchReport_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

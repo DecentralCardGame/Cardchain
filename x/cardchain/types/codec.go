@@ -18,9 +18,30 @@ func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {
 		&MsgCardSaveContent{},
 	)
 	registry.RegisterImplementations((*sdk.Msg)(nil),
-	&MsgCardVote{},
-)
-// this line is used by starport scaffolding # 3
+		&MsgCardVote{},
+	)
+	registry.RegisterImplementations((*sdk.Msg)(nil),
+		&MsgCardTransfer{},
+	)
+	registry.RegisterImplementations((*sdk.Msg)(nil),
+		&MsgCardDonate{},
+	)
+	registry.RegisterImplementations((*sdk.Msg)(nil),
+		&MsgCardArtworkAdd{},
+	)
+	registry.RegisterImplementations((*sdk.Msg)(nil),
+		&MsgCardArtistChange{},
+	)
+	registry.RegisterImplementations((*sdk.Msg)(nil),
+		&MsgCouncilRegister{},
+	)
+	registry.RegisterImplementations((*sdk.Msg)(nil),
+		&MsgCouncilDeregister{},
+	)
+	registry.RegisterImplementations((*sdk.Msg)(nil),
+		&MsgMatchReport{},
+	)
+	// this line is used by starport scaffolding # 3
 
 	registry.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgUpdateParams{},

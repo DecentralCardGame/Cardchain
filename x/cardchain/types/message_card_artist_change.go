@@ -6,16 +6,17 @@ import (
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 )
 
-var _ sdk.Msg = &MsgCardVote{}
+var _ sdk.Msg = &MsgCardArtistChange{}
 
-func NewMsgCardVote(creator string, vote *SingleVote) *MsgCardVote {
-	return &MsgCardVote{
+func NewMsgCardArtistChange(creator string, cardId uint64, artist string) *MsgCardArtistChange {
+	return &MsgCardArtistChange{
 		Creator: creator,
-		Vote:    vote,
+		CardId:  cardId,
+		Artist:  artist,
 	}
 }
 
-func (msg *MsgCardVote) ValidateBasic() error {
+func (msg *MsgCardArtistChange) ValidateBasic() error {
 	_, err := sdk.AccAddressFromBech32(msg.Creator)
 	if err != nil {
 		return errorsmod.Wrapf(sdkerrors.ErrInvalidAddress, "invalid creator address (%s)", err)

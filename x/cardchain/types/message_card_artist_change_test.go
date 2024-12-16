@@ -8,21 +8,21 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func TestMsgCardVote_ValidateBasic(t *testing.T) {
+func TestMsgCardArtistChange_ValidateBasic(t *testing.T) {
 	tests := []struct {
 		name string
-		msg  MsgCardVote
+		msg  MsgCardArtistChange
 		err  error
 	}{
 		{
 			name: "invalid address",
-			msg: MsgCardVote{
+			msg: MsgCardArtistChange{
 				Creator: "invalid_address",
 			},
 			err: sdkerrors.ErrInvalidAddress,
 		}, {
 			name: "valid address",
-			msg: MsgCardVote{
+			msg: MsgCardArtistChange{
 				Creator: sample.AccAddress(),
 			},
 		},

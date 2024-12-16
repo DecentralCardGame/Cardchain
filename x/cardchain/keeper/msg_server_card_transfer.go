@@ -7,11 +7,11 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
-func (k msgServer) CardVote(goCtx context.Context, msg *types.MsgCardVote) (*types.MsgCardVoteResponse, error) {
+func (k msgServer) CardTransfer(goCtx context.Context, msg *types.MsgCardTransfer) (*types.MsgCardTransferResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
 	// TODO: Handling the message
 	_ = ctx
 
-	return &types.MsgCardVoteResponse{}, nil
+	return &types.MsgCardTransferResponse{}, nil
 }
