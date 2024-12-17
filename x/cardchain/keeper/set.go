@@ -3,7 +3,7 @@ package keeper
 import (
 	"github.com/cosmos/cosmos-sdk/types/errors"
 
-	sdkerrors "cosmossdk.io/errors"
+	errorsmod "cosmossdk.io/errors"
 	"github.com/DecentralCardGame/cardchain/x/cardchain/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
@@ -88,9 +88,7 @@ func (k Keeper) GetRarityDistribution(ctx sdk.Context, set types.Set, setSize ui
 
 	for _, cardId := range set.Cards {
 		card := k.Cards.Get(ctx, cardId)
-		if err != nil {
-			return dist, sdkerrors.Wrap(types.ErrCardobject, err.Error())
-		}
+
 		switch card.Rarity {
 		case types.CardRarity_common, types.CardRarity_unique, types.CardRarity_exceptional:
 			commons++
@@ -99,7 +97,7 @@ func (k Keeper) GetRarityDistribution(ctx sdk.Context, set types.Set, setSize ui
 		case types.CardRarity_rare:
 			rares++
 		default:
-			return dist, sdkerrors.Wrapf(errors.ErrInvalidType, "Invalid rarity (%d) for card (%d)", card.Rarity, cardId)
+			return dist, errorsmod.Wrapf(errors.ErrInvalidType, "Invalid rarity (%d) for card (%d)", card.Rarity, cardId)
 		}
 	}
 
@@ -111,15 +109,16 @@ func (k Keeper) GetRarityDistribution(ctx sdk.Context, set types.Set, setSize ui
 
 func checkSetEditable(set *types.Set, user string) error {
 	if len(set.Contributors) == 0 {
-		return sdkerrors.Wrap(types.ErrUninitializedType, "Set not initialized")
+		return errorsmod.Wrap(types.ErrInvalidData, "Set not initialized")
 	}
 
 	if user != set.Contributors[0] {
-		return sdkerrors.Wrap(errors.ErrUnauthorized, "Invalid creator")
+		return errorsmod.Wrap(errors.ErrUnauthorized, "Invalid creator")
 	}
 
 	if set.Status != types.CStatus_design {
-		return types.ErrSetNotInDesign
+		return errorsmod.Wrapf(errors.ErrUnauthorized, "Invalid set status is: %s", set.Status.String())
+
 	}
 	return nil
 }
