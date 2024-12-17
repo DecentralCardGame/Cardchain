@@ -58,6 +58,14 @@ const (
 	Msg_SetStoryWriterSet_FullMethodName     = "/cardchain.cardchain.Msg/SetStoryWriterSet"
 	Msg_SetArtistSet_FullMethodName          = "/cardchain.cardchain.Msg/SetArtistSet"
 	Msg_CardVoteMulti_FullMethodName         = "/cardchain.cardchain.Msg/CardVoteMulti"
+	Msg_MatchOpen_FullMethodName             = "/cardchain.cardchain.Msg/MatchOpen"
+	Msg_SetNameSet_FullMethodName            = "/cardchain.cardchain.Msg/SetNameSet"
+	Msg_ProfileAliasSet_FullMethodName       = "/cardchain.cardchain.Msg/ProfileAliasSet"
+	Msg_EarlyAccessInvite_FullMethodName     = "/cardchain.cardchain.Msg/EarlyAccessInvite"
+	Msg_ZealyConnect_FullMethodName          = "/cardchain.cardchain.Msg/ZealyConnect"
+	Msg_EncounterCreate_FullMethodName       = "/cardchain.cardchain.Msg/EncounterCreate"
+	Msg_EncounterDo_FullMethodName           = "/cardchain.cardchain.Msg/EncounterDo"
+	Msg_EncounterClose_FullMethodName        = "/cardchain.cardchain.Msg/EncounterClose"
 )
 
 // MsgClient is the client API for Msg service.
@@ -105,6 +113,14 @@ type MsgClient interface {
 	SetStoryWriterSet(ctx context.Context, in *MsgSetStoryWriterSet, opts ...grpc.CallOption) (*MsgSetStoryWriterSetResponse, error)
 	SetArtistSet(ctx context.Context, in *MsgSetArtistSet, opts ...grpc.CallOption) (*MsgSetArtistSetResponse, error)
 	CardVoteMulti(ctx context.Context, in *MsgCardVoteMulti, opts ...grpc.CallOption) (*MsgCardVoteMultiResponse, error)
+	MatchOpen(ctx context.Context, in *MsgMatchOpen, opts ...grpc.CallOption) (*MsgMatchOpenResponse, error)
+	SetNameSet(ctx context.Context, in *MsgSetNameSet, opts ...grpc.CallOption) (*MsgSetNameSetResponse, error)
+	ProfileAliasSet(ctx context.Context, in *MsgProfileAliasSet, opts ...grpc.CallOption) (*MsgProfileAliasSetResponse, error)
+	EarlyAccessInvite(ctx context.Context, in *MsgEarlyAccessInvite, opts ...grpc.CallOption) (*MsgEarlyAccessInviteResponse, error)
+	ZealyConnect(ctx context.Context, in *MsgZealyConnect, opts ...grpc.CallOption) (*MsgZealyConnectResponse, error)
+	EncounterCreate(ctx context.Context, in *MsgEncounterCreate, opts ...grpc.CallOption) (*MsgEncounterCreateResponse, error)
+	EncounterDo(ctx context.Context, in *MsgEncounterDo, opts ...grpc.CallOption) (*MsgEncounterDoResponse, error)
+	EncounterClose(ctx context.Context, in *MsgEncounterClose, opts ...grpc.CallOption) (*MsgEncounterCloseResponse, error)
 }
 
 type msgClient struct {
@@ -466,6 +482,78 @@ func (c *msgClient) CardVoteMulti(ctx context.Context, in *MsgCardVoteMulti, opt
 	return out, nil
 }
 
+func (c *msgClient) MatchOpen(ctx context.Context, in *MsgMatchOpen, opts ...grpc.CallOption) (*MsgMatchOpenResponse, error) {
+	out := new(MsgMatchOpenResponse)
+	err := c.cc.Invoke(ctx, Msg_MatchOpen_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *msgClient) SetNameSet(ctx context.Context, in *MsgSetNameSet, opts ...grpc.CallOption) (*MsgSetNameSetResponse, error) {
+	out := new(MsgSetNameSetResponse)
+	err := c.cc.Invoke(ctx, Msg_SetNameSet_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *msgClient) ProfileAliasSet(ctx context.Context, in *MsgProfileAliasSet, opts ...grpc.CallOption) (*MsgProfileAliasSetResponse, error) {
+	out := new(MsgProfileAliasSetResponse)
+	err := c.cc.Invoke(ctx, Msg_ProfileAliasSet_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *msgClient) EarlyAccessInvite(ctx context.Context, in *MsgEarlyAccessInvite, opts ...grpc.CallOption) (*MsgEarlyAccessInviteResponse, error) {
+	out := new(MsgEarlyAccessInviteResponse)
+	err := c.cc.Invoke(ctx, Msg_EarlyAccessInvite_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *msgClient) ZealyConnect(ctx context.Context, in *MsgZealyConnect, opts ...grpc.CallOption) (*MsgZealyConnectResponse, error) {
+	out := new(MsgZealyConnectResponse)
+	err := c.cc.Invoke(ctx, Msg_ZealyConnect_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *msgClient) EncounterCreate(ctx context.Context, in *MsgEncounterCreate, opts ...grpc.CallOption) (*MsgEncounterCreateResponse, error) {
+	out := new(MsgEncounterCreateResponse)
+	err := c.cc.Invoke(ctx, Msg_EncounterCreate_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *msgClient) EncounterDo(ctx context.Context, in *MsgEncounterDo, opts ...grpc.CallOption) (*MsgEncounterDoResponse, error) {
+	out := new(MsgEncounterDoResponse)
+	err := c.cc.Invoke(ctx, Msg_EncounterDo_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *msgClient) EncounterClose(ctx context.Context, in *MsgEncounterClose, opts ...grpc.CallOption) (*MsgEncounterCloseResponse, error) {
+	out := new(MsgEncounterCloseResponse)
+	err := c.cc.Invoke(ctx, Msg_EncounterClose_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // MsgServer is the server API for Msg service.
 // All implementations must embed UnimplementedMsgServer
 // for forward compatibility
@@ -511,6 +599,14 @@ type MsgServer interface {
 	SetStoryWriterSet(context.Context, *MsgSetStoryWriterSet) (*MsgSetStoryWriterSetResponse, error)
 	SetArtistSet(context.Context, *MsgSetArtistSet) (*MsgSetArtistSetResponse, error)
 	CardVoteMulti(context.Context, *MsgCardVoteMulti) (*MsgCardVoteMultiResponse, error)
+	MatchOpen(context.Context, *MsgMatchOpen) (*MsgMatchOpenResponse, error)
+	SetNameSet(context.Context, *MsgSetNameSet) (*MsgSetNameSetResponse, error)
+	ProfileAliasSet(context.Context, *MsgProfileAliasSet) (*MsgProfileAliasSetResponse, error)
+	EarlyAccessInvite(context.Context, *MsgEarlyAccessInvite) (*MsgEarlyAccessInviteResponse, error)
+	ZealyConnect(context.Context, *MsgZealyConnect) (*MsgZealyConnectResponse, error)
+	EncounterCreate(context.Context, *MsgEncounterCreate) (*MsgEncounterCreateResponse, error)
+	EncounterDo(context.Context, *MsgEncounterDo) (*MsgEncounterDoResponse, error)
+	EncounterClose(context.Context, *MsgEncounterClose) (*MsgEncounterCloseResponse, error)
 	mustEmbedUnimplementedMsgServer()
 }
 
@@ -634,6 +730,30 @@ func (UnimplementedMsgServer) SetArtistSet(context.Context, *MsgSetArtistSet) (*
 }
 func (UnimplementedMsgServer) CardVoteMulti(context.Context, *MsgCardVoteMulti) (*MsgCardVoteMultiResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CardVoteMulti not implemented")
+}
+func (UnimplementedMsgServer) MatchOpen(context.Context, *MsgMatchOpen) (*MsgMatchOpenResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method MatchOpen not implemented")
+}
+func (UnimplementedMsgServer) SetNameSet(context.Context, *MsgSetNameSet) (*MsgSetNameSetResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SetNameSet not implemented")
+}
+func (UnimplementedMsgServer) ProfileAliasSet(context.Context, *MsgProfileAliasSet) (*MsgProfileAliasSetResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ProfileAliasSet not implemented")
+}
+func (UnimplementedMsgServer) EarlyAccessInvite(context.Context, *MsgEarlyAccessInvite) (*MsgEarlyAccessInviteResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method EarlyAccessInvite not implemented")
+}
+func (UnimplementedMsgServer) ZealyConnect(context.Context, *MsgZealyConnect) (*MsgZealyConnectResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ZealyConnect not implemented")
+}
+func (UnimplementedMsgServer) EncounterCreate(context.Context, *MsgEncounterCreate) (*MsgEncounterCreateResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method EncounterCreate not implemented")
+}
+func (UnimplementedMsgServer) EncounterDo(context.Context, *MsgEncounterDo) (*MsgEncounterDoResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method EncounterDo not implemented")
+}
+func (UnimplementedMsgServer) EncounterClose(context.Context, *MsgEncounterClose) (*MsgEncounterCloseResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method EncounterClose not implemented")
 }
 func (UnimplementedMsgServer) mustEmbedUnimplementedMsgServer() {}
 
@@ -1350,6 +1470,150 @@ func _Msg_CardVoteMulti_Handler(srv interface{}, ctx context.Context, dec func(i
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Msg_MatchOpen_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgMatchOpen)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).MatchOpen(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Msg_MatchOpen_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).MatchOpen(ctx, req.(*MsgMatchOpen))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Msg_SetNameSet_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgSetNameSet)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).SetNameSet(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Msg_SetNameSet_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).SetNameSet(ctx, req.(*MsgSetNameSet))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Msg_ProfileAliasSet_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgProfileAliasSet)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).ProfileAliasSet(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Msg_ProfileAliasSet_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).ProfileAliasSet(ctx, req.(*MsgProfileAliasSet))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Msg_EarlyAccessInvite_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgEarlyAccessInvite)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).EarlyAccessInvite(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Msg_EarlyAccessInvite_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).EarlyAccessInvite(ctx, req.(*MsgEarlyAccessInvite))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Msg_ZealyConnect_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgZealyConnect)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).ZealyConnect(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Msg_ZealyConnect_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).ZealyConnect(ctx, req.(*MsgZealyConnect))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Msg_EncounterCreate_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgEncounterCreate)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).EncounterCreate(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Msg_EncounterCreate_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).EncounterCreate(ctx, req.(*MsgEncounterCreate))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Msg_EncounterDo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgEncounterDo)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).EncounterDo(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Msg_EncounterDo_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).EncounterDo(ctx, req.(*MsgEncounterDo))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Msg_EncounterClose_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgEncounterClose)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).EncounterClose(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Msg_EncounterClose_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).EncounterClose(ctx, req.(*MsgEncounterClose))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Msg_ServiceDesc is the grpc.ServiceDesc for Msg service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -1512,6 +1776,38 @@ var Msg_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CardVoteMulti",
 			Handler:    _Msg_CardVoteMulti_Handler,
+		},
+		{
+			MethodName: "MatchOpen",
+			Handler:    _Msg_MatchOpen_Handler,
+		},
+		{
+			MethodName: "SetNameSet",
+			Handler:    _Msg_SetNameSet_Handler,
+		},
+		{
+			MethodName: "ProfileAliasSet",
+			Handler:    _Msg_ProfileAliasSet_Handler,
+		},
+		{
+			MethodName: "EarlyAccessInvite",
+			Handler:    _Msg_EarlyAccessInvite_Handler,
+		},
+		{
+			MethodName: "ZealyConnect",
+			Handler:    _Msg_ZealyConnect_Handler,
+		},
+		{
+			MethodName: "EncounterCreate",
+			Handler:    _Msg_EncounterCreate_Handler,
+		},
+		{
+			MethodName: "EncounterDo",
+			Handler:    _Msg_EncounterDo_Handler,
+		},
+		{
+			MethodName: "EncounterClose",
+			Handler:    _Msg_EncounterClose_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

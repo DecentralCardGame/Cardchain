@@ -122,6 +122,30 @@ func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {
 	registry.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgCardVoteMulti{},
 	)
+	registry.RegisterImplementations((*sdk.Msg)(nil),
+		&MsgMatchOpen{},
+	)
+	registry.RegisterImplementations((*sdk.Msg)(nil),
+		&MsgSetNameSet{},
+	)
+	registry.RegisterImplementations((*sdk.Msg)(nil),
+		&MsgProfileAliasSet{},
+	)
+	registry.RegisterImplementations((*sdk.Msg)(nil),
+		&MsgEarlyAccessInvite{},
+	)
+	registry.RegisterImplementations((*sdk.Msg)(nil),
+		&MsgZealyConnect{},
+	)
+	registry.RegisterImplementations((*sdk.Msg)(nil),
+		&MsgEncounterCreate{},
+	)
+	registry.RegisterImplementations((*sdk.Msg)(nil),
+		&MsgEncounterDo{},
+	)
+	registry.RegisterImplementations((*sdk.Msg)(nil),
+		&MsgEncounterClose{},
+	)
 	// this line is used by starport scaffolding # 3
 
 	registry.RegisterImplementations((*sdk.Msg)(nil),

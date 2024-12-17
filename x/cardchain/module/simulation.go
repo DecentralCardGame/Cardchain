@@ -175,6 +175,38 @@ const (
 	// TODO: Determine the simulation weight value
 	defaultWeightMsgCardVoteMulti int = 100
 
+	opWeightMsgMatchOpen = "op_weight_msg_match_open"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgMatchOpen int = 100
+
+	opWeightMsgSetNameSet = "op_weight_msg_set_name_set"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgSetNameSet int = 100
+
+	opWeightMsgProfileAliasSet = "op_weight_msg_profile_alias_set"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgProfileAliasSet int = 100
+
+	opWeightMsgEarlyAccessInvite = "op_weight_msg_early_access_invite"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgEarlyAccessInvite int = 100
+
+	opWeightMsgZealyConnect = "op_weight_msg_zealy_connect"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgZealyConnect int = 100
+
+	opWeightMsgEncounterCreate = "op_weight_msg_encounter_create"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgEncounterCreate int = 100
+
+	opWeightMsgEncounterDo = "op_weight_msg_encounter_do"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgEncounterDo int = 100
+
+	opWeightMsgEncounterClose = "op_weight_msg_encounter_close"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgEncounterClose int = 100
+
 	// this line is used by starport scaffolding # simapp/module/const
 )
 
@@ -616,6 +648,94 @@ func (am AppModule) WeightedOperations(simState module.SimulationState) []simtyp
 		cardchainsimulation.SimulateMsgCardVoteMulti(am.accountKeeper, am.bankKeeper, am.keeper),
 	))
 
+	var weightMsgMatchOpen int
+	simState.AppParams.GetOrGenerate(opWeightMsgMatchOpen, &weightMsgMatchOpen, nil,
+		func(_ *rand.Rand) {
+			weightMsgMatchOpen = defaultWeightMsgMatchOpen
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgMatchOpen,
+		cardchainsimulation.SimulateMsgMatchOpen(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
+	var weightMsgSetNameSet int
+	simState.AppParams.GetOrGenerate(opWeightMsgSetNameSet, &weightMsgSetNameSet, nil,
+		func(_ *rand.Rand) {
+			weightMsgSetNameSet = defaultWeightMsgSetNameSet
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgSetNameSet,
+		cardchainsimulation.SimulateMsgSetNameSet(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
+	var weightMsgProfileAliasSet int
+	simState.AppParams.GetOrGenerate(opWeightMsgProfileAliasSet, &weightMsgProfileAliasSet, nil,
+		func(_ *rand.Rand) {
+			weightMsgProfileAliasSet = defaultWeightMsgProfileAliasSet
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgProfileAliasSet,
+		cardchainsimulation.SimulateMsgProfileAliasSet(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
+	var weightMsgEarlyAccessInvite int
+	simState.AppParams.GetOrGenerate(opWeightMsgEarlyAccessInvite, &weightMsgEarlyAccessInvite, nil,
+		func(_ *rand.Rand) {
+			weightMsgEarlyAccessInvite = defaultWeightMsgEarlyAccessInvite
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgEarlyAccessInvite,
+		cardchainsimulation.SimulateMsgEarlyAccessInvite(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
+	var weightMsgZealyConnect int
+	simState.AppParams.GetOrGenerate(opWeightMsgZealyConnect, &weightMsgZealyConnect, nil,
+		func(_ *rand.Rand) {
+			weightMsgZealyConnect = defaultWeightMsgZealyConnect
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgZealyConnect,
+		cardchainsimulation.SimulateMsgZealyConnect(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
+	var weightMsgEncounterCreate int
+	simState.AppParams.GetOrGenerate(opWeightMsgEncounterCreate, &weightMsgEncounterCreate, nil,
+		func(_ *rand.Rand) {
+			weightMsgEncounterCreate = defaultWeightMsgEncounterCreate
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgEncounterCreate,
+		cardchainsimulation.SimulateMsgEncounterCreate(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
+	var weightMsgEncounterDo int
+	simState.AppParams.GetOrGenerate(opWeightMsgEncounterDo, &weightMsgEncounterDo, nil,
+		func(_ *rand.Rand) {
+			weightMsgEncounterDo = defaultWeightMsgEncounterDo
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgEncounterDo,
+		cardchainsimulation.SimulateMsgEncounterDo(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
+	var weightMsgEncounterClose int
+	simState.AppParams.GetOrGenerate(opWeightMsgEncounterClose, &weightMsgEncounterClose, nil,
+		func(_ *rand.Rand) {
+			weightMsgEncounterClose = defaultWeightMsgEncounterClose
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgEncounterClose,
+		cardchainsimulation.SimulateMsgEncounterClose(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
 	// this line is used by starport scaffolding # simapp/module/operation
 
 	return operations
@@ -925,6 +1045,70 @@ func (am AppModule) ProposalMsgs(simState module.SimulationState) []simtypes.Wei
 			defaultWeightMsgCardVoteMulti,
 			func(r *rand.Rand, ctx sdk.Context, accs []simtypes.Account) sdk.Msg {
 				cardchainsimulation.SimulateMsgCardVoteMulti(am.accountKeeper, am.bankKeeper, am.keeper)
+				return nil
+			},
+		),
+		simulation.NewWeightedProposalMsg(
+			opWeightMsgMatchOpen,
+			defaultWeightMsgMatchOpen,
+			func(r *rand.Rand, ctx sdk.Context, accs []simtypes.Account) sdk.Msg {
+				cardchainsimulation.SimulateMsgMatchOpen(am.accountKeeper, am.bankKeeper, am.keeper)
+				return nil
+			},
+		),
+		simulation.NewWeightedProposalMsg(
+			opWeightMsgSetNameSet,
+			defaultWeightMsgSetNameSet,
+			func(r *rand.Rand, ctx sdk.Context, accs []simtypes.Account) sdk.Msg {
+				cardchainsimulation.SimulateMsgSetNameSet(am.accountKeeper, am.bankKeeper, am.keeper)
+				return nil
+			},
+		),
+		simulation.NewWeightedProposalMsg(
+			opWeightMsgProfileAliasSet,
+			defaultWeightMsgProfileAliasSet,
+			func(r *rand.Rand, ctx sdk.Context, accs []simtypes.Account) sdk.Msg {
+				cardchainsimulation.SimulateMsgProfileAliasSet(am.accountKeeper, am.bankKeeper, am.keeper)
+				return nil
+			},
+		),
+		simulation.NewWeightedProposalMsg(
+			opWeightMsgEarlyAccessInvite,
+			defaultWeightMsgEarlyAccessInvite,
+			func(r *rand.Rand, ctx sdk.Context, accs []simtypes.Account) sdk.Msg {
+				cardchainsimulation.SimulateMsgEarlyAccessInvite(am.accountKeeper, am.bankKeeper, am.keeper)
+				return nil
+			},
+		),
+		simulation.NewWeightedProposalMsg(
+			opWeightMsgZealyConnect,
+			defaultWeightMsgZealyConnect,
+			func(r *rand.Rand, ctx sdk.Context, accs []simtypes.Account) sdk.Msg {
+				cardchainsimulation.SimulateMsgZealyConnect(am.accountKeeper, am.bankKeeper, am.keeper)
+				return nil
+			},
+		),
+		simulation.NewWeightedProposalMsg(
+			opWeightMsgEncounterCreate,
+			defaultWeightMsgEncounterCreate,
+			func(r *rand.Rand, ctx sdk.Context, accs []simtypes.Account) sdk.Msg {
+				cardchainsimulation.SimulateMsgEncounterCreate(am.accountKeeper, am.bankKeeper, am.keeper)
+				return nil
+			},
+		),
+		simulation.NewWeightedProposalMsg(
+			opWeightMsgEncounterDo,
+			defaultWeightMsgEncounterDo,
+			func(r *rand.Rand, ctx sdk.Context, accs []simtypes.Account) sdk.Msg {
+				cardchainsimulation.SimulateMsgEncounterDo(am.accountKeeper, am.bankKeeper, am.keeper)
+				return nil
+			},
+		),
+		simulation.NewWeightedProposalMsg(
+			opWeightMsgEncounterClose,
+			defaultWeightMsgEncounterClose,
+			func(r *rand.Rand, ctx sdk.Context, accs []simtypes.Account) sdk.Msg {
+				cardchainsimulation.SimulateMsgEncounterClose(am.accountKeeper, am.bankKeeper, am.keeper)
 				return nil
 			},
 		),

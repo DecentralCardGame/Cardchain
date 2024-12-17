@@ -70,6 +70,15 @@ service Msg {
       returns (MsgSetStoryWriterSetResponse);
   rpc SetArtistSet(MsgSetArtistSet) returns (MsgSetArtistSetResponse);
   rpc CardVoteMulti(MsgCardVoteMulti) returns (MsgCardVoteMultiResponse);
+  rpc MatchOpen(MsgMatchOpen) returns (MsgMatchOpenResponse);
+  rpc SetNameSet(MsgSetNameSet) returns (MsgSetNameSetResponse);
+  rpc ProfileAliasSet(MsgProfileAliasSet) returns (MsgProfileAliasSetResponse);
+  rpc EarlyAccessInvite(MsgEarlyAccessInvite)
+      returns (MsgEarlyAccessInviteResponse);
+  rpc ZealyConnect(MsgZealyConnect) returns (MsgZealyConnectResponse);
+  rpc EncounterCreate(MsgEncounterCreate) returns (MsgEncounterCreateResponse);
+  rpc EncounterDo(MsgEncounterDo) returns (MsgEncounterDoResponse);
+  rpc EncounterClose(MsgEncounterClose) returns (MsgEncounterCloseResponse);
 }
 // MsgUpdateParams is the Msg/UpdateParams request type.
 message MsgUpdateParams {
@@ -426,3 +435,77 @@ message MsgCardVoteMulti {
 }
 
 message MsgCardVoteMultiResponse { bool airdropClaimed = 1; }
+
+message MsgMatchOpen {
+  option (cosmos.msg.v1.signer) = "creator";
+  string creator = 1;
+  string playerA = 2;
+  string playerB = 3;
+  repeated uint64 playerAdeck = 4;
+  repeated uint64 playerBdeck = 5;
+}
+
+message MsgMatchOpenResponse { uint64 matchId = 1; }
+
+message MsgSetNameSet {
+  option (cosmos.msg.v1.signer) = "creator";
+  string creator = 1;
+  uint64 setId = 2;
+  string name = 3;
+}
+
+message MsgSetNameSetResponse {}
+
+message MsgProfileAliasSet {
+  option (cosmos.msg.v1.signer) = "creator";
+  string creator = 1;
+  string alias = 2;
+}
+
+message MsgProfileAliasSetResponse {}
+
+message MsgEarlyAccessInvite {
+  option (cosmos.msg.v1.signer) = "creator";
+  string creator = 1;
+  string user = 2;
+}
+
+message MsgEarlyAccessInviteResponse {}
+
+message MsgZealyConnect {
+  option (cosmos.msg.v1.signer) = "creator";
+  string creator = 1;
+  string zealyId = 2;
+}
+
+message MsgZealyConnectResponse {}
+
+message MsgEncounterCreate {
+  option (cosmos.msg.v1.signer) = "creator";
+  string creator = 1;
+  string name = 2;
+  repeated uint64 drawlist = 3;
+  map<string, string> parameters = 4;
+  bytes image = 5;
+}
+
+message MsgEncounterCreateResponse {}
+
+message MsgEncounterDo {
+  option (cosmos.msg.v1.signer) = "creator";
+  string creator = 1;
+  uint64 encounterId = 2;
+  string user = 3;
+}
+
+message MsgEncounterDoResponse {}
+
+message MsgEncounterClose {
+  option (cosmos.msg.v1.signer) = "creator";
+  string creator = 1;
+  uint64 encounterId = 2;
+  string user = 3;
+  bool won = 4;
+}
+
+message MsgEncounterCloseResponse {}

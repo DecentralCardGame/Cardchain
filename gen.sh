@@ -40,3 +40,11 @@
 #ignite scaffold message SetStoryWriterSet setId:uint storyWriter
 #ignite scaffold message SetArtistSet setId:uint artist
 #ignite scaffold message CardVoteMulti votes:array.int  --response airdropClaimed:bool
+ignite scaffold message MatchOpen playerA:string playerB:string playerADeck:uints playerBDeck:uints --response matchId:uint
+ignite scaffold message SetNameSet setId:uint name
+ignite scaffold message ProfileAliasSet alias
+ignite scaffold message EarlyAccessInvite user
+ignite scaffold message ZealyConnect zealyId
+ignite scaffold message EncounterCreate name drawlist:uints parameters image
+ignite scaffold message EncounterDo encounterId:uint user
+ignite scaffold message EncounterClose encounterId:uint user won:bool
