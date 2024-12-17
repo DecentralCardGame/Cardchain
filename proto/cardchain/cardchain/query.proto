@@ -1,4 +1,5 @@
 syntax = "proto3";
+
 package cardchain.cardchain;
 
 import "amino/amino.proto";
@@ -6,25 +7,53 @@ import "gogoproto/gogo.proto";
 import "google/api/annotations.proto";
 import "cosmos/base/query/v1beta1/pagination.proto";
 import "cardchain/cardchain/params.proto";
+import "cardchain/cardchain/product_details.proto";
 
 option go_package = "github.com/DecentralCardGame/cardchain/x/cardchain/types";
 
 // Query defines the gRPC querier service.
 service Query {
+  
   // Parameters queries the parameters of the module.
-  rpc Params(QueryParamsRequest) returns (QueryParamsResponse) {
+  rpc Params (QueryParamsRequest) returns (QueryParamsResponse) {
     option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/params";
+  
+  }
+  
+  // Queries a list of ProductDetails items.
+  rpc ProductDetails    (QueryGetProductDetailsRequest) returns (QueryGetProductDetailsResponse) {
+    option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/product_details/{id}";
+  
+  }
+  rpc ProductDetailsAll (QueryAllProductDetailsRequest) returns (QueryAllProductDetailsResponse) {
+    option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/product_details";
+  
   }
 }
-
 // QueryParamsRequest is request type for the Query/Params RPC method.
 message QueryParamsRequest {}
 
 // QueryParamsResponse is response type for the Query/Params RPC method.
 message QueryParamsResponse {
+  
   // params holds all the parameters of this module.
-  Params params = 1 [
-    (gogoproto.nullable) = false,
-    (amino.dont_omitempty) = true
-  ];
+  Params params = 1 [(gogoproto.nullable) = false, (amino.dont_omitempty) = true];
 }
+
+message QueryGetProductDetailsRequest {
+  uint64 id = 1;
+}
+
+message QueryGetProductDetailsResponse {
+  ProductDetails ProductDetails = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryAllProductDetailsRequest {
+  cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllProductDetailsResponse {
+  repeated ProductDetails                         ProductDetails = 1 [(gogoproto.nullable) = false];
+           cosmos.base.query.v1beta1.PageResponse pagination     = 2;
+}
+

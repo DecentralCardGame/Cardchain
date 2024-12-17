@@ -12,88 +12,80 @@ import "cardchain/cardchain/voting.proto";
 import "cardchain/cardchain/match.proto";
 import "cardchain/cardchain/council.proto";
 import "cardchain/cardchain/card.proto";
+import "cardchain/cardchain/product_details.proto";
 
 option go_package = "github.com/DecentralCardGame/cardchain/x/cardchain/types";
 
 // Msg defines the Msg service.
 service Msg {
   option (cosmos.msg.v1.service) = true;
-
+  
   // UpdateParams defines a (governance) operation for updating the module
   // parameters. The authority defaults to the x/gov module account.
-  rpc UpdateParams(MsgUpdateParams) returns (MsgUpdateParamsResponse);
-  rpc UserCreate(MsgUserCreate) returns (MsgUserCreateResponse);
-  rpc CardSchemeBuy(MsgCardSchemeBuy) returns (MsgCardSchemeBuyResponse);
-  rpc CardSaveContent(MsgCardSaveContent) returns (MsgCardSaveContentResponse);
-  rpc CardVote(MsgCardVote) returns (MsgCardVoteResponse);
-  rpc CardTransfer(MsgCardTransfer) returns (MsgCardTransferResponse);
-  rpc CardDonate(MsgCardDonate) returns (MsgCardDonateResponse);
-  rpc CardArtworkAdd(MsgCardArtworkAdd) returns (MsgCardArtworkAddResponse);
-  rpc CardArtistChange(MsgCardArtistChange)
-      returns (MsgCardArtistChangeResponse);
-  rpc CouncilRegister(MsgCouncilRegister) returns (MsgCouncilRegisterResponse);
-  rpc CouncilDeregister(MsgCouncilDeregister)
-      returns (MsgCouncilDeregisterResponse);
-  rpc MatchReport(MsgMatchReport) returns (MsgMatchReportResponse);
-  rpc CouncilCreate(MsgCouncilCreate) returns (MsgCouncilCreateResponse);
-  rpc MatchReporterAppoint(MsgMatchReporterAppoint)
-      returns (MsgMatchReporterAppointResponse);
-  rpc SetCreate(MsgSetCreate) returns (MsgSetCreateResponse);
-  rpc SetCardAdd(MsgSetCardAdd) returns (MsgSetCardAddResponse);
-  rpc SetCardRemove(MsgSetCardRemove) returns (MsgSetCardRemoveResponse);
-  rpc SetContributorAdd(MsgSetContributorAdd)
-      returns (MsgSetContributorAddResponse);
-  rpc SetContributorRemove(MsgSetContributorRemove)
-      returns (MsgSetContributorRemoveResponse);
-  rpc SetFinalize(MsgSetFinalize) returns (MsgSetFinalizeResponse);
-  rpc SetArtworkAdd(MsgSetArtworkAdd) returns (MsgSetArtworkAddResponse);
-  rpc SetStoryAdd(MsgSetStoryAdd) returns (MsgSetStoryAddResponse);
-  rpc BoosterPackBuy(MsgBoosterPackBuy) returns (MsgBoosterPackBuyResponse);
-  rpc SellOfferCreate(MsgSellOfferCreate) returns (MsgSellOfferCreateResponse);
-  rpc SellOfferBuy(MsgSellOfferBuy) returns (MsgSellOfferBuyResponse);
-  rpc SellOfferRemove(MsgSellOfferRemove) returns (MsgSellOfferRemoveResponse);
-  rpc CardRaritySet(MsgCardRaritySet) returns (MsgCardRaritySetResponse);
-  rpc CouncilResponseCommit(MsgCouncilResponseCommit)
-      returns (MsgCouncilResponseCommitResponse);
-  rpc CouncilResponseReveal(MsgCouncilResponseReveal)
-      returns (MsgCouncilResponseRevealResponse);
-  rpc CouncilRestart(MsgCouncilRestart) returns (MsgCouncilRestartResponse);
-  rpc MatchConfirm(MsgMatchConfirm) returns (MsgMatchConfirmResponse);
-  rpc ProfileCardSet(MsgProfileCardSet) returns (MsgProfileCardSetResponse);
-  rpc ProfileWebsiteSet(MsgProfileWebsiteSet)
-      returns (MsgProfileWebsiteSetResponse);
-  rpc ProfileBioSet(MsgProfileBioSet) returns (MsgProfileBioSetResponse);
-  rpc BoosterPackOpen(MsgBoosterPackOpen) returns (MsgBoosterPackOpenResponse);
-  rpc BoosterPackTransfer(MsgBoosterPackTransfer)
-      returns (MsgBoosterPackTransferResponse);
-  rpc SetStoryWriterSet(MsgSetStoryWriterSet)
-      returns (MsgSetStoryWriterSetResponse);
-  rpc SetArtistSet(MsgSetArtistSet) returns (MsgSetArtistSetResponse);
-  rpc CardVoteMulti(MsgCardVoteMulti) returns (MsgCardVoteMultiResponse);
-  rpc MatchOpen(MsgMatchOpen) returns (MsgMatchOpenResponse);
-  rpc SetNameSet(MsgSetNameSet) returns (MsgSetNameSetResponse);
-  rpc ProfileAliasSet(MsgProfileAliasSet) returns (MsgProfileAliasSetResponse);
-  rpc EarlyAccessInvite(MsgEarlyAccessInvite)
-      returns (MsgEarlyAccessInviteResponse);
-  rpc ZealyConnect(MsgZealyConnect) returns (MsgZealyConnectResponse);
-  rpc EncounterCreate(MsgEncounterCreate) returns (MsgEncounterCreateResponse);
-  rpc EncounterDo(MsgEncounterDo) returns (MsgEncounterDoResponse);
-  rpc EncounterClose(MsgEncounterClose) returns (MsgEncounterCloseResponse);
+  rpc UpdateParams          (MsgUpdateParams         ) returns (MsgUpdateParamsResponse         );
+  rpc UserCreate            (MsgUserCreate           ) returns (MsgUserCreateResponse           );
+  rpc CardSchemeBuy         (MsgCardSchemeBuy        ) returns (MsgCardSchemeBuyResponse        );
+  rpc CardSaveContent       (MsgCardSaveContent      ) returns (MsgCardSaveContentResponse      );
+  rpc CardVote              (MsgCardVote             ) returns (MsgCardVoteResponse             );
+  rpc CardTransfer          (MsgCardTransfer         ) returns (MsgCardTransferResponse         );
+  rpc CardDonate            (MsgCardDonate           ) returns (MsgCardDonateResponse           );
+  rpc CardArtworkAdd        (MsgCardArtworkAdd       ) returns (MsgCardArtworkAddResponse       );
+  rpc CardArtistChange      (MsgCardArtistChange     ) returns (MsgCardArtistChangeResponse     );
+  rpc CouncilRegister       (MsgCouncilRegister      ) returns (MsgCouncilRegisterResponse      );
+  rpc CouncilDeregister     (MsgCouncilDeregister    ) returns (MsgCouncilDeregisterResponse    );
+  rpc MatchReport           (MsgMatchReport          ) returns (MsgMatchReportResponse          );
+  rpc CouncilCreate         (MsgCouncilCreate        ) returns (MsgCouncilCreateResponse        );
+  rpc MatchReporterAppoint  (MsgMatchReporterAppoint ) returns (MsgMatchReporterAppointResponse );
+  rpc SetCreate             (MsgSetCreate            ) returns (MsgSetCreateResponse            );
+  rpc SetCardAdd            (MsgSetCardAdd           ) returns (MsgSetCardAddResponse           );
+  rpc SetCardRemove         (MsgSetCardRemove        ) returns (MsgSetCardRemoveResponse        );
+  rpc SetContributorAdd     (MsgSetContributorAdd    ) returns (MsgSetContributorAddResponse    );
+  rpc SetContributorRemove  (MsgSetContributorRemove ) returns (MsgSetContributorRemoveResponse );
+  rpc SetFinalize           (MsgSetFinalize          ) returns (MsgSetFinalizeResponse          );
+  rpc SetArtworkAdd         (MsgSetArtworkAdd        ) returns (MsgSetArtworkAddResponse        );
+  rpc SetStoryAdd           (MsgSetStoryAdd          ) returns (MsgSetStoryAddResponse          );
+  rpc BoosterPackBuy        (MsgBoosterPackBuy       ) returns (MsgBoosterPackBuyResponse       );
+  rpc SellOfferCreate       (MsgSellOfferCreate      ) returns (MsgSellOfferCreateResponse      );
+  rpc SellOfferBuy          (MsgSellOfferBuy         ) returns (MsgSellOfferBuyResponse         );
+  rpc SellOfferRemove       (MsgSellOfferRemove      ) returns (MsgSellOfferRemoveResponse      );
+  rpc CardRaritySet         (MsgCardRaritySet        ) returns (MsgCardRaritySetResponse        );
+  rpc CouncilResponseCommit (MsgCouncilResponseCommit) returns (MsgCouncilResponseCommitResponse);
+  rpc CouncilResponseReveal (MsgCouncilResponseReveal) returns (MsgCouncilResponseRevealResponse);
+  rpc CouncilRestart        (MsgCouncilRestart       ) returns (MsgCouncilRestartResponse       );
+  rpc MatchConfirm          (MsgMatchConfirm         ) returns (MsgMatchConfirmResponse         );
+  rpc ProfileCardSet        (MsgProfileCardSet       ) returns (MsgProfileCardSetResponse       );
+  rpc ProfileWebsiteSet     (MsgProfileWebsiteSet    ) returns (MsgProfileWebsiteSetResponse    );
+  rpc ProfileBioSet         (MsgProfileBioSet        ) returns (MsgProfileBioSetResponse        );
+  rpc BoosterPackOpen       (MsgBoosterPackOpen      ) returns (MsgBoosterPackOpenResponse      );
+  rpc BoosterPackTransfer   (MsgBoosterPackTransfer  ) returns (MsgBoosterPackTransferResponse  );
+  rpc SetStoryWriterSet     (MsgSetStoryWriterSet    ) returns (MsgSetStoryWriterSetResponse    );
+  rpc SetArtistSet          (MsgSetArtistSet         ) returns (MsgSetArtistSetResponse         );
+  rpc CardVoteMulti         (MsgCardVoteMulti        ) returns (MsgCardVoteMultiResponse        );
+  rpc MatchOpen             (MsgMatchOpen            ) returns (MsgMatchOpenResponse            );
+  rpc SetNameSet            (MsgSetNameSet           ) returns (MsgSetNameSetResponse           );
+  rpc ProfileAliasSet       (MsgProfileAliasSet      ) returns (MsgProfileAliasSetResponse      );
+  rpc EarlyAccessInvite     (MsgEarlyAccessInvite    ) returns (MsgEarlyAccessInviteResponse    );
+  rpc ZealyConnect          (MsgZealyConnect         ) returns (MsgZealyConnectResponse         );
+  rpc EncounterCreate       (MsgEncounterCreate      ) returns (MsgEncounterCreateResponse      );
+  rpc EncounterDo           (MsgEncounterDo          ) returns (MsgEncounterDoResponse          );
+  rpc EncounterClose        (MsgEncounterClose       ) returns (MsgEncounterCloseResponse       );
+  rpc CreateProductDetails  (MsgCreateProductDetails ) returns (MsgCreateProductDetailsResponse );
+  rpc UpdateProductDetails  (MsgUpdateProductDetails ) returns (MsgUpdateProductDetailsResponse );
+  rpc DeleteProductDetails  (MsgDeleteProductDetails ) returns (MsgDeleteProductDetailsResponse );
 }
 // MsgUpdateParams is the Msg/UpdateParams request type.
 message MsgUpdateParams {
-  option (cosmos.msg.v1.signer) = "authority";
-  option (amino.name) = "cardchain/x/cardchain/MsgUpdateParams";
-
+  option (cosmos.msg.v1.signer) =                             "authority";
+  option           (amino.name) = "cardchain/x/cardchain/MsgUpdateParams";
+  
   // authority is the address that controls the module (defaults to x/gov unless
   // overwritten).
-  string authority = 1 [ (cosmos_proto.scalar) = "cosmos.AddressString" ];
+  string authority = 1 [(cosmos_proto.scalar) = "cosmos.AddressString"];
 
   // params defines the module parameters to update.
-
+  
   // NOTE: All parameters must be supplied.
-  Params params = 2
-      [ (gogoproto.nullable) = false, (amino.dont_omitempty) = true ];
+  Params params = 2 [(gogoproto.nullable) = false, (amino.dont_omitempty) = true];
 }
 
 // MsgUpdateParamsResponse defines the response structure for executing a
@@ -104,43 +96,49 @@ message MsgUserCreate {
   option (cosmos.msg.v1.signer) = "creator";
   string creator = 1;
   string newUser = 2;
-  string alias = 3;
+  string alias   = 3;
 }
 
 message MsgUserCreateResponse {}
 
 message MsgCardSchemeBuy {
   option (cosmos.msg.v1.signer) = "creator";
-  string creator = 1;
-  cosmos.base.v1beta1.Coin bid = 2 [ (gogoproto.nullable) = false ];
+  string                   creator = 1;
+  cosmos.base.v1beta1.Coin bid     = 2 [(gogoproto.nullable) = false];
 }
 
-message MsgCardSchemeBuyResponse { uint64 cardId = 1; }
+message MsgCardSchemeBuyResponse {
+  uint64 cardId = 1;
+}
 
 message MsgCardSaveContent {
   option (cosmos.msg.v1.signer) = "creator";
-  string creator = 1;
-  uint64 cardId = 2;
-  bytes content = 3;
-  string notes = 4;
-  string artist = 5;
-  bool balanceAnchor = 6;
+  string creator       = 1;
+  uint64 cardId        = 2;
+  bytes  content       = 3;
+  string notes         = 4;
+  string artist        = 5;
+  bool   balanceAnchor = 6;
 }
 
-message MsgCardSaveContentResponse { bool airdropClaimed = 1; }
+message MsgCardSaveContentResponse {
+  bool airdropClaimed = 1;
+}
 
 message MsgCardVote {
   option (cosmos.msg.v1.signer) = "creator";
-  string creator = 1;
-  SingleVote vote = 2;
+  string     creator = 1;
+  SingleVote vote    = 2;
 }
 
-message MsgCardVoteResponse { bool airdropClaimed = 1; }
+message MsgCardVoteResponse {
+  bool airdropClaimed = 1;
+}
 
 message MsgCardTransfer {
   option (cosmos.msg.v1.signer) = "creator";
-  string creator = 1;
-  uint64 cardId = 2;
+  string creator  = 1;
+  uint64 cardId   = 2;
   string receiver = 3;
 }
 
@@ -148,9 +146,9 @@ message MsgCardTransferResponse {}
 
 message MsgCardDonate {
   option (cosmos.msg.v1.signer) = "creator";
-  string creator = 1;
-  uint64 cardId = 2;
-  cosmos.base.v1beta1.Coin amount = 3 [ (gogoproto.nullable) = false ];
+  string                   creator = 1;
+  uint64                   cardId  = 2;
+  cosmos.base.v1beta1.Coin amount  = 3 [(gogoproto.nullable) = false];
 }
 
 message MsgCardDonateResponse {}
@@ -158,9 +156,9 @@ message MsgCardDonateResponse {}
 message MsgCardArtworkAdd {
   option (cosmos.msg.v1.signer) = "creator";
   string creator = 1;
-  uint64 cardId = 2;
-  bytes image = 3;
-  bool fullArt = 4;
+  uint64 cardId  = 2;
+  bytes  image   = 3;
+  bool   fullArt = 4;
 }
 
 message MsgCardArtworkAddResponse {}
@@ -168,8 +166,8 @@ message MsgCardArtworkAddResponse {}
 message MsgCardArtistChange {
   option (cosmos.msg.v1.signer) = "creator";
   string creator = 1;
-  uint64 cardId = 2;
-  string artist = 3;
+  uint64 cardId  = 2;
+  string artist  = 3;
 }
 
 message MsgCardArtistChangeResponse {}
@@ -190,11 +188,11 @@ message MsgCouncilDeregisterResponse {}
 
 message MsgMatchReport {
   option (cosmos.msg.v1.signer) = "creator";
-  string creator = 1;
-  uint64 matchId = 2;
-  repeated uint64 playedCardsA = 3;
-  repeated uint64 playedCardsB = 4;
-  Outcome outcome = 5;
+           string  creator      = 1;
+           uint64  matchId      = 2;
+  repeated uint64  playedCardsA = 3;
+  repeated uint64  playedCardsB = 4;
+           Outcome outcome      = 5;
 }
 
 message MsgMatchReportResponse {}
@@ -202,14 +200,14 @@ message MsgMatchReportResponse {}
 message MsgCouncilCreate {
   option (cosmos.msg.v1.signer) = "creator";
   string creator = 1;
-  uint64 cardId = 2;
+  uint64 cardId  = 2;
 }
 
 message MsgCouncilCreateResponse {}
 
 message MsgMatchReporterAppoint {
   option (cosmos.msg.v1.signer) = "creator";
-  string creator = 1;
+  string creator  = 1;
   string reporter = 2;
 }
 
@@ -217,10 +215,10 @@ message MsgMatchReporterAppointResponse {}
 
 message MsgSetCreate {
   option (cosmos.msg.v1.signer) = "creator";
-  string creator = 1;
-  string name = 2;
-  string artist = 3;
-  string storyWriter = 4;
+           string creator      = 1;
+           string name         = 2;
+           string artist       = 3;
+           string storyWriter  = 4;
   repeated string contributors = 5;
 }
 
@@ -229,8 +227,8 @@ message MsgSetCreateResponse {}
 message MsgSetCardAdd {
   option (cosmos.msg.v1.signer) = "creator";
   string creator = 1;
-  uint64 setId = 2;
-  uint64 cardId = 3;
+  uint64 setId   = 2;
+  uint64 cardId  = 3;
 }
 
 message MsgSetCardAddResponse {}
@@ -238,8 +236,8 @@ message MsgSetCardAddResponse {}
 message MsgSetCardRemove {
   option (cosmos.msg.v1.signer) = "creator";
   string creator = 1;
-  uint64 setId = 2;
-  uint64 cardId = 3;
+  uint64 setId   = 2;
+  uint64 cardId  = 3;
 }
 
 message MsgSetCardRemoveResponse {}
@@ -247,8 +245,8 @@ message MsgSetCardRemoveResponse {}
 message MsgSetContributorAdd {
   option (cosmos.msg.v1.signer) = "creator";
   string creator = 1;
-  uint64 setId = 2;
-  string user = 3;
+  uint64 setId   = 2;
+  string user    = 3;
 }
 
 message MsgSetContributorAddResponse {}
@@ -256,8 +254,8 @@ message MsgSetContributorAddResponse {}
 message MsgSetContributorRemove {
   option (cosmos.msg.v1.signer) = "creator";
   string creator = 1;
-  uint64 setId = 2;
-  string user = 3;
+  uint64 setId   = 2;
+  string user    = 3;
 }
 
 message MsgSetContributorRemoveResponse {}
@@ -265,7 +263,7 @@ message MsgSetContributorRemoveResponse {}
 message MsgSetFinalize {
   option (cosmos.msg.v1.signer) = "creator";
   string creator = 1;
-  uint64 setId = 2;
+  uint64 setId   = 2;
 }
 
 message MsgSetFinalizeResponse {}
@@ -273,8 +271,8 @@ message MsgSetFinalizeResponse {}
 message MsgSetArtworkAdd {
   option (cosmos.msg.v1.signer) = "creator";
   string creator = 1;
-  uint64 setId = 2;
-  bytes image = 3;
+  uint64 setId   = 2;
+  bytes  image   = 3;
 }
 
 message MsgSetArtworkAddResponse {}
@@ -282,8 +280,8 @@ message MsgSetArtworkAddResponse {}
 message MsgSetStoryAdd {
   option (cosmos.msg.v1.signer) = "creator";
   string creator = 1;
-  uint64 setId = 2;
-  string story = 3;
+  uint64 setId   = 2;
+  string story   = 3;
 }
 
 message MsgSetStoryAddResponse {}
@@ -291,23 +289,25 @@ message MsgSetStoryAddResponse {}
 message MsgBoosterPackBuy {
   option (cosmos.msg.v1.signer) = "creator";
   string creator = 1;
-  uint64 setId = 2;
+  uint64 setId   = 2;
 }
 
-message MsgBoosterPackBuyResponse { bool airdropClaimed = 1; }
+message MsgBoosterPackBuyResponse {
+  bool airdropClaimed = 1;
+}
 
 message MsgSellOfferCreate {
   option (cosmos.msg.v1.signer) = "creator";
-  string creator = 1;
-  uint64 cardId = 2;
-  cosmos.base.v1beta1.Coin price = 3 [ (gogoproto.nullable) = false ];
+  string                   creator = 1;
+  uint64                   cardId  = 2;
+  cosmos.base.v1beta1.Coin price   = 3 [(gogoproto.nullable) = false];
 }
 
 message MsgSellOfferCreateResponse {}
 
 message MsgSellOfferBuy {
   option (cosmos.msg.v1.signer) = "creator";
-  string creator = 1;
+  string creator     = 1;
   uint64 sellOfferId = 2;
 }
 
@@ -315,7 +315,7 @@ message MsgSellOfferBuyResponse {}
 
 message MsgSellOfferRemove {
   option (cosmos.msg.v1.signer) = "creator";
-  string creator = 1;
+  string creator     = 1;
   uint64 sellOfferId = 2;
 }
 
@@ -323,19 +323,19 @@ message MsgSellOfferRemoveResponse {}
 
 message MsgCardRaritySet {
   option (cosmos.msg.v1.signer) = "creator";
-  string creator = 1;
-  uint64 cardId = 2;
-  uint64 setId = 3;
-  CardRarity rarity = 4;
+  string     creator = 1;
+  uint64     cardId  = 2;
+  uint64     setId   = 3;
+  CardRarity rarity  = 4;
 }
 
 message MsgCardRaritySetResponse {}
 
 message MsgCouncilResponseCommit {
   option (cosmos.msg.v1.signer) = "creator";
-  string creator = 1;
-  uint64 councilId = 2;
-  string reponse = 3;
+  string creator    = 1;
+  uint64 councilId  = 2;
+  string reponse    = 3;
   string suggestion = 4;
 }
 
@@ -343,17 +343,17 @@ message MsgCouncilResponseCommitResponse {}
 
 message MsgCouncilResponseReveal {
   option (cosmos.msg.v1.signer) = "creator";
-  string creator = 1;
-  uint64 councilId = 2;
-  Response reponse = 3;
-  string secret = 4;
+  string   creator   = 1;
+  uint64   councilId = 2;
+  Response reponse   = 3;
+  string   secret    = 4;
 }
 
 message MsgCouncilResponseRevealResponse {}
 
 message MsgCouncilRestart {
   option (cosmos.msg.v1.signer) = "creator";
-  string creator = 1;
+  string creator   = 1;
   uint64 councilId = 2;
 }
 
@@ -361,9 +361,9 @@ message MsgCouncilRestartResponse {}
 
 message MsgMatchConfirm {
   option (cosmos.msg.v1.signer) = "creator";
-  string creator = 1;
-  uint64 matchId = 2;
-  Outcome outcome = 3;
+           string     creator    = 1;
+           uint64     matchId    = 2;
+           Outcome    outcome    = 3;
   repeated SingleVote votedCards = 4;
 }
 
@@ -372,7 +372,7 @@ message MsgMatchConfirmResponse {}
 message MsgProfileCardSet {
   option (cosmos.msg.v1.signer) = "creator";
   string creator = 1;
-  uint64 cardId = 2;
+  uint64 cardId  = 2;
 }
 
 message MsgProfileCardSetResponse {}
@@ -388,32 +388,34 @@ message MsgProfileWebsiteSetResponse {}
 message MsgProfileBioSet {
   option (cosmos.msg.v1.signer) = "creator";
   string creator = 1;
-  string bio = 2;
+  string bio     = 2;
 }
 
 message MsgProfileBioSetResponse {}
 
 message MsgBoosterPackOpen {
   option (cosmos.msg.v1.signer) = "creator";
-  string creator = 1;
+  string creator       = 1;
   uint64 boosterPackId = 2;
 }
 
-message MsgBoosterPackOpenResponse { repeated uint64 cardIds = 1; }
+message MsgBoosterPackOpenResponse {
+  repeated uint64 cardIds = 1;
+}
 
 message MsgBoosterPackTransfer {
   option (cosmos.msg.v1.signer) = "creator";
-  string creator = 1;
+  string creator       = 1;
   uint64 boosterPackId = 2;
-  string receiver = 3;
+  string receiver      = 3;
 }
 
 message MsgBoosterPackTransferResponse {}
 
 message MsgSetStoryWriterSet {
   option (cosmos.msg.v1.signer) = "creator";
-  string creator = 1;
-  uint64 setId = 2;
+  string creator     = 1;
+  uint64 setId       = 2;
   string storyWriter = 3;
 }
 
@@ -422,36 +424,40 @@ message MsgSetStoryWriterSetResponse {}
 message MsgSetArtistSet {
   option (cosmos.msg.v1.signer) = "creator";
   string creator = 1;
-  uint64 setId = 2;
-  string artist = 3;
+  uint64 setId   = 2;
+  string artist  = 3;
 }
 
 message MsgSetArtistSetResponse {}
 
 message MsgCardVoteMulti {
   option (cosmos.msg.v1.signer) = "creator";
-  string creator = 1;
-  repeated SingleVote votes = 2;
+           string     creator = 1;
+  repeated SingleVote votes   = 2;
 }
 
-message MsgCardVoteMultiResponse { bool airdropClaimed = 1; }
+message MsgCardVoteMultiResponse {
+  bool airdropClaimed = 1;
+}
 
 message MsgMatchOpen {
   option (cosmos.msg.v1.signer) = "creator";
-  string creator = 1;
-  string playerA = 2;
-  string playerB = 3;
+           string creator     = 1;
+           string playerA     = 2;
+           string playerB     = 3;
   repeated uint64 playerAdeck = 4;
   repeated uint64 playerBdeck = 5;
 }
 
-message MsgMatchOpenResponse { uint64 matchId = 1; }
+message MsgMatchOpenResponse {
+  uint64 matchId = 1;
+}
 
 message MsgSetNameSet {
   option (cosmos.msg.v1.signer) = "creator";
   string creator = 1;
-  uint64 setId = 2;
-  string name = 3;
+  uint64 setId   = 2;
+  string name    = 3;
 }
 
 message MsgSetNameSetResponse {}
@@ -459,7 +465,7 @@ message MsgSetNameSetResponse {}
 message MsgProfileAliasSet {
   option (cosmos.msg.v1.signer) = "creator";
   string creator = 1;
-  string alias = 2;
+  string alias   = 2;
 }
 
 message MsgProfileAliasSetResponse {}
@@ -467,7 +473,7 @@ message MsgProfileAliasSetResponse {}
 message MsgEarlyAccessInvite {
   option (cosmos.msg.v1.signer) = "creator";
   string creator = 1;
-  string user = 2;
+  string user    = 2;
 }
 
 message MsgEarlyAccessInviteResponse {}
@@ -482,30 +488,60 @@ message MsgZealyConnectResponse {}
 
 message MsgEncounterCreate {
   option (cosmos.msg.v1.signer) = "creator";
-  string creator = 1;
-  string name = 2;
-  repeated uint64 drawlist = 3;
-  map<string, string> parameters = 4;
-  bytes image = 5;
+           string              creator    = 1;
+           string              name       = 2;
+  repeated uint64              drawlist   = 3;
+           map <string,string> parameters = 4;
+           bytes               image      = 5;
 }
 
 message MsgEncounterCreateResponse {}
 
 message MsgEncounterDo {
   option (cosmos.msg.v1.signer) = "creator";
-  string creator = 1;
+  string creator     = 1;
   uint64 encounterId = 2;
-  string user = 3;
+  string user        = 3;
 }
 
 message MsgEncounterDoResponse {}
 
 message MsgEncounterClose {
   option (cosmos.msg.v1.signer) = "creator";
-  string creator = 1;
+  string creator     = 1;
   uint64 encounterId = 2;
-  string user = 3;
-  bool won = 4;
+  string user        = 3;
+  bool   won         = 4;
 }
 
 message MsgEncounterCloseResponse {}
+
+message MsgCreateProductDetails {
+  option (cosmos.msg.v1.signer) = "creator";
+  string creator = 1;
+  string name    = 2;
+  string desc    = 3;
+}
+
+message MsgCreateProductDetailsResponse {
+  uint64 id = 1;
+}
+
+message MsgUpdateProductDetails {
+  option (cosmos.msg.v1.signer) = "creator";
+  string creator = 1;
+  uint64 id      = 2;
+  string name    = 3;
+  string desc    = 4;
+}
+
+message MsgUpdateProductDetailsResponse {}
+
+message MsgDeleteProductDetails {
+  option (cosmos.msg.v1.signer) = "creator";
+  string creator = 1;
+  uint64 id      = 2;
+}
+
+message MsgDeleteProductDetailsResponse {}
+

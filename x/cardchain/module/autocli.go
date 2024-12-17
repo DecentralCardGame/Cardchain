@@ -17,6 +17,17 @@ func (am AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 					Use:       "params",
 					Short:     "Shows the parameters of the module",
 				},
+				{
+					RpcMethod: "ProductDetailsAll",
+					Use:       "list-product-details",
+					Short:     "List all product-details",
+				},
+				{
+					RpcMethod:      "ProductDetails",
+					Use:            "show-product-details [id]",
+					Short:          "Shows a product-details by id",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "id"}},
+				},
 				// this line is used by ignite scaffolding # autocli/query
 			},
 		},
@@ -303,6 +314,24 @@ func (am AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 					Use:            "encounter-close [encounter-id] [user] [won]",
 					Short:          "Send a EncounterClose tx",
 					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "encounterId"}, {ProtoField: "user"}, {ProtoField: "won"}},
+				},
+				{
+					RpcMethod:      "CreateProductDetails",
+					Use:            "create-product-details [name] [desc]",
+					Short:          "Create product-details",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "name"}, {ProtoField: "desc"}},
+				},
+				{
+					RpcMethod:      "UpdateProductDetails",
+					Use:            "update-product-details [id] [name] [desc]",
+					Short:          "Update product-details",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "id"}, {ProtoField: "name"}, {ProtoField: "desc"}},
+				},
+				{
+					RpcMethod:      "DeleteProductDetails",
+					Use:            "delete-product-details [id]",
+					Short:          "Delete product-details",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "id"}},
 				},
 				// this line is used by ignite scaffolding # autocli/tx
 			},

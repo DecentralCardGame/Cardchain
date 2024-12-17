@@ -19,12 +19,47 @@ func TestGenesisState_Validate(t *testing.T) {
 			valid:    true,
 		},
 		{
-			desc:     "valid genesis state",
+			desc: "valid genesis state",
 			genState: &types.GenesisState{
 
+				ProductDetailsList: []types.ProductDetails{
+					{
+						Id: 0,
+					},
+					{
+						Id: 1,
+					},
+				},
+				ProductDetailsCount: 2,
 				// this line is used by starport scaffolding # types/genesis/validField
 			},
 			valid: true,
+		},
+		{
+			desc: "duplicated productDetails",
+			genState: &types.GenesisState{
+				ProductDetailsList: []types.ProductDetails{
+					{
+						Id: 0,
+					},
+					{
+						Id: 0,
+					},
+				},
+			},
+			valid: false,
+		},
+		{
+			desc: "invalid productDetails count",
+			genState: &types.GenesisState{
+				ProductDetailsList: []types.ProductDetails{
+					{
+						Id: 1,
+					},
+				},
+				ProductDetailsCount: 0,
+			},
+			valid: false,
 		},
 		// this line is used by starport scaffolding # types/genesis/testcase
 	}

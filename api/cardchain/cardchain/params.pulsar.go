@@ -3,6 +3,7 @@ package cardchain
 
 import (
 	_ "cosmossdk.io/api/amino"
+	v1beta1 "cosmossdk.io/api/cosmos/base/v1beta1"
 	fmt "fmt"
 	runtime "github.com/cosmos/cosmos-proto/runtime"
 	_ "github.com/cosmos/gogoproto/gogoproto"
@@ -15,12 +16,60 @@ import (
 )
 
 var (
-	md_Params protoreflect.MessageDescriptor
+	md_Params                                 protoreflect.MessageDescriptor
+	fd_Params_votingRightsExpirationTime      protoreflect.FieldDescriptor
+	fd_Params_setSize                         protoreflect.FieldDescriptor
+	fd_Params_setPrice                        protoreflect.FieldDescriptor
+	fd_Params_activeSetsAmount                protoreflect.FieldDescriptor
+	fd_Params_setCreationFee                  protoreflect.FieldDescriptor
+	fd_Params_collateralDeposit               protoreflect.FieldDescriptor
+	fd_Params_winnerReward                    protoreflect.FieldDescriptor
+	fd_Params_hourlyFaucet                    protoreflect.FieldDescriptor
+	fd_Params_inflationRate                   protoreflect.FieldDescriptor
+	fd_Params_raresPerPack                    protoreflect.FieldDescriptor
+	fd_Params_commonsPerPack                  protoreflect.FieldDescriptor
+	fd_Params_unCommonsPerPack                protoreflect.FieldDescriptor
+	fd_Params_trialPeriod                     protoreflect.FieldDescriptor
+	fd_Params_gameVoteRatio                   protoreflect.FieldDescriptor
+	fd_Params_cardAuctionPriceReductionPeriod protoreflect.FieldDescriptor
+	fd_Params_airDropValue                    protoreflect.FieldDescriptor
+	fd_Params_airDropMaxBlockHeight           protoreflect.FieldDescriptor
+	fd_Params_trialVoteReward                 protoreflect.FieldDescriptor
+	fd_Params_votePoolFraction                protoreflect.FieldDescriptor
+	fd_Params_votingRewardCap                 protoreflect.FieldDescriptor
+	fd_Params_matchWorkerDelay                protoreflect.FieldDescriptor
+	fd_Params_rareDropRatio                   protoreflect.FieldDescriptor
+	fd_Params_exceptionalDropRatio            protoreflect.FieldDescriptor
+	fd_Params_uniqueDropRatio                 protoreflect.FieldDescriptor
 )
 
 func init() {
 	file_cardchain_cardchain_params_proto_init()
 	md_Params = File_cardchain_cardchain_params_proto.Messages().ByName("Params")
+	fd_Params_votingRightsExpirationTime = md_Params.Fields().ByName("votingRightsExpirationTime")
+	fd_Params_setSize = md_Params.Fields().ByName("setSize")
+	fd_Params_setPrice = md_Params.Fields().ByName("setPrice")
+	fd_Params_activeSetsAmount = md_Params.Fields().ByName("activeSetsAmount")
+	fd_Params_setCreationFee = md_Params.Fields().ByName("setCreationFee")
+	fd_Params_collateralDeposit = md_Params.Fields().ByName("collateralDeposit")
+	fd_Params_winnerReward = md_Params.Fields().ByName("winnerReward")
+	fd_Params_hourlyFaucet = md_Params.Fields().ByName("hourlyFaucet")
+	fd_Params_inflationRate = md_Params.Fields().ByName("inflationRate")
+	fd_Params_raresPerPack = md_Params.Fields().ByName("raresPerPack")
+	fd_Params_commonsPerPack = md_Params.Fields().ByName("commonsPerPack")
+	fd_Params_unCommonsPerPack = md_Params.Fields().ByName("unCommonsPerPack")
+	fd_Params_trialPeriod = md_Params.Fields().ByName("trialPeriod")
+	fd_Params_gameVoteRatio = md_Params.Fields().ByName("gameVoteRatio")
+	fd_Params_cardAuctionPriceReductionPeriod = md_Params.Fields().ByName("cardAuctionPriceReductionPeriod")
+	fd_Params_airDropValue = md_Params.Fields().ByName("airDropValue")
+	fd_Params_airDropMaxBlockHeight = md_Params.Fields().ByName("airDropMaxBlockHeight")
+	fd_Params_trialVoteReward = md_Params.Fields().ByName("trialVoteReward")
+	fd_Params_votePoolFraction = md_Params.Fields().ByName("votePoolFraction")
+	fd_Params_votingRewardCap = md_Params.Fields().ByName("votingRewardCap")
+	fd_Params_matchWorkerDelay = md_Params.Fields().ByName("matchWorkerDelay")
+	fd_Params_rareDropRatio = md_Params.Fields().ByName("rareDropRatio")
+	fd_Params_exceptionalDropRatio = md_Params.Fields().ByName("exceptionalDropRatio")
+	fd_Params_uniqueDropRatio = md_Params.Fields().ByName("uniqueDropRatio")
 }
 
 var _ protoreflect.Message = (*fastReflection_Params)(nil)
@@ -88,6 +137,150 @@ func (x *fastReflection_Params) Interface() protoreflect.ProtoMessage {
 // While iterating, mutating operations may only be performed
 // on the current field descriptor.
 func (x *fastReflection_Params) Range(f func(protoreflect.FieldDescriptor, protoreflect.Value) bool) {
+	if x.VotingRightsExpirationTime != int64(0) {
+		value := protoreflect.ValueOfInt64(x.VotingRightsExpirationTime)
+		if !f(fd_Params_votingRightsExpirationTime, value) {
+			return
+		}
+	}
+	if x.SetSize != uint64(0) {
+		value := protoreflect.ValueOfUint64(x.SetSize)
+		if !f(fd_Params_setSize, value) {
+			return
+		}
+	}
+	if x.SetPrice != nil {
+		value := protoreflect.ValueOfMessage(x.SetPrice.ProtoReflect())
+		if !f(fd_Params_setPrice, value) {
+			return
+		}
+	}
+	if x.ActiveSetsAmount != uint64(0) {
+		value := protoreflect.ValueOfUint64(x.ActiveSetsAmount)
+		if !f(fd_Params_activeSetsAmount, value) {
+			return
+		}
+	}
+	if x.SetCreationFee != nil {
+		value := protoreflect.ValueOfMessage(x.SetCreationFee.ProtoReflect())
+		if !f(fd_Params_setCreationFee, value) {
+			return
+		}
+	}
+	if x.CollateralDeposit != nil {
+		value := protoreflect.ValueOfMessage(x.CollateralDeposit.ProtoReflect())
+		if !f(fd_Params_collateralDeposit, value) {
+			return
+		}
+	}
+	if x.WinnerReward != int64(0) {
+		value := protoreflect.ValueOfInt64(x.WinnerReward)
+		if !f(fd_Params_winnerReward, value) {
+			return
+		}
+	}
+	if x.HourlyFaucet != nil {
+		value := protoreflect.ValueOfMessage(x.HourlyFaucet.ProtoReflect())
+		if !f(fd_Params_hourlyFaucet, value) {
+			return
+		}
+	}
+	if x.InflationRate != "" {
+		value := protoreflect.ValueOfString(x.InflationRate)
+		if !f(fd_Params_inflationRate, value) {
+			return
+		}
+	}
+	if x.RaresPerPack != uint64(0) {
+		value := protoreflect.ValueOfUint64(x.RaresPerPack)
+		if !f(fd_Params_raresPerPack, value) {
+			return
+		}
+	}
+	if x.CommonsPerPack != uint64(0) {
+		value := protoreflect.ValueOfUint64(x.CommonsPerPack)
+		if !f(fd_Params_commonsPerPack, value) {
+			return
+		}
+	}
+	if x.UnCommonsPerPack != uint64(0) {
+		value := protoreflect.ValueOfUint64(x.UnCommonsPerPack)
+		if !f(fd_Params_unCommonsPerPack, value) {
+			return
+		}
+	}
+	if x.TrialPeriod != uint64(0) {
+		value := protoreflect.ValueOfUint64(x.TrialPeriod)
+		if !f(fd_Params_trialPeriod, value) {
+			return
+		}
+	}
+	if x.GameVoteRatio != int64(0) {
+		value := protoreflect.ValueOfInt64(x.GameVoteRatio)
+		if !f(fd_Params_gameVoteRatio, value) {
+			return
+		}
+	}
+	if x.CardAuctionPriceReductionPeriod != int64(0) {
+		value := protoreflect.ValueOfInt64(x.CardAuctionPriceReductionPeriod)
+		if !f(fd_Params_cardAuctionPriceReductionPeriod, value) {
+			return
+		}
+	}
+	if x.AirDropValue != nil {
+		value := protoreflect.ValueOfMessage(x.AirDropValue.ProtoReflect())
+		if !f(fd_Params_airDropValue, value) {
+			return
+		}
+	}
+	if x.AirDropMaxBlockHeight != int64(0) {
+		value := protoreflect.ValueOfInt64(x.AirDropMaxBlockHeight)
+		if !f(fd_Params_airDropMaxBlockHeight, value) {
+			return
+		}
+	}
+	if x.TrialVoteReward != nil {
+		value := protoreflect.ValueOfMessage(x.TrialVoteReward.ProtoReflect())
+		if !f(fd_Params_trialVoteReward, value) {
+			return
+		}
+	}
+	if x.VotePoolFraction != int64(0) {
+		value := protoreflect.ValueOfInt64(x.VotePoolFraction)
+		if !f(fd_Params_votePoolFraction, value) {
+			return
+		}
+	}
+	if x.VotingRewardCap != int64(0) {
+		value := protoreflect.ValueOfInt64(x.VotingRewardCap)
+		if !f(fd_Params_votingRewardCap, value) {
+			return
+		}
+	}
+	if x.MatchWorkerDelay != uint64(0) {
+		value := protoreflect.ValueOfUint64(x.MatchWorkerDelay)
+		if !f(fd_Params_matchWorkerDelay, value) {
+			return
+		}
+	}
+	if x.RareDropRatio != uint64(0) {
+		value := protoreflect.ValueOfUint64(x.RareDropRatio)
+		if !f(fd_Params_rareDropRatio, value) {
+			return
+		}
+	}
+	if x.ExceptionalDropRatio != uint64(0) {
+		value := protoreflect.ValueOfUint64(x.ExceptionalDropRatio)
+		if !f(fd_Params_exceptionalDropRatio, value) {
+			return
+		}
+	}
+	if x.UniqueDropRatio != uint64(0) {
+		value := protoreflect.ValueOfUint64(x.UniqueDropRatio)
+		if !f(fd_Params_uniqueDropRatio, value) {
+			return
+		}
+	}
 }
 
 // Has reports whether a field is populated.
@@ -103,6 +296,54 @@ func (x *fastReflection_Params) Range(f func(protoreflect.FieldDescriptor, proto
 // a repeated field is populated if it is non-empty.
 func (x *fastReflection_Params) Has(fd protoreflect.FieldDescriptor) bool {
 	switch fd.FullName() {
+	case "cardchain.cardchain.Params.votingRightsExpirationTime":
+		return x.VotingRightsExpirationTime != int64(0)
+	case "cardchain.cardchain.Params.setSize":
+		return x.SetSize != uint64(0)
+	case "cardchain.cardchain.Params.setPrice":
+		return x.SetPrice != nil
+	case "cardchain.cardchain.Params.activeSetsAmount":
+		return x.ActiveSetsAmount != uint64(0)
+	case "cardchain.cardchain.Params.setCreationFee":
+		return x.SetCreationFee != nil
+	case "cardchain.cardchain.Params.collateralDeposit":
+		return x.CollateralDeposit != nil
+	case "cardchain.cardchain.Params.winnerReward":
+		return x.WinnerReward != int64(0)
+	case "cardchain.cardchain.Params.hourlyFaucet":
+		return x.HourlyFaucet != nil
+	case "cardchain.cardchain.Params.inflationRate":
+		return x.InflationRate != ""
+	case "cardchain.cardchain.Params.raresPerPack":
+		return x.RaresPerPack != uint64(0)
+	case "cardchain.cardchain.Params.commonsPerPack":
+		return x.CommonsPerPack != uint64(0)
+	case "cardchain.cardchain.Params.unCommonsPerPack":
+		return x.UnCommonsPerPack != uint64(0)
+	case "cardchain.cardchain.Params.trialPeriod":
+		return x.TrialPeriod != uint64(0)
+	case "cardchain.cardchain.Params.gameVoteRatio":
+		return x.GameVoteRatio != int64(0)
+	case "cardchain.cardchain.Params.cardAuctionPriceReductionPeriod":
+		return x.CardAuctionPriceReductionPeriod != int64(0)
+	case "cardchain.cardchain.Params.airDropValue":
+		return x.AirDropValue != nil
+	case "cardchain.cardchain.Params.airDropMaxBlockHeight":
+		return x.AirDropMaxBlockHeight != int64(0)
+	case "cardchain.cardchain.Params.trialVoteReward":
+		return x.TrialVoteReward != nil
+	case "cardchain.cardchain.Params.votePoolFraction":
+		return x.VotePoolFraction != int64(0)
+	case "cardchain.cardchain.Params.votingRewardCap":
+		return x.VotingRewardCap != int64(0)
+	case "cardchain.cardchain.Params.matchWorkerDelay":
+		return x.MatchWorkerDelay != uint64(0)
+	case "cardchain.cardchain.Params.rareDropRatio":
+		return x.RareDropRatio != uint64(0)
+	case "cardchain.cardchain.Params.exceptionalDropRatio":
+		return x.ExceptionalDropRatio != uint64(0)
+	case "cardchain.cardchain.Params.uniqueDropRatio":
+		return x.UniqueDropRatio != uint64(0)
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: cardchain.cardchain.Params"))
@@ -119,6 +360,54 @@ func (x *fastReflection_Params) Has(fd protoreflect.FieldDescriptor) bool {
 // Clear is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_Params) Clear(fd protoreflect.FieldDescriptor) {
 	switch fd.FullName() {
+	case "cardchain.cardchain.Params.votingRightsExpirationTime":
+		x.VotingRightsExpirationTime = int64(0)
+	case "cardchain.cardchain.Params.setSize":
+		x.SetSize = uint64(0)
+	case "cardchain.cardchain.Params.setPrice":
+		x.SetPrice = nil
+	case "cardchain.cardchain.Params.activeSetsAmount":
+		x.ActiveSetsAmount = uint64(0)
+	case "cardchain.cardchain.Params.setCreationFee":
+		x.SetCreationFee = nil
+	case "cardchain.cardchain.Params.collateralDeposit":
+		x.CollateralDeposit = nil
+	case "cardchain.cardchain.Params.winnerReward":
+		x.WinnerReward = int64(0)
+	case "cardchain.cardchain.Params.hourlyFaucet":
+		x.HourlyFaucet = nil
+	case "cardchain.cardchain.Params.inflationRate":
+		x.InflationRate = ""
+	case "cardchain.cardchain.Params.raresPerPack":
+		x.RaresPerPack = uint64(0)
+	case "cardchain.cardchain.Params.commonsPerPack":
+		x.CommonsPerPack = uint64(0)
+	case "cardchain.cardchain.Params.unCommonsPerPack":
+		x.UnCommonsPerPack = uint64(0)
+	case "cardchain.cardchain.Params.trialPeriod":
+		x.TrialPeriod = uint64(0)
+	case "cardchain.cardchain.Params.gameVoteRatio":
+		x.GameVoteRatio = int64(0)
+	case "cardchain.cardchain.Params.cardAuctionPriceReductionPeriod":
+		x.CardAuctionPriceReductionPeriod = int64(0)
+	case "cardchain.cardchain.Params.airDropValue":
+		x.AirDropValue = nil
+	case "cardchain.cardchain.Params.airDropMaxBlockHeight":
+		x.AirDropMaxBlockHeight = int64(0)
+	case "cardchain.cardchain.Params.trialVoteReward":
+		x.TrialVoteReward = nil
+	case "cardchain.cardchain.Params.votePoolFraction":
+		x.VotePoolFraction = int64(0)
+	case "cardchain.cardchain.Params.votingRewardCap":
+		x.VotingRewardCap = int64(0)
+	case "cardchain.cardchain.Params.matchWorkerDelay":
+		x.MatchWorkerDelay = uint64(0)
+	case "cardchain.cardchain.Params.rareDropRatio":
+		x.RareDropRatio = uint64(0)
+	case "cardchain.cardchain.Params.exceptionalDropRatio":
+		x.ExceptionalDropRatio = uint64(0)
+	case "cardchain.cardchain.Params.uniqueDropRatio":
+		x.UniqueDropRatio = uint64(0)
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: cardchain.cardchain.Params"))
@@ -135,6 +424,78 @@ func (x *fastReflection_Params) Clear(fd protoreflect.FieldDescriptor) {
 // of the value; to obtain a mutable reference, use Mutable.
 func (x *fastReflection_Params) Get(descriptor protoreflect.FieldDescriptor) protoreflect.Value {
 	switch descriptor.FullName() {
+	case "cardchain.cardchain.Params.votingRightsExpirationTime":
+		value := x.VotingRightsExpirationTime
+		return protoreflect.ValueOfInt64(value)
+	case "cardchain.cardchain.Params.setSize":
+		value := x.SetSize
+		return protoreflect.ValueOfUint64(value)
+	case "cardchain.cardchain.Params.setPrice":
+		value := x.SetPrice
+		return protoreflect.ValueOfMessage(value.ProtoReflect())
+	case "cardchain.cardchain.Params.activeSetsAmount":
+		value := x.ActiveSetsAmount
+		return protoreflect.ValueOfUint64(value)
+	case "cardchain.cardchain.Params.setCreationFee":
+		value := x.SetCreationFee
+		return protoreflect.ValueOfMessage(value.ProtoReflect())
+	case "cardchain.cardchain.Params.collateralDeposit":
+		value := x.CollateralDeposit
+		return protoreflect.ValueOfMessage(value.ProtoReflect())
+	case "cardchain.cardchain.Params.winnerReward":
+		value := x.WinnerReward
+		return protoreflect.ValueOfInt64(value)
+	case "cardchain.cardchain.Params.hourlyFaucet":
+		value := x.HourlyFaucet
+		return protoreflect.ValueOfMessage(value.ProtoReflect())
+	case "cardchain.cardchain.Params.inflationRate":
+		value := x.InflationRate
+		return protoreflect.ValueOfString(value)
+	case "cardchain.cardchain.Params.raresPerPack":
+		value := x.RaresPerPack
+		return protoreflect.ValueOfUint64(value)
+	case "cardchain.cardchain.Params.commonsPerPack":
+		value := x.CommonsPerPack
+		return protoreflect.ValueOfUint64(value)
+	case "cardchain.cardchain.Params.unCommonsPerPack":
+		value := x.UnCommonsPerPack
+		return protoreflect.ValueOfUint64(value)
+	case "cardchain.cardchain.Params.trialPeriod":
+		value := x.TrialPeriod
+		return protoreflect.ValueOfUint64(value)
+	case "cardchain.cardchain.Params.gameVoteRatio":
+		value := x.GameVoteRatio
+		return protoreflect.ValueOfInt64(value)
+	case "cardchain.cardchain.Params.cardAuctionPriceReductionPeriod":
+		value := x.CardAuctionPriceReductionPeriod
+		return protoreflect.ValueOfInt64(value)
+	case "cardchain.cardchain.Params.airDropValue":
+		value := x.AirDropValue
+		return protoreflect.ValueOfMessage(value.ProtoReflect())
+	case "cardchain.cardchain.Params.airDropMaxBlockHeight":
+		value := x.AirDropMaxBlockHeight
+		return protoreflect.ValueOfInt64(value)
+	case "cardchain.cardchain.Params.trialVoteReward":
+		value := x.TrialVoteReward
+		return protoreflect.ValueOfMessage(value.ProtoReflect())
+	case "cardchain.cardchain.Params.votePoolFraction":
+		value := x.VotePoolFraction
+		return protoreflect.ValueOfInt64(value)
+	case "cardchain.cardchain.Params.votingRewardCap":
+		value := x.VotingRewardCap
+		return protoreflect.ValueOfInt64(value)
+	case "cardchain.cardchain.Params.matchWorkerDelay":
+		value := x.MatchWorkerDelay
+		return protoreflect.ValueOfUint64(value)
+	case "cardchain.cardchain.Params.rareDropRatio":
+		value := x.RareDropRatio
+		return protoreflect.ValueOfUint64(value)
+	case "cardchain.cardchain.Params.exceptionalDropRatio":
+		value := x.ExceptionalDropRatio
+		return protoreflect.ValueOfUint64(value)
+	case "cardchain.cardchain.Params.uniqueDropRatio":
+		value := x.UniqueDropRatio
+		return protoreflect.ValueOfUint64(value)
 	default:
 		if descriptor.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: cardchain.cardchain.Params"))
@@ -155,6 +516,54 @@ func (x *fastReflection_Params) Get(descriptor protoreflect.FieldDescriptor) pro
 // Set is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_Params) Set(fd protoreflect.FieldDescriptor, value protoreflect.Value) {
 	switch fd.FullName() {
+	case "cardchain.cardchain.Params.votingRightsExpirationTime":
+		x.VotingRightsExpirationTime = value.Int()
+	case "cardchain.cardchain.Params.setSize":
+		x.SetSize = value.Uint()
+	case "cardchain.cardchain.Params.setPrice":
+		x.SetPrice = value.Message().Interface().(*v1beta1.Coin)
+	case "cardchain.cardchain.Params.activeSetsAmount":
+		x.ActiveSetsAmount = value.Uint()
+	case "cardchain.cardchain.Params.setCreationFee":
+		x.SetCreationFee = value.Message().Interface().(*v1beta1.Coin)
+	case "cardchain.cardchain.Params.collateralDeposit":
+		x.CollateralDeposit = value.Message().Interface().(*v1beta1.Coin)
+	case "cardchain.cardchain.Params.winnerReward":
+		x.WinnerReward = value.Int()
+	case "cardchain.cardchain.Params.hourlyFaucet":
+		x.HourlyFaucet = value.Message().Interface().(*v1beta1.Coin)
+	case "cardchain.cardchain.Params.inflationRate":
+		x.InflationRate = value.Interface().(string)
+	case "cardchain.cardchain.Params.raresPerPack":
+		x.RaresPerPack = value.Uint()
+	case "cardchain.cardchain.Params.commonsPerPack":
+		x.CommonsPerPack = value.Uint()
+	case "cardchain.cardchain.Params.unCommonsPerPack":
+		x.UnCommonsPerPack = value.Uint()
+	case "cardchain.cardchain.Params.trialPeriod":
+		x.TrialPeriod = value.Uint()
+	case "cardchain.cardchain.Params.gameVoteRatio":
+		x.GameVoteRatio = value.Int()
+	case "cardchain.cardchain.Params.cardAuctionPriceReductionPeriod":
+		x.CardAuctionPriceReductionPeriod = value.Int()
+	case "cardchain.cardchain.Params.airDropValue":
+		x.AirDropValue = value.Message().Interface().(*v1beta1.Coin)
+	case "cardchain.cardchain.Params.airDropMaxBlockHeight":
+		x.AirDropMaxBlockHeight = value.Int()
+	case "cardchain.cardchain.Params.trialVoteReward":
+		x.TrialVoteReward = value.Message().Interface().(*v1beta1.Coin)
+	case "cardchain.cardchain.Params.votePoolFraction":
+		x.VotePoolFraction = value.Int()
+	case "cardchain.cardchain.Params.votingRewardCap":
+		x.VotingRewardCap = value.Int()
+	case "cardchain.cardchain.Params.matchWorkerDelay":
+		x.MatchWorkerDelay = value.Uint()
+	case "cardchain.cardchain.Params.rareDropRatio":
+		x.RareDropRatio = value.Uint()
+	case "cardchain.cardchain.Params.exceptionalDropRatio":
+		x.ExceptionalDropRatio = value.Uint()
+	case "cardchain.cardchain.Params.uniqueDropRatio":
+		x.UniqueDropRatio = value.Uint()
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: cardchain.cardchain.Params"))
@@ -175,6 +584,72 @@ func (x *fastReflection_Params) Set(fd protoreflect.FieldDescriptor, value proto
 // Mutable is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_Params) Mutable(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
+	case "cardchain.cardchain.Params.setPrice":
+		if x.SetPrice == nil {
+			x.SetPrice = new(v1beta1.Coin)
+		}
+		return protoreflect.ValueOfMessage(x.SetPrice.ProtoReflect())
+	case "cardchain.cardchain.Params.setCreationFee":
+		if x.SetCreationFee == nil {
+			x.SetCreationFee = new(v1beta1.Coin)
+		}
+		return protoreflect.ValueOfMessage(x.SetCreationFee.ProtoReflect())
+	case "cardchain.cardchain.Params.collateralDeposit":
+		if x.CollateralDeposit == nil {
+			x.CollateralDeposit = new(v1beta1.Coin)
+		}
+		return protoreflect.ValueOfMessage(x.CollateralDeposit.ProtoReflect())
+	case "cardchain.cardchain.Params.hourlyFaucet":
+		if x.HourlyFaucet == nil {
+			x.HourlyFaucet = new(v1beta1.Coin)
+		}
+		return protoreflect.ValueOfMessage(x.HourlyFaucet.ProtoReflect())
+	case "cardchain.cardchain.Params.airDropValue":
+		if x.AirDropValue == nil {
+			x.AirDropValue = new(v1beta1.Coin)
+		}
+		return protoreflect.ValueOfMessage(x.AirDropValue.ProtoReflect())
+	case "cardchain.cardchain.Params.trialVoteReward":
+		if x.TrialVoteReward == nil {
+			x.TrialVoteReward = new(v1beta1.Coin)
+		}
+		return protoreflect.ValueOfMessage(x.TrialVoteReward.ProtoReflect())
+	case "cardchain.cardchain.Params.votingRightsExpirationTime":
+		panic(fmt.Errorf("field votingRightsExpirationTime of message cardchain.cardchain.Params is not mutable"))
+	case "cardchain.cardchain.Params.setSize":
+		panic(fmt.Errorf("field setSize of message cardchain.cardchain.Params is not mutable"))
+	case "cardchain.cardchain.Params.activeSetsAmount":
+		panic(fmt.Errorf("field activeSetsAmount of message cardchain.cardchain.Params is not mutable"))
+	case "cardchain.cardchain.Params.winnerReward":
+		panic(fmt.Errorf("field winnerReward of message cardchain.cardchain.Params is not mutable"))
+	case "cardchain.cardchain.Params.inflationRate":
+		panic(fmt.Errorf("field inflationRate of message cardchain.cardchain.Params is not mutable"))
+	case "cardchain.cardchain.Params.raresPerPack":
+		panic(fmt.Errorf("field raresPerPack of message cardchain.cardchain.Params is not mutable"))
+	case "cardchain.cardchain.Params.commonsPerPack":
+		panic(fmt.Errorf("field commonsPerPack of message cardchain.cardchain.Params is not mutable"))
+	case "cardchain.cardchain.Params.unCommonsPerPack":
+		panic(fmt.Errorf("field unCommonsPerPack of message cardchain.cardchain.Params is not mutable"))
+	case "cardchain.cardchain.Params.trialPeriod":
+		panic(fmt.Errorf("field trialPeriod of message cardchain.cardchain.Params is not mutable"))
+	case "cardchain.cardchain.Params.gameVoteRatio":
+		panic(fmt.Errorf("field gameVoteRatio of message cardchain.cardchain.Params is not mutable"))
+	case "cardchain.cardchain.Params.cardAuctionPriceReductionPeriod":
+		panic(fmt.Errorf("field cardAuctionPriceReductionPeriod of message cardchain.cardchain.Params is not mutable"))
+	case "cardchain.cardchain.Params.airDropMaxBlockHeight":
+		panic(fmt.Errorf("field airDropMaxBlockHeight of message cardchain.cardchain.Params is not mutable"))
+	case "cardchain.cardchain.Params.votePoolFraction":
+		panic(fmt.Errorf("field votePoolFraction of message cardchain.cardchain.Params is not mutable"))
+	case "cardchain.cardchain.Params.votingRewardCap":
+		panic(fmt.Errorf("field votingRewardCap of message cardchain.cardchain.Params is not mutable"))
+	case "cardchain.cardchain.Params.matchWorkerDelay":
+		panic(fmt.Errorf("field matchWorkerDelay of message cardchain.cardchain.Params is not mutable"))
+	case "cardchain.cardchain.Params.rareDropRatio":
+		panic(fmt.Errorf("field rareDropRatio of message cardchain.cardchain.Params is not mutable"))
+	case "cardchain.cardchain.Params.exceptionalDropRatio":
+		panic(fmt.Errorf("field exceptionalDropRatio of message cardchain.cardchain.Params is not mutable"))
+	case "cardchain.cardchain.Params.uniqueDropRatio":
+		panic(fmt.Errorf("field uniqueDropRatio of message cardchain.cardchain.Params is not mutable"))
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: cardchain.cardchain.Params"))
@@ -188,6 +663,60 @@ func (x *fastReflection_Params) Mutable(fd protoreflect.FieldDescriptor) protore
 // For lists, maps, and messages, this returns a new, empty, mutable value.
 func (x *fastReflection_Params) NewField(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
+	case "cardchain.cardchain.Params.votingRightsExpirationTime":
+		return protoreflect.ValueOfInt64(int64(0))
+	case "cardchain.cardchain.Params.setSize":
+		return protoreflect.ValueOfUint64(uint64(0))
+	case "cardchain.cardchain.Params.setPrice":
+		m := new(v1beta1.Coin)
+		return protoreflect.ValueOfMessage(m.ProtoReflect())
+	case "cardchain.cardchain.Params.activeSetsAmount":
+		return protoreflect.ValueOfUint64(uint64(0))
+	case "cardchain.cardchain.Params.setCreationFee":
+		m := new(v1beta1.Coin)
+		return protoreflect.ValueOfMessage(m.ProtoReflect())
+	case "cardchain.cardchain.Params.collateralDeposit":
+		m := new(v1beta1.Coin)
+		return protoreflect.ValueOfMessage(m.ProtoReflect())
+	case "cardchain.cardchain.Params.winnerReward":
+		return protoreflect.ValueOfInt64(int64(0))
+	case "cardchain.cardchain.Params.hourlyFaucet":
+		m := new(v1beta1.Coin)
+		return protoreflect.ValueOfMessage(m.ProtoReflect())
+	case "cardchain.cardchain.Params.inflationRate":
+		return protoreflect.ValueOfString("")
+	case "cardchain.cardchain.Params.raresPerPack":
+		return protoreflect.ValueOfUint64(uint64(0))
+	case "cardchain.cardchain.Params.commonsPerPack":
+		return protoreflect.ValueOfUint64(uint64(0))
+	case "cardchain.cardchain.Params.unCommonsPerPack":
+		return protoreflect.ValueOfUint64(uint64(0))
+	case "cardchain.cardchain.Params.trialPeriod":
+		return protoreflect.ValueOfUint64(uint64(0))
+	case "cardchain.cardchain.Params.gameVoteRatio":
+		return protoreflect.ValueOfInt64(int64(0))
+	case "cardchain.cardchain.Params.cardAuctionPriceReductionPeriod":
+		return protoreflect.ValueOfInt64(int64(0))
+	case "cardchain.cardchain.Params.airDropValue":
+		m := new(v1beta1.Coin)
+		return protoreflect.ValueOfMessage(m.ProtoReflect())
+	case "cardchain.cardchain.Params.airDropMaxBlockHeight":
+		return protoreflect.ValueOfInt64(int64(0))
+	case "cardchain.cardchain.Params.trialVoteReward":
+		m := new(v1beta1.Coin)
+		return protoreflect.ValueOfMessage(m.ProtoReflect())
+	case "cardchain.cardchain.Params.votePoolFraction":
+		return protoreflect.ValueOfInt64(int64(0))
+	case "cardchain.cardchain.Params.votingRewardCap":
+		return protoreflect.ValueOfInt64(int64(0))
+	case "cardchain.cardchain.Params.matchWorkerDelay":
+		return protoreflect.ValueOfUint64(uint64(0))
+	case "cardchain.cardchain.Params.rareDropRatio":
+		return protoreflect.ValueOfUint64(uint64(0))
+	case "cardchain.cardchain.Params.exceptionalDropRatio":
+		return protoreflect.ValueOfUint64(uint64(0))
+	case "cardchain.cardchain.Params.uniqueDropRatio":
+		return protoreflect.ValueOfUint64(uint64(0))
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: cardchain.cardchain.Params"))
@@ -257,6 +786,85 @@ func (x *fastReflection_Params) ProtoMethods() *protoiface.Methods {
 		var n int
 		var l int
 		_ = l
+		if x.VotingRightsExpirationTime != 0 {
+			n += 1 + runtime.Sov(uint64(x.VotingRightsExpirationTime))
+		}
+		if x.SetSize != 0 {
+			n += 1 + runtime.Sov(uint64(x.SetSize))
+		}
+		if x.SetPrice != nil {
+			l = options.Size(x.SetPrice)
+			n += 1 + l + runtime.Sov(uint64(l))
+		}
+		if x.ActiveSetsAmount != 0 {
+			n += 1 + runtime.Sov(uint64(x.ActiveSetsAmount))
+		}
+		if x.SetCreationFee != nil {
+			l = options.Size(x.SetCreationFee)
+			n += 1 + l + runtime.Sov(uint64(l))
+		}
+		if x.CollateralDeposit != nil {
+			l = options.Size(x.CollateralDeposit)
+			n += 1 + l + runtime.Sov(uint64(l))
+		}
+		if x.WinnerReward != 0 {
+			n += 1 + runtime.Sov(uint64(x.WinnerReward))
+		}
+		if x.HourlyFaucet != nil {
+			l = options.Size(x.HourlyFaucet)
+			n += 1 + l + runtime.Sov(uint64(l))
+		}
+		l = len(x.InflationRate)
+		if l > 0 {
+			n += 1 + l + runtime.Sov(uint64(l))
+		}
+		if x.RaresPerPack != 0 {
+			n += 1 + runtime.Sov(uint64(x.RaresPerPack))
+		}
+		if x.CommonsPerPack != 0 {
+			n += 1 + runtime.Sov(uint64(x.CommonsPerPack))
+		}
+		if x.UnCommonsPerPack != 0 {
+			n += 1 + runtime.Sov(uint64(x.UnCommonsPerPack))
+		}
+		if x.TrialPeriod != 0 {
+			n += 1 + runtime.Sov(uint64(x.TrialPeriod))
+		}
+		if x.GameVoteRatio != 0 {
+			n += 1 + runtime.Sov(uint64(x.GameVoteRatio))
+		}
+		if x.CardAuctionPriceReductionPeriod != 0 {
+			n += 2 + runtime.Sov(uint64(x.CardAuctionPriceReductionPeriod))
+		}
+		if x.AirDropValue != nil {
+			l = options.Size(x.AirDropValue)
+			n += 2 + l + runtime.Sov(uint64(l))
+		}
+		if x.AirDropMaxBlockHeight != 0 {
+			n += 2 + runtime.Sov(uint64(x.AirDropMaxBlockHeight))
+		}
+		if x.TrialVoteReward != nil {
+			l = options.Size(x.TrialVoteReward)
+			n += 2 + l + runtime.Sov(uint64(l))
+		}
+		if x.VotePoolFraction != 0 {
+			n += 2 + runtime.Sov(uint64(x.VotePoolFraction))
+		}
+		if x.VotingRewardCap != 0 {
+			n += 1 + runtime.Sov(uint64(x.VotingRewardCap))
+		}
+		if x.MatchWorkerDelay != 0 {
+			n += 2 + runtime.Sov(uint64(x.MatchWorkerDelay))
+		}
+		if x.RareDropRatio != 0 {
+			n += 2 + runtime.Sov(uint64(x.RareDropRatio))
+		}
+		if x.ExceptionalDropRatio != 0 {
+			n += 2 + runtime.Sov(uint64(x.ExceptionalDropRatio))
+		}
+		if x.UniqueDropRatio != 0 {
+			n += 2 + runtime.Sov(uint64(x.UniqueDropRatio))
+		}
 		if x.unknownFields != nil {
 			n += len(x.unknownFields)
 		}
@@ -285,6 +893,200 @@ func (x *fastReflection_Params) ProtoMethods() *protoiface.Methods {
 		if x.unknownFields != nil {
 			i -= len(x.unknownFields)
 			copy(dAtA[i:], x.unknownFields)
+		}
+		if x.UniqueDropRatio != 0 {
+			i = runtime.EncodeVarint(dAtA, i, uint64(x.UniqueDropRatio))
+			i--
+			dAtA[i] = 0x1
+			i--
+			dAtA[i] = 0xc0
+		}
+		if x.ExceptionalDropRatio != 0 {
+			i = runtime.EncodeVarint(dAtA, i, uint64(x.ExceptionalDropRatio))
+			i--
+			dAtA[i] = 0x1
+			i--
+			dAtA[i] = 0xb8
+		}
+		if x.RareDropRatio != 0 {
+			i = runtime.EncodeVarint(dAtA, i, uint64(x.RareDropRatio))
+			i--
+			dAtA[i] = 0x1
+			i--
+			dAtA[i] = 0xb0
+		}
+		if x.MatchWorkerDelay != 0 {
+			i = runtime.EncodeVarint(dAtA, i, uint64(x.MatchWorkerDelay))
+			i--
+			dAtA[i] = 0x1
+			i--
+			dAtA[i] = 0xa8
+		}
+		if x.VotePoolFraction != 0 {
+			i = runtime.EncodeVarint(dAtA, i, uint64(x.VotePoolFraction))
+			i--
+			dAtA[i] = 0x1
+			i--
+			dAtA[i] = 0xa0
+		}
+		if x.TrialVoteReward != nil {
+			encoded, err := options.Marshal(x.TrialVoteReward)
+			if err != nil {
+				return protoiface.MarshalOutput{
+					NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+					Buf:               input.Buf,
+				}, err
+			}
+			i -= len(encoded)
+			copy(dAtA[i:], encoded)
+			i = runtime.EncodeVarint(dAtA, i, uint64(len(encoded)))
+			i--
+			dAtA[i] = 0x1
+			i--
+			dAtA[i] = 0x9a
+		}
+		if x.AirDropMaxBlockHeight != 0 {
+			i = runtime.EncodeVarint(dAtA, i, uint64(x.AirDropMaxBlockHeight))
+			i--
+			dAtA[i] = 0x1
+			i--
+			dAtA[i] = 0x90
+		}
+		if x.AirDropValue != nil {
+			encoded, err := options.Marshal(x.AirDropValue)
+			if err != nil {
+				return protoiface.MarshalOutput{
+					NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+					Buf:               input.Buf,
+				}, err
+			}
+			i -= len(encoded)
+			copy(dAtA[i:], encoded)
+			i = runtime.EncodeVarint(dAtA, i, uint64(len(encoded)))
+			i--
+			dAtA[i] = 0x1
+			i--
+			dAtA[i] = 0x8a
+		}
+		if x.CardAuctionPriceReductionPeriod != 0 {
+			i = runtime.EncodeVarint(dAtA, i, uint64(x.CardAuctionPriceReductionPeriod))
+			i--
+			dAtA[i] = 0x1
+			i--
+			dAtA[i] = 0x80
+		}
+		if x.GameVoteRatio != 0 {
+			i = runtime.EncodeVarint(dAtA, i, uint64(x.GameVoteRatio))
+			i--
+			dAtA[i] = 0x78
+		}
+		if x.TrialPeriod != 0 {
+			i = runtime.EncodeVarint(dAtA, i, uint64(x.TrialPeriod))
+			i--
+			dAtA[i] = 0x70
+		}
+		if x.UnCommonsPerPack != 0 {
+			i = runtime.EncodeVarint(dAtA, i, uint64(x.UnCommonsPerPack))
+			i--
+			dAtA[i] = 0x68
+		}
+		if x.CommonsPerPack != 0 {
+			i = runtime.EncodeVarint(dAtA, i, uint64(x.CommonsPerPack))
+			i--
+			dAtA[i] = 0x60
+		}
+		if x.RaresPerPack != 0 {
+			i = runtime.EncodeVarint(dAtA, i, uint64(x.RaresPerPack))
+			i--
+			dAtA[i] = 0x58
+		}
+		if len(x.InflationRate) > 0 {
+			i -= len(x.InflationRate)
+			copy(dAtA[i:], x.InflationRate)
+			i = runtime.EncodeVarint(dAtA, i, uint64(len(x.InflationRate)))
+			i--
+			dAtA[i] = 0x52
+		}
+		if x.HourlyFaucet != nil {
+			encoded, err := options.Marshal(x.HourlyFaucet)
+			if err != nil {
+				return protoiface.MarshalOutput{
+					NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+					Buf:               input.Buf,
+				}, err
+			}
+			i -= len(encoded)
+			copy(dAtA[i:], encoded)
+			i = runtime.EncodeVarint(dAtA, i, uint64(len(encoded)))
+			i--
+			dAtA[i] = 0x4a
+		}
+		if x.VotingRewardCap != 0 {
+			i = runtime.EncodeVarint(dAtA, i, uint64(x.VotingRewardCap))
+			i--
+			dAtA[i] = 0x40
+		}
+		if x.WinnerReward != 0 {
+			i = runtime.EncodeVarint(dAtA, i, uint64(x.WinnerReward))
+			i--
+			dAtA[i] = 0x38
+		}
+		if x.CollateralDeposit != nil {
+			encoded, err := options.Marshal(x.CollateralDeposit)
+			if err != nil {
+				return protoiface.MarshalOutput{
+					NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+					Buf:               input.Buf,
+				}, err
+			}
+			i -= len(encoded)
+			copy(dAtA[i:], encoded)
+			i = runtime.EncodeVarint(dAtA, i, uint64(len(encoded)))
+			i--
+			dAtA[i] = 0x32
+		}
+		if x.SetCreationFee != nil {
+			encoded, err := options.Marshal(x.SetCreationFee)
+			if err != nil {
+				return protoiface.MarshalOutput{
+					NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+					Buf:               input.Buf,
+				}, err
+			}
+			i -= len(encoded)
+			copy(dAtA[i:], encoded)
+			i = runtime.EncodeVarint(dAtA, i, uint64(len(encoded)))
+			i--
+			dAtA[i] = 0x2a
+		}
+		if x.ActiveSetsAmount != 0 {
+			i = runtime.EncodeVarint(dAtA, i, uint64(x.ActiveSetsAmount))
+			i--
+			dAtA[i] = 0x20
+		}
+		if x.SetPrice != nil {
+			encoded, err := options.Marshal(x.SetPrice)
+			if err != nil {
+				return protoiface.MarshalOutput{
+					NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+					Buf:               input.Buf,
+				}, err
+			}
+			i -= len(encoded)
+			copy(dAtA[i:], encoded)
+			i = runtime.EncodeVarint(dAtA, i, uint64(len(encoded)))
+			i--
+			dAtA[i] = 0x1a
+		}
+		if x.SetSize != 0 {
+			i = runtime.EncodeVarint(dAtA, i, uint64(x.SetSize))
+			i--
+			dAtA[i] = 0x10
+		}
+		if x.VotingRightsExpirationTime != 0 {
+			i = runtime.EncodeVarint(dAtA, i, uint64(x.VotingRightsExpirationTime))
+			i--
+			dAtA[i] = 0x8
 		}
 		if input.Buf != nil {
 			input.Buf = append(input.Buf, dAtA...)
@@ -335,6 +1137,577 @@ func (x *fastReflection_Params) ProtoMethods() *protoiface.Methods {
 				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: Params: illegal tag %d (wire type %d)", fieldNum, wire)
 			}
 			switch fieldNum {
+			case 1:
+				if wireType != 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field VotingRightsExpirationTime", wireType)
+				}
+				x.VotingRightsExpirationTime = 0
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
+					}
+					if iNdEx >= l {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					x.VotingRightsExpirationTime |= int64(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+			case 2:
+				if wireType != 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field SetSize", wireType)
+				}
+				x.SetSize = 0
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
+					}
+					if iNdEx >= l {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					x.SetSize |= uint64(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+			case 3:
+				if wireType != 2 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field SetPrice", wireType)
+				}
+				var msglen int
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
+					}
+					if iNdEx >= l {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					msglen |= int(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+				if msglen < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				postIndex := iNdEx + msglen
+				if postIndex < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				if postIndex > l {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+				}
+				if x.SetPrice == nil {
+					x.SetPrice = &v1beta1.Coin{}
+				}
+				if err := options.Unmarshal(dAtA[iNdEx:postIndex], x.SetPrice); err != nil {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, err
+				}
+				iNdEx = postIndex
+			case 4:
+				if wireType != 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field ActiveSetsAmount", wireType)
+				}
+				x.ActiveSetsAmount = 0
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
+					}
+					if iNdEx >= l {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					x.ActiveSetsAmount |= uint64(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+			case 5:
+				if wireType != 2 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field SetCreationFee", wireType)
+				}
+				var msglen int
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
+					}
+					if iNdEx >= l {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					msglen |= int(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+				if msglen < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				postIndex := iNdEx + msglen
+				if postIndex < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				if postIndex > l {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+				}
+				if x.SetCreationFee == nil {
+					x.SetCreationFee = &v1beta1.Coin{}
+				}
+				if err := options.Unmarshal(dAtA[iNdEx:postIndex], x.SetCreationFee); err != nil {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, err
+				}
+				iNdEx = postIndex
+			case 6:
+				if wireType != 2 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field CollateralDeposit", wireType)
+				}
+				var msglen int
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
+					}
+					if iNdEx >= l {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					msglen |= int(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+				if msglen < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				postIndex := iNdEx + msglen
+				if postIndex < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				if postIndex > l {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+				}
+				if x.CollateralDeposit == nil {
+					x.CollateralDeposit = &v1beta1.Coin{}
+				}
+				if err := options.Unmarshal(dAtA[iNdEx:postIndex], x.CollateralDeposit); err != nil {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, err
+				}
+				iNdEx = postIndex
+			case 7:
+				if wireType != 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field WinnerReward", wireType)
+				}
+				x.WinnerReward = 0
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
+					}
+					if iNdEx >= l {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					x.WinnerReward |= int64(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+			case 9:
+				if wireType != 2 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field HourlyFaucet", wireType)
+				}
+				var msglen int
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
+					}
+					if iNdEx >= l {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					msglen |= int(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+				if msglen < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				postIndex := iNdEx + msglen
+				if postIndex < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				if postIndex > l {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+				}
+				if x.HourlyFaucet == nil {
+					x.HourlyFaucet = &v1beta1.Coin{}
+				}
+				if err := options.Unmarshal(dAtA[iNdEx:postIndex], x.HourlyFaucet); err != nil {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, err
+				}
+				iNdEx = postIndex
+			case 10:
+				if wireType != 2 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field InflationRate", wireType)
+				}
+				var stringLen uint64
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
+					}
+					if iNdEx >= l {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					stringLen |= uint64(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+				intStringLen := int(stringLen)
+				if intStringLen < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				postIndex := iNdEx + intStringLen
+				if postIndex < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				if postIndex > l {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+				}
+				x.InflationRate = string(dAtA[iNdEx:postIndex])
+				iNdEx = postIndex
+			case 11:
+				if wireType != 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field RaresPerPack", wireType)
+				}
+				x.RaresPerPack = 0
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
+					}
+					if iNdEx >= l {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					x.RaresPerPack |= uint64(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+			case 12:
+				if wireType != 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field CommonsPerPack", wireType)
+				}
+				x.CommonsPerPack = 0
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
+					}
+					if iNdEx >= l {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					x.CommonsPerPack |= uint64(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+			case 13:
+				if wireType != 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field UnCommonsPerPack", wireType)
+				}
+				x.UnCommonsPerPack = 0
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
+					}
+					if iNdEx >= l {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					x.UnCommonsPerPack |= uint64(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+			case 14:
+				if wireType != 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field TrialPeriod", wireType)
+				}
+				x.TrialPeriod = 0
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
+					}
+					if iNdEx >= l {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					x.TrialPeriod |= uint64(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+			case 15:
+				if wireType != 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field GameVoteRatio", wireType)
+				}
+				x.GameVoteRatio = 0
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
+					}
+					if iNdEx >= l {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					x.GameVoteRatio |= int64(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+			case 16:
+				if wireType != 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field CardAuctionPriceReductionPeriod", wireType)
+				}
+				x.CardAuctionPriceReductionPeriod = 0
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
+					}
+					if iNdEx >= l {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					x.CardAuctionPriceReductionPeriod |= int64(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+			case 17:
+				if wireType != 2 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field AirDropValue", wireType)
+				}
+				var msglen int
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
+					}
+					if iNdEx >= l {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					msglen |= int(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+				if msglen < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				postIndex := iNdEx + msglen
+				if postIndex < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				if postIndex > l {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+				}
+				if x.AirDropValue == nil {
+					x.AirDropValue = &v1beta1.Coin{}
+				}
+				if err := options.Unmarshal(dAtA[iNdEx:postIndex], x.AirDropValue); err != nil {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, err
+				}
+				iNdEx = postIndex
+			case 18:
+				if wireType != 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field AirDropMaxBlockHeight", wireType)
+				}
+				x.AirDropMaxBlockHeight = 0
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
+					}
+					if iNdEx >= l {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					x.AirDropMaxBlockHeight |= int64(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+			case 19:
+				if wireType != 2 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field TrialVoteReward", wireType)
+				}
+				var msglen int
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
+					}
+					if iNdEx >= l {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					msglen |= int(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+				if msglen < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				postIndex := iNdEx + msglen
+				if postIndex < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				if postIndex > l {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+				}
+				if x.TrialVoteReward == nil {
+					x.TrialVoteReward = &v1beta1.Coin{}
+				}
+				if err := options.Unmarshal(dAtA[iNdEx:postIndex], x.TrialVoteReward); err != nil {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, err
+				}
+				iNdEx = postIndex
+			case 20:
+				if wireType != 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field VotePoolFraction", wireType)
+				}
+				x.VotePoolFraction = 0
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
+					}
+					if iNdEx >= l {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					x.VotePoolFraction |= int64(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+			case 8:
+				if wireType != 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field VotingRewardCap", wireType)
+				}
+				x.VotingRewardCap = 0
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
+					}
+					if iNdEx >= l {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					x.VotingRewardCap |= int64(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+			case 21:
+				if wireType != 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field MatchWorkerDelay", wireType)
+				}
+				x.MatchWorkerDelay = 0
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
+					}
+					if iNdEx >= l {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					x.MatchWorkerDelay |= uint64(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+			case 22:
+				if wireType != 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field RareDropRatio", wireType)
+				}
+				x.RareDropRatio = 0
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
+					}
+					if iNdEx >= l {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					x.RareDropRatio |= uint64(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+			case 23:
+				if wireType != 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field ExceptionalDropRatio", wireType)
+				}
+				x.ExceptionalDropRatio = 0
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
+					}
+					if iNdEx >= l {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					x.ExceptionalDropRatio |= uint64(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+			case 24:
+				if wireType != 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field UniqueDropRatio", wireType)
+				}
+				x.UniqueDropRatio = 0
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
+					}
+					if iNdEx >= l {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					x.UniqueDropRatio |= uint64(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
 			default:
 				iNdEx = preIndex
 				skippy, err := runtime.Skip(dAtA[iNdEx:])
@@ -388,6 +1761,31 @@ type Params struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
+
+	VotingRightsExpirationTime      int64         `protobuf:"varint,1,opt,name=votingRightsExpirationTime,proto3" json:"votingRightsExpirationTime,omitempty"`
+	SetSize                         uint64        `protobuf:"varint,2,opt,name=setSize,proto3" json:"setSize,omitempty"`
+	SetPrice                        *v1beta1.Coin `protobuf:"bytes,3,opt,name=setPrice,proto3" json:"setPrice,omitempty"`
+	ActiveSetsAmount                uint64        `protobuf:"varint,4,opt,name=activeSetsAmount,proto3" json:"activeSetsAmount,omitempty"`
+	SetCreationFee                  *v1beta1.Coin `protobuf:"bytes,5,opt,name=setCreationFee,proto3" json:"setCreationFee,omitempty"`
+	CollateralDeposit               *v1beta1.Coin `protobuf:"bytes,6,opt,name=collateralDeposit,proto3" json:"collateralDeposit,omitempty"`
+	WinnerReward                    int64         `protobuf:"varint,7,opt,name=winnerReward,proto3" json:"winnerReward,omitempty"`
+	HourlyFaucet                    *v1beta1.Coin `protobuf:"bytes,9,opt,name=hourlyFaucet,proto3" json:"hourlyFaucet,omitempty"`
+	InflationRate                   string        `protobuf:"bytes,10,opt,name=inflationRate,proto3" json:"inflationRate,omitempty"`
+	RaresPerPack                    uint64        `protobuf:"varint,11,opt,name=raresPerPack,proto3" json:"raresPerPack,omitempty"`
+	CommonsPerPack                  uint64        `protobuf:"varint,12,opt,name=commonsPerPack,proto3" json:"commonsPerPack,omitempty"`
+	UnCommonsPerPack                uint64        `protobuf:"varint,13,opt,name=unCommonsPerPack,proto3" json:"unCommonsPerPack,omitempty"`
+	TrialPeriod                     uint64        `protobuf:"varint,14,opt,name=trialPeriod,proto3" json:"trialPeriod,omitempty"`
+	GameVoteRatio                   int64         `protobuf:"varint,15,opt,name=gameVoteRatio,proto3" json:"gameVoteRatio,omitempty"`
+	CardAuctionPriceReductionPeriod int64         `protobuf:"varint,16,opt,name=cardAuctionPriceReductionPeriod,proto3" json:"cardAuctionPriceReductionPeriod,omitempty"`
+	AirDropValue                    *v1beta1.Coin `protobuf:"bytes,17,opt,name=airDropValue,proto3" json:"airDropValue,omitempty"`
+	AirDropMaxBlockHeight           int64         `protobuf:"varint,18,opt,name=airDropMaxBlockHeight,proto3" json:"airDropMaxBlockHeight,omitempty"`
+	TrialVoteReward                 *v1beta1.Coin `protobuf:"bytes,19,opt,name=trialVoteReward,proto3" json:"trialVoteReward,omitempty"`
+	VotePoolFraction                int64         `protobuf:"varint,20,opt,name=votePoolFraction,proto3" json:"votePoolFraction,omitempty"`
+	VotingRewardCap                 int64         `protobuf:"varint,8,opt,name=votingRewardCap,proto3" json:"votingRewardCap,omitempty"`
+	MatchWorkerDelay                uint64        `protobuf:"varint,21,opt,name=matchWorkerDelay,proto3" json:"matchWorkerDelay,omitempty"`
+	RareDropRatio                   uint64        `protobuf:"varint,22,opt,name=rareDropRatio,proto3" json:"rareDropRatio,omitempty"`
+	ExceptionalDropRatio            uint64        `protobuf:"varint,23,opt,name=exceptionalDropRatio,proto3" json:"exceptionalDropRatio,omitempty"`
+	UniqueDropRatio                 uint64        `protobuf:"varint,24,opt,name=uniqueDropRatio,proto3" json:"uniqueDropRatio,omitempty"`
 }
 
 func (x *Params) Reset() {
@@ -410,6 +1808,174 @@ func (*Params) Descriptor() ([]byte, []int) {
 	return file_cardchain_cardchain_params_proto_rawDescGZIP(), []int{0}
 }
 
+func (x *Params) GetVotingRightsExpirationTime() int64 {
+	if x != nil {
+		return x.VotingRightsExpirationTime
+	}
+	return 0
+}
+
+func (x *Params) GetSetSize() uint64 {
+	if x != nil {
+		return x.SetSize
+	}
+	return 0
+}
+
+func (x *Params) GetSetPrice() *v1beta1.Coin {
+	if x != nil {
+		return x.SetPrice
+	}
+	return nil
+}
+
+func (x *Params) GetActiveSetsAmount() uint64 {
+	if x != nil {
+		return x.ActiveSetsAmount
+	}
+	return 0
+}
+
+func (x *Params) GetSetCreationFee() *v1beta1.Coin {
+	if x != nil {
+		return x.SetCreationFee
+	}
+	return nil
+}
+
+func (x *Params) GetCollateralDeposit() *v1beta1.Coin {
+	if x != nil {
+		return x.CollateralDeposit
+	}
+	return nil
+}
+
+func (x *Params) GetWinnerReward() int64 {
+	if x != nil {
+		return x.WinnerReward
+	}
+	return 0
+}
+
+func (x *Params) GetHourlyFaucet() *v1beta1.Coin {
+	if x != nil {
+		return x.HourlyFaucet
+	}
+	return nil
+}
+
+func (x *Params) GetInflationRate() string {
+	if x != nil {
+		return x.InflationRate
+	}
+	return ""
+}
+
+func (x *Params) GetRaresPerPack() uint64 {
+	if x != nil {
+		return x.RaresPerPack
+	}
+	return 0
+}
+
+func (x *Params) GetCommonsPerPack() uint64 {
+	if x != nil {
+		return x.CommonsPerPack
+	}
+	return 0
+}
+
+func (x *Params) GetUnCommonsPerPack() uint64 {
+	if x != nil {
+		return x.UnCommonsPerPack
+	}
+	return 0
+}
+
+func (x *Params) GetTrialPeriod() uint64 {
+	if x != nil {
+		return x.TrialPeriod
+	}
+	return 0
+}
+
+func (x *Params) GetGameVoteRatio() int64 {
+	if x != nil {
+		return x.GameVoteRatio
+	}
+	return 0
+}
+
+func (x *Params) GetCardAuctionPriceReductionPeriod() int64 {
+	if x != nil {
+		return x.CardAuctionPriceReductionPeriod
+	}
+	return 0
+}
+
+func (x *Params) GetAirDropValue() *v1beta1.Coin {
+	if x != nil {
+		return x.AirDropValue
+	}
+	return nil
+}
+
+func (x *Params) GetAirDropMaxBlockHeight() int64 {
+	if x != nil {
+		return x.AirDropMaxBlockHeight
+	}
+	return 0
+}
+
+func (x *Params) GetTrialVoteReward() *v1beta1.Coin {
+	if x != nil {
+		return x.TrialVoteReward
+	}
+	return nil
+}
+
+func (x *Params) GetVotePoolFraction() int64 {
+	if x != nil {
+		return x.VotePoolFraction
+	}
+	return 0
+}
+
+func (x *Params) GetVotingRewardCap() int64 {
+	if x != nil {
+		return x.VotingRewardCap
+	}
+	return 0
+}
+
+func (x *Params) GetMatchWorkerDelay() uint64 {
+	if x != nil {
+		return x.MatchWorkerDelay
+	}
+	return 0
+}
+
+func (x *Params) GetRareDropRatio() uint64 {
+	if x != nil {
+		return x.RareDropRatio
+	}
+	return 0
+}
+
+func (x *Params) GetExceptionalDropRatio() uint64 {
+	if x != nil {
+		return x.ExceptionalDropRatio
+	}
+	return 0
+}
+
+func (x *Params) GetUniqueDropRatio() uint64 {
+	if x != nil {
+		return x.UniqueDropRatio
+	}
+	return 0
+}
+
 var File_cardchain_cardchain_params_proto protoreflect.FileDescriptor
 
 var file_cardchain_cardchain_params_proto_rawDesc = []byte{
@@ -419,23 +1985,101 @@ var file_cardchain_cardchain_params_proto_rawDesc = []byte{
 	0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x1a, 0x11, 0x61, 0x6d, 0x69, 0x6e, 0x6f, 0x2f, 0x61,
 	0x6d, 0x69, 0x6e, 0x6f, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x1a, 0x14, 0x67, 0x6f, 0x67, 0x6f,
 	0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2f, 0x67, 0x6f, 0x67, 0x6f, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f,
-	0x22, 0x2f, 0x0a, 0x06, 0x50, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x3a, 0x25, 0xe8, 0xa0, 0x1f, 0x01,
-	0x8a, 0xe7, 0xb0, 0x2a, 0x1c, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2f, 0x78,
-	0x2f, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2f, 0x50, 0x61, 0x72, 0x61, 0x6d,
-	0x73, 0x42, 0xd3, 0x01, 0x0a, 0x17, 0x63, 0x6f, 0x6d, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68,
-	0x61, 0x69, 0x6e, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x42, 0x0b, 0x50,
-	0x61, 0x72, 0x61, 0x6d, 0x73, 0x50, 0x72, 0x6f, 0x74, 0x6f, 0x50, 0x01, 0x5a, 0x3e, 0x67, 0x69,
-	0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x44, 0x65, 0x63, 0x65, 0x6e, 0x74, 0x72,
-	0x61, 0x6c, 0x43, 0x61, 0x72, 0x64, 0x47, 0x61, 0x6d, 0x65, 0x2f, 0x63, 0x61, 0x72, 0x64, 0x63,
-	0x68, 0x61, 0x69, 0x6e, 0x2f, 0x61, 0x70, 0x69, 0x2f, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61,
-	0x69, 0x6e, 0x2f, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0xa2, 0x02, 0x03, 0x43,
-	0x43, 0x58, 0xaa, 0x02, 0x13, 0x43, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x43,
-	0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0xca, 0x02, 0x13, 0x43, 0x61, 0x72, 0x64, 0x63,
-	0x68, 0x61, 0x69, 0x6e, 0x5c, 0x43, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0xe2, 0x02,
-	0x1f, 0x43, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x5c, 0x43, 0x61, 0x72, 0x64, 0x63,
-	0x68, 0x61, 0x69, 0x6e, 0x5c, 0x47, 0x50, 0x42, 0x4d, 0x65, 0x74, 0x61, 0x64, 0x61, 0x74, 0x61,
-	0xea, 0x02, 0x14, 0x43, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x3a, 0x3a, 0x43, 0x61,
-	0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x1a, 0x1e, 0x63, 0x6f, 0x73, 0x6d, 0x6f, 0x73, 0x2f, 0x62, 0x61, 0x73, 0x65, 0x2f, 0x76, 0x31,
+	0x62, 0x65, 0x74, 0x61, 0x31, 0x2f, 0x63, 0x6f, 0x69, 0x6e, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f,
+	0x22, 0xef, 0x09, 0x0a, 0x06, 0x50, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x12, 0x3e, 0x0a, 0x1a, 0x76,
+	0x6f, 0x74, 0x69, 0x6e, 0x67, 0x52, 0x69, 0x67, 0x68, 0x74, 0x73, 0x45, 0x78, 0x70, 0x69, 0x72,
+	0x61, 0x74, 0x69, 0x6f, 0x6e, 0x54, 0x69, 0x6d, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x03, 0x52,
+	0x1a, 0x76, 0x6f, 0x74, 0x69, 0x6e, 0x67, 0x52, 0x69, 0x67, 0x68, 0x74, 0x73, 0x45, 0x78, 0x70,
+	0x69, 0x72, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x54, 0x69, 0x6d, 0x65, 0x12, 0x18, 0x0a, 0x07, 0x73,
+	0x65, 0x74, 0x53, 0x69, 0x7a, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x04, 0x52, 0x07, 0x73, 0x65,
+	0x74, 0x53, 0x69, 0x7a, 0x65, 0x12, 0x3b, 0x0a, 0x08, 0x73, 0x65, 0x74, 0x50, 0x72, 0x69, 0x63,
+	0x65, 0x18, 0x03, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x19, 0x2e, 0x63, 0x6f, 0x73, 0x6d, 0x6f, 0x73,
+	0x2e, 0x62, 0x61, 0x73, 0x65, 0x2e, 0x76, 0x31, 0x62, 0x65, 0x74, 0x61, 0x31, 0x2e, 0x43, 0x6f,
+	0x69, 0x6e, 0x42, 0x04, 0xc8, 0xde, 0x1f, 0x00, 0x52, 0x08, 0x73, 0x65, 0x74, 0x50, 0x72, 0x69,
+	0x63, 0x65, 0x12, 0x2a, 0x0a, 0x10, 0x61, 0x63, 0x74, 0x69, 0x76, 0x65, 0x53, 0x65, 0x74, 0x73,
+	0x41, 0x6d, 0x6f, 0x75, 0x6e, 0x74, 0x18, 0x04, 0x20, 0x01, 0x28, 0x04, 0x52, 0x10, 0x61, 0x63,
+	0x74, 0x69, 0x76, 0x65, 0x53, 0x65, 0x74, 0x73, 0x41, 0x6d, 0x6f, 0x75, 0x6e, 0x74, 0x12, 0x47,
+	0x0a, 0x0e, 0x73, 0x65, 0x74, 0x43, 0x72, 0x65, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x46, 0x65, 0x65,
+	0x18, 0x05, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x19, 0x2e, 0x63, 0x6f, 0x73, 0x6d, 0x6f, 0x73, 0x2e,
+	0x62, 0x61, 0x73, 0x65, 0x2e, 0x76, 0x31, 0x62, 0x65, 0x74, 0x61, 0x31, 0x2e, 0x43, 0x6f, 0x69,
+	0x6e, 0x42, 0x04, 0xc8, 0xde, 0x1f, 0x00, 0x52, 0x0e, 0x73, 0x65, 0x74, 0x43, 0x72, 0x65, 0x61,
+	0x74, 0x69, 0x6f, 0x6e, 0x46, 0x65, 0x65, 0x12, 0x4d, 0x0a, 0x11, 0x63, 0x6f, 0x6c, 0x6c, 0x61,
+	0x74, 0x65, 0x72, 0x61, 0x6c, 0x44, 0x65, 0x70, 0x6f, 0x73, 0x69, 0x74, 0x18, 0x06, 0x20, 0x01,
+	0x28, 0x0b, 0x32, 0x19, 0x2e, 0x63, 0x6f, 0x73, 0x6d, 0x6f, 0x73, 0x2e, 0x62, 0x61, 0x73, 0x65,
+	0x2e, 0x76, 0x31, 0x62, 0x65, 0x74, 0x61, 0x31, 0x2e, 0x43, 0x6f, 0x69, 0x6e, 0x42, 0x04, 0xc8,
+	0xde, 0x1f, 0x00, 0x52, 0x11, 0x63, 0x6f, 0x6c, 0x6c, 0x61, 0x74, 0x65, 0x72, 0x61, 0x6c, 0x44,
+	0x65, 0x70, 0x6f, 0x73, 0x69, 0x74, 0x12, 0x22, 0x0a, 0x0c, 0x77, 0x69, 0x6e, 0x6e, 0x65, 0x72,
+	0x52, 0x65, 0x77, 0x61, 0x72, 0x64, 0x18, 0x07, 0x20, 0x01, 0x28, 0x03, 0x52, 0x0c, 0x77, 0x69,
+	0x6e, 0x6e, 0x65, 0x72, 0x52, 0x65, 0x77, 0x61, 0x72, 0x64, 0x12, 0x43, 0x0a, 0x0c, 0x68, 0x6f,
+	0x75, 0x72, 0x6c, 0x79, 0x46, 0x61, 0x75, 0x63, 0x65, 0x74, 0x18, 0x09, 0x20, 0x01, 0x28, 0x0b,
+	0x32, 0x19, 0x2e, 0x63, 0x6f, 0x73, 0x6d, 0x6f, 0x73, 0x2e, 0x62, 0x61, 0x73, 0x65, 0x2e, 0x76,
+	0x31, 0x62, 0x65, 0x74, 0x61, 0x31, 0x2e, 0x43, 0x6f, 0x69, 0x6e, 0x42, 0x04, 0xc8, 0xde, 0x1f,
+	0x00, 0x52, 0x0c, 0x68, 0x6f, 0x75, 0x72, 0x6c, 0x79, 0x46, 0x61, 0x75, 0x63, 0x65, 0x74, 0x12,
+	0x24, 0x0a, 0x0d, 0x69, 0x6e, 0x66, 0x6c, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x61, 0x74, 0x65,
+	0x18, 0x0a, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0d, 0x69, 0x6e, 0x66, 0x6c, 0x61, 0x74, 0x69, 0x6f,
+	0x6e, 0x52, 0x61, 0x74, 0x65, 0x12, 0x22, 0x0a, 0x0c, 0x72, 0x61, 0x72, 0x65, 0x73, 0x50, 0x65,
+	0x72, 0x50, 0x61, 0x63, 0x6b, 0x18, 0x0b, 0x20, 0x01, 0x28, 0x04, 0x52, 0x0c, 0x72, 0x61, 0x72,
+	0x65, 0x73, 0x50, 0x65, 0x72, 0x50, 0x61, 0x63, 0x6b, 0x12, 0x26, 0x0a, 0x0e, 0x63, 0x6f, 0x6d,
+	0x6d, 0x6f, 0x6e, 0x73, 0x50, 0x65, 0x72, 0x50, 0x61, 0x63, 0x6b, 0x18, 0x0c, 0x20, 0x01, 0x28,
+	0x04, 0x52, 0x0e, 0x63, 0x6f, 0x6d, 0x6d, 0x6f, 0x6e, 0x73, 0x50, 0x65, 0x72, 0x50, 0x61, 0x63,
+	0x6b, 0x12, 0x2a, 0x0a, 0x10, 0x75, 0x6e, 0x43, 0x6f, 0x6d, 0x6d, 0x6f, 0x6e, 0x73, 0x50, 0x65,
+	0x72, 0x50, 0x61, 0x63, 0x6b, 0x18, 0x0d, 0x20, 0x01, 0x28, 0x04, 0x52, 0x10, 0x75, 0x6e, 0x43,
+	0x6f, 0x6d, 0x6d, 0x6f, 0x6e, 0x73, 0x50, 0x65, 0x72, 0x50, 0x61, 0x63, 0x6b, 0x12, 0x20, 0x0a,
+	0x0b, 0x74, 0x72, 0x69, 0x61, 0x6c, 0x50, 0x65, 0x72, 0x69, 0x6f, 0x64, 0x18, 0x0e, 0x20, 0x01,
+	0x28, 0x04, 0x52, 0x0b, 0x74, 0x72, 0x69, 0x61, 0x6c, 0x50, 0x65, 0x72, 0x69, 0x6f, 0x64, 0x12,
+	0x24, 0x0a, 0x0d, 0x67, 0x61, 0x6d, 0x65, 0x56, 0x6f, 0x74, 0x65, 0x52, 0x61, 0x74, 0x69, 0x6f,
+	0x18, 0x0f, 0x20, 0x01, 0x28, 0x03, 0x52, 0x0d, 0x67, 0x61, 0x6d, 0x65, 0x56, 0x6f, 0x74, 0x65,
+	0x52, 0x61, 0x74, 0x69, 0x6f, 0x12, 0x48, 0x0a, 0x1f, 0x63, 0x61, 0x72, 0x64, 0x41, 0x75, 0x63,
+	0x74, 0x69, 0x6f, 0x6e, 0x50, 0x72, 0x69, 0x63, 0x65, 0x52, 0x65, 0x64, 0x75, 0x63, 0x74, 0x69,
+	0x6f, 0x6e, 0x50, 0x65, 0x72, 0x69, 0x6f, 0x64, 0x18, 0x10, 0x20, 0x01, 0x28, 0x03, 0x52, 0x1f,
+	0x63, 0x61, 0x72, 0x64, 0x41, 0x75, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x50, 0x72, 0x69, 0x63, 0x65,
+	0x52, 0x65, 0x64, 0x75, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x50, 0x65, 0x72, 0x69, 0x6f, 0x64, 0x12,
+	0x43, 0x0a, 0x0c, 0x61, 0x69, 0x72, 0x44, 0x72, 0x6f, 0x70, 0x56, 0x61, 0x6c, 0x75, 0x65, 0x18,
+	0x11, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x19, 0x2e, 0x63, 0x6f, 0x73, 0x6d, 0x6f, 0x73, 0x2e, 0x62,
+	0x61, 0x73, 0x65, 0x2e, 0x76, 0x31, 0x62, 0x65, 0x74, 0x61, 0x31, 0x2e, 0x43, 0x6f, 0x69, 0x6e,
+	0x42, 0x04, 0xc8, 0xde, 0x1f, 0x00, 0x52, 0x0c, 0x61, 0x69, 0x72, 0x44, 0x72, 0x6f, 0x70, 0x56,
+	0x61, 0x6c, 0x75, 0x65, 0x12, 0x34, 0x0a, 0x15, 0x61, 0x69, 0x72, 0x44, 0x72, 0x6f, 0x70, 0x4d,
+	0x61, 0x78, 0x42, 0x6c, 0x6f, 0x63, 0x6b, 0x48, 0x65, 0x69, 0x67, 0x68, 0x74, 0x18, 0x12, 0x20,
+	0x01, 0x28, 0x03, 0x52, 0x15, 0x61, 0x69, 0x72, 0x44, 0x72, 0x6f, 0x70, 0x4d, 0x61, 0x78, 0x42,
+	0x6c, 0x6f, 0x63, 0x6b, 0x48, 0x65, 0x69, 0x67, 0x68, 0x74, 0x12, 0x49, 0x0a, 0x0f, 0x74, 0x72,
+	0x69, 0x61, 0x6c, 0x56, 0x6f, 0x74, 0x65, 0x52, 0x65, 0x77, 0x61, 0x72, 0x64, 0x18, 0x13, 0x20,
+	0x01, 0x28, 0x0b, 0x32, 0x19, 0x2e, 0x63, 0x6f, 0x73, 0x6d, 0x6f, 0x73, 0x2e, 0x62, 0x61, 0x73,
+	0x65, 0x2e, 0x76, 0x31, 0x62, 0x65, 0x74, 0x61, 0x31, 0x2e, 0x43, 0x6f, 0x69, 0x6e, 0x42, 0x04,
+	0xc8, 0xde, 0x1f, 0x00, 0x52, 0x0f, 0x74, 0x72, 0x69, 0x61, 0x6c, 0x56, 0x6f, 0x74, 0x65, 0x52,
+	0x65, 0x77, 0x61, 0x72, 0x64, 0x12, 0x2a, 0x0a, 0x10, 0x76, 0x6f, 0x74, 0x65, 0x50, 0x6f, 0x6f,
+	0x6c, 0x46, 0x72, 0x61, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x18, 0x14, 0x20, 0x01, 0x28, 0x03, 0x52,
+	0x10, 0x76, 0x6f, 0x74, 0x65, 0x50, 0x6f, 0x6f, 0x6c, 0x46, 0x72, 0x61, 0x63, 0x74, 0x69, 0x6f,
+	0x6e, 0x12, 0x28, 0x0a, 0x0f, 0x76, 0x6f, 0x74, 0x69, 0x6e, 0x67, 0x52, 0x65, 0x77, 0x61, 0x72,
+	0x64, 0x43, 0x61, 0x70, 0x18, 0x08, 0x20, 0x01, 0x28, 0x03, 0x52, 0x0f, 0x76, 0x6f, 0x74, 0x69,
+	0x6e, 0x67, 0x52, 0x65, 0x77, 0x61, 0x72, 0x64, 0x43, 0x61, 0x70, 0x12, 0x2a, 0x0a, 0x10, 0x6d,
+	0x61, 0x74, 0x63, 0x68, 0x57, 0x6f, 0x72, 0x6b, 0x65, 0x72, 0x44, 0x65, 0x6c, 0x61, 0x79, 0x18,
+	0x15, 0x20, 0x01, 0x28, 0x04, 0x52, 0x10, 0x6d, 0x61, 0x74, 0x63, 0x68, 0x57, 0x6f, 0x72, 0x6b,
+	0x65, 0x72, 0x44, 0x65, 0x6c, 0x61, 0x79, 0x12, 0x24, 0x0a, 0x0d, 0x72, 0x61, 0x72, 0x65, 0x44,
+	0x72, 0x6f, 0x70, 0x52, 0x61, 0x74, 0x69, 0x6f, 0x18, 0x16, 0x20, 0x01, 0x28, 0x04, 0x52, 0x0d,
+	0x72, 0x61, 0x72, 0x65, 0x44, 0x72, 0x6f, 0x70, 0x52, 0x61, 0x74, 0x69, 0x6f, 0x12, 0x32, 0x0a,
+	0x14, 0x65, 0x78, 0x63, 0x65, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x61, 0x6c, 0x44, 0x72, 0x6f, 0x70,
+	0x52, 0x61, 0x74, 0x69, 0x6f, 0x18, 0x17, 0x20, 0x01, 0x28, 0x04, 0x52, 0x14, 0x65, 0x78, 0x63,
+	0x65, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x61, 0x6c, 0x44, 0x72, 0x6f, 0x70, 0x52, 0x61, 0x74, 0x69,
+	0x6f, 0x12, 0x28, 0x0a, 0x0f, 0x75, 0x6e, 0x69, 0x71, 0x75, 0x65, 0x44, 0x72, 0x6f, 0x70, 0x52,
+	0x61, 0x74, 0x69, 0x6f, 0x18, 0x18, 0x20, 0x01, 0x28, 0x04, 0x52, 0x0f, 0x75, 0x6e, 0x69, 0x71,
+	0x75, 0x65, 0x44, 0x72, 0x6f, 0x70, 0x52, 0x61, 0x74, 0x69, 0x6f, 0x3a, 0x25, 0xe8, 0xa0, 0x1f,
+	0x01, 0x8a, 0xe7, 0xb0, 0x2a, 0x1c, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2f,
+	0x78, 0x2f, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2f, 0x50, 0x61, 0x72, 0x61,
+	0x6d, 0x73, 0x42, 0xd3, 0x01, 0x0a, 0x17, 0x63, 0x6f, 0x6d, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63,
+	0x68, 0x61, 0x69, 0x6e, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x42, 0x0b,
+	0x50, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x50, 0x72, 0x6f, 0x74, 0x6f, 0x50, 0x01, 0x5a, 0x3e, 0x67,
+	0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x44, 0x65, 0x63, 0x65, 0x6e, 0x74,
+	0x72, 0x61, 0x6c, 0x43, 0x61, 0x72, 0x64, 0x47, 0x61, 0x6d, 0x65, 0x2f, 0x63, 0x61, 0x72, 0x64,
+	0x63, 0x68, 0x61, 0x69, 0x6e, 0x2f, 0x61, 0x70, 0x69, 0x2f, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68,
+	0x61, 0x69, 0x6e, 0x2f, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0xa2, 0x02, 0x03,
+	0x43, 0x43, 0x58, 0xaa, 0x02, 0x13, 0x43, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e,
+	0x43, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0xca, 0x02, 0x13, 0x43, 0x61, 0x72, 0x64,
+	0x63, 0x68, 0x61, 0x69, 0x6e, 0x5c, 0x43, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0xe2,
+	0x02, 0x1f, 0x43, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x5c, 0x43, 0x61, 0x72, 0x64,
+	0x63, 0x68, 0x61, 0x69, 0x6e, 0x5c, 0x47, 0x50, 0x42, 0x4d, 0x65, 0x74, 0x61, 0x64, 0x61, 0x74,
+	0x61, 0xea, 0x02, 0x14, 0x43, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x3a, 0x3a, 0x43,
+	0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -452,14 +2096,21 @@ func file_cardchain_cardchain_params_proto_rawDescGZIP() []byte {
 
 var file_cardchain_cardchain_params_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
 var file_cardchain_cardchain_params_proto_goTypes = []interface{}{
-	(*Params)(nil), // 0: cardchain.cardchain.Params
+	(*Params)(nil),       // 0: cardchain.cardchain.Params
+	(*v1beta1.Coin)(nil), // 1: cosmos.base.v1beta1.Coin
 }
 var file_cardchain_cardchain_params_proto_depIdxs = []int32{
-	0, // [0:0] is the sub-list for method output_type
-	0, // [0:0] is the sub-list for method input_type
-	0, // [0:0] is the sub-list for extension type_name
-	0, // [0:0] is the sub-list for extension extendee
-	0, // [0:0] is the sub-list for field type_name
+	1, // 0: cardchain.cardchain.Params.setPrice:type_name -> cosmos.base.v1beta1.Coin
+	1, // 1: cardchain.cardchain.Params.setCreationFee:type_name -> cosmos.base.v1beta1.Coin
+	1, // 2: cardchain.cardchain.Params.collateralDeposit:type_name -> cosmos.base.v1beta1.Coin
+	1, // 3: cardchain.cardchain.Params.hourlyFaucet:type_name -> cosmos.base.v1beta1.Coin
+	1, // 4: cardchain.cardchain.Params.airDropValue:type_name -> cosmos.base.v1beta1.Coin
+	1, // 5: cardchain.cardchain.Params.trialVoteReward:type_name -> cosmos.base.v1beta1.Coin
+	6, // [6:6] is the sub-list for method output_type
+	6, // [6:6] is the sub-list for method input_type
+	6, // [6:6] is the sub-list for extension type_name
+	6, // [6:6] is the sub-list for extension extendee
+	0, // [0:6] is the sub-list for field type_name
 }
 
 func init() { file_cardchain_cardchain_params_proto_init() }

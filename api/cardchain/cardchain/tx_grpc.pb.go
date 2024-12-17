@@ -66,6 +66,9 @@ const (
 	Msg_EncounterCreate_FullMethodName       = "/cardchain.cardchain.Msg/EncounterCreate"
 	Msg_EncounterDo_FullMethodName           = "/cardchain.cardchain.Msg/EncounterDo"
 	Msg_EncounterClose_FullMethodName        = "/cardchain.cardchain.Msg/EncounterClose"
+	Msg_CreateProductDetails_FullMethodName  = "/cardchain.cardchain.Msg/CreateProductDetails"
+	Msg_UpdateProductDetails_FullMethodName  = "/cardchain.cardchain.Msg/UpdateProductDetails"
+	Msg_DeleteProductDetails_FullMethodName  = "/cardchain.cardchain.Msg/DeleteProductDetails"
 )
 
 // MsgClient is the client API for Msg service.
@@ -121,6 +124,9 @@ type MsgClient interface {
 	EncounterCreate(ctx context.Context, in *MsgEncounterCreate, opts ...grpc.CallOption) (*MsgEncounterCreateResponse, error)
 	EncounterDo(ctx context.Context, in *MsgEncounterDo, opts ...grpc.CallOption) (*MsgEncounterDoResponse, error)
 	EncounterClose(ctx context.Context, in *MsgEncounterClose, opts ...grpc.CallOption) (*MsgEncounterCloseResponse, error)
+	CreateProductDetails(ctx context.Context, in *MsgCreateProductDetails, opts ...grpc.CallOption) (*MsgCreateProductDetailsResponse, error)
+	UpdateProductDetails(ctx context.Context, in *MsgUpdateProductDetails, opts ...grpc.CallOption) (*MsgUpdateProductDetailsResponse, error)
+	DeleteProductDetails(ctx context.Context, in *MsgDeleteProductDetails, opts ...grpc.CallOption) (*MsgDeleteProductDetailsResponse, error)
 }
 
 type msgClient struct {
@@ -554,6 +560,33 @@ func (c *msgClient) EncounterClose(ctx context.Context, in *MsgEncounterClose, o
 	return out, nil
 }
 
+func (c *msgClient) CreateProductDetails(ctx context.Context, in *MsgCreateProductDetails, opts ...grpc.CallOption) (*MsgCreateProductDetailsResponse, error) {
+	out := new(MsgCreateProductDetailsResponse)
+	err := c.cc.Invoke(ctx, Msg_CreateProductDetails_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *msgClient) UpdateProductDetails(ctx context.Context, in *MsgUpdateProductDetails, opts ...grpc.CallOption) (*MsgUpdateProductDetailsResponse, error) {
+	out := new(MsgUpdateProductDetailsResponse)
+	err := c.cc.Invoke(ctx, Msg_UpdateProductDetails_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *msgClient) DeleteProductDetails(ctx context.Context, in *MsgDeleteProductDetails, opts ...grpc.CallOption) (*MsgDeleteProductDetailsResponse, error) {
+	out := new(MsgDeleteProductDetailsResponse)
+	err := c.cc.Invoke(ctx, Msg_DeleteProductDetails_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // MsgServer is the server API for Msg service.
 // All implementations must embed UnimplementedMsgServer
 // for forward compatibility
@@ -607,6 +640,9 @@ type MsgServer interface {
 	EncounterCreate(context.Context, *MsgEncounterCreate) (*MsgEncounterCreateResponse, error)
 	EncounterDo(context.Context, *MsgEncounterDo) (*MsgEncounterDoResponse, error)
 	EncounterClose(context.Context, *MsgEncounterClose) (*MsgEncounterCloseResponse, error)
+	CreateProductDetails(context.Context, *MsgCreateProductDetails) (*MsgCreateProductDetailsResponse, error)
+	UpdateProductDetails(context.Context, *MsgUpdateProductDetails) (*MsgUpdateProductDetailsResponse, error)
+	DeleteProductDetails(context.Context, *MsgDeleteProductDetails) (*MsgDeleteProductDetailsResponse, error)
 	mustEmbedUnimplementedMsgServer()
 }
 
@@ -754,6 +790,15 @@ func (UnimplementedMsgServer) EncounterDo(context.Context, *MsgEncounterDo) (*Ms
 }
 func (UnimplementedMsgServer) EncounterClose(context.Context, *MsgEncounterClose) (*MsgEncounterCloseResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method EncounterClose not implemented")
+}
+func (UnimplementedMsgServer) CreateProductDetails(context.Context, *MsgCreateProductDetails) (*MsgCreateProductDetailsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateProductDetails not implemented")
+}
+func (UnimplementedMsgServer) UpdateProductDetails(context.Context, *MsgUpdateProductDetails) (*MsgUpdateProductDetailsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateProductDetails not implemented")
+}
+func (UnimplementedMsgServer) DeleteProductDetails(context.Context, *MsgDeleteProductDetails) (*MsgDeleteProductDetailsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteProductDetails not implemented")
 }
 func (UnimplementedMsgServer) mustEmbedUnimplementedMsgServer() {}
 
@@ -1614,6 +1659,60 @@ func _Msg_EncounterClose_Handler(srv interface{}, ctx context.Context, dec func(
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Msg_CreateProductDetails_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgCreateProductDetails)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).CreateProductDetails(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Msg_CreateProductDetails_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).CreateProductDetails(ctx, req.(*MsgCreateProductDetails))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Msg_UpdateProductDetails_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgUpdateProductDetails)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).UpdateProductDetails(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Msg_UpdateProductDetails_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).UpdateProductDetails(ctx, req.(*MsgUpdateProductDetails))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Msg_DeleteProductDetails_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgDeleteProductDetails)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).DeleteProductDetails(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Msg_DeleteProductDetails_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).DeleteProductDetails(ctx, req.(*MsgDeleteProductDetails))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Msg_ServiceDesc is the grpc.ServiceDesc for Msg service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -1808,6 +1907,18 @@ var Msg_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "EncounterClose",
 			Handler:    _Msg_EncounterClose_Handler,
+		},
+		{
+			MethodName: "CreateProductDetails",
+			Handler:    _Msg_CreateProductDetails_Handler,
+		},
+		{
+			MethodName: "UpdateProductDetails",
+			Handler:    _Msg_UpdateProductDetails_Handler,
+		},
+		{
+			MethodName: "DeleteProductDetails",
+			Handler:    _Msg_DeleteProductDetails_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

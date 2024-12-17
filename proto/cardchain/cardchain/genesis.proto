@@ -1,17 +1,20 @@
 syntax = "proto3";
+
 package cardchain.cardchain;
 
 import "amino/amino.proto";
 import "gogoproto/gogo.proto";
 import "cardchain/cardchain/params.proto";
+import "cardchain/cardchain/product_details.proto";
 
 option go_package = "github.com/DecentralCardGame/cardchain/x/cardchain/types";
 
 // GenesisState defines the cardchain module's genesis state.
 message GenesisState {
+  
   // params defines all the parameters of the module.
-  Params params = 1 [
-    (gogoproto.nullable) = false,
-    (amino.dont_omitempty) = true
-  ];
+           Params         params              = 1 [(gogoproto.nullable) = false, (amino.dont_omitempty) = true];
+  repeated ProductDetails productDetailsList  = 2 [(gogoproto.nullable) = false] ;
+           uint64         productDetailsCount = 3;
 }
+
