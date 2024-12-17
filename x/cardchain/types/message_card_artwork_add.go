@@ -1,10 +1,14 @@
 package types
 
 import (
+	fmt "fmt"
+
 	errorsmod "cosmossdk.io/errors"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 )
+
+const ArtworkMaxSize = 500000
 
 var _ sdk.Msg = &MsgCardArtworkAdd{}
 
@@ -22,5 +26,10 @@ func (msg *MsgCardArtworkAdd) ValidateBasic() error {
 	if err != nil {
 		return errorsmod.Wrapf(sdkerrors.ErrInvalidAddress, "invalid creator address (%s)", err)
 	}
+
+	if len(msg.Image) > ArtworkMaxSize {
+		return errorsmod.Wrap(ErrImageSizeExceeded, fmt.Sprint(len(msg.Image)))
+	}
+
 	return nil
 }
