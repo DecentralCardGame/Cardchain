@@ -10,6 +10,7 @@ import (
 
 	gtk "github.com/DecentralCardGame/cardchain/types/generic_type_keeper"
 	"github.com/DecentralCardGame/cardchain/x/cardchain/types"
+	ffKeeper "github.com/DecentralCardGame/cardchain/x/featureflag/keeper"
 )
 
 type (
@@ -33,7 +34,8 @@ type (
 		// should be the x/gov module account.
 		authority string
 
-		BankKeeper types.BankKeeper
+		BankKeeper                types.BankKeeper
+		FeatureFlagModuleInstance ffKeeper.ModuleInstance
 	}
 )
 
@@ -43,6 +45,7 @@ func NewKeeper(
 	logger log.Logger,
 	authority string,
 	bankKeeper types.BankKeeper,
+	featureFlagKeeper types.FeatureFlagKeeper,
 
 ) Keeper {
 	if _, err := sdk.AccAddressFromBech32(authority); err != nil {
@@ -66,7 +69,8 @@ func NewKeeper(
 		Servers:         gtk.NewGTK[*types.Server]("Servers", storeService, cdc, gtk.GetEmpty[types.Server]),
 		Encounters:      gtk.NewGTK[*types.Encounter]("Encounters", storeService, cdc, gtk.GetEmpty[types.Encounter]),
 
-		BankKeeper: bankKeeper,
+		FeatureFlagModuleInstance: featureFlagKeeper.GetModuleInstance(types.ModuleName, []string{string(types.FeatureFlagName_Council), string(types.FeatureFlagName_Matches)}),
+		BankKeeper:                bankKeeper,
 	}
 }
 

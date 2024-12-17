@@ -1,4 +1,4 @@
-package cardchain
+package featureflag
 
 import (
 	"context"
@@ -20,9 +20,9 @@ import (
 
 	// this line is used by starport scaffolding # 1
 
-	modulev1 "github.com/DecentralCardGame/cardchain/api/cardchain/cardchain/module"
-	"github.com/DecentralCardGame/cardchain/x/cardchain/keeper"
-	"github.com/DecentralCardGame/cardchain/x/cardchain/types"
+	modulev1 "github.com/DecentralCardGame/cardchain/api/cardchain/featureflag/module"
+	"github.com/DecentralCardGame/cardchain/x/featureflag/keeper"
+	"github.com/DecentralCardGame/cardchain/x/featureflag/types"
 )
 
 var (
@@ -180,16 +180,15 @@ type ModuleInputs struct {
 	Config       *modulev1.Module
 	Logger       log.Logger
 
-	AccountKeeper     types.AccountKeeper
-	BankKeeper        types.BankKeeper
-	FeatureFlagKeeper types.FeatureFlagKeeper
+	AccountKeeper types.AccountKeeper
+	BankKeeper    types.BankKeeper
 }
 
 type ModuleOutputs struct {
 	depinject.Out
 
-	CardchainKeeper keeper.Keeper
-	Module          appmodule.AppModule
+	FeatureflagKeeper keeper.Keeper
+	Module            appmodule.AppModule
 }
 
 func ProvideModule(in ModuleInputs) ModuleOutputs {
@@ -203,8 +202,6 @@ func ProvideModule(in ModuleInputs) ModuleOutputs {
 		in.StoreService,
 		in.Logger,
 		authority.String(),
-		in.BankKeeper,
-		in.FeatureFlagKeeper,
 	)
 	m := NewAppModule(
 		in.Cdc,
@@ -213,5 +210,5 @@ func ProvideModule(in ModuleInputs) ModuleOutputs {
 		in.BankKeeper,
 	)
 
-	return ModuleOutputs{CardchainKeeper: k, Module: m}
+	return ModuleOutputs{FeatureflagKeeper: k, Module: m}
 }

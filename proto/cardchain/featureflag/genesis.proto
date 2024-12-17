@@ -1,0 +1,18 @@
+syntax = "proto3";
+package cardchain.featureflag;
+
+import "amino/amino.proto";
+import "gogoproto/gogo.proto";
+import "cardchain/featureflag/params.proto";
+import "cardchain/featureflag/flag.proto";
+
+option go_package = "github.com/DecentralCardGame/cardchain/x/featureflag/types";
+
+// GenesisState defines the featureflag module's genesis state.
+message GenesisState {
+  // params defines all the parameters of the module.
+  Params params = 1
+      [ (gogoproto.nullable) = false, (amino.dont_omitempty) = true ];
+
+  map<string, Flag> flags = 2;
+}

@@ -54,8 +54,11 @@ import (
 	"google.golang.org/protobuf/types/known/durationpb"
 
 	cardchainmodulev1 "github.com/DecentralCardGame/cardchain/api/cardchain/cardchain/module"
+	featureflagmodulev1 "github.com/DecentralCardGame/cardchain/api/cardchain/featureflag/module"
 	_ "github.com/DecentralCardGame/cardchain/x/cardchain/module" // import for side-effects
 	cardchainmoduletypes "github.com/DecentralCardGame/cardchain/x/cardchain/types"
+	_ "github.com/DecentralCardGame/cardchain/x/featureflag/module" // import for side-effects
+	featureflagmoduletypes "github.com/DecentralCardGame/cardchain/x/featureflag/types"
 	// this line is used by starport scaffolding # stargate/app/moduleImport
 )
 
@@ -94,6 +97,7 @@ var (
 		circuittypes.ModuleName,
 		// chain modules
 		cardchainmoduletypes.ModuleName,
+		featureflagmoduletypes.ModuleName,
 		// this line is used by starport scaffolding # stargate/app/initGenesis
 	}
 
@@ -119,6 +123,7 @@ var (
 		ibcfeetypes.ModuleName,
 		// chain modules
 		cardchainmoduletypes.ModuleName,
+		featureflagmoduletypes.ModuleName,
 		// this line is used by starport scaffolding # stargate/app/beginBlockers
 	}
 
@@ -138,6 +143,7 @@ var (
 		ibcfeetypes.ModuleName,
 		// chain modules
 		cardchainmoduletypes.ModuleName,
+		featureflagmoduletypes.ModuleName,
 		// this line is used by starport scaffolding # stargate/app/endBlockers
 	}
 
@@ -296,6 +302,10 @@ var (
 			{
 				Name:   cardchainmoduletypes.ModuleName,
 				Config: appconfig.WrapAny(&cardchainmodulev1.Module{}),
+			},
+			{
+				Name:   featureflagmoduletypes.ModuleName,
+				Config: appconfig.WrapAny(&featureflagmodulev1.Module{}),
 			},
 			// this line is used by starport scaffolding # stargate/app/moduleConfig
 		},

@@ -76,6 +76,8 @@ import (
 	ibckeeper "github.com/cosmos/ibc-go/v8/modules/core/keeper"
 
 	cardchainmodulekeeper "github.com/DecentralCardGame/cardchain/x/cardchain/keeper"
+	featureflagmodulekeeper "github.com/DecentralCardGame/cardchain/x/featureflag/keeper"
+
 	// this line is used by starport scaffolding # stargate/app/moduleImport
 
 	"github.com/DecentralCardGame/cardchain/docs"
@@ -141,7 +143,8 @@ type App struct {
 	ScopedICAHostKeeper       capabilitykeeper.ScopedKeeper
 	ScopedKeepers             map[string]capabilitykeeper.ScopedKeeper
 
-	CardchainKeeper cardchainmodulekeeper.Keeper
+	CardchainKeeper   cardchainmodulekeeper.Keeper
+	FeatureflagKeeper featureflagmodulekeeper.Keeper
 	// this line is used by starport scaffolding # stargate/app/keeperDeclaration
 
 	// simulation manager
@@ -246,6 +249,7 @@ func New(
 		&app.GroupKeeper,
 		&app.CircuitBreakerKeeper,
 		&app.CardchainKeeper,
+		&app.FeatureflagKeeper,
 		// this line is used by starport scaffolding # stargate/app/keeperDefinition
 	); err != nil {
 		panic(err)

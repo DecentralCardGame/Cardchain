@@ -1,0 +1,15 @@
+syntax = "proto3";
+package cardchain.featureflag;
+
+import "amino/amino.proto";
+import "gogoproto/gogo.proto";
+
+option go_package = "github.com/DecentralCardGame/cardchain/x/featureflag/types";
+
+// Params defines the parameters for the module.
+message Params {
+  option (amino.name) = "cardchain/x/featureflag/Params";
+  option (gogoproto.equal) = true;
+
+  
+}
