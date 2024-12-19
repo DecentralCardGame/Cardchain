@@ -1,0 +1,62 @@
+syntax = "proto3";
+package cardchain.cardchain;
+
+option go_package = "github.com/DecentralCardGame/cardchain/x/cardchain/types";
+import "cardchain/cardchain/voting.proto";
+
+message User {
+  string alias = 1;
+  repeated uint64 ownedCardSchemes = 2;
+  repeated uint64 ownedPrototypes = 3;
+  repeated uint64 cards = 4;
+  CouncilStatus CouncilStatus = 6;
+  bool ReportMatches = 7;
+  uint64 profileCard = 8;
+  AirDrops airDrops = 9;
+  repeated BoosterPack boosterPacks = 10;
+  string website = 11;
+  string biography = 12;
+  repeated uint64 votableCards = 13;
+  repeated uint64 votedCards = 14;
+  EarlyAccess earlyAccess = 15;
+  repeated uint64 OpenEncounters = 16;
+  repeated uint64 WonEncounters = 17;
+}
+
+enum CouncilStatus {
+  available = 0;
+  unavailable = 1;
+  openCouncil = 2;
+  startedCouncil = 3;
+}
+
+message EarlyAccess {
+  bool active = 1;
+  string invitedByUser = 2;
+  string invitedUser = 3;
+}
+
+message BoosterPack {
+  uint64 setId = 1;
+  int64 timeStamp = 2;
+  // How often the different rarities will appear in a BoosterPack
+  repeated uint64 raritiesPerPack = 3;
+  // The chances of the rare beeing a normal rare, an exceptional or a unique
+  repeated uint64 dropRatiosPerPack = 4;
+}
+
+message AirDrops {
+  bool vote = 1;
+  bool create = 2;
+  bool buy = 3;
+  bool play = 4;
+  bool user = 5;
+}
+
+enum AirDrop {
+  play = 0;
+  vote = 1;
+  create = 2;
+  buy = 3;
+  user = 4;
+}

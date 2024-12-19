@@ -10,8 +10,5 @@ import (
 func (k msgServer) MatchReporterAppoint(goCtx context.Context, msg *types.MsgMatchReporterAppoint) (*types.MsgMatchReporterAppointResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	// TODO: Handling the message
-	_ = ctx
-
-	return &types.MsgMatchReporterAppointResponse{}, nil
+	return &types.MsgMatchReporterAppointResponse{}, k.SetMatchReporter(ctx, msg.Reporter)
 }

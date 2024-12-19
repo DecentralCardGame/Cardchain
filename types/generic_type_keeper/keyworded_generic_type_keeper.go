@@ -10,15 +10,15 @@ import (
 )
 
 type KeywordedGenericTypeKeeper[T proto.Message] struct {
-	GenericTypeKeeper[T]
+	GenericUint64TypeKeeper[T]
 	KeyWords []string
 }
 
 // NewKGTK Returns a new KeywordedGenericTypeKeeper
 func NewKGTK[T proto.Message](key string, storeService store.KVStoreService, cdc codec.BinaryCodec, getEmpty func() T, keywords []string) KeywordedGenericTypeKeeper[T] {
 	return KeywordedGenericTypeKeeper[T]{
-		GenericTypeKeeper: NewGTK[T](key, storeService, cdc, getEmpty),
-		KeyWords:          keywords,
+		GenericUint64TypeKeeper: NewUintGTK[T](key, storeService, cdc, getEmpty),
+		KeyWords:                keywords,
 	}
 }
 
