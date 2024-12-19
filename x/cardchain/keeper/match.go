@@ -53,26 +53,11 @@ func (k Keeper) getMatchReward(ctx sdk.Context) sdk.Coin {
 	return reward
 }
 
-// getMatchAddresses Get's and verifies the players of a match
-func (k Keeper) getMatchAddresses(ctx sdk.Context, match types.Match) (addresses []sdk.AccAddress, err error) {
-	for _, player := range []string{match.PlayerA.Addr, match.PlayerB.Addr} {
-		var address sdk.AccAddress
-		address, err = sdk.AccAddressFromBech32(player)
-		if err != nil {
-			err = sdkerrors.Wrap(errors.ErrInvalidAddress, "Invalid player")
-			return
-		}
-		addresses = append(addresses, address)
-	}
-
-	return
-}
-
 func (k Keeper) getMatchUsers(ctx sdk.Context, match types.Match) (users []*User, err error) {
 	for _, address := range []string{match.PlayerA.Addr, match.PlayerB.Addr} {
 		user, err := k.GetUserFromString(ctx, address)
 		if err != nil {
-			return []*User{}, err
+			return users, err
 		}
 		users = append(users, &user)
 	}
@@ -82,7 +67,7 @@ func (k Keeper) getMatchUsers(ctx sdk.Context, match types.Match) (users []*User
 
 // distributeCoins to players of a match
 func (k Keeper) distributeCoins(ctx sdk.Context, match *types.Match, outcome types.Outcome) error {
-	addresses, err := k.getMatchAddresses(ctx, *match)
+	addresses, err := match.GetMatchAddresses()
 	if err != nil {
 		return err
 	}
