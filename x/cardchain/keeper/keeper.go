@@ -30,6 +30,7 @@ type (
 		Images          gtk.GenericUint64TypeKeeper[*types.Image]
 		Encounters      gtk.GenericUint64TypeKeeper[*types.Encounter]
 		Users           gtk.GenericAddressTypeKeeper[*types.User]
+		Zealy           gtk.GenericStringTypeKeeper[*types.Zealy]
 
 		// the address capable of executing a MsgUpdateParams message. Typically, this
 		// should be the x/gov module account.
@@ -70,6 +71,7 @@ func NewKeeper(
 		Servers:         gtk.NewUintGTK[*types.Server]("Servers", storeService, cdc, gtk.GetEmpty[types.Server]),
 		Encounters:      gtk.NewUintGTK[*types.Encounter]("Encounters", storeService, cdc, gtk.GetEmpty[types.Encounter]),
 		Users:           gtk.NewAddressGTK[*types.User]("Users", storeService, cdc, gtk.GetEmpty[types.User]),
+		Zealy:           gtk.NewStringGTK[*types.Zealy]("Zealy", storeService, cdc, gtk.GetEmpty[types.Zealy]),
 
 		FeatureFlagModuleInstance: featureFlagKeeper.GetModuleInstance(types.ModuleName, []string{string(types.FeatureFlagName_Council), string(types.FeatureFlagName_Matches)}),
 		BankKeeper:                bankKeeper,

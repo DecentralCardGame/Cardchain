@@ -3,7 +3,19 @@ package types
 import (
 	errorsmod "cosmossdk.io/errors"
 	"github.com/DecentralCardGame/cardobject/keywords"
+	sdk "github.com/cosmos/cosmos-sdk/types"
 )
+
+// NewCard Constructor for Card
+func NewCard(owner sdk.AccAddress) Card {
+	return Card{
+		Owner:    owner.String(),
+		Notes:    "",
+		FullArt:  true,
+		Status:   Status_scheme,
+		VotePool: sdk.NewInt64Coin("ucredits", 0),
+	}
+}
 
 // ResetVotes resets a cards votes
 func (card *Card) ResetVotes() {

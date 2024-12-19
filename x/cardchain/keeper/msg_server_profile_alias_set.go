@@ -10,8 +10,14 @@ import (
 func (k msgServer) ProfileAliasSet(goCtx context.Context, msg *types.MsgProfileAliasSet) (*types.MsgProfileAliasSetResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	// TODO: Handling the message
-	_ = ctx
+	user, err := k.GetUserFromString(ctx, msg.Creator)
+	if err != nil {
+		return nil, err
+	}
+
+	user.Alias = msg.Alias
+
+	k.SetUserFromUser(ctx, user)
 
 	return &types.MsgProfileAliasSetResponse{}, nil
 }

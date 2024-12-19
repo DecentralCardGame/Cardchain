@@ -72,6 +72,7 @@ service Msg {
   rpc CreateProductDetails  (MsgCreateProductDetails ) returns (MsgCreateProductDetailsResponse );
   rpc UpdateProductDetails  (MsgUpdateProductDetails ) returns (MsgUpdateProductDetailsResponse );
   rpc DeleteProductDetails  (MsgDeleteProductDetails ) returns (MsgDeleteProductDetailsResponse );
+  rpc EarlyAccessDisinvite  (MsgEarlyAccessDisinvite ) returns (MsgEarlyAccessDisinviteResponse );
 }
 // MsgUpdateParams is the Msg/UpdateParams request type.
 message MsgUpdateParams {
@@ -335,7 +336,7 @@ message MsgCouncilResponseCommit {
   option (cosmos.msg.v1.signer) = "creator";
   string creator    = 1;
   uint64 councilId  = 2;
-  string reponse    = 3;
+  string response   = 3;
   string suggestion = 4;
 }
 
@@ -544,4 +545,12 @@ message MsgDeleteProductDetails {
 }
 
 message MsgDeleteProductDetailsResponse {}
+
+message MsgEarlyAccessDisinvite {
+  option (cosmos.msg.v1.signer) = "creator";
+  string creator = 1;
+  string user    = 2;
+}
+
+message MsgEarlyAccessDisinviteResponse {}
 

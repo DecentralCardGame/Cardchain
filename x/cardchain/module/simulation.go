@@ -219,6 +219,10 @@ const (
 	// TODO: Determine the simulation weight value
 	defaultWeightMsgDeleteProductDetails int = 100
 
+	opWeightMsgEarlyAccessDisinvite = "op_weight_msg_early_access_disinvite"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgEarlyAccessDisinvite int = 100
+
 	// this line is used by starport scaffolding # simapp/module/const
 )
 
@@ -792,6 +796,17 @@ func (am AppModule) WeightedOperations(simState module.SimulationState) []simtyp
 		cardchainsimulation.SimulateMsgDeleteProductDetails(am.accountKeeper, am.bankKeeper, am.keeper),
 	))
 
+	var weightMsgEarlyAccessDisinvite int
+	simState.AppParams.GetOrGenerate(opWeightMsgEarlyAccessDisinvite, &weightMsgEarlyAccessDisinvite, nil,
+		func(_ *rand.Rand) {
+			weightMsgEarlyAccessDisinvite = defaultWeightMsgEarlyAccessDisinvite
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgEarlyAccessDisinvite,
+		cardchainsimulation.SimulateMsgEarlyAccessDisinvite(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
 	// this line is used by starport scaffolding # simapp/module/operation
 
 	return operations
@@ -1189,6 +1204,14 @@ func (am AppModule) ProposalMsgs(simState module.SimulationState) []simtypes.Wei
 			defaultWeightMsgDeleteProductDetails,
 			func(r *rand.Rand, ctx sdk.Context, accs []simtypes.Account) sdk.Msg {
 				cardchainsimulation.SimulateMsgDeleteProductDetails(am.accountKeeper, am.bankKeeper, am.keeper)
+				return nil
+			},
+		),
+		simulation.NewWeightedProposalMsg(
+			opWeightMsgEarlyAccessDisinvite,
+			defaultWeightMsgEarlyAccessDisinvite,
+			func(r *rand.Rand, ctx sdk.Context, accs []simtypes.Account) sdk.Msg {
+				cardchainsimulation.SimulateMsgEarlyAccessDisinvite(am.accountKeeper, am.bankKeeper, am.keeper)
 				return nil
 			},
 		),

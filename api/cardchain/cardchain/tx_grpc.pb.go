@@ -8,6 +8,7 @@ package cardchain
 
 import (
 	context "context"
+
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -69,6 +70,7 @@ const (
 	Msg_CreateProductDetails_FullMethodName  = "/cardchain.cardchain.Msg/CreateProductDetails"
 	Msg_UpdateProductDetails_FullMethodName  = "/cardchain.cardchain.Msg/UpdateProductDetails"
 	Msg_DeleteProductDetails_FullMethodName  = "/cardchain.cardchain.Msg/DeleteProductDetails"
+	Msg_EarlyAccessDisinvite_FullMethodName  = "/cardchain.cardchain.Msg/EarlyAccessDisinvite"
 )
 
 // MsgClient is the client API for Msg service.
@@ -127,6 +129,7 @@ type MsgClient interface {
 	CreateProductDetails(ctx context.Context, in *MsgCreateProductDetails, opts ...grpc.CallOption) (*MsgCreateProductDetailsResponse, error)
 	UpdateProductDetails(ctx context.Context, in *MsgUpdateProductDetails, opts ...grpc.CallOption) (*MsgUpdateProductDetailsResponse, error)
 	DeleteProductDetails(ctx context.Context, in *MsgDeleteProductDetails, opts ...grpc.CallOption) (*MsgDeleteProductDetailsResponse, error)
+	EarlyAccessDisinvite(ctx context.Context, in *MsgEarlyAccessDisinvite, opts ...grpc.CallOption) (*MsgEarlyAccessDisinviteResponse, error)
 }
 
 type msgClient struct {
@@ -587,6 +590,15 @@ func (c *msgClient) DeleteProductDetails(ctx context.Context, in *MsgDeleteProdu
 	return out, nil
 }
 
+func (c *msgClient) EarlyAccessDisinvite(ctx context.Context, in *MsgEarlyAccessDisinvite, opts ...grpc.CallOption) (*MsgEarlyAccessDisinviteResponse, error) {
+	out := new(MsgEarlyAccessDisinviteResponse)
+	err := c.cc.Invoke(ctx, Msg_EarlyAccessDisinvite_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // MsgServer is the server API for Msg service.
 // All implementations must embed UnimplementedMsgServer
 // for forward compatibility
@@ -643,6 +655,7 @@ type MsgServer interface {
 	CreateProductDetails(context.Context, *MsgCreateProductDetails) (*MsgCreateProductDetailsResponse, error)
 	UpdateProductDetails(context.Context, *MsgUpdateProductDetails) (*MsgUpdateProductDetailsResponse, error)
 	DeleteProductDetails(context.Context, *MsgDeleteProductDetails) (*MsgDeleteProductDetailsResponse, error)
+	EarlyAccessDisinvite(context.Context, *MsgEarlyAccessDisinvite) (*MsgEarlyAccessDisinviteResponse, error)
 	mustEmbedUnimplementedMsgServer()
 }
 
@@ -799,6 +812,9 @@ func (UnimplementedMsgServer) UpdateProductDetails(context.Context, *MsgUpdatePr
 }
 func (UnimplementedMsgServer) DeleteProductDetails(context.Context, *MsgDeleteProductDetails) (*MsgDeleteProductDetailsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteProductDetails not implemented")
+}
+func (UnimplementedMsgServer) EarlyAccessDisinvite(context.Context, *MsgEarlyAccessDisinvite) (*MsgEarlyAccessDisinviteResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method EarlyAccessDisinvite not implemented")
 }
 func (UnimplementedMsgServer) mustEmbedUnimplementedMsgServer() {}
 
@@ -1713,6 +1729,24 @@ func _Msg_DeleteProductDetails_Handler(srv interface{}, ctx context.Context, dec
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Msg_EarlyAccessDisinvite_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgEarlyAccessDisinvite)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).EarlyAccessDisinvite(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Msg_EarlyAccessDisinvite_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).EarlyAccessDisinvite(ctx, req.(*MsgEarlyAccessDisinvite))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Msg_ServiceDesc is the grpc.ServiceDesc for Msg service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -1919,6 +1953,10 @@ var Msg_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "DeleteProductDetails",
 			Handler:    _Msg_DeleteProductDetails_Handler,
+		},
+		{
+			MethodName: "EarlyAccessDisinvite",
+			Handler:    _Msg_EarlyAccessDisinvite_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

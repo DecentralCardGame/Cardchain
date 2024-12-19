@@ -333,6 +333,12 @@ func (am AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 					Short:          "Delete product-details",
 					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "id"}},
 				},
+				{
+					RpcMethod:      "EarlyAccessDisinvite",
+					Use:            "early-access-disinvite [user]",
+					Short:          "Send a EarlyAccessDisinvite tx",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "user"}},
+				},
 				// this line is used by ignite scaffolding # autocli/tx
 			},
 		},

@@ -6,24 +6,19 @@ import (
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 )
 
-var _ sdk.Msg = &MsgProfileAliasSet{}
+var _ sdk.Msg = &MsgEarlyAccessDisinvite{}
 
-func NewMsgProfileAliasSet(creator string, alias string) *MsgProfileAliasSet {
-	return &MsgProfileAliasSet{
+func NewMsgEarlyAccessDisinvite(creator string, user string) *MsgEarlyAccessDisinvite {
+	return &MsgEarlyAccessDisinvite{
 		Creator: creator,
-		Alias:   alias,
+		User:    user,
 	}
 }
 
-func (msg *MsgProfileAliasSet) ValidateBasic() error {
+func (msg *MsgEarlyAccessDisinvite) ValidateBasic() error {
 	_, err := sdk.AccAddressFromBech32(msg.Creator)
 	if err != nil {
 		return errorsmod.Wrapf(sdkerrors.ErrInvalidAddress, "invalid creator address (%s)", err)
 	}
-
-	if err = checkAliasLimit(msg.Alias); err != nil {
-		return err
-	}
-
 	return nil
 }

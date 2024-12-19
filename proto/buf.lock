@@ -2,6 +2,11 @@
 version: v1
 deps:
   - remote: buf.build
+    owner: cometbft
+    repository: cometbft
+    commit: c0d3497e35d649538679874acdd86660
+    digest: shake256:05d2fb9e6b6bf82385ac26b250afbba281a2ca79f51729291373d24ca676d743183bf70a921daae6feafd5f9917120e2548a7c477d9743f668bca27cc1e12fdf
+  - remote: buf.build
     owner: cosmos
     repository: cosmos-proto
     commit: 04467658e59e44bbb22fe568206e1f70
@@ -19,8 +24,8 @@ deps:
   - remote: buf.build
     owner: cosmos
     repository: ibc
-    commit: a7af51c19a5c4027881b0f6ec5441718
-    digest: shake256:33e24113f0f697aad2fd3f0a5ee16a2607f6ec54d715835e3864b353bd72800a3d52bb040786763dc465942c4d796e7c141dba729e53091268ecbe0614004072
+    commit: f3cb7e9a10ab4cd5a402b9913f65e38d
+    digest: shake256:aaa8a2a46a3ab5cb4c54f9f14920bc472e5e5f93453fa250de49f15c76dce7f82faa5615afd341967797ead8052306db6b1e6327cb1d8d94345bf07a22f8aebd
   - remote: buf.build
     owner: cosmos
     repository: ics23
@@ -29,13 +34,13 @@ deps:
   - remote: buf.build
     owner: googleapis
     repository: googleapis
-    commit: acd896313c55464b993332136ded1b6e
-    digest: shake256:66626d5e4d9c8ecf25cd72bdbfbbf62b9a68e9e9c33dab6b9b39a53a67063eeba6b8493247dd6d6240b1ac1c32eb2dc311484e67dd7d271884a960c2e5ce8c9a
+    commit: e93e34f48be043dab55be31b4b47f458
+    digest: shake256:93dbe51c27606999eef918360df509485a4d272e79aaed6d0016940379a9b06d316fc5228b7b50cca94bb310f34c5fc5955ce7474f655f0d0a224c4121dda3c1
   - remote: buf.build
     owner: protocolbuffers
     repository: wellknowntypes
-    commit: 384f8deef6ae4110b57d996aad0032c4
-    digest: shake256:2ed272f48ab530c2581a71237043ce20e93724aa2e84f0ac555e82d7dca8061ee530d0e5f91835f1b7374b8db179ab2a75e8452af71ceb2285f411de8816bec3
+    commit: d4f14e5e0a9c40889c90d373c74e95eb
+    digest: shake256:c9824714afd6cc432c2e1fafa20df47c87a8a0aca9e27192cd5732619453997af1721c2eac5c0fbbe7b29a741af5b8d7ba4ee89c85903e782d9c725d7b9436b5
   - remote: buf.build
     owner: tendermint
     repository: tendermint

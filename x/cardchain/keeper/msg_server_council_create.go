@@ -3,15 +3,81 @@ package keeper
 import (
 	"context"
 
+	errorsmod "cosmossdk.io/errors"
 	"github.com/DecentralCardGame/cardchain/x/cardchain/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	"github.com/cosmos/cosmos-sdk/types/errors"
+	"golang.org/x/exp/rand"
 )
 
 func (k msgServer) CouncilCreate(goCtx context.Context, msg *types.MsgCouncilCreate) (*types.MsgCouncilCreateResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	// TODO: Handling the message
-	_ = ctx
+	rand.Seed(uint64(ctx.BlockTime().Unix()))
+
+	creator, err := k.GetUserFromString(ctx, msg.Creator)
+	if err != nil {
+		return nil, errorsmod.Wrap(types.ErrUserDoesNotExist, err.Error())
+	}
+
+	card := k.Cards.Get(ctx, msg.CardId)
+	//if card.Status != types.Status_prototype {
+	//	return nil, sdkerrors.Wrapf(types.ErrInvalidCardStatus, "%s", card.Status.String())
+	//} else
+	if card.Owner != msg.Creator {
+		return nil, errorsmod.Wrap(errors.ErrUnauthorized, "Incorrect Creator")
+	}
+
+	var possibleVoters []User
+	var fiveVoters []User
+	var voters []string
+	var status types.CouncelingStatus
+	collateralDeposit := k.GetParams(ctx).CollateralDeposit
+	treasury := MulCoin(collateralDeposit, 10)
+	councilId := k.Councils.GetNum(ctx)
+	users, addresses := k.GetAllUsers(ctx)
+
+	for idx, user := range users {
+		if user.CouncilStatus == types.CouncilStatus_available {
+			possibleVoters = append(possibleVoters, User{user, addresses[idx]})
+		}
+	}
+
+	rand.Shuffle(len(possibleVoters), func(i, j int) {
+		possibleVoters[i], possibleVoters[j] = possibleVoters[j], possibleVoters[i]
+	})
+
+	if len(possibleVoters) < 5 {
+		status = types.CouncelingStatus_councilOpen
+		fiveVoters = possibleVoters
+	} else {
+		status = types.CouncelingStatus_councilCreated
+		fiveVoters = possibleVoters[:5]
+	}
+
+	err = k.BurnCoinsFromAddr(ctx, creator.Addr, sdk.Coins{treasury})
+	if err != nil {
+		return nil, errorsmod.Wrap(errors.ErrInsufficientFunds, "Creator does not have enough coins")
+	}
+
+	for _, user := range fiveVoters {
+		if status == types.CouncelingStatus_councilOpen {
+			user.CouncilStatus = types.CouncilStatus_openCouncil
+		} else {
+			user.CouncilStatus = types.CouncilStatus_startedCouncil
+		}
+		k.SetUserFromUser(ctx, user)
+		voters = append(voters, user.Addr.String())
+	}
+
+	council := types.Council{
+		CardId:   msg.CardId,
+		Voters:   voters,
+		Treasury: treasury,
+		Status:   status,
+	}
+
+	k.Councils.Set(ctx, councilId, &council)
 
 	return &types.MsgCouncilCreateResponse{}, nil
 }
