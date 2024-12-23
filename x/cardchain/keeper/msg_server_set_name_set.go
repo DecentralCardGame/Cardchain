@@ -10,8 +10,15 @@ import (
 func (k msgServer) SetNameSet(goCtx context.Context, msg *types.MsgSetNameSet) (*types.MsgSetNameSetResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	// TODO: Handling the message
-	_ = ctx
+	set := k.Sets.Get(ctx, msg.SetId)
+	err := checkSetEditable(set, msg.Creator)
+	if err != nil {
+		return nil, err
+	}
+
+	set.Name = msg.Name
+
+	k.Sets.Set(ctx, msg.SetId, set)
 
 	return &types.MsgSetNameSetResponse{}, nil
 }

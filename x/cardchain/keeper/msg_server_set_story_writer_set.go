@@ -10,8 +10,15 @@ import (
 func (k msgServer) SetStoryWriterSet(goCtx context.Context, msg *types.MsgSetStoryWriterSet) (*types.MsgSetStoryWriterSetResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	// TODO: Handling the message
-	_ = ctx
+	set := k.Sets.Get(ctx, msg.SetId)
+	err := checkSetEditable(set, msg.Creator)
+	if err != nil {
+		return nil, err
+	}
+
+	set.StoryWriter = msg.StoryWriter
+
+	k.Sets.Set(ctx, msg.SetId, set)
 
 	return &types.MsgSetStoryWriterSetResponse{}, nil
 }

@@ -12,7 +12,7 @@ func NewMsgCouncilResponseReveal(creator string, councilId uint64, reponse Respo
 	return &MsgCouncilResponseReveal{
 		Creator:   creator,
 		CouncilId: councilId,
-		Reponse:   reponse,
+		Response:  reponse,
 		Secret:    secret,
 	}
 }

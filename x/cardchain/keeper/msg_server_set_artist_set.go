@@ -10,8 +10,15 @@ import (
 func (k msgServer) SetArtistSet(goCtx context.Context, msg *types.MsgSetArtistSet) (*types.MsgSetArtistSetResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	// TODO: Handling the message
-	_ = ctx
+	set := k.Sets.Get(ctx, msg.SetId)
+	err := checkSetEditable(set, msg.Creator)
+	if err != nil {
+		return nil, err
+	}
+
+	set.Artist = msg.Artist
+
+	k.Sets.Set(ctx, msg.SetId, set)
 
 	return &types.MsgSetArtistSetResponse{}, nil
 }

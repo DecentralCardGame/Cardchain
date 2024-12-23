@@ -6,6 +6,8 @@ import (
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 )
 
+const BIO_MAX_LENGTH = 400
+
 var _ sdk.Msg = &MsgProfileBioSet{}
 
 func NewMsgProfileBioSet(creator string, bio string) *MsgProfileBioSet {
@@ -20,5 +22,10 @@ func (msg *MsgProfileBioSet) ValidateBasic() error {
 	if err != nil {
 		return errorsmod.Wrapf(sdkerrors.ErrInvalidAddress, "invalid creator address (%s)", err)
 	}
+
+	if len(msg.Bio) > BIO_MAX_LENGTH {
+		return errorsmod.Wrapf(ErrInvalidData, "Website length exceded %d chars", BIO_MAX_LENGTH)
+	}
+
 	return nil
 }

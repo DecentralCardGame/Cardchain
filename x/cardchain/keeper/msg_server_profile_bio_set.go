@@ -10,8 +10,14 @@ import (
 func (k msgServer) ProfileBioSet(goCtx context.Context, msg *types.MsgProfileBioSet) (*types.MsgProfileBioSetResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	// TODO: Handling the message
-	_ = ctx
+	user, err := k.GetUserFromString(ctx, msg.Creator)
+	if err != nil {
+		return nil, err
+	}
+
+	user.Biography = msg.Bio
+
+	k.SetUserFromUser(ctx, user)
 
 	return &types.MsgProfileBioSetResponse{}, nil
 }

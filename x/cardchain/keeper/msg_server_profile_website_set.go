@@ -10,8 +10,14 @@ import (
 func (k msgServer) ProfileWebsiteSet(goCtx context.Context, msg *types.MsgProfileWebsiteSet) (*types.MsgProfileWebsiteSetResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	// TODO: Handling the message
-	_ = ctx
+	user, err := k.GetUserFromString(ctx, msg.Creator)
+	if err != nil {
+		return nil, err
+	}
+
+	user.Website = msg.Website
+
+	k.SetUserFromUser(ctx, user)
 
 	return &types.MsgProfileWebsiteSetResponse{}, nil
 }

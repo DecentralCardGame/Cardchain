@@ -8,13 +8,13 @@ import (
 
 var _ sdk.Msg = &MsgMatchOpen{}
 
-func NewMsgMatchOpen(creator string, playerA string, playerB string, playerAdeck []uint64, playerBdeck []uint64) *MsgMatchOpen {
+func NewMsgMatchOpen(creator string, playerA string, playerB string, playerADeck []uint64, playerBDeck []uint64) *MsgMatchOpen {
 	return &MsgMatchOpen{
 		Creator:     creator,
 		PlayerA:     playerA,
 		PlayerB:     playerB,
-		PlayerAdeck: playerAdeck,
-		PlayerBdeck: playerBdeck,
+		PlayerADeck: playerADeck,
+		PlayerBDeck: playerBDeck,
 	}
 }
 

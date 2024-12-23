@@ -16,4 +16,5 @@ var (
 	ErrCardobject        = sdkerrors.Register(ModuleName, 19, "Faulty cardobject")
 	ErrImageSizeExceeded = sdkerrors.Register(ModuleName, 17, "Image too big! Max size is 500kb")
 	ErrInvalidData       = sdkerrors.Register(ModuleName, 27, "Invalid data in transaction")
+	ErrBadReveal         = sdkerrors.Register(ModuleName, 15, "Reveal does not fit commit")
 )
