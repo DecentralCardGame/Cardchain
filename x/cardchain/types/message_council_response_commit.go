@@ -12,7 +12,7 @@ func NewMsgCouncilResponseCommit(creator string, councilId uint64, reponse strin
 	return &MsgCouncilResponseCommit{
 		Creator:    creator,
 		CouncilId:  councilId,
-		Reponse:    reponse,
+		Response:   reponse,
 		Suggestion: suggestion,
 	}
 }

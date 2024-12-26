@@ -14,10 +14,12 @@ type GenericAddressTypeKeeper[T proto.Message] struct {
 func NewAddressGTK[T proto.Message](key string, storeService store.KVStoreService, cdc codec.BinaryCodec, getEmpty func() T) GenericAddressTypeKeeper[T] {
 	gtk := GenericAddressTypeKeeper[T]{
 		GenericTypeKeeper[T, sdk.AccAddress]{
-			key:          key,
-			cdc:          cdc,
-			getEmpty:     getEmpty,
-			storeService: storeService,
+			BaseKeeper: BaseKeeper[T]{
+				key:          key,
+				cdc:          cdc,
+				storeService: storeService,
+				getEmpty:     getEmpty,
+			},
 			keyConverter: func(bz []byte, address sdk.AccAddress) []byte {
 				return append(bz, address...)
 			},

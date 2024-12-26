@@ -15,7 +15,7 @@ func (k msgServer) CardSchemeBuy(goCtx context.Context, msg *types.MsgCardScheme
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
 	currId := k.Cards.GetNum(ctx)
-	price := k.GetCardAuctionPrice(ctx)
+	price := *k.CardAuctionPrice.Get(ctx)
 	bid := msg.Bid
 
 	buyer, err := k.GetUserFromString(ctx, msg.Creator)
@@ -34,7 +34,8 @@ func (k msgServer) CardSchemeBuy(goCtx context.Context, msg *types.MsgCardScheme
 
 	k.AddPoolCredits(ctx, PublicPoolKey, price)
 	if price.Amount.Mul(sdkmath.NewInt(2)).LT(sdkmath.NewInt(int64(math.Pow(10, 12)))) {
-		k.SetCardAuctionPrice(ctx, price.Add(price))
+		newPrice := price.Add(price)
+		k.CardAuctionPrice.Set(ctx, &newPrice)
 	}
 
 	newCard := types.NewCard(buyer.Addr)

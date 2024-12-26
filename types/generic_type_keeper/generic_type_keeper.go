@@ -12,34 +12,23 @@ import (
 	"github.com/cosmos/gogoproto/proto"
 )
 
-// GetEmpty Just returns a empty object of a certain type
-func GetEmpty[A any]() *A {
-	var obj A
-	return &obj
-}
-
 type GenericTypeKeeper[T proto.Message, K any] struct {
-	storeService store.KVStoreService
-	key          string
-	cdc          codec.BinaryCodec
-	getEmpty     func() T // This is needed because codec.ProtoMarshaler always refers to a pointer, but for cdc.Unmarshal to work the passed pointer can't be nil, but when initializing a pointer it's nil
-	keyConverter KeyConver[K]
+	BaseKeeper[T] // This is needed because codec.ProtoMarshaler always refers to a pointer, but for cdc.Unmarshal to work the passed pointer can't be nil, but when initializing a pointer it's nil
+	keyConverter  KeyConver[K]
 }
 
 // NewGTK Returns a new GenericTypeKeeper
 func NewGTK[T proto.Message, K any](key string, storeService store.KVStoreService, cdc codec.BinaryCodec, getEmpty func() T, keyConverter KeyConver[K]) GenericTypeKeeper[T, K] {
 	gtk := GenericTypeKeeper[T, K]{
-		key:          key,
-		cdc:          cdc,
-		getEmpty:     getEmpty,
-		storeService: storeService,
+		BaseKeeper: BaseKeeper[T]{
+			key:          key,
+			cdc:          cdc,
+			storeService: storeService,
+			getEmpty:     getEmpty,
+		},
 		keyConverter: keyConverter,
 	}
 	return gtk
-}
-
-func (gtk GenericTypeKeeper[T, K]) valueKey() string {
-	return gtk.key + "/value/"
 }
 
 func (gtk GenericTypeKeeper[T, K]) countKey() string {
@@ -51,11 +40,6 @@ func (gtk GenericTypeKeeper[T, K]) getIDBytes(id K) []byte {
 	bz = append(bz, []byte("/")...)
 	bz = gtk.keyConverter(bz, id)
 	return bz
-}
-
-func (gtk GenericTypeKeeper[T, K]) getValueStore(ctx sdk.Context) prefix.Store {
-	storeAdapter := runtime.KVStoreAdapter(gtk.storeService.OpenKVStore(ctx))
-	return prefix.NewStore(storeAdapter, types.KeyPrefix(gtk.valueKey()))
 }
 
 func (gtk GenericTypeKeeper[T, K]) getCountStore(ctx sdk.Context) prefix.Store {

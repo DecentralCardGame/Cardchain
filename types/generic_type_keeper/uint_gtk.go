@@ -17,10 +17,12 @@ type GenericUint64TypeKeeper[T proto.Message] struct {
 func NewUintGTK[T proto.Message](key string, storeService store.KVStoreService, cdc codec.BinaryCodec, getEmpty func() T) GenericUint64TypeKeeper[T] {
 	gtk := GenericUint64TypeKeeper[T]{
 		GenericTypeKeeper[T, uint64]{
-			key:          key,
-			cdc:          cdc,
-			getEmpty:     getEmpty,
-			storeService: storeService,
+			BaseKeeper: BaseKeeper[T]{
+				key:          key,
+				cdc:          cdc,
+				storeService: storeService,
+				getEmpty:     getEmpty,
+			},
 			keyConverter: func(bz []byte, id uint64) []byte {
 				return binary.BigEndian.AppendUint64(bz, id)
 			},
