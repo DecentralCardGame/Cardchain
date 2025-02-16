@@ -15,6 +15,7 @@ import "cardchain/cardchain/match.proto";
 import "cardchain/cardchain/set_with_artwork.proto";
 import "cardchain/cardchain/sell_offer.proto";
 import "cardchain/cardchain/council.proto";
+import "cardchain/cardchain/server.proto";
 
 option go_package = "github.com/DecentralCardGame/cardchain/x/cardchain/types";
 
@@ -79,6 +80,12 @@ service Query {
   rpc Council(QueryCouncilRequest) returns (QueryCouncilResponse) {
     option (google.api.http).get =
         "/DecentralCardGame/cardchain/cardchain/council/{councilId}";
+  }
+
+  // Queries a list of Server items.
+  rpc Server(QueryServerRequest) returns (QueryServerResponse) {
+    option (google.api.http).get =
+        "/DecentralCardGame/cardchain/cardchain/server/{serverId}";
   }
 }
 // QueryParamsRequest is request type for the Query/Params RPC method.
@@ -147,3 +154,7 @@ message QuerySellOfferResponse { SellOffer sellOffer = 1; }
 message QueryCouncilRequest { uint64 councilId = 1; }
 
 message QueryCouncilResponse { Council council = 1; }
+
+message QueryServerRequest { uint64 serverId = 1; }
+
+message QueryServerResponse { Server server = 1; }

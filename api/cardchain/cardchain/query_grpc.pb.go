@@ -8,6 +8,7 @@ package cardchain
 
 import (
 	context "context"
+
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -29,6 +30,7 @@ const (
 	Query_Set_FullMethodName               = "/cardchain.cardchain.Query/Set"
 	Query_SellOffer_FullMethodName         = "/cardchain.cardchain.Query/SellOffer"
 	Query_Council_FullMethodName           = "/cardchain.cardchain.Query/Council"
+	Query_Server_FullMethodName            = "/cardchain.cardchain.Query/Server"
 )
 
 // QueryClient is the client API for Query service.
@@ -54,6 +56,8 @@ type QueryClient interface {
 	SellOffer(ctx context.Context, in *QuerySellOfferRequest, opts ...grpc.CallOption) (*QuerySellOfferResponse, error)
 	// Queries a list of Council items.
 	Council(ctx context.Context, in *QueryCouncilRequest, opts ...grpc.CallOption) (*QueryCouncilResponse, error)
+	// Queries a list of Server items.
+	Server(ctx context.Context, in *QueryServerRequest, opts ...grpc.CallOption) (*QueryServerResponse, error)
 }
 
 type queryClient struct {
@@ -154,6 +158,15 @@ func (c *queryClient) Council(ctx context.Context, in *QueryCouncilRequest, opts
 	return out, nil
 }
 
+func (c *queryClient) Server(ctx context.Context, in *QueryServerRequest, opts ...grpc.CallOption) (*QueryServerResponse, error) {
+	out := new(QueryServerResponse)
+	err := c.cc.Invoke(ctx, Query_Server_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // QueryServer is the server API for Query service.
 // All implementations must embed UnimplementedQueryServer
 // for forward compatibility
@@ -177,6 +190,8 @@ type QueryServer interface {
 	SellOffer(context.Context, *QuerySellOfferRequest) (*QuerySellOfferResponse, error)
 	// Queries a list of Council items.
 	Council(context.Context, *QueryCouncilRequest) (*QueryCouncilResponse, error)
+	// Queries a list of Server items.
+	Server(context.Context, *QueryServerRequest) (*QueryServerResponse, error)
 	mustEmbedUnimplementedQueryServer()
 }
 
@@ -213,6 +228,9 @@ func (UnimplementedQueryServer) SellOffer(context.Context, *QuerySellOfferReques
 }
 func (UnimplementedQueryServer) Council(context.Context, *QueryCouncilRequest) (*QueryCouncilResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Council not implemented")
+}
+func (UnimplementedQueryServer) Server(context.Context, *QueryServerRequest) (*QueryServerResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Server not implemented")
 }
 func (UnimplementedQueryServer) mustEmbedUnimplementedQueryServer() {}
 
@@ -407,6 +425,24 @@ func _Query_Council_Handler(srv interface{}, ctx context.Context, dec func(inter
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Query_Server_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryServerRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).Server(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Query_Server_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).Server(ctx, req.(*QueryServerRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Query_ServiceDesc is the grpc.ServiceDesc for Query service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -453,6 +489,10 @@ var Query_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Council",
 			Handler:    _Query_Council_Handler,
+		},
+		{
+			MethodName: "Server",
+			Handler:    _Query_Server_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
