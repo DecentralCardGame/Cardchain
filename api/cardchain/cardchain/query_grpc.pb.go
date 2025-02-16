@@ -24,6 +24,7 @@ const (
 	Query_ProductDetails_FullMethodName    = "/cardchain.cardchain.Query/ProductDetails"
 	Query_ProductDetailsAll_FullMethodName = "/cardchain.cardchain.Query/ProductDetailsAll"
 	Query_Card_FullMethodName              = "/cardchain.cardchain.Query/Card"
+	Query_User_FullMethodName              = "/cardchain.cardchain.Query/User"
 )
 
 // QueryClient is the client API for Query service.
@@ -37,6 +38,8 @@ type QueryClient interface {
 	ProductDetailsAll(ctx context.Context, in *QueryAllProductDetailsRequest, opts ...grpc.CallOption) (*QueryAllProductDetailsResponse, error)
 	// Queries a list of Card items.
 	Card(ctx context.Context, in *QueryCardRequest, opts ...grpc.CallOption) (*QueryCardResponse, error)
+	// Queries a list of User items.
+	User(ctx context.Context, in *QueryUserRequest, opts ...grpc.CallOption) (*QueryUserResponse, error)
 }
 
 type queryClient struct {
@@ -83,6 +86,15 @@ func (c *queryClient) Card(ctx context.Context, in *QueryCardRequest, opts ...gr
 	return out, nil
 }
 
+func (c *queryClient) User(ctx context.Context, in *QueryUserRequest, opts ...grpc.CallOption) (*QueryUserResponse, error) {
+	out := new(QueryUserResponse)
+	err := c.cc.Invoke(ctx, Query_User_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // QueryServer is the server API for Query service.
 // All implementations must embed UnimplementedQueryServer
 // for forward compatibility
@@ -94,6 +106,8 @@ type QueryServer interface {
 	ProductDetailsAll(context.Context, *QueryAllProductDetailsRequest) (*QueryAllProductDetailsResponse, error)
 	// Queries a list of Card items.
 	Card(context.Context, *QueryCardRequest) (*QueryCardResponse, error)
+	// Queries a list of User items.
+	User(context.Context, *QueryUserRequest) (*QueryUserResponse, error)
 	mustEmbedUnimplementedQueryServer()
 }
 
@@ -112,6 +126,9 @@ func (UnimplementedQueryServer) ProductDetailsAll(context.Context, *QueryAllProd
 }
 func (UnimplementedQueryServer) Card(context.Context, *QueryCardRequest) (*QueryCardResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Card not implemented")
+}
+func (UnimplementedQueryServer) User(context.Context, *QueryUserRequest) (*QueryUserResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method User not implemented")
 }
 func (UnimplementedQueryServer) mustEmbedUnimplementedQueryServer() {}
 
@@ -198,6 +215,24 @@ func _Query_Card_Handler(srv interface{}, ctx context.Context, dec func(interfac
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Query_User_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryUserRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).User(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Query_User_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).User(ctx, req.(*QueryUserRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Query_ServiceDesc is the grpc.ServiceDesc for Query service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -220,6 +255,10 @@ var Query_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Card",
 			Handler:    _Query_Card_Handler,
+		},
+		{
+			MethodName: "User",
+			Handler:    _Query_User_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

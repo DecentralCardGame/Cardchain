@@ -9,6 +9,7 @@ import "cosmos/base/query/v1beta1/pagination.proto";
 import "cardchain/cardchain/params.proto";
 import "cardchain/cardchain/product_details.proto";
 import "cardchain/cardchain/card_with_image.proto";
+import "cardchain/cardchain/user.proto";
 
 option go_package = "github.com/DecentralCardGame/cardchain/x/cardchain/types";
 
@@ -34,6 +35,12 @@ service Query {
   // Queries a list of Card items.
   rpc Card (QueryCardRequest) returns (QueryCardResponse) {
     option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/card/{cardId}";
+  
+  }
+  
+  // Queries a list of User items.
+  rpc User (QueryUserRequest) returns (QueryUserResponse) {
+    option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/user/{address}";
   
   }
 }
@@ -70,5 +77,13 @@ message QueryCardRequest {
 
 message QueryCardResponse {
   CardWithImage card = 1;
+}
+
+message QueryUserRequest {
+  string address = 1;
+}
+
+message QueryUserResponse {
+  User user = 1;
 }
 
