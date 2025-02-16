@@ -7,5 +7,5 @@ set -o pipefail
 #ignite scaffold query cards owner --response cardIds:uints
 #ignite scaffold query match matchId --response match:Match
 #ignite scaffold query set setId --response match:SetWithArtwork
-ignite scaffold query sellOffer sellOfferId:uint --response sellOffer:SellOffer
-ignite scaffold query council councilId:uint --response council:Council
+#ignite scaffold query sellOffer sellOfferId:uint --response sellOffer:SellOffer
+#ignite scaffold query council councilId:uint --response council:Council

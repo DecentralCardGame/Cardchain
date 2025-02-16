@@ -2,19 +2,18 @@
 package cardchain
 
 import (
-	fmt "fmt"
-	io "io"
-	reflect "reflect"
-	sync "sync"
-
 	_ "cosmossdk.io/api/amino"
 	v1beta1 "cosmossdk.io/api/cosmos/base/query/v1beta1"
+	fmt "fmt"
 	runtime "github.com/cosmos/cosmos-proto/runtime"
 	_ "github.com/cosmos/gogoproto/gogoproto"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoiface "google.golang.org/protobuf/runtime/protoiface"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
+	io "io"
+	reflect "reflect"
+	sync "sync"
 )
 
 var (
@@ -6495,8 +6494,8 @@ func (x *fastReflection_QueryMatchRequest) Interface() protoreflect.ProtoMessage
 // While iterating, mutating operations may only be performed
 // on the current field descriptor.
 func (x *fastReflection_QueryMatchRequest) Range(f func(protoreflect.FieldDescriptor, protoreflect.Value) bool) {
-	if x.MatchId != "" {
-		value := protoreflect.ValueOfString(x.MatchId)
+	if x.MatchId != uint64(0) {
+		value := protoreflect.ValueOfUint64(x.MatchId)
 		if !f(fd_QueryMatchRequest_matchId, value) {
 			return
 		}
@@ -6517,7 +6516,7 @@ func (x *fastReflection_QueryMatchRequest) Range(f func(protoreflect.FieldDescri
 func (x *fastReflection_QueryMatchRequest) Has(fd protoreflect.FieldDescriptor) bool {
 	switch fd.FullName() {
 	case "cardchain.cardchain.QueryMatchRequest.matchId":
-		return x.MatchId != ""
+		return x.MatchId != uint64(0)
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: cardchain.cardchain.QueryMatchRequest"))
@@ -6535,7 +6534,7 @@ func (x *fastReflection_QueryMatchRequest) Has(fd protoreflect.FieldDescriptor) 
 func (x *fastReflection_QueryMatchRequest) Clear(fd protoreflect.FieldDescriptor) {
 	switch fd.FullName() {
 	case "cardchain.cardchain.QueryMatchRequest.matchId":
-		x.MatchId = ""
+		x.MatchId = uint64(0)
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: cardchain.cardchain.QueryMatchRequest"))
@@ -6554,7 +6553,7 @@ func (x *fastReflection_QueryMatchRequest) Get(descriptor protoreflect.FieldDesc
 	switch descriptor.FullName() {
 	case "cardchain.cardchain.QueryMatchRequest.matchId":
 		value := x.MatchId
-		return protoreflect.ValueOfString(value)
+		return protoreflect.ValueOfUint64(value)
 	default:
 		if descriptor.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: cardchain.cardchain.QueryMatchRequest"))
@@ -6576,7 +6575,7 @@ func (x *fastReflection_QueryMatchRequest) Get(descriptor protoreflect.FieldDesc
 func (x *fastReflection_QueryMatchRequest) Set(fd protoreflect.FieldDescriptor, value protoreflect.Value) {
 	switch fd.FullName() {
 	case "cardchain.cardchain.QueryMatchRequest.matchId":
-		x.MatchId = value.Interface().(string)
+		x.MatchId = value.Uint()
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: cardchain.cardchain.QueryMatchRequest"))
@@ -6613,7 +6612,7 @@ func (x *fastReflection_QueryMatchRequest) Mutable(fd protoreflect.FieldDescript
 func (x *fastReflection_QueryMatchRequest) NewField(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
 	case "cardchain.cardchain.QueryMatchRequest.matchId":
-		return protoreflect.ValueOfString("")
+		return protoreflect.ValueOfUint64(uint64(0))
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: cardchain.cardchain.QueryMatchRequest"))
@@ -6683,9 +6682,8 @@ func (x *fastReflection_QueryMatchRequest) ProtoMethods() *protoiface.Methods {
 		var n int
 		var l int
 		_ = l
-		l = len(x.MatchId)
-		if l > 0 {
-			n += 1 + l + runtime.Sov(uint64(l))
+		if x.MatchId != 0 {
+			n += 1 + runtime.Sov(uint64(x.MatchId))
 		}
 		if x.unknownFields != nil {
 			n += len(x.unknownFields)
@@ -6716,12 +6714,10 @@ func (x *fastReflection_QueryMatchRequest) ProtoMethods() *protoiface.Methods {
 			i -= len(x.unknownFields)
 			copy(dAtA[i:], x.unknownFields)
 		}
-		if len(x.MatchId) > 0 {
-			i -= len(x.MatchId)
-			copy(dAtA[i:], x.MatchId)
-			i = runtime.EncodeVarint(dAtA, i, uint64(len(x.MatchId)))
+		if x.MatchId != 0 {
+			i = runtime.EncodeVarint(dAtA, i, uint64(x.MatchId))
 			i--
-			dAtA[i] = 0xa
+			dAtA[i] = 0x8
 		}
 		if input.Buf != nil {
 			input.Buf = append(input.Buf, dAtA...)
@@ -6773,10 +6769,10 @@ func (x *fastReflection_QueryMatchRequest) ProtoMethods() *protoiface.Methods {
 			}
 			switch fieldNum {
 			case 1:
-				if wireType != 2 {
+				if wireType != 0 {
 					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field MatchId", wireType)
 				}
-				var stringLen uint64
+				x.MatchId = 0
 				for shift := uint(0); ; shift += 7 {
 					if shift >= 64 {
 						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
@@ -6786,24 +6782,11 @@ func (x *fastReflection_QueryMatchRequest) ProtoMethods() *protoiface.Methods {
 					}
 					b := dAtA[iNdEx]
 					iNdEx++
-					stringLen |= uint64(b&0x7F) << shift
+					x.MatchId |= uint64(b&0x7F) << shift
 					if b < 0x80 {
 						break
 					}
 				}
-				intStringLen := int(stringLen)
-				if intStringLen < 0 {
-					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
-				}
-				postIndex := iNdEx + intStringLen
-				if postIndex < 0 {
-					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
-				}
-				if postIndex > l {
-					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
-				}
-				x.MatchId = string(dAtA[iNdEx:postIndex])
-				iNdEx = postIndex
 			default:
 				iNdEx = preIndex
 				skippy, err := runtime.Skip(dAtA[iNdEx:])
@@ -7350,8 +7333,8 @@ func (x *fastReflection_QuerySetRequest) Interface() protoreflect.ProtoMessage {
 // While iterating, mutating operations may only be performed
 // on the current field descriptor.
 func (x *fastReflection_QuerySetRequest) Range(f func(protoreflect.FieldDescriptor, protoreflect.Value) bool) {
-	if x.SetId != "" {
-		value := protoreflect.ValueOfString(x.SetId)
+	if x.SetId != uint64(0) {
+		value := protoreflect.ValueOfUint64(x.SetId)
 		if !f(fd_QuerySetRequest_setId, value) {
 			return
 		}
@@ -7372,7 +7355,7 @@ func (x *fastReflection_QuerySetRequest) Range(f func(protoreflect.FieldDescript
 func (x *fastReflection_QuerySetRequest) Has(fd protoreflect.FieldDescriptor) bool {
 	switch fd.FullName() {
 	case "cardchain.cardchain.QuerySetRequest.setId":
-		return x.SetId != ""
+		return x.SetId != uint64(0)
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: cardchain.cardchain.QuerySetRequest"))
@@ -7390,7 +7373,7 @@ func (x *fastReflection_QuerySetRequest) Has(fd protoreflect.FieldDescriptor) bo
 func (x *fastReflection_QuerySetRequest) Clear(fd protoreflect.FieldDescriptor) {
 	switch fd.FullName() {
 	case "cardchain.cardchain.QuerySetRequest.setId":
-		x.SetId = ""
+		x.SetId = uint64(0)
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: cardchain.cardchain.QuerySetRequest"))
@@ -7409,7 +7392,7 @@ func (x *fastReflection_QuerySetRequest) Get(descriptor protoreflect.FieldDescri
 	switch descriptor.FullName() {
 	case "cardchain.cardchain.QuerySetRequest.setId":
 		value := x.SetId
-		return protoreflect.ValueOfString(value)
+		return protoreflect.ValueOfUint64(value)
 	default:
 		if descriptor.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: cardchain.cardchain.QuerySetRequest"))
@@ -7431,7 +7414,7 @@ func (x *fastReflection_QuerySetRequest) Get(descriptor protoreflect.FieldDescri
 func (x *fastReflection_QuerySetRequest) Set(fd protoreflect.FieldDescriptor, value protoreflect.Value) {
 	switch fd.FullName() {
 	case "cardchain.cardchain.QuerySetRequest.setId":
-		x.SetId = value.Interface().(string)
+		x.SetId = value.Uint()
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: cardchain.cardchain.QuerySetRequest"))
@@ -7468,7 +7451,7 @@ func (x *fastReflection_QuerySetRequest) Mutable(fd protoreflect.FieldDescriptor
 func (x *fastReflection_QuerySetRequest) NewField(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
 	case "cardchain.cardchain.QuerySetRequest.setId":
-		return protoreflect.ValueOfString("")
+		return protoreflect.ValueOfUint64(uint64(0))
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: cardchain.cardchain.QuerySetRequest"))
@@ -7538,9 +7521,8 @@ func (x *fastReflection_QuerySetRequest) ProtoMethods() *protoiface.Methods {
 		var n int
 		var l int
 		_ = l
-		l = len(x.SetId)
-		if l > 0 {
-			n += 1 + l + runtime.Sov(uint64(l))
+		if x.SetId != 0 {
+			n += 1 + runtime.Sov(uint64(x.SetId))
 		}
 		if x.unknownFields != nil {
 			n += len(x.unknownFields)
@@ -7571,12 +7553,10 @@ func (x *fastReflection_QuerySetRequest) ProtoMethods() *protoiface.Methods {
 			i -= len(x.unknownFields)
 			copy(dAtA[i:], x.unknownFields)
 		}
-		if len(x.SetId) > 0 {
-			i -= len(x.SetId)
-			copy(dAtA[i:], x.SetId)
-			i = runtime.EncodeVarint(dAtA, i, uint64(len(x.SetId)))
+		if x.SetId != 0 {
+			i = runtime.EncodeVarint(dAtA, i, uint64(x.SetId))
 			i--
-			dAtA[i] = 0xa
+			dAtA[i] = 0x8
 		}
 		if input.Buf != nil {
 			input.Buf = append(input.Buf, dAtA...)
@@ -7628,10 +7608,10 @@ func (x *fastReflection_QuerySetRequest) ProtoMethods() *protoiface.Methods {
 			}
 			switch fieldNum {
 			case 1:
-				if wireType != 2 {
+				if wireType != 0 {
 					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field SetId", wireType)
 				}
-				var stringLen uint64
+				x.SetId = 0
 				for shift := uint(0); ; shift += 7 {
 					if shift >= 64 {
 						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
@@ -7641,24 +7621,11 @@ func (x *fastReflection_QuerySetRequest) ProtoMethods() *protoiface.Methods {
 					}
 					b := dAtA[iNdEx]
 					iNdEx++
-					stringLen |= uint64(b&0x7F) << shift
+					x.SetId |= uint64(b&0x7F) << shift
 					if b < 0x80 {
 						break
 					}
 				}
-				intStringLen := int(stringLen)
-				if intStringLen < 0 {
-					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
-				}
-				postIndex := iNdEx + intStringLen
-				if postIndex < 0 {
-					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
-				}
-				if postIndex > l {
-					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
-				}
-				x.SetId = string(dAtA[iNdEx:postIndex])
-				iNdEx = postIndex
 			default:
 				iNdEx = preIndex
 				skippy, err := runtime.Skip(dAtA[iNdEx:])
@@ -10335,7 +10302,7 @@ type QueryMatchRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	MatchId string `protobuf:"bytes,1,opt,name=matchId,proto3" json:"matchId,omitempty"`
+	MatchId uint64 `protobuf:"varint,1,opt,name=matchId,proto3" json:"matchId,omitempty"`
 }
 
 func (x *QueryMatchRequest) Reset() {
@@ -10358,11 +10325,11 @@ func (*QueryMatchRequest) Descriptor() ([]byte, []int) {
 	return file_cardchain_cardchain_query_proto_rawDescGZIP(), []int{12}
 }
 
-func (x *QueryMatchRequest) GetMatchId() string {
+func (x *QueryMatchRequest) GetMatchId() uint64 {
 	if x != nil {
 		return x.MatchId
 	}
-	return ""
+	return 0
 }
 
 type QueryMatchResponse struct {
@@ -10405,7 +10372,7 @@ type QuerySetRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	SetId string `protobuf:"bytes,1,opt,name=setId,proto3" json:"setId,omitempty"`
+	SetId uint64 `protobuf:"varint,1,opt,name=setId,proto3" json:"setId,omitempty"`
 }
 
 func (x *QuerySetRequest) Reset() {
@@ -10428,11 +10395,11 @@ func (*QuerySetRequest) Descriptor() ([]byte, []int) {
 	return file_cardchain_cardchain_query_proto_rawDescGZIP(), []int{14}
 }
 
-func (x *QuerySetRequest) GetSetId() string {
+func (x *QuerySetRequest) GetSetId() uint64 {
 	if x != nil {
 		return x.SetId
 	}
-	return ""
+	return 0
 }
 
 type QuerySetResponse struct {
@@ -10734,14 +10701,14 @@ var file_cardchain_cardchain_query_proto_rawDesc = []byte{
 	0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x04, 0x52, 0x07, 0x63, 0x61, 0x72, 0x64, 0x49, 0x64, 0x73,
 	0x22, 0x2d, 0x0a, 0x11, 0x51, 0x75, 0x65, 0x72, 0x79, 0x4d, 0x61, 0x74, 0x63, 0x68, 0x52, 0x65,
 	0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x18, 0x0a, 0x07, 0x6d, 0x61, 0x74, 0x63, 0x68, 0x49, 0x64,
-	0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x6d, 0x61, 0x74, 0x63, 0x68, 0x49, 0x64, 0x22,
+	0x18, 0x01, 0x20, 0x01, 0x28, 0x04, 0x52, 0x07, 0x6d, 0x61, 0x74, 0x63, 0x68, 0x49, 0x64, 0x22,
 	0x46, 0x0a, 0x12, 0x51, 0x75, 0x65, 0x72, 0x79, 0x4d, 0x61, 0x74, 0x63, 0x68, 0x52, 0x65, 0x73,
 	0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x30, 0x0a, 0x05, 0x6d, 0x61, 0x74, 0x63, 0x68, 0x18, 0x01,
 	0x20, 0x01, 0x28, 0x0b, 0x32, 0x1a, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e,
 	0x2e, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x4d, 0x61, 0x74, 0x63, 0x68,
 	0x52, 0x05, 0x6d, 0x61, 0x74, 0x63, 0x68, 0x22, 0x27, 0x0a, 0x0f, 0x51, 0x75, 0x65, 0x72, 0x79,
 	0x53, 0x65, 0x74, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x14, 0x0a, 0x05, 0x73, 0x65,
-	0x74, 0x49, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x73, 0x65, 0x74, 0x49, 0x64,
+	0x74, 0x49, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x04, 0x52, 0x05, 0x73, 0x65, 0x74, 0x49, 0x64,
 	0x22, 0x4d, 0x0a, 0x10, 0x51, 0x75, 0x65, 0x72, 0x79, 0x53, 0x65, 0x74, 0x52, 0x65, 0x73, 0x70,
 	0x6f, 0x6e, 0x73, 0x65, 0x12, 0x39, 0x0a, 0x05, 0x6d, 0x61, 0x74, 0x63, 0x68, 0x18, 0x01, 0x20,
 	0x01, 0x28, 0x0b, 0x32, 0x23, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e,
