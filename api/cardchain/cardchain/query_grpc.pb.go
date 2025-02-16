@@ -31,6 +31,7 @@ const (
 	Query_SellOffer_FullMethodName         = "/cardchain.cardchain.Query/SellOffer"
 	Query_Council_FullMethodName           = "/cardchain.cardchain.Query/Council"
 	Query_Server_FullMethodName            = "/cardchain.cardchain.Query/Server"
+	Query_Encounter_FullMethodName         = "/cardchain.cardchain.Query/Encounter"
 )
 
 // QueryClient is the client API for Query service.
@@ -58,6 +59,8 @@ type QueryClient interface {
 	Council(ctx context.Context, in *QueryCouncilRequest, opts ...grpc.CallOption) (*QueryCouncilResponse, error)
 	// Queries a list of Server items.
 	Server(ctx context.Context, in *QueryServerRequest, opts ...grpc.CallOption) (*QueryServerResponse, error)
+	// Queries a list of Encounter items.
+	Encounter(ctx context.Context, in *QueryEncounterRequest, opts ...grpc.CallOption) (*QueryEncounterResponse, error)
 }
 
 type queryClient struct {
@@ -167,6 +170,15 @@ func (c *queryClient) Server(ctx context.Context, in *QueryServerRequest, opts .
 	return out, nil
 }
 
+func (c *queryClient) Encounter(ctx context.Context, in *QueryEncounterRequest, opts ...grpc.CallOption) (*QueryEncounterResponse, error) {
+	out := new(QueryEncounterResponse)
+	err := c.cc.Invoke(ctx, Query_Encounter_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // QueryServer is the server API for Query service.
 // All implementations must embed UnimplementedQueryServer
 // for forward compatibility
@@ -192,6 +204,8 @@ type QueryServer interface {
 	Council(context.Context, *QueryCouncilRequest) (*QueryCouncilResponse, error)
 	// Queries a list of Server items.
 	Server(context.Context, *QueryServerRequest) (*QueryServerResponse, error)
+	// Queries a list of Encounter items.
+	Encounter(context.Context, *QueryEncounterRequest) (*QueryEncounterResponse, error)
 	mustEmbedUnimplementedQueryServer()
 }
 
@@ -231,6 +245,9 @@ func (UnimplementedQueryServer) Council(context.Context, *QueryCouncilRequest) (
 }
 func (UnimplementedQueryServer) Server(context.Context, *QueryServerRequest) (*QueryServerResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Server not implemented")
+}
+func (UnimplementedQueryServer) Encounter(context.Context, *QueryEncounterRequest) (*QueryEncounterResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Encounter not implemented")
 }
 func (UnimplementedQueryServer) mustEmbedUnimplementedQueryServer() {}
 
@@ -443,6 +460,24 @@ func _Query_Server_Handler(srv interface{}, ctx context.Context, dec func(interf
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Query_Encounter_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryEncounterRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).Encounter(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Query_Encounter_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).Encounter(ctx, req.(*QueryEncounterRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Query_ServiceDesc is the grpc.ServiceDesc for Query service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -493,6 +528,10 @@ var Query_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Server",
 			Handler:    _Query_Server_Handler,
+		},
+		{
+			MethodName: "Encounter",
+			Handler:    _Query_Encounter_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

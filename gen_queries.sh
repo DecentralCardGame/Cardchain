@@ -9,4 +9,5 @@ set -o pipefail
 #ignite scaffold query set setId --response match:SetWithArtwork
 #ignite scaffold query sellOffer sellOfferId:uint --response sellOffer:SellOffer
 #ignite scaffold query council councilId:uint --response council:Council
-ignite scaffold query server serverId:uint --response server:Server
+#ignite scaffold query server serverId:uint --response server:Server
+ignite scaffold query encounter encounterId:uint --response encounter:Encounter

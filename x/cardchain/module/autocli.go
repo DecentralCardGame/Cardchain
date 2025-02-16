@@ -84,6 +84,13 @@ func (am AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "serverId"}},
 				},
 
+				{
+					RpcMethod:      "Encounter",
+					Use:            "encounter [encounter-id]",
+					Short:          "Query encounter",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "encounterId"}},
+				},
+
 				// this line is used by ignite scaffolding # autocli/query
 			},
 		},
