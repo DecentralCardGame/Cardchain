@@ -10,4 +10,7 @@ set -o pipefail
 #ignite scaffold query sellOffer sellOfferId:uint --response sellOffer:SellOffer
 #ignite scaffold query council councilId:uint --response council:Council
 #ignite scaffold query server serverId:uint --response server:Server
-ignite scaffold query encounter encounterId:uint --response encounter:Encounter
+#ignite scaffold query encounter encounterId:uint --response encounter:Encounter
+# ignite scaffold query encounters --response encounters
+ignite scaffold query encounterWithImage --response encounter:EncounterWithImage
+ignite scaffold query encountersWithImage --response encounters

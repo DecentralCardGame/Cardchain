@@ -2,19 +2,18 @@
 package cardchain
 
 import (
-	fmt "fmt"
-	io "io"
-	reflect "reflect"
-	sync "sync"
-
 	_ "cosmossdk.io/api/amino"
 	v1beta1 "cosmossdk.io/api/cosmos/base/query/v1beta1"
+	fmt "fmt"
 	runtime "github.com/cosmos/cosmos-proto/runtime"
 	_ "github.com/cosmos/gogoproto/gogoproto"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoiface "google.golang.org/protobuf/runtime/protoiface"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
+	io "io"
+	reflect "reflect"
+	sync "sync"
 )
 
 var (
@@ -11453,6 +11452,2497 @@ func (x *fastReflection_QueryEncounterResponse) ProtoMethods() *protoiface.Metho
 	}
 }
 
+var (
+	md_QueryEncountersRequest protoreflect.MessageDescriptor
+)
+
+func init() {
+	file_cardchain_cardchain_query_proto_init()
+	md_QueryEncountersRequest = File_cardchain_cardchain_query_proto.Messages().ByName("QueryEncountersRequest")
+}
+
+var _ protoreflect.Message = (*fastReflection_QueryEncountersRequest)(nil)
+
+type fastReflection_QueryEncountersRequest QueryEncountersRequest
+
+func (x *QueryEncountersRequest) ProtoReflect() protoreflect.Message {
+	return (*fastReflection_QueryEncountersRequest)(x)
+}
+
+func (x *QueryEncountersRequest) slowProtoReflect() protoreflect.Message {
+	mi := &file_cardchain_cardchain_query_proto_msgTypes[24]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+var _fastReflection_QueryEncountersRequest_messageType fastReflection_QueryEncountersRequest_messageType
+var _ protoreflect.MessageType = fastReflection_QueryEncountersRequest_messageType{}
+
+type fastReflection_QueryEncountersRequest_messageType struct{}
+
+func (x fastReflection_QueryEncountersRequest_messageType) Zero() protoreflect.Message {
+	return (*fastReflection_QueryEncountersRequest)(nil)
+}
+func (x fastReflection_QueryEncountersRequest_messageType) New() protoreflect.Message {
+	return new(fastReflection_QueryEncountersRequest)
+}
+func (x fastReflection_QueryEncountersRequest_messageType) Descriptor() protoreflect.MessageDescriptor {
+	return md_QueryEncountersRequest
+}
+
+// Descriptor returns message descriptor, which contains only the protobuf
+// type information for the message.
+func (x *fastReflection_QueryEncountersRequest) Descriptor() protoreflect.MessageDescriptor {
+	return md_QueryEncountersRequest
+}
+
+// Type returns the message type, which encapsulates both Go and protobuf
+// type information. If the Go type information is not needed,
+// it is recommended that the message descriptor be used instead.
+func (x *fastReflection_QueryEncountersRequest) Type() protoreflect.MessageType {
+	return _fastReflection_QueryEncountersRequest_messageType
+}
+
+// New returns a newly allocated and mutable empty message.
+func (x *fastReflection_QueryEncountersRequest) New() protoreflect.Message {
+	return new(fastReflection_QueryEncountersRequest)
+}
+
+// Interface unwraps the message reflection interface and
+// returns the underlying ProtoMessage interface.
+func (x *fastReflection_QueryEncountersRequest) Interface() protoreflect.ProtoMessage {
+	return (*QueryEncountersRequest)(x)
+}
+
+// Range iterates over every populated field in an undefined order,
+// calling f for each field descriptor and value encountered.
+// Range returns immediately if f returns false.
+// While iterating, mutating operations may only be performed
+// on the current field descriptor.
+func (x *fastReflection_QueryEncountersRequest) Range(f func(protoreflect.FieldDescriptor, protoreflect.Value) bool) {
+}
+
+// Has reports whether a field is populated.
+//
+// Some fields have the property of nullability where it is possible to
+// distinguish between the default value of a field and whether the field
+// was explicitly populated with the default value. Singular message fields,
+// member fields of a oneof, and proto2 scalar fields are nullable. Such
+// fields are populated only if explicitly set.
+//
+// In other cases (aside from the nullable cases above),
+// a proto3 scalar field is populated if it contains a non-zero value, and
+// a repeated field is populated if it is non-empty.
+func (x *fastReflection_QueryEncountersRequest) Has(fd protoreflect.FieldDescriptor) bool {
+	switch fd.FullName() {
+	default:
+		if fd.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: cardchain.cardchain.QueryEncountersRequest"))
+		}
+		panic(fmt.Errorf("message cardchain.cardchain.QueryEncountersRequest does not contain field %s", fd.FullName()))
+	}
+}
+
+// Clear clears the field such that a subsequent Has call reports false.
+//
+// Clearing an extension field clears both the extension type and value
+// associated with the given field number.
+//
+// Clear is a mutating operation and unsafe for concurrent use.
+func (x *fastReflection_QueryEncountersRequest) Clear(fd protoreflect.FieldDescriptor) {
+	switch fd.FullName() {
+	default:
+		if fd.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: cardchain.cardchain.QueryEncountersRequest"))
+		}
+		panic(fmt.Errorf("message cardchain.cardchain.QueryEncountersRequest does not contain field %s", fd.FullName()))
+	}
+}
+
+// Get retrieves the value for a field.
+//
+// For unpopulated scalars, it returns the default value, where
+// the default value of a bytes scalar is guaranteed to be a copy.
+// For unpopulated composite types, it returns an empty, read-only view
+// of the value; to obtain a mutable reference, use Mutable.
+func (x *fastReflection_QueryEncountersRequest) Get(descriptor protoreflect.FieldDescriptor) protoreflect.Value {
+	switch descriptor.FullName() {
+	default:
+		if descriptor.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: cardchain.cardchain.QueryEncountersRequest"))
+		}
+		panic(fmt.Errorf("message cardchain.cardchain.QueryEncountersRequest does not contain field %s", descriptor.FullName()))
+	}
+}
+
+// Set stores the value for a field.
+//
+// For a field belonging to a oneof, it implicitly clears any other field
+// that may be currently set within the same oneof.
+// For extension fields, it implicitly stores the provided ExtensionType.
+// When setting a composite type, it is unspecified whether the stored value
+// aliases the source's memory in any way. If the composite value is an
+// empty, read-only value, then it panics.
+//
+// Set is a mutating operation and unsafe for concurrent use.
+func (x *fastReflection_QueryEncountersRequest) Set(fd protoreflect.FieldDescriptor, value protoreflect.Value) {
+	switch fd.FullName() {
+	default:
+		if fd.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: cardchain.cardchain.QueryEncountersRequest"))
+		}
+		panic(fmt.Errorf("message cardchain.cardchain.QueryEncountersRequest does not contain field %s", fd.FullName()))
+	}
+}
+
+// Mutable returns a mutable reference to a composite type.
+//
+// If the field is unpopulated, it may allocate a composite value.
+// For a field belonging to a oneof, it implicitly clears any other field
+// that may be currently set within the same oneof.
+// For extension fields, it implicitly stores the provided ExtensionType
+// if not already stored.
+// It panics if the field does not contain a composite type.
+//
+// Mutable is a mutating operation and unsafe for concurrent use.
+func (x *fastReflection_QueryEncountersRequest) Mutable(fd protoreflect.FieldDescriptor) protoreflect.Value {
+	switch fd.FullName() {
+	default:
+		if fd.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: cardchain.cardchain.QueryEncountersRequest"))
+		}
+		panic(fmt.Errorf("message cardchain.cardchain.QueryEncountersRequest does not contain field %s", fd.FullName()))
+	}
+}
+
+// NewField returns a new value that is assignable to the field
+// for the given descriptor. For scalars, this returns the default value.
+// For lists, maps, and messages, this returns a new, empty, mutable value.
+func (x *fastReflection_QueryEncountersRequest) NewField(fd protoreflect.FieldDescriptor) protoreflect.Value {
+	switch fd.FullName() {
+	default:
+		if fd.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: cardchain.cardchain.QueryEncountersRequest"))
+		}
+		panic(fmt.Errorf("message cardchain.cardchain.QueryEncountersRequest does not contain field %s", fd.FullName()))
+	}
+}
+
+// WhichOneof reports which field within the oneof is populated,
+// returning nil if none are populated.
+// It panics if the oneof descriptor does not belong to this message.
+func (x *fastReflection_QueryEncountersRequest) WhichOneof(d protoreflect.OneofDescriptor) protoreflect.FieldDescriptor {
+	switch d.FullName() {
+	default:
+		panic(fmt.Errorf("%s is not a oneof field in cardchain.cardchain.QueryEncountersRequest", d.FullName()))
+	}
+	panic("unreachable")
+}
+
+// GetUnknown retrieves the entire list of unknown fields.
+// The caller may only mutate the contents of the RawFields
+// if the mutated bytes are stored back into the message with SetUnknown.
+func (x *fastReflection_QueryEncountersRequest) GetUnknown() protoreflect.RawFields {
+	return x.unknownFields
+}
+
+// SetUnknown stores an entire list of unknown fields.
+// The raw fields must be syntactically valid according to the wire format.
+// An implementation may panic if this is not the case.
+// Once stored, the caller must not mutate the content of the RawFields.
+// An empty RawFields may be passed to clear the fields.
+//
+// SetUnknown is a mutating operation and unsafe for concurrent use.
+func (x *fastReflection_QueryEncountersRequest) SetUnknown(fields protoreflect.RawFields) {
+	x.unknownFields = fields
+}
+
+// IsValid reports whether the message is valid.
+//
+// An invalid message is an empty, read-only value.
+//
+// An invalid message often corresponds to a nil pointer of the concrete
+// message type, but the details are implementation dependent.
+// Validity is not part of the protobuf data model, and may not
+// be preserved in marshaling or other operations.
+func (x *fastReflection_QueryEncountersRequest) IsValid() bool {
+	return x != nil
+}
+
+// ProtoMethods returns optional fastReflectionFeature-path implementations of various operations.
+// This method may return nil.
+//
+// The returned methods type is identical to
+// "google.golang.org/protobuf/runtime/protoiface".Methods.
+// Consult the protoiface package documentation for details.
+func (x *fastReflection_QueryEncountersRequest) ProtoMethods() *protoiface.Methods {
+	size := func(input protoiface.SizeInput) protoiface.SizeOutput {
+		x := input.Message.Interface().(*QueryEncountersRequest)
+		if x == nil {
+			return protoiface.SizeOutput{
+				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+				Size:              0,
+			}
+		}
+		options := runtime.SizeInputToOptions(input)
+		_ = options
+		var n int
+		var l int
+		_ = l
+		if x.unknownFields != nil {
+			n += len(x.unknownFields)
+		}
+		return protoiface.SizeOutput{
+			NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+			Size:              n,
+		}
+	}
+
+	marshal := func(input protoiface.MarshalInput) (protoiface.MarshalOutput, error) {
+		x := input.Message.Interface().(*QueryEncountersRequest)
+		if x == nil {
+			return protoiface.MarshalOutput{
+				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+				Buf:               input.Buf,
+			}, nil
+		}
+		options := runtime.MarshalInputToOptions(input)
+		_ = options
+		size := options.Size(x)
+		dAtA := make([]byte, size)
+		i := len(dAtA)
+		_ = i
+		var l int
+		_ = l
+		if x.unknownFields != nil {
+			i -= len(x.unknownFields)
+			copy(dAtA[i:], x.unknownFields)
+		}
+		if input.Buf != nil {
+			input.Buf = append(input.Buf, dAtA...)
+		} else {
+			input.Buf = dAtA
+		}
+		return protoiface.MarshalOutput{
+			NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+			Buf:               input.Buf,
+		}, nil
+	}
+	unmarshal := func(input protoiface.UnmarshalInput) (protoiface.UnmarshalOutput, error) {
+		x := input.Message.Interface().(*QueryEncountersRequest)
+		if x == nil {
+			return protoiface.UnmarshalOutput{
+				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+				Flags:             input.Flags,
+			}, nil
+		}
+		options := runtime.UnmarshalInputToOptions(input)
+		_ = options
+		dAtA := input.Buf
+		l := len(dAtA)
+		iNdEx := 0
+		for iNdEx < l {
+			preIndex := iNdEx
+			var wire uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
+				}
+				if iNdEx >= l {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				wire |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			fieldNum := int32(wire >> 3)
+			wireType := int(wire & 0x7)
+			if wireType == 4 {
+				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: QueryEncountersRequest: wiretype end group for non-group")
+			}
+			if fieldNum <= 0 {
+				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: QueryEncountersRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+			}
+			switch fieldNum {
+			default:
+				iNdEx = preIndex
+				skippy, err := runtime.Skip(dAtA[iNdEx:])
+				if err != nil {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, err
+				}
+				if (skippy < 0) || (iNdEx+skippy) < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				if (iNdEx + skippy) > l {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+				}
+				if !options.DiscardUnknown {
+					x.unknownFields = append(x.unknownFields, dAtA[iNdEx:iNdEx+skippy]...)
+				}
+				iNdEx += skippy
+			}
+		}
+
+		if iNdEx > l {
+			return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+		}
+		return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, nil
+	}
+	return &protoiface.Methods{
+		NoUnkeyedLiterals: struct{}{},
+		Flags:             protoiface.SupportMarshalDeterministic | protoiface.SupportUnmarshalDiscardUnknown,
+		Size:              size,
+		Marshal:           marshal,
+		Unmarshal:         unmarshal,
+		Merge:             nil,
+		CheckInitialized:  nil,
+	}
+}
+
+var _ protoreflect.List = (*_QueryEncountersResponse_1_list)(nil)
+
+type _QueryEncountersResponse_1_list struct {
+	list *[]*Encounter
+}
+
+func (x *_QueryEncountersResponse_1_list) Len() int {
+	if x.list == nil {
+		return 0
+	}
+	return len(*x.list)
+}
+
+func (x *_QueryEncountersResponse_1_list) Get(i int) protoreflect.Value {
+	return protoreflect.ValueOfMessage((*x.list)[i].ProtoReflect())
+}
+
+func (x *_QueryEncountersResponse_1_list) Set(i int, value protoreflect.Value) {
+	valueUnwrapped := value.Message()
+	concreteValue := valueUnwrapped.Interface().(*Encounter)
+	(*x.list)[i] = concreteValue
+}
+
+func (x *_QueryEncountersResponse_1_list) Append(value protoreflect.Value) {
+	valueUnwrapped := value.Message()
+	concreteValue := valueUnwrapped.Interface().(*Encounter)
+	*x.list = append(*x.list, concreteValue)
+}
+
+func (x *_QueryEncountersResponse_1_list) AppendMutable() protoreflect.Value {
+	v := new(Encounter)
+	*x.list = append(*x.list, v)
+	return protoreflect.ValueOfMessage(v.ProtoReflect())
+}
+
+func (x *_QueryEncountersResponse_1_list) Truncate(n int) {
+	for i := n; i < len(*x.list); i++ {
+		(*x.list)[i] = nil
+	}
+	*x.list = (*x.list)[:n]
+}
+
+func (x *_QueryEncountersResponse_1_list) NewElement() protoreflect.Value {
+	v := new(Encounter)
+	return protoreflect.ValueOfMessage(v.ProtoReflect())
+}
+
+func (x *_QueryEncountersResponse_1_list) IsValid() bool {
+	return x.list != nil
+}
+
+var (
+	md_QueryEncountersResponse            protoreflect.MessageDescriptor
+	fd_QueryEncountersResponse_encounters protoreflect.FieldDescriptor
+)
+
+func init() {
+	file_cardchain_cardchain_query_proto_init()
+	md_QueryEncountersResponse = File_cardchain_cardchain_query_proto.Messages().ByName("QueryEncountersResponse")
+	fd_QueryEncountersResponse_encounters = md_QueryEncountersResponse.Fields().ByName("encounters")
+}
+
+var _ protoreflect.Message = (*fastReflection_QueryEncountersResponse)(nil)
+
+type fastReflection_QueryEncountersResponse QueryEncountersResponse
+
+func (x *QueryEncountersResponse) ProtoReflect() protoreflect.Message {
+	return (*fastReflection_QueryEncountersResponse)(x)
+}
+
+func (x *QueryEncountersResponse) slowProtoReflect() protoreflect.Message {
+	mi := &file_cardchain_cardchain_query_proto_msgTypes[25]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+var _fastReflection_QueryEncountersResponse_messageType fastReflection_QueryEncountersResponse_messageType
+var _ protoreflect.MessageType = fastReflection_QueryEncountersResponse_messageType{}
+
+type fastReflection_QueryEncountersResponse_messageType struct{}
+
+func (x fastReflection_QueryEncountersResponse_messageType) Zero() protoreflect.Message {
+	return (*fastReflection_QueryEncountersResponse)(nil)
+}
+func (x fastReflection_QueryEncountersResponse_messageType) New() protoreflect.Message {
+	return new(fastReflection_QueryEncountersResponse)
+}
+func (x fastReflection_QueryEncountersResponse_messageType) Descriptor() protoreflect.MessageDescriptor {
+	return md_QueryEncountersResponse
+}
+
+// Descriptor returns message descriptor, which contains only the protobuf
+// type information for the message.
+func (x *fastReflection_QueryEncountersResponse) Descriptor() protoreflect.MessageDescriptor {
+	return md_QueryEncountersResponse
+}
+
+// Type returns the message type, which encapsulates both Go and protobuf
+// type information. If the Go type information is not needed,
+// it is recommended that the message descriptor be used instead.
+func (x *fastReflection_QueryEncountersResponse) Type() protoreflect.MessageType {
+	return _fastReflection_QueryEncountersResponse_messageType
+}
+
+// New returns a newly allocated and mutable empty message.
+func (x *fastReflection_QueryEncountersResponse) New() protoreflect.Message {
+	return new(fastReflection_QueryEncountersResponse)
+}
+
+// Interface unwraps the message reflection interface and
+// returns the underlying ProtoMessage interface.
+func (x *fastReflection_QueryEncountersResponse) Interface() protoreflect.ProtoMessage {
+	return (*QueryEncountersResponse)(x)
+}
+
+// Range iterates over every populated field in an undefined order,
+// calling f for each field descriptor and value encountered.
+// Range returns immediately if f returns false.
+// While iterating, mutating operations may only be performed
+// on the current field descriptor.
+func (x *fastReflection_QueryEncountersResponse) Range(f func(protoreflect.FieldDescriptor, protoreflect.Value) bool) {
+	if len(x.Encounters) != 0 {
+		value := protoreflect.ValueOfList(&_QueryEncountersResponse_1_list{list: &x.Encounters})
+		if !f(fd_QueryEncountersResponse_encounters, value) {
+			return
+		}
+	}
+}
+
+// Has reports whether a field is populated.
+//
+// Some fields have the property of nullability where it is possible to
+// distinguish between the default value of a field and whether the field
+// was explicitly populated with the default value. Singular message fields,
+// member fields of a oneof, and proto2 scalar fields are nullable. Such
+// fields are populated only if explicitly set.
+//
+// In other cases (aside from the nullable cases above),
+// a proto3 scalar field is populated if it contains a non-zero value, and
+// a repeated field is populated if it is non-empty.
+func (x *fastReflection_QueryEncountersResponse) Has(fd protoreflect.FieldDescriptor) bool {
+	switch fd.FullName() {
+	case "cardchain.cardchain.QueryEncountersResponse.encounters":
+		return len(x.Encounters) != 0
+	default:
+		if fd.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: cardchain.cardchain.QueryEncountersResponse"))
+		}
+		panic(fmt.Errorf("message cardchain.cardchain.QueryEncountersResponse does not contain field %s", fd.FullName()))
+	}
+}
+
+// Clear clears the field such that a subsequent Has call reports false.
+//
+// Clearing an extension field clears both the extension type and value
+// associated with the given field number.
+//
+// Clear is a mutating operation and unsafe for concurrent use.
+func (x *fastReflection_QueryEncountersResponse) Clear(fd protoreflect.FieldDescriptor) {
+	switch fd.FullName() {
+	case "cardchain.cardchain.QueryEncountersResponse.encounters":
+		x.Encounters = nil
+	default:
+		if fd.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: cardchain.cardchain.QueryEncountersResponse"))
+		}
+		panic(fmt.Errorf("message cardchain.cardchain.QueryEncountersResponse does not contain field %s", fd.FullName()))
+	}
+}
+
+// Get retrieves the value for a field.
+//
+// For unpopulated scalars, it returns the default value, where
+// the default value of a bytes scalar is guaranteed to be a copy.
+// For unpopulated composite types, it returns an empty, read-only view
+// of the value; to obtain a mutable reference, use Mutable.
+func (x *fastReflection_QueryEncountersResponse) Get(descriptor protoreflect.FieldDescriptor) protoreflect.Value {
+	switch descriptor.FullName() {
+	case "cardchain.cardchain.QueryEncountersResponse.encounters":
+		if len(x.Encounters) == 0 {
+			return protoreflect.ValueOfList(&_QueryEncountersResponse_1_list{})
+		}
+		listValue := &_QueryEncountersResponse_1_list{list: &x.Encounters}
+		return protoreflect.ValueOfList(listValue)
+	default:
+		if descriptor.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: cardchain.cardchain.QueryEncountersResponse"))
+		}
+		panic(fmt.Errorf("message cardchain.cardchain.QueryEncountersResponse does not contain field %s", descriptor.FullName()))
+	}
+}
+
+// Set stores the value for a field.
+//
+// For a field belonging to a oneof, it implicitly clears any other field
+// that may be currently set within the same oneof.
+// For extension fields, it implicitly stores the provided ExtensionType.
+// When setting a composite type, it is unspecified whether the stored value
+// aliases the source's memory in any way. If the composite value is an
+// empty, read-only value, then it panics.
+//
+// Set is a mutating operation and unsafe for concurrent use.
+func (x *fastReflection_QueryEncountersResponse) Set(fd protoreflect.FieldDescriptor, value protoreflect.Value) {
+	switch fd.FullName() {
+	case "cardchain.cardchain.QueryEncountersResponse.encounters":
+		lv := value.List()
+		clv := lv.(*_QueryEncountersResponse_1_list)
+		x.Encounters = *clv.list
+	default:
+		if fd.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: cardchain.cardchain.QueryEncountersResponse"))
+		}
+		panic(fmt.Errorf("message cardchain.cardchain.QueryEncountersResponse does not contain field %s", fd.FullName()))
+	}
+}
+
+// Mutable returns a mutable reference to a composite type.
+//
+// If the field is unpopulated, it may allocate a composite value.
+// For a field belonging to a oneof, it implicitly clears any other field
+// that may be currently set within the same oneof.
+// For extension fields, it implicitly stores the provided ExtensionType
+// if not already stored.
+// It panics if the field does not contain a composite type.
+//
+// Mutable is a mutating operation and unsafe for concurrent use.
+func (x *fastReflection_QueryEncountersResponse) Mutable(fd protoreflect.FieldDescriptor) protoreflect.Value {
+	switch fd.FullName() {
+	case "cardchain.cardchain.QueryEncountersResponse.encounters":
+		if x.Encounters == nil {
+			x.Encounters = []*Encounter{}
+		}
+		value := &_QueryEncountersResponse_1_list{list: &x.Encounters}
+		return protoreflect.ValueOfList(value)
+	default:
+		if fd.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: cardchain.cardchain.QueryEncountersResponse"))
+		}
+		panic(fmt.Errorf("message cardchain.cardchain.QueryEncountersResponse does not contain field %s", fd.FullName()))
+	}
+}
+
+// NewField returns a new value that is assignable to the field
+// for the given descriptor. For scalars, this returns the default value.
+// For lists, maps, and messages, this returns a new, empty, mutable value.
+func (x *fastReflection_QueryEncountersResponse) NewField(fd protoreflect.FieldDescriptor) protoreflect.Value {
+	switch fd.FullName() {
+	case "cardchain.cardchain.QueryEncountersResponse.encounters":
+		list := []*Encounter{}
+		return protoreflect.ValueOfList(&_QueryEncountersResponse_1_list{list: &list})
+	default:
+		if fd.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: cardchain.cardchain.QueryEncountersResponse"))
+		}
+		panic(fmt.Errorf("message cardchain.cardchain.QueryEncountersResponse does not contain field %s", fd.FullName()))
+	}
+}
+
+// WhichOneof reports which field within the oneof is populated,
+// returning nil if none are populated.
+// It panics if the oneof descriptor does not belong to this message.
+func (x *fastReflection_QueryEncountersResponse) WhichOneof(d protoreflect.OneofDescriptor) protoreflect.FieldDescriptor {
+	switch d.FullName() {
+	default:
+		panic(fmt.Errorf("%s is not a oneof field in cardchain.cardchain.QueryEncountersResponse", d.FullName()))
+	}
+	panic("unreachable")
+}
+
+// GetUnknown retrieves the entire list of unknown fields.
+// The caller may only mutate the contents of the RawFields
+// if the mutated bytes are stored back into the message with SetUnknown.
+func (x *fastReflection_QueryEncountersResponse) GetUnknown() protoreflect.RawFields {
+	return x.unknownFields
+}
+
+// SetUnknown stores an entire list of unknown fields.
+// The raw fields must be syntactically valid according to the wire format.
+// An implementation may panic if this is not the case.
+// Once stored, the caller must not mutate the content of the RawFields.
+// An empty RawFields may be passed to clear the fields.
+//
+// SetUnknown is a mutating operation and unsafe for concurrent use.
+func (x *fastReflection_QueryEncountersResponse) SetUnknown(fields protoreflect.RawFields) {
+	x.unknownFields = fields
+}
+
+// IsValid reports whether the message is valid.
+//
+// An invalid message is an empty, read-only value.
+//
+// An invalid message often corresponds to a nil pointer of the concrete
+// message type, but the details are implementation dependent.
+// Validity is not part of the protobuf data model, and may not
+// be preserved in marshaling or other operations.
+func (x *fastReflection_QueryEncountersResponse) IsValid() bool {
+	return x != nil
+}
+
+// ProtoMethods returns optional fastReflectionFeature-path implementations of various operations.
+// This method may return nil.
+//
+// The returned methods type is identical to
+// "google.golang.org/protobuf/runtime/protoiface".Methods.
+// Consult the protoiface package documentation for details.
+func (x *fastReflection_QueryEncountersResponse) ProtoMethods() *protoiface.Methods {
+	size := func(input protoiface.SizeInput) protoiface.SizeOutput {
+		x := input.Message.Interface().(*QueryEncountersResponse)
+		if x == nil {
+			return protoiface.SizeOutput{
+				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+				Size:              0,
+			}
+		}
+		options := runtime.SizeInputToOptions(input)
+		_ = options
+		var n int
+		var l int
+		_ = l
+		if len(x.Encounters) > 0 {
+			for _, e := range x.Encounters {
+				l = options.Size(e)
+				n += 1 + l + runtime.Sov(uint64(l))
+			}
+		}
+		if x.unknownFields != nil {
+			n += len(x.unknownFields)
+		}
+		return protoiface.SizeOutput{
+			NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+			Size:              n,
+		}
+	}
+
+	marshal := func(input protoiface.MarshalInput) (protoiface.MarshalOutput, error) {
+		x := input.Message.Interface().(*QueryEncountersResponse)
+		if x == nil {
+			return protoiface.MarshalOutput{
+				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+				Buf:               input.Buf,
+			}, nil
+		}
+		options := runtime.MarshalInputToOptions(input)
+		_ = options
+		size := options.Size(x)
+		dAtA := make([]byte, size)
+		i := len(dAtA)
+		_ = i
+		var l int
+		_ = l
+		if x.unknownFields != nil {
+			i -= len(x.unknownFields)
+			copy(dAtA[i:], x.unknownFields)
+		}
+		if len(x.Encounters) > 0 {
+			for iNdEx := len(x.Encounters) - 1; iNdEx >= 0; iNdEx-- {
+				encoded, err := options.Marshal(x.Encounters[iNdEx])
+				if err != nil {
+					return protoiface.MarshalOutput{
+						NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+						Buf:               input.Buf,
+					}, err
+				}
+				i -= len(encoded)
+				copy(dAtA[i:], encoded)
+				i = runtime.EncodeVarint(dAtA, i, uint64(len(encoded)))
+				i--
+				dAtA[i] = 0xa
+			}
+		}
+		if input.Buf != nil {
+			input.Buf = append(input.Buf, dAtA...)
+		} else {
+			input.Buf = dAtA
+		}
+		return protoiface.MarshalOutput{
+			NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+			Buf:               input.Buf,
+		}, nil
+	}
+	unmarshal := func(input protoiface.UnmarshalInput) (protoiface.UnmarshalOutput, error) {
+		x := input.Message.Interface().(*QueryEncountersResponse)
+		if x == nil {
+			return protoiface.UnmarshalOutput{
+				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+				Flags:             input.Flags,
+			}, nil
+		}
+		options := runtime.UnmarshalInputToOptions(input)
+		_ = options
+		dAtA := input.Buf
+		l := len(dAtA)
+		iNdEx := 0
+		for iNdEx < l {
+			preIndex := iNdEx
+			var wire uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
+				}
+				if iNdEx >= l {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				wire |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			fieldNum := int32(wire >> 3)
+			wireType := int(wire & 0x7)
+			if wireType == 4 {
+				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: QueryEncountersResponse: wiretype end group for non-group")
+			}
+			if fieldNum <= 0 {
+				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: QueryEncountersResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+			}
+			switch fieldNum {
+			case 1:
+				if wireType != 2 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field Encounters", wireType)
+				}
+				var msglen int
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
+					}
+					if iNdEx >= l {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					msglen |= int(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+				if msglen < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				postIndex := iNdEx + msglen
+				if postIndex < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				if postIndex > l {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+				}
+				x.Encounters = append(x.Encounters, &Encounter{})
+				if err := options.Unmarshal(dAtA[iNdEx:postIndex], x.Encounters[len(x.Encounters)-1]); err != nil {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, err
+				}
+				iNdEx = postIndex
+			default:
+				iNdEx = preIndex
+				skippy, err := runtime.Skip(dAtA[iNdEx:])
+				if err != nil {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, err
+				}
+				if (skippy < 0) || (iNdEx+skippy) < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				if (iNdEx + skippy) > l {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+				}
+				if !options.DiscardUnknown {
+					x.unknownFields = append(x.unknownFields, dAtA[iNdEx:iNdEx+skippy]...)
+				}
+				iNdEx += skippy
+			}
+		}
+
+		if iNdEx > l {
+			return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+		}
+		return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, nil
+	}
+	return &protoiface.Methods{
+		NoUnkeyedLiterals: struct{}{},
+		Flags:             protoiface.SupportMarshalDeterministic | protoiface.SupportUnmarshalDiscardUnknown,
+		Size:              size,
+		Marshal:           marshal,
+		Unmarshal:         unmarshal,
+		Merge:             nil,
+		CheckInitialized:  nil,
+	}
+}
+
+var (
+	md_QueryEncounterWithImageRequest protoreflect.MessageDescriptor
+)
+
+func init() {
+	file_cardchain_cardchain_query_proto_init()
+	md_QueryEncounterWithImageRequest = File_cardchain_cardchain_query_proto.Messages().ByName("QueryEncounterWithImageRequest")
+}
+
+var _ protoreflect.Message = (*fastReflection_QueryEncounterWithImageRequest)(nil)
+
+type fastReflection_QueryEncounterWithImageRequest QueryEncounterWithImageRequest
+
+func (x *QueryEncounterWithImageRequest) ProtoReflect() protoreflect.Message {
+	return (*fastReflection_QueryEncounterWithImageRequest)(x)
+}
+
+func (x *QueryEncounterWithImageRequest) slowProtoReflect() protoreflect.Message {
+	mi := &file_cardchain_cardchain_query_proto_msgTypes[26]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+var _fastReflection_QueryEncounterWithImageRequest_messageType fastReflection_QueryEncounterWithImageRequest_messageType
+var _ protoreflect.MessageType = fastReflection_QueryEncounterWithImageRequest_messageType{}
+
+type fastReflection_QueryEncounterWithImageRequest_messageType struct{}
+
+func (x fastReflection_QueryEncounterWithImageRequest_messageType) Zero() protoreflect.Message {
+	return (*fastReflection_QueryEncounterWithImageRequest)(nil)
+}
+func (x fastReflection_QueryEncounterWithImageRequest_messageType) New() protoreflect.Message {
+	return new(fastReflection_QueryEncounterWithImageRequest)
+}
+func (x fastReflection_QueryEncounterWithImageRequest_messageType) Descriptor() protoreflect.MessageDescriptor {
+	return md_QueryEncounterWithImageRequest
+}
+
+// Descriptor returns message descriptor, which contains only the protobuf
+// type information for the message.
+func (x *fastReflection_QueryEncounterWithImageRequest) Descriptor() protoreflect.MessageDescriptor {
+	return md_QueryEncounterWithImageRequest
+}
+
+// Type returns the message type, which encapsulates both Go and protobuf
+// type information. If the Go type information is not needed,
+// it is recommended that the message descriptor be used instead.
+func (x *fastReflection_QueryEncounterWithImageRequest) Type() protoreflect.MessageType {
+	return _fastReflection_QueryEncounterWithImageRequest_messageType
+}
+
+// New returns a newly allocated and mutable empty message.
+func (x *fastReflection_QueryEncounterWithImageRequest) New() protoreflect.Message {
+	return new(fastReflection_QueryEncounterWithImageRequest)
+}
+
+// Interface unwraps the message reflection interface and
+// returns the underlying ProtoMessage interface.
+func (x *fastReflection_QueryEncounterWithImageRequest) Interface() protoreflect.ProtoMessage {
+	return (*QueryEncounterWithImageRequest)(x)
+}
+
+// Range iterates over every populated field in an undefined order,
+// calling f for each field descriptor and value encountered.
+// Range returns immediately if f returns false.
+// While iterating, mutating operations may only be performed
+// on the current field descriptor.
+func (x *fastReflection_QueryEncounterWithImageRequest) Range(f func(protoreflect.FieldDescriptor, protoreflect.Value) bool) {
+}
+
+// Has reports whether a field is populated.
+//
+// Some fields have the property of nullability where it is possible to
+// distinguish between the default value of a field and whether the field
+// was explicitly populated with the default value. Singular message fields,
+// member fields of a oneof, and proto2 scalar fields are nullable. Such
+// fields are populated only if explicitly set.
+//
+// In other cases (aside from the nullable cases above),
+// a proto3 scalar field is populated if it contains a non-zero value, and
+// a repeated field is populated if it is non-empty.
+func (x *fastReflection_QueryEncounterWithImageRequest) Has(fd protoreflect.FieldDescriptor) bool {
+	switch fd.FullName() {
+	default:
+		if fd.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: cardchain.cardchain.QueryEncounterWithImageRequest"))
+		}
+		panic(fmt.Errorf("message cardchain.cardchain.QueryEncounterWithImageRequest does not contain field %s", fd.FullName()))
+	}
+}
+
+// Clear clears the field such that a subsequent Has call reports false.
+//
+// Clearing an extension field clears both the extension type and value
+// associated with the given field number.
+//
+// Clear is a mutating operation and unsafe for concurrent use.
+func (x *fastReflection_QueryEncounterWithImageRequest) Clear(fd protoreflect.FieldDescriptor) {
+	switch fd.FullName() {
+	default:
+		if fd.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: cardchain.cardchain.QueryEncounterWithImageRequest"))
+		}
+		panic(fmt.Errorf("message cardchain.cardchain.QueryEncounterWithImageRequest does not contain field %s", fd.FullName()))
+	}
+}
+
+// Get retrieves the value for a field.
+//
+// For unpopulated scalars, it returns the default value, where
+// the default value of a bytes scalar is guaranteed to be a copy.
+// For unpopulated composite types, it returns an empty, read-only view
+// of the value; to obtain a mutable reference, use Mutable.
+func (x *fastReflection_QueryEncounterWithImageRequest) Get(descriptor protoreflect.FieldDescriptor) protoreflect.Value {
+	switch descriptor.FullName() {
+	default:
+		if descriptor.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: cardchain.cardchain.QueryEncounterWithImageRequest"))
+		}
+		panic(fmt.Errorf("message cardchain.cardchain.QueryEncounterWithImageRequest does not contain field %s", descriptor.FullName()))
+	}
+}
+
+// Set stores the value for a field.
+//
+// For a field belonging to a oneof, it implicitly clears any other field
+// that may be currently set within the same oneof.
+// For extension fields, it implicitly stores the provided ExtensionType.
+// When setting a composite type, it is unspecified whether the stored value
+// aliases the source's memory in any way. If the composite value is an
+// empty, read-only value, then it panics.
+//
+// Set is a mutating operation and unsafe for concurrent use.
+func (x *fastReflection_QueryEncounterWithImageRequest) Set(fd protoreflect.FieldDescriptor, value protoreflect.Value) {
+	switch fd.FullName() {
+	default:
+		if fd.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: cardchain.cardchain.QueryEncounterWithImageRequest"))
+		}
+		panic(fmt.Errorf("message cardchain.cardchain.QueryEncounterWithImageRequest does not contain field %s", fd.FullName()))
+	}
+}
+
+// Mutable returns a mutable reference to a composite type.
+//
+// If the field is unpopulated, it may allocate a composite value.
+// For a field belonging to a oneof, it implicitly clears any other field
+// that may be currently set within the same oneof.
+// For extension fields, it implicitly stores the provided ExtensionType
+// if not already stored.
+// It panics if the field does not contain a composite type.
+//
+// Mutable is a mutating operation and unsafe for concurrent use.
+func (x *fastReflection_QueryEncounterWithImageRequest) Mutable(fd protoreflect.FieldDescriptor) protoreflect.Value {
+	switch fd.FullName() {
+	default:
+		if fd.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: cardchain.cardchain.QueryEncounterWithImageRequest"))
+		}
+		panic(fmt.Errorf("message cardchain.cardchain.QueryEncounterWithImageRequest does not contain field %s", fd.FullName()))
+	}
+}
+
+// NewField returns a new value that is assignable to the field
+// for the given descriptor. For scalars, this returns the default value.
+// For lists, maps, and messages, this returns a new, empty, mutable value.
+func (x *fastReflection_QueryEncounterWithImageRequest) NewField(fd protoreflect.FieldDescriptor) protoreflect.Value {
+	switch fd.FullName() {
+	default:
+		if fd.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: cardchain.cardchain.QueryEncounterWithImageRequest"))
+		}
+		panic(fmt.Errorf("message cardchain.cardchain.QueryEncounterWithImageRequest does not contain field %s", fd.FullName()))
+	}
+}
+
+// WhichOneof reports which field within the oneof is populated,
+// returning nil if none are populated.
+// It panics if the oneof descriptor does not belong to this message.
+func (x *fastReflection_QueryEncounterWithImageRequest) WhichOneof(d protoreflect.OneofDescriptor) protoreflect.FieldDescriptor {
+	switch d.FullName() {
+	default:
+		panic(fmt.Errorf("%s is not a oneof field in cardchain.cardchain.QueryEncounterWithImageRequest", d.FullName()))
+	}
+	panic("unreachable")
+}
+
+// GetUnknown retrieves the entire list of unknown fields.
+// The caller may only mutate the contents of the RawFields
+// if the mutated bytes are stored back into the message with SetUnknown.
+func (x *fastReflection_QueryEncounterWithImageRequest) GetUnknown() protoreflect.RawFields {
+	return x.unknownFields
+}
+
+// SetUnknown stores an entire list of unknown fields.
+// The raw fields must be syntactically valid according to the wire format.
+// An implementation may panic if this is not the case.
+// Once stored, the caller must not mutate the content of the RawFields.
+// An empty RawFields may be passed to clear the fields.
+//
+// SetUnknown is a mutating operation and unsafe for concurrent use.
+func (x *fastReflection_QueryEncounterWithImageRequest) SetUnknown(fields protoreflect.RawFields) {
+	x.unknownFields = fields
+}
+
+// IsValid reports whether the message is valid.
+//
+// An invalid message is an empty, read-only value.
+//
+// An invalid message often corresponds to a nil pointer of the concrete
+// message type, but the details are implementation dependent.
+// Validity is not part of the protobuf data model, and may not
+// be preserved in marshaling or other operations.
+func (x *fastReflection_QueryEncounterWithImageRequest) IsValid() bool {
+	return x != nil
+}
+
+// ProtoMethods returns optional fastReflectionFeature-path implementations of various operations.
+// This method may return nil.
+//
+// The returned methods type is identical to
+// "google.golang.org/protobuf/runtime/protoiface".Methods.
+// Consult the protoiface package documentation for details.
+func (x *fastReflection_QueryEncounterWithImageRequest) ProtoMethods() *protoiface.Methods {
+	size := func(input protoiface.SizeInput) protoiface.SizeOutput {
+		x := input.Message.Interface().(*QueryEncounterWithImageRequest)
+		if x == nil {
+			return protoiface.SizeOutput{
+				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+				Size:              0,
+			}
+		}
+		options := runtime.SizeInputToOptions(input)
+		_ = options
+		var n int
+		var l int
+		_ = l
+		if x.unknownFields != nil {
+			n += len(x.unknownFields)
+		}
+		return protoiface.SizeOutput{
+			NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+			Size:              n,
+		}
+	}
+
+	marshal := func(input protoiface.MarshalInput) (protoiface.MarshalOutput, error) {
+		x := input.Message.Interface().(*QueryEncounterWithImageRequest)
+		if x == nil {
+			return protoiface.MarshalOutput{
+				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+				Buf:               input.Buf,
+			}, nil
+		}
+		options := runtime.MarshalInputToOptions(input)
+		_ = options
+		size := options.Size(x)
+		dAtA := make([]byte, size)
+		i := len(dAtA)
+		_ = i
+		var l int
+		_ = l
+		if x.unknownFields != nil {
+			i -= len(x.unknownFields)
+			copy(dAtA[i:], x.unknownFields)
+		}
+		if input.Buf != nil {
+			input.Buf = append(input.Buf, dAtA...)
+		} else {
+			input.Buf = dAtA
+		}
+		return protoiface.MarshalOutput{
+			NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+			Buf:               input.Buf,
+		}, nil
+	}
+	unmarshal := func(input protoiface.UnmarshalInput) (protoiface.UnmarshalOutput, error) {
+		x := input.Message.Interface().(*QueryEncounterWithImageRequest)
+		if x == nil {
+			return protoiface.UnmarshalOutput{
+				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+				Flags:             input.Flags,
+			}, nil
+		}
+		options := runtime.UnmarshalInputToOptions(input)
+		_ = options
+		dAtA := input.Buf
+		l := len(dAtA)
+		iNdEx := 0
+		for iNdEx < l {
+			preIndex := iNdEx
+			var wire uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
+				}
+				if iNdEx >= l {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				wire |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			fieldNum := int32(wire >> 3)
+			wireType := int(wire & 0x7)
+			if wireType == 4 {
+				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: QueryEncounterWithImageRequest: wiretype end group for non-group")
+			}
+			if fieldNum <= 0 {
+				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: QueryEncounterWithImageRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+			}
+			switch fieldNum {
+			default:
+				iNdEx = preIndex
+				skippy, err := runtime.Skip(dAtA[iNdEx:])
+				if err != nil {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, err
+				}
+				if (skippy < 0) || (iNdEx+skippy) < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				if (iNdEx + skippy) > l {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+				}
+				if !options.DiscardUnknown {
+					x.unknownFields = append(x.unknownFields, dAtA[iNdEx:iNdEx+skippy]...)
+				}
+				iNdEx += skippy
+			}
+		}
+
+		if iNdEx > l {
+			return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+		}
+		return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, nil
+	}
+	return &protoiface.Methods{
+		NoUnkeyedLiterals: struct{}{},
+		Flags:             protoiface.SupportMarshalDeterministic | protoiface.SupportUnmarshalDiscardUnknown,
+		Size:              size,
+		Marshal:           marshal,
+		Unmarshal:         unmarshal,
+		Merge:             nil,
+		CheckInitialized:  nil,
+	}
+}
+
+var (
+	md_QueryEncounterWithImageResponse           protoreflect.MessageDescriptor
+	fd_QueryEncounterWithImageResponse_encounter protoreflect.FieldDescriptor
+)
+
+func init() {
+	file_cardchain_cardchain_query_proto_init()
+	md_QueryEncounterWithImageResponse = File_cardchain_cardchain_query_proto.Messages().ByName("QueryEncounterWithImageResponse")
+	fd_QueryEncounterWithImageResponse_encounter = md_QueryEncounterWithImageResponse.Fields().ByName("encounter")
+}
+
+var _ protoreflect.Message = (*fastReflection_QueryEncounterWithImageResponse)(nil)
+
+type fastReflection_QueryEncounterWithImageResponse QueryEncounterWithImageResponse
+
+func (x *QueryEncounterWithImageResponse) ProtoReflect() protoreflect.Message {
+	return (*fastReflection_QueryEncounterWithImageResponse)(x)
+}
+
+func (x *QueryEncounterWithImageResponse) slowProtoReflect() protoreflect.Message {
+	mi := &file_cardchain_cardchain_query_proto_msgTypes[27]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+var _fastReflection_QueryEncounterWithImageResponse_messageType fastReflection_QueryEncounterWithImageResponse_messageType
+var _ protoreflect.MessageType = fastReflection_QueryEncounterWithImageResponse_messageType{}
+
+type fastReflection_QueryEncounterWithImageResponse_messageType struct{}
+
+func (x fastReflection_QueryEncounterWithImageResponse_messageType) Zero() protoreflect.Message {
+	return (*fastReflection_QueryEncounterWithImageResponse)(nil)
+}
+func (x fastReflection_QueryEncounterWithImageResponse_messageType) New() protoreflect.Message {
+	return new(fastReflection_QueryEncounterWithImageResponse)
+}
+func (x fastReflection_QueryEncounterWithImageResponse_messageType) Descriptor() protoreflect.MessageDescriptor {
+	return md_QueryEncounterWithImageResponse
+}
+
+// Descriptor returns message descriptor, which contains only the protobuf
+// type information for the message.
+func (x *fastReflection_QueryEncounterWithImageResponse) Descriptor() protoreflect.MessageDescriptor {
+	return md_QueryEncounterWithImageResponse
+}
+
+// Type returns the message type, which encapsulates both Go and protobuf
+// type information. If the Go type information is not needed,
+// it is recommended that the message descriptor be used instead.
+func (x *fastReflection_QueryEncounterWithImageResponse) Type() protoreflect.MessageType {
+	return _fastReflection_QueryEncounterWithImageResponse_messageType
+}
+
+// New returns a newly allocated and mutable empty message.
+func (x *fastReflection_QueryEncounterWithImageResponse) New() protoreflect.Message {
+	return new(fastReflection_QueryEncounterWithImageResponse)
+}
+
+// Interface unwraps the message reflection interface and
+// returns the underlying ProtoMessage interface.
+func (x *fastReflection_QueryEncounterWithImageResponse) Interface() protoreflect.ProtoMessage {
+	return (*QueryEncounterWithImageResponse)(x)
+}
+
+// Range iterates over every populated field in an undefined order,
+// calling f for each field descriptor and value encountered.
+// Range returns immediately if f returns false.
+// While iterating, mutating operations may only be performed
+// on the current field descriptor.
+func (x *fastReflection_QueryEncounterWithImageResponse) Range(f func(protoreflect.FieldDescriptor, protoreflect.Value) bool) {
+	if x.Encounter != nil {
+		value := protoreflect.ValueOfMessage(x.Encounter.ProtoReflect())
+		if !f(fd_QueryEncounterWithImageResponse_encounter, value) {
+			return
+		}
+	}
+}
+
+// Has reports whether a field is populated.
+//
+// Some fields have the property of nullability where it is possible to
+// distinguish between the default value of a field and whether the field
+// was explicitly populated with the default value. Singular message fields,
+// member fields of a oneof, and proto2 scalar fields are nullable. Such
+// fields are populated only if explicitly set.
+//
+// In other cases (aside from the nullable cases above),
+// a proto3 scalar field is populated if it contains a non-zero value, and
+// a repeated field is populated if it is non-empty.
+func (x *fastReflection_QueryEncounterWithImageResponse) Has(fd protoreflect.FieldDescriptor) bool {
+	switch fd.FullName() {
+	case "cardchain.cardchain.QueryEncounterWithImageResponse.encounter":
+		return x.Encounter != nil
+	default:
+		if fd.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: cardchain.cardchain.QueryEncounterWithImageResponse"))
+		}
+		panic(fmt.Errorf("message cardchain.cardchain.QueryEncounterWithImageResponse does not contain field %s", fd.FullName()))
+	}
+}
+
+// Clear clears the field such that a subsequent Has call reports false.
+//
+// Clearing an extension field clears both the extension type and value
+// associated with the given field number.
+//
+// Clear is a mutating operation and unsafe for concurrent use.
+func (x *fastReflection_QueryEncounterWithImageResponse) Clear(fd protoreflect.FieldDescriptor) {
+	switch fd.FullName() {
+	case "cardchain.cardchain.QueryEncounterWithImageResponse.encounter":
+		x.Encounter = nil
+	default:
+		if fd.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: cardchain.cardchain.QueryEncounterWithImageResponse"))
+		}
+		panic(fmt.Errorf("message cardchain.cardchain.QueryEncounterWithImageResponse does not contain field %s", fd.FullName()))
+	}
+}
+
+// Get retrieves the value for a field.
+//
+// For unpopulated scalars, it returns the default value, where
+// the default value of a bytes scalar is guaranteed to be a copy.
+// For unpopulated composite types, it returns an empty, read-only view
+// of the value; to obtain a mutable reference, use Mutable.
+func (x *fastReflection_QueryEncounterWithImageResponse) Get(descriptor protoreflect.FieldDescriptor) protoreflect.Value {
+	switch descriptor.FullName() {
+	case "cardchain.cardchain.QueryEncounterWithImageResponse.encounter":
+		value := x.Encounter
+		return protoreflect.ValueOfMessage(value.ProtoReflect())
+	default:
+		if descriptor.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: cardchain.cardchain.QueryEncounterWithImageResponse"))
+		}
+		panic(fmt.Errorf("message cardchain.cardchain.QueryEncounterWithImageResponse does not contain field %s", descriptor.FullName()))
+	}
+}
+
+// Set stores the value for a field.
+//
+// For a field belonging to a oneof, it implicitly clears any other field
+// that may be currently set within the same oneof.
+// For extension fields, it implicitly stores the provided ExtensionType.
+// When setting a composite type, it is unspecified whether the stored value
+// aliases the source's memory in any way. If the composite value is an
+// empty, read-only value, then it panics.
+//
+// Set is a mutating operation and unsafe for concurrent use.
+func (x *fastReflection_QueryEncounterWithImageResponse) Set(fd protoreflect.FieldDescriptor, value protoreflect.Value) {
+	switch fd.FullName() {
+	case "cardchain.cardchain.QueryEncounterWithImageResponse.encounter":
+		x.Encounter = value.Message().Interface().(*EncounterWithImage)
+	default:
+		if fd.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: cardchain.cardchain.QueryEncounterWithImageResponse"))
+		}
+		panic(fmt.Errorf("message cardchain.cardchain.QueryEncounterWithImageResponse does not contain field %s", fd.FullName()))
+	}
+}
+
+// Mutable returns a mutable reference to a composite type.
+//
+// If the field is unpopulated, it may allocate a composite value.
+// For a field belonging to a oneof, it implicitly clears any other field
+// that may be currently set within the same oneof.
+// For extension fields, it implicitly stores the provided ExtensionType
+// if not already stored.
+// It panics if the field does not contain a composite type.
+//
+// Mutable is a mutating operation and unsafe for concurrent use.
+func (x *fastReflection_QueryEncounterWithImageResponse) Mutable(fd protoreflect.FieldDescriptor) protoreflect.Value {
+	switch fd.FullName() {
+	case "cardchain.cardchain.QueryEncounterWithImageResponse.encounter":
+		if x.Encounter == nil {
+			x.Encounter = new(EncounterWithImage)
+		}
+		return protoreflect.ValueOfMessage(x.Encounter.ProtoReflect())
+	default:
+		if fd.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: cardchain.cardchain.QueryEncounterWithImageResponse"))
+		}
+		panic(fmt.Errorf("message cardchain.cardchain.QueryEncounterWithImageResponse does not contain field %s", fd.FullName()))
+	}
+}
+
+// NewField returns a new value that is assignable to the field
+// for the given descriptor. For scalars, this returns the default value.
+// For lists, maps, and messages, this returns a new, empty, mutable value.
+func (x *fastReflection_QueryEncounterWithImageResponse) NewField(fd protoreflect.FieldDescriptor) protoreflect.Value {
+	switch fd.FullName() {
+	case "cardchain.cardchain.QueryEncounterWithImageResponse.encounter":
+		m := new(EncounterWithImage)
+		return protoreflect.ValueOfMessage(m.ProtoReflect())
+	default:
+		if fd.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: cardchain.cardchain.QueryEncounterWithImageResponse"))
+		}
+		panic(fmt.Errorf("message cardchain.cardchain.QueryEncounterWithImageResponse does not contain field %s", fd.FullName()))
+	}
+}
+
+// WhichOneof reports which field within the oneof is populated,
+// returning nil if none are populated.
+// It panics if the oneof descriptor does not belong to this message.
+func (x *fastReflection_QueryEncounterWithImageResponse) WhichOneof(d protoreflect.OneofDescriptor) protoreflect.FieldDescriptor {
+	switch d.FullName() {
+	default:
+		panic(fmt.Errorf("%s is not a oneof field in cardchain.cardchain.QueryEncounterWithImageResponse", d.FullName()))
+	}
+	panic("unreachable")
+}
+
+// GetUnknown retrieves the entire list of unknown fields.
+// The caller may only mutate the contents of the RawFields
+// if the mutated bytes are stored back into the message with SetUnknown.
+func (x *fastReflection_QueryEncounterWithImageResponse) GetUnknown() protoreflect.RawFields {
+	return x.unknownFields
+}
+
+// SetUnknown stores an entire list of unknown fields.
+// The raw fields must be syntactically valid according to the wire format.
+// An implementation may panic if this is not the case.
+// Once stored, the caller must not mutate the content of the RawFields.
+// An empty RawFields may be passed to clear the fields.
+//
+// SetUnknown is a mutating operation and unsafe for concurrent use.
+func (x *fastReflection_QueryEncounterWithImageResponse) SetUnknown(fields protoreflect.RawFields) {
+	x.unknownFields = fields
+}
+
+// IsValid reports whether the message is valid.
+//
+// An invalid message is an empty, read-only value.
+//
+// An invalid message often corresponds to a nil pointer of the concrete
+// message type, but the details are implementation dependent.
+// Validity is not part of the protobuf data model, and may not
+// be preserved in marshaling or other operations.
+func (x *fastReflection_QueryEncounterWithImageResponse) IsValid() bool {
+	return x != nil
+}
+
+// ProtoMethods returns optional fastReflectionFeature-path implementations of various operations.
+// This method may return nil.
+//
+// The returned methods type is identical to
+// "google.golang.org/protobuf/runtime/protoiface".Methods.
+// Consult the protoiface package documentation for details.
+func (x *fastReflection_QueryEncounterWithImageResponse) ProtoMethods() *protoiface.Methods {
+	size := func(input protoiface.SizeInput) protoiface.SizeOutput {
+		x := input.Message.Interface().(*QueryEncounterWithImageResponse)
+		if x == nil {
+			return protoiface.SizeOutput{
+				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+				Size:              0,
+			}
+		}
+		options := runtime.SizeInputToOptions(input)
+		_ = options
+		var n int
+		var l int
+		_ = l
+		if x.Encounter != nil {
+			l = options.Size(x.Encounter)
+			n += 1 + l + runtime.Sov(uint64(l))
+		}
+		if x.unknownFields != nil {
+			n += len(x.unknownFields)
+		}
+		return protoiface.SizeOutput{
+			NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+			Size:              n,
+		}
+	}
+
+	marshal := func(input protoiface.MarshalInput) (protoiface.MarshalOutput, error) {
+		x := input.Message.Interface().(*QueryEncounterWithImageResponse)
+		if x == nil {
+			return protoiface.MarshalOutput{
+				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+				Buf:               input.Buf,
+			}, nil
+		}
+		options := runtime.MarshalInputToOptions(input)
+		_ = options
+		size := options.Size(x)
+		dAtA := make([]byte, size)
+		i := len(dAtA)
+		_ = i
+		var l int
+		_ = l
+		if x.unknownFields != nil {
+			i -= len(x.unknownFields)
+			copy(dAtA[i:], x.unknownFields)
+		}
+		if x.Encounter != nil {
+			encoded, err := options.Marshal(x.Encounter)
+			if err != nil {
+				return protoiface.MarshalOutput{
+					NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+					Buf:               input.Buf,
+				}, err
+			}
+			i -= len(encoded)
+			copy(dAtA[i:], encoded)
+			i = runtime.EncodeVarint(dAtA, i, uint64(len(encoded)))
+			i--
+			dAtA[i] = 0xa
+		}
+		if input.Buf != nil {
+			input.Buf = append(input.Buf, dAtA...)
+		} else {
+			input.Buf = dAtA
+		}
+		return protoiface.MarshalOutput{
+			NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+			Buf:               input.Buf,
+		}, nil
+	}
+	unmarshal := func(input protoiface.UnmarshalInput) (protoiface.UnmarshalOutput, error) {
+		x := input.Message.Interface().(*QueryEncounterWithImageResponse)
+		if x == nil {
+			return protoiface.UnmarshalOutput{
+				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+				Flags:             input.Flags,
+			}, nil
+		}
+		options := runtime.UnmarshalInputToOptions(input)
+		_ = options
+		dAtA := input.Buf
+		l := len(dAtA)
+		iNdEx := 0
+		for iNdEx < l {
+			preIndex := iNdEx
+			var wire uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
+				}
+				if iNdEx >= l {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				wire |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			fieldNum := int32(wire >> 3)
+			wireType := int(wire & 0x7)
+			if wireType == 4 {
+				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: QueryEncounterWithImageResponse: wiretype end group for non-group")
+			}
+			if fieldNum <= 0 {
+				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: QueryEncounterWithImageResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+			}
+			switch fieldNum {
+			case 1:
+				if wireType != 2 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field Encounter", wireType)
+				}
+				var msglen int
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
+					}
+					if iNdEx >= l {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					msglen |= int(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+				if msglen < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				postIndex := iNdEx + msglen
+				if postIndex < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				if postIndex > l {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+				}
+				if x.Encounter == nil {
+					x.Encounter = &EncounterWithImage{}
+				}
+				if err := options.Unmarshal(dAtA[iNdEx:postIndex], x.Encounter); err != nil {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, err
+				}
+				iNdEx = postIndex
+			default:
+				iNdEx = preIndex
+				skippy, err := runtime.Skip(dAtA[iNdEx:])
+				if err != nil {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, err
+				}
+				if (skippy < 0) || (iNdEx+skippy) < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				if (iNdEx + skippy) > l {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+				}
+				if !options.DiscardUnknown {
+					x.unknownFields = append(x.unknownFields, dAtA[iNdEx:iNdEx+skippy]...)
+				}
+				iNdEx += skippy
+			}
+		}
+
+		if iNdEx > l {
+			return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+		}
+		return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, nil
+	}
+	return &protoiface.Methods{
+		NoUnkeyedLiterals: struct{}{},
+		Flags:             protoiface.SupportMarshalDeterministic | protoiface.SupportUnmarshalDiscardUnknown,
+		Size:              size,
+		Marshal:           marshal,
+		Unmarshal:         unmarshal,
+		Merge:             nil,
+		CheckInitialized:  nil,
+	}
+}
+
+var (
+	md_QueryEncountersWithImageRequest protoreflect.MessageDescriptor
+)
+
+func init() {
+	file_cardchain_cardchain_query_proto_init()
+	md_QueryEncountersWithImageRequest = File_cardchain_cardchain_query_proto.Messages().ByName("QueryEncountersWithImageRequest")
+}
+
+var _ protoreflect.Message = (*fastReflection_QueryEncountersWithImageRequest)(nil)
+
+type fastReflection_QueryEncountersWithImageRequest QueryEncountersWithImageRequest
+
+func (x *QueryEncountersWithImageRequest) ProtoReflect() protoreflect.Message {
+	return (*fastReflection_QueryEncountersWithImageRequest)(x)
+}
+
+func (x *QueryEncountersWithImageRequest) slowProtoReflect() protoreflect.Message {
+	mi := &file_cardchain_cardchain_query_proto_msgTypes[28]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+var _fastReflection_QueryEncountersWithImageRequest_messageType fastReflection_QueryEncountersWithImageRequest_messageType
+var _ protoreflect.MessageType = fastReflection_QueryEncountersWithImageRequest_messageType{}
+
+type fastReflection_QueryEncountersWithImageRequest_messageType struct{}
+
+func (x fastReflection_QueryEncountersWithImageRequest_messageType) Zero() protoreflect.Message {
+	return (*fastReflection_QueryEncountersWithImageRequest)(nil)
+}
+func (x fastReflection_QueryEncountersWithImageRequest_messageType) New() protoreflect.Message {
+	return new(fastReflection_QueryEncountersWithImageRequest)
+}
+func (x fastReflection_QueryEncountersWithImageRequest_messageType) Descriptor() protoreflect.MessageDescriptor {
+	return md_QueryEncountersWithImageRequest
+}
+
+// Descriptor returns message descriptor, which contains only the protobuf
+// type information for the message.
+func (x *fastReflection_QueryEncountersWithImageRequest) Descriptor() protoreflect.MessageDescriptor {
+	return md_QueryEncountersWithImageRequest
+}
+
+// Type returns the message type, which encapsulates both Go and protobuf
+// type information. If the Go type information is not needed,
+// it is recommended that the message descriptor be used instead.
+func (x *fastReflection_QueryEncountersWithImageRequest) Type() protoreflect.MessageType {
+	return _fastReflection_QueryEncountersWithImageRequest_messageType
+}
+
+// New returns a newly allocated and mutable empty message.
+func (x *fastReflection_QueryEncountersWithImageRequest) New() protoreflect.Message {
+	return new(fastReflection_QueryEncountersWithImageRequest)
+}
+
+// Interface unwraps the message reflection interface and
+// returns the underlying ProtoMessage interface.
+func (x *fastReflection_QueryEncountersWithImageRequest) Interface() protoreflect.ProtoMessage {
+	return (*QueryEncountersWithImageRequest)(x)
+}
+
+// Range iterates over every populated field in an undefined order,
+// calling f for each field descriptor and value encountered.
+// Range returns immediately if f returns false.
+// While iterating, mutating operations may only be performed
+// on the current field descriptor.
+func (x *fastReflection_QueryEncountersWithImageRequest) Range(f func(protoreflect.FieldDescriptor, protoreflect.Value) bool) {
+}
+
+// Has reports whether a field is populated.
+//
+// Some fields have the property of nullability where it is possible to
+// distinguish between the default value of a field and whether the field
+// was explicitly populated with the default value. Singular message fields,
+// member fields of a oneof, and proto2 scalar fields are nullable. Such
+// fields are populated only if explicitly set.
+//
+// In other cases (aside from the nullable cases above),
+// a proto3 scalar field is populated if it contains a non-zero value, and
+// a repeated field is populated if it is non-empty.
+func (x *fastReflection_QueryEncountersWithImageRequest) Has(fd protoreflect.FieldDescriptor) bool {
+	switch fd.FullName() {
+	default:
+		if fd.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: cardchain.cardchain.QueryEncountersWithImageRequest"))
+		}
+		panic(fmt.Errorf("message cardchain.cardchain.QueryEncountersWithImageRequest does not contain field %s", fd.FullName()))
+	}
+}
+
+// Clear clears the field such that a subsequent Has call reports false.
+//
+// Clearing an extension field clears both the extension type and value
+// associated with the given field number.
+//
+// Clear is a mutating operation and unsafe for concurrent use.
+func (x *fastReflection_QueryEncountersWithImageRequest) Clear(fd protoreflect.FieldDescriptor) {
+	switch fd.FullName() {
+	default:
+		if fd.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: cardchain.cardchain.QueryEncountersWithImageRequest"))
+		}
+		panic(fmt.Errorf("message cardchain.cardchain.QueryEncountersWithImageRequest does not contain field %s", fd.FullName()))
+	}
+}
+
+// Get retrieves the value for a field.
+//
+// For unpopulated scalars, it returns the default value, where
+// the default value of a bytes scalar is guaranteed to be a copy.
+// For unpopulated composite types, it returns an empty, read-only view
+// of the value; to obtain a mutable reference, use Mutable.
+func (x *fastReflection_QueryEncountersWithImageRequest) Get(descriptor protoreflect.FieldDescriptor) protoreflect.Value {
+	switch descriptor.FullName() {
+	default:
+		if descriptor.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: cardchain.cardchain.QueryEncountersWithImageRequest"))
+		}
+		panic(fmt.Errorf("message cardchain.cardchain.QueryEncountersWithImageRequest does not contain field %s", descriptor.FullName()))
+	}
+}
+
+// Set stores the value for a field.
+//
+// For a field belonging to a oneof, it implicitly clears any other field
+// that may be currently set within the same oneof.
+// For extension fields, it implicitly stores the provided ExtensionType.
+// When setting a composite type, it is unspecified whether the stored value
+// aliases the source's memory in any way. If the composite value is an
+// empty, read-only value, then it panics.
+//
+// Set is a mutating operation and unsafe for concurrent use.
+func (x *fastReflection_QueryEncountersWithImageRequest) Set(fd protoreflect.FieldDescriptor, value protoreflect.Value) {
+	switch fd.FullName() {
+	default:
+		if fd.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: cardchain.cardchain.QueryEncountersWithImageRequest"))
+		}
+		panic(fmt.Errorf("message cardchain.cardchain.QueryEncountersWithImageRequest does not contain field %s", fd.FullName()))
+	}
+}
+
+// Mutable returns a mutable reference to a composite type.
+//
+// If the field is unpopulated, it may allocate a composite value.
+// For a field belonging to a oneof, it implicitly clears any other field
+// that may be currently set within the same oneof.
+// For extension fields, it implicitly stores the provided ExtensionType
+// if not already stored.
+// It panics if the field does not contain a composite type.
+//
+// Mutable is a mutating operation and unsafe for concurrent use.
+func (x *fastReflection_QueryEncountersWithImageRequest) Mutable(fd protoreflect.FieldDescriptor) protoreflect.Value {
+	switch fd.FullName() {
+	default:
+		if fd.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: cardchain.cardchain.QueryEncountersWithImageRequest"))
+		}
+		panic(fmt.Errorf("message cardchain.cardchain.QueryEncountersWithImageRequest does not contain field %s", fd.FullName()))
+	}
+}
+
+// NewField returns a new value that is assignable to the field
+// for the given descriptor. For scalars, this returns the default value.
+// For lists, maps, and messages, this returns a new, empty, mutable value.
+func (x *fastReflection_QueryEncountersWithImageRequest) NewField(fd protoreflect.FieldDescriptor) protoreflect.Value {
+	switch fd.FullName() {
+	default:
+		if fd.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: cardchain.cardchain.QueryEncountersWithImageRequest"))
+		}
+		panic(fmt.Errorf("message cardchain.cardchain.QueryEncountersWithImageRequest does not contain field %s", fd.FullName()))
+	}
+}
+
+// WhichOneof reports which field within the oneof is populated,
+// returning nil if none are populated.
+// It panics if the oneof descriptor does not belong to this message.
+func (x *fastReflection_QueryEncountersWithImageRequest) WhichOneof(d protoreflect.OneofDescriptor) protoreflect.FieldDescriptor {
+	switch d.FullName() {
+	default:
+		panic(fmt.Errorf("%s is not a oneof field in cardchain.cardchain.QueryEncountersWithImageRequest", d.FullName()))
+	}
+	panic("unreachable")
+}
+
+// GetUnknown retrieves the entire list of unknown fields.
+// The caller may only mutate the contents of the RawFields
+// if the mutated bytes are stored back into the message with SetUnknown.
+func (x *fastReflection_QueryEncountersWithImageRequest) GetUnknown() protoreflect.RawFields {
+	return x.unknownFields
+}
+
+// SetUnknown stores an entire list of unknown fields.
+// The raw fields must be syntactically valid according to the wire format.
+// An implementation may panic if this is not the case.
+// Once stored, the caller must not mutate the content of the RawFields.
+// An empty RawFields may be passed to clear the fields.
+//
+// SetUnknown is a mutating operation and unsafe for concurrent use.
+func (x *fastReflection_QueryEncountersWithImageRequest) SetUnknown(fields protoreflect.RawFields) {
+	x.unknownFields = fields
+}
+
+// IsValid reports whether the message is valid.
+//
+// An invalid message is an empty, read-only value.
+//
+// An invalid message often corresponds to a nil pointer of the concrete
+// message type, but the details are implementation dependent.
+// Validity is not part of the protobuf data model, and may not
+// be preserved in marshaling or other operations.
+func (x *fastReflection_QueryEncountersWithImageRequest) IsValid() bool {
+	return x != nil
+}
+
+// ProtoMethods returns optional fastReflectionFeature-path implementations of various operations.
+// This method may return nil.
+//
+// The returned methods type is identical to
+// "google.golang.org/protobuf/runtime/protoiface".Methods.
+// Consult the protoiface package documentation for details.
+func (x *fastReflection_QueryEncountersWithImageRequest) ProtoMethods() *protoiface.Methods {
+	size := func(input protoiface.SizeInput) protoiface.SizeOutput {
+		x := input.Message.Interface().(*QueryEncountersWithImageRequest)
+		if x == nil {
+			return protoiface.SizeOutput{
+				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+				Size:              0,
+			}
+		}
+		options := runtime.SizeInputToOptions(input)
+		_ = options
+		var n int
+		var l int
+		_ = l
+		if x.unknownFields != nil {
+			n += len(x.unknownFields)
+		}
+		return protoiface.SizeOutput{
+			NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+			Size:              n,
+		}
+	}
+
+	marshal := func(input protoiface.MarshalInput) (protoiface.MarshalOutput, error) {
+		x := input.Message.Interface().(*QueryEncountersWithImageRequest)
+		if x == nil {
+			return protoiface.MarshalOutput{
+				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+				Buf:               input.Buf,
+			}, nil
+		}
+		options := runtime.MarshalInputToOptions(input)
+		_ = options
+		size := options.Size(x)
+		dAtA := make([]byte, size)
+		i := len(dAtA)
+		_ = i
+		var l int
+		_ = l
+		if x.unknownFields != nil {
+			i -= len(x.unknownFields)
+			copy(dAtA[i:], x.unknownFields)
+		}
+		if input.Buf != nil {
+			input.Buf = append(input.Buf, dAtA...)
+		} else {
+			input.Buf = dAtA
+		}
+		return protoiface.MarshalOutput{
+			NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+			Buf:               input.Buf,
+		}, nil
+	}
+	unmarshal := func(input protoiface.UnmarshalInput) (protoiface.UnmarshalOutput, error) {
+		x := input.Message.Interface().(*QueryEncountersWithImageRequest)
+		if x == nil {
+			return protoiface.UnmarshalOutput{
+				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+				Flags:             input.Flags,
+			}, nil
+		}
+		options := runtime.UnmarshalInputToOptions(input)
+		_ = options
+		dAtA := input.Buf
+		l := len(dAtA)
+		iNdEx := 0
+		for iNdEx < l {
+			preIndex := iNdEx
+			var wire uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
+				}
+				if iNdEx >= l {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				wire |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			fieldNum := int32(wire >> 3)
+			wireType := int(wire & 0x7)
+			if wireType == 4 {
+				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: QueryEncountersWithImageRequest: wiretype end group for non-group")
+			}
+			if fieldNum <= 0 {
+				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: QueryEncountersWithImageRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+			}
+			switch fieldNum {
+			default:
+				iNdEx = preIndex
+				skippy, err := runtime.Skip(dAtA[iNdEx:])
+				if err != nil {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, err
+				}
+				if (skippy < 0) || (iNdEx+skippy) < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				if (iNdEx + skippy) > l {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+				}
+				if !options.DiscardUnknown {
+					x.unknownFields = append(x.unknownFields, dAtA[iNdEx:iNdEx+skippy]...)
+				}
+				iNdEx += skippy
+			}
+		}
+
+		if iNdEx > l {
+			return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+		}
+		return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, nil
+	}
+	return &protoiface.Methods{
+		NoUnkeyedLiterals: struct{}{},
+		Flags:             protoiface.SupportMarshalDeterministic | protoiface.SupportUnmarshalDiscardUnknown,
+		Size:              size,
+		Marshal:           marshal,
+		Unmarshal:         unmarshal,
+		Merge:             nil,
+		CheckInitialized:  nil,
+	}
+}
+
+var _ protoreflect.List = (*_QueryEncountersWithImageResponse_1_list)(nil)
+
+type _QueryEncountersWithImageResponse_1_list struct {
+	list *[]*EncounterWithImage
+}
+
+func (x *_QueryEncountersWithImageResponse_1_list) Len() int {
+	if x.list == nil {
+		return 0
+	}
+	return len(*x.list)
+}
+
+func (x *_QueryEncountersWithImageResponse_1_list) Get(i int) protoreflect.Value {
+	return protoreflect.ValueOfMessage((*x.list)[i].ProtoReflect())
+}
+
+func (x *_QueryEncountersWithImageResponse_1_list) Set(i int, value protoreflect.Value) {
+	valueUnwrapped := value.Message()
+	concreteValue := valueUnwrapped.Interface().(*EncounterWithImage)
+	(*x.list)[i] = concreteValue
+}
+
+func (x *_QueryEncountersWithImageResponse_1_list) Append(value protoreflect.Value) {
+	valueUnwrapped := value.Message()
+	concreteValue := valueUnwrapped.Interface().(*EncounterWithImage)
+	*x.list = append(*x.list, concreteValue)
+}
+
+func (x *_QueryEncountersWithImageResponse_1_list) AppendMutable() protoreflect.Value {
+	v := new(EncounterWithImage)
+	*x.list = append(*x.list, v)
+	return protoreflect.ValueOfMessage(v.ProtoReflect())
+}
+
+func (x *_QueryEncountersWithImageResponse_1_list) Truncate(n int) {
+	for i := n; i < len(*x.list); i++ {
+		(*x.list)[i] = nil
+	}
+	*x.list = (*x.list)[:n]
+}
+
+func (x *_QueryEncountersWithImageResponse_1_list) NewElement() protoreflect.Value {
+	v := new(EncounterWithImage)
+	return protoreflect.ValueOfMessage(v.ProtoReflect())
+}
+
+func (x *_QueryEncountersWithImageResponse_1_list) IsValid() bool {
+	return x.list != nil
+}
+
+var (
+	md_QueryEncountersWithImageResponse            protoreflect.MessageDescriptor
+	fd_QueryEncountersWithImageResponse_encounters protoreflect.FieldDescriptor
+)
+
+func init() {
+	file_cardchain_cardchain_query_proto_init()
+	md_QueryEncountersWithImageResponse = File_cardchain_cardchain_query_proto.Messages().ByName("QueryEncountersWithImageResponse")
+	fd_QueryEncountersWithImageResponse_encounters = md_QueryEncountersWithImageResponse.Fields().ByName("encounters")
+}
+
+var _ protoreflect.Message = (*fastReflection_QueryEncountersWithImageResponse)(nil)
+
+type fastReflection_QueryEncountersWithImageResponse QueryEncountersWithImageResponse
+
+func (x *QueryEncountersWithImageResponse) ProtoReflect() protoreflect.Message {
+	return (*fastReflection_QueryEncountersWithImageResponse)(x)
+}
+
+func (x *QueryEncountersWithImageResponse) slowProtoReflect() protoreflect.Message {
+	mi := &file_cardchain_cardchain_query_proto_msgTypes[29]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+var _fastReflection_QueryEncountersWithImageResponse_messageType fastReflection_QueryEncountersWithImageResponse_messageType
+var _ protoreflect.MessageType = fastReflection_QueryEncountersWithImageResponse_messageType{}
+
+type fastReflection_QueryEncountersWithImageResponse_messageType struct{}
+
+func (x fastReflection_QueryEncountersWithImageResponse_messageType) Zero() protoreflect.Message {
+	return (*fastReflection_QueryEncountersWithImageResponse)(nil)
+}
+func (x fastReflection_QueryEncountersWithImageResponse_messageType) New() protoreflect.Message {
+	return new(fastReflection_QueryEncountersWithImageResponse)
+}
+func (x fastReflection_QueryEncountersWithImageResponse_messageType) Descriptor() protoreflect.MessageDescriptor {
+	return md_QueryEncountersWithImageResponse
+}
+
+// Descriptor returns message descriptor, which contains only the protobuf
+// type information for the message.
+func (x *fastReflection_QueryEncountersWithImageResponse) Descriptor() protoreflect.MessageDescriptor {
+	return md_QueryEncountersWithImageResponse
+}
+
+// Type returns the message type, which encapsulates both Go and protobuf
+// type information. If the Go type information is not needed,
+// it is recommended that the message descriptor be used instead.
+func (x *fastReflection_QueryEncountersWithImageResponse) Type() protoreflect.MessageType {
+	return _fastReflection_QueryEncountersWithImageResponse_messageType
+}
+
+// New returns a newly allocated and mutable empty message.
+func (x *fastReflection_QueryEncountersWithImageResponse) New() protoreflect.Message {
+	return new(fastReflection_QueryEncountersWithImageResponse)
+}
+
+// Interface unwraps the message reflection interface and
+// returns the underlying ProtoMessage interface.
+func (x *fastReflection_QueryEncountersWithImageResponse) Interface() protoreflect.ProtoMessage {
+	return (*QueryEncountersWithImageResponse)(x)
+}
+
+// Range iterates over every populated field in an undefined order,
+// calling f for each field descriptor and value encountered.
+// Range returns immediately if f returns false.
+// While iterating, mutating operations may only be performed
+// on the current field descriptor.
+func (x *fastReflection_QueryEncountersWithImageResponse) Range(f func(protoreflect.FieldDescriptor, protoreflect.Value) bool) {
+	if len(x.Encounters) != 0 {
+		value := protoreflect.ValueOfList(&_QueryEncountersWithImageResponse_1_list{list: &x.Encounters})
+		if !f(fd_QueryEncountersWithImageResponse_encounters, value) {
+			return
+		}
+	}
+}
+
+// Has reports whether a field is populated.
+//
+// Some fields have the property of nullability where it is possible to
+// distinguish between the default value of a field and whether the field
+// was explicitly populated with the default value. Singular message fields,
+// member fields of a oneof, and proto2 scalar fields are nullable. Such
+// fields are populated only if explicitly set.
+//
+// In other cases (aside from the nullable cases above),
+// a proto3 scalar field is populated if it contains a non-zero value, and
+// a repeated field is populated if it is non-empty.
+func (x *fastReflection_QueryEncountersWithImageResponse) Has(fd protoreflect.FieldDescriptor) bool {
+	switch fd.FullName() {
+	case "cardchain.cardchain.QueryEncountersWithImageResponse.encounters":
+		return len(x.Encounters) != 0
+	default:
+		if fd.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: cardchain.cardchain.QueryEncountersWithImageResponse"))
+		}
+		panic(fmt.Errorf("message cardchain.cardchain.QueryEncountersWithImageResponse does not contain field %s", fd.FullName()))
+	}
+}
+
+// Clear clears the field such that a subsequent Has call reports false.
+//
+// Clearing an extension field clears both the extension type and value
+// associated with the given field number.
+//
+// Clear is a mutating operation and unsafe for concurrent use.
+func (x *fastReflection_QueryEncountersWithImageResponse) Clear(fd protoreflect.FieldDescriptor) {
+	switch fd.FullName() {
+	case "cardchain.cardchain.QueryEncountersWithImageResponse.encounters":
+		x.Encounters = nil
+	default:
+		if fd.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: cardchain.cardchain.QueryEncountersWithImageResponse"))
+		}
+		panic(fmt.Errorf("message cardchain.cardchain.QueryEncountersWithImageResponse does not contain field %s", fd.FullName()))
+	}
+}
+
+// Get retrieves the value for a field.
+//
+// For unpopulated scalars, it returns the default value, where
+// the default value of a bytes scalar is guaranteed to be a copy.
+// For unpopulated composite types, it returns an empty, read-only view
+// of the value; to obtain a mutable reference, use Mutable.
+func (x *fastReflection_QueryEncountersWithImageResponse) Get(descriptor protoreflect.FieldDescriptor) protoreflect.Value {
+	switch descriptor.FullName() {
+	case "cardchain.cardchain.QueryEncountersWithImageResponse.encounters":
+		if len(x.Encounters) == 0 {
+			return protoreflect.ValueOfList(&_QueryEncountersWithImageResponse_1_list{})
+		}
+		listValue := &_QueryEncountersWithImageResponse_1_list{list: &x.Encounters}
+		return protoreflect.ValueOfList(listValue)
+	default:
+		if descriptor.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: cardchain.cardchain.QueryEncountersWithImageResponse"))
+		}
+		panic(fmt.Errorf("message cardchain.cardchain.QueryEncountersWithImageResponse does not contain field %s", descriptor.FullName()))
+	}
+}
+
+// Set stores the value for a field.
+//
+// For a field belonging to a oneof, it implicitly clears any other field
+// that may be currently set within the same oneof.
+// For extension fields, it implicitly stores the provided ExtensionType.
+// When setting a composite type, it is unspecified whether the stored value
+// aliases the source's memory in any way. If the composite value is an
+// empty, read-only value, then it panics.
+//
+// Set is a mutating operation and unsafe for concurrent use.
+func (x *fastReflection_QueryEncountersWithImageResponse) Set(fd protoreflect.FieldDescriptor, value protoreflect.Value) {
+	switch fd.FullName() {
+	case "cardchain.cardchain.QueryEncountersWithImageResponse.encounters":
+		lv := value.List()
+		clv := lv.(*_QueryEncountersWithImageResponse_1_list)
+		x.Encounters = *clv.list
+	default:
+		if fd.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: cardchain.cardchain.QueryEncountersWithImageResponse"))
+		}
+		panic(fmt.Errorf("message cardchain.cardchain.QueryEncountersWithImageResponse does not contain field %s", fd.FullName()))
+	}
+}
+
+// Mutable returns a mutable reference to a composite type.
+//
+// If the field is unpopulated, it may allocate a composite value.
+// For a field belonging to a oneof, it implicitly clears any other field
+// that may be currently set within the same oneof.
+// For extension fields, it implicitly stores the provided ExtensionType
+// if not already stored.
+// It panics if the field does not contain a composite type.
+//
+// Mutable is a mutating operation and unsafe for concurrent use.
+func (x *fastReflection_QueryEncountersWithImageResponse) Mutable(fd protoreflect.FieldDescriptor) protoreflect.Value {
+	switch fd.FullName() {
+	case "cardchain.cardchain.QueryEncountersWithImageResponse.encounters":
+		if x.Encounters == nil {
+			x.Encounters = []*EncounterWithImage{}
+		}
+		value := &_QueryEncountersWithImageResponse_1_list{list: &x.Encounters}
+		return protoreflect.ValueOfList(value)
+	default:
+		if fd.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: cardchain.cardchain.QueryEncountersWithImageResponse"))
+		}
+		panic(fmt.Errorf("message cardchain.cardchain.QueryEncountersWithImageResponse does not contain field %s", fd.FullName()))
+	}
+}
+
+// NewField returns a new value that is assignable to the field
+// for the given descriptor. For scalars, this returns the default value.
+// For lists, maps, and messages, this returns a new, empty, mutable value.
+func (x *fastReflection_QueryEncountersWithImageResponse) NewField(fd protoreflect.FieldDescriptor) protoreflect.Value {
+	switch fd.FullName() {
+	case "cardchain.cardchain.QueryEncountersWithImageResponse.encounters":
+		list := []*EncounterWithImage{}
+		return protoreflect.ValueOfList(&_QueryEncountersWithImageResponse_1_list{list: &list})
+	default:
+		if fd.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: cardchain.cardchain.QueryEncountersWithImageResponse"))
+		}
+		panic(fmt.Errorf("message cardchain.cardchain.QueryEncountersWithImageResponse does not contain field %s", fd.FullName()))
+	}
+}
+
+// WhichOneof reports which field within the oneof is populated,
+// returning nil if none are populated.
+// It panics if the oneof descriptor does not belong to this message.
+func (x *fastReflection_QueryEncountersWithImageResponse) WhichOneof(d protoreflect.OneofDescriptor) protoreflect.FieldDescriptor {
+	switch d.FullName() {
+	default:
+		panic(fmt.Errorf("%s is not a oneof field in cardchain.cardchain.QueryEncountersWithImageResponse", d.FullName()))
+	}
+	panic("unreachable")
+}
+
+// GetUnknown retrieves the entire list of unknown fields.
+// The caller may only mutate the contents of the RawFields
+// if the mutated bytes are stored back into the message with SetUnknown.
+func (x *fastReflection_QueryEncountersWithImageResponse) GetUnknown() protoreflect.RawFields {
+	return x.unknownFields
+}
+
+// SetUnknown stores an entire list of unknown fields.
+// The raw fields must be syntactically valid according to the wire format.
+// An implementation may panic if this is not the case.
+// Once stored, the caller must not mutate the content of the RawFields.
+// An empty RawFields may be passed to clear the fields.
+//
+// SetUnknown is a mutating operation and unsafe for concurrent use.
+func (x *fastReflection_QueryEncountersWithImageResponse) SetUnknown(fields protoreflect.RawFields) {
+	x.unknownFields = fields
+}
+
+// IsValid reports whether the message is valid.
+//
+// An invalid message is an empty, read-only value.
+//
+// An invalid message often corresponds to a nil pointer of the concrete
+// message type, but the details are implementation dependent.
+// Validity is not part of the protobuf data model, and may not
+// be preserved in marshaling or other operations.
+func (x *fastReflection_QueryEncountersWithImageResponse) IsValid() bool {
+	return x != nil
+}
+
+// ProtoMethods returns optional fastReflectionFeature-path implementations of various operations.
+// This method may return nil.
+//
+// The returned methods type is identical to
+// "google.golang.org/protobuf/runtime/protoiface".Methods.
+// Consult the protoiface package documentation for details.
+func (x *fastReflection_QueryEncountersWithImageResponse) ProtoMethods() *protoiface.Methods {
+	size := func(input protoiface.SizeInput) protoiface.SizeOutput {
+		x := input.Message.Interface().(*QueryEncountersWithImageResponse)
+		if x == nil {
+			return protoiface.SizeOutput{
+				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+				Size:              0,
+			}
+		}
+		options := runtime.SizeInputToOptions(input)
+		_ = options
+		var n int
+		var l int
+		_ = l
+		if len(x.Encounters) > 0 {
+			for _, e := range x.Encounters {
+				l = options.Size(e)
+				n += 1 + l + runtime.Sov(uint64(l))
+			}
+		}
+		if x.unknownFields != nil {
+			n += len(x.unknownFields)
+		}
+		return protoiface.SizeOutput{
+			NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+			Size:              n,
+		}
+	}
+
+	marshal := func(input protoiface.MarshalInput) (protoiface.MarshalOutput, error) {
+		x := input.Message.Interface().(*QueryEncountersWithImageResponse)
+		if x == nil {
+			return protoiface.MarshalOutput{
+				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+				Buf:               input.Buf,
+			}, nil
+		}
+		options := runtime.MarshalInputToOptions(input)
+		_ = options
+		size := options.Size(x)
+		dAtA := make([]byte, size)
+		i := len(dAtA)
+		_ = i
+		var l int
+		_ = l
+		if x.unknownFields != nil {
+			i -= len(x.unknownFields)
+			copy(dAtA[i:], x.unknownFields)
+		}
+		if len(x.Encounters) > 0 {
+			for iNdEx := len(x.Encounters) - 1; iNdEx >= 0; iNdEx-- {
+				encoded, err := options.Marshal(x.Encounters[iNdEx])
+				if err != nil {
+					return protoiface.MarshalOutput{
+						NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+						Buf:               input.Buf,
+					}, err
+				}
+				i -= len(encoded)
+				copy(dAtA[i:], encoded)
+				i = runtime.EncodeVarint(dAtA, i, uint64(len(encoded)))
+				i--
+				dAtA[i] = 0xa
+			}
+		}
+		if input.Buf != nil {
+			input.Buf = append(input.Buf, dAtA...)
+		} else {
+			input.Buf = dAtA
+		}
+		return protoiface.MarshalOutput{
+			NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+			Buf:               input.Buf,
+		}, nil
+	}
+	unmarshal := func(input protoiface.UnmarshalInput) (protoiface.UnmarshalOutput, error) {
+		x := input.Message.Interface().(*QueryEncountersWithImageResponse)
+		if x == nil {
+			return protoiface.UnmarshalOutput{
+				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+				Flags:             input.Flags,
+			}, nil
+		}
+		options := runtime.UnmarshalInputToOptions(input)
+		_ = options
+		dAtA := input.Buf
+		l := len(dAtA)
+		iNdEx := 0
+		for iNdEx < l {
+			preIndex := iNdEx
+			var wire uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
+				}
+				if iNdEx >= l {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				wire |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			fieldNum := int32(wire >> 3)
+			wireType := int(wire & 0x7)
+			if wireType == 4 {
+				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: QueryEncountersWithImageResponse: wiretype end group for non-group")
+			}
+			if fieldNum <= 0 {
+				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: QueryEncountersWithImageResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+			}
+			switch fieldNum {
+			case 1:
+				if wireType != 2 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field Encounters", wireType)
+				}
+				var msglen int
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
+					}
+					if iNdEx >= l {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					msglen |= int(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+				if msglen < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				postIndex := iNdEx + msglen
+				if postIndex < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				if postIndex > l {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+				}
+				x.Encounters = append(x.Encounters, &EncounterWithImage{})
+				if err := options.Unmarshal(dAtA[iNdEx:postIndex], x.Encounters[len(x.Encounters)-1]); err != nil {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, err
+				}
+				iNdEx = postIndex
+			default:
+				iNdEx = preIndex
+				skippy, err := runtime.Skip(dAtA[iNdEx:])
+				if err != nil {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, err
+				}
+				if (skippy < 0) || (iNdEx+skippy) < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				if (iNdEx + skippy) > l {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+				}
+				if !options.DiscardUnknown {
+					x.unknownFields = append(x.unknownFields, dAtA[iNdEx:iNdEx+skippy]...)
+				}
+				iNdEx += skippy
+			}
+		}
+
+		if iNdEx > l {
+			return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+		}
+		return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, nil
+	}
+	return &protoiface.Methods{
+		NoUnkeyedLiterals: struct{}{},
+		Flags:             protoiface.SupportMarshalDeterministic | protoiface.SupportUnmarshalDiscardUnknown,
+		Size:              size,
+		Marshal:           marshal,
+		Unmarshal:         unmarshal,
+		Merge:             nil,
+		CheckInitialized:  nil,
+	}
+}
+
 // Code generated by protoc-gen-go. DO NOT EDIT.
 // versions:
 // 	protoc-gen-go v1.27.0
@@ -12396,6 +14886,189 @@ func (x *QueryEncounterResponse) GetEncounter() *Encounter {
 	return nil
 }
 
+type QueryEncountersRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *QueryEncountersRequest) Reset() {
+	*x = QueryEncountersRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_cardchain_cardchain_query_proto_msgTypes[24]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *QueryEncountersRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*QueryEncountersRequest) ProtoMessage() {}
+
+// Deprecated: Use QueryEncountersRequest.ProtoReflect.Descriptor instead.
+func (*QueryEncountersRequest) Descriptor() ([]byte, []int) {
+	return file_cardchain_cardchain_query_proto_rawDescGZIP(), []int{24}
+}
+
+type QueryEncountersResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Encounters []*Encounter `protobuf:"bytes,1,rep,name=encounters,proto3" json:"encounters,omitempty"`
+}
+
+func (x *QueryEncountersResponse) Reset() {
+	*x = QueryEncountersResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_cardchain_cardchain_query_proto_msgTypes[25]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *QueryEncountersResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*QueryEncountersResponse) ProtoMessage() {}
+
+// Deprecated: Use QueryEncountersResponse.ProtoReflect.Descriptor instead.
+func (*QueryEncountersResponse) Descriptor() ([]byte, []int) {
+	return file_cardchain_cardchain_query_proto_rawDescGZIP(), []int{25}
+}
+
+func (x *QueryEncountersResponse) GetEncounters() []*Encounter {
+	if x != nil {
+		return x.Encounters
+	}
+	return nil
+}
+
+type QueryEncounterWithImageRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *QueryEncounterWithImageRequest) Reset() {
+	*x = QueryEncounterWithImageRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_cardchain_cardchain_query_proto_msgTypes[26]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *QueryEncounterWithImageRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*QueryEncounterWithImageRequest) ProtoMessage() {}
+
+// Deprecated: Use QueryEncounterWithImageRequest.ProtoReflect.Descriptor instead.
+func (*QueryEncounterWithImageRequest) Descriptor() ([]byte, []int) {
+	return file_cardchain_cardchain_query_proto_rawDescGZIP(), []int{26}
+}
+
+type QueryEncounterWithImageResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Encounter *EncounterWithImage `protobuf:"bytes,1,opt,name=encounter,proto3" json:"encounter,omitempty"`
+}
+
+func (x *QueryEncounterWithImageResponse) Reset() {
+	*x = QueryEncounterWithImageResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_cardchain_cardchain_query_proto_msgTypes[27]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *QueryEncounterWithImageResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*QueryEncounterWithImageResponse) ProtoMessage() {}
+
+// Deprecated: Use QueryEncounterWithImageResponse.ProtoReflect.Descriptor instead.
+func (*QueryEncounterWithImageResponse) Descriptor() ([]byte, []int) {
+	return file_cardchain_cardchain_query_proto_rawDescGZIP(), []int{27}
+}
+
+func (x *QueryEncounterWithImageResponse) GetEncounter() *EncounterWithImage {
+	if x != nil {
+		return x.Encounter
+	}
+	return nil
+}
+
+type QueryEncountersWithImageRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *QueryEncountersWithImageRequest) Reset() {
+	*x = QueryEncountersWithImageRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_cardchain_cardchain_query_proto_msgTypes[28]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *QueryEncountersWithImageRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*QueryEncountersWithImageRequest) ProtoMessage() {}
+
+// Deprecated: Use QueryEncountersWithImageRequest.ProtoReflect.Descriptor instead.
+func (*QueryEncountersWithImageRequest) Descriptor() ([]byte, []int) {
+	return file_cardchain_cardchain_query_proto_rawDescGZIP(), []int{28}
+}
+
+type QueryEncountersWithImageResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Encounters []*EncounterWithImage `protobuf:"bytes,1,rep,name=encounters,proto3" json:"encounters,omitempty"`
+}
+
+func (x *QueryEncountersWithImageResponse) Reset() {
+	*x = QueryEncountersWithImageResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_cardchain_cardchain_query_proto_msgTypes[29]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *QueryEncountersWithImageResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*QueryEncountersWithImageResponse) ProtoMessage() {}
+
+// Deprecated: Use QueryEncountersWithImageResponse.ProtoReflect.Descriptor instead.
+func (*QueryEncountersWithImageResponse) Descriptor() ([]byte, []int) {
+	return file_cardchain_cardchain_query_proto_rawDescGZIP(), []int{29}
+}
+
+func (x *QueryEncountersWithImageResponse) GetEncounters() []*EncounterWithImage {
+	if x != nil {
+		return x.Encounters
+	}
+	return nil
+}
+
 var File_cardchain_cardchain_query_proto protoreflect.FileDescriptor
 
 var file_cardchain_cardchain_query_proto_rawDesc = []byte{
@@ -12434,7 +15107,10 @@ var file_cardchain_cardchain_query_proto_rawDesc = []byte{
 	0x69, 0x6e, 0x2f, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2f, 0x73, 0x65, 0x72,
 	0x76, 0x65, 0x72, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x1a, 0x23, 0x63, 0x61, 0x72, 0x64, 0x63,
 	0x68, 0x61, 0x69, 0x6e, 0x2f, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2f, 0x65,
-	0x6e, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x65, 0x72, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x22, 0x14,
+	0x6e, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x65, 0x72, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x1a, 0x2e,
+	0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2f, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68,
+	0x61, 0x69, 0x6e, 0x2f, 0x65, 0x6e, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x65, 0x72, 0x5f, 0x77, 0x69,
+	0x74, 0x68, 0x5f, 0x69, 0x6d, 0x61, 0x67, 0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x22, 0x14,
 	0x0a, 0x12, 0x51, 0x75, 0x65, 0x72, 0x79, 0x50, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x52, 0x65, 0x71,
 	0x75, 0x65, 0x73, 0x74, 0x22, 0x55, 0x0a, 0x13, 0x51, 0x75, 0x65, 0x72, 0x79, 0x50, 0x61, 0x72,
 	0x61, 0x6d, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x3e, 0x0a, 0x06, 0x70,
@@ -12571,145 +15247,205 @@ var file_cardchain_cardchain_query_proto_rawDesc = []byte{
 	0x65, 0x12, 0x3c, 0x0a, 0x09, 0x65, 0x6e, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x65, 0x72, 0x18, 0x01,
 	0x20, 0x01, 0x28, 0x0b, 0x32, 0x1e, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e,
 	0x2e, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x45, 0x6e, 0x63, 0x6f, 0x75,
-	0x6e, 0x74, 0x65, 0x72, 0x52, 0x09, 0x65, 0x6e, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x65, 0x72, 0x32,
-	0xb2, 0x0f, 0x0a, 0x05, 0x51, 0x75, 0x65, 0x72, 0x79, 0x12, 0x92, 0x01, 0x0a, 0x06, 0x50, 0x61,
-	0x72, 0x61, 0x6d, 0x73, 0x12, 0x27, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e,
-	0x2e, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x51, 0x75, 0x65, 0x72, 0x79,
-	0x50, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x28, 0x2e,
-	0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68,
-	0x61, 0x69, 0x6e, 0x2e, 0x51, 0x75, 0x65, 0x72, 0x79, 0x50, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x52,
-	0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x35, 0x82, 0xd3, 0xe4, 0x93, 0x02, 0x2f, 0x12,
-	0x2d, 0x2f, 0x44, 0x65, 0x63, 0x65, 0x6e, 0x74, 0x72, 0x61, 0x6c, 0x43, 0x61, 0x72, 0x64, 0x47,
-	0x61, 0x6d, 0x65, 0x2f, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2f, 0x63, 0x61,
-	0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2f, 0x70, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x12, 0xbe,
-	0x01, 0x0a, 0x0e, 0x50, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x44, 0x65, 0x74, 0x61, 0x69, 0x6c,
-	0x73, 0x12, 0x32, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x63, 0x61,
-	0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x51, 0x75, 0x65, 0x72, 0x79, 0x47, 0x65, 0x74,
-	0x50, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x44, 0x65, 0x74, 0x61, 0x69, 0x6c, 0x73, 0x52, 0x65,
-	0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x33, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69,
+	0x6e, 0x74, 0x65, 0x72, 0x52, 0x09, 0x65, 0x6e, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x65, 0x72, 0x22,
+	0x18, 0x0a, 0x16, 0x51, 0x75, 0x65, 0x72, 0x79, 0x45, 0x6e, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x65,
+	0x72, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x22, 0x59, 0x0a, 0x17, 0x51, 0x75, 0x65,
+	0x72, 0x79, 0x45, 0x6e, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x65, 0x72, 0x73, 0x52, 0x65, 0x73, 0x70,
+	0x6f, 0x6e, 0x73, 0x65, 0x12, 0x3e, 0x0a, 0x0a, 0x65, 0x6e, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x65,
+	0x72, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x1e, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63,
+	0x68, 0x61, 0x69, 0x6e, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x45,
+	0x6e, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x65, 0x72, 0x52, 0x0a, 0x65, 0x6e, 0x63, 0x6f, 0x75, 0x6e,
+	0x74, 0x65, 0x72, 0x73, 0x22, 0x20, 0x0a, 0x1e, 0x51, 0x75, 0x65, 0x72, 0x79, 0x45, 0x6e, 0x63,
+	0x6f, 0x75, 0x6e, 0x74, 0x65, 0x72, 0x57, 0x69, 0x74, 0x68, 0x49, 0x6d, 0x61, 0x67, 0x65, 0x52,
+	0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x22, 0x68, 0x0a, 0x1f, 0x51, 0x75, 0x65, 0x72, 0x79, 0x45,
+	0x6e, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x65, 0x72, 0x57, 0x69, 0x74, 0x68, 0x49, 0x6d, 0x61, 0x67,
+	0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x45, 0x0a, 0x09, 0x65, 0x6e, 0x63,
+	0x6f, 0x75, 0x6e, 0x74, 0x65, 0x72, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x27, 0x2e, 0x63,
+	0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61,
+	0x69, 0x6e, 0x2e, 0x45, 0x6e, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x65, 0x72, 0x57, 0x69, 0x74, 0x68,
+	0x49, 0x6d, 0x61, 0x67, 0x65, 0x52, 0x09, 0x65, 0x6e, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x65, 0x72,
+	0x22, 0x21, 0x0a, 0x1f, 0x51, 0x75, 0x65, 0x72, 0x79, 0x45, 0x6e, 0x63, 0x6f, 0x75, 0x6e, 0x74,
+	0x65, 0x72, 0x73, 0x57, 0x69, 0x74, 0x68, 0x49, 0x6d, 0x61, 0x67, 0x65, 0x52, 0x65, 0x71, 0x75,
+	0x65, 0x73, 0x74, 0x22, 0x6b, 0x0a, 0x20, 0x51, 0x75, 0x65, 0x72, 0x79, 0x45, 0x6e, 0x63, 0x6f,
+	0x75, 0x6e, 0x74, 0x65, 0x72, 0x73, 0x57, 0x69, 0x74, 0x68, 0x49, 0x6d, 0x61, 0x67, 0x65, 0x52,
+	0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x47, 0x0a, 0x0a, 0x65, 0x6e, 0x63, 0x6f, 0x75,
+	0x6e, 0x74, 0x65, 0x72, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x27, 0x2e, 0x63, 0x61,
+	0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69,
+	0x6e, 0x2e, 0x45, 0x6e, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x65, 0x72, 0x57, 0x69, 0x74, 0x68, 0x49,
+	0x6d, 0x61, 0x67, 0x65, 0x52, 0x0a, 0x65, 0x6e, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x65, 0x72, 0x73,
+	0x32, 0xe9, 0x13, 0x0a, 0x05, 0x51, 0x75, 0x65, 0x72, 0x79, 0x12, 0x92, 0x01, 0x0a, 0x06, 0x50,
+	0x61, 0x72, 0x61, 0x6d, 0x73, 0x12, 0x27, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69,
 	0x6e, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x51, 0x75, 0x65, 0x72,
-	0x79, 0x47, 0x65, 0x74, 0x50, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x44, 0x65, 0x74, 0x61, 0x69,
-	0x6c, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x43, 0x82, 0xd3, 0xe4, 0x93,
-	0x02, 0x3d, 0x12, 0x3b, 0x2f, 0x44, 0x65, 0x63, 0x65, 0x6e, 0x74, 0x72, 0x61, 0x6c, 0x43, 0x61,
-	0x72, 0x64, 0x47, 0x61, 0x6d, 0x65, 0x2f, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e,
-	0x2f, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2f, 0x70, 0x72, 0x6f, 0x64, 0x75,
-	0x63, 0x74, 0x5f, 0x64, 0x65, 0x74, 0x61, 0x69, 0x6c, 0x73, 0x2f, 0x7b, 0x69, 0x64, 0x7d, 0x12,
-	0xbc, 0x01, 0x0a, 0x11, 0x50, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x44, 0x65, 0x74, 0x61, 0x69,
-	0x6c, 0x73, 0x41, 0x6c, 0x6c, 0x12, 0x32, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69,
-	0x6e, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x51, 0x75, 0x65, 0x72,
-	0x79, 0x41, 0x6c, 0x6c, 0x50, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x44, 0x65, 0x74, 0x61, 0x69,
-	0x6c, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x33, 0x2e, 0x63, 0x61, 0x72, 0x64,
-	0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e,
-	0x51, 0x75, 0x65, 0x72, 0x79, 0x41, 0x6c, 0x6c, 0x50, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x44,
-	0x65, 0x74, 0x61, 0x69, 0x6c, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x3e,
-	0x82, 0xd3, 0xe4, 0x93, 0x02, 0x38, 0x12, 0x36, 0x2f, 0x44, 0x65, 0x63, 0x65, 0x6e, 0x74, 0x72,
-	0x61, 0x6c, 0x43, 0x61, 0x72, 0x64, 0x47, 0x61, 0x6d, 0x65, 0x2f, 0x63, 0x61, 0x72, 0x64, 0x63,
-	0x68, 0x61, 0x69, 0x6e, 0x2f, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2f, 0x70,
-	0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x5f, 0x64, 0x65, 0x74, 0x61, 0x69, 0x6c, 0x73, 0x12, 0x93,
-	0x01, 0x0a, 0x04, 0x43, 0x61, 0x72, 0x64, 0x12, 0x25, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68,
-	0x61, 0x69, 0x6e, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x51, 0x75,
-	0x65, 0x72, 0x79, 0x43, 0x61, 0x72, 0x64, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x26,
+	0x79, 0x50, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x28,
 	0x2e, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63,
-	0x68, 0x61, 0x69, 0x6e, 0x2e, 0x51, 0x75, 0x65, 0x72, 0x79, 0x43, 0x61, 0x72, 0x64, 0x52, 0x65,
-	0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x3c, 0x82, 0xd3, 0xe4, 0x93, 0x02, 0x36, 0x12, 0x34,
-	0x2f, 0x44, 0x65, 0x63, 0x65, 0x6e, 0x74, 0x72, 0x61, 0x6c, 0x43, 0x61, 0x72, 0x64, 0x47, 0x61,
-	0x6d, 0x65, 0x2f, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2f, 0x63, 0x61, 0x72,
-	0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2f, 0x63, 0x61, 0x72, 0x64, 0x2f, 0x7b, 0x63, 0x61, 0x72,
-	0x64, 0x49, 0x64, 0x7d, 0x12, 0x94, 0x01, 0x0a, 0x04, 0x55, 0x73, 0x65, 0x72, 0x12, 0x25, 0x2e,
-	0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68,
-	0x61, 0x69, 0x6e, 0x2e, 0x51, 0x75, 0x65, 0x72, 0x79, 0x55, 0x73, 0x65, 0x72, 0x52, 0x65, 0x71,
-	0x75, 0x65, 0x73, 0x74, 0x1a, 0x26, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e,
-	0x2e, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x51, 0x75, 0x65, 0x72, 0x79,
-	0x55, 0x73, 0x65, 0x72, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x3d, 0x82, 0xd3,
-	0xe4, 0x93, 0x02, 0x37, 0x12, 0x35, 0x2f, 0x44, 0x65, 0x63, 0x65, 0x6e, 0x74, 0x72, 0x61, 0x6c,
-	0x43, 0x61, 0x72, 0x64, 0x47, 0x61, 0x6d, 0x65, 0x2f, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61,
-	0x69, 0x6e, 0x2f, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2f, 0x75, 0x73, 0x65,
-	0x72, 0x2f, 0x7b, 0x61, 0x64, 0x64, 0x72, 0x65, 0x73, 0x73, 0x7d, 0x12, 0x96, 0x01, 0x0a, 0x05,
-	0x43, 0x61, 0x72, 0x64, 0x73, 0x12, 0x26, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69,
-	0x6e, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x51, 0x75, 0x65, 0x72,
-	0x79, 0x43, 0x61, 0x72, 0x64, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x27, 0x2e,
-	0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68,
-	0x61, 0x69, 0x6e, 0x2e, 0x51, 0x75, 0x65, 0x72, 0x79, 0x43, 0x61, 0x72, 0x64, 0x73, 0x52, 0x65,
-	0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x3c, 0x82, 0xd3, 0xe4, 0x93, 0x02, 0x36, 0x12, 0x34,
-	0x2f, 0x44, 0x65, 0x63, 0x65, 0x6e, 0x74, 0x72, 0x61, 0x6c, 0x43, 0x61, 0x72, 0x64, 0x47, 0x61,
-	0x6d, 0x65, 0x2f, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2f, 0x63, 0x61, 0x72,
-	0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2f, 0x63, 0x61, 0x72, 0x64, 0x73, 0x2f, 0x7b, 0x6f, 0x77,
-	0x6e, 0x65, 0x72, 0x7d, 0x12, 0x98, 0x01, 0x0a, 0x05, 0x4d, 0x61, 0x74, 0x63, 0x68, 0x12, 0x26,
-	0x2e, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63,
-	0x68, 0x61, 0x69, 0x6e, 0x2e, 0x51, 0x75, 0x65, 0x72, 0x79, 0x4d, 0x61, 0x74, 0x63, 0x68, 0x52,
-	0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x27, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61,
+	0x68, 0x61, 0x69, 0x6e, 0x2e, 0x51, 0x75, 0x65, 0x72, 0x79, 0x50, 0x61, 0x72, 0x61, 0x6d, 0x73,
+	0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x35, 0x82, 0xd3, 0xe4, 0x93, 0x02, 0x2f,
+	0x12, 0x2d, 0x2f, 0x44, 0x65, 0x63, 0x65, 0x6e, 0x74, 0x72, 0x61, 0x6c, 0x43, 0x61, 0x72, 0x64,
+	0x47, 0x61, 0x6d, 0x65, 0x2f, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2f, 0x63,
+	0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2f, 0x70, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x12,
+	0xbe, 0x01, 0x0a, 0x0e, 0x50, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x44, 0x65, 0x74, 0x61, 0x69,
+	0x6c, 0x73, 0x12, 0x32, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x63,
+	0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x51, 0x75, 0x65, 0x72, 0x79, 0x47, 0x65,
+	0x74, 0x50, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x44, 0x65, 0x74, 0x61, 0x69, 0x6c, 0x73, 0x52,
+	0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x33, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61,
 	0x69, 0x6e, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x51, 0x75, 0x65,
-	0x72, 0x79, 0x4d, 0x61, 0x74, 0x63, 0x68, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22,
+	0x72, 0x79, 0x47, 0x65, 0x74, 0x50, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x44, 0x65, 0x74, 0x61,
+	0x69, 0x6c, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x43, 0x82, 0xd3, 0xe4,
+	0x93, 0x02, 0x3d, 0x12, 0x3b, 0x2f, 0x44, 0x65, 0x63, 0x65, 0x6e, 0x74, 0x72, 0x61, 0x6c, 0x43,
+	0x61, 0x72, 0x64, 0x47, 0x61, 0x6d, 0x65, 0x2f, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69,
+	0x6e, 0x2f, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2f, 0x70, 0x72, 0x6f, 0x64,
+	0x75, 0x63, 0x74, 0x5f, 0x64, 0x65, 0x74, 0x61, 0x69, 0x6c, 0x73, 0x2f, 0x7b, 0x69, 0x64, 0x7d,
+	0x12, 0xbc, 0x01, 0x0a, 0x11, 0x50, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x44, 0x65, 0x74, 0x61,
+	0x69, 0x6c, 0x73, 0x41, 0x6c, 0x6c, 0x12, 0x32, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61,
+	0x69, 0x6e, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x51, 0x75, 0x65,
+	0x72, 0x79, 0x41, 0x6c, 0x6c, 0x50, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x44, 0x65, 0x74, 0x61,
+	0x69, 0x6c, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x33, 0x2e, 0x63, 0x61, 0x72,
+	0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e,
+	0x2e, 0x51, 0x75, 0x65, 0x72, 0x79, 0x41, 0x6c, 0x6c, 0x50, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74,
+	0x44, 0x65, 0x74, 0x61, 0x69, 0x6c, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22,
 	0x3e, 0x82, 0xd3, 0xe4, 0x93, 0x02, 0x38, 0x12, 0x36, 0x2f, 0x44, 0x65, 0x63, 0x65, 0x6e, 0x74,
 	0x72, 0x61, 0x6c, 0x43, 0x61, 0x72, 0x64, 0x47, 0x61, 0x6d, 0x65, 0x2f, 0x63, 0x61, 0x72, 0x64,
 	0x63, 0x68, 0x61, 0x69, 0x6e, 0x2f, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2f,
-	0x6d, 0x61, 0x74, 0x63, 0x68, 0x2f, 0x7b, 0x6d, 0x61, 0x74, 0x63, 0x68, 0x49, 0x64, 0x7d, 0x12,
-	0x8e, 0x01, 0x0a, 0x03, 0x53, 0x65, 0x74, 0x12, 0x24, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68,
+	0x70, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x5f, 0x64, 0x65, 0x74, 0x61, 0x69, 0x6c, 0x73, 0x12,
+	0x93, 0x01, 0x0a, 0x04, 0x43, 0x61, 0x72, 0x64, 0x12, 0x25, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63,
+	0x68, 0x61, 0x69, 0x6e, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x51,
+	0x75, 0x65, 0x72, 0x79, 0x43, 0x61, 0x72, 0x64, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a,
+	0x26, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x63, 0x61, 0x72, 0x64,
+	0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x51, 0x75, 0x65, 0x72, 0x79, 0x43, 0x61, 0x72, 0x64, 0x52,
+	0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x3c, 0x82, 0xd3, 0xe4, 0x93, 0x02, 0x36, 0x12,
+	0x34, 0x2f, 0x44, 0x65, 0x63, 0x65, 0x6e, 0x74, 0x72, 0x61, 0x6c, 0x43, 0x61, 0x72, 0x64, 0x47,
+	0x61, 0x6d, 0x65, 0x2f, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2f, 0x63, 0x61,
+	0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2f, 0x63, 0x61, 0x72, 0x64, 0x2f, 0x7b, 0x63, 0x61,
+	0x72, 0x64, 0x49, 0x64, 0x7d, 0x12, 0x94, 0x01, 0x0a, 0x04, 0x55, 0x73, 0x65, 0x72, 0x12, 0x25,
+	0x2e, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63,
+	0x68, 0x61, 0x69, 0x6e, 0x2e, 0x51, 0x75, 0x65, 0x72, 0x79, 0x55, 0x73, 0x65, 0x72, 0x52, 0x65,
+	0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x26, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69,
+	0x6e, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x51, 0x75, 0x65, 0x72,
+	0x79, 0x55, 0x73, 0x65, 0x72, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x3d, 0x82,
+	0xd3, 0xe4, 0x93, 0x02, 0x37, 0x12, 0x35, 0x2f, 0x44, 0x65, 0x63, 0x65, 0x6e, 0x74, 0x72, 0x61,
+	0x6c, 0x43, 0x61, 0x72, 0x64, 0x47, 0x61, 0x6d, 0x65, 0x2f, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68,
+	0x61, 0x69, 0x6e, 0x2f, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2f, 0x75, 0x73,
+	0x65, 0x72, 0x2f, 0x7b, 0x61, 0x64, 0x64, 0x72, 0x65, 0x73, 0x73, 0x7d, 0x12, 0x96, 0x01, 0x0a,
+	0x05, 0x43, 0x61, 0x72, 0x64, 0x73, 0x12, 0x26, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61,
+	0x69, 0x6e, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x51, 0x75, 0x65,
+	0x72, 0x79, 0x43, 0x61, 0x72, 0x64, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x27,
+	0x2e, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63,
+	0x68, 0x61, 0x69, 0x6e, 0x2e, 0x51, 0x75, 0x65, 0x72, 0x79, 0x43, 0x61, 0x72, 0x64, 0x73, 0x52,
+	0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x3c, 0x82, 0xd3, 0xe4, 0x93, 0x02, 0x36, 0x12,
+	0x34, 0x2f, 0x44, 0x65, 0x63, 0x65, 0x6e, 0x74, 0x72, 0x61, 0x6c, 0x43, 0x61, 0x72, 0x64, 0x47,
+	0x61, 0x6d, 0x65, 0x2f, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2f, 0x63, 0x61,
+	0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2f, 0x63, 0x61, 0x72, 0x64, 0x73, 0x2f, 0x7b, 0x6f,
+	0x77, 0x6e, 0x65, 0x72, 0x7d, 0x12, 0x98, 0x01, 0x0a, 0x05, 0x4d, 0x61, 0x74, 0x63, 0x68, 0x12,
+	0x26, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x63, 0x61, 0x72, 0x64,
+	0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x51, 0x75, 0x65, 0x72, 0x79, 0x4d, 0x61, 0x74, 0x63, 0x68,
+	0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x27, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68,
 	0x61, 0x69, 0x6e, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x51, 0x75,
-	0x65, 0x72, 0x79, 0x53, 0x65, 0x74, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x25, 0x2e,
+	0x65, 0x72, 0x79, 0x4d, 0x61, 0x74, 0x63, 0x68, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65,
+	0x22, 0x3e, 0x82, 0xd3, 0xe4, 0x93, 0x02, 0x38, 0x12, 0x36, 0x2f, 0x44, 0x65, 0x63, 0x65, 0x6e,
+	0x74, 0x72, 0x61, 0x6c, 0x43, 0x61, 0x72, 0x64, 0x47, 0x61, 0x6d, 0x65, 0x2f, 0x63, 0x61, 0x72,
+	0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2f, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e,
+	0x2f, 0x6d, 0x61, 0x74, 0x63, 0x68, 0x2f, 0x7b, 0x6d, 0x61, 0x74, 0x63, 0x68, 0x49, 0x64, 0x7d,
+	0x12, 0x8e, 0x01, 0x0a, 0x03, 0x53, 0x65, 0x74, 0x12, 0x24, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63,
+	0x68, 0x61, 0x69, 0x6e, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x51,
+	0x75, 0x65, 0x72, 0x79, 0x53, 0x65, 0x74, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x25,
+	0x2e, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63,
+	0x68, 0x61, 0x69, 0x6e, 0x2e, 0x51, 0x75, 0x65, 0x72, 0x79, 0x53, 0x65, 0x74, 0x52, 0x65, 0x73,
+	0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x3a, 0x82, 0xd3, 0xe4, 0x93, 0x02, 0x34, 0x12, 0x32, 0x2f,
+	0x44, 0x65, 0x63, 0x65, 0x6e, 0x74, 0x72, 0x61, 0x6c, 0x43, 0x61, 0x72, 0x64, 0x47, 0x61, 0x6d,
+	0x65, 0x2f, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2f, 0x63, 0x61, 0x72, 0x64,
+	0x63, 0x68, 0x61, 0x69, 0x6e, 0x2f, 0x73, 0x65, 0x74, 0x2f, 0x7b, 0x73, 0x65, 0x74, 0x49, 0x64,
+	0x7d, 0x12, 0xad, 0x01, 0x0a, 0x09, 0x53, 0x65, 0x6c, 0x6c, 0x4f, 0x66, 0x66, 0x65, 0x72, 0x12,
+	0x2a, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x63, 0x61, 0x72, 0x64,
+	0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x51, 0x75, 0x65, 0x72, 0x79, 0x53, 0x65, 0x6c, 0x6c, 0x4f,
+	0x66, 0x66, 0x65, 0x72, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x2b, 0x2e, 0x63, 0x61,
+	0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69,
+	0x6e, 0x2e, 0x51, 0x75, 0x65, 0x72, 0x79, 0x53, 0x65, 0x6c, 0x6c, 0x4f, 0x66, 0x66, 0x65, 0x72,
+	0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x47, 0x82, 0xd3, 0xe4, 0x93, 0x02, 0x41,
+	0x12, 0x3f, 0x2f, 0x44, 0x65, 0x63, 0x65, 0x6e, 0x74, 0x72, 0x61, 0x6c, 0x43, 0x61, 0x72, 0x64,
+	0x47, 0x61, 0x6d, 0x65, 0x2f, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2f, 0x63,
+	0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2f, 0x73, 0x65, 0x6c, 0x6c, 0x5f, 0x6f, 0x66,
+	0x66, 0x65, 0x72, 0x2f, 0x7b, 0x73, 0x65, 0x6c, 0x6c, 0x4f, 0x66, 0x66, 0x65, 0x72, 0x49, 0x64,
+	0x7d, 0x12, 0xa2, 0x01, 0x0a, 0x07, 0x43, 0x6f, 0x75, 0x6e, 0x63, 0x69, 0x6c, 0x12, 0x28, 0x2e,
 	0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68,
-	0x61, 0x69, 0x6e, 0x2e, 0x51, 0x75, 0x65, 0x72, 0x79, 0x53, 0x65, 0x74, 0x52, 0x65, 0x73, 0x70,
-	0x6f, 0x6e, 0x73, 0x65, 0x22, 0x3a, 0x82, 0xd3, 0xe4, 0x93, 0x02, 0x34, 0x12, 0x32, 0x2f, 0x44,
+	0x61, 0x69, 0x6e, 0x2e, 0x51, 0x75, 0x65, 0x72, 0x79, 0x43, 0x6f, 0x75, 0x6e, 0x63, 0x69, 0x6c,
+	0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x29, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68,
+	0x61, 0x69, 0x6e, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x51, 0x75,
+	0x65, 0x72, 0x79, 0x43, 0x6f, 0x75, 0x6e, 0x63, 0x69, 0x6c, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e,
+	0x73, 0x65, 0x22, 0x42, 0x82, 0xd3, 0xe4, 0x93, 0x02, 0x3c, 0x12, 0x3a, 0x2f, 0x44, 0x65, 0x63,
+	0x65, 0x6e, 0x74, 0x72, 0x61, 0x6c, 0x43, 0x61, 0x72, 0x64, 0x47, 0x61, 0x6d, 0x65, 0x2f, 0x63,
+	0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2f, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61,
+	0x69, 0x6e, 0x2f, 0x63, 0x6f, 0x75, 0x6e, 0x63, 0x69, 0x6c, 0x2f, 0x7b, 0x63, 0x6f, 0x75, 0x6e,
+	0x63, 0x69, 0x6c, 0x49, 0x64, 0x7d, 0x12, 0x9d, 0x01, 0x0a, 0x06, 0x53, 0x65, 0x72, 0x76, 0x65,
+	0x72, 0x12, 0x27, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x63, 0x61,
+	0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x51, 0x75, 0x65, 0x72, 0x79, 0x53, 0x65, 0x72,
+	0x76, 0x65, 0x72, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x28, 0x2e, 0x63, 0x61, 0x72,
+	0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e,
+	0x2e, 0x51, 0x75, 0x65, 0x72, 0x79, 0x53, 0x65, 0x72, 0x76, 0x65, 0x72, 0x52, 0x65, 0x73, 0x70,
+	0x6f, 0x6e, 0x73, 0x65, 0x22, 0x40, 0x82, 0xd3, 0xe4, 0x93, 0x02, 0x3a, 0x12, 0x38, 0x2f, 0x44,
 	0x65, 0x63, 0x65, 0x6e, 0x74, 0x72, 0x61, 0x6c, 0x43, 0x61, 0x72, 0x64, 0x47, 0x61, 0x6d, 0x65,
 	0x2f, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2f, 0x63, 0x61, 0x72, 0x64, 0x63,
-	0x68, 0x61, 0x69, 0x6e, 0x2f, 0x73, 0x65, 0x74, 0x2f, 0x7b, 0x73, 0x65, 0x74, 0x49, 0x64, 0x7d,
-	0x12, 0xad, 0x01, 0x0a, 0x09, 0x53, 0x65, 0x6c, 0x6c, 0x4f, 0x66, 0x66, 0x65, 0x72, 0x12, 0x2a,
-	0x2e, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63,
-	0x68, 0x61, 0x69, 0x6e, 0x2e, 0x51, 0x75, 0x65, 0x72, 0x79, 0x53, 0x65, 0x6c, 0x6c, 0x4f, 0x66,
-	0x66, 0x65, 0x72, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x2b, 0x2e, 0x63, 0x61, 0x72,
-	0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e,
-	0x2e, 0x51, 0x75, 0x65, 0x72, 0x79, 0x53, 0x65, 0x6c, 0x6c, 0x4f, 0x66, 0x66, 0x65, 0x72, 0x52,
-	0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x47, 0x82, 0xd3, 0xe4, 0x93, 0x02, 0x41, 0x12,
-	0x3f, 0x2f, 0x44, 0x65, 0x63, 0x65, 0x6e, 0x74, 0x72, 0x61, 0x6c, 0x43, 0x61, 0x72, 0x64, 0x47,
-	0x61, 0x6d, 0x65, 0x2f, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2f, 0x63, 0x61,
-	0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2f, 0x73, 0x65, 0x6c, 0x6c, 0x5f, 0x6f, 0x66, 0x66,
-	0x65, 0x72, 0x2f, 0x7b, 0x73, 0x65, 0x6c, 0x6c, 0x4f, 0x66, 0x66, 0x65, 0x72, 0x49, 0x64, 0x7d,
-	0x12, 0xa2, 0x01, 0x0a, 0x07, 0x43, 0x6f, 0x75, 0x6e, 0x63, 0x69, 0x6c, 0x12, 0x28, 0x2e, 0x63,
-	0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61,
-	0x69, 0x6e, 0x2e, 0x51, 0x75, 0x65, 0x72, 0x79, 0x43, 0x6f, 0x75, 0x6e, 0x63, 0x69, 0x6c, 0x52,
-	0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x29, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61,
+	0x68, 0x61, 0x69, 0x6e, 0x2f, 0x73, 0x65, 0x72, 0x76, 0x65, 0x72, 0x2f, 0x7b, 0x73, 0x65, 0x72,
+	0x76, 0x65, 0x72, 0x49, 0x64, 0x7d, 0x12, 0xac, 0x01, 0x0a, 0x09, 0x45, 0x6e, 0x63, 0x6f, 0x75,
+	0x6e, 0x74, 0x65, 0x72, 0x12, 0x2a, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e,
+	0x2e, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x51, 0x75, 0x65, 0x72, 0x79,
+	0x45, 0x6e, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x65, 0x72, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74,
+	0x1a, 0x2b, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x63, 0x61, 0x72,
+	0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x51, 0x75, 0x65, 0x72, 0x79, 0x45, 0x6e, 0x63, 0x6f,
+	0x75, 0x6e, 0x74, 0x65, 0x72, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x46, 0x82,
+	0xd3, 0xe4, 0x93, 0x02, 0x40, 0x12, 0x3e, 0x2f, 0x44, 0x65, 0x63, 0x65, 0x6e, 0x74, 0x72, 0x61,
+	0x6c, 0x43, 0x61, 0x72, 0x64, 0x47, 0x61, 0x6d, 0x65, 0x2f, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68,
+	0x61, 0x69, 0x6e, 0x2f, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2f, 0x65, 0x6e,
+	0x63, 0x6f, 0x75, 0x6e, 0x74, 0x65, 0x72, 0x2f, 0x7b, 0x65, 0x6e, 0x63, 0x6f, 0x75, 0x6e, 0x74,
+	0x65, 0x72, 0x49, 0x64, 0x7d, 0x12, 0xa2, 0x01, 0x0a, 0x0a, 0x45, 0x6e, 0x63, 0x6f, 0x75, 0x6e,
+	0x74, 0x65, 0x72, 0x73, 0x12, 0x2b, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e,
+	0x2e, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x51, 0x75, 0x65, 0x72, 0x79,
+	0x45, 0x6e, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x65, 0x72, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73,
+	0x74, 0x1a, 0x2c, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x63, 0x61,
+	0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x51, 0x75, 0x65, 0x72, 0x79, 0x45, 0x6e, 0x63,
+	0x6f, 0x75, 0x6e, 0x74, 0x65, 0x72, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22,
+	0x39, 0x82, 0xd3, 0xe4, 0x93, 0x02, 0x33, 0x12, 0x31, 0x2f, 0x44, 0x65, 0x63, 0x65, 0x6e, 0x74,
+	0x72, 0x61, 0x6c, 0x43, 0x61, 0x72, 0x64, 0x47, 0x61, 0x6d, 0x65, 0x2f, 0x63, 0x61, 0x72, 0x64,
+	0x63, 0x68, 0x61, 0x69, 0x6e, 0x2f, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2f,
+	0x65, 0x6e, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x65, 0x72, 0x73, 0x12, 0xc4, 0x01, 0x0a, 0x12, 0x45,
+	0x6e, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x65, 0x72, 0x57, 0x69, 0x74, 0x68, 0x49, 0x6d, 0x61, 0x67,
+	0x65, 0x12, 0x33, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x63, 0x61,
+	0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x51, 0x75, 0x65, 0x72, 0x79, 0x45, 0x6e, 0x63,
+	0x6f, 0x75, 0x6e, 0x74, 0x65, 0x72, 0x57, 0x69, 0x74, 0x68, 0x49, 0x6d, 0x61, 0x67, 0x65, 0x52,
+	0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x34, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61,
 	0x69, 0x6e, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x51, 0x75, 0x65,
-	0x72, 0x79, 0x43, 0x6f, 0x75, 0x6e, 0x63, 0x69, 0x6c, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73,
-	0x65, 0x22, 0x42, 0x82, 0xd3, 0xe4, 0x93, 0x02, 0x3c, 0x12, 0x3a, 0x2f, 0x44, 0x65, 0x63, 0x65,
-	0x6e, 0x74, 0x72, 0x61, 0x6c, 0x43, 0x61, 0x72, 0x64, 0x47, 0x61, 0x6d, 0x65, 0x2f, 0x63, 0x61,
-	0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2f, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69,
-	0x6e, 0x2f, 0x63, 0x6f, 0x75, 0x6e, 0x63, 0x69, 0x6c, 0x2f, 0x7b, 0x63, 0x6f, 0x75, 0x6e, 0x63,
-	0x69, 0x6c, 0x49, 0x64, 0x7d, 0x12, 0x9d, 0x01, 0x0a, 0x06, 0x53, 0x65, 0x72, 0x76, 0x65, 0x72,
-	0x12, 0x27, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x63, 0x61, 0x72,
-	0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x51, 0x75, 0x65, 0x72, 0x79, 0x53, 0x65, 0x72, 0x76,
-	0x65, 0x72, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x28, 0x2e, 0x63, 0x61, 0x72, 0x64,
-	0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e,
-	0x51, 0x75, 0x65, 0x72, 0x79, 0x53, 0x65, 0x72, 0x76, 0x65, 0x72, 0x52, 0x65, 0x73, 0x70, 0x6f,
-	0x6e, 0x73, 0x65, 0x22, 0x40, 0x82, 0xd3, 0xe4, 0x93, 0x02, 0x3a, 0x12, 0x38, 0x2f, 0x44, 0x65,
-	0x63, 0x65, 0x6e, 0x74, 0x72, 0x61, 0x6c, 0x43, 0x61, 0x72, 0x64, 0x47, 0x61, 0x6d, 0x65, 0x2f,
-	0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2f, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68,
-	0x61, 0x69, 0x6e, 0x2f, 0x73, 0x65, 0x72, 0x76, 0x65, 0x72, 0x2f, 0x7b, 0x73, 0x65, 0x72, 0x76,
-	0x65, 0x72, 0x49, 0x64, 0x7d, 0x12, 0xac, 0x01, 0x0a, 0x09, 0x45, 0x6e, 0x63, 0x6f, 0x75, 0x6e,
-	0x74, 0x65, 0x72, 0x12, 0x2a, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e,
-	0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x51, 0x75, 0x65, 0x72, 0x79, 0x45,
-	0x6e, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x65, 0x72, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a,
-	0x2b, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x63, 0x61, 0x72, 0x64,
-	0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x51, 0x75, 0x65, 0x72, 0x79, 0x45, 0x6e, 0x63, 0x6f, 0x75,
-	0x6e, 0x74, 0x65, 0x72, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x46, 0x82, 0xd3,
-	0xe4, 0x93, 0x02, 0x40, 0x12, 0x3e, 0x2f, 0x44, 0x65, 0x63, 0x65, 0x6e, 0x74, 0x72, 0x61, 0x6c,
+	0x72, 0x79, 0x45, 0x6e, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x65, 0x72, 0x57, 0x69, 0x74, 0x68, 0x49,
+	0x6d, 0x61, 0x67, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x43, 0x82, 0xd3,
+	0xe4, 0x93, 0x02, 0x3d, 0x12, 0x3b, 0x2f, 0x44, 0x65, 0x63, 0x65, 0x6e, 0x74, 0x72, 0x61, 0x6c,
 	0x43, 0x61, 0x72, 0x64, 0x47, 0x61, 0x6d, 0x65, 0x2f, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61,
 	0x69, 0x6e, 0x2f, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2f, 0x65, 0x6e, 0x63,
-	0x6f, 0x75, 0x6e, 0x74, 0x65, 0x72, 0x2f, 0x7b, 0x65, 0x6e, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x65,
-	0x72, 0x49, 0x64, 0x7d, 0x42, 0xd2, 0x01, 0x0a, 0x17, 0x63, 0x6f, 0x6d, 0x2e, 0x63, 0x61, 0x72,
-	0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e,
-	0x42, 0x0a, 0x51, 0x75, 0x65, 0x72, 0x79, 0x50, 0x72, 0x6f, 0x74, 0x6f, 0x50, 0x01, 0x5a, 0x3e,
-	0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x44, 0x65, 0x63, 0x65, 0x6e,
-	0x74, 0x72, 0x61, 0x6c, 0x43, 0x61, 0x72, 0x64, 0x47, 0x61, 0x6d, 0x65, 0x2f, 0x63, 0x61, 0x72,
-	0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2f, 0x61, 0x70, 0x69, 0x2f, 0x63, 0x61, 0x72, 0x64, 0x63,
-	0x68, 0x61, 0x69, 0x6e, 0x2f, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0xa2, 0x02,
-	0x03, 0x43, 0x43, 0x58, 0xaa, 0x02, 0x13, 0x43, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e,
-	0x2e, 0x43, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0xca, 0x02, 0x13, 0x43, 0x61, 0x72,
-	0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x5c, 0x43, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e,
-	0xe2, 0x02, 0x1f, 0x43, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x5c, 0x43, 0x61, 0x72,
-	0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x5c, 0x47, 0x50, 0x42, 0x4d, 0x65, 0x74, 0x61, 0x64, 0x61,
-	0x74, 0x61, 0xea, 0x02, 0x14, 0x43, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x3a, 0x3a,
-	0x43, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f,
-	0x33,
+	0x6f, 0x75, 0x6e, 0x74, 0x65, 0x72, 0x5f, 0x77, 0x69, 0x74, 0x68, 0x5f, 0x69, 0x6d, 0x61, 0x67,
+	0x65, 0x12, 0xc8, 0x01, 0x0a, 0x13, 0x45, 0x6e, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x65, 0x72, 0x73,
+	0x57, 0x69, 0x74, 0x68, 0x49, 0x6d, 0x61, 0x67, 0x65, 0x12, 0x34, 0x2e, 0x63, 0x61, 0x72, 0x64,
+	0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e,
+	0x51, 0x75, 0x65, 0x72, 0x79, 0x45, 0x6e, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x65, 0x72, 0x73, 0x57,
+	0x69, 0x74, 0x68, 0x49, 0x6d, 0x61, 0x67, 0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a,
+	0x35, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x63, 0x61, 0x72, 0x64,
+	0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x51, 0x75, 0x65, 0x72, 0x79, 0x45, 0x6e, 0x63, 0x6f, 0x75,
+	0x6e, 0x74, 0x65, 0x72, 0x73, 0x57, 0x69, 0x74, 0x68, 0x49, 0x6d, 0x61, 0x67, 0x65, 0x52, 0x65,
+	0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x44, 0x82, 0xd3, 0xe4, 0x93, 0x02, 0x3e, 0x12, 0x3c,
+	0x2f, 0x44, 0x65, 0x63, 0x65, 0x6e, 0x74, 0x72, 0x61, 0x6c, 0x43, 0x61, 0x72, 0x64, 0x47, 0x61,
+	0x6d, 0x65, 0x2f, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2f, 0x63, 0x61, 0x72,
+	0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2f, 0x65, 0x6e, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x65, 0x72,
+	0x73, 0x5f, 0x77, 0x69, 0x74, 0x68, 0x5f, 0x69, 0x6d, 0x61, 0x67, 0x65, 0x42, 0xd2, 0x01, 0x0a,
+	0x17, 0x63, 0x6f, 0x6d, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x63,
+	0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x42, 0x0a, 0x51, 0x75, 0x65, 0x72, 0x79, 0x50,
+	0x72, 0x6f, 0x74, 0x6f, 0x50, 0x01, 0x5a, 0x3e, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63,
+	0x6f, 0x6d, 0x2f, 0x44, 0x65, 0x63, 0x65, 0x6e, 0x74, 0x72, 0x61, 0x6c, 0x43, 0x61, 0x72, 0x64,
+	0x47, 0x61, 0x6d, 0x65, 0x2f, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2f, 0x61,
+	0x70, 0x69, 0x2f, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2f, 0x63, 0x61, 0x72,
+	0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0xa2, 0x02, 0x03, 0x43, 0x43, 0x58, 0xaa, 0x02, 0x13, 0x43,
+	0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x43, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61,
+	0x69, 0x6e, 0xca, 0x02, 0x13, 0x43, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x5c, 0x43,
+	0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0xe2, 0x02, 0x1f, 0x43, 0x61, 0x72, 0x64, 0x63,
+	0x68, 0x61, 0x69, 0x6e, 0x5c, 0x43, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x5c, 0x47,
+	0x50, 0x42, 0x4d, 0x65, 0x74, 0x61, 0x64, 0x61, 0x74, 0x61, 0xea, 0x02, 0x14, 0x43, 0x61, 0x72,
+	0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x3a, 0x3a, 0x43, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69,
+	0x6e, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -12724,96 +15460,112 @@ func file_cardchain_cardchain_query_proto_rawDescGZIP() []byte {
 	return file_cardchain_cardchain_query_proto_rawDescData
 }
 
-var file_cardchain_cardchain_query_proto_msgTypes = make([]protoimpl.MessageInfo, 24)
+var file_cardchain_cardchain_query_proto_msgTypes = make([]protoimpl.MessageInfo, 30)
 var file_cardchain_cardchain_query_proto_goTypes = []interface{}{
-	(*QueryParamsRequest)(nil),             // 0: cardchain.cardchain.QueryParamsRequest
-	(*QueryParamsResponse)(nil),            // 1: cardchain.cardchain.QueryParamsResponse
-	(*QueryGetProductDetailsRequest)(nil),  // 2: cardchain.cardchain.QueryGetProductDetailsRequest
-	(*QueryGetProductDetailsResponse)(nil), // 3: cardchain.cardchain.QueryGetProductDetailsResponse
-	(*QueryAllProductDetailsRequest)(nil),  // 4: cardchain.cardchain.QueryAllProductDetailsRequest
-	(*QueryAllProductDetailsResponse)(nil), // 5: cardchain.cardchain.QueryAllProductDetailsResponse
-	(*QueryCardRequest)(nil),               // 6: cardchain.cardchain.QueryCardRequest
-	(*QueryCardResponse)(nil),              // 7: cardchain.cardchain.QueryCardResponse
-	(*QueryUserRequest)(nil),               // 8: cardchain.cardchain.QueryUserRequest
-	(*QueryUserResponse)(nil),              // 9: cardchain.cardchain.QueryUserResponse
-	(*QueryCardsRequest)(nil),              // 10: cardchain.cardchain.QueryCardsRequest
-	(*QueryCardsResponse)(nil),             // 11: cardchain.cardchain.QueryCardsResponse
-	(*QueryMatchRequest)(nil),              // 12: cardchain.cardchain.QueryMatchRequest
-	(*QueryMatchResponse)(nil),             // 13: cardchain.cardchain.QueryMatchResponse
-	(*QuerySetRequest)(nil),                // 14: cardchain.cardchain.QuerySetRequest
-	(*QuerySetResponse)(nil),               // 15: cardchain.cardchain.QuerySetResponse
-	(*QuerySellOfferRequest)(nil),          // 16: cardchain.cardchain.QuerySellOfferRequest
-	(*QuerySellOfferResponse)(nil),         // 17: cardchain.cardchain.QuerySellOfferResponse
-	(*QueryCouncilRequest)(nil),            // 18: cardchain.cardchain.QueryCouncilRequest
-	(*QueryCouncilResponse)(nil),           // 19: cardchain.cardchain.QueryCouncilResponse
-	(*QueryServerRequest)(nil),             // 20: cardchain.cardchain.QueryServerRequest
-	(*QueryServerResponse)(nil),            // 21: cardchain.cardchain.QueryServerResponse
-	(*QueryEncounterRequest)(nil),          // 22: cardchain.cardchain.QueryEncounterRequest
-	(*QueryEncounterResponse)(nil),         // 23: cardchain.cardchain.QueryEncounterResponse
-	(*Params)(nil),                         // 24: cardchain.cardchain.Params
-	(*ProductDetails)(nil),                 // 25: cardchain.cardchain.ProductDetails
-	(*v1beta1.PageRequest)(nil),            // 26: cosmos.base.query.v1beta1.PageRequest
-	(*v1beta1.PageResponse)(nil),           // 27: cosmos.base.query.v1beta1.PageResponse
-	(*CardWithImage)(nil),                  // 28: cardchain.cardchain.CardWithImage
-	(*User)(nil),                           // 29: cardchain.cardchain.User
-	(CardStatus)(0),                        // 30: cardchain.cardchain.CardStatus
-	(CardType)(0),                          // 31: cardchain.cardchain.CardType
-	(CardClass)(0),                         // 32: cardchain.cardchain.CardClass
-	(CardRarity)(0),                        // 33: cardchain.cardchain.CardRarity
-	(*Match)(nil),                          // 34: cardchain.cardchain.Match
-	(*SetWithArtwork)(nil),                 // 35: cardchain.cardchain.SetWithArtwork
-	(*SellOffer)(nil),                      // 36: cardchain.cardchain.SellOffer
-	(*Council)(nil),                        // 37: cardchain.cardchain.Council
-	(*Server)(nil),                         // 38: cardchain.cardchain.Server
-	(*Encounter)(nil),                      // 39: cardchain.cardchain.Encounter
+	(*QueryParamsRequest)(nil),               // 0: cardchain.cardchain.QueryParamsRequest
+	(*QueryParamsResponse)(nil),              // 1: cardchain.cardchain.QueryParamsResponse
+	(*QueryGetProductDetailsRequest)(nil),    // 2: cardchain.cardchain.QueryGetProductDetailsRequest
+	(*QueryGetProductDetailsResponse)(nil),   // 3: cardchain.cardchain.QueryGetProductDetailsResponse
+	(*QueryAllProductDetailsRequest)(nil),    // 4: cardchain.cardchain.QueryAllProductDetailsRequest
+	(*QueryAllProductDetailsResponse)(nil),   // 5: cardchain.cardchain.QueryAllProductDetailsResponse
+	(*QueryCardRequest)(nil),                 // 6: cardchain.cardchain.QueryCardRequest
+	(*QueryCardResponse)(nil),                // 7: cardchain.cardchain.QueryCardResponse
+	(*QueryUserRequest)(nil),                 // 8: cardchain.cardchain.QueryUserRequest
+	(*QueryUserResponse)(nil),                // 9: cardchain.cardchain.QueryUserResponse
+	(*QueryCardsRequest)(nil),                // 10: cardchain.cardchain.QueryCardsRequest
+	(*QueryCardsResponse)(nil),               // 11: cardchain.cardchain.QueryCardsResponse
+	(*QueryMatchRequest)(nil),                // 12: cardchain.cardchain.QueryMatchRequest
+	(*QueryMatchResponse)(nil),               // 13: cardchain.cardchain.QueryMatchResponse
+	(*QuerySetRequest)(nil),                  // 14: cardchain.cardchain.QuerySetRequest
+	(*QuerySetResponse)(nil),                 // 15: cardchain.cardchain.QuerySetResponse
+	(*QuerySellOfferRequest)(nil),            // 16: cardchain.cardchain.QuerySellOfferRequest
+	(*QuerySellOfferResponse)(nil),           // 17: cardchain.cardchain.QuerySellOfferResponse
+	(*QueryCouncilRequest)(nil),              // 18: cardchain.cardchain.QueryCouncilRequest
+	(*QueryCouncilResponse)(nil),             // 19: cardchain.cardchain.QueryCouncilResponse
+	(*QueryServerRequest)(nil),               // 20: cardchain.cardchain.QueryServerRequest
+	(*QueryServerResponse)(nil),              // 21: cardchain.cardchain.QueryServerResponse
+	(*QueryEncounterRequest)(nil),            // 22: cardchain.cardchain.QueryEncounterRequest
+	(*QueryEncounterResponse)(nil),           // 23: cardchain.cardchain.QueryEncounterResponse
+	(*QueryEncountersRequest)(nil),           // 24: cardchain.cardchain.QueryEncountersRequest
+	(*QueryEncountersResponse)(nil),          // 25: cardchain.cardchain.QueryEncountersResponse
+	(*QueryEncounterWithImageRequest)(nil),   // 26: cardchain.cardchain.QueryEncounterWithImageRequest
+	(*QueryEncounterWithImageResponse)(nil),  // 27: cardchain.cardchain.QueryEncounterWithImageResponse
+	(*QueryEncountersWithImageRequest)(nil),  // 28: cardchain.cardchain.QueryEncountersWithImageRequest
+	(*QueryEncountersWithImageResponse)(nil), // 29: cardchain.cardchain.QueryEncountersWithImageResponse
+	(*Params)(nil),                           // 30: cardchain.cardchain.Params
+	(*ProductDetails)(nil),                   // 31: cardchain.cardchain.ProductDetails
+	(*v1beta1.PageRequest)(nil),              // 32: cosmos.base.query.v1beta1.PageRequest
+	(*v1beta1.PageResponse)(nil),             // 33: cosmos.base.query.v1beta1.PageResponse
+	(*CardWithImage)(nil),                    // 34: cardchain.cardchain.CardWithImage
+	(*User)(nil),                             // 35: cardchain.cardchain.User
+	(CardStatus)(0),                          // 36: cardchain.cardchain.CardStatus
+	(CardType)(0),                            // 37: cardchain.cardchain.CardType
+	(CardClass)(0),                           // 38: cardchain.cardchain.CardClass
+	(CardRarity)(0),                          // 39: cardchain.cardchain.CardRarity
+	(*Match)(nil),                            // 40: cardchain.cardchain.Match
+	(*SetWithArtwork)(nil),                   // 41: cardchain.cardchain.SetWithArtwork
+	(*SellOffer)(nil),                        // 42: cardchain.cardchain.SellOffer
+	(*Council)(nil),                          // 43: cardchain.cardchain.Council
+	(*Server)(nil),                           // 44: cardchain.cardchain.Server
+	(*Encounter)(nil),                        // 45: cardchain.cardchain.Encounter
+	(*EncounterWithImage)(nil),               // 46: cardchain.cardchain.EncounterWithImage
 }
 var file_cardchain_cardchain_query_proto_depIdxs = []int32{
-	24, // 0: cardchain.cardchain.QueryParamsResponse.params:type_name -> cardchain.cardchain.Params
-	25, // 1: cardchain.cardchain.QueryGetProductDetailsResponse.ProductDetails:type_name -> cardchain.cardchain.ProductDetails
-	26, // 2: cardchain.cardchain.QueryAllProductDetailsRequest.pagination:type_name -> cosmos.base.query.v1beta1.PageRequest
-	25, // 3: cardchain.cardchain.QueryAllProductDetailsResponse.ProductDetails:type_name -> cardchain.cardchain.ProductDetails
-	27, // 4: cardchain.cardchain.QueryAllProductDetailsResponse.pagination:type_name -> cosmos.base.query.v1beta1.PageResponse
-	28, // 5: cardchain.cardchain.QueryCardResponse.card:type_name -> cardchain.cardchain.CardWithImage
-	29, // 6: cardchain.cardchain.QueryUserResponse.user:type_name -> cardchain.cardchain.User
-	30, // 7: cardchain.cardchain.QueryCardsRequest.status:type_name -> cardchain.cardchain.CardStatus
-	31, // 8: cardchain.cardchain.QueryCardsRequest.cardType:type_name -> cardchain.cardchain.CardType
-	32, // 9: cardchain.cardchain.QueryCardsRequest.class:type_name -> cardchain.cardchain.CardClass
-	33, // 10: cardchain.cardchain.QueryCardsRequest.rarities:type_name -> cardchain.cardchain.CardRarity
-	34, // 11: cardchain.cardchain.QueryMatchResponse.match:type_name -> cardchain.cardchain.Match
-	35, // 12: cardchain.cardchain.QuerySetResponse.match:type_name -> cardchain.cardchain.SetWithArtwork
-	36, // 13: cardchain.cardchain.QuerySellOfferResponse.sellOffer:type_name -> cardchain.cardchain.SellOffer
-	37, // 14: cardchain.cardchain.QueryCouncilResponse.council:type_name -> cardchain.cardchain.Council
-	38, // 15: cardchain.cardchain.QueryServerResponse.server:type_name -> cardchain.cardchain.Server
-	39, // 16: cardchain.cardchain.QueryEncounterResponse.encounter:type_name -> cardchain.cardchain.Encounter
-	0,  // 17: cardchain.cardchain.Query.Params:input_type -> cardchain.cardchain.QueryParamsRequest
-	2,  // 18: cardchain.cardchain.Query.ProductDetails:input_type -> cardchain.cardchain.QueryGetProductDetailsRequest
-	4,  // 19: cardchain.cardchain.Query.ProductDetailsAll:input_type -> cardchain.cardchain.QueryAllProductDetailsRequest
-	6,  // 20: cardchain.cardchain.Query.Card:input_type -> cardchain.cardchain.QueryCardRequest
-	8,  // 21: cardchain.cardchain.Query.User:input_type -> cardchain.cardchain.QueryUserRequest
-	10, // 22: cardchain.cardchain.Query.Cards:input_type -> cardchain.cardchain.QueryCardsRequest
-	12, // 23: cardchain.cardchain.Query.Match:input_type -> cardchain.cardchain.QueryMatchRequest
-	14, // 24: cardchain.cardchain.Query.Set:input_type -> cardchain.cardchain.QuerySetRequest
-	16, // 25: cardchain.cardchain.Query.SellOffer:input_type -> cardchain.cardchain.QuerySellOfferRequest
-	18, // 26: cardchain.cardchain.Query.Council:input_type -> cardchain.cardchain.QueryCouncilRequest
-	20, // 27: cardchain.cardchain.Query.Server:input_type -> cardchain.cardchain.QueryServerRequest
-	22, // 28: cardchain.cardchain.Query.Encounter:input_type -> cardchain.cardchain.QueryEncounterRequest
-	1,  // 29: cardchain.cardchain.Query.Params:output_type -> cardchain.cardchain.QueryParamsResponse
-	3,  // 30: cardchain.cardchain.Query.ProductDetails:output_type -> cardchain.cardchain.QueryGetProductDetailsResponse
-	5,  // 31: cardchain.cardchain.Query.ProductDetailsAll:output_type -> cardchain.cardchain.QueryAllProductDetailsResponse
-	7,  // 32: cardchain.cardchain.Query.Card:output_type -> cardchain.cardchain.QueryCardResponse
-	9,  // 33: cardchain.cardchain.Query.User:output_type -> cardchain.cardchain.QueryUserResponse
-	11, // 34: cardchain.cardchain.Query.Cards:output_type -> cardchain.cardchain.QueryCardsResponse
-	13, // 35: cardchain.cardchain.Query.Match:output_type -> cardchain.cardchain.QueryMatchResponse
-	15, // 36: cardchain.cardchain.Query.Set:output_type -> cardchain.cardchain.QuerySetResponse
-	17, // 37: cardchain.cardchain.Query.SellOffer:output_type -> cardchain.cardchain.QuerySellOfferResponse
-	19, // 38: cardchain.cardchain.Query.Council:output_type -> cardchain.cardchain.QueryCouncilResponse
-	21, // 39: cardchain.cardchain.Query.Server:output_type -> cardchain.cardchain.QueryServerResponse
-	23, // 40: cardchain.cardchain.Query.Encounter:output_type -> cardchain.cardchain.QueryEncounterResponse
-	29, // [29:41] is the sub-list for method output_type
-	17, // [17:29] is the sub-list for method input_type
-	17, // [17:17] is the sub-list for extension type_name
-	17, // [17:17] is the sub-list for extension extendee
-	0,  // [0:17] is the sub-list for field type_name
+	30, // 0: cardchain.cardchain.QueryParamsResponse.params:type_name -> cardchain.cardchain.Params
+	31, // 1: cardchain.cardchain.QueryGetProductDetailsResponse.ProductDetails:type_name -> cardchain.cardchain.ProductDetails
+	32, // 2: cardchain.cardchain.QueryAllProductDetailsRequest.pagination:type_name -> cosmos.base.query.v1beta1.PageRequest
+	31, // 3: cardchain.cardchain.QueryAllProductDetailsResponse.ProductDetails:type_name -> cardchain.cardchain.ProductDetails
+	33, // 4: cardchain.cardchain.QueryAllProductDetailsResponse.pagination:type_name -> cosmos.base.query.v1beta1.PageResponse
+	34, // 5: cardchain.cardchain.QueryCardResponse.card:type_name -> cardchain.cardchain.CardWithImage
+	35, // 6: cardchain.cardchain.QueryUserResponse.user:type_name -> cardchain.cardchain.User
+	36, // 7: cardchain.cardchain.QueryCardsRequest.status:type_name -> cardchain.cardchain.CardStatus
+	37, // 8: cardchain.cardchain.QueryCardsRequest.cardType:type_name -> cardchain.cardchain.CardType
+	38, // 9: cardchain.cardchain.QueryCardsRequest.class:type_name -> cardchain.cardchain.CardClass
+	39, // 10: cardchain.cardchain.QueryCardsRequest.rarities:type_name -> cardchain.cardchain.CardRarity
+	40, // 11: cardchain.cardchain.QueryMatchResponse.match:type_name -> cardchain.cardchain.Match
+	41, // 12: cardchain.cardchain.QuerySetResponse.match:type_name -> cardchain.cardchain.SetWithArtwork
+	42, // 13: cardchain.cardchain.QuerySellOfferResponse.sellOffer:type_name -> cardchain.cardchain.SellOffer
+	43, // 14: cardchain.cardchain.QueryCouncilResponse.council:type_name -> cardchain.cardchain.Council
+	44, // 15: cardchain.cardchain.QueryServerResponse.server:type_name -> cardchain.cardchain.Server
+	45, // 16: cardchain.cardchain.QueryEncounterResponse.encounter:type_name -> cardchain.cardchain.Encounter
+	45, // 17: cardchain.cardchain.QueryEncountersResponse.encounters:type_name -> cardchain.cardchain.Encounter
+	46, // 18: cardchain.cardchain.QueryEncounterWithImageResponse.encounter:type_name -> cardchain.cardchain.EncounterWithImage
+	46, // 19: cardchain.cardchain.QueryEncountersWithImageResponse.encounters:type_name -> cardchain.cardchain.EncounterWithImage
+	0,  // 20: cardchain.cardchain.Query.Params:input_type -> cardchain.cardchain.QueryParamsRequest
+	2,  // 21: cardchain.cardchain.Query.ProductDetails:input_type -> cardchain.cardchain.QueryGetProductDetailsRequest
+	4,  // 22: cardchain.cardchain.Query.ProductDetailsAll:input_type -> cardchain.cardchain.QueryAllProductDetailsRequest
+	6,  // 23: cardchain.cardchain.Query.Card:input_type -> cardchain.cardchain.QueryCardRequest
+	8,  // 24: cardchain.cardchain.Query.User:input_type -> cardchain.cardchain.QueryUserRequest
+	10, // 25: cardchain.cardchain.Query.Cards:input_type -> cardchain.cardchain.QueryCardsRequest
+	12, // 26: cardchain.cardchain.Query.Match:input_type -> cardchain.cardchain.QueryMatchRequest
+	14, // 27: cardchain.cardchain.Query.Set:input_type -> cardchain.cardchain.QuerySetRequest
+	16, // 28: cardchain.cardchain.Query.SellOffer:input_type -> cardchain.cardchain.QuerySellOfferRequest
+	18, // 29: cardchain.cardchain.Query.Council:input_type -> cardchain.cardchain.QueryCouncilRequest
+	20, // 30: cardchain.cardchain.Query.Server:input_type -> cardchain.cardchain.QueryServerRequest
+	22, // 31: cardchain.cardchain.Query.Encounter:input_type -> cardchain.cardchain.QueryEncounterRequest
+	24, // 32: cardchain.cardchain.Query.Encounters:input_type -> cardchain.cardchain.QueryEncountersRequest
+	26, // 33: cardchain.cardchain.Query.EncounterWithImage:input_type -> cardchain.cardchain.QueryEncounterWithImageRequest
+	28, // 34: cardchain.cardchain.Query.EncountersWithImage:input_type -> cardchain.cardchain.QueryEncountersWithImageRequest
+	1,  // 35: cardchain.cardchain.Query.Params:output_type -> cardchain.cardchain.QueryParamsResponse
+	3,  // 36: cardchain.cardchain.Query.ProductDetails:output_type -> cardchain.cardchain.QueryGetProductDetailsResponse
+	5,  // 37: cardchain.cardchain.Query.ProductDetailsAll:output_type -> cardchain.cardchain.QueryAllProductDetailsResponse
+	7,  // 38: cardchain.cardchain.Query.Card:output_type -> cardchain.cardchain.QueryCardResponse
+	9,  // 39: cardchain.cardchain.Query.User:output_type -> cardchain.cardchain.QueryUserResponse
+	11, // 40: cardchain.cardchain.Query.Cards:output_type -> cardchain.cardchain.QueryCardsResponse
+	13, // 41: cardchain.cardchain.Query.Match:output_type -> cardchain.cardchain.QueryMatchResponse
+	15, // 42: cardchain.cardchain.Query.Set:output_type -> cardchain.cardchain.QuerySetResponse
+	17, // 43: cardchain.cardchain.Query.SellOffer:output_type -> cardchain.cardchain.QuerySellOfferResponse
+	19, // 44: cardchain.cardchain.Query.Council:output_type -> cardchain.cardchain.QueryCouncilResponse
+	21, // 45: cardchain.cardchain.Query.Server:output_type -> cardchain.cardchain.QueryServerResponse
+	23, // 46: cardchain.cardchain.Query.Encounter:output_type -> cardchain.cardchain.QueryEncounterResponse
+	25, // 47: cardchain.cardchain.Query.Encounters:output_type -> cardchain.cardchain.QueryEncountersResponse
+	27, // 48: cardchain.cardchain.Query.EncounterWithImage:output_type -> cardchain.cardchain.QueryEncounterWithImageResponse
+	29, // 49: cardchain.cardchain.Query.EncountersWithImage:output_type -> cardchain.cardchain.QueryEncountersWithImageResponse
+	35, // [35:50] is the sub-list for method output_type
+	20, // [20:35] is the sub-list for method input_type
+	20, // [20:20] is the sub-list for extension type_name
+	20, // [20:20] is the sub-list for extension extendee
+	0,  // [0:20] is the sub-list for field type_name
 }
 
 func init() { file_cardchain_cardchain_query_proto_init() }
@@ -12832,6 +15584,7 @@ func file_cardchain_cardchain_query_proto_init() {
 	file_cardchain_cardchain_council_proto_init()
 	file_cardchain_cardchain_server_proto_init()
 	file_cardchain_cardchain_encounter_proto_init()
+	file_cardchain_cardchain_encounter_with_image_proto_init()
 	if !protoimpl.UnsafeEnabled {
 		file_cardchain_cardchain_query_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*QueryParamsRequest); i {
@@ -13121,6 +15874,78 @@ func file_cardchain_cardchain_query_proto_init() {
 				return nil
 			}
 		}
+		file_cardchain_cardchain_query_proto_msgTypes[24].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*QueryEncountersRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_cardchain_cardchain_query_proto_msgTypes[25].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*QueryEncountersResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_cardchain_cardchain_query_proto_msgTypes[26].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*QueryEncounterWithImageRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_cardchain_cardchain_query_proto_msgTypes[27].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*QueryEncounterWithImageResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_cardchain_cardchain_query_proto_msgTypes[28].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*QueryEncountersWithImageRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_cardchain_cardchain_query_proto_msgTypes[29].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*QueryEncountersWithImageResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
@@ -13128,7 +15953,7 @@ func file_cardchain_cardchain_query_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_cardchain_cardchain_query_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   24,
+			NumMessages:   30,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

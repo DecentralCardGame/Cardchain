@@ -14,8 +14,3 @@ message Encounter {
   uint64 imageId = 6;
   string name = 7;
 }
-
-message EncounterWithImage {
-  Encounter encounter = 1;
-  bytes image = 2;
-}

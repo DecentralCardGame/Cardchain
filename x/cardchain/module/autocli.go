@@ -91,6 +91,27 @@ func (am AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "encounterId"}},
 				},
 
+				{
+					RpcMethod:      "Encounters",
+					Use:            "encounters",
+					Short:          "Query encounters",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{},
+				},
+
+				{
+					RpcMethod:      "EncounterWithImage",
+					Use:            "encounter-with-image",
+					Short:          "Query encounterWithImage",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{},
+				},
+
+				{
+					RpcMethod:      "EncountersWithImage",
+					Use:            "encounters-with-image",
+					Short:          "Query encountersWithImage",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{},
+				},
+
 				// this line is used by ignite scaffolding # autocli/query
 			},
 		},

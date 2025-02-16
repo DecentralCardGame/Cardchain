@@ -8,7 +8,6 @@ package cardchain
 
 import (
 	context "context"
-
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -20,18 +19,21 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	Query_Params_FullMethodName            = "/cardchain.cardchain.Query/Params"
-	Query_ProductDetails_FullMethodName    = "/cardchain.cardchain.Query/ProductDetails"
-	Query_ProductDetailsAll_FullMethodName = "/cardchain.cardchain.Query/ProductDetailsAll"
-	Query_Card_FullMethodName              = "/cardchain.cardchain.Query/Card"
-	Query_User_FullMethodName              = "/cardchain.cardchain.Query/User"
-	Query_Cards_FullMethodName             = "/cardchain.cardchain.Query/Cards"
-	Query_Match_FullMethodName             = "/cardchain.cardchain.Query/Match"
-	Query_Set_FullMethodName               = "/cardchain.cardchain.Query/Set"
-	Query_SellOffer_FullMethodName         = "/cardchain.cardchain.Query/SellOffer"
-	Query_Council_FullMethodName           = "/cardchain.cardchain.Query/Council"
-	Query_Server_FullMethodName            = "/cardchain.cardchain.Query/Server"
-	Query_Encounter_FullMethodName         = "/cardchain.cardchain.Query/Encounter"
+	Query_Params_FullMethodName              = "/cardchain.cardchain.Query/Params"
+	Query_ProductDetails_FullMethodName      = "/cardchain.cardchain.Query/ProductDetails"
+	Query_ProductDetailsAll_FullMethodName   = "/cardchain.cardchain.Query/ProductDetailsAll"
+	Query_Card_FullMethodName                = "/cardchain.cardchain.Query/Card"
+	Query_User_FullMethodName                = "/cardchain.cardchain.Query/User"
+	Query_Cards_FullMethodName               = "/cardchain.cardchain.Query/Cards"
+	Query_Match_FullMethodName               = "/cardchain.cardchain.Query/Match"
+	Query_Set_FullMethodName                 = "/cardchain.cardchain.Query/Set"
+	Query_SellOffer_FullMethodName           = "/cardchain.cardchain.Query/SellOffer"
+	Query_Council_FullMethodName             = "/cardchain.cardchain.Query/Council"
+	Query_Server_FullMethodName              = "/cardchain.cardchain.Query/Server"
+	Query_Encounter_FullMethodName           = "/cardchain.cardchain.Query/Encounter"
+	Query_Encounters_FullMethodName          = "/cardchain.cardchain.Query/Encounters"
+	Query_EncounterWithImage_FullMethodName  = "/cardchain.cardchain.Query/EncounterWithImage"
+	Query_EncountersWithImage_FullMethodName = "/cardchain.cardchain.Query/EncountersWithImage"
 )
 
 // QueryClient is the client API for Query service.
@@ -61,6 +63,12 @@ type QueryClient interface {
 	Server(ctx context.Context, in *QueryServerRequest, opts ...grpc.CallOption) (*QueryServerResponse, error)
 	// Queries a list of Encounter items.
 	Encounter(ctx context.Context, in *QueryEncounterRequest, opts ...grpc.CallOption) (*QueryEncounterResponse, error)
+	// Queries a list of Encounters items.
+	Encounters(ctx context.Context, in *QueryEncountersRequest, opts ...grpc.CallOption) (*QueryEncountersResponse, error)
+	// Queries a list of EncounterWithImage items.
+	EncounterWithImage(ctx context.Context, in *QueryEncounterWithImageRequest, opts ...grpc.CallOption) (*QueryEncounterWithImageResponse, error)
+	// Queries a list of EncountersWithImage items.
+	EncountersWithImage(ctx context.Context, in *QueryEncountersWithImageRequest, opts ...grpc.CallOption) (*QueryEncountersWithImageResponse, error)
 }
 
 type queryClient struct {
@@ -179,6 +187,33 @@ func (c *queryClient) Encounter(ctx context.Context, in *QueryEncounterRequest, 
 	return out, nil
 }
 
+func (c *queryClient) Encounters(ctx context.Context, in *QueryEncountersRequest, opts ...grpc.CallOption) (*QueryEncountersResponse, error) {
+	out := new(QueryEncountersResponse)
+	err := c.cc.Invoke(ctx, Query_Encounters_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *queryClient) EncounterWithImage(ctx context.Context, in *QueryEncounterWithImageRequest, opts ...grpc.CallOption) (*QueryEncounterWithImageResponse, error) {
+	out := new(QueryEncounterWithImageResponse)
+	err := c.cc.Invoke(ctx, Query_EncounterWithImage_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *queryClient) EncountersWithImage(ctx context.Context, in *QueryEncountersWithImageRequest, opts ...grpc.CallOption) (*QueryEncountersWithImageResponse, error) {
+	out := new(QueryEncountersWithImageResponse)
+	err := c.cc.Invoke(ctx, Query_EncountersWithImage_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // QueryServer is the server API for Query service.
 // All implementations must embed UnimplementedQueryServer
 // for forward compatibility
@@ -206,6 +241,12 @@ type QueryServer interface {
 	Server(context.Context, *QueryServerRequest) (*QueryServerResponse, error)
 	// Queries a list of Encounter items.
 	Encounter(context.Context, *QueryEncounterRequest) (*QueryEncounterResponse, error)
+	// Queries a list of Encounters items.
+	Encounters(context.Context, *QueryEncountersRequest) (*QueryEncountersResponse, error)
+	// Queries a list of EncounterWithImage items.
+	EncounterWithImage(context.Context, *QueryEncounterWithImageRequest) (*QueryEncounterWithImageResponse, error)
+	// Queries a list of EncountersWithImage items.
+	EncountersWithImage(context.Context, *QueryEncountersWithImageRequest) (*QueryEncountersWithImageResponse, error)
 	mustEmbedUnimplementedQueryServer()
 }
 
@@ -248,6 +289,15 @@ func (UnimplementedQueryServer) Server(context.Context, *QueryServerRequest) (*Q
 }
 func (UnimplementedQueryServer) Encounter(context.Context, *QueryEncounterRequest) (*QueryEncounterResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Encounter not implemented")
+}
+func (UnimplementedQueryServer) Encounters(context.Context, *QueryEncountersRequest) (*QueryEncountersResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Encounters not implemented")
+}
+func (UnimplementedQueryServer) EncounterWithImage(context.Context, *QueryEncounterWithImageRequest) (*QueryEncounterWithImageResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method EncounterWithImage not implemented")
+}
+func (UnimplementedQueryServer) EncountersWithImage(context.Context, *QueryEncountersWithImageRequest) (*QueryEncountersWithImageResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method EncountersWithImage not implemented")
 }
 func (UnimplementedQueryServer) mustEmbedUnimplementedQueryServer() {}
 
@@ -478,6 +528,60 @@ func _Query_Encounter_Handler(srv interface{}, ctx context.Context, dec func(int
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Query_Encounters_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryEncountersRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).Encounters(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Query_Encounters_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).Encounters(ctx, req.(*QueryEncountersRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Query_EncounterWithImage_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryEncounterWithImageRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).EncounterWithImage(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Query_EncounterWithImage_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).EncounterWithImage(ctx, req.(*QueryEncounterWithImageRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Query_EncountersWithImage_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryEncountersWithImageRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).EncountersWithImage(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Query_EncountersWithImage_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).EncountersWithImage(ctx, req.(*QueryEncountersWithImageRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Query_ServiceDesc is the grpc.ServiceDesc for Query service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -532,6 +636,18 @@ var Query_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Encounter",
 			Handler:    _Query_Encounter_Handler,
+		},
+		{
+			MethodName: "Encounters",
+			Handler:    _Query_Encounters_Handler,
+		},
+		{
+			MethodName: "EncounterWithImage",
+			Handler:    _Query_EncounterWithImage_Handler,
+		},
+		{
+			MethodName: "EncountersWithImage",
+			Handler:    _Query_EncountersWithImage_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

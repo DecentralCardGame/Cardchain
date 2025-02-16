@@ -4,6 +4,7 @@ package cardchain
 import (
 	fmt "fmt"
 	runtime "github.com/cosmos/cosmos-proto/runtime"
+	_ "github.com/cosmos/gogoproto/gogoproto"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoiface "google.golang.org/protobuf/runtime/protoiface"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
@@ -13,28 +14,28 @@ import (
 )
 
 var (
-	md_SetWithArtwork         protoreflect.MessageDescriptor
-	fd_SetWithArtwork_set     protoreflect.FieldDescriptor
-	fd_SetWithArtwork_artwork protoreflect.FieldDescriptor
+	md_EncounterWithImage           protoreflect.MessageDescriptor
+	fd_EncounterWithImage_encounter protoreflect.FieldDescriptor
+	fd_EncounterWithImage_image     protoreflect.FieldDescriptor
 )
 
 func init() {
-	file_cardchain_cardchain_set_with_artwork_proto_init()
-	md_SetWithArtwork = File_cardchain_cardchain_set_with_artwork_proto.Messages().ByName("SetWithArtwork")
-	fd_SetWithArtwork_set = md_SetWithArtwork.Fields().ByName("set")
-	fd_SetWithArtwork_artwork = md_SetWithArtwork.Fields().ByName("artwork")
+	file_cardchain_cardchain_encounter_with_image_proto_init()
+	md_EncounterWithImage = File_cardchain_cardchain_encounter_with_image_proto.Messages().ByName("EncounterWithImage")
+	fd_EncounterWithImage_encounter = md_EncounterWithImage.Fields().ByName("encounter")
+	fd_EncounterWithImage_image = md_EncounterWithImage.Fields().ByName("image")
 }
 
-var _ protoreflect.Message = (*fastReflection_SetWithArtwork)(nil)
+var _ protoreflect.Message = (*fastReflection_EncounterWithImage)(nil)
 
-type fastReflection_SetWithArtwork SetWithArtwork
+type fastReflection_EncounterWithImage EncounterWithImage
 
-func (x *SetWithArtwork) ProtoReflect() protoreflect.Message {
-	return (*fastReflection_SetWithArtwork)(x)
+func (x *EncounterWithImage) ProtoReflect() protoreflect.Message {
+	return (*fastReflection_EncounterWithImage)(x)
 }
 
-func (x *SetWithArtwork) slowProtoReflect() protoreflect.Message {
-	mi := &file_cardchain_cardchain_set_with_artwork_proto_msgTypes[0]
+func (x *EncounterWithImage) slowProtoReflect() protoreflect.Message {
+	mi := &file_cardchain_cardchain_encounter_with_image_proto_msgTypes[0]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -45,43 +46,43 @@ func (x *SetWithArtwork) slowProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-var _fastReflection_SetWithArtwork_messageType fastReflection_SetWithArtwork_messageType
-var _ protoreflect.MessageType = fastReflection_SetWithArtwork_messageType{}
+var _fastReflection_EncounterWithImage_messageType fastReflection_EncounterWithImage_messageType
+var _ protoreflect.MessageType = fastReflection_EncounterWithImage_messageType{}
 
-type fastReflection_SetWithArtwork_messageType struct{}
+type fastReflection_EncounterWithImage_messageType struct{}
 
-func (x fastReflection_SetWithArtwork_messageType) Zero() protoreflect.Message {
-	return (*fastReflection_SetWithArtwork)(nil)
+func (x fastReflection_EncounterWithImage_messageType) Zero() protoreflect.Message {
+	return (*fastReflection_EncounterWithImage)(nil)
 }
-func (x fastReflection_SetWithArtwork_messageType) New() protoreflect.Message {
-	return new(fastReflection_SetWithArtwork)
+func (x fastReflection_EncounterWithImage_messageType) New() protoreflect.Message {
+	return new(fastReflection_EncounterWithImage)
 }
-func (x fastReflection_SetWithArtwork_messageType) Descriptor() protoreflect.MessageDescriptor {
-	return md_SetWithArtwork
+func (x fastReflection_EncounterWithImage_messageType) Descriptor() protoreflect.MessageDescriptor {
+	return md_EncounterWithImage
 }
 
 // Descriptor returns message descriptor, which contains only the protobuf
 // type information for the message.
-func (x *fastReflection_SetWithArtwork) Descriptor() protoreflect.MessageDescriptor {
-	return md_SetWithArtwork
+func (x *fastReflection_EncounterWithImage) Descriptor() protoreflect.MessageDescriptor {
+	return md_EncounterWithImage
 }
 
 // Type returns the message type, which encapsulates both Go and protobuf
 // type information. If the Go type information is not needed,
 // it is recommended that the message descriptor be used instead.
-func (x *fastReflection_SetWithArtwork) Type() protoreflect.MessageType {
-	return _fastReflection_SetWithArtwork_messageType
+func (x *fastReflection_EncounterWithImage) Type() protoreflect.MessageType {
+	return _fastReflection_EncounterWithImage_messageType
 }
 
 // New returns a newly allocated and mutable empty message.
-func (x *fastReflection_SetWithArtwork) New() protoreflect.Message {
-	return new(fastReflection_SetWithArtwork)
+func (x *fastReflection_EncounterWithImage) New() protoreflect.Message {
+	return new(fastReflection_EncounterWithImage)
 }
 
 // Interface unwraps the message reflection interface and
 // returns the underlying ProtoMessage interface.
-func (x *fastReflection_SetWithArtwork) Interface() protoreflect.ProtoMessage {
-	return (*SetWithArtwork)(x)
+func (x *fastReflection_EncounterWithImage) Interface() protoreflect.ProtoMessage {
+	return (*EncounterWithImage)(x)
 }
 
 // Range iterates over every populated field in an undefined order,
@@ -89,16 +90,16 @@ func (x *fastReflection_SetWithArtwork) Interface() protoreflect.ProtoMessage {
 // Range returns immediately if f returns false.
 // While iterating, mutating operations may only be performed
 // on the current field descriptor.
-func (x *fastReflection_SetWithArtwork) Range(f func(protoreflect.FieldDescriptor, protoreflect.Value) bool) {
-	if x.Set_ != nil {
-		value := protoreflect.ValueOfMessage(x.Set_.ProtoReflect())
-		if !f(fd_SetWithArtwork_set, value) {
+func (x *fastReflection_EncounterWithImage) Range(f func(protoreflect.FieldDescriptor, protoreflect.Value) bool) {
+	if x.Encounter != nil {
+		value := protoreflect.ValueOfMessage(x.Encounter.ProtoReflect())
+		if !f(fd_EncounterWithImage_encounter, value) {
 			return
 		}
 	}
-	if len(x.Artwork) != 0 {
-		value := protoreflect.ValueOfBytes(x.Artwork)
-		if !f(fd_SetWithArtwork_artwork, value) {
+	if len(x.Image) != 0 {
+		value := protoreflect.ValueOfBytes(x.Image)
+		if !f(fd_EncounterWithImage_image, value) {
 			return
 		}
 	}
@@ -115,17 +116,17 @@ func (x *fastReflection_SetWithArtwork) Range(f func(protoreflect.FieldDescripto
 // In other cases (aside from the nullable cases above),
 // a proto3 scalar field is populated if it contains a non-zero value, and
 // a repeated field is populated if it is non-empty.
-func (x *fastReflection_SetWithArtwork) Has(fd protoreflect.FieldDescriptor) bool {
+func (x *fastReflection_EncounterWithImage) Has(fd protoreflect.FieldDescriptor) bool {
 	switch fd.FullName() {
-	case "cardchain.cardchain.SetWithArtwork.set":
-		return x.Set_ != nil
-	case "cardchain.cardchain.SetWithArtwork.artwork":
-		return len(x.Artwork) != 0
+	case "cardchain.cardchain.EncounterWithImage.encounter":
+		return x.Encounter != nil
+	case "cardchain.cardchain.EncounterWithImage.image":
+		return len(x.Image) != 0
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: cardchain.cardchain.SetWithArtwork"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: cardchain.cardchain.EncounterWithImage"))
 		}
-		panic(fmt.Errorf("message cardchain.cardchain.SetWithArtwork does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message cardchain.cardchain.EncounterWithImage does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -135,17 +136,17 @@ func (x *fastReflection_SetWithArtwork) Has(fd protoreflect.FieldDescriptor) boo
 // associated with the given field number.
 //
 // Clear is a mutating operation and unsafe for concurrent use.
-func (x *fastReflection_SetWithArtwork) Clear(fd protoreflect.FieldDescriptor) {
+func (x *fastReflection_EncounterWithImage) Clear(fd protoreflect.FieldDescriptor) {
 	switch fd.FullName() {
-	case "cardchain.cardchain.SetWithArtwork.set":
-		x.Set_ = nil
-	case "cardchain.cardchain.SetWithArtwork.artwork":
-		x.Artwork = nil
+	case "cardchain.cardchain.EncounterWithImage.encounter":
+		x.Encounter = nil
+	case "cardchain.cardchain.EncounterWithImage.image":
+		x.Image = nil
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: cardchain.cardchain.SetWithArtwork"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: cardchain.cardchain.EncounterWithImage"))
 		}
-		panic(fmt.Errorf("message cardchain.cardchain.SetWithArtwork does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message cardchain.cardchain.EncounterWithImage does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -155,19 +156,19 @@ func (x *fastReflection_SetWithArtwork) Clear(fd protoreflect.FieldDescriptor) {
 // the default value of a bytes scalar is guaranteed to be a copy.
 // For unpopulated composite types, it returns an empty, read-only view
 // of the value; to obtain a mutable reference, use Mutable.
-func (x *fastReflection_SetWithArtwork) Get(descriptor protoreflect.FieldDescriptor) protoreflect.Value {
+func (x *fastReflection_EncounterWithImage) Get(descriptor protoreflect.FieldDescriptor) protoreflect.Value {
 	switch descriptor.FullName() {
-	case "cardchain.cardchain.SetWithArtwork.set":
-		value := x.Set_
+	case "cardchain.cardchain.EncounterWithImage.encounter":
+		value := x.Encounter
 		return protoreflect.ValueOfMessage(value.ProtoReflect())
-	case "cardchain.cardchain.SetWithArtwork.artwork":
-		value := x.Artwork
+	case "cardchain.cardchain.EncounterWithImage.image":
+		value := x.Image
 		return protoreflect.ValueOfBytes(value)
 	default:
 		if descriptor.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: cardchain.cardchain.SetWithArtwork"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: cardchain.cardchain.EncounterWithImage"))
 		}
-		panic(fmt.Errorf("message cardchain.cardchain.SetWithArtwork does not contain field %s", descriptor.FullName()))
+		panic(fmt.Errorf("message cardchain.cardchain.EncounterWithImage does not contain field %s", descriptor.FullName()))
 	}
 }
 
@@ -181,17 +182,17 @@ func (x *fastReflection_SetWithArtwork) Get(descriptor protoreflect.FieldDescrip
 // empty, read-only value, then it panics.
 //
 // Set is a mutating operation and unsafe for concurrent use.
-func (x *fastReflection_SetWithArtwork) Set(fd protoreflect.FieldDescriptor, value protoreflect.Value) {
+func (x *fastReflection_EncounterWithImage) Set(fd protoreflect.FieldDescriptor, value protoreflect.Value) {
 	switch fd.FullName() {
-	case "cardchain.cardchain.SetWithArtwork.set":
-		x.Set_ = value.Message().Interface().(*Set)
-	case "cardchain.cardchain.SetWithArtwork.artwork":
-		x.Artwork = value.Bytes()
+	case "cardchain.cardchain.EncounterWithImage.encounter":
+		x.Encounter = value.Message().Interface().(*Encounter)
+	case "cardchain.cardchain.EncounterWithImage.image":
+		x.Image = value.Bytes()
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: cardchain.cardchain.SetWithArtwork"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: cardchain.cardchain.EncounterWithImage"))
 		}
-		panic(fmt.Errorf("message cardchain.cardchain.SetWithArtwork does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message cardchain.cardchain.EncounterWithImage does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -205,48 +206,48 @@ func (x *fastReflection_SetWithArtwork) Set(fd protoreflect.FieldDescriptor, val
 // It panics if the field does not contain a composite type.
 //
 // Mutable is a mutating operation and unsafe for concurrent use.
-func (x *fastReflection_SetWithArtwork) Mutable(fd protoreflect.FieldDescriptor) protoreflect.Value {
+func (x *fastReflection_EncounterWithImage) Mutable(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
-	case "cardchain.cardchain.SetWithArtwork.set":
-		if x.Set_ == nil {
-			x.Set_ = new(Set)
+	case "cardchain.cardchain.EncounterWithImage.encounter":
+		if x.Encounter == nil {
+			x.Encounter = new(Encounter)
 		}
-		return protoreflect.ValueOfMessage(x.Set_.ProtoReflect())
-	case "cardchain.cardchain.SetWithArtwork.artwork":
-		panic(fmt.Errorf("field artwork of message cardchain.cardchain.SetWithArtwork is not mutable"))
+		return protoreflect.ValueOfMessage(x.Encounter.ProtoReflect())
+	case "cardchain.cardchain.EncounterWithImage.image":
+		panic(fmt.Errorf("field image of message cardchain.cardchain.EncounterWithImage is not mutable"))
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: cardchain.cardchain.SetWithArtwork"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: cardchain.cardchain.EncounterWithImage"))
 		}
-		panic(fmt.Errorf("message cardchain.cardchain.SetWithArtwork does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message cardchain.cardchain.EncounterWithImage does not contain field %s", fd.FullName()))
 	}
 }
 
 // NewField returns a new value that is assignable to the field
 // for the given descriptor. For scalars, this returns the default value.
 // For lists, maps, and messages, this returns a new, empty, mutable value.
-func (x *fastReflection_SetWithArtwork) NewField(fd protoreflect.FieldDescriptor) protoreflect.Value {
+func (x *fastReflection_EncounterWithImage) NewField(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
-	case "cardchain.cardchain.SetWithArtwork.set":
-		m := new(Set)
+	case "cardchain.cardchain.EncounterWithImage.encounter":
+		m := new(Encounter)
 		return protoreflect.ValueOfMessage(m.ProtoReflect())
-	case "cardchain.cardchain.SetWithArtwork.artwork":
+	case "cardchain.cardchain.EncounterWithImage.image":
 		return protoreflect.ValueOfBytes(nil)
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: cardchain.cardchain.SetWithArtwork"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: cardchain.cardchain.EncounterWithImage"))
 		}
-		panic(fmt.Errorf("message cardchain.cardchain.SetWithArtwork does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message cardchain.cardchain.EncounterWithImage does not contain field %s", fd.FullName()))
 	}
 }
 
 // WhichOneof reports which field within the oneof is populated,
 // returning nil if none are populated.
 // It panics if the oneof descriptor does not belong to this message.
-func (x *fastReflection_SetWithArtwork) WhichOneof(d protoreflect.OneofDescriptor) protoreflect.FieldDescriptor {
+func (x *fastReflection_EncounterWithImage) WhichOneof(d protoreflect.OneofDescriptor) protoreflect.FieldDescriptor {
 	switch d.FullName() {
 	default:
-		panic(fmt.Errorf("%s is not a oneof field in cardchain.cardchain.SetWithArtwork", d.FullName()))
+		panic(fmt.Errorf("%s is not a oneof field in cardchain.cardchain.EncounterWithImage", d.FullName()))
 	}
 	panic("unreachable")
 }
@@ -254,7 +255,7 @@ func (x *fastReflection_SetWithArtwork) WhichOneof(d protoreflect.OneofDescripto
 // GetUnknown retrieves the entire list of unknown fields.
 // The caller may only mutate the contents of the RawFields
 // if the mutated bytes are stored back into the message with SetUnknown.
-func (x *fastReflection_SetWithArtwork) GetUnknown() protoreflect.RawFields {
+func (x *fastReflection_EncounterWithImage) GetUnknown() protoreflect.RawFields {
 	return x.unknownFields
 }
 
@@ -265,7 +266,7 @@ func (x *fastReflection_SetWithArtwork) GetUnknown() protoreflect.RawFields {
 // An empty RawFields may be passed to clear the fields.
 //
 // SetUnknown is a mutating operation and unsafe for concurrent use.
-func (x *fastReflection_SetWithArtwork) SetUnknown(fields protoreflect.RawFields) {
+func (x *fastReflection_EncounterWithImage) SetUnknown(fields protoreflect.RawFields) {
 	x.unknownFields = fields
 }
 
@@ -277,7 +278,7 @@ func (x *fastReflection_SetWithArtwork) SetUnknown(fields protoreflect.RawFields
 // message type, but the details are implementation dependent.
 // Validity is not part of the protobuf data model, and may not
 // be preserved in marshaling or other operations.
-func (x *fastReflection_SetWithArtwork) IsValid() bool {
+func (x *fastReflection_EncounterWithImage) IsValid() bool {
 	return x != nil
 }
 
@@ -287,9 +288,9 @@ func (x *fastReflection_SetWithArtwork) IsValid() bool {
 // The returned methods type is identical to
 // "google.golang.org/protobuf/runtime/protoiface".Methods.
 // Consult the protoiface package documentation for details.
-func (x *fastReflection_SetWithArtwork) ProtoMethods() *protoiface.Methods {
+func (x *fastReflection_EncounterWithImage) ProtoMethods() *protoiface.Methods {
 	size := func(input protoiface.SizeInput) protoiface.SizeOutput {
-		x := input.Message.Interface().(*SetWithArtwork)
+		x := input.Message.Interface().(*EncounterWithImage)
 		if x == nil {
 			return protoiface.SizeOutput{
 				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
@@ -301,11 +302,11 @@ func (x *fastReflection_SetWithArtwork) ProtoMethods() *protoiface.Methods {
 		var n int
 		var l int
 		_ = l
-		if x.Set_ != nil {
-			l = options.Size(x.Set_)
+		if x.Encounter != nil {
+			l = options.Size(x.Encounter)
 			n += 1 + l + runtime.Sov(uint64(l))
 		}
-		l = len(x.Artwork)
+		l = len(x.Image)
 		if l > 0 {
 			n += 1 + l + runtime.Sov(uint64(l))
 		}
@@ -319,7 +320,7 @@ func (x *fastReflection_SetWithArtwork) ProtoMethods() *protoiface.Methods {
 	}
 
 	marshal := func(input protoiface.MarshalInput) (protoiface.MarshalOutput, error) {
-		x := input.Message.Interface().(*SetWithArtwork)
+		x := input.Message.Interface().(*EncounterWithImage)
 		if x == nil {
 			return protoiface.MarshalOutput{
 				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
@@ -338,15 +339,15 @@ func (x *fastReflection_SetWithArtwork) ProtoMethods() *protoiface.Methods {
 			i -= len(x.unknownFields)
 			copy(dAtA[i:], x.unknownFields)
 		}
-		if len(x.Artwork) > 0 {
-			i -= len(x.Artwork)
-			copy(dAtA[i:], x.Artwork)
-			i = runtime.EncodeVarint(dAtA, i, uint64(len(x.Artwork)))
+		if len(x.Image) > 0 {
+			i -= len(x.Image)
+			copy(dAtA[i:], x.Image)
+			i = runtime.EncodeVarint(dAtA, i, uint64(len(x.Image)))
 			i--
 			dAtA[i] = 0x12
 		}
-		if x.Set_ != nil {
-			encoded, err := options.Marshal(x.Set_)
+		if x.Encounter != nil {
+			encoded, err := options.Marshal(x.Encounter)
 			if err != nil {
 				return protoiface.MarshalOutput{
 					NoUnkeyedLiterals: input.NoUnkeyedLiterals,
@@ -370,7 +371,7 @@ func (x *fastReflection_SetWithArtwork) ProtoMethods() *protoiface.Methods {
 		}, nil
 	}
 	unmarshal := func(input protoiface.UnmarshalInput) (protoiface.UnmarshalOutput, error) {
-		x := input.Message.Interface().(*SetWithArtwork)
+		x := input.Message.Interface().(*EncounterWithImage)
 		if x == nil {
 			return protoiface.UnmarshalOutput{
 				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
@@ -402,15 +403,15 @@ func (x *fastReflection_SetWithArtwork) ProtoMethods() *protoiface.Methods {
 			fieldNum := int32(wire >> 3)
 			wireType := int(wire & 0x7)
 			if wireType == 4 {
-				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: SetWithArtwork: wiretype end group for non-group")
+				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: EncounterWithImage: wiretype end group for non-group")
 			}
 			if fieldNum <= 0 {
-				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: SetWithArtwork: illegal tag %d (wire type %d)", fieldNum, wire)
+				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: EncounterWithImage: illegal tag %d (wire type %d)", fieldNum, wire)
 			}
 			switch fieldNum {
 			case 1:
 				if wireType != 2 {
-					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field Set_", wireType)
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field Encounter", wireType)
 				}
 				var msglen int
 				for shift := uint(0); ; shift += 7 {
@@ -437,16 +438,16 @@ func (x *fastReflection_SetWithArtwork) ProtoMethods() *protoiface.Methods {
 				if postIndex > l {
 					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
 				}
-				if x.Set_ == nil {
-					x.Set_ = &Set{}
+				if x.Encounter == nil {
+					x.Encounter = &Encounter{}
 				}
-				if err := options.Unmarshal(dAtA[iNdEx:postIndex], x.Set_); err != nil {
+				if err := options.Unmarshal(dAtA[iNdEx:postIndex], x.Encounter); err != nil {
 					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, err
 				}
 				iNdEx = postIndex
 			case 2:
 				if wireType != 2 {
-					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field Artwork", wireType)
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field Image", wireType)
 				}
 				var byteLen int
 				for shift := uint(0); ; shift += 7 {
@@ -473,9 +474,9 @@ func (x *fastReflection_SetWithArtwork) ProtoMethods() *protoiface.Methods {
 				if postIndex > l {
 					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
 				}
-				x.Artwork = append(x.Artwork[:0], dAtA[iNdEx:postIndex]...)
-				if x.Artwork == nil {
-					x.Artwork = []byte{}
+				x.Image = append(x.Image[:0], dAtA[iNdEx:postIndex]...)
+				if x.Image == nil {
+					x.Image = []byte{}
 				}
 				iNdEx = postIndex
 			default:
@@ -517,7 +518,7 @@ func (x *fastReflection_SetWithArtwork) ProtoMethods() *protoiface.Methods {
 // versions:
 // 	protoc-gen-go v1.27.0
 // 	protoc        (unknown)
-// source: cardchain/cardchain/set_with_artwork.proto
+// source: cardchain/cardchain/encounter_with_image.proto
 
 const (
 	// Verify that this generated code is sufficiently up-to-date.
@@ -526,99 +527,103 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-type SetWithArtwork struct {
+type EncounterWithImage struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Set_    *Set   `protobuf:"bytes,1,opt,name=set,proto3" json:"set,omitempty"`
-	Artwork []byte `protobuf:"bytes,2,opt,name=artwork,proto3" json:"artwork,omitempty"`
+	Encounter *Encounter `protobuf:"bytes,1,opt,name=encounter,proto3" json:"encounter,omitempty"`
+	Image     []byte     `protobuf:"bytes,2,opt,name=image,proto3" json:"image,omitempty"`
 }
 
-func (x *SetWithArtwork) Reset() {
-	*x = SetWithArtwork{}
+func (x *EncounterWithImage) Reset() {
+	*x = EncounterWithImage{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_cardchain_cardchain_set_with_artwork_proto_msgTypes[0]
+		mi := &file_cardchain_cardchain_encounter_with_image_proto_msgTypes[0]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
 }
 
-func (x *SetWithArtwork) String() string {
+func (x *EncounterWithImage) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*SetWithArtwork) ProtoMessage() {}
+func (*EncounterWithImage) ProtoMessage() {}
 
-// Deprecated: Use SetWithArtwork.ProtoReflect.Descriptor instead.
-func (*SetWithArtwork) Descriptor() ([]byte, []int) {
-	return file_cardchain_cardchain_set_with_artwork_proto_rawDescGZIP(), []int{0}
+// Deprecated: Use EncounterWithImage.ProtoReflect.Descriptor instead.
+func (*EncounterWithImage) Descriptor() ([]byte, []int) {
+	return file_cardchain_cardchain_encounter_with_image_proto_rawDescGZIP(), []int{0}
 }
 
-func (x *SetWithArtwork) GetSet_() *Set {
+func (x *EncounterWithImage) GetEncounter() *Encounter {
 	if x != nil {
-		return x.Set_
+		return x.Encounter
 	}
 	return nil
 }
 
-func (x *SetWithArtwork) GetArtwork() []byte {
+func (x *EncounterWithImage) GetImage() []byte {
 	if x != nil {
-		return x.Artwork
+		return x.Image
 	}
 	return nil
 }
 
-var File_cardchain_cardchain_set_with_artwork_proto protoreflect.FileDescriptor
+var File_cardchain_cardchain_encounter_with_image_proto protoreflect.FileDescriptor
 
-var file_cardchain_cardchain_set_with_artwork_proto_rawDesc = []byte{
-	0x0a, 0x2a, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2f, 0x63, 0x61, 0x72, 0x64,
-	0x63, 0x68, 0x61, 0x69, 0x6e, 0x2f, 0x73, 0x65, 0x74, 0x5f, 0x77, 0x69, 0x74, 0x68, 0x5f, 0x61,
-	0x72, 0x74, 0x77, 0x6f, 0x72, 0x6b, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x12, 0x13, 0x63, 0x61,
-	0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69,
-	0x6e, 0x1a, 0x1d, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2f, 0x63, 0x61, 0x72,
-	0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2f, 0x73, 0x65, 0x74, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f,
-	0x22, 0x56, 0x0a, 0x0e, 0x53, 0x65, 0x74, 0x57, 0x69, 0x74, 0x68, 0x41, 0x72, 0x74, 0x77, 0x6f,
-	0x72, 0x6b, 0x12, 0x2a, 0x0a, 0x03, 0x73, 0x65, 0x74, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32,
-	0x18, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x63, 0x61, 0x72, 0x64,
-	0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x53, 0x65, 0x74, 0x52, 0x03, 0x73, 0x65, 0x74, 0x12, 0x18,
-	0x0a, 0x07, 0x61, 0x72, 0x74, 0x77, 0x6f, 0x72, 0x6b, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0c, 0x52,
-	0x07, 0x61, 0x72, 0x74, 0x77, 0x6f, 0x72, 0x6b, 0x42, 0xdb, 0x01, 0x0a, 0x17, 0x63, 0x6f, 0x6d,
-	0x2e, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63,
-	0x68, 0x61, 0x69, 0x6e, 0x42, 0x13, 0x53, 0x65, 0x74, 0x57, 0x69, 0x74, 0x68, 0x41, 0x72, 0x74,
-	0x77, 0x6f, 0x72, 0x6b, 0x50, 0x72, 0x6f, 0x74, 0x6f, 0x50, 0x01, 0x5a, 0x3e, 0x67, 0x69, 0x74,
-	0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x44, 0x65, 0x63, 0x65, 0x6e, 0x74, 0x72, 0x61,
-	0x6c, 0x43, 0x61, 0x72, 0x64, 0x47, 0x61, 0x6d, 0x65, 0x2f, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68,
-	0x61, 0x69, 0x6e, 0x2f, 0x61, 0x70, 0x69, 0x2f, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69,
-	0x6e, 0x2f, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0xa2, 0x02, 0x03, 0x43, 0x43,
-	0x58, 0xaa, 0x02, 0x13, 0x43, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x43, 0x61,
-	0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0xca, 0x02, 0x13, 0x43, 0x61, 0x72, 0x64, 0x63, 0x68,
-	0x61, 0x69, 0x6e, 0x5c, 0x43, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0xe2, 0x02, 0x1f,
+var file_cardchain_cardchain_encounter_with_image_proto_rawDesc = []byte{
+	0x0a, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2f, 0x63, 0x61, 0x72, 0x64,
+	0x63, 0x68, 0x61, 0x69, 0x6e, 0x2f, 0x65, 0x6e, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x65, 0x72, 0x5f,
+	0x77, 0x69, 0x74, 0x68, 0x5f, 0x69, 0x6d, 0x61, 0x67, 0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f,
+	0x12, 0x13, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x63, 0x61, 0x72, 0x64,
+	0x63, 0x68, 0x61, 0x69, 0x6e, 0x1a, 0x14, 0x67, 0x6f, 0x67, 0x6f, 0x70, 0x72, 0x6f, 0x74, 0x6f,
+	0x2f, 0x67, 0x6f, 0x67, 0x6f, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x1a, 0x23, 0x63, 0x61, 0x72,
+	0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2f, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e,
+	0x2f, 0x65, 0x6e, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x65, 0x72, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f,
+	0x22, 0x68, 0x0a, 0x12, 0x45, 0x6e, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x65, 0x72, 0x57, 0x69, 0x74,
+	0x68, 0x49, 0x6d, 0x61, 0x67, 0x65, 0x12, 0x3c, 0x0a, 0x09, 0x65, 0x6e, 0x63, 0x6f, 0x75, 0x6e,
+	0x74, 0x65, 0x72, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1e, 0x2e, 0x63, 0x61, 0x72, 0x64,
+	0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e,
+	0x45, 0x6e, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x65, 0x72, 0x52, 0x09, 0x65, 0x6e, 0x63, 0x6f, 0x75,
+	0x6e, 0x74, 0x65, 0x72, 0x12, 0x14, 0x0a, 0x05, 0x69, 0x6d, 0x61, 0x67, 0x65, 0x18, 0x02, 0x20,
+	0x01, 0x28, 0x0c, 0x52, 0x05, 0x69, 0x6d, 0x61, 0x67, 0x65, 0x42, 0xdf, 0x01, 0x0a, 0x17, 0x63,
+	0x6f, 0x6d, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x63, 0x61, 0x72,
+	0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x42, 0x17, 0x45, 0x6e, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x65,
+	0x72, 0x57, 0x69, 0x74, 0x68, 0x49, 0x6d, 0x61, 0x67, 0x65, 0x50, 0x72, 0x6f, 0x74, 0x6f, 0x50,
+	0x01, 0x5a, 0x3e, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x44, 0x65,
+	0x63, 0x65, 0x6e, 0x74, 0x72, 0x61, 0x6c, 0x43, 0x61, 0x72, 0x64, 0x47, 0x61, 0x6d, 0x65, 0x2f,
+	0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2f, 0x61, 0x70, 0x69, 0x2f, 0x63, 0x61,
+	0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2f, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69,
+	0x6e, 0xa2, 0x02, 0x03, 0x43, 0x43, 0x58, 0xaa, 0x02, 0x13, 0x43, 0x61, 0x72, 0x64, 0x63, 0x68,
+	0x61, 0x69, 0x6e, 0x2e, 0x43, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0xca, 0x02, 0x13,
 	0x43, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x5c, 0x43, 0x61, 0x72, 0x64, 0x63, 0x68,
-	0x61, 0x69, 0x6e, 0x5c, 0x47, 0x50, 0x42, 0x4d, 0x65, 0x74, 0x61, 0x64, 0x61, 0x74, 0x61, 0xea,
-	0x02, 0x14, 0x43, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x3a, 0x3a, 0x43, 0x61, 0x72,
-	0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x61, 0x69, 0x6e, 0xe2, 0x02, 0x1f, 0x43, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x5c,
+	0x43, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x5c, 0x47, 0x50, 0x42, 0x4d, 0x65, 0x74,
+	0x61, 0x64, 0x61, 0x74, 0x61, 0xea, 0x02, 0x14, 0x43, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69,
+	0x6e, 0x3a, 0x3a, 0x43, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x62, 0x06, 0x70, 0x72,
+	0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
-	file_cardchain_cardchain_set_with_artwork_proto_rawDescOnce sync.Once
-	file_cardchain_cardchain_set_with_artwork_proto_rawDescData = file_cardchain_cardchain_set_with_artwork_proto_rawDesc
+	file_cardchain_cardchain_encounter_with_image_proto_rawDescOnce sync.Once
+	file_cardchain_cardchain_encounter_with_image_proto_rawDescData = file_cardchain_cardchain_encounter_with_image_proto_rawDesc
 )
 
-func file_cardchain_cardchain_set_with_artwork_proto_rawDescGZIP() []byte {
-	file_cardchain_cardchain_set_with_artwork_proto_rawDescOnce.Do(func() {
-		file_cardchain_cardchain_set_with_artwork_proto_rawDescData = protoimpl.X.CompressGZIP(file_cardchain_cardchain_set_with_artwork_proto_rawDescData)
+func file_cardchain_cardchain_encounter_with_image_proto_rawDescGZIP() []byte {
+	file_cardchain_cardchain_encounter_with_image_proto_rawDescOnce.Do(func() {
+		file_cardchain_cardchain_encounter_with_image_proto_rawDescData = protoimpl.X.CompressGZIP(file_cardchain_cardchain_encounter_with_image_proto_rawDescData)
 	})
-	return file_cardchain_cardchain_set_with_artwork_proto_rawDescData
+	return file_cardchain_cardchain_encounter_with_image_proto_rawDescData
 }
 
-var file_cardchain_cardchain_set_with_artwork_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
-var file_cardchain_cardchain_set_with_artwork_proto_goTypes = []interface{}{
-	(*SetWithArtwork)(nil), // 0: cardchain.cardchain.SetWithArtwork
-	(*Set)(nil),            // 1: cardchain.cardchain.Set
+var file_cardchain_cardchain_encounter_with_image_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
+var file_cardchain_cardchain_encounter_with_image_proto_goTypes = []interface{}{
+	(*EncounterWithImage)(nil), // 0: cardchain.cardchain.EncounterWithImage
+	(*Encounter)(nil),          // 1: cardchain.cardchain.Encounter
 }
-var file_cardchain_cardchain_set_with_artwork_proto_depIdxs = []int32{
-	1, // 0: cardchain.cardchain.SetWithArtwork.set:type_name -> cardchain.cardchain.Set
+var file_cardchain_cardchain_encounter_with_image_proto_depIdxs = []int32{
+	1, // 0: cardchain.cardchain.EncounterWithImage.encounter:type_name -> cardchain.cardchain.Encounter
 	1, // [1:1] is the sub-list for method output_type
 	1, // [1:1] is the sub-list for method input_type
 	1, // [1:1] is the sub-list for extension type_name
@@ -626,15 +631,15 @@ var file_cardchain_cardchain_set_with_artwork_proto_depIdxs = []int32{
 	0, // [0:1] is the sub-list for field type_name
 }
 
-func init() { file_cardchain_cardchain_set_with_artwork_proto_init() }
-func file_cardchain_cardchain_set_with_artwork_proto_init() {
-	if File_cardchain_cardchain_set_with_artwork_proto != nil {
+func init() { file_cardchain_cardchain_encounter_with_image_proto_init() }
+func file_cardchain_cardchain_encounter_with_image_proto_init() {
+	if File_cardchain_cardchain_encounter_with_image_proto != nil {
 		return
 	}
-	file_cardchain_cardchain_set_proto_init()
+	file_cardchain_cardchain_encounter_proto_init()
 	if !protoimpl.UnsafeEnabled {
-		file_cardchain_cardchain_set_with_artwork_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*SetWithArtwork); i {
+		file_cardchain_cardchain_encounter_with_image_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*EncounterWithImage); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -650,18 +655,18 @@ func file_cardchain_cardchain_set_with_artwork_proto_init() {
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: file_cardchain_cardchain_set_with_artwork_proto_rawDesc,
+			RawDescriptor: file_cardchain_cardchain_encounter_with_image_proto_rawDesc,
 			NumEnums:      0,
 			NumMessages:   1,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
-		GoTypes:           file_cardchain_cardchain_set_with_artwork_proto_goTypes,
-		DependencyIndexes: file_cardchain_cardchain_set_with_artwork_proto_depIdxs,
-		MessageInfos:      file_cardchain_cardchain_set_with_artwork_proto_msgTypes,
+		GoTypes:           file_cardchain_cardchain_encounter_with_image_proto_goTypes,
+		DependencyIndexes: file_cardchain_cardchain_encounter_with_image_proto_depIdxs,
+		MessageInfos:      file_cardchain_cardchain_encounter_with_image_proto_msgTypes,
 	}.Build()
-	File_cardchain_cardchain_set_with_artwork_proto = out.File
-	file_cardchain_cardchain_set_with_artwork_proto_rawDesc = nil
-	file_cardchain_cardchain_set_with_artwork_proto_goTypes = nil
-	file_cardchain_cardchain_set_with_artwork_proto_depIdxs = nil
+	File_cardchain_cardchain_encounter_with_image_proto = out.File
+	file_cardchain_cardchain_encounter_with_image_proto_rawDesc = nil
+	file_cardchain_cardchain_encounter_with_image_proto_goTypes = nil
+	file_cardchain_cardchain_encounter_with_image_proto_depIdxs = nil
 }
