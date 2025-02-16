@@ -8,6 +8,7 @@ package cardchain
 
 import (
 	context "context"
+
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -22,6 +23,7 @@ const (
 	Query_Params_FullMethodName            = "/cardchain.cardchain.Query/Params"
 	Query_ProductDetails_FullMethodName    = "/cardchain.cardchain.Query/ProductDetails"
 	Query_ProductDetailsAll_FullMethodName = "/cardchain.cardchain.Query/ProductDetailsAll"
+	Query_Card_FullMethodName              = "/cardchain.cardchain.Query/Card"
 )
 
 // QueryClient is the client API for Query service.
@@ -33,6 +35,8 @@ type QueryClient interface {
 	// Queries a list of ProductDetails items.
 	ProductDetails(ctx context.Context, in *QueryGetProductDetailsRequest, opts ...grpc.CallOption) (*QueryGetProductDetailsResponse, error)
 	ProductDetailsAll(ctx context.Context, in *QueryAllProductDetailsRequest, opts ...grpc.CallOption) (*QueryAllProductDetailsResponse, error)
+	// Queries a list of Card items.
+	Card(ctx context.Context, in *QueryCardRequest, opts ...grpc.CallOption) (*QueryCardResponse, error)
 }
 
 type queryClient struct {
@@ -70,6 +74,15 @@ func (c *queryClient) ProductDetailsAll(ctx context.Context, in *QueryAllProduct
 	return out, nil
 }
 
+func (c *queryClient) Card(ctx context.Context, in *QueryCardRequest, opts ...grpc.CallOption) (*QueryCardResponse, error) {
+	out := new(QueryCardResponse)
+	err := c.cc.Invoke(ctx, Query_Card_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // QueryServer is the server API for Query service.
 // All implementations must embed UnimplementedQueryServer
 // for forward compatibility
@@ -79,6 +92,8 @@ type QueryServer interface {
 	// Queries a list of ProductDetails items.
 	ProductDetails(context.Context, *QueryGetProductDetailsRequest) (*QueryGetProductDetailsResponse, error)
 	ProductDetailsAll(context.Context, *QueryAllProductDetailsRequest) (*QueryAllProductDetailsResponse, error)
+	// Queries a list of Card items.
+	Card(context.Context, *QueryCardRequest) (*QueryCardResponse, error)
 	mustEmbedUnimplementedQueryServer()
 }
 
@@ -94,6 +109,9 @@ func (UnimplementedQueryServer) ProductDetails(context.Context, *QueryGetProduct
 }
 func (UnimplementedQueryServer) ProductDetailsAll(context.Context, *QueryAllProductDetailsRequest) (*QueryAllProductDetailsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ProductDetailsAll not implemented")
+}
+func (UnimplementedQueryServer) Card(context.Context, *QueryCardRequest) (*QueryCardResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Card not implemented")
 }
 func (UnimplementedQueryServer) mustEmbedUnimplementedQueryServer() {}
 
@@ -162,6 +180,24 @@ func _Query_ProductDetailsAll_Handler(srv interface{}, ctx context.Context, dec 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Query_Card_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryCardRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).Card(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Query_Card_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).Card(ctx, req.(*QueryCardRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Query_ServiceDesc is the grpc.ServiceDesc for Query service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -180,6 +216,10 @@ var Query_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ProductDetailsAll",
 			Handler:    _Query_ProductDetailsAll_Handler,
+		},
+		{
+			MethodName: "Card",
+			Handler:    _Query_Card_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

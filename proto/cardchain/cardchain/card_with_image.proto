@@ -1,0 +1,13 @@
+syntax = "proto3";
+package cardchain.cardchain;
+
+import "gogoproto/gogo.proto";
+import "cardchain/cardchain/card.proto";
+
+option go_package = "github.com/DecentralCardGame/cardchain/x/cardchain/types";
+
+message CardWithImage {
+  Card card = 1;
+  string image = 2;
+  string hash = 3;
+}

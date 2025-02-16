@@ -8,6 +8,7 @@ import "google/api/annotations.proto";
 import "cosmos/base/query/v1beta1/pagination.proto";
 import "cardchain/cardchain/params.proto";
 import "cardchain/cardchain/product_details.proto";
+import "cardchain/cardchain/card_with_image.proto";
 
 option go_package = "github.com/DecentralCardGame/cardchain/x/cardchain/types";
 
@@ -27,6 +28,12 @@ service Query {
   }
   rpc ProductDetailsAll (QueryAllProductDetailsRequest) returns (QueryAllProductDetailsResponse) {
     option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/product_details";
+  
+  }
+  
+  // Queries a list of Card items.
+  rpc Card (QueryCardRequest) returns (QueryCardResponse) {
+    option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/card/{cardId}";
   
   }
 }
@@ -55,5 +62,13 @@ message QueryAllProductDetailsRequest {
 message QueryAllProductDetailsResponse {
   repeated ProductDetails                         ProductDetails = 1 [(gogoproto.nullable) = false];
            cosmos.base.query.v1beta1.PageResponse pagination     = 2;
+}
+
+message QueryCardRequest {
+  uint64 cardId = 1;
+}
+
+message QueryCardResponse {
+  CardWithImage card = 1;
 }
 
