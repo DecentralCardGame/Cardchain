@@ -301,7 +301,10 @@ message QueryMatchesRequest {
   repeated uint64 cardsPlayed = 6;
 }
 
-message QueryMatchesResponse { repeated Match matches = 1; }
+message QueryMatchesResponse {
+  repeated Match matches = 1;
+  repeated uint64 matchIds = 2;
+}
 
 message QuerySetsRequest {
   SetStatus status = 1;
