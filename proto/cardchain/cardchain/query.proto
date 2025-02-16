@@ -145,6 +145,13 @@ service Query {
     option (google.api.http).get =
         "/DecentralCardGame/cardchain/cardchain/voting_results";
   }
+
+  // Queries a list of Matches items.
+  rpc Matches(QueryMatchesRequest) returns (QueryMatchesResponse) {
+    option (google.api.http).get =
+        "/DecentralCardGame/cardchain/cardchain/matches/{timestampDown}/"
+        "{timestampUp}/{containsUsers}/{reporter}/{outcome}/{cardsPlayed}";
+  }
 }
 // QueryParamsRequest is request type for the Query/Params RPC method.
 message QueryParamsRequest {}
@@ -262,3 +269,14 @@ message QueryAccountFromZealyResponse { string address = 1; }
 message QueryVotingResultsRequest {}
 
 message QueryVotingResultsResponse { VotingResults lastVotingResults = 1; }
+
+message QueryMatchesRequest {
+  uint64 timestampDown = 1;
+  uint64 timestampUp = 2;
+  repeated string containsUsers = 3;
+  string reporter = 4;
+  Outcome outcome = 5;
+  repeated uint64 cardsPlayed = 6;
+}
+
+message QueryMatchesResponse { repeated Match matches = 1; }

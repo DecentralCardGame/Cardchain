@@ -38,6 +38,7 @@ const (
 	Query_SetRarityDistribution_FullMethodName = "/cardchain.cardchain.Query/SetRarityDistribution"
 	Query_AccountFromZealy_FullMethodName      = "/cardchain.cardchain.Query/AccountFromZealy"
 	Query_VotingResults_FullMethodName         = "/cardchain.cardchain.Query/VotingResults"
+	Query_Matches_FullMethodName               = "/cardchain.cardchain.Query/Matches"
 )
 
 // QueryClient is the client API for Query service.
@@ -81,6 +82,8 @@ type QueryClient interface {
 	AccountFromZealy(ctx context.Context, in *QueryAccountFromZealyRequest, opts ...grpc.CallOption) (*QueryAccountFromZealyResponse, error)
 	// Queries a list of VotingResults items.
 	VotingResults(ctx context.Context, in *QueryVotingResultsRequest, opts ...grpc.CallOption) (*QueryVotingResultsResponse, error)
+	// Queries a list of Matches items.
+	Matches(ctx context.Context, in *QueryMatchesRequest, opts ...grpc.CallOption) (*QueryMatchesResponse, error)
 }
 
 type queryClient struct {
@@ -262,6 +265,15 @@ func (c *queryClient) VotingResults(ctx context.Context, in *QueryVotingResultsR
 	return out, nil
 }
 
+func (c *queryClient) Matches(ctx context.Context, in *QueryMatchesRequest, opts ...grpc.CallOption) (*QueryMatchesResponse, error) {
+	out := new(QueryMatchesResponse)
+	err := c.cc.Invoke(ctx, Query_Matches_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // QueryServer is the server API for Query service.
 // All implementations must embed UnimplementedQueryServer
 // for forward compatibility
@@ -303,6 +315,8 @@ type QueryServer interface {
 	AccountFromZealy(context.Context, *QueryAccountFromZealyRequest) (*QueryAccountFromZealyResponse, error)
 	// Queries a list of VotingResults items.
 	VotingResults(context.Context, *QueryVotingResultsRequest) (*QueryVotingResultsResponse, error)
+	// Queries a list of Matches items.
+	Matches(context.Context, *QueryMatchesRequest) (*QueryMatchesResponse, error)
 	mustEmbedUnimplementedQueryServer()
 }
 
@@ -366,6 +380,9 @@ func (UnimplementedQueryServer) AccountFromZealy(context.Context, *QueryAccountF
 }
 func (UnimplementedQueryServer) VotingResults(context.Context, *QueryVotingResultsRequest) (*QueryVotingResultsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method VotingResults not implemented")
+}
+func (UnimplementedQueryServer) Matches(context.Context, *QueryMatchesRequest) (*QueryMatchesResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Matches not implemented")
 }
 func (UnimplementedQueryServer) mustEmbedUnimplementedQueryServer() {}
 
@@ -722,6 +739,24 @@ func _Query_VotingResults_Handler(srv interface{}, ctx context.Context, dec func
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Query_Matches_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryMatchesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).Matches(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Query_Matches_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).Matches(ctx, req.(*QueryMatchesRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Query_ServiceDesc is the grpc.ServiceDesc for Query service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -804,6 +839,10 @@ var Query_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "VotingResults",
 			Handler:    _Query_VotingResults_Handler,
+		},
+		{
+			MethodName: "Matches",
+			Handler:    _Query_Matches_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

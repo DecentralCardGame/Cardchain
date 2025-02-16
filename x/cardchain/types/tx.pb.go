@@ -1167,7 +1167,7 @@ func (m *MsgMatchReport) GetOutcome() Outcome {
 	if m != nil {
 		return m.Outcome
 	}
-	return Outcome_AWon
+	return Outcome_Undefined
 }
 
 type MsgMatchReportResponse struct {
@@ -2984,7 +2984,7 @@ func (m *MsgMatchConfirm) GetOutcome() Outcome {
 	if m != nil {
 		return m.Outcome
 	}
-	return Outcome_AWon
+	return Outcome_Undefined
 }
 
 func (m *MsgMatchConfirm) GetVotedCards() []*SingleVote {
