@@ -16,8 +16,7 @@ func (k Keeper) Encounters(goCtx context.Context, req *types.QueryEncountersRequ
 
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	// TODO: Process the query
-	_ = ctx
+	encounters := k.encounters.GetAll(ctx)
 
-	return &types.QueryEncountersResponse{}, nil
+	return &types.QueryEncountersResponse{Encounters: encounters}, nil
 }

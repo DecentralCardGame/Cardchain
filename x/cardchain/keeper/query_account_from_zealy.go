@@ -2,6 +2,7 @@ package keeper
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/DecentralCardGame/cardchain/x/cardchain/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -16,8 +17,10 @@ func (k Keeper) AccountFromZealy(goCtx context.Context, req *types.QueryAccountF
 
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	// TODO: Process the query
-	_ = ctx
+	zealy := k.zealy.Get(ctx, req.ZealyId)
+	if zealy == nil {
+		return nil, fmt.Errorf("zealyId `%s` not in store", req.ZealyId)
+	}
 
-	return &types.QueryAccountFromZealyResponse{}, nil
+	return &types.QueryAccountFromZealyResponse{Address: zealy.Address}, nil
 }

@@ -2,6 +2,7 @@ package keeper
 
 import (
 	"context"
+	"slices"
 
 	"github.com/DecentralCardGame/cardchain/x/cardchain/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -16,8 +17,51 @@ func (k Keeper) Sets(goCtx context.Context, req *types.QuerySetsRequest) (*types
 
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	// TODO: Process the query
-	_ = ctx
+	var (
+		setIds        []uint64
+		allUsersInSet bool = true
+		allCardsInSet bool = true
+	)
 
-	return &types.QuerySetsResponse{}, nil
+	iter := k.sets.GetItemIterator(ctx)
+	for ; iter.Valid(); iter.Next() {
+		idx, set := iter.Value()
+
+		// Checks for status
+		if req.Status != types.SetStatus_undefined {
+			if req.Status != set.Status {
+				continue
+			}
+		}
+
+		// Checks for users contained in the contributors
+		for _, user := range req.Contributors {
+			if !slices.Contains(set.Contributors, user) {
+				allUsersInSet = false
+			}
+		}
+		if !allUsersInSet {
+			continue
+		}
+
+		// Checks for card contained in the set
+		for _, card := range req.ContainsCards {
+			if !slices.Contains(set.Cards, card) {
+				allCardsInSet = false
+			}
+		}
+		if !allCardsInSet {
+			continue
+		}
+
+		if req.Owner != "" {
+			if req.Owner != set.Contributors[0] {
+				continue
+			}
+		}
+
+		setIds = append(setIds, idx)
+	}
+
+	return &types.QuerySetsResponse{SetIds: setIds}, nil
 }

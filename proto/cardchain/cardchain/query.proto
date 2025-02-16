@@ -238,7 +238,7 @@ message QueryMatchResponse { Match match = 1; }
 
 message QuerySetRequest { uint64 setId = 1; }
 
-message QuerySetResponse { SetWithArtwork match = 1; }
+message QuerySetResponse { SetWithArtwork set = 1; }
 
 message QuerySellOfferRequest { uint64 sellOfferId = 1; }
 
@@ -260,7 +260,7 @@ message QueryEncountersRequest {}
 
 message QueryEncountersResponse { repeated Encounter encounters = 1; }
 
-message QueryEncounterWithImageRequest {}
+message QueryEncounterWithImageRequest { uint64 encounterId = 1; }
 
 message QueryEncounterWithImageResponse { EncounterWithImage encounter = 1; }
 
@@ -283,7 +283,7 @@ message QueryCardchainInfoResponse {
   uint64 lastCardModified = 7;
 }
 
-message QuerySetRarityDistributionRequest { string setId = 1; }
+message QuerySetRarityDistributionRequest { uint64 setId = 1; }
 
 message QuerySetRarityDistributionResponse {
   repeated uint64 current = 1;

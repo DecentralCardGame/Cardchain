@@ -16,8 +16,9 @@ func (k Keeper) User(goCtx context.Context, req *types.QueryUserRequest) (*types
 
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	// TODO: Process the query
-	_ = ctx
-
-	return &types.QueryUserResponse{}, nil
+	user, err := k.GetUserFromString(ctx, req.Address)
+	if err != nil {
+		return nil, err
+	}
+	return &types.QueryUserResponse{User: user.User}, nil
 }

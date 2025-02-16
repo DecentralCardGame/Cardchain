@@ -16,8 +16,7 @@ func (k Keeper) VotingResults(goCtx context.Context, req *types.QueryVotingResul
 
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	// TODO: Process the query
-	_ = ctx
+	votingResults := k.lastVotingResults.Get(ctx)
 
-	return &types.QueryVotingResultsResponse{}, nil
+	return &types.QueryVotingResultsResponse{LastVotingResults: votingResults}, nil
 }

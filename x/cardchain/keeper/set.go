@@ -77,14 +77,14 @@ func (k Keeper) GetActiveSets(ctx sdk.Context) (activeSets []uint64) {
 	return
 }
 
-func (k Keeper) GetRarityDistribution(ctx sdk.Context, set types.Set, setSize uint32) (dist [2][3]uint32, err error) {
+func (k Keeper) GetRarityDistribution(ctx sdk.Context, set types.Set, setSize uint32) (dist [2][3]uint64, err error) {
 	var (
-		unCommons, rares, commons, commonsAll, unCommonsAll, raresAll uint32
+		unCommons, rares, commons, commonsAll, unCommonsAll, raresAll uint64
 	)
 
-	unCommonsAll = uint32(setSize / 3)
-	raresAll = uint32(setSize / 3)
-	commonsAll = uint32(setSize - raresAll - unCommonsAll)
+	unCommonsAll = uint64(setSize / 3)
+	raresAll = uint64(setSize / 3)
+	commonsAll = uint64(setSize) - raresAll - unCommonsAll
 
 	for _, cardId := range set.Cards {
 		card := k.cards.Get(ctx, cardId)
@@ -101,7 +101,7 @@ func (k Keeper) GetRarityDistribution(ctx sdk.Context, set types.Set, setSize ui
 		}
 	}
 
-	return [2][3]uint32{
+	return [2][3]uint64{
 		{commons, unCommons, rares},
 		{commonsAll, unCommonsAll, raresAll},
 	}, nil
