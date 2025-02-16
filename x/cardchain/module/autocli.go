@@ -168,6 +168,13 @@ func (am AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "cardIds"}},
 				},
 
+				{
+					RpcMethod:      "SellOffers",
+					Use:            "sell-offers [price-down] [price-up] [seller] [buyer] [card] [status]",
+					Short:          "Query sellOffers",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "priceDown"}, {ProtoField: "priceUp"}, {ProtoField: "seller"}, {ProtoField: "buyer"}, {ProtoField: "card"}, {ProtoField: "status"}},
+				},
+
 				// this line is used by ignite scaffolding # autocli/query
 			},
 		},

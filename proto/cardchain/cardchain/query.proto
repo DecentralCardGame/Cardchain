@@ -174,6 +174,12 @@ service Query {
     option (google.api.http).get =
         "/DecentralCardGame/cardchain/cardchain/card_contents";
   }
+
+  // Queries a list of SellOffers items.
+  rpc SellOffers(QuerySellOffersRequest) returns (QuerySellOffersResponse) {
+    option (google.api.http).get =
+        "/DecentralCardGame/cardchain/cardchain/sell_offers";
+  }
 }
 // QueryParamsRequest is request type for the Query/Params RPC method.
 message QueryParamsRequest {}
@@ -322,3 +328,17 @@ message QueryCardContentResponse { CardContent cardContent = 1; }
 message QueryCardContentsRequest { repeated uint64 cardIds = 1; }
 
 message QueryCardContentsResponse { repeated CardContent cardContents = 1; }
+
+message QuerySellOffersRequest {
+  cosmos.base.v1beta1.Coin priceDown = 1 [ (gogoproto.nullable) = false ];
+  cosmos.base.v1beta1.Coin priceUp = 2 [ (gogoproto.nullable) = false ];
+  string seller = 3;
+  string buyer = 4;
+  uint64 card = 5;
+  SellOfferStatus status = 6;
+}
+
+message QuerySellOffersResponse {
+  repeated SellOffer sellOffers = 1;
+  repeated uint64 sellOfferIds = 2;
+}
