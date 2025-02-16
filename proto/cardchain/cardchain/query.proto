@@ -172,7 +172,7 @@ service Query {
   rpc CardContents(QueryCardContentsRequest)
       returns (QueryCardContentsResponse) {
     option (google.api.http).get =
-        "/DecentralCardGame/cardchain/cardchain/card_contents/{cardId}";
+        "/DecentralCardGame/cardchain/cardchain/card_contents";
   }
 }
 // QueryParamsRequest is request type for the Query/Params RPC method.
@@ -316,6 +316,6 @@ message QueryCardContentRequest { uint64 cardId = 1; }
 
 message QueryCardContentResponse { CardContent cardContent = 1; }
 
-message QueryCardContentsRequest { repeated uint64 cardId = 1; }
+message QueryCardContentsRequest { repeated uint64 cardIds = 1; }
 
 message QueryCardContentsResponse { repeated CardContent cardContents = 1; }

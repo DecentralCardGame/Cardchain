@@ -16,8 +16,15 @@ func (k Keeper) CardContents(goCtx context.Context, req *types.QueryCardContents
 
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	// TODO: Process the query
-	_ = ctx
+	var contents []*types.CardContent
 
-	return &types.QueryCardContentsResponse{}, nil
+	for _, cardId := range req.CardIds {
+		resp, err := k.getCardContentFromId(ctx, cardId)
+		if err != nil {
+			return nil, err
+		}
+		contents = append(contents, resp)
+	}
+
+	return &types.QueryCardContentsResponse{CardContents: contents}, nil
 }
