@@ -16,8 +16,13 @@ func (k Keeper) CardchainInfo(goCtx context.Context, req *types.QueryCardchainIn
 
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	// TODO: Process the query
-	_ = ctx
-
-	return &types.QueryCardchainInfoResponse{}, nil
+	return &types.QueryCardchainInfoResponse{
+		CardAuctionPrice: *k.cardAuctionPrice.Get(ctx),
+		ActiveSets:       k.GetActiveSets(ctx),
+		CardsNumber:      k.cards.GetNum(ctx),
+		MatchesNumber:    k.matches.GetNum(ctx),
+		SellOffersNumber: k.sellOffers.GetNum(ctx),
+		CouncilsNumber:   k.councils.GetNum(ctx),
+		LastCardModified: k.lastCardModified.Get(ctx).TimeStamp,
+	}, nil
 }

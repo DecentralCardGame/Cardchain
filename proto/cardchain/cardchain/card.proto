@@ -27,15 +27,15 @@ message Card {
 }
 
 enum CardStatus {
-  scheme = 0;
-  prototype = 1;
-  trial = 2;
-  permanent = 3;
-  suspended = 4;
-  banned = 5;
-  bannedSoon = 6;
-  bannedVerySoon = 7;
-  none = 8;
+  none = 0;
+  scheme = 1;
+  prototype = 2;
+  trial = 3;
+  permanent = 4;
+  suspended = 5;
+  banned = 6;
+  bannedSoon = 7;
+  bannedVerySoon = 8;
   adventureItem = 9;
 }
 
