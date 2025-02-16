@@ -11,6 +11,7 @@ set -o pipefail
 #ignite scaffold query council councilId:uint --response council:Council
 #ignite scaffold query server serverId:uint --response server:Server
 #ignite scaffold query encounter encounterId:uint --response encounter:Encounter
-# ignite scaffold query encounters --response encounters
-ignite scaffold query encounterWithImage --response encounter:EncounterWithImage
-ignite scaffold query encountersWithImage --response encounters
+#ignite scaffold query encounters --response encounters
+#ignite scaffold query encounterWithImage --response encounter:EncounterWithImage
+#ignite scaffold query encountersWithImage --response encounters
+ignite scaffold query cardchainInfo --response cardAuctionPrice:coin activeSets:uints cardsNumber:uint matchesNumber:uint sellOffersNumber:uint councilsNumber:uint lastCardModified:uint

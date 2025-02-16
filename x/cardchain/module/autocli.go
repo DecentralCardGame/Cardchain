@@ -112,6 +112,13 @@ func (am AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 					PositionalArgs: []*autocliv1.PositionalArgDescriptor{},
 				},
 
+				{
+					RpcMethod:      "CardchainInfo",
+					Use:            "cardchain-info [active-sets] [cards-number] [matches-number] [sell-offers-number] [councils-number] [last-card-modified]",
+					Short:          "Query cardchainInfo",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "activeSets"}, {ProtoField: "cardsNumber"}, {ProtoField: "matchesNumber"}, {ProtoField: "sellOffersNumber"}, {ProtoField: "councilsNumber"}, {ProtoField: "lastCardModified"}},
+				},
+
 				// this line is used by ignite scaffolding # autocli/query
 			},
 		},

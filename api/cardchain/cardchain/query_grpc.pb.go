@@ -34,6 +34,7 @@ const (
 	Query_Encounters_FullMethodName          = "/cardchain.cardchain.Query/Encounters"
 	Query_EncounterWithImage_FullMethodName  = "/cardchain.cardchain.Query/EncounterWithImage"
 	Query_EncountersWithImage_FullMethodName = "/cardchain.cardchain.Query/EncountersWithImage"
+	Query_CardchainInfo_FullMethodName       = "/cardchain.cardchain.Query/CardchainInfo"
 )
 
 // QueryClient is the client API for Query service.
@@ -69,6 +70,8 @@ type QueryClient interface {
 	EncounterWithImage(ctx context.Context, in *QueryEncounterWithImageRequest, opts ...grpc.CallOption) (*QueryEncounterWithImageResponse, error)
 	// Queries a list of EncountersWithImage items.
 	EncountersWithImage(ctx context.Context, in *QueryEncountersWithImageRequest, opts ...grpc.CallOption) (*QueryEncountersWithImageResponse, error)
+	// Queries a list of CardchainInfo items.
+	CardchainInfo(ctx context.Context, in *QueryCardchainInfoRequest, opts ...grpc.CallOption) (*QueryCardchainInfoResponse, error)
 }
 
 type queryClient struct {
@@ -214,6 +217,15 @@ func (c *queryClient) EncountersWithImage(ctx context.Context, in *QueryEncounte
 	return out, nil
 }
 
+func (c *queryClient) CardchainInfo(ctx context.Context, in *QueryCardchainInfoRequest, opts ...grpc.CallOption) (*QueryCardchainInfoResponse, error) {
+	out := new(QueryCardchainInfoResponse)
+	err := c.cc.Invoke(ctx, Query_CardchainInfo_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // QueryServer is the server API for Query service.
 // All implementations must embed UnimplementedQueryServer
 // for forward compatibility
@@ -247,6 +259,8 @@ type QueryServer interface {
 	EncounterWithImage(context.Context, *QueryEncounterWithImageRequest) (*QueryEncounterWithImageResponse, error)
 	// Queries a list of EncountersWithImage items.
 	EncountersWithImage(context.Context, *QueryEncountersWithImageRequest) (*QueryEncountersWithImageResponse, error)
+	// Queries a list of CardchainInfo items.
+	CardchainInfo(context.Context, *QueryCardchainInfoRequest) (*QueryCardchainInfoResponse, error)
 	mustEmbedUnimplementedQueryServer()
 }
 
@@ -298,6 +312,9 @@ func (UnimplementedQueryServer) EncounterWithImage(context.Context, *QueryEncoun
 }
 func (UnimplementedQueryServer) EncountersWithImage(context.Context, *QueryEncountersWithImageRequest) (*QueryEncountersWithImageResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method EncountersWithImage not implemented")
+}
+func (UnimplementedQueryServer) CardchainInfo(context.Context, *QueryCardchainInfoRequest) (*QueryCardchainInfoResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CardchainInfo not implemented")
 }
 func (UnimplementedQueryServer) mustEmbedUnimplementedQueryServer() {}
 
@@ -582,6 +599,24 @@ func _Query_EncountersWithImage_Handler(srv interface{}, ctx context.Context, de
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Query_CardchainInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryCardchainInfoRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).CardchainInfo(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Query_CardchainInfo_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).CardchainInfo(ctx, req.(*QueryCardchainInfoRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Query_ServiceDesc is the grpc.ServiceDesc for Query service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -648,6 +683,10 @@ var Query_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "EncountersWithImage",
 			Handler:    _Query_EncountersWithImage_Handler,
+		},
+		{
+			MethodName: "CardchainInfo",
+			Handler:    _Query_CardchainInfo_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

@@ -18,102 +18,105 @@ import "cardchain/cardchain/council.proto";
 import "cardchain/cardchain/server.proto";
 import "cardchain/cardchain/encounter.proto";
 import "cardchain/cardchain/encounter_with_image.proto";
+import "cosmos/base/v1beta1/coin.proto";
 
 option go_package = "github.com/DecentralCardGame/cardchain/x/cardchain/types";
 
 // Query defines the gRPC querier service.
 service Query {
-
+  
   // Parameters queries the parameters of the module.
-  rpc Params(QueryParamsRequest) returns (QueryParamsResponse) {
-    option (google.api.http).get =
-        "/DecentralCardGame/cardchain/cardchain/params";
+  rpc Params (QueryParamsRequest) returns (QueryParamsResponse) {
+    option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/params";
+  
   }
-
+  
   // Queries a list of ProductDetails items.
-  rpc ProductDetails(QueryGetProductDetailsRequest)
-      returns (QueryGetProductDetailsResponse) {
-    option (google.api.http).get =
-        "/DecentralCardGame/cardchain/cardchain/product_details/{id}";
+  rpc ProductDetails    (QueryGetProductDetailsRequest) returns (QueryGetProductDetailsResponse) {
+    option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/product_details/{id}";
+  
   }
-  rpc ProductDetailsAll(QueryAllProductDetailsRequest)
-      returns (QueryAllProductDetailsResponse) {
-    option (google.api.http).get =
-        "/DecentralCardGame/cardchain/cardchain/product_details";
+  rpc ProductDetailsAll (QueryAllProductDetailsRequest) returns (QueryAllProductDetailsResponse) {
+    option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/product_details";
+  
   }
-
+  
   // Queries a list of Card items.
-  rpc Card(QueryCardRequest) returns (QueryCardResponse) {
-    option (google.api.http).get =
-        "/DecentralCardGame/cardchain/cardchain/card/{cardId}";
+  rpc Card (QueryCardRequest) returns (QueryCardResponse) {
+    option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/card/{cardId}";
+  
   }
-
+  
   // Queries a list of User items.
-  rpc User(QueryUserRequest) returns (QueryUserResponse) {
-    option (google.api.http).get =
-        "/DecentralCardGame/cardchain/cardchain/user/{address}";
+  rpc User (QueryUserRequest) returns (QueryUserResponse) {
+    option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/user/{address}";
+  
   }
-
+  
   // Queries a list of Cards items.
-  rpc Cards(QueryCardsRequest) returns (QueryCardsResponse) {
-    option (google.api.http).get =
-        "/DecentralCardGame/cardchain/cardchain/cards/{owner}";
+  rpc Cards (QueryCardsRequest) returns (QueryCardsResponse) {
+    option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/cards/{owner}";
+  
   }
-
+  
   // Queries a list of Match items.
-  rpc Match(QueryMatchRequest) returns (QueryMatchResponse) {
-    option (google.api.http).get =
-        "/DecentralCardGame/cardchain/cardchain/match/{matchId}";
+  rpc Match (QueryMatchRequest) returns (QueryMatchResponse) {
+    option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/match/{matchId}";
+  
   }
-
+  
   // Queries a list of Set items.
-  rpc Set(QuerySetRequest) returns (QuerySetResponse) {
-    option (google.api.http).get =
-        "/DecentralCardGame/cardchain/cardchain/set/{setId}";
+  rpc Set (QuerySetRequest) returns (QuerySetResponse) {
+    option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/set/{setId}";
+  
   }
-
+  
   // Queries a list of SellOffer items.
-  rpc SellOffer(QuerySellOfferRequest) returns (QuerySellOfferResponse) {
-    option (google.api.http).get =
-        "/DecentralCardGame/cardchain/cardchain/sell_offer/{sellOfferId}";
+  rpc SellOffer (QuerySellOfferRequest) returns (QuerySellOfferResponse) {
+    option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/sell_offer/{sellOfferId}";
+  
   }
-
+  
   // Queries a list of Council items.
-  rpc Council(QueryCouncilRequest) returns (QueryCouncilResponse) {
-    option (google.api.http).get =
-        "/DecentralCardGame/cardchain/cardchain/council/{councilId}";
+  rpc Council (QueryCouncilRequest) returns (QueryCouncilResponse) {
+    option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/council/{councilId}";
+  
   }
-
+  
   // Queries a list of Server items.
-  rpc Server(QueryServerRequest) returns (QueryServerResponse) {
-    option (google.api.http).get =
-        "/DecentralCardGame/cardchain/cardchain/server/{serverId}";
+  rpc Server (QueryServerRequest) returns (QueryServerResponse) {
+    option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/server/{serverId}";
+  
   }
-
+  
   // Queries a list of Encounter items.
-  rpc Encounter(QueryEncounterRequest) returns (QueryEncounterResponse) {
-    option (google.api.http).get =
-        "/DecentralCardGame/cardchain/cardchain/encounter/{encounterId}";
+  rpc Encounter (QueryEncounterRequest) returns (QueryEncounterResponse) {
+    option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/encounter/{encounterId}";
+  
   }
-
+  
   // Queries a list of Encounters items.
-  rpc Encounters(QueryEncountersRequest) returns (QueryEncountersResponse) {
-    option (google.api.http).get =
-        "/DecentralCardGame/cardchain/cardchain/encounters";
+  rpc Encounters (QueryEncountersRequest) returns (QueryEncountersResponse) {
+    option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/encounters";
+  
   }
-
+  
   // Queries a list of EncounterWithImage items.
-  rpc EncounterWithImage(QueryEncounterWithImageRequest)
-      returns (QueryEncounterWithImageResponse) {
-    option (google.api.http).get =
-        "/DecentralCardGame/cardchain/cardchain/encounter_with_image";
+  rpc EncounterWithImage (QueryEncounterWithImageRequest) returns (QueryEncounterWithImageResponse) {
+    option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/encounter_with_image";
+  
   }
-
+  
   // Queries a list of EncountersWithImage items.
-  rpc EncountersWithImage(QueryEncountersWithImageRequest)
-      returns (QueryEncountersWithImageResponse) {
-    option (google.api.http).get =
-        "/DecentralCardGame/cardchain/cardchain/encounters_with_image";
+  rpc EncountersWithImage (QueryEncountersWithImageRequest) returns (QueryEncountersWithImageResponse) {
+    option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/encounters_with_image";
+  
+  }
+  
+  // Queries a list of CardchainInfo items.
+  rpc CardchainInfo (QueryCardchainInfoRequest) returns (QueryCardchainInfoResponse) {
+    option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/cardchain_info/{activeSets}/{cardsNumber}/{matchesNumber}/{sellOffersNumber}/{councilsNumber}/{lastCardModified}";
+  
   }
 }
 // QueryParamsRequest is request type for the Query/Params RPC method.
@@ -121,16 +124,17 @@ message QueryParamsRequest {}
 
 // QueryParamsResponse is response type for the Query/Params RPC method.
 message QueryParamsResponse {
-
+  
   // params holds all the parameters of this module.
-  Params params = 1
-      [ (gogoproto.nullable) = false, (amino.dont_omitempty) = true ];
+  Params params = 1 [(gogoproto.nullable) = false, (amino.dont_omitempty) = true];
 }
 
-message QueryGetProductDetailsRequest { uint64 id = 1; }
+message QueryGetProductDetailsRequest {
+  uint64 id = 1;
+}
 
 message QueryGetProductDetailsResponse {
-  ProductDetails ProductDetails = 1 [ (gogoproto.nullable) = false ];
+  ProductDetails ProductDetails = 1 [(gogoproto.nullable) = false];
 }
 
 message QueryAllProductDetailsRequest {
@@ -138,69 +142,121 @@ message QueryAllProductDetailsRequest {
 }
 
 message QueryAllProductDetailsResponse {
-  repeated ProductDetails ProductDetails = 1 [ (gogoproto.nullable) = false ];
-  cosmos.base.query.v1beta1.PageResponse pagination = 2;
+  repeated ProductDetails                         ProductDetails = 1 [(gogoproto.nullable) = false];
+           cosmos.base.query.v1beta1.PageResponse pagination     = 2;
 }
 
-message QueryCardRequest { uint64 cardId = 1; }
+message QueryCardRequest {
+  uint64 cardId = 1;
+}
 
-message QueryCardResponse { CardWithImage card = 1; }
+message QueryCardResponse {
+  CardWithImage card = 1;
+}
 
-message QueryUserRequest { string address = 1; }
+message QueryUserRequest {
+  string address = 1;
+}
 
-message QueryUserResponse { User user = 1; }
+message QueryUserResponse {
+  User user = 1;
+}
 
 message QueryCardsRequest {
-  string owner = 1;
-  repeated CardStatus status = 2;
-  repeated CardType cardType = 3;
-  repeated CardClass class = 4;
-  string sortBy = 5;
-  string nameContains = 6;
-  string keywordsContains = 7;
-  string notesContains = 8;
-  bool onlyStarterCard = 9;
-  bool onlyBalanceAnchors = 10;
-  repeated CardRarity rarities = 11;
-  bool multiClassOnly = 12;
+           string     owner              =  1;
+  repeated CardStatus status             =  2;
+  repeated CardType   cardType           =  3;
+  repeated CardClass  class              =  4;
+           string     sortBy             =  5;
+           string     nameContains       =  6;
+           string     keywordsContains   =  7;
+           string     notesContains      =  8;
+           bool       onlyStarterCard    =  9;
+           bool       onlyBalanceAnchors = 10;
+  repeated CardRarity rarities           = 11;
+           bool       multiClassOnly     = 12;
 }
 
-message QueryCardsResponse { repeated uint64 cardIds = 1; }
+message QueryCardsResponse {
+  repeated uint64 cardIds = 1;
+}
 
-message QueryMatchRequest { uint64 matchId = 1; }
+message QueryMatchRequest {
+  uint64 matchId = 1;
+}
 
-message QueryMatchResponse { Match match = 1; }
+message QueryMatchResponse {
+  Match match = 1;
+}
 
-message QuerySetRequest { uint64 setId = 1; }
+message QuerySetRequest {
+  uint64 setId = 1;
+}
 
-message QuerySetResponse { SetWithArtwork match = 1; }
+message QuerySetResponse {
+  SetWithArtwork match = 1;
+}
 
-message QuerySellOfferRequest { uint64 sellOfferId = 1; }
+message QuerySellOfferRequest {
+  uint64 sellOfferId = 1;
+}
 
-message QuerySellOfferResponse { SellOffer sellOffer = 1; }
+message QuerySellOfferResponse {
+  SellOffer sellOffer = 1;
+}
 
-message QueryCouncilRequest { uint64 councilId = 1; }
+message QueryCouncilRequest {
+  uint64 councilId = 1;
+}
 
-message QueryCouncilResponse { Council council = 1; }
+message QueryCouncilResponse {
+  Council council = 1;
+}
 
-message QueryServerRequest { uint64 serverId = 1; }
+message QueryServerRequest {
+  uint64 serverId = 1;
+}
 
-message QueryServerResponse { Server server = 1; }
+message QueryServerResponse {
+  Server server = 1;
+}
 
-message QueryEncounterRequest { uint64 encounterId = 1; }
+message QueryEncounterRequest {
+  uint64 encounterId = 1;
+}
 
-message QueryEncounterResponse { Encounter encounter = 1; }
+message QueryEncounterResponse {
+  Encounter encounter = 1;
+}
 
 message QueryEncountersRequest {}
 
-message QueryEncountersResponse { repeated Encounter encounters = 1; }
+message QueryEncountersResponse {
+  repeated Encounter encounters = 1;
+}
 
 message QueryEncounterWithImageRequest {}
 
-message QueryEncounterWithImageResponse { EncounterWithImage encounter = 1; }
+message QueryEncounterWithImageResponse {
+  EncounterWithImage encounter = 1;
+}
 
 message QueryEncountersWithImageRequest {}
 
 message QueryEncountersWithImageResponse {
   repeated EncounterWithImage encounters = 1;
 }
+
+message QueryCardchainInfoRequest {
+  repeated uint64 activeSets       = 1;
+           uint64 cardsNumber      = 2;
+           uint64 matchesNumber    = 3;
+           uint64 sellOffersNumber = 4;
+           uint64 councilsNumber   = 5;
+           uint64 lastCardModified = 6;
+}
+
+message QueryCardchainInfoResponse {
+  cosmos.base.v1beta1.Coin cardAuctionPrice = 1 [(gogoproto.nullable) = false];
+}
+
