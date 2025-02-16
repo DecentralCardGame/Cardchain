@@ -23,7 +23,7 @@ func SetUpPools(ctx sdk.Context, k keeper.Keeper) (sdk.Coin, sdk.Coin, sdk.Coin)
 
 func TestPools(t *testing.T) {
 	k, ctx := testkeeper.CardchainKeeper(t)
-	pool, pool1, pool2 := SetUpPools(ctx, *k)
+	pool, pool1, pool2 := SetUpPools(ctx, k)
 
 	require.EqualValues(t, pool, *k.Pools.Get(ctx, keeper.PublicPoolKey))
 	require.EqualValues(t, []*sdk.Coin{&pool, &pool1, &pool2}, k.Pools.GetAll(ctx))
