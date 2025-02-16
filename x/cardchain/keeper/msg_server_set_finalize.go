@@ -40,7 +40,7 @@ func (k msgServer) SetFinalize(goCtx context.Context, msg *types.MsgSetFinalize)
 		return nil, errorsmod.Wrapf(sdkerrors.ErrUnauthorized, "Sets should contain [(common,unique,exceptional), uncommon, rare] %d, %d, %d but contains %d, %d, %d", dist[1][0], dist[1][1], dist[1][2], dist[0][0], dist[0][1], dist[0][2])
 	}
 
-	set.Status = types.CStatus_finalized
+	set.Status = types.SetStatus_finalized
 	set.ContributorsDistribution = k.GetContributorDistribution(ctx, *set)
 	set.Rarities = k.GetCardRaritiesInSet(ctx, set)
 

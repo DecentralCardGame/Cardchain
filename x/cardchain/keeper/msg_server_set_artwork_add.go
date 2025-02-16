@@ -18,7 +18,7 @@ func (k msgServer) SetArtworkAdd(goCtx context.Context, msg *types.MsgSetArtwork
 	if set.Artist != msg.Creator {
 		return nil, errorsmod.Wrap(errors.ErrUnauthorized, "Incorrect Artist")
 	}
-	if set.Status != types.CStatus_design {
+	if set.Status != types.SetStatus_design {
 		return nil, errorsmod.Wrapf(errors.ErrUnauthorized, "Invalid set status is: %s", set.Status.String())
 	}
 

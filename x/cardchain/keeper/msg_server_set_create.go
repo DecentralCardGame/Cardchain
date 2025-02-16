@@ -23,7 +23,7 @@ func (k msgServer) SetCreate(goCtx context.Context, msg *types.MsgSetCreate) (*t
 		Contributors: append([]string{msg.Creator}, msg.Contributors...),
 		Artist:       msg.Artist,
 		StoryWriter:  msg.StoryWriter,
-		Status:       types.CStatus_design,
+		Status:       types.SetStatus_design,
 		TimeStamp:    0,
 		ArtworkId:    k.images.GetNum(ctx),
 	}

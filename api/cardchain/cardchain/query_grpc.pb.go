@@ -8,6 +8,7 @@ package cardchain
 
 import (
 	context "context"
+
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -25,6 +26,8 @@ const (
 	Query_Card_FullMethodName              = "/cardchain.cardchain.Query/Card"
 	Query_User_FullMethodName              = "/cardchain.cardchain.Query/User"
 	Query_Cards_FullMethodName             = "/cardchain.cardchain.Query/Cards"
+	Query_Match_FullMethodName             = "/cardchain.cardchain.Query/Match"
+	Query_Set_FullMethodName               = "/cardchain.cardchain.Query/Set"
 )
 
 // QueryClient is the client API for Query service.
@@ -42,6 +45,10 @@ type QueryClient interface {
 	User(ctx context.Context, in *QueryUserRequest, opts ...grpc.CallOption) (*QueryUserResponse, error)
 	// Queries a list of Cards items.
 	Cards(ctx context.Context, in *QueryCardsRequest, opts ...grpc.CallOption) (*QueryCardsResponse, error)
+	// Queries a list of Match items.
+	Match(ctx context.Context, in *QueryMatchRequest, opts ...grpc.CallOption) (*QueryMatchResponse, error)
+	// Queries a list of Set items.
+	Set(ctx context.Context, in *QuerySetRequest, opts ...grpc.CallOption) (*QuerySetResponse, error)
 }
 
 type queryClient struct {
@@ -106,6 +113,24 @@ func (c *queryClient) Cards(ctx context.Context, in *QueryCardsRequest, opts ...
 	return out, nil
 }
 
+func (c *queryClient) Match(ctx context.Context, in *QueryMatchRequest, opts ...grpc.CallOption) (*QueryMatchResponse, error) {
+	out := new(QueryMatchResponse)
+	err := c.cc.Invoke(ctx, Query_Match_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *queryClient) Set(ctx context.Context, in *QuerySetRequest, opts ...grpc.CallOption) (*QuerySetResponse, error) {
+	out := new(QuerySetResponse)
+	err := c.cc.Invoke(ctx, Query_Set_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // QueryServer is the server API for Query service.
 // All implementations must embed UnimplementedQueryServer
 // for forward compatibility
@@ -121,6 +146,10 @@ type QueryServer interface {
 	User(context.Context, *QueryUserRequest) (*QueryUserResponse, error)
 	// Queries a list of Cards items.
 	Cards(context.Context, *QueryCardsRequest) (*QueryCardsResponse, error)
+	// Queries a list of Match items.
+	Match(context.Context, *QueryMatchRequest) (*QueryMatchResponse, error)
+	// Queries a list of Set items.
+	Set(context.Context, *QuerySetRequest) (*QuerySetResponse, error)
 	mustEmbedUnimplementedQueryServer()
 }
 
@@ -145,6 +174,12 @@ func (UnimplementedQueryServer) User(context.Context, *QueryUserRequest) (*Query
 }
 func (UnimplementedQueryServer) Cards(context.Context, *QueryCardsRequest) (*QueryCardsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Cards not implemented")
+}
+func (UnimplementedQueryServer) Match(context.Context, *QueryMatchRequest) (*QueryMatchResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Match not implemented")
+}
+func (UnimplementedQueryServer) Set(context.Context, *QuerySetRequest) (*QuerySetResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Set not implemented")
 }
 func (UnimplementedQueryServer) mustEmbedUnimplementedQueryServer() {}
 
@@ -267,6 +302,42 @@ func _Query_Cards_Handler(srv interface{}, ctx context.Context, dec func(interfa
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Query_Match_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryMatchRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).Match(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Query_Match_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).Match(ctx, req.(*QueryMatchRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Query_Set_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QuerySetRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).Set(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Query_Set_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).Set(ctx, req.(*QuerySetRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Query_ServiceDesc is the grpc.ServiceDesc for Query service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -297,6 +368,14 @@ var Query_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Cards",
 			Handler:    _Query_Cards_Handler,
+		},
+		{
+			MethodName: "Match",
+			Handler:    _Query_Match_Handler,
+		},
+		{
+			MethodName: "Set",
+			Handler:    _Query_Set_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

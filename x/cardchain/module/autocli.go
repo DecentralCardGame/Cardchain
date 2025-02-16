@@ -49,6 +49,20 @@ func (am AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "owner"}},
 				},
 
+				{
+					RpcMethod:      "Match",
+					Use:            "match [match-id]",
+					Short:          "Query match",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "matchId"}},
+				},
+
+				{
+					RpcMethod:      "Set",
+					Use:            "set [set-id]",
+					Short:          "Query set",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "setId"}},
+				},
+
 				// this line is used by ignite scaffolding # autocli/query
 			},
 		},

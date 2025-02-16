@@ -11,46 +11,58 @@ import "cardchain/cardchain/product_details.proto";
 import "cardchain/cardchain/card_with_image.proto";
 import "cardchain/cardchain/user.proto";
 import "cardchain/cardchain/card.proto";
+import "cardchain/cardchain/match.proto";
+import "cardchain/cardchain/set_with_artwork.proto";
 
 option go_package = "github.com/DecentralCardGame/cardchain/x/cardchain/types";
 
 // Query defines the gRPC querier service.
 service Query {
-
+  
   // Parameters queries the parameters of the module.
-  rpc Params(QueryParamsRequest) returns (QueryParamsResponse) {
-    option (google.api.http).get =
-        "/DecentralCardGame/cardchain/cardchain/params";
+  rpc Params (QueryParamsRequest) returns (QueryParamsResponse) {
+    option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/params";
+  
   }
-
+  
   // Queries a list of ProductDetails items.
-  rpc ProductDetails(QueryGetProductDetailsRequest)
-      returns (QueryGetProductDetailsResponse) {
-    option (google.api.http).get =
-        "/DecentralCardGame/cardchain/cardchain/product_details/{id}";
+  rpc ProductDetails    (QueryGetProductDetailsRequest) returns (QueryGetProductDetailsResponse) {
+    option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/product_details/{id}";
+  
   }
-  rpc ProductDetailsAll(QueryAllProductDetailsRequest)
-      returns (QueryAllProductDetailsResponse) {
-    option (google.api.http).get =
-        "/DecentralCardGame/cardchain/cardchain/product_details";
+  rpc ProductDetailsAll (QueryAllProductDetailsRequest) returns (QueryAllProductDetailsResponse) {
+    option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/product_details";
+  
   }
-
+  
   // Queries a list of Card items.
-  rpc Card(QueryCardRequest) returns (QueryCardResponse) {
-    option (google.api.http).get =
-        "/DecentralCardGame/cardchain/cardchain/card/{cardId}";
+  rpc Card (QueryCardRequest) returns (QueryCardResponse) {
+    option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/card/{cardId}";
+  
   }
-
+  
   // Queries a list of User items.
-  rpc User(QueryUserRequest) returns (QueryUserResponse) {
-    option (google.api.http).get =
-        "/DecentralCardGame/cardchain/cardchain/user/{address}";
+  rpc User (QueryUserRequest) returns (QueryUserResponse) {
+    option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/user/{address}";
+  
   }
-
+  
   // Queries a list of Cards items.
-  rpc Cards(QueryCardsRequest) returns (QueryCardsResponse) {
-    option (google.api.http).get =
-        "/DecentralCardGame/cardchain/cardchain/cards/{owner}";
+  rpc Cards (QueryCardsRequest) returns (QueryCardsResponse) {
+    option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/cards/{owner}";
+  
+  }
+  
+  // Queries a list of Match items.
+  rpc Match (QueryMatchRequest) returns (QueryMatchResponse) {
+    option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/match/{matchId}";
+  
+  }
+  
+  // Queries a list of Set items.
+  rpc Set (QuerySetRequest) returns (QuerySetResponse) {
+    option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/set/{setId}";
+  
   }
 }
 // QueryParamsRequest is request type for the Query/Params RPC method.
@@ -58,16 +70,17 @@ message QueryParamsRequest {}
 
 // QueryParamsResponse is response type for the Query/Params RPC method.
 message QueryParamsResponse {
-
+  
   // params holds all the parameters of this module.
-  Params params = 1
-      [ (gogoproto.nullable) = false, (amino.dont_omitempty) = true ];
+  Params params = 1 [(gogoproto.nullable) = false, (amino.dont_omitempty) = true];
 }
 
-message QueryGetProductDetailsRequest { uint64 id = 1; }
+message QueryGetProductDetailsRequest {
+  uint64 id = 1;
+}
 
 message QueryGetProductDetailsResponse {
-  ProductDetails ProductDetails = 1 [ (gogoproto.nullable) = false ];
+  ProductDetails ProductDetails = 1 [(gogoproto.nullable) = false];
 }
 
 message QueryAllProductDetailsRequest {
@@ -75,31 +88,58 @@ message QueryAllProductDetailsRequest {
 }
 
 message QueryAllProductDetailsResponse {
-  repeated ProductDetails ProductDetails = 1 [ (gogoproto.nullable) = false ];
-  cosmos.base.query.v1beta1.PageResponse pagination = 2;
+  repeated ProductDetails                         ProductDetails = 1 [(gogoproto.nullable) = false];
+           cosmos.base.query.v1beta1.PageResponse pagination     = 2;
 }
 
-message QueryCardRequest { uint64 cardId = 1; }
+message QueryCardRequest {
+  uint64 cardId = 1;
+}
 
-message QueryCardResponse { CardWithImage card = 1; }
+message QueryCardResponse {
+  CardWithImage card = 1;
+}
 
-message QueryUserRequest { string address = 1; }
+message QueryUserRequest {
+  string address = 1;
+}
 
-message QueryUserResponse { User user = 1; }
+message QueryUserResponse {
+  User user = 1;
+}
 
 message QueryCardsRequest {
-  string owner = 1;
-  repeated CardStatus status = 2;
-  repeated CardType cardType = 3;
-  repeated CardClass class = 4;
-  string sortBy = 5;
-  string nameContains = 6;
-  string keywordsContains = 7;
-  string notesContains = 8;
-  bool onlyStarterCard = 9;
-  bool onlyBalanceAnchors = 10;
-  repeated CardRarity rarities = 11;
-  bool multiClassOnly = 12;
+           string     owner              =  1;
+  repeated CardStatus status             =  2;
+  repeated CardType   cardType           =  3;
+  repeated CardClass  class              =  4;
+           string     sortBy             =  5;
+           string     nameContains       =  6;
+           string     keywordsContains   =  7;
+           string     notesContains      =  8;
+           bool       onlyStarterCard    =  9;
+           bool       onlyBalanceAnchors = 10;
+  repeated CardRarity rarities           = 11;
+           bool       multiClassOnly     = 12;
 }
 
-message QueryCardsResponse { repeated uint64 cardIds = 1; }
+message QueryCardsResponse {
+  repeated uint64 cardIds = 1;
+}
+
+message QueryMatchRequest {
+  string matchId = 1;
+}
+
+message QueryMatchResponse {
+  Match match = 1;
+}
+
+message QuerySetRequest {
+  string setId = 1;
+}
+
+message QuerySetResponse {
+  SetWithArtwork match = 1;
+}
+

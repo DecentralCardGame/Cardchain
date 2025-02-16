@@ -18,7 +18,7 @@ func (k msgServer) SetCardRemove(goCtx context.Context, msg *types.MsgSetCardRem
 	if !slices.Contains(set.Contributors, msg.Creator) {
 		return nil, errorsmod.Wrap(sdkerrors.ErrUnauthorized, "Invalid contributor")
 	}
-	if set.Status != types.CStatus_design {
+	if set.Status != types.SetStatus_design {
 		return nil, errorsmod.Wrap(sdkerrors.ErrUnauthorized, "set not in design")
 	}
 

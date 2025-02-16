@@ -13,7 +13,7 @@ message Set {
   repeated string contributors = 5;
   string story = 6;
   uint64 artworkId = 7;
-  CStatus status = 8;
+  SetStatus status = 8;
   int64 timeStamp = 9;
   repeated AddrWithQuantity contributorsDistribution = 10;
   repeated InnerRarities Rarities = 11;
@@ -21,7 +21,7 @@ message Set {
 
 message InnerRarities { repeated uint64 R = 1; }
 
-enum CStatus {
+enum SetStatus {
   design = 0;
   finalized = 1;
   active = 2;

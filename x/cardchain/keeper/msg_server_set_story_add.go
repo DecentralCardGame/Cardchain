@@ -16,7 +16,7 @@ func (k msgServer) SetStoryAdd(goCtx context.Context, msg *types.MsgSetStoryAdd)
 	if set.StoryWriter != msg.Creator {
 		return nil, errorsmod.Wrap(errors.ErrUnauthorized, "Incorrect StoryWriter")
 	}
-	if set.Status != types.CStatus_design {
+	if set.Status != types.SetStatus_design {
 		return nil, errorsmod.Wrapf(errors.ErrUnauthorized, "Invalid set status is: %s", set.Status.String())
 	}
 

@@ -70,7 +70,7 @@ func (k Keeper) GetActiveSets(ctx sdk.Context) (activeSets []uint64) {
 	iter := k.sets.GetItemIterator(ctx)
 	for ; iter.Valid(); iter.Next() {
 		idx, set := iter.Value()
-		if set.Status == types.CStatus_active {
+		if set.Status == types.SetStatus_active {
 			activeSets = append(activeSets, idx)
 		}
 	}
@@ -116,7 +116,7 @@ func checkSetEditable(set *types.Set, user string) error {
 		return errorsmod.Wrap(errors.ErrUnauthorized, "Invalid creator")
 	}
 
-	if set.Status != types.CStatus_design {
+	if set.Status != types.SetStatus_design {
 		return errorsmod.Wrapf(errors.ErrUnauthorized, "Invalid set status is: %s", set.Status.String())
 
 	}

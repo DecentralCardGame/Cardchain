@@ -19,14 +19,14 @@ func (k msgServer) SetCardAdd(goCtx context.Context, msg *types.MsgSetCardAdd) (
 	if !slices.Contains(set.Contributors, msg.Creator) {
 		return nil, errorsmod.Wrap(errors.ErrUnauthorized, "Invalid contributor")
 	}
-	if set.Status != types.CStatus_design {
+	if set.Status != types.SetStatus_design {
 		return nil, errorsmod.Wrapf(errors.ErrUnauthorized, "Invalid set status is: %s", set.Status.String())
 	}
 
 	iter := k.sets.GetItemIterator(ctx)
 	for ; iter.Valid(); iter.Next() {
 		idx, coll := iter.Value()
-		if coll.Status != types.CStatus_archived && slices.Contains(coll.Cards, msg.CardId) {
+		if coll.Status != types.SetStatus_archived && slices.Contains(coll.Cards, msg.CardId) {
 			return nil, errorsmod.Wrapf(types.ErrCardAlreadyInSet, "Set: %d", idx)
 		}
 	}
