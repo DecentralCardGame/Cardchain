@@ -12,7 +12,7 @@ import (
 func (k msgServer) CardArtistChange(goCtx context.Context, msg *types.MsgCardArtistChange) (*types.MsgCardArtistChangeResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	card := k.Cards.Get(ctx, msg.CardId)
+	card := k.cards.Get(ctx, msg.CardId)
 
 	if card.Status != types.CardStatus_prototype {
 		return nil, errorsmod.Wrap(types.ErrInvalidCardStatus, "Card has to be a prototype to be changeable")
@@ -29,7 +29,7 @@ func (k msgServer) CardArtistChange(goCtx context.Context, msg *types.MsgCardArt
 
 	card.Artist = newArtist.String()
 
-	k.Cards.Set(ctx, msg.CardId, card)
+	k.cards.Set(ctx, msg.CardId, card)
 
 	return &types.MsgCardArtistChangeResponse{}, nil
 }

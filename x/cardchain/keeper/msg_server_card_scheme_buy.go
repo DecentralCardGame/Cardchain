@@ -14,8 +14,8 @@ import (
 func (k msgServer) CardSchemeBuy(goCtx context.Context, msg *types.MsgCardSchemeBuy) (*types.MsgCardSchemeBuyResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	currId := k.Cards.GetNum(ctx)
-	price := *k.CardAuctionPrice.Get(ctx)
+	currId := k.cards.GetNum(ctx)
+	price := *k.cardAuctionPrice.Get(ctx)
 	bid := msg.Bid
 
 	buyer, err := k.GetUserFromString(ctx, msg.Creator)
@@ -35,18 +35,18 @@ func (k msgServer) CardSchemeBuy(goCtx context.Context, msg *types.MsgCardScheme
 	k.AddPoolCredits(ctx, PublicPoolKey, price)
 	if price.Amount.Mul(sdkmath.NewInt(2)).LT(sdkmath.NewInt(int64(math.Pow(10, 12)))) {
 		newPrice := price.Add(price)
-		k.CardAuctionPrice.Set(ctx, &newPrice)
+		k.cardAuctionPrice.Set(ctx, &newPrice)
 	}
 
 	newCard := types.NewCard(buyer.Addr)
-	newCard.ImageId = k.Images.GetNum(ctx)
+	newCard.ImageId = k.images.GetNum(ctx)
 	image := types.Image{}
 
 	buyer.OwnedCardSchemes = append(buyer.OwnedCardSchemes, currId)
 
 	k.SetUserFromUser(ctx, buyer)
-	k.Cards.Set(ctx, currId, &newCard)
-	k.Images.Set(ctx, newCard.ImageId, &image)
+	k.cards.Set(ctx, currId, &newCard)
+	k.images.Set(ctx, newCard.ImageId, &image)
 
 	return &types.MsgCardSchemeBuyResponse{CardId: currId}, nil
 }

@@ -12,7 +12,7 @@ import (
 func (k msgServer) SetContributorRemove(goCtx context.Context, msg *types.MsgSetContributorRemove) (*types.MsgSetContributorRemoveResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	set := k.Sets.Get(ctx, msg.SetId)
+	set := k.sets.Get(ctx, msg.SetId)
 	if err := checkSetEditable(set, msg.Creator); err != nil {
 		return nil, err
 	}
@@ -24,7 +24,7 @@ func (k msgServer) SetContributorRemove(goCtx context.Context, msg *types.MsgSet
 
 	set.Contributors = newContributors
 
-	k.Sets.Set(ctx, msg.SetId, set)
+	k.sets.Set(ctx, msg.SetId, set)
 
 	return &types.MsgSetContributorRemoveResponse{}, nil
 }

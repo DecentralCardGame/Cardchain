@@ -14,13 +14,13 @@ func (k msgServer) SetFinalize(goCtx context.Context, msg *types.MsgSetFinalize)
 
 	setSize := int(k.GetParams(ctx).SetSize)
 
-	set := k.Sets.Get(ctx, msg.SetId)
+	set := k.sets.Get(ctx, msg.SetId)
 	err := checkSetEditable(set, msg.Creator)
 	if err != nil {
 		return nil, err
 	}
 
-	image := k.Images.Get(ctx, set.ArtworkId)
+	image := k.images.Get(ctx, set.ArtworkId)
 
 	if len(image.Image) == 0 {
 		return nil, errorsmod.Wrapf(sdkerrors.ErrUnauthorized, "Set artwork is needed")
@@ -44,7 +44,7 @@ func (k msgServer) SetFinalize(goCtx context.Context, msg *types.MsgSetFinalize)
 	set.ContributorsDistribution = k.GetContributorDistribution(ctx, *set)
 	set.Rarities = k.GetCardRaritiesInSet(ctx, set)
 
-	k.Sets.Set(ctx, msg.SetId, set)
+	k.sets.Set(ctx, msg.SetId, set)
 
 	return &types.MsgSetFinalizeResponse{}, nil
 }
@@ -55,7 +55,7 @@ func (k Keeper) GetCardRaritiesInSet(ctx sdk.Context, set *types.Set) []*types.I
 		rarityNums[idx] = &types.InnerRarities{}
 	}
 	for _, cardId := range set.Cards {
-		card := k.Cards.Get(ctx, cardId)
+		card := k.cards.Get(ctx, cardId)
 		rarityNums[int(card.Rarity)].R = append(rarityNums[int(card.Rarity)].R, cardId)
 	}
 	return rarityNums[:]

@@ -24,8 +24,8 @@ func (k msgServer) EncounterCreate(goCtx context.Context, msg *types.MsgEncounte
 		return nil, err
 	}
 
-	id := k.Encounters.GetNum(ctx)
-	imageId := k.Images.GetNum(ctx)
+	id := k.encounters.GetNum(ctx)
+	imageId := k.images.GetNum(ctx)
 
 	encounter := types.Encounter{
 		Id:         id,
@@ -36,15 +36,15 @@ func (k msgServer) EncounterCreate(goCtx context.Context, msg *types.MsgEncounte
 		ImageId:    imageId,
 	}
 
-	k.Images.Set(ctx, imageId, &types.Image{Image: msg.Image})
-	k.Encounters.Set(ctx, id, &encounter)
+	k.images.Set(ctx, imageId, &types.Image{Image: msg.Image})
+	k.encounters.Set(ctx, id, &encounter)
 	k.SetUserFromUser(ctx, creator)
 	return &types.MsgEncounterCreateResponse{}, nil
 }
 
 func (k Keeper) validateDrawlist(ctx sdk.Context, msg *types.MsgEncounterCreate, creator *User) error {
 	for idx, cardId := range msg.Drawlist {
-		card := k.Cards.Get(ctx, cardId)
+		card := k.cards.Get(ctx, cardId)
 
 		if card.Owner != msg.Creator {
 			index := slices.Index(creator.Cards, cardId)

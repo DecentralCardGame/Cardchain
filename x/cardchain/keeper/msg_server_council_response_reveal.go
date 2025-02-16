@@ -20,7 +20,7 @@ func (k msgServer) CouncilResponseReveal(goCtx context.Context, msg *types.MsgCo
 		return nil, errorsmod.Wrap(types.ErrUserDoesNotExist, err.Error())
 	}
 
-	council := k.Councils.Get(ctx, msg.CouncilId)
+	council := k.councils.Get(ctx, msg.CouncilId)
 	if !slices.Contains(council.Voters, msg.Creator) {
 		return nil, errorsmod.Wrap(sdkerrors.ErrUnauthorized, "Invalid Voter")
 	}
@@ -70,7 +70,7 @@ func (k msgServer) CouncilResponseReveal(goCtx context.Context, msg *types.MsgCo
 		return nil, err
 	}
 
-	k.Councils.Set(ctx, msg.CouncilId, council)
+	k.councils.Set(ctx, msg.CouncilId, council)
 
 	return &types.MsgCouncilResponseRevealResponse{}, nil
 }

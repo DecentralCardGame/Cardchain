@@ -20,7 +20,7 @@ func (k msgServer) MatchOpen(goCtx context.Context, msg *types.MsgMatchOpen) (*t
 		return nil, errorsmod.Wrap(sdkerrors.ErrUnauthorized, "Incorrect Reporter")
 	}
 
-	matchId := k.Matches.GetNum(ctx)
+	matchId := k.matches.GetNum(ctx)
 
 	match := types.Match{
 		Reporter:         msg.Creator,
@@ -29,7 +29,7 @@ func (k msgServer) MatchOpen(goCtx context.Context, msg *types.MsgMatchOpen) (*t
 		CoinsDistributed: false,
 	}
 
-	k.Matches.Set(ctx, matchId, &match)
+	k.matches.Set(ctx, matchId, &match)
 
 	return &types.MsgMatchOpenResponse{MatchId: matchId}, nil
 }

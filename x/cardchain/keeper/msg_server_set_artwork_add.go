@@ -12,8 +12,8 @@ import (
 func (k msgServer) SetArtworkAdd(goCtx context.Context, msg *types.MsgSetArtworkAdd) (*types.MsgSetArtworkAddResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	set := k.Sets.Get(ctx, msg.SetId)
-	image := k.Images.Get(ctx, set.ArtworkId)
+	set := k.sets.Get(ctx, msg.SetId)
+	image := k.images.Get(ctx, set.ArtworkId)
 
 	if set.Artist != msg.Creator {
 		return nil, errorsmod.Wrap(errors.ErrUnauthorized, "Incorrect Artist")
@@ -29,7 +29,7 @@ func (k msgServer) SetArtworkAdd(goCtx context.Context, msg *types.MsgSetArtwork
 
 	image.Image = msg.Image
 
-	k.Images.Set(ctx, set.ArtworkId, image)
+	k.images.Set(ctx, set.ArtworkId, image)
 
 	return &types.MsgSetArtworkAddResponse{}, nil
 }

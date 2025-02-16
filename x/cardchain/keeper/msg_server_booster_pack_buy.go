@@ -22,7 +22,7 @@ func (k msgServer) BoosterPackBuy(goCtx context.Context, msg *types.MsgBoosterPa
 		return nil, errorsmod.Wrap(types.ErrUserDoesNotExist, err.Error())
 	}
 
-	set := k.Sets.Get(ctx, msg.SetId)
+	set := k.sets.Get(ctx, msg.SetId)
 
 	if set.Status != types.CStatus_active {
 		return nil, errorsmod.Wrapf(sdkerrors.ErrUnauthorized, "invalid set status: %s", set.Status)

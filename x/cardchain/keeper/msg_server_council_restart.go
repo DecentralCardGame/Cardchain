@@ -12,8 +12,8 @@ import (
 func (k msgServer) CouncilRestart(goCtx context.Context, msg *types.MsgCouncilRestart) (*types.MsgCouncilRestartResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	council := k.Councils.Get(ctx, msg.CouncilId)
-	card := k.Cards.Get(ctx, council.CardId)
+	council := k.councils.Get(ctx, msg.CouncilId)
+	card := k.cards.Get(ctx, council.CardId)
 	if card.Owner != msg.Creator {
 		return nil, errorsmod.Wrap(sdkerrors.ErrUnauthorized, "Invalid Owner")
 	}
@@ -26,6 +26,6 @@ func (k msgServer) CouncilRestart(goCtx context.Context, msg *types.MsgCouncilRe
 	council.HashResponses = []*types.WrapHashResponse{}
 	council.Status = types.CouncelingStatus_councilCreated
 
-	k.Councils.Set(ctx, msg.CouncilId, council)
+	k.councils.Set(ctx, msg.CouncilId, council)
 	return &types.MsgCouncilRestartResponse{}, nil
 }

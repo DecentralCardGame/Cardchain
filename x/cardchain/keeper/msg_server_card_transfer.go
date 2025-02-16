@@ -14,7 +14,7 @@ func (k msgServer) CardTransfer(goCtx context.Context, msg *types.MsgCardTransfe
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
 	// if the vote right is valid, get the Card
-	card := k.Cards.Get(ctx, msg.CardId)
+	card := k.cards.Get(ctx, msg.CardId)
 	creator, err := k.GetUserFromString(ctx, msg.Creator)
 	if err != nil {
 		return nil, errorsmod.Wrap(types.ErrUserDoesNotExist, err.Error())
@@ -45,7 +45,7 @@ func (k msgServer) CardTransfer(goCtx context.Context, msg *types.MsgCardTransfe
 	}
 
 	card.Owner = msg.Receiver
-	k.Cards.Set(ctx, msg.CardId, card)
+	k.cards.Set(ctx, msg.CardId, card)
 	k.SetUserFromUser(ctx, creator)
 	k.SetUserFromUser(ctx, receiver)
 

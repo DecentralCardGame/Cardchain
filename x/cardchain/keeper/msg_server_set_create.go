@@ -25,13 +25,13 @@ func (k msgServer) SetCreate(goCtx context.Context, msg *types.MsgSetCreate) (*t
 		StoryWriter:  msg.StoryWriter,
 		Status:       types.CStatus_design,
 		TimeStamp:    0,
-		ArtworkId:    k.Images.GetNum(ctx),
+		ArtworkId:    k.images.GetNum(ctx),
 	}
 
 	image := types.Image{}
 
-	k.Images.Set(ctx, set.ArtworkId, &image)
-	k.Sets.Append(ctx, &set)
+	k.images.Set(ctx, set.ArtworkId, &image)
+	k.sets.Append(ctx, &set)
 
 	return &types.MsgSetCreateResponse{}, nil
 }
