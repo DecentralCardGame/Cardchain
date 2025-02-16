@@ -119,6 +119,27 @@ func (am AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "activeSets"}, {ProtoField: "cardsNumber"}, {ProtoField: "matchesNumber"}, {ProtoField: "sellOffersNumber"}, {ProtoField: "councilsNumber"}, {ProtoField: "lastCardModified"}},
 				},
 
+				{
+					RpcMethod:      "SetRarityDistribution",
+					Use:            "set-rarity-distribution [set-id] [wanted]",
+					Short:          "Query setRarityDistribution",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "setId"}, {ProtoField: "wanted"}},
+				},
+
+				{
+					RpcMethod:      "AccountFromZealy",
+					Use:            "account-from-zealy [zealy-id]",
+					Short:          "Query accountFromZealy",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "zealyId"}},
+				},
+
+				{
+					RpcMethod:      "VotingResults",
+					Use:            "voting-results",
+					Short:          "Query votingResults",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{},
+				},
+
 				// this line is used by ignite scaffolding # autocli/query
 			},
 		},

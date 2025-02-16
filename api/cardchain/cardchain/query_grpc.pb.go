@@ -8,6 +8,7 @@ package cardchain
 
 import (
 	context "context"
+
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -19,22 +20,25 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	Query_Params_FullMethodName              = "/cardchain.cardchain.Query/Params"
-	Query_ProductDetails_FullMethodName      = "/cardchain.cardchain.Query/ProductDetails"
-	Query_ProductDetailsAll_FullMethodName   = "/cardchain.cardchain.Query/ProductDetailsAll"
-	Query_Card_FullMethodName                = "/cardchain.cardchain.Query/Card"
-	Query_User_FullMethodName                = "/cardchain.cardchain.Query/User"
-	Query_Cards_FullMethodName               = "/cardchain.cardchain.Query/Cards"
-	Query_Match_FullMethodName               = "/cardchain.cardchain.Query/Match"
-	Query_Set_FullMethodName                 = "/cardchain.cardchain.Query/Set"
-	Query_SellOffer_FullMethodName           = "/cardchain.cardchain.Query/SellOffer"
-	Query_Council_FullMethodName             = "/cardchain.cardchain.Query/Council"
-	Query_Server_FullMethodName              = "/cardchain.cardchain.Query/Server"
-	Query_Encounter_FullMethodName           = "/cardchain.cardchain.Query/Encounter"
-	Query_Encounters_FullMethodName          = "/cardchain.cardchain.Query/Encounters"
-	Query_EncounterWithImage_FullMethodName  = "/cardchain.cardchain.Query/EncounterWithImage"
-	Query_EncountersWithImage_FullMethodName = "/cardchain.cardchain.Query/EncountersWithImage"
-	Query_CardchainInfo_FullMethodName       = "/cardchain.cardchain.Query/CardchainInfo"
+	Query_Params_FullMethodName                = "/cardchain.cardchain.Query/Params"
+	Query_ProductDetails_FullMethodName        = "/cardchain.cardchain.Query/ProductDetails"
+	Query_ProductDetailsAll_FullMethodName     = "/cardchain.cardchain.Query/ProductDetailsAll"
+	Query_Card_FullMethodName                  = "/cardchain.cardchain.Query/Card"
+	Query_User_FullMethodName                  = "/cardchain.cardchain.Query/User"
+	Query_Cards_FullMethodName                 = "/cardchain.cardchain.Query/Cards"
+	Query_Match_FullMethodName                 = "/cardchain.cardchain.Query/Match"
+	Query_Set_FullMethodName                   = "/cardchain.cardchain.Query/Set"
+	Query_SellOffer_FullMethodName             = "/cardchain.cardchain.Query/SellOffer"
+	Query_Council_FullMethodName               = "/cardchain.cardchain.Query/Council"
+	Query_Server_FullMethodName                = "/cardchain.cardchain.Query/Server"
+	Query_Encounter_FullMethodName             = "/cardchain.cardchain.Query/Encounter"
+	Query_Encounters_FullMethodName            = "/cardchain.cardchain.Query/Encounters"
+	Query_EncounterWithImage_FullMethodName    = "/cardchain.cardchain.Query/EncounterWithImage"
+	Query_EncountersWithImage_FullMethodName   = "/cardchain.cardchain.Query/EncountersWithImage"
+	Query_CardchainInfo_FullMethodName         = "/cardchain.cardchain.Query/CardchainInfo"
+	Query_SetRarityDistribution_FullMethodName = "/cardchain.cardchain.Query/SetRarityDistribution"
+	Query_AccountFromZealy_FullMethodName      = "/cardchain.cardchain.Query/AccountFromZealy"
+	Query_VotingResults_FullMethodName         = "/cardchain.cardchain.Query/VotingResults"
 )
 
 // QueryClient is the client API for Query service.
@@ -72,6 +76,12 @@ type QueryClient interface {
 	EncountersWithImage(ctx context.Context, in *QueryEncountersWithImageRequest, opts ...grpc.CallOption) (*QueryEncountersWithImageResponse, error)
 	// Queries a list of CardchainInfo items.
 	CardchainInfo(ctx context.Context, in *QueryCardchainInfoRequest, opts ...grpc.CallOption) (*QueryCardchainInfoResponse, error)
+	// Queries a list of SetRarityDistribution items.
+	SetRarityDistribution(ctx context.Context, in *QuerySetRarityDistributionRequest, opts ...grpc.CallOption) (*QuerySetRarityDistributionResponse, error)
+	// Queries a list of AccountFromZealy items.
+	AccountFromZealy(ctx context.Context, in *QueryAccountFromZealyRequest, opts ...grpc.CallOption) (*QueryAccountFromZealyResponse, error)
+	// Queries a list of VotingResults items.
+	VotingResults(ctx context.Context, in *QueryVotingResultsRequest, opts ...grpc.CallOption) (*QueryVotingResultsResponse, error)
 }
 
 type queryClient struct {
@@ -226,6 +236,33 @@ func (c *queryClient) CardchainInfo(ctx context.Context, in *QueryCardchainInfoR
 	return out, nil
 }
 
+func (c *queryClient) SetRarityDistribution(ctx context.Context, in *QuerySetRarityDistributionRequest, opts ...grpc.CallOption) (*QuerySetRarityDistributionResponse, error) {
+	out := new(QuerySetRarityDistributionResponse)
+	err := c.cc.Invoke(ctx, Query_SetRarityDistribution_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *queryClient) AccountFromZealy(ctx context.Context, in *QueryAccountFromZealyRequest, opts ...grpc.CallOption) (*QueryAccountFromZealyResponse, error) {
+	out := new(QueryAccountFromZealyResponse)
+	err := c.cc.Invoke(ctx, Query_AccountFromZealy_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *queryClient) VotingResults(ctx context.Context, in *QueryVotingResultsRequest, opts ...grpc.CallOption) (*QueryVotingResultsResponse, error) {
+	out := new(QueryVotingResultsResponse)
+	err := c.cc.Invoke(ctx, Query_VotingResults_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // QueryServer is the server API for Query service.
 // All implementations must embed UnimplementedQueryServer
 // for forward compatibility
@@ -261,6 +298,12 @@ type QueryServer interface {
 	EncountersWithImage(context.Context, *QueryEncountersWithImageRequest) (*QueryEncountersWithImageResponse, error)
 	// Queries a list of CardchainInfo items.
 	CardchainInfo(context.Context, *QueryCardchainInfoRequest) (*QueryCardchainInfoResponse, error)
+	// Queries a list of SetRarityDistribution items.
+	SetRarityDistribution(context.Context, *QuerySetRarityDistributionRequest) (*QuerySetRarityDistributionResponse, error)
+	// Queries a list of AccountFromZealy items.
+	AccountFromZealy(context.Context, *QueryAccountFromZealyRequest) (*QueryAccountFromZealyResponse, error)
+	// Queries a list of VotingResults items.
+	VotingResults(context.Context, *QueryVotingResultsRequest) (*QueryVotingResultsResponse, error)
 	mustEmbedUnimplementedQueryServer()
 }
 
@@ -315,6 +358,15 @@ func (UnimplementedQueryServer) EncountersWithImage(context.Context, *QueryEncou
 }
 func (UnimplementedQueryServer) CardchainInfo(context.Context, *QueryCardchainInfoRequest) (*QueryCardchainInfoResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CardchainInfo not implemented")
+}
+func (UnimplementedQueryServer) SetRarityDistribution(context.Context, *QuerySetRarityDistributionRequest) (*QuerySetRarityDistributionResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SetRarityDistribution not implemented")
+}
+func (UnimplementedQueryServer) AccountFromZealy(context.Context, *QueryAccountFromZealyRequest) (*QueryAccountFromZealyResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AccountFromZealy not implemented")
+}
+func (UnimplementedQueryServer) VotingResults(context.Context, *QueryVotingResultsRequest) (*QueryVotingResultsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method VotingResults not implemented")
 }
 func (UnimplementedQueryServer) mustEmbedUnimplementedQueryServer() {}
 
@@ -617,6 +669,60 @@ func _Query_CardchainInfo_Handler(srv interface{}, ctx context.Context, dec func
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Query_SetRarityDistribution_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QuerySetRarityDistributionRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).SetRarityDistribution(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Query_SetRarityDistribution_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).SetRarityDistribution(ctx, req.(*QuerySetRarityDistributionRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Query_AccountFromZealy_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryAccountFromZealyRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).AccountFromZealy(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Query_AccountFromZealy_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).AccountFromZealy(ctx, req.(*QueryAccountFromZealyRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Query_VotingResults_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryVotingResultsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).VotingResults(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Query_VotingResults_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).VotingResults(ctx, req.(*QueryVotingResultsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Query_ServiceDesc is the grpc.ServiceDesc for Query service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -687,6 +793,18 @@ var Query_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CardchainInfo",
 			Handler:    _Query_CardchainInfo_Handler,
+		},
+		{
+			MethodName: "SetRarityDistribution",
+			Handler:    _Query_SetRarityDistribution_Handler,
+		},
+		{
+			MethodName: "AccountFromZealy",
+			Handler:    _Query_AccountFromZealy_Handler,
+		},
+		{
+			MethodName: "VotingResults",
+			Handler:    _Query_VotingResults_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

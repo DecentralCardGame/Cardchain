@@ -14,4 +14,8 @@ set -o pipefail
 #ignite scaffold query encounters --response encounters
 #ignite scaffold query encounterWithImage --response encounter:EncounterWithImage
 #ignite scaffold query encountersWithImage --response encounters
-ignite scaffold query cardchainInfo --response cardAuctionPrice:coin activeSets:uints cardsNumber:uint matchesNumber:uint sellOffersNumber:uint councilsNumber:uint lastCardModified:uint
+#ignite scaffold query cardchainInfo --response cardAuctionPrice:coin activeSets:uints cardsNumber:uint matchesNumber:uint sellOffersNumber:uint councilsNumber:uint lastCardModified:uint
+#ignite scaffold query cardContent cardId:uint --response encounters
+#ignite scaffold query setRarityDistribution setId --response current:uints wanted:uints
+#ignite scaffold query accountFromZealy zealyId:string --response address:string
+#ignite scaffold query votingResults --response lastVotingResults:VotingResults

@@ -19,6 +19,7 @@ import "cardchain/cardchain/server.proto";
 import "cardchain/cardchain/encounter.proto";
 import "cardchain/cardchain/encounter_with_image.proto";
 import "cosmos/base/v1beta1/coin.proto";
+import "cardchain/cardchain/voting_results.proto";
 
 option go_package = "github.com/DecentralCardGame/cardchain/x/cardchain/types";
 
@@ -116,6 +117,24 @@ service Query {
   // Queries a list of CardchainInfo items.
   rpc CardchainInfo (QueryCardchainInfoRequest) returns (QueryCardchainInfoResponse) {
     option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/cardchain_info/{activeSets}/{cardsNumber}/{matchesNumber}/{sellOffersNumber}/{councilsNumber}/{lastCardModified}";
+  
+  }
+  
+  // Queries a list of SetRarityDistribution items.
+  rpc SetRarityDistribution (QuerySetRarityDistributionRequest) returns (QuerySetRarityDistributionResponse) {
+    option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/set_rarity_distribution/{setId}/{wanted}";
+  
+  }
+  
+  // Queries a list of AccountFromZealy items.
+  rpc AccountFromZealy (QueryAccountFromZealyRequest) returns (QueryAccountFromZealyResponse) {
+    option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/account_from_zealy/{zealyId}";
+  
+  }
+  
+  // Queries a list of VotingResults items.
+  rpc VotingResults (QueryVotingResultsRequest) returns (QueryVotingResultsResponse) {
+    option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/voting_results";
   
   }
 }
@@ -258,5 +277,28 @@ message QueryCardchainInfoRequest {
 
 message QueryCardchainInfoResponse {
   cosmos.base.v1beta1.Coin cardAuctionPrice = 1 [(gogoproto.nullable) = false];
+}
+
+message QuerySetRarityDistributionRequest {
+           string setId  = 1;
+  repeated uint64 wanted = 2;
+}
+
+message QuerySetRarityDistributionResponse {
+  repeated uint64 current = 1;
+}
+
+message QueryAccountFromZealyRequest {
+  string zealyId = 1;
+}
+
+message QueryAccountFromZealyResponse {
+  string address = 1;
+}
+
+message QueryVotingResultsRequest {}
+
+message QueryVotingResultsResponse {
+  VotingResults lastVotingResults = 1;
 }
 
