@@ -21,11 +21,6 @@ message Set {
 
 message InnerRarities { repeated uint64 R = 1; }
 
-message OutpSet {
-  Set set = 1;
-  bytes artwork = 2;
-}
-
 enum CStatus {
   design = 0;
   finalized = 1;
