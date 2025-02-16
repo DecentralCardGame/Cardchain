@@ -43,6 +43,12 @@ service Query {
     option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/user/{address}";
   
   }
+  
+  // Queries a list of Cards items.
+  rpc Cards (QueryCardsRequest) returns (QueryCardsResponse) {
+    option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/cards/{owner}";
+  
+  }
 }
 // QueryParamsRequest is request type for the Query/Params RPC method.
 message QueryParamsRequest {}
@@ -85,5 +91,13 @@ message QueryUserRequest {
 
 message QueryUserResponse {
   User user = 1;
+}
+
+message QueryCardsRequest {
+  string owner = 1;
+}
+
+message QueryCardsResponse {
+  repeated uint64 cardIds = 1;
 }
 
