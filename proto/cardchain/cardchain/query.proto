@@ -13,6 +13,8 @@ import "cardchain/cardchain/user.proto";
 import "cardchain/cardchain/card.proto";
 import "cardchain/cardchain/match.proto";
 import "cardchain/cardchain/set_with_artwork.proto";
+import "cardchain/cardchain/sell_offer.proto";
+import "cardchain/cardchain/council.proto";
 
 option go_package = "github.com/DecentralCardGame/cardchain/x/cardchain/types";
 
@@ -62,6 +64,18 @@ service Query {
   // Queries a list of Set items.
   rpc Set (QuerySetRequest) returns (QuerySetResponse) {
     option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/set/{setId}";
+  
+  }
+  
+  // Queries a list of SellOffer items.
+  rpc SellOffer (QuerySellOfferRequest) returns (QuerySellOfferResponse) {
+    option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/sell_offer/{sellOfferId}";
+  
+  }
+  
+  // Queries a list of Council items.
+  rpc Council (QueryCouncilRequest) returns (QueryCouncilResponse) {
+    option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/council/{councilId}";
   
   }
 }
@@ -141,5 +155,21 @@ message QuerySetRequest {
 
 message QuerySetResponse {
   SetWithArtwork match = 1;
+}
+
+message QuerySellOfferRequest {
+  uint64 sellOfferId = 1;
+}
+
+message QuerySellOfferResponse {
+  SellOffer sellOffer = 1;
+}
+
+message QueryCouncilRequest {
+  uint64 councilId = 1;
+}
+
+message QueryCouncilResponse {
+  Council council = 1;
 }
 
