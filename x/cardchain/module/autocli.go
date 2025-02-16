@@ -197,15 +197,15 @@ func (am AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 				},
 				{
 					RpcMethod:      "CouncilResponseCommit",
-					Use:            "council-response-commit [council-id] [reponse] [suggestion]",
+					Use:            "council-response-commit [council-id] [response] [suggestion]",
 					Short:          "Send a CouncilResponseCommit tx",
-					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "councilId"}, {ProtoField: "reponse"}, {ProtoField: "suggestion"}},
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "councilId"}, {ProtoField: "response"}, {ProtoField: "suggestion"}},
 				},
 				{
 					RpcMethod:      "CouncilResponseReveal",
-					Use:            "council-response-reveal [council-id] [reponse] [secret]",
+					Use:            "council-response-reveal [council-id] [response] [secret]",
 					Short:          "Send a CouncilResponseReveal tx",
-					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "councilId"}, {ProtoField: "reponse"}, {ProtoField: "secret"}},
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "councilId"}, {ProtoField: "response"}, {ProtoField: "secret"}},
 				},
 				{
 					RpcMethod:      "CouncilRestart",
@@ -271,7 +271,7 @@ func (am AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 					RpcMethod:      "MatchOpen",
 					Use:            "match-open [player-a] [player-b] [player-a-deck] [player-b-deck]",
 					Short:          "Send a MatchOpen tx",
-					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "playerA"}, {ProtoField: "playerB"}, {ProtoField: "playerAdeck"}, {ProtoField: "playerBdeck"}},
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "playerA"}, {ProtoField: "playerB"}, {ProtoField: "playerADeck"}, {ProtoField: "playerBDeck"}},
 				},
 				{
 					RpcMethod:      "SetNameSet",
