@@ -114,16 +114,16 @@ func (am AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 
 				{
 					RpcMethod:      "CardchainInfo",
-					Use:            "cardchain-info [active-sets] [cards-number] [matches-number] [sell-offers-number] [councils-number] [last-card-modified]",
+					Use:            "cardchain-info",
 					Short:          "Query cardchainInfo",
-					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "activeSets"}, {ProtoField: "cardsNumber"}, {ProtoField: "matchesNumber"}, {ProtoField: "sellOffersNumber"}, {ProtoField: "councilsNumber"}, {ProtoField: "lastCardModified"}},
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{},
 				},
 
 				{
 					RpcMethod:      "SetRarityDistribution",
-					Use:            "set-rarity-distribution [set-id] [wanted]",
+					Use:            "set-rarity-distribution [set-id]",
 					Short:          "Query setRarityDistribution",
-					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "setId"}, {ProtoField: "wanted"}},
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "setId"}},
 				},
 
 				{

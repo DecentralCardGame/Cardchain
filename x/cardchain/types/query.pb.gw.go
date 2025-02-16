@@ -703,79 +703,6 @@ func request_Query_CardchainInfo_0(ctx context.Context, marshaler runtime.Marsha
 	var protoReq QueryCardchainInfoRequest
 	var metadata runtime.ServerMetadata
 
-	var (
-		val string
-		ok  bool
-		err error
-		_   = err
-	)
-
-	val, ok = pathParams["activeSets"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "activeSets")
-	}
-
-	protoReq.ActiveSets, err = runtime.Uint64Slice(val, ",")
-
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "activeSets", err)
-	}
-
-	val, ok = pathParams["cardsNumber"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "cardsNumber")
-	}
-
-	protoReq.CardsNumber, err = runtime.Uint64(val)
-
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "cardsNumber", err)
-	}
-
-	val, ok = pathParams["matchesNumber"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "matchesNumber")
-	}
-
-	protoReq.MatchesNumber, err = runtime.Uint64(val)
-
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "matchesNumber", err)
-	}
-
-	val, ok = pathParams["sellOffersNumber"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "sellOffersNumber")
-	}
-
-	protoReq.SellOffersNumber, err = runtime.Uint64(val)
-
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "sellOffersNumber", err)
-	}
-
-	val, ok = pathParams["councilsNumber"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "councilsNumber")
-	}
-
-	protoReq.CouncilsNumber, err = runtime.Uint64(val)
-
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "councilsNumber", err)
-	}
-
-	val, ok = pathParams["lastCardModified"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "lastCardModified")
-	}
-
-	protoReq.LastCardModified, err = runtime.Uint64(val)
-
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "lastCardModified", err)
-	}
-
 	msg, err := client.CardchainInfo(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
 
@@ -784,79 +711,6 @@ func request_Query_CardchainInfo_0(ctx context.Context, marshaler runtime.Marsha
 func local_request_Query_CardchainInfo_0(ctx context.Context, marshaler runtime.Marshaler, server QueryServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq QueryCardchainInfoRequest
 	var metadata runtime.ServerMetadata
-
-	var (
-		val string
-		ok  bool
-		err error
-		_   = err
-	)
-
-	val, ok = pathParams["activeSets"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "activeSets")
-	}
-
-	protoReq.ActiveSets, err = runtime.Uint64Slice(val, ",")
-
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "activeSets", err)
-	}
-
-	val, ok = pathParams["cardsNumber"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "cardsNumber")
-	}
-
-	protoReq.CardsNumber, err = runtime.Uint64(val)
-
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "cardsNumber", err)
-	}
-
-	val, ok = pathParams["matchesNumber"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "matchesNumber")
-	}
-
-	protoReq.MatchesNumber, err = runtime.Uint64(val)
-
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "matchesNumber", err)
-	}
-
-	val, ok = pathParams["sellOffersNumber"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "sellOffersNumber")
-	}
-
-	protoReq.SellOffersNumber, err = runtime.Uint64(val)
-
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "sellOffersNumber", err)
-	}
-
-	val, ok = pathParams["councilsNumber"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "councilsNumber")
-	}
-
-	protoReq.CouncilsNumber, err = runtime.Uint64(val)
-
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "councilsNumber", err)
-	}
-
-	val, ok = pathParams["lastCardModified"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "lastCardModified")
-	}
-
-	protoReq.LastCardModified, err = runtime.Uint64(val)
-
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "lastCardModified", err)
-	}
 
 	msg, err := server.CardchainInfo(ctx, &protoReq)
 	return msg, metadata, err
@@ -885,17 +739,6 @@ func request_Query_SetRarityDistribution_0(ctx context.Context, marshaler runtim
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "setId", err)
 	}
 
-	val, ok = pathParams["wanted"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "wanted")
-	}
-
-	protoReq.Wanted, err = runtime.Uint64Slice(val, ",")
-
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "wanted", err)
-	}
-
 	msg, err := client.SetRarityDistribution(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
 
@@ -921,17 +764,6 @@ func local_request_Query_SetRarityDistribution_0(ctx context.Context, marshaler 
 
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "setId", err)
-	}
-
-	val, ok = pathParams["wanted"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "wanted")
-	}
-
-	protoReq.Wanted, err = runtime.Uint64Slice(val, ",")
-
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "wanted", err)
 	}
 
 	msg, err := server.SetRarityDistribution(ctx, &protoReq)
@@ -1909,9 +1741,9 @@ var (
 
 	pattern_Query_EncountersWithImage_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 1, 2, 2}, []string{"DecentralCardGame", "cardchain", "encounters_with_image"}, "", runtime.AssumeColonVerbOpt(false)))
 
-	pattern_Query_CardchainInfo_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 1, 0, 4, 1, 5, 4, 1, 0, 4, 1, 5, 5, 1, 0, 4, 1, 5, 6, 1, 0, 4, 1, 5, 7, 1, 0, 4, 1, 5, 8}, []string{"DecentralCardGame", "cardchain", "cardchain_info", "activeSets", "cardsNumber", "matchesNumber", "sellOffersNumber", "councilsNumber", "lastCardModified"}, "", runtime.AssumeColonVerbOpt(false)))
+	pattern_Query_CardchainInfo_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 1, 2, 2}, []string{"DecentralCardGame", "cardchain", "cardchain_info"}, "", runtime.AssumeColonVerbOpt(false)))
 
-	pattern_Query_SetRarityDistribution_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 1, 0, 4, 1, 5, 4}, []string{"DecentralCardGame", "cardchain", "set_rarity_distribution", "setId", "wanted"}, "", runtime.AssumeColonVerbOpt(false)))
+	pattern_Query_SetRarityDistribution_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"DecentralCardGame", "cardchain", "set_rarity_distribution", "setId"}, "", runtime.AssumeColonVerbOpt(false)))
 
 	pattern_Query_AccountFromZealy_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"DecentralCardGame", "cardchain", "account_from_zealy", "zealyId"}, "", runtime.AssumeColonVerbOpt(false)))
 
