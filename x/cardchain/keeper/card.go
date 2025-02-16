@@ -16,7 +16,7 @@ func (k Keeper) SetCardToTrial(ctx sdk.Context, cardId uint64, votePool sdk.Coin
 	card := k.Cards.Get(ctx, cardId)
 	card.ResetVotes()
 	card.VotePool = card.VotePool.Add(votePool)
-	card.Status = types.Status_trial
+	card.Status = types.CardStatus_trial
 	k.Cards.Set(ctx, cardId, card)
 	k.SetLastCardModifiedNow(ctx)
 }

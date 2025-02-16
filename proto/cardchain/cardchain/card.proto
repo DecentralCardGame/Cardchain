@@ -13,7 +13,7 @@ message Card {
   uint64 image_id = 4;
   bool fullArt = 5;
   string notes = 6;
-  Status status = 7;
+  CardStatus status = 7;
   cosmos.base.v1beta1.Coin votePool = 8 [ (gogoproto.nullable) = false ];
   repeated string voters = 14;
   uint64 fairEnoughVotes = 9;
@@ -26,7 +26,7 @@ message Card {
   CardRarity rarity = 17;
 }
 
-enum Status {
+enum CardStatus {
   scheme = 0;
   prototype = 1;
   trial = 2;

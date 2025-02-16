@@ -19,7 +19,7 @@ func (k Keeper) voteCard(
 	card := k.Cards.Get(ctx, cardId)
 
 	// check if card status is valid
-	if card.Status != types.Status_permanent && card.Status != types.Status_trial {
+	if card.Status != types.CardStatus_permanent && card.Status != types.CardStatus_trial {
 		return sdkerrors.Wrap(errors.ErrUnknownRequest, "Voting on a card is only possible if it is in trial or a permanent card")
 	}
 

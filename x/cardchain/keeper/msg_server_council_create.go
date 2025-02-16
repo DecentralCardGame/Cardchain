@@ -21,7 +21,7 @@ func (k msgServer) CouncilCreate(goCtx context.Context, msg *types.MsgCouncilCre
 	}
 
 	card := k.Cards.Get(ctx, msg.CardId)
-	//if card.Status != types.Status_prototype {
+	//if card.Status != types.CardStatus_prototype {
 	//	return nil, sdkerrors.Wrapf(types.ErrInvalidCardStatus, "%s", card.Status.String())
 	//} else
 	if card.Owner != msg.Creator {

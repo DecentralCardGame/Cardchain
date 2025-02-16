@@ -101,12 +101,12 @@ func (k Keeper) CheckTrial(ctx sdk.Context) error {
 					continue
 				}
 				if card.FairEnoughVotes == votes[len(votes)-1] {
-					card.Status = types.Status_permanent
+					card.Status = types.CardStatus_permanent
 					group = approvers
 					amt = 2
 					k.SetLastCardModifiedNow(ctx)
 				} else {
-					card.Status = types.Status_prototype
+					card.Status = types.CardStatus_prototype
 					group = deniers
 					amt = 3
 				}

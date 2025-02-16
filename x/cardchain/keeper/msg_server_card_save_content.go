@@ -26,7 +26,7 @@ func (k msgServer) CardSaveContent(goCtx context.Context, msg *types.MsgCardSave
 	}
 
 	// Checks card status
-	if councilEnabled && card.Status != types.Status_prototype && card.Status != types.Status_scheme {
+	if councilEnabled && card.Status != types.CardStatus_prototype && card.Status != types.CardStatus_scheme {
 		return nil, errorsmod.Wrap(types.ErrInvalidCardStatus, "Card has to be a prototype or scheme to be changeable")
 	}
 
@@ -50,7 +50,7 @@ func (k msgServer) CardSaveContent(goCtx context.Context, msg *types.MsgCardSave
 	card.Notes = msg.Notes
 	card.Artist = msg.Artist
 	card.BalanceAnchor = msg.BalanceAnchor
-	if card.Status == types.Status_scheme {
+	if card.Status == types.CardStatus_scheme {
 		err = msgOwner.SchemeToCard(msg.CardId)
 		if err != nil {
 			return nil, errorsmod.Wrap(sdkerrors.ErrUnauthorized, "An error accured while converting a card to a scheme: "+err.Error())
@@ -62,9 +62,9 @@ func (k msgServer) CardSaveContent(goCtx context.Context, msg *types.MsgCardSave
 
 	// Sets correct state
 	if councilEnabled {
-		card.Status = types.Status_prototype
+		card.Status = types.CardStatus_prototype
 	} else {
-		card.Status = types.Status_permanent
+		card.Status = types.CardStatus_permanent
 	}
 	k.Cards.Set(ctx, msg.CardId, card)
 	k.SetLastCardModifiedNow(ctx)

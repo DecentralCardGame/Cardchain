@@ -21,7 +21,7 @@ func (k msgServer) ProfileCardSet(goCtx context.Context, msg *types.MsgProfileCa
 	card := k.Cards.Get(ctx, msg.CardId)
 	if card.Owner != msg.Creator {
 		return nil, errorsmod.Wrap(sdkerrors.ErrUnauthorized, "You have to own the card")
-	} else if !slices.Contains([]types.Status{types.Status_trial, types.Status_permanent}, card.Status) {
+	} else if !slices.Contains([]types.CardStatus{types.CardStatus_trial, types.CardStatus_permanent}, card.Status) {
 		return nil, errorsmod.Wrap(sdkerrors.ErrUnauthorized, "The card has to be playable")
 	}
 

@@ -12,7 +12,7 @@ func NewCard(owner sdk.AccAddress) Card {
 		Owner:    owner.String(),
 		Notes:    "",
 		FullArt:  true,
-		Status:   Status_scheme,
+		Status:   CardStatus_scheme,
 		VotePool: sdk.NewInt64Coin("ucredits", 0),
 	}
 }

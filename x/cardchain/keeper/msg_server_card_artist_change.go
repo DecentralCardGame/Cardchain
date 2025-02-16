@@ -14,7 +14,7 @@ func (k msgServer) CardArtistChange(goCtx context.Context, msg *types.MsgCardArt
 
 	card := k.Cards.Get(ctx, msg.CardId)
 
-	if card.Status != types.Status_prototype {
+	if card.Status != types.CardStatus_prototype {
 		return nil, errorsmod.Wrap(types.ErrInvalidCardStatus, "Card has to be a prototype to be changeable")
 	}
 

@@ -30,7 +30,7 @@ func (k msgServer) CardTransfer(goCtx context.Context, msg *types.MsgCardTransfe
 		return nil, errorsmod.Wrap(sdkerrors.ErrUnauthorized, "Incorrect Owner") // If not, throw an error
 	}
 
-	if card.Status == types.Status_scheme {
+	if card.Status == types.CardStatus_scheme {
 		creator.OwnedCardSchemes, err = util.PopItemFromArr(msg.CardId, creator.OwnedCardSchemes)
 		if err != nil {
 			return nil, errorsmod.Wrap(sdkerrors.ErrUnauthorized, err.Error())

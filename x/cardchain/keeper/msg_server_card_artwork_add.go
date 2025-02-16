@@ -20,7 +20,7 @@ func (k msgServer) CardArtworkAdd(goCtx context.Context, msg *types.MsgCardArtwo
 		return nil, err
 	}
 
-	if councilEnabled && card.Status != types.Status_prototype && card.Status != types.Status_scheme {
+	if councilEnabled && card.Status != types.CardStatus_prototype && card.Status != types.CardStatus_scheme {
 		return nil, sdkerrors.Wrap(types.ErrInvalidCardStatus, "Card has to be a prototype to be changeable")
 	}
 
@@ -31,8 +31,8 @@ func (k msgServer) CardArtworkAdd(goCtx context.Context, msg *types.MsgCardArtwo
 	card.FullArt = msg.FullArt
 	image.Image = msg.Image
 
-	if card.Status == types.Status_suspended {
-		card.Status = types.Status_permanent
+	if card.Status == types.CardStatus_suspended {
+		card.Status = types.CardStatus_permanent
 	}
 
 	k.Cards.Set(ctx, msg.CardId, card)

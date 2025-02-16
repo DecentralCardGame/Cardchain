@@ -64,7 +64,7 @@ func (k Keeper) GetAllVotableCards(ctx sdk.Context) (votables []uint64) {
 		idx, gottenCard := iter.Value()
 		if !gottenCard.BalanceAnchor {
 			switch gottenCard.Status {
-			case types.Status_permanent, types.Status_trial:
+			case types.CardStatus_permanent, types.CardStatus_trial:
 				votables = append(votables, idx)
 			}
 		}
@@ -89,7 +89,7 @@ func (k Keeper) ResetAllVotes(ctx sdk.Context) {
 
 	for ; iter.Valid(); iter.Next() {
 		idx, resetCard := iter.Value()
-		if resetCard.Status != types.Status_trial {
+		if resetCard.Status != types.CardStatus_trial {
 			resetCard.ResetVotes()
 		}
 		k.Cards.Set(ctx, uint64(idx), resetCard)

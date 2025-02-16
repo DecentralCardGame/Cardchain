@@ -32,7 +32,7 @@ func (k msgServer) SetCardAdd(goCtx context.Context, msg *types.MsgSetCardAdd) (
 	}
 
 	card := k.Cards.Get(ctx, msg.CardId)
-	if card.Status != types.Status_permanent {
+	if card.Status != types.CardStatus_permanent {
 		return nil, errorsmod.Wrap(types.ErrCardDoesNotExist, "Card is not permanent or does not exist")
 	}
 
