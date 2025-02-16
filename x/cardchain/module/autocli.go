@@ -154,6 +154,20 @@ func (am AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "status"}, {ProtoField: "contributors"}, {ProtoField: "containsCards"}, {ProtoField: "owner"}},
 				},
 
+				{
+					RpcMethod:      "CardContent",
+					Use:            "card-content [card-id]",
+					Short:          "Query cardContent",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "cardId"}},
+				},
+
+				{
+					RpcMethod:      "CardContents",
+					Use:            "card-contents [card-id]",
+					Short:          "Query cardContents",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "cardId"}},
+				},
+
 				// this line is used by ignite scaffolding # autocli/query
 			},
 		},

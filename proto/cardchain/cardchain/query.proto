@@ -21,6 +21,7 @@ import "cardchain/cardchain/encounter.proto";
 import "cardchain/cardchain/encounter_with_image.proto";
 import "cosmos/base/v1beta1/coin.proto";
 import "cardchain/cardchain/voting_results.proto";
+import "cardchain/cardchain/card_content.proto";
 
 option go_package = "github.com/DecentralCardGame/cardchain/x/cardchain/types";
 
@@ -160,6 +161,19 @@ service Query {
         "/DecentralCardGame/cardchain/cardchain/sets/{status}/{contributors}/"
         "{containsCards}/{owner}";
   }
+
+  // Queries a list of CardContent items.
+  rpc CardContent(QueryCardContentRequest) returns (QueryCardContentResponse) {
+    option (google.api.http).get =
+        "/DecentralCardGame/cardchain/cardchain/card_content/{cardId}";
+  }
+
+  // Queries a list of CardContents items.
+  rpc CardContents(QueryCardContentsRequest)
+      returns (QueryCardContentsResponse) {
+    option (google.api.http).get =
+        "/DecentralCardGame/cardchain/cardchain/card_contents/{cardId}";
+  }
 }
 // QueryParamsRequest is request type for the Query/Params RPC method.
 message QueryParamsRequest {}
@@ -297,3 +311,11 @@ message QuerySetsRequest {
 }
 
 message QuerySetsResponse { repeated uint64 setIds = 1; }
+
+message QueryCardContentRequest { uint64 cardId = 1; }
+
+message QueryCardContentResponse { CardContent cardContent = 1; }
+
+message QueryCardContentsRequest { repeated uint64 cardId = 1; }
+
+message QueryCardContentsResponse { repeated CardContent cardContents = 1; }
