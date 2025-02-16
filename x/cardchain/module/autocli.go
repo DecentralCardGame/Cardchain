@@ -147,6 +147,13 @@ func (am AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "timestampDown"}, {ProtoField: "timestampUp"}, {ProtoField: "containsUsers"}, {ProtoField: "reporter"}, {ProtoField: "outcome"}, {ProtoField: "cardsPlayed"}},
 				},
 
+				{
+					RpcMethod:      "Sets",
+					Use:            "sets [status] [contributors] [contains-cards] [owner]",
+					Short:          "Query sets",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "status"}, {ProtoField: "contributors"}, {ProtoField: "containsCards"}, {ProtoField: "owner"}},
+				},
+
 				// this line is used by ignite scaffolding # autocli/query
 			},
 		},

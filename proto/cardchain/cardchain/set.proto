@@ -22,10 +22,11 @@ message Set {
 message InnerRarities { repeated uint64 R = 1; }
 
 enum SetStatus {
-  design = 0;
-  finalized = 1;
-  active = 2;
-  archived = 3;
+  undefined = 0;
+  design = 1;
+  finalized = 2;
+  active = 3;
+  archived = 4;
 }
 
 message AddrWithQuantity {

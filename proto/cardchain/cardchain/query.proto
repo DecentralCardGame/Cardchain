@@ -12,6 +12,7 @@ import "cardchain/cardchain/card_with_image.proto";
 import "cardchain/cardchain/user.proto";
 import "cardchain/cardchain/card.proto";
 import "cardchain/cardchain/match.proto";
+import "cardchain/cardchain/set.proto";
 import "cardchain/cardchain/set_with_artwork.proto";
 import "cardchain/cardchain/sell_offer.proto";
 import "cardchain/cardchain/council.proto";
@@ -152,6 +153,13 @@ service Query {
         "/DecentralCardGame/cardchain/cardchain/matches/{timestampDown}/"
         "{timestampUp}/{containsUsers}/{reporter}/{outcome}/{cardsPlayed}";
   }
+
+  // Queries a list of Sets items.
+  rpc Sets(QuerySetsRequest) returns (QuerySetsResponse) {
+    option (google.api.http).get =
+        "/DecentralCardGame/cardchain/cardchain/sets/{status}/{contributors}/"
+        "{containsCards}/{owner}";
+  }
 }
 // QueryParamsRequest is request type for the Query/Params RPC method.
 message QueryParamsRequest {}
@@ -280,3 +288,12 @@ message QueryMatchesRequest {
 }
 
 message QueryMatchesResponse { repeated Match matches = 1; }
+
+message QuerySetsRequest {
+  SetStatus status = 1;
+  repeated string contributors = 2;
+  repeated uint64 containsCards = 3;
+  string owner = 4;
+}
+
+message QuerySetsResponse { repeated uint64 setIds = 1; }

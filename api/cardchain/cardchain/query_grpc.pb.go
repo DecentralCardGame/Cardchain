@@ -39,6 +39,7 @@ const (
 	Query_AccountFromZealy_FullMethodName      = "/cardchain.cardchain.Query/AccountFromZealy"
 	Query_VotingResults_FullMethodName         = "/cardchain.cardchain.Query/VotingResults"
 	Query_Matches_FullMethodName               = "/cardchain.cardchain.Query/Matches"
+	Query_Sets_FullMethodName                  = "/cardchain.cardchain.Query/Sets"
 )
 
 // QueryClient is the client API for Query service.
@@ -84,6 +85,8 @@ type QueryClient interface {
 	VotingResults(ctx context.Context, in *QueryVotingResultsRequest, opts ...grpc.CallOption) (*QueryVotingResultsResponse, error)
 	// Queries a list of Matches items.
 	Matches(ctx context.Context, in *QueryMatchesRequest, opts ...grpc.CallOption) (*QueryMatchesResponse, error)
+	// Queries a list of Sets items.
+	Sets(ctx context.Context, in *QuerySetsRequest, opts ...grpc.CallOption) (*QuerySetsResponse, error)
 }
 
 type queryClient struct {
@@ -274,6 +277,15 @@ func (c *queryClient) Matches(ctx context.Context, in *QueryMatchesRequest, opts
 	return out, nil
 }
 
+func (c *queryClient) Sets(ctx context.Context, in *QuerySetsRequest, opts ...grpc.CallOption) (*QuerySetsResponse, error) {
+	out := new(QuerySetsResponse)
+	err := c.cc.Invoke(ctx, Query_Sets_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // QueryServer is the server API for Query service.
 // All implementations must embed UnimplementedQueryServer
 // for forward compatibility
@@ -317,6 +329,8 @@ type QueryServer interface {
 	VotingResults(context.Context, *QueryVotingResultsRequest) (*QueryVotingResultsResponse, error)
 	// Queries a list of Matches items.
 	Matches(context.Context, *QueryMatchesRequest) (*QueryMatchesResponse, error)
+	// Queries a list of Sets items.
+	Sets(context.Context, *QuerySetsRequest) (*QuerySetsResponse, error)
 	mustEmbedUnimplementedQueryServer()
 }
 
@@ -383,6 +397,9 @@ func (UnimplementedQueryServer) VotingResults(context.Context, *QueryVotingResul
 }
 func (UnimplementedQueryServer) Matches(context.Context, *QueryMatchesRequest) (*QueryMatchesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Matches not implemented")
+}
+func (UnimplementedQueryServer) Sets(context.Context, *QuerySetsRequest) (*QuerySetsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Sets not implemented")
 }
 func (UnimplementedQueryServer) mustEmbedUnimplementedQueryServer() {}
 
@@ -757,6 +774,24 @@ func _Query_Matches_Handler(srv interface{}, ctx context.Context, dec func(inter
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Query_Sets_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QuerySetsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).Sets(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Query_Sets_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).Sets(ctx, req.(*QuerySetsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Query_ServiceDesc is the grpc.ServiceDesc for Query service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -843,6 +878,10 @@ var Query_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Matches",
 			Handler:    _Query_Matches_Handler,
+		},
+		{
+			MethodName: "Sets",
+			Handler:    _Query_Sets_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

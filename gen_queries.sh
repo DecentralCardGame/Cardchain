@@ -19,4 +19,5 @@ set -o pipefail
 #ignite scaffold query setRarityDistribution setId --response current:uints wanted:uints
 #ignite scaffold query accountFromZealy zealyId:string --response address:string
 #ignite scaffold query votingResults --response lastVotingResults:VotingResults
-ignite scaffold query matches timestampDown:uint timestampUp:uint containsUsers:strings reporter outcome cardsPlayed:uints  --response matches
+#ignite scaffold query matches timestampDown:uint timestampUp:uint containsUsers:strings reporter outcome cardsPlayed:uints  --response matches
+ignite scaffold query sets status contributors:strings containsCards:uints owner --response sets
