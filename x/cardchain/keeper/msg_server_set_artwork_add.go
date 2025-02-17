@@ -12,7 +12,7 @@ import (
 func (k msgServer) SetArtworkAdd(goCtx context.Context, msg *types.MsgSetArtworkAdd) (*types.MsgSetArtworkAddResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	set := k.Setk.Get(ctx, msg.SetId)
+	set := k.SetK.Get(ctx, msg.SetId)
 	image := k.Images.Get(ctx, set.ArtworkId)
 
 	if set.Artist != msg.Creator {

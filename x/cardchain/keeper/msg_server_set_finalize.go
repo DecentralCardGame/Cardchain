@@ -14,7 +14,7 @@ func (k msgServer) SetFinalize(goCtx context.Context, msg *types.MsgSetFinalize)
 
 	setSize := int(k.GetParams(ctx).SetSize)
 
-	set := k.Setk.Get(ctx, msg.SetId)
+	set := k.SetK.Get(ctx, msg.SetId)
 	err := checkSetEditable(set, msg.Creator)
 	if err != nil {
 		return nil, err
@@ -44,7 +44,7 @@ func (k msgServer) SetFinalize(goCtx context.Context, msg *types.MsgSetFinalize)
 	set.ContributorsDistribution = k.GetContributorDistribution(ctx, *set)
 	set.Rarities = k.GetCardRaritiesInSet(ctx, set)
 
-	k.Setk.Set(ctx, msg.SetId, set)
+	k.SetK.Set(ctx, msg.SetId, set)
 
 	return &types.MsgSetFinalizeResponse{}, nil
 }

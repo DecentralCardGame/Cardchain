@@ -31,7 +31,7 @@ func (k msgServer) SetCreate(goCtx context.Context, msg *types.MsgSetCreate) (*t
 	image := types.Image{}
 
 	k.Images.Set(ctx, set.ArtworkId, &image)
-	k.Setk.Append(ctx, &set)
+	k.SetK.Append(ctx, &set)
 
 	return &types.MsgSetCreateResponse{}, nil
 }

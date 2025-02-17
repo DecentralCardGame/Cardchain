@@ -16,7 +16,7 @@ func (k Keeper) Set(goCtx context.Context, req *types.QuerySetRequest) (*types.Q
 
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	set := k.Setk.Get(ctx, req.SetId)
+	set := k.SetK.Get(ctx, req.SetId)
 	image := k.Images.Get(ctx, set.ArtworkId)
 
 	return &types.QuerySetResponse{Set: &types.SetWithArtwork{

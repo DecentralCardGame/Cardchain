@@ -15,7 +15,7 @@ func (k msgServer) SetCardAdd(goCtx context.Context, msg *types.MsgSetCardAdd) (
 
 	setSize := int(k.GetParams(ctx).SetSize)
 
-	set := k.Setk.Get(ctx, msg.SetId)
+	set := k.SetK.Get(ctx, msg.SetId)
 	if !slices.Contains(set.Contributors, msg.Creator) {
 		return nil, errorsmod.Wrap(errors.ErrUnauthorized, "Invalid contributor")
 	}
@@ -23,7 +23,7 @@ func (k msgServer) SetCardAdd(goCtx context.Context, msg *types.MsgSetCardAdd) (
 		return nil, errorsmod.Wrapf(errors.ErrUnauthorized, "Invalid set status is: %s", set.Status.String())
 	}
 
-	iter := k.Setk.GetItemIterator(ctx)
+	iter := k.SetK.GetItemIterator(ctx)
 	for ; iter.Valid(); iter.Next() {
 		idx, coll := iter.Value()
 		if coll.Status != types.SetStatus_archived && slices.Contains(coll.Cards, msg.CardId) {
@@ -55,7 +55,7 @@ func (k msgServer) SetCardAdd(goCtx context.Context, msg *types.MsgSetCardAdd) (
 
 	set.Cards = append(set.Cards, msg.CardId)
 
-	k.Setk.Set(ctx, msg.SetId, set)
+	k.SetK.Set(ctx, msg.SetId, set)
 
 	return &types.MsgSetCardAddResponse{}, nil
 }

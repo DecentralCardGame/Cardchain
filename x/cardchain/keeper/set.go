@@ -67,7 +67,7 @@ func incQ(addrsWithQ *[]*types.AddrWithQuantity, addr string) {
 
 // GetActiveSets Return a list of all active sets ids
 func (k Keeper) GetActiveSets(ctx sdk.Context) (activeSets []uint64) {
-	iter := k.Setk.GetItemIterator(ctx)
+	iter := k.SetK.GetItemIterator(ctx)
 	for ; iter.Valid(); iter.Next() {
 		idx, set := iter.Value()
 		if set.Status == types.SetStatus_active {

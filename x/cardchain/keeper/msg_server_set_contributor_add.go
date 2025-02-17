@@ -13,7 +13,7 @@ import (
 func (k msgServer) SetContributorAdd(goCtx context.Context, msg *types.MsgSetContributorAdd) (*types.MsgSetContributorAddResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	set := k.Setk.Get(ctx, msg.SetId)
+	set := k.SetK.Get(ctx, msg.SetId)
 	if err := checkSetEditable(set, msg.Creator); err != nil {
 		return nil, err
 	}
@@ -28,7 +28,7 @@ func (k msgServer) SetContributorAdd(goCtx context.Context, msg *types.MsgSetCon
 
 	set.Contributors = append(set.Contributors, msg.User)
 
-	k.Setk.Set(ctx, msg.SetId, set)
+	k.SetK.Set(ctx, msg.SetId, set)
 
 	return &types.MsgSetContributorAddResponse{}, nil
 }

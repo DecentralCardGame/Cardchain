@@ -34,7 +34,7 @@ func (k msgServer) BoosterPackOpen(goCtx context.Context, msg *types.MsgBoosterP
 		cleanedRatios [3]uint64
 	)
 	pack := creator.BoosterPacks[msg.BoosterPackId]
-	set := k.Setk.Get(ctx, pack.SetId)
+	set := k.SetK.Get(ctx, pack.SetId)
 
 	for idx, ratio := range pack.DropRatiosPerPack {
 		if len(set.Rarities[idx+2].R) == 0 {
