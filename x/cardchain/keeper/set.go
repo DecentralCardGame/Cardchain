@@ -3,8 +3,8 @@ package keeper
 import (
 	"github.com/cosmos/cosmos-sdk/types/errors"
 
-	sdkerrors "cosmossdk.io/errors"
-	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
+	errorsmod "cosmossdk.io/errors"
+	"github.com/DecentralCardGame/cardchain/x/cardchain/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
@@ -33,7 +33,7 @@ func (k Keeper) GetContributorDistribution(ctx sdk.Context, set types.Set) []*ty
 	params := k.GetParams(ctx)
 	contribs := []*types.AddrWithQuantity{{Addr: set.StoryWriter, Q: 2}, {Addr: set.Artist, Q: 2}, {Addr: set.Contributors[0], Q: 4}}
 	for _, cardId := range set.Cards {
-		var card = k.Cards.Get(ctx, cardId)
+		var card = k.cards.Get(ctx, cardId)
 		if card.Owner != "" {
 			for _, addr := range []string{card.Owner, card.Artist} {
 				incQ(&contribs, addr)
@@ -67,30 +67,28 @@ func incQ(addrsWithQ *[]*types.AddrWithQuantity, addr string) {
 
 // GetActiveSets Return a list of all active sets ids
 func (k Keeper) GetActiveSets(ctx sdk.Context) (activeSets []uint64) {
-	iter := k.Sets.GetItemIterator(ctx)
+	iter := k.sets.GetItemIterator(ctx)
 	for ; iter.Valid(); iter.Next() {
 		idx, set := iter.Value()
-		if set.Status == types.CStatus_active {
+		if set.Status == types.SetStatus_active {
 			activeSets = append(activeSets, idx)
 		}
 	}
 	return
 }
 
-func (k Keeper) GetRarityDistribution(ctx sdk.Context, set types.Set, setSize uint32) (dist [2][3]uint32, err error) {
+func (k Keeper) GetRarityDistribution(ctx sdk.Context, set types.Set, setSize uint32) (dist [2][3]uint64, err error) {
 	var (
-		unCommons, rares, commons, commonsAll, unCommonsAll, raresAll uint32
+		unCommons, rares, commons, commonsAll, unCommonsAll, raresAll uint64
 	)
 
-	unCommonsAll = uint32(setSize / 3)
-	raresAll = uint32(setSize / 3)
-	commonsAll = uint32(setSize - raresAll - unCommonsAll)
+	unCommonsAll = uint64(setSize / 3)
+	raresAll = uint64(setSize / 3)
+	commonsAll = uint64(setSize) - raresAll - unCommonsAll
 
 	for _, cardId := range set.Cards {
-		card := k.Cards.Get(ctx, cardId)
-		if err != nil {
-			return dist, sdkerrors.Wrap(types.ErrCardobject, err.Error())
-		}
+		card := k.cards.Get(ctx, cardId)
+
 		switch card.Rarity {
 		case types.CardRarity_common, types.CardRarity_unique, types.CardRarity_exceptional:
 			commons++
@@ -99,11 +97,11 @@ func (k Keeper) GetRarityDistribution(ctx sdk.Context, set types.Set, setSize ui
 		case types.CardRarity_rare:
 			rares++
 		default:
-			return dist, sdkerrors.Wrapf(errors.ErrInvalidType, "Invalid rarity (%d) for card (%d)", card.Rarity, cardId)
+			return dist, errorsmod.Wrapf(errors.ErrInvalidType, "Invalid rarity (%d) for card (%d)", card.Rarity, cardId)
 		}
 	}
 
-	return [2][3]uint32{
+	return [2][3]uint64{
 		{commons, unCommons, rares},
 		{commonsAll, unCommonsAll, raresAll},
 	}, nil
@@ -111,15 +109,16 @@ func (k Keeper) GetRarityDistribution(ctx sdk.Context, set types.Set, setSize ui
 
 func checkSetEditable(set *types.Set, user string) error {
 	if len(set.Contributors) == 0 {
-		return sdkerrors.Wrap(types.ErrUninitializedType, "Set not initialized")
+		return errorsmod.Wrap(types.ErrInvalidData, "Set not initialized")
 	}
 
 	if user != set.Contributors[0] {
-		return sdkerrors.Wrap(errors.ErrUnauthorized, "Invalid creator")
+		return errorsmod.Wrap(errors.ErrUnauthorized, "Invalid creator")
 	}
 
-	if set.Status != types.CStatus_design {
-		return types.ErrSetNotInDesign
+	if set.Status != types.SetStatus_design {
+		return errorsmod.Wrapf(errors.ErrUnauthorized, "Invalid set status is: %s", set.Status.String())
+
 	}
 	return nil
 }

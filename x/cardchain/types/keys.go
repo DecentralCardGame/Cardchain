@@ -5,31 +5,21 @@ const (
 	ModuleName = "cardchain"
 
 	// StoreKey defines the primary module store key
-	StoreKey                = ModuleName
-	CardsStoreKey           = "Cards"
-	UsersStoreKey           = "Users"
-	MatchesStoreKey         = "Matches"
-	SetsStoreKey            = "Sets"
-	SellOffersStoreKey      = "SellOffers"
-	PoolsStoreKey           = "Pools"
-	CouncilsStoreKey        = "Councils"
-	ServersStoreKey         = "Servers"
-	ZealyStoreKey           = "Zealy"
-	EncountersStoreKey      = "Encounters"
-	InternalStoreKey        = "Internal"
-	RunningAveragesStoreKey = "RunningAverages"
-	ImagesStoreKey          = "Images"
-
-	// RouterKey is the message route for slashing
-	RouterKey = ModuleName
-
-	// QuerierRoute defines the module's query routing key
-	QuerierRoute = ModuleName
+	StoreKey = ModuleName
 
 	// MemStoreKey defines the in-memory store key
-	// MemStoreKey = "mem_cardchain"
+	MemStoreKey = "mem_cardchain"
+)
+
+var (
+	ParamsKey = []byte("p_cardchain")
 )
 
 func KeyPrefix(p string) []byte {
 	return []byte(p)
 }
+
+const (
+	ProductDetailsKey      = "ProductDetails/value/"
+	ProductDetailsCountKey = "ProductDetails/count/"
+)

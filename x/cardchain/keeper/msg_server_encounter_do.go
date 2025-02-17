@@ -3,27 +3,27 @@ package keeper
 import (
 	"context"
 
-	sdkerrors "cosmossdk.io/errors"
-	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
+	errorsmod "cosmossdk.io/errors"
+	"github.com/DecentralCardGame/cardchain/x/cardchain/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cosmos/cosmos-sdk/x/group/errors"
+	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 )
 
 func (k msgServer) EncounterDo(goCtx context.Context, msg *types.MsgEncounterDo) (*types.MsgEncounterDoResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	reporter, err := k.GetMsgCreator(ctx, msg)
+	reporter, err := k.GetUserFromString(ctx, msg.Creator)
 	if err != nil {
 		return nil, err
 	}
 
 	if !reporter.ReportMatches {
-		return nil, sdkerrors.Wrap(errors.ErrUnauthorized, "unauthorized reporter")
+		return nil, errorsmod.Wrap(sdkerrors.ErrUnauthorized, "unauthorized reporter")
 	}
 
-	maxId := k.Encounters.GetNum(ctx)
+	maxId := k.encounters.GetNum(ctx)
 	if msg.EncounterId >= maxId {
-		return nil, sdkerrors.Wrap(types.ErrInvalidData, "encounter doesnt exist")
+		return nil, errorsmod.Wrap(types.ErrInvalidData, "encounter doesnt exist")
 	}
 
 	// TODO: Treasury fee here

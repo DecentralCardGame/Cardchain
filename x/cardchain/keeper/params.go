@@ -1,21 +1,33 @@
 package keeper
 
 import (
-	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
-	sdk "github.com/cosmos/cosmos-sdk/types"
+	"context"
+
+	"github.com/cosmos/cosmos-sdk/runtime"
+
+	"github.com/DecentralCardGame/cardchain/x/cardchain/types"
 )
 
-// GetParams get all parameters as types.Params --- Keep this
-// func (k Keeper) GetParams(ctx sdk.Context) types.Params {
-// 	return types.NewParams()
-// }
+// GetParams get all parameters as types.Params
+func (k Keeper) GetParams(ctx context.Context) (params types.Params) {
+	store := runtime.KVStoreAdapter(k.storeService.OpenKVStore(ctx))
+	bz := store.Get(types.ParamsKey)
+	if bz == nil {
+		return params
+	}
 
-func (k Keeper) GetParams(ctx sdk.Context) (params types.Params) {
-	k.paramstore.GetParamSet(ctx, &params)
-	return
+	k.cdc.MustUnmarshal(bz, &params)
+	return params
 }
 
 // SetParams set the params
-func (k Keeper) SetParams(ctx sdk.Context, params types.Params) {
-	k.paramstore.SetParamSet(ctx, &params)
+func (k Keeper) SetParams(ctx context.Context, params types.Params) error {
+	store := runtime.KVStoreAdapter(k.storeService.OpenKVStore(ctx))
+	bz, err := k.cdc.Marshal(&params)
+	if err != nil {
+		return err
+	}
+	store.Set(types.ParamsKey, bz)
+
+	return nil
 }

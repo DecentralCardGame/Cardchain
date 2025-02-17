@@ -1,7 +1,7 @@
 syntax = "proto3";
-package DecentralCardGame.cardchain.cardchain;
+package cardchain.cardchain;
 
-option go_package = "github.com/DecentralCardGame/Cardchain/x/cardchain/types";
+option go_package = "github.com/DecentralCardGame/cardchain/x/cardchain/types";
 import "cardchain/cardchain/voting.proto";
 
 message Match {
@@ -25,8 +25,9 @@ message MatchPlayer {
 }
 
 enum Outcome {
-  AWon    = 0;
-  BWon    = 1;
-  Draw    = 2;
-  Aborted = 3;
+  Undefined = 0;
+  AWon = 1;
+  BWon = 2;
+  Draw = 3;
+  Aborted = 4;
 }

@@ -1,6 +1,7 @@
 package keeper
 
 import (
+	"cosmossdk.io/math"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
@@ -28,7 +29,7 @@ func (k Keeper) SubPoolCredits(ctx sdk.Context, poolName string, amount sdk.Coin
 // DistributeHourlyFaucet distributes hourly faucet
 func (k Keeper) DistributeHourlyFaucet(ctx sdk.Context) {
 	pool := k.Pools.Get(ctx, PublicPoolKey)
-	if pool.Amount.LT(sdk.NewInt(1_000_000_000_000_000)) {
+	if pool.Amount.LT(math.NewInt(1_000_000_000_000_000)) {
 		k.AddPoolCredits(ctx, PublicPoolKey, k.GetParams(ctx).HourlyFaucet)
 	}
 }

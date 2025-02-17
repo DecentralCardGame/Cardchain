@@ -3,16 +3,18 @@ package keeper
 import (
 	"math/big"
 
-	sdkerrors "cosmossdk.io/errors"
-	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
+	errorsmod "cosmossdk.io/errors"
+	"cosmossdk.io/math"
+	"github.com/DecentralCardGame/cardchain/x/cardchain/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 )
 
 // MulCoin multiplies a Coin with an int
 func MulCoin(coin sdk.Coin, amt int64) sdk.Coin {
 	return sdk.Coin{
 		Denom:  coin.Denom,
-		Amount: coin.Amount.Mul(sdk.NewInt(amt)),
+		Amount: coin.Amount.Mul(math.NewInt(amt)),
 	}
 }
 
@@ -25,7 +27,7 @@ func MulCoinFloat(coin sdk.Coin, amt float64) sdk.Coin {
 	oldAmount.Int(&newAmount)
 	return sdk.Coin{
 		Denom:  coin.Denom,
-		Amount: sdk.NewIntFromBigInt(&newAmount),
+		Amount: math.NewIntFromBigInt(&newAmount),
 	}
 }
 
@@ -33,13 +35,13 @@ func MulCoinFloat(coin sdk.Coin, amt float64) sdk.Coin {
 func QuoCoin(coin sdk.Coin, amt int64) sdk.Coin {
 	return sdk.Coin{
 		Denom:  coin.Denom,
-		Amount: coin.Amount.Quo(sdk.NewInt(amt)),
+		Amount: coin.Amount.Quo(math.NewInt(amt)),
 	}
 }
 
 // MintCoinsToAddr adds coins to an Account
 func (k Keeper) MintCoinsToAddr(ctx sdk.Context, addr sdk.AccAddress, amounts sdk.Coins) error {
-	coinMint := types.CoinsIssuerName
+	coinMint := types.ModuleName
 	// mint coins to minter module account
 	err := k.BankKeeper.MintCoins(ctx, coinMint, amounts)
 	if err != nil {
@@ -55,7 +57,7 @@ func (k Keeper) MintCoinsToAddr(ctx sdk.Context, addr sdk.AccAddress, amounts sd
 
 // BurnCoinsFromAddr removes Coins from an Account
 func (k Keeper) BurnCoinsFromAddr(ctx sdk.Context, addr sdk.AccAddress, amounts sdk.Coins) error {
-	coinMint := types.CoinsIssuerName
+	coinMint := types.ModuleName
 	// send coins to the module
 	err := k.BankKeeper.SendCoinsFromAccountToModule(ctx, addr, coinMint, amounts)
 	if err != nil {
@@ -73,7 +75,7 @@ func (k Keeper) BurnCoinsFromAddr(ctx sdk.Context, addr sdk.AccAddress, amounts 
 func (k Keeper) MintCoinsToString(ctx sdk.Context, user string, amounts sdk.Coins) error {
 	addr, err := sdk.AccAddressFromBech32(user)
 	if err != nil {
-		return sdkerrors.Wrap(types.ErrInvalidAccAddress, "Unable to convert to AccAddress")
+		return errorsmod.Wrap(sdkerrors.ErrInvalidAddress, "Unable to convert to AccAddress")
 	}
 	err = k.MintCoinsToAddr(ctx, addr, amounts)
 	if err != nil {
@@ -86,7 +88,7 @@ func (k Keeper) MintCoinsToString(ctx sdk.Context, user string, amounts sdk.Coin
 func (k Keeper) BurnCoinsFromString(ctx sdk.Context, user string, amounts sdk.Coins) error {
 	addr, err := sdk.AccAddressFromBech32(user)
 	if err != nil {
-		return sdkerrors.Wrap(types.ErrInvalidAccAddress, "Unable to convert to AccAddress")
+		return errorsmod.Wrap(sdkerrors.ErrInvalidAddress, "Unable to convert to AccAddress")
 	}
 	err = k.BurnCoinsFromAddr(ctx, addr, amounts)
 	if err != nil {

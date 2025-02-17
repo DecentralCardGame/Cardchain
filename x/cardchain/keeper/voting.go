@@ -4,7 +4,7 @@ import (
 	"fmt"
 
 	sdkerrors "cosmossdk.io/errors"
-	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
+	"github.com/DecentralCardGame/cardchain/x/cardchain/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/errors"
 )
@@ -16,10 +16,10 @@ func (k Keeper) voteCard(
 	voteType types.VoteType,
 ) error {
 	// if the vote right is valid, get the Card
-	card := k.Cards.Get(ctx, cardId)
+	card := k.cards.Get(ctx, cardId)
 
 	// check if card status is valid
-	if card.Status != types.Status_permanent && card.Status != types.Status_trial {
+	if card.Status != types.CardStatus_permanent && card.Status != types.CardStatus_trial {
 		return sdkerrors.Wrap(errors.ErrUnknownRequest, "Voting on a card is only possible if it is in trial or a permanent card")
 	}
 
@@ -59,7 +59,7 @@ func (k Keeper) voteCard(
 		return err
 	}
 	k.SubPoolCredits(ctx, BalancersPoolKey, amount)
-	k.Cards.Set(ctx, cardId, card)
+	k.cards.Set(ctx, cardId, card)
 
 	return nil
 }

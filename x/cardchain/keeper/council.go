@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"sort"
 
-	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
+	"github.com/DecentralCardGame/cardchain/x/cardchain/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
@@ -77,12 +77,12 @@ func (k Keeper) TryEvaluate(ctx sdk.Context, council *types.Council) error {
 // CheckTrial Checks for councils that shouldn't be in trial anymore
 func (k Keeper) CheckTrial(ctx sdk.Context) error {
 	collateralDeposit := k.GetParams(ctx).CollateralDeposit
-	iter := k.Councils.GetItemIterator(ctx)
+	iter := k.councils.GetItemIterator(ctx)
 	for ; iter.Valid(); iter.Next() {
 		idx, council := iter.Value()
 		if council.Status == types.CouncelingStatus_revealed {
 			if council.TrialStart+k.GetParams(ctx).TrialPeriod <= uint64(ctx.BlockHeight()) {
-				card := k.Cards.Get(ctx, council.CardId)
+				card := k.cards.Get(ctx, council.CardId)
 
 				var (
 					group []string
@@ -97,21 +97,21 @@ func (k Keeper) CheckTrial(ctx sdk.Context) error {
 				})
 				if votes[len(votes)-1] == 0 {
 					council.TrialStart = uint64(ctx.BlockHeight())
-					k.Councils.Set(ctx, idx, council)
+					k.councils.Set(ctx, idx, council)
 					continue
 				}
 				if card.FairEnoughVotes == votes[len(votes)-1] {
-					card.Status = types.Status_permanent
+					card.Status = types.CardStatus_permanent
 					group = approvers
 					amt = 2
 					k.SetLastCardModifiedNow(ctx)
 				} else {
-					card.Status = types.Status_prototype
+					card.Status = types.CardStatus_prototype
 					group = deniers
 					amt = 3
 				}
 
-				k.Logger(ctx).Debug(fmt.Sprintf(":: Card Set to %s", card.Status.String()))
+				k.Logger().Debug(fmt.Sprintf(":: Card Set to %s", card.Status.String()))
 
 				bounty := MulCoin(collateralDeposit, amt)
 				for _, user := range group {
@@ -133,8 +133,8 @@ func (k Keeper) CheckTrial(ctx sdk.Context) error {
 				card.VotePool = card.VotePool.Sub(card.VotePool)
 				council.Status = types.CouncelingStatus_councilClosed
 
-				k.Councils.Set(ctx, idx, council)
-				k.Cards.Set(ctx, council.CardId, card)
+				k.councils.Set(ctx, idx, council)
+				k.cards.Set(ctx, council.CardId, card)
 			}
 		}
 	}

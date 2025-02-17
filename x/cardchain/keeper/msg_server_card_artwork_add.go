@@ -1,0 +1,42 @@
+package keeper
+
+import (
+	"context"
+
+	sdkerrors "cosmossdk.io/errors"
+	"github.com/DecentralCardGame/cardchain/x/cardchain/types"
+	sdk "github.com/cosmos/cosmos-sdk/types"
+	"github.com/cosmos/cosmos-sdk/types/errors"
+)
+
+func (k msgServer) CardArtworkAdd(goCtx context.Context, msg *types.MsgCardArtworkAdd) (*types.MsgCardArtworkAddResponse, error) {
+	ctx := sdk.UnwrapSDKContext(goCtx)
+
+	card := k.cards.Get(ctx, msg.CardId)
+	image := k.images.Get(ctx, card.ImageId)
+
+	councilEnabled, err := k.FeatureFlagModuleInstance.Get(ctx, string(types.FeatureFlagName_Council))
+	if err != nil {
+		return nil, err
+	}
+
+	if councilEnabled && card.Status != types.CardStatus_prototype && card.Status != types.CardStatus_scheme {
+		return nil, sdkerrors.Wrap(types.ErrInvalidCardStatus, "Card has to be a prototype to be changeable")
+	}
+
+	if card.Artist != msg.Creator {
+		return nil, sdkerrors.Wrap(errors.ErrUnauthorized, "Incorrect Artist")
+	}
+
+	card.FullArt = msg.FullArt
+	image.Image = msg.Image
+
+	if card.Status == types.CardStatus_suspended {
+		card.Status = types.CardStatus_permanent
+	}
+
+	k.cards.Set(ctx, msg.CardId, card)
+	k.images.Set(ctx, card.ImageId, image)
+
+	return &types.MsgCardArtworkAddResponse{}, nil
+}

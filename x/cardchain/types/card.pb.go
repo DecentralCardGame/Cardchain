@@ -5,9 +5,9 @@ package types
 
 import (
 	fmt "fmt"
-	github_com_cosmos_cosmos_sdk_types "github.com/cosmos/cosmos-sdk/types"
-	_ "github.com/gogo/protobuf/gogoproto"
-	proto "github.com/gogo/protobuf/proto"
+	types "github.com/cosmos/cosmos-sdk/types"
+	_ "github.com/cosmos/gogoproto/gogoproto"
+	proto "github.com/cosmos/gogoproto/proto"
 	io "io"
 	math "math"
 	math_bits "math/bits"
@@ -24,52 +24,52 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
-type Status int32
+type CardStatus int32
 
 const (
-	Status_scheme         Status = 0
-	Status_prototype      Status = 1
-	Status_trial          Status = 2
-	Status_permanent      Status = 3
-	Status_suspended      Status = 4
-	Status_banned         Status = 5
-	Status_bannedSoon     Status = 6
-	Status_bannedVerySoon Status = 7
-	Status_none           Status = 8
-	Status_adventureItem  Status = 9
+	CardStatus_none           CardStatus = 0
+	CardStatus_scheme         CardStatus = 1
+	CardStatus_prototype      CardStatus = 2
+	CardStatus_trial          CardStatus = 3
+	CardStatus_permanent      CardStatus = 4
+	CardStatus_suspended      CardStatus = 5
+	CardStatus_banned         CardStatus = 6
+	CardStatus_bannedSoon     CardStatus = 7
+	CardStatus_bannedVerySoon CardStatus = 8
+	CardStatus_adventureItem  CardStatus = 9
 )
 
-var Status_name = map[int32]string{
-	0: "scheme",
-	1: "prototype",
-	2: "trial",
-	3: "permanent",
-	4: "suspended",
-	5: "banned",
-	6: "bannedSoon",
-	7: "bannedVerySoon",
-	8: "none",
+var CardStatus_name = map[int32]string{
+	0: "none",
+	1: "scheme",
+	2: "prototype",
+	3: "trial",
+	4: "permanent",
+	5: "suspended",
+	6: "banned",
+	7: "bannedSoon",
+	8: "bannedVerySoon",
 	9: "adventureItem",
 }
 
-var Status_value = map[string]int32{
-	"scheme":         0,
-	"prototype":      1,
-	"trial":          2,
-	"permanent":      3,
-	"suspended":      4,
-	"banned":         5,
-	"bannedSoon":     6,
-	"bannedVerySoon": 7,
-	"none":           8,
+var CardStatus_value = map[string]int32{
+	"none":           0,
+	"scheme":         1,
+	"prototype":      2,
+	"trial":          3,
+	"permanent":      4,
+	"suspended":      5,
+	"banned":         6,
+	"bannedSoon":     7,
+	"bannedVerySoon": 8,
 	"adventureItem":  9,
 }
 
-func (x Status) String() string {
-	return proto.EnumName(Status_name, int32(x))
+func (x CardStatus) String() string {
+	return proto.EnumName(CardStatus_name, int32(x))
 }
 
-func (Status) EnumDescriptor() ([]byte, []int) {
+func (CardStatus) EnumDescriptor() ([]byte, []int) {
 	return fileDescriptor_a360ffd2377ddc30, []int{0}
 }
 
@@ -170,23 +170,23 @@ func (CardType) EnumDescriptor() ([]byte, []int) {
 }
 
 type Card struct {
-	Owner              string                                  `protobuf:"bytes,1,opt,name=owner,proto3" json:"owner,omitempty"`
-	Artist             string                                  `protobuf:"bytes,2,opt,name=artist,proto3" json:"artist,omitempty"`
-	Content            []byte                                  `protobuf:"bytes,3,opt,name=content,proto3" json:"content,omitempty"`
-	ImageId            uint64                                  `protobuf:"varint,4,opt,name=image_id,json=imageId,proto3" json:"image_id,omitempty"`
-	FullArt            bool                                    `protobuf:"varint,5,opt,name=fullArt,proto3" json:"fullArt,omitempty"`
-	Notes              string                                  `protobuf:"bytes,6,opt,name=notes,proto3" json:"notes,omitempty"`
-	Status             Status                                  `protobuf:"varint,7,opt,name=status,proto3,enum=DecentralCardGame.cardchain.cardchain.Status" json:"status,omitempty"`
-	VotePool           github_com_cosmos_cosmos_sdk_types.Coin `protobuf:"bytes,8,opt,name=votePool,proto3,customtype=github.com/cosmos/cosmos-sdk/types.Coin" json:"votePool"`
-	Voters             []string                                `protobuf:"bytes,14,rep,name=voters,proto3" json:"voters,omitempty"`
-	FairEnoughVotes    uint64                                  `protobuf:"varint,9,opt,name=fairEnoughVotes,proto3" json:"fairEnoughVotes,omitempty"`
-	OverpoweredVotes   uint64                                  `protobuf:"varint,10,opt,name=overpoweredVotes,proto3" json:"overpoweredVotes,omitempty"`
-	UnderpoweredVotes  uint64                                  `protobuf:"varint,11,opt,name=underpoweredVotes,proto3" json:"underpoweredVotes,omitempty"`
-	InappropriateVotes uint64                                  `protobuf:"varint,12,opt,name=inappropriateVotes,proto3" json:"inappropriateVotes,omitempty"`
-	Nerflevel          int64                                   `protobuf:"varint,13,opt,name=nerflevel,proto3" json:"nerflevel,omitempty"`
-	BalanceAnchor      bool                                    `protobuf:"varint,15,opt,name=balanceAnchor,proto3" json:"balanceAnchor,omitempty"`
-	StarterCard        bool                                    `protobuf:"varint,16,opt,name=starterCard,proto3" json:"starterCard,omitempty"`
-	Rarity             CardRarity                              `protobuf:"varint,17,opt,name=rarity,proto3,enum=DecentralCardGame.cardchain.cardchain.CardRarity" json:"rarity,omitempty"`
+	Owner              string     `protobuf:"bytes,1,opt,name=owner,proto3" json:"owner,omitempty"`
+	Artist             string     `protobuf:"bytes,2,opt,name=artist,proto3" json:"artist,omitempty"`
+	Content            []byte     `protobuf:"bytes,3,opt,name=content,proto3" json:"content,omitempty"`
+	ImageId            uint64     `protobuf:"varint,4,opt,name=image_id,json=imageId,proto3" json:"image_id,omitempty"`
+	FullArt            bool       `protobuf:"varint,5,opt,name=fullArt,proto3" json:"fullArt,omitempty"`
+	Notes              string     `protobuf:"bytes,6,opt,name=notes,proto3" json:"notes,omitempty"`
+	Status             CardStatus `protobuf:"varint,7,opt,name=status,proto3,enum=cardchain.cardchain.CardStatus" json:"status,omitempty"`
+	VotePool           types.Coin `protobuf:"bytes,8,opt,name=votePool,proto3" json:"votePool"`
+	Voters             []string   `protobuf:"bytes,14,rep,name=voters,proto3" json:"voters,omitempty"`
+	FairEnoughVotes    uint64     `protobuf:"varint,9,opt,name=fairEnoughVotes,proto3" json:"fairEnoughVotes,omitempty"`
+	OverpoweredVotes   uint64     `protobuf:"varint,10,opt,name=overpoweredVotes,proto3" json:"overpoweredVotes,omitempty"`
+	UnderpoweredVotes  uint64     `protobuf:"varint,11,opt,name=underpoweredVotes,proto3" json:"underpoweredVotes,omitempty"`
+	InappropriateVotes uint64     `protobuf:"varint,12,opt,name=inappropriateVotes,proto3" json:"inappropriateVotes,omitempty"`
+	Nerflevel          int64      `protobuf:"varint,13,opt,name=nerflevel,proto3" json:"nerflevel,omitempty"`
+	BalanceAnchor      bool       `protobuf:"varint,15,opt,name=balanceAnchor,proto3" json:"balanceAnchor,omitempty"`
+	StarterCard        bool       `protobuf:"varint,16,opt,name=starterCard,proto3" json:"starterCard,omitempty"`
+	Rarity             CardRarity `protobuf:"varint,17,opt,name=rarity,proto3,enum=cardchain.cardchain.CardRarity" json:"rarity,omitempty"`
 }
 
 func (m *Card) Reset()         { *m = Card{} }
@@ -264,11 +264,18 @@ func (m *Card) GetNotes() string {
 	return ""
 }
 
-func (m *Card) GetStatus() Status {
+func (m *Card) GetStatus() CardStatus {
 	if m != nil {
 		return m.Status
 	}
-	return Status_scheme
+	return CardStatus_none
+}
+
+func (m *Card) GetVotePool() types.Coin {
+	if m != nil {
+		return m.VotePool
+	}
+	return types.Coin{}
 }
 
 func (m *Card) GetVoters() []string {
@@ -334,179 +341,6 @@ func (m *Card) GetRarity() CardRarity {
 	return CardRarity_common
 }
 
-type OutpCard struct {
-	Owner              string                                  `protobuf:"bytes,1,opt,name=owner,proto3" json:"owner,omitempty"`
-	Artist             string                                  `protobuf:"bytes,2,opt,name=artist,proto3" json:"artist,omitempty"`
-	Content            string                                  `protobuf:"bytes,3,opt,name=content,proto3" json:"content,omitempty"`
-	Image              string                                  `protobuf:"bytes,4,opt,name=image,proto3" json:"image,omitempty"`
-	FullArt            bool                                    `protobuf:"varint,5,opt,name=fullArt,proto3" json:"fullArt,omitempty"`
-	Notes              string                                  `protobuf:"bytes,6,opt,name=notes,proto3" json:"notes,omitempty"`
-	Status             Status                                  `protobuf:"varint,7,opt,name=status,proto3,enum=DecentralCardGame.cardchain.cardchain.Status" json:"status,omitempty"`
-	VotePool           github_com_cosmos_cosmos_sdk_types.Coin `protobuf:"bytes,8,opt,name=votePool,proto3,customtype=github.com/cosmos/cosmos-sdk/types.Coin" json:"votePool"`
-	Voters             []string                                `protobuf:"bytes,14,rep,name=voters,proto3" json:"voters,omitempty"`
-	FairEnoughVotes    uint64                                  `protobuf:"varint,9,opt,name=fairEnoughVotes,proto3" json:"fairEnoughVotes,omitempty"`
-	OverpoweredVotes   uint64                                  `protobuf:"varint,10,opt,name=overpoweredVotes,proto3" json:"overpoweredVotes,omitempty"`
-	UnderpoweredVotes  uint64                                  `protobuf:"varint,11,opt,name=underpoweredVotes,proto3" json:"underpoweredVotes,omitempty"`
-	InappropriateVotes uint64                                  `protobuf:"varint,12,opt,name=inappropriateVotes,proto3" json:"inappropriateVotes,omitempty"`
-	Nerflevel          int64                                   `protobuf:"varint,13,opt,name=nerflevel,proto3" json:"nerflevel,omitempty"`
-	BalanceAnchor      bool                                    `protobuf:"varint,15,opt,name=balanceAnchor,proto3" json:"balanceAnchor,omitempty"`
-	Hash               string                                  `protobuf:"bytes,16,opt,name=hash,proto3" json:"hash,omitempty"`
-	StarterCard        bool                                    `protobuf:"varint,17,opt,name=starterCard,proto3" json:"starterCard,omitempty"`
-	Rarity             CardRarity                              `protobuf:"varint,18,opt,name=rarity,proto3,enum=DecentralCardGame.cardchain.cardchain.CardRarity" json:"rarity,omitempty"`
-}
-
-func (m *OutpCard) Reset()         { *m = OutpCard{} }
-func (m *OutpCard) String() string { return proto.CompactTextString(m) }
-func (*OutpCard) ProtoMessage()    {}
-func (*OutpCard) Descriptor() ([]byte, []int) {
-	return fileDescriptor_a360ffd2377ddc30, []int{1}
-}
-func (m *OutpCard) XXX_Unmarshal(b []byte) error {
-	return m.Unmarshal(b)
-}
-func (m *OutpCard) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	if deterministic {
-		return xxx_messageInfo_OutpCard.Marshal(b, m, deterministic)
-	} else {
-		b = b[:cap(b)]
-		n, err := m.MarshalToSizedBuffer(b)
-		if err != nil {
-			return nil, err
-		}
-		return b[:n], nil
-	}
-}
-func (m *OutpCard) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_OutpCard.Merge(m, src)
-}
-func (m *OutpCard) XXX_Size() int {
-	return m.Size()
-}
-func (m *OutpCard) XXX_DiscardUnknown() {
-	xxx_messageInfo_OutpCard.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_OutpCard proto.InternalMessageInfo
-
-func (m *OutpCard) GetOwner() string {
-	if m != nil {
-		return m.Owner
-	}
-	return ""
-}
-
-func (m *OutpCard) GetArtist() string {
-	if m != nil {
-		return m.Artist
-	}
-	return ""
-}
-
-func (m *OutpCard) GetContent() string {
-	if m != nil {
-		return m.Content
-	}
-	return ""
-}
-
-func (m *OutpCard) GetImage() string {
-	if m != nil {
-		return m.Image
-	}
-	return ""
-}
-
-func (m *OutpCard) GetFullArt() bool {
-	if m != nil {
-		return m.FullArt
-	}
-	return false
-}
-
-func (m *OutpCard) GetNotes() string {
-	if m != nil {
-		return m.Notes
-	}
-	return ""
-}
-
-func (m *OutpCard) GetStatus() Status {
-	if m != nil {
-		return m.Status
-	}
-	return Status_scheme
-}
-
-func (m *OutpCard) GetVoters() []string {
-	if m != nil {
-		return m.Voters
-	}
-	return nil
-}
-
-func (m *OutpCard) GetFairEnoughVotes() uint64 {
-	if m != nil {
-		return m.FairEnoughVotes
-	}
-	return 0
-}
-
-func (m *OutpCard) GetOverpoweredVotes() uint64 {
-	if m != nil {
-		return m.OverpoweredVotes
-	}
-	return 0
-}
-
-func (m *OutpCard) GetUnderpoweredVotes() uint64 {
-	if m != nil {
-		return m.UnderpoweredVotes
-	}
-	return 0
-}
-
-func (m *OutpCard) GetInappropriateVotes() uint64 {
-	if m != nil {
-		return m.InappropriateVotes
-	}
-	return 0
-}
-
-func (m *OutpCard) GetNerflevel() int64 {
-	if m != nil {
-		return m.Nerflevel
-	}
-	return 0
-}
-
-func (m *OutpCard) GetBalanceAnchor() bool {
-	if m != nil {
-		return m.BalanceAnchor
-	}
-	return false
-}
-
-func (m *OutpCard) GetHash() string {
-	if m != nil {
-		return m.Hash
-	}
-	return ""
-}
-
-func (m *OutpCard) GetStarterCard() bool {
-	if m != nil {
-		return m.StarterCard
-	}
-	return false
-}
-
-func (m *OutpCard) GetRarity() CardRarity {
-	if m != nil {
-		return m.Rarity
-	}
-	return CardRarity_common
-}
-
 type TimeStamp struct {
 	TimeStamp uint64 `protobuf:"varint,1,opt,name=timeStamp,proto3" json:"timeStamp,omitempty"`
 }
@@ -515,7 +349,7 @@ func (m *TimeStamp) Reset()         { *m = TimeStamp{} }
 func (m *TimeStamp) String() string { return proto.CompactTextString(m) }
 func (*TimeStamp) ProtoMessage()    {}
 func (*TimeStamp) Descriptor() ([]byte, []int) {
-	return fileDescriptor_a360ffd2377ddc30, []int{2}
+	return fileDescriptor_a360ffd2377ddc30, []int{1}
 }
 func (m *TimeStamp) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -552,69 +386,64 @@ func (m *TimeStamp) GetTimeStamp() uint64 {
 }
 
 func init() {
-	proto.RegisterEnum("DecentralCardGame.cardchain.cardchain.Status", Status_name, Status_value)
-	proto.RegisterEnum("DecentralCardGame.cardchain.cardchain.CardRarity", CardRarity_name, CardRarity_value)
-	proto.RegisterEnum("DecentralCardGame.cardchain.cardchain.CardClass", CardClass_name, CardClass_value)
-	proto.RegisterEnum("DecentralCardGame.cardchain.cardchain.CardType", CardType_name, CardType_value)
-	proto.RegisterType((*Card)(nil), "DecentralCardGame.cardchain.cardchain.Card")
-	proto.RegisterType((*OutpCard)(nil), "DecentralCardGame.cardchain.cardchain.OutpCard")
-	proto.RegisterType((*TimeStamp)(nil), "DecentralCardGame.cardchain.cardchain.TimeStamp")
+	proto.RegisterEnum("cardchain.cardchain.CardStatus", CardStatus_name, CardStatus_value)
+	proto.RegisterEnum("cardchain.cardchain.CardRarity", CardRarity_name, CardRarity_value)
+	proto.RegisterEnum("cardchain.cardchain.CardClass", CardClass_name, CardClass_value)
+	proto.RegisterEnum("cardchain.cardchain.CardType", CardType_name, CardType_value)
+	proto.RegisterType((*Card)(nil), "cardchain.cardchain.Card")
+	proto.RegisterType((*TimeStamp)(nil), "cardchain.cardchain.TimeStamp")
 }
 
 func init() { proto.RegisterFile("cardchain/cardchain/card.proto", fileDescriptor_a360ffd2377ddc30) }
 
 var fileDescriptor_a360ffd2377ddc30 = []byte{
-	// 792 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xec, 0x55, 0x4f, 0x8f, 0xdb, 0x44,
-	0x14, 0x8f, 0x37, 0x8e, 0x63, 0xbf, 0xfd, 0x37, 0x3b, 0x5a, 0x21, 0x83, 0x50, 0x6a, 0x55, 0x20,
-	0x42, 0x44, 0x13, 0x01, 0x17, 0x4e, 0x48, 0x6d, 0xa8, 0xd0, 0x0a, 0x21, 0x90, 0xb7, 0xea, 0x81,
-	0x0b, 0x9a, 0x8c, 0xdf, 0xc6, 0x23, 0xec, 0x19, 0x77, 0x66, 0x9c, 0x36, 0xdf, 0x82, 0x2b, 0x5f,
-	0x81, 0xef, 0xc0, 0xbd, 0xc7, 0x1e, 0x11, 0x87, 0x0a, 0xed, 0x7e, 0x11, 0x34, 0xe3, 0xec, 0x66,
-	0xbb, 0x8b, 0x50, 0xa5, 0xbd, 0xa1, 0x9e, 0xf2, 0x7e, 0x6f, 0xde, 0xfb, 0xbd, 0xbc, 0xf9, 0xfd,
-	0x6c, 0xc3, 0x88, 0x33, 0x5d, 0xf0, 0x92, 0x09, 0x39, 0x7b, 0x33, 0x9a, 0x36, 0x5a, 0x59, 0x45,
-	0x3f, 0xfe, 0x06, 0x39, 0x4a, 0xab, 0x59, 0x35, 0x67, 0xba, 0xf8, 0x96, 0xd5, 0x38, 0xbd, 0xaa,
-	0xdb, 0x46, 0x1f, 0x1c, 0x2f, 0xd5, 0x52, 0xf9, 0x8e, 0x99, 0x8b, 0xba, 0xe6, 0xfb, 0xbf, 0x0f,
-	0x20, 0x74, 0x6d, 0xf4, 0x18, 0x06, 0xea, 0xb9, 0x44, 0x9d, 0x06, 0x59, 0x30, 0x4e, 0xf2, 0x0e,
-	0xd0, 0xf7, 0x20, 0x62, 0xda, 0x0a, 0x63, 0xd3, 0x1d, 0x9f, 0xde, 0x20, 0x9a, 0xc2, 0x90, 0x2b,
-	0x69, 0x51, 0xda, 0xb4, 0x9f, 0x05, 0xe3, 0xbd, 0xfc, 0x12, 0xd2, 0xf7, 0x21, 0x16, 0x35, 0x5b,
-	0xe2, 0xcf, 0xa2, 0x48, 0xc3, 0x2c, 0x18, 0x87, 0xf9, 0xd0, 0xe3, 0x93, 0xc2, 0x35, 0x9d, 0xb5,
-	0x55, 0xf5, 0x50, 0xdb, 0x74, 0x90, 0x05, 0xe3, 0x38, 0xbf, 0x84, 0x6e, 0xb8, 0x54, 0x16, 0x4d,
-	0x1a, 0x75, 0xc3, 0x3d, 0xa0, 0x8f, 0x21, 0x32, 0x96, 0xd9, 0xd6, 0xa4, 0xc3, 0x2c, 0x18, 0x1f,
-	0x7c, 0xf1, 0x60, 0xfa, 0x56, 0x9b, 0x4e, 0x4f, 0x7d, 0x53, 0xbe, 0x69, 0xa6, 0xdf, 0x41, 0xbc,
-	0x52, 0x16, 0x7f, 0x54, 0xaa, 0x4a, 0x63, 0xc7, 0xff, 0x68, 0xf6, 0xf2, 0xf5, 0xbd, 0xde, 0x5f,
-	0xaf, 0xef, 0x7d, 0xb2, 0x14, 0xb6, 0x6c, 0x17, 0x53, 0xae, 0xea, 0x19, 0x57, 0xa6, 0x56, 0x66,
-	0xf3, 0xf3, 0xc0, 0x14, 0xbf, 0xcc, 0xec, 0xba, 0x41, 0x33, 0x9d, 0x2b, 0x21, 0xf3, 0x2b, 0x02,
-	0x77, 0x21, 0x2e, 0xd6, 0x26, 0x3d, 0xc8, 0xfa, 0xee, 0x42, 0x3a, 0x44, 0xc7, 0x70, 0x78, 0xc6,
-	0x84, 0x7e, 0x2c, 0x55, 0xbb, 0x2c, 0x9f, 0xfa, 0x5d, 0x12, 0xbf, 0xfd, 0xcd, 0x34, 0x9d, 0x00,
-	0x51, 0x2b, 0xd4, 0x8d, 0x7a, 0x8e, 0x1a, 0x8b, 0xae, 0x14, 0x7c, 0xe9, 0xad, 0x3c, 0xfd, 0x0c,
-	0x8e, 0x5a, 0x59, 0xdc, 0x28, 0xde, 0xf5, 0xc5, 0xb7, 0x0f, 0xe8, 0x14, 0xa8, 0x90, 0xac, 0x69,
-	0xb4, 0x6a, 0xb4, 0x60, 0x16, 0xbb, 0xf2, 0x3d, 0x5f, 0xfe, 0x2f, 0x27, 0xf4, 0x43, 0x48, 0x24,
-	0xea, 0xb3, 0x0a, 0x57, 0x58, 0xa5, 0xfb, 0x59, 0x30, 0xee, 0xe7, 0xdb, 0x04, 0xfd, 0x08, 0xf6,
-	0x17, 0xac, 0x62, 0x92, 0xe3, 0x43, 0xc9, 0x4b, 0xa5, 0xd3, 0x43, 0xaf, 0xd9, 0x9b, 0x49, 0x9a,
-	0xc1, 0xae, 0xb1, 0x4c, 0x5b, 0xd4, 0x4e, 0x92, 0x94, 0xf8, 0x9a, 0xeb, 0x29, 0x7a, 0x02, 0x91,
-	0x66, 0x5a, 0xd8, 0x75, 0x7a, 0xe4, 0x55, 0xfc, 0xfc, 0x2d, 0x55, 0x74, 0x87, 0xb9, 0x6f, 0xcc,
-	0x37, 0x04, 0xf7, 0xff, 0x18, 0x40, 0xfc, 0x43, 0x6b, 0x9b, 0xbb, 0x1b, 0x36, 0xd9, 0x1a, 0xf6,
-	0x18, 0x06, 0xde, 0xa0, 0xde, 0xad, 0x49, 0xde, 0x81, 0x77, 0x5e, 0xfd, 0x1f, 0x7a, 0x95, 0x42,
-	0x58, 0x32, 0x53, 0x7a, 0x93, 0x26, 0xb9, 0x8f, 0x6f, 0xfa, 0xf7, 0xe8, 0xbf, 0xfc, 0x4b, 0xef,
-	0xea, 0xdf, 0x4f, 0x21, 0x79, 0x22, 0x6a, 0x3c, 0xb5, 0xac, 0x6e, 0xdc, 0x46, 0xf6, 0x12, 0x78,
-	0x0f, 0x87, 0xf9, 0x36, 0x31, 0xf9, 0x2d, 0x80, 0xa8, 0xf3, 0x06, 0x05, 0x88, 0x0c, 0x2f, 0xb1,
-	0x46, 0xd2, 0xa3, 0xfb, 0x90, 0xf8, 0xf7, 0xb6, 0xd3, 0x9b, 0x04, 0x34, 0x81, 0x81, 0xd5, 0x82,
-	0x55, 0x64, 0xc7, 0x9f, 0xa0, 0xae, 0x99, 0x44, 0x69, 0x49, 0xdf, 0x41, 0xd3, 0x9a, 0x06, 0x65,
-	0x81, 0x05, 0x09, 0x1d, 0xc7, 0x82, 0x49, 0x89, 0x05, 0x19, 0xd0, 0x03, 0x80, 0x2e, 0x3e, 0x55,
-	0x4a, 0x92, 0x88, 0x52, 0x38, 0xe8, 0xf0, 0x53, 0xd4, 0x6b, 0x9f, 0x1b, 0xd2, 0x18, 0x42, 0xa9,
-	0x24, 0x92, 0x98, 0x1e, 0xc1, 0x3e, 0x2b, 0x56, 0x28, 0x6d, 0xab, 0xf1, 0xc4, 0x62, 0x4d, 0x92,
-	0xc9, 0xf7, 0x00, 0xdb, 0xe5, 0x1c, 0x35, 0x57, 0x75, 0xad, 0x24, 0xe9, 0xd1, 0x3d, 0x88, 0x5b,
-	0xb9, 0x41, 0x81, 0x23, 0xd1, 0x4c, 0x23, 0xd9, 0xa1, 0x87, 0xb0, 0x8b, 0x2f, 0x38, 0x36, 0x56,
-	0x28, 0xc9, 0x2a, 0xd2, 0x77, 0x4d, 0xad, 0x14, 0xcf, 0x5a, 0x24, 0xe1, 0x64, 0x0e, 0x89, 0xa3,
-	0x9b, 0x57, 0xcc, 0xf8, 0x65, 0x25, 0x73, 0xb3, 0x48, 0x8f, 0xee, 0xc2, 0x90, 0xb7, 0x95, 0x07,
-	0x81, 0x5b, 0xa8, 0x5e, 0x1b, 0x2b, 0xb8, 0x30, 0x35, 0xd9, 0x71, 0x4b, 0x58, 0xe4, 0xa5, 0x54,
-	0x95, 0x5a, 0xae, 0x49, 0x7f, 0xf2, 0x35, 0xc4, 0x8e, 0xe4, 0xc9, 0xba, 0x41, 0x77, 0x2b, 0x4d,
-	0xc5, 0xb8, 0xa3, 0x00, 0x88, 0x18, 0x77, 0x53, 0x49, 0xe0, 0x62, 0x94, 0x56, 0xd8, 0x75, 0xf7,
-	0x87, 0x4a, 0x64, 0xc5, 0xb3, 0xd6, 0xeb, 0x4c, 0xfa, 0x8f, 0xf2, 0x97, 0xe7, 0xa3, 0xe0, 0xd5,
-	0xf9, 0x28, 0xf8, 0xfb, 0x7c, 0x14, 0xfc, 0x7a, 0x31, 0xea, 0xbd, 0xba, 0x18, 0xf5, 0xfe, 0xbc,
-	0x18, 0xf5, 0x7e, 0xfa, 0xea, 0xda, 0x83, 0x77, 0x4b, 0xf9, 0xd9, 0xfc, 0xea, 0x8b, 0xfc, 0xe2,
-	0xda, 0xd7, 0xd9, 0x3f, 0x8e, 0x8b, 0xc8, 0x4b, 0xf5, 0xe5, 0x3f, 0x01, 0x00, 0x00, 0xff, 0xff,
-	0xc3, 0xca, 0x6a, 0x0a, 0xc1, 0x07, 0x00, 0x00,
+	// 736 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x84, 0x54, 0xcd, 0x8a, 0xdc, 0x46,
+	0x10, 0x1e, 0xed, 0x68, 0x66, 0xa4, 0x9a, 0x9d, 0xd9, 0xde, 0x8e, 0x09, 0xb2, 0x09, 0xb2, 0x30,
+	0x39, 0x28, 0x43, 0xd0, 0x60, 0xe7, 0x90, 0x40, 0x20, 0x60, 0x4f, 0x42, 0xf0, 0x21, 0x10, 0xb4,
+	0xc6, 0x87, 0x5c, 0x42, 0x4f, 0xab, 0x76, 0xa6, 0x41, 0xea, 0x96, 0xbb, 0x5b, 0x63, 0xcf, 0x5b,
+	0xe4, 0x05, 0xf2, 0x3e, 0x3e, 0xfa, 0x98, 0x53, 0x08, 0xbb, 0x6f, 0x91, 0x53, 0xe8, 0xd6, 0xec,
+	0x8f, 0xbd, 0x0b, 0xb9, 0xd5, 0xf7, 0xd5, 0xa7, 0xaa, 0xaf, 0xaa, 0x1a, 0x41, 0xca, 0x99, 0xae,
+	0xf8, 0x96, 0x09, 0xb9, 0xfc, 0x38, 0x2a, 0x5a, 0xad, 0xac, 0xa2, 0x9f, 0x5d, 0xb3, 0xc5, 0x75,
+	0xf4, 0xe8, 0xc1, 0x46, 0x6d, 0x94, 0xcf, 0x2f, 0x5d, 0xd4, 0x4b, 0x1f, 0xa5, 0x5c, 0x99, 0x46,
+	0x99, 0xe5, 0x9a, 0x19, 0x5c, 0xee, 0x9e, 0xae, 0xd1, 0xb2, 0xa7, 0x4b, 0xae, 0x84, 0xec, 0xf3,
+	0x4f, 0xfe, 0x0d, 0x21, 0x5c, 0x31, 0x5d, 0xd1, 0x07, 0x30, 0x52, 0x6f, 0x25, 0xea, 0x24, 0xc8,
+	0x82, 0x3c, 0x2e, 0x7b, 0x40, 0x3f, 0x87, 0x31, 0xd3, 0x56, 0x18, 0x9b, 0x1c, 0x79, 0xfa, 0x80,
+	0x68, 0x02, 0x13, 0xae, 0xa4, 0x45, 0x69, 0x93, 0x61, 0x16, 0xe4, 0xc7, 0xe5, 0x15, 0xa4, 0x0f,
+	0x21, 0x12, 0x0d, 0xdb, 0xe0, 0xef, 0xa2, 0x4a, 0xc2, 0x2c, 0xc8, 0xc3, 0x72, 0xe2, 0xf1, 0xcb,
+	0xca, 0x7d, 0x74, 0xde, 0xd5, 0xf5, 0x73, 0x6d, 0x93, 0x51, 0x16, 0xe4, 0x51, 0x79, 0x05, 0x5d,
+	0x73, 0xa9, 0x2c, 0x9a, 0x64, 0xdc, 0x37, 0xf7, 0x80, 0x7e, 0x0b, 0x63, 0x63, 0x99, 0xed, 0x4c,
+	0x32, 0xc9, 0x82, 0x7c, 0xfe, 0xec, 0x71, 0x71, 0xcf, 0xdc, 0x85, 0x73, 0x7f, 0xe6, 0x65, 0xe5,
+	0x41, 0x4e, 0xbf, 0x87, 0x68, 0xa7, 0x2c, 0xfe, 0xaa, 0x54, 0x9d, 0x44, 0x59, 0x90, 0x4f, 0x9f,
+	0x3d, 0x2c, 0xfa, 0x3d, 0x14, 0x6e, 0x0f, 0xc5, 0x61, 0x0f, 0xc5, 0x4a, 0x09, 0xf9, 0x22, 0x7c,
+	0xff, 0xf7, 0xe3, 0x41, 0x79, 0xfd, 0x81, 0x1b, 0xd9, 0xc5, 0xda, 0x24, 0xf3, 0x6c, 0xe8, 0x46,
+	0xee, 0x11, 0xcd, 0xe1, 0xe4, 0x9c, 0x09, 0xfd, 0x93, 0x54, 0xdd, 0x66, 0xfb, 0xda, 0xbb, 0x8d,
+	0xfd, 0x7c, 0x9f, 0xd2, 0x74, 0x01, 0x44, 0xed, 0x50, 0xb7, 0xea, 0x2d, 0x6a, 0xac, 0x7a, 0x29,
+	0x78, 0xe9, 0x1d, 0x9e, 0x7e, 0x0d, 0xa7, 0x9d, 0xac, 0x3e, 0x11, 0x4f, 0xbd, 0xf8, 0x6e, 0x82,
+	0x16, 0x40, 0x85, 0x64, 0x6d, 0xab, 0x55, 0xab, 0x05, 0xb3, 0xd8, 0xcb, 0x8f, 0xbd, 0xfc, 0x9e,
+	0x0c, 0xfd, 0x02, 0x62, 0x89, 0xfa, 0xbc, 0xc6, 0x1d, 0xd6, 0xc9, 0x2c, 0x0b, 0xf2, 0x61, 0x79,
+	0x43, 0xd0, 0x2f, 0x61, 0xb6, 0x66, 0x35, 0x93, 0x1c, 0x9f, 0x4b, 0xbe, 0x55, 0x3a, 0x39, 0xf1,
+	0x57, 0xf9, 0x98, 0xa4, 0x19, 0x4c, 0x8d, 0x65, 0xda, 0xa2, 0x76, 0x9b, 0x4e, 0x88, 0xd7, 0xdc,
+	0xa6, 0xdc, 0x9d, 0x34, 0xd3, 0xc2, 0xee, 0x93, 0xd3, 0xff, 0xb9, 0x53, 0xe9, 0x65, 0xe5, 0x41,
+	0xfe, 0xe4, 0x2b, 0x88, 0x5f, 0x89, 0x06, 0xcf, 0x2c, 0x6b, 0x5a, 0xe7, 0xd5, 0x5e, 0x01, 0xff,
+	0x08, 0xc3, 0xf2, 0x86, 0x58, 0xfc, 0x19, 0x00, 0xdc, 0x5c, 0x9a, 0x46, 0x10, 0x4a, 0x25, 0x91,
+	0x0c, 0x28, 0xc0, 0xd8, 0xf0, 0x2d, 0x36, 0x48, 0x02, 0x3a, 0x83, 0xd8, 0xbf, 0x6a, 0xbb, 0x6f,
+	0x91, 0x1c, 0xd1, 0x18, 0x46, 0x56, 0x0b, 0x56, 0x93, 0xa1, 0xcf, 0xa0, 0x6e, 0x98, 0x44, 0x69,
+	0x49, 0xe8, 0xa0, 0xe9, 0x4c, 0x8b, 0xb2, 0xc2, 0x8a, 0x8c, 0x5c, 0x8d, 0x35, 0x93, 0x12, 0x2b,
+	0x32, 0xa6, 0x73, 0x80, 0x3e, 0x3e, 0x53, 0x4a, 0x92, 0x09, 0xa5, 0x30, 0xef, 0xf1, 0x6b, 0xd4,
+	0x7b, 0xcf, 0x45, 0xf4, 0x14, 0x66, 0xac, 0xda, 0xa1, 0xb4, 0x9d, 0xc6, 0x97, 0x16, 0x1b, 0x12,
+	0x2f, 0x7e, 0xe9, 0xed, 0xf5, 0x03, 0xba, 0x82, 0x5c, 0x35, 0x8d, 0x92, 0x64, 0x40, 0x8f, 0x21,
+	0xea, 0xe4, 0x01, 0x05, 0xce, 0xb8, 0x66, 0xda, 0xb9, 0x3b, 0x81, 0x29, 0xbe, 0xe3, 0xd8, 0x5a,
+	0xa1, 0xa4, 0xf7, 0x08, 0x30, 0xee, 0xa4, 0x78, 0xd3, 0x21, 0x09, 0x17, 0x2b, 0x88, 0x5d, 0xb9,
+	0x55, 0xcd, 0x8c, 0x71, 0x09, 0xc9, 0x5c, 0x2f, 0x32, 0xa0, 0x53, 0x98, 0xf0, 0xae, 0xf6, 0xc0,
+	0xcf, 0xdb, 0xec, 0x8d, 0x15, 0x5c, 0x98, 0x86, 0x1c, 0x39, 0xeb, 0x16, 0xf9, 0x56, 0xaa, 0x5a,
+	0x6d, 0xf6, 0x64, 0xb8, 0xf8, 0x01, 0x22, 0x57, 0xe4, 0xd5, 0xbe, 0x45, 0xb7, 0x8b, 0xb6, 0x66,
+	0xfc, 0xb0, 0x31, 0xc6, 0x5d, 0x57, 0x12, 0xb8, 0x18, 0xa5, 0x15, 0x76, 0xdf, 0x1b, 0xda, 0x22,
+	0xab, 0xde, 0x74, 0xfe, 0xb2, 0x64, 0xf8, 0xa2, 0x7c, 0x7f, 0x91, 0x06, 0x1f, 0x2e, 0xd2, 0xe0,
+	0x9f, 0x8b, 0x34, 0xf8, 0xe3, 0x32, 0x1d, 0x7c, 0xb8, 0x4c, 0x07, 0x7f, 0x5d, 0xa6, 0x83, 0xdf,
+	0xbe, 0xdb, 0x08, 0xbb, 0xed, 0xd6, 0x05, 0x57, 0xcd, 0xf2, 0x47, 0xe4, 0x28, 0xad, 0x66, 0xb5,
+	0xeb, 0xf5, 0x33, 0x6b, 0xf0, 0xd6, 0x3f, 0xeb, 0xdd, 0xad, 0xd8, 0x1d, 0xc5, 0xac, 0xc7, 0xfe,
+	0x40, 0xdf, 0xfc, 0x17, 0x00, 0x00, 0xff, 0xff, 0x09, 0xea, 0xcb, 0x65, 0xe3, 0x04, 0x00, 0x00,
 }
 
 func (m *Card) Marshal() (dAtA []byte, err error) {
@@ -701,11 +530,11 @@ func (m *Card) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 		dAtA[i] = 0x48
 	}
 	{
-		size := m.VotePool.Size()
-		i -= size
-		if _, err := m.VotePool.MarshalTo(dAtA[i:]); err != nil {
+		size, err := m.VotePool.MarshalToSizedBuffer(dAtA[:i])
+		if err != nil {
 			return 0, err
 		}
+		i -= size
 		i = encodeVarintCard(dAtA, i, uint64(size))
 	}
 	i--
@@ -736,161 +565,6 @@ func (m *Card) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 		i = encodeVarintCard(dAtA, i, uint64(m.ImageId))
 		i--
 		dAtA[i] = 0x20
-	}
-	if len(m.Content) > 0 {
-		i -= len(m.Content)
-		copy(dAtA[i:], m.Content)
-		i = encodeVarintCard(dAtA, i, uint64(len(m.Content)))
-		i--
-		dAtA[i] = 0x1a
-	}
-	if len(m.Artist) > 0 {
-		i -= len(m.Artist)
-		copy(dAtA[i:], m.Artist)
-		i = encodeVarintCard(dAtA, i, uint64(len(m.Artist)))
-		i--
-		dAtA[i] = 0x12
-	}
-	if len(m.Owner) > 0 {
-		i -= len(m.Owner)
-		copy(dAtA[i:], m.Owner)
-		i = encodeVarintCard(dAtA, i, uint64(len(m.Owner)))
-		i--
-		dAtA[i] = 0xa
-	}
-	return len(dAtA) - i, nil
-}
-
-func (m *OutpCard) Marshal() (dAtA []byte, err error) {
-	size := m.Size()
-	dAtA = make([]byte, size)
-	n, err := m.MarshalToSizedBuffer(dAtA[:size])
-	if err != nil {
-		return nil, err
-	}
-	return dAtA[:n], nil
-}
-
-func (m *OutpCard) MarshalTo(dAtA []byte) (int, error) {
-	size := m.Size()
-	return m.MarshalToSizedBuffer(dAtA[:size])
-}
-
-func (m *OutpCard) MarshalToSizedBuffer(dAtA []byte) (int, error) {
-	i := len(dAtA)
-	_ = i
-	var l int
-	_ = l
-	if m.Rarity != 0 {
-		i = encodeVarintCard(dAtA, i, uint64(m.Rarity))
-		i--
-		dAtA[i] = 0x1
-		i--
-		dAtA[i] = 0x90
-	}
-	if m.StarterCard {
-		i--
-		if m.StarterCard {
-			dAtA[i] = 1
-		} else {
-			dAtA[i] = 0
-		}
-		i--
-		dAtA[i] = 0x1
-		i--
-		dAtA[i] = 0x88
-	}
-	if len(m.Hash) > 0 {
-		i -= len(m.Hash)
-		copy(dAtA[i:], m.Hash)
-		i = encodeVarintCard(dAtA, i, uint64(len(m.Hash)))
-		i--
-		dAtA[i] = 0x1
-		i--
-		dAtA[i] = 0x82
-	}
-	if m.BalanceAnchor {
-		i--
-		if m.BalanceAnchor {
-			dAtA[i] = 1
-		} else {
-			dAtA[i] = 0
-		}
-		i--
-		dAtA[i] = 0x78
-	}
-	if len(m.Voters) > 0 {
-		for iNdEx := len(m.Voters) - 1; iNdEx >= 0; iNdEx-- {
-			i -= len(m.Voters[iNdEx])
-			copy(dAtA[i:], m.Voters[iNdEx])
-			i = encodeVarintCard(dAtA, i, uint64(len(m.Voters[iNdEx])))
-			i--
-			dAtA[i] = 0x72
-		}
-	}
-	if m.Nerflevel != 0 {
-		i = encodeVarintCard(dAtA, i, uint64(m.Nerflevel))
-		i--
-		dAtA[i] = 0x68
-	}
-	if m.InappropriateVotes != 0 {
-		i = encodeVarintCard(dAtA, i, uint64(m.InappropriateVotes))
-		i--
-		dAtA[i] = 0x60
-	}
-	if m.UnderpoweredVotes != 0 {
-		i = encodeVarintCard(dAtA, i, uint64(m.UnderpoweredVotes))
-		i--
-		dAtA[i] = 0x58
-	}
-	if m.OverpoweredVotes != 0 {
-		i = encodeVarintCard(dAtA, i, uint64(m.OverpoweredVotes))
-		i--
-		dAtA[i] = 0x50
-	}
-	if m.FairEnoughVotes != 0 {
-		i = encodeVarintCard(dAtA, i, uint64(m.FairEnoughVotes))
-		i--
-		dAtA[i] = 0x48
-	}
-	{
-		size := m.VotePool.Size()
-		i -= size
-		if _, err := m.VotePool.MarshalTo(dAtA[i:]); err != nil {
-			return 0, err
-		}
-		i = encodeVarintCard(dAtA, i, uint64(size))
-	}
-	i--
-	dAtA[i] = 0x42
-	if m.Status != 0 {
-		i = encodeVarintCard(dAtA, i, uint64(m.Status))
-		i--
-		dAtA[i] = 0x38
-	}
-	if len(m.Notes) > 0 {
-		i -= len(m.Notes)
-		copy(dAtA[i:], m.Notes)
-		i = encodeVarintCard(dAtA, i, uint64(len(m.Notes)))
-		i--
-		dAtA[i] = 0x32
-	}
-	if m.FullArt {
-		i--
-		if m.FullArt {
-			dAtA[i] = 1
-		} else {
-			dAtA[i] = 0
-		}
-		i--
-		dAtA[i] = 0x28
-	}
-	if len(m.Image) > 0 {
-		i -= len(m.Image)
-		copy(dAtA[i:], m.Image)
-		i = encodeVarintCard(dAtA, i, uint64(len(m.Image)))
-		i--
-		dAtA[i] = 0x22
 	}
 	if len(m.Content) > 0 {
 		i -= len(m.Content)
@@ -1011,77 +685,6 @@ func (m *Card) Size() (n int) {
 	}
 	if m.BalanceAnchor {
 		n += 2
-	}
-	if m.StarterCard {
-		n += 3
-	}
-	if m.Rarity != 0 {
-		n += 2 + sovCard(uint64(m.Rarity))
-	}
-	return n
-}
-
-func (m *OutpCard) Size() (n int) {
-	if m == nil {
-		return 0
-	}
-	var l int
-	_ = l
-	l = len(m.Owner)
-	if l > 0 {
-		n += 1 + l + sovCard(uint64(l))
-	}
-	l = len(m.Artist)
-	if l > 0 {
-		n += 1 + l + sovCard(uint64(l))
-	}
-	l = len(m.Content)
-	if l > 0 {
-		n += 1 + l + sovCard(uint64(l))
-	}
-	l = len(m.Image)
-	if l > 0 {
-		n += 1 + l + sovCard(uint64(l))
-	}
-	if m.FullArt {
-		n += 2
-	}
-	l = len(m.Notes)
-	if l > 0 {
-		n += 1 + l + sovCard(uint64(l))
-	}
-	if m.Status != 0 {
-		n += 1 + sovCard(uint64(m.Status))
-	}
-	l = m.VotePool.Size()
-	n += 1 + l + sovCard(uint64(l))
-	if m.FairEnoughVotes != 0 {
-		n += 1 + sovCard(uint64(m.FairEnoughVotes))
-	}
-	if m.OverpoweredVotes != 0 {
-		n += 1 + sovCard(uint64(m.OverpoweredVotes))
-	}
-	if m.UnderpoweredVotes != 0 {
-		n += 1 + sovCard(uint64(m.UnderpoweredVotes))
-	}
-	if m.InappropriateVotes != 0 {
-		n += 1 + sovCard(uint64(m.InappropriateVotes))
-	}
-	if m.Nerflevel != 0 {
-		n += 1 + sovCard(uint64(m.Nerflevel))
-	}
-	if len(m.Voters) > 0 {
-		for _, s := range m.Voters {
-			l = len(s)
-			n += 1 + l + sovCard(uint64(l))
-		}
-	}
-	if m.BalanceAnchor {
-		n += 2
-	}
-	l = len(m.Hash)
-	if l > 0 {
-		n += 2 + l + sovCard(uint64(l))
 	}
 	if m.StarterCard {
 		n += 3
@@ -1322,7 +925,7 @@ func (m *Card) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.Status |= Status(b&0x7F) << shift
+				m.Status |= CardStatus(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
@@ -1331,7 +934,7 @@ func (m *Card) Unmarshal(dAtA []byte) error {
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field VotePool", wireType)
 			}
-			var stringLen uint64
+			var msglen int
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowCard
@@ -1341,16 +944,15 @@ func (m *Card) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				stringLen |= uint64(b&0x7F) << shift
+				msglen |= int(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
-			intStringLen := int(stringLen)
-			if intStringLen < 0 {
+			if msglen < 0 {
 				return ErrInvalidLengthCard
 			}
-			postIndex := iNdEx + intStringLen
+			postIndex := iNdEx + msglen
 			if postIndex < 0 {
 				return ErrInvalidLengthCard
 			}
@@ -1529,507 +1131,6 @@ func (m *Card) Unmarshal(dAtA []byte) error {
 			}
 			m.StarterCard = bool(v != 0)
 		case 17:
-			if wireType != 0 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Rarity", wireType)
-			}
-			m.Rarity = 0
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowCard
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				m.Rarity |= CardRarity(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-		default:
-			iNdEx = preIndex
-			skippy, err := skipCard(dAtA[iNdEx:])
-			if err != nil {
-				return err
-			}
-			if (skippy < 0) || (iNdEx+skippy) < 0 {
-				return ErrInvalidLengthCard
-			}
-			if (iNdEx + skippy) > l {
-				return io.ErrUnexpectedEOF
-			}
-			iNdEx += skippy
-		}
-	}
-
-	if iNdEx > l {
-		return io.ErrUnexpectedEOF
-	}
-	return nil
-}
-func (m *OutpCard) Unmarshal(dAtA []byte) error {
-	l := len(dAtA)
-	iNdEx := 0
-	for iNdEx < l {
-		preIndex := iNdEx
-		var wire uint64
-		for shift := uint(0); ; shift += 7 {
-			if shift >= 64 {
-				return ErrIntOverflowCard
-			}
-			if iNdEx >= l {
-				return io.ErrUnexpectedEOF
-			}
-			b := dAtA[iNdEx]
-			iNdEx++
-			wire |= uint64(b&0x7F) << shift
-			if b < 0x80 {
-				break
-			}
-		}
-		fieldNum := int32(wire >> 3)
-		wireType := int(wire & 0x7)
-		if wireType == 4 {
-			return fmt.Errorf("proto: OutpCard: wiretype end group for non-group")
-		}
-		if fieldNum <= 0 {
-			return fmt.Errorf("proto: OutpCard: illegal tag %d (wire type %d)", fieldNum, wire)
-		}
-		switch fieldNum {
-		case 1:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Owner", wireType)
-			}
-			var stringLen uint64
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowCard
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				stringLen |= uint64(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			intStringLen := int(stringLen)
-			if intStringLen < 0 {
-				return ErrInvalidLengthCard
-			}
-			postIndex := iNdEx + intStringLen
-			if postIndex < 0 {
-				return ErrInvalidLengthCard
-			}
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			m.Owner = string(dAtA[iNdEx:postIndex])
-			iNdEx = postIndex
-		case 2:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Artist", wireType)
-			}
-			var stringLen uint64
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowCard
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				stringLen |= uint64(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			intStringLen := int(stringLen)
-			if intStringLen < 0 {
-				return ErrInvalidLengthCard
-			}
-			postIndex := iNdEx + intStringLen
-			if postIndex < 0 {
-				return ErrInvalidLengthCard
-			}
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			m.Artist = string(dAtA[iNdEx:postIndex])
-			iNdEx = postIndex
-		case 3:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Content", wireType)
-			}
-			var stringLen uint64
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowCard
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				stringLen |= uint64(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			intStringLen := int(stringLen)
-			if intStringLen < 0 {
-				return ErrInvalidLengthCard
-			}
-			postIndex := iNdEx + intStringLen
-			if postIndex < 0 {
-				return ErrInvalidLengthCard
-			}
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			m.Content = string(dAtA[iNdEx:postIndex])
-			iNdEx = postIndex
-		case 4:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Image", wireType)
-			}
-			var stringLen uint64
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowCard
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				stringLen |= uint64(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			intStringLen := int(stringLen)
-			if intStringLen < 0 {
-				return ErrInvalidLengthCard
-			}
-			postIndex := iNdEx + intStringLen
-			if postIndex < 0 {
-				return ErrInvalidLengthCard
-			}
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			m.Image = string(dAtA[iNdEx:postIndex])
-			iNdEx = postIndex
-		case 5:
-			if wireType != 0 {
-				return fmt.Errorf("proto: wrong wireType = %d for field FullArt", wireType)
-			}
-			var v int
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowCard
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				v |= int(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			m.FullArt = bool(v != 0)
-		case 6:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Notes", wireType)
-			}
-			var stringLen uint64
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowCard
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				stringLen |= uint64(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			intStringLen := int(stringLen)
-			if intStringLen < 0 {
-				return ErrInvalidLengthCard
-			}
-			postIndex := iNdEx + intStringLen
-			if postIndex < 0 {
-				return ErrInvalidLengthCard
-			}
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			m.Notes = string(dAtA[iNdEx:postIndex])
-			iNdEx = postIndex
-		case 7:
-			if wireType != 0 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Status", wireType)
-			}
-			m.Status = 0
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowCard
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				m.Status |= Status(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-		case 8:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field VotePool", wireType)
-			}
-			var stringLen uint64
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowCard
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				stringLen |= uint64(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			intStringLen := int(stringLen)
-			if intStringLen < 0 {
-				return ErrInvalidLengthCard
-			}
-			postIndex := iNdEx + intStringLen
-			if postIndex < 0 {
-				return ErrInvalidLengthCard
-			}
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			if err := m.VotePool.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
-				return err
-			}
-			iNdEx = postIndex
-		case 9:
-			if wireType != 0 {
-				return fmt.Errorf("proto: wrong wireType = %d for field FairEnoughVotes", wireType)
-			}
-			m.FairEnoughVotes = 0
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowCard
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				m.FairEnoughVotes |= uint64(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-		case 10:
-			if wireType != 0 {
-				return fmt.Errorf("proto: wrong wireType = %d for field OverpoweredVotes", wireType)
-			}
-			m.OverpoweredVotes = 0
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowCard
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				m.OverpoweredVotes |= uint64(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-		case 11:
-			if wireType != 0 {
-				return fmt.Errorf("proto: wrong wireType = %d for field UnderpoweredVotes", wireType)
-			}
-			m.UnderpoweredVotes = 0
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowCard
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				m.UnderpoweredVotes |= uint64(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-		case 12:
-			if wireType != 0 {
-				return fmt.Errorf("proto: wrong wireType = %d for field InappropriateVotes", wireType)
-			}
-			m.InappropriateVotes = 0
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowCard
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				m.InappropriateVotes |= uint64(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-		case 13:
-			if wireType != 0 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Nerflevel", wireType)
-			}
-			m.Nerflevel = 0
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowCard
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				m.Nerflevel |= int64(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-		case 14:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Voters", wireType)
-			}
-			var stringLen uint64
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowCard
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				stringLen |= uint64(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			intStringLen := int(stringLen)
-			if intStringLen < 0 {
-				return ErrInvalidLengthCard
-			}
-			postIndex := iNdEx + intStringLen
-			if postIndex < 0 {
-				return ErrInvalidLengthCard
-			}
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			m.Voters = append(m.Voters, string(dAtA[iNdEx:postIndex]))
-			iNdEx = postIndex
-		case 15:
-			if wireType != 0 {
-				return fmt.Errorf("proto: wrong wireType = %d for field BalanceAnchor", wireType)
-			}
-			var v int
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowCard
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				v |= int(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			m.BalanceAnchor = bool(v != 0)
-		case 16:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Hash", wireType)
-			}
-			var stringLen uint64
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowCard
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				stringLen |= uint64(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			intStringLen := int(stringLen)
-			if intStringLen < 0 {
-				return ErrInvalidLengthCard
-			}
-			postIndex := iNdEx + intStringLen
-			if postIndex < 0 {
-				return ErrInvalidLengthCard
-			}
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			m.Hash = string(dAtA[iNdEx:postIndex])
-			iNdEx = postIndex
-		case 17:
-			if wireType != 0 {
-				return fmt.Errorf("proto: wrong wireType = %d for field StarterCard", wireType)
-			}
-			var v int
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowCard
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				v |= int(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			m.StarterCard = bool(v != 0)
-		case 18:
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Rarity", wireType)
 			}
