@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"sort"
 
+	"github.com/DecentralCardGame/cardchain/util"
 	"github.com/DecentralCardGame/cardchain/x/cardchain/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
@@ -36,8 +37,8 @@ func GetCouncilPartiedVoters(responses []*types.WrapClearResponse) (approvers []
 // TryEvaluate Tries to evaluate the council decision
 func (k Keeper) TryEvaluate(ctx sdk.Context, council *types.Council) error {
 	collateralDeposit := k.GetParams(ctx).CollateralDeposit
-	bounty := MulCoin(collateralDeposit, 2)
-	votePool := MulCoin(collateralDeposit, 5)
+	bounty := util.MulCoin(collateralDeposit, 2)
+	votePool := util.MulCoin(collateralDeposit, 5)
 
 	if len(council.ClearResponses) == 5 {
 		approvers, deniers, suggestors := GetCouncilPartiedVoters(council.ClearResponses)
@@ -113,7 +114,7 @@ func (k Keeper) CheckTrial(ctx sdk.Context) error {
 
 				k.Logger().Debug(fmt.Sprintf(":: Card Set to %s", card.Status.String()))
 
-				bounty := MulCoin(collateralDeposit, amt)
+				bounty := util.MulCoin(collateralDeposit, amt)
 				for _, user := range group {
 					err := k.TransferFromCoin(ctx, user, &council.Treasury, bounty)
 					if err != nil {
@@ -123,7 +124,7 @@ func (k Keeper) CheckTrial(ctx sdk.Context) error {
 				k.AddPoolCredits(ctx, PublicPoolKey, council.Treasury)
 				council.Treasury = council.Treasury.Sub(council.Treasury)
 
-				incentive := QuoCoin(card.VotePool, int64(len(card.Voters)))
+				incentive := util.QuoCoin(card.VotePool, int64(len(card.Voters)))
 				for _, user := range card.Voters {
 					err := k.MintCoinsToString(ctx, user, sdk.Coins{incentive})
 					if err != nil {

@@ -634,9 +634,9 @@ var (
 	fd_GenesisState_pools            protoreflect.FieldDescriptor
 	fd_GenesisState_cardAuctionPrice protoreflect.FieldDescriptor
 	fd_GenesisState_councils         protoreflect.FieldDescriptor
-	fd_GenesisState_RunningAverages  protoreflect.FieldDescriptor
+	fd_GenesisState_runningAverages  protoreflect.FieldDescriptor
 	fd_GenesisState_images           protoreflect.FieldDescriptor
-	fd_GenesisState_Servers          protoreflect.FieldDescriptor
+	fd_GenesisState_servers          protoreflect.FieldDescriptor
 	fd_GenesisState_lastCardModified protoreflect.FieldDescriptor
 	fd_GenesisState_zealys           protoreflect.FieldDescriptor
 )
@@ -654,9 +654,9 @@ func init() {
 	fd_GenesisState_pools = md_GenesisState.Fields().ByName("pools")
 	fd_GenesisState_cardAuctionPrice = md_GenesisState.Fields().ByName("cardAuctionPrice")
 	fd_GenesisState_councils = md_GenesisState.Fields().ByName("councils")
-	fd_GenesisState_RunningAverages = md_GenesisState.Fields().ByName("RunningAverages")
+	fd_GenesisState_runningAverages = md_GenesisState.Fields().ByName("runningAverages")
 	fd_GenesisState_images = md_GenesisState.Fields().ByName("images")
-	fd_GenesisState_Servers = md_GenesisState.Fields().ByName("Servers")
+	fd_GenesisState_servers = md_GenesisState.Fields().ByName("servers")
 	fd_GenesisState_lastCardModified = md_GenesisState.Fields().ByName("lastCardModified")
 	fd_GenesisState_zealys = md_GenesisState.Fields().ByName("zealys")
 }
@@ -788,7 +788,7 @@ func (x *fastReflection_GenesisState) Range(f func(protoreflect.FieldDescriptor,
 	}
 	if len(x.RunningAverages) != 0 {
 		value := protoreflect.ValueOfList(&_GenesisState_13_list{list: &x.RunningAverages})
-		if !f(fd_GenesisState_RunningAverages, value) {
+		if !f(fd_GenesisState_runningAverages, value) {
 			return
 		}
 	}
@@ -800,7 +800,7 @@ func (x *fastReflection_GenesisState) Range(f func(protoreflect.FieldDescriptor,
 	}
 	if len(x.Servers) != 0 {
 		value := protoreflect.ValueOfList(&_GenesisState_15_list{list: &x.Servers})
-		if !f(fd_GenesisState_Servers, value) {
+		if !f(fd_GenesisState_servers, value) {
 			return
 		}
 	}
@@ -851,11 +851,11 @@ func (x *fastReflection_GenesisState) Has(fd protoreflect.FieldDescriptor) bool 
 		return x.CardAuctionPrice != nil
 	case "cardchain.cardchain.GenesisState.councils":
 		return len(x.Councils) != 0
-	case "cardchain.cardchain.GenesisState.RunningAverages":
+	case "cardchain.cardchain.GenesisState.runningAverages":
 		return len(x.RunningAverages) != 0
 	case "cardchain.cardchain.GenesisState.images":
 		return len(x.Images) != 0
-	case "cardchain.cardchain.GenesisState.Servers":
+	case "cardchain.cardchain.GenesisState.servers":
 		return len(x.Servers) != 0
 	case "cardchain.cardchain.GenesisState.lastCardModified":
 		return x.LastCardModified != nil
@@ -897,11 +897,11 @@ func (x *fastReflection_GenesisState) Clear(fd protoreflect.FieldDescriptor) {
 		x.CardAuctionPrice = nil
 	case "cardchain.cardchain.GenesisState.councils":
 		x.Councils = nil
-	case "cardchain.cardchain.GenesisState.RunningAverages":
+	case "cardchain.cardchain.GenesisState.runningAverages":
 		x.RunningAverages = nil
 	case "cardchain.cardchain.GenesisState.images":
 		x.Images = nil
-	case "cardchain.cardchain.GenesisState.Servers":
+	case "cardchain.cardchain.GenesisState.servers":
 		x.Servers = nil
 	case "cardchain.cardchain.GenesisState.lastCardModified":
 		x.LastCardModified = nil
@@ -977,7 +977,7 @@ func (x *fastReflection_GenesisState) Get(descriptor protoreflect.FieldDescripto
 		}
 		listValue := &_GenesisState_12_list{list: &x.Councils}
 		return protoreflect.ValueOfList(listValue)
-	case "cardchain.cardchain.GenesisState.RunningAverages":
+	case "cardchain.cardchain.GenesisState.runningAverages":
 		if len(x.RunningAverages) == 0 {
 			return protoreflect.ValueOfList(&_GenesisState_13_list{})
 		}
@@ -989,7 +989,7 @@ func (x *fastReflection_GenesisState) Get(descriptor protoreflect.FieldDescripto
 		}
 		listValue := &_GenesisState_14_list{list: &x.Images}
 		return protoreflect.ValueOfList(listValue)
-	case "cardchain.cardchain.GenesisState.Servers":
+	case "cardchain.cardchain.GenesisState.servers":
 		if len(x.Servers) == 0 {
 			return protoreflect.ValueOfList(&_GenesisState_15_list{})
 		}
@@ -1060,7 +1060,7 @@ func (x *fastReflection_GenesisState) Set(fd protoreflect.FieldDescriptor, value
 		lv := value.List()
 		clv := lv.(*_GenesisState_12_list)
 		x.Councils = *clv.list
-	case "cardchain.cardchain.GenesisState.RunningAverages":
+	case "cardchain.cardchain.GenesisState.runningAverages":
 		lv := value.List()
 		clv := lv.(*_GenesisState_13_list)
 		x.RunningAverages = *clv.list
@@ -1068,7 +1068,7 @@ func (x *fastReflection_GenesisState) Set(fd protoreflect.FieldDescriptor, value
 		lv := value.List()
 		clv := lv.(*_GenesisState_14_list)
 		x.Images = *clv.list
-	case "cardchain.cardchain.GenesisState.Servers":
+	case "cardchain.cardchain.GenesisState.servers":
 		lv := value.List()
 		clv := lv.(*_GenesisState_15_list)
 		x.Servers = *clv.list
@@ -1156,7 +1156,7 @@ func (x *fastReflection_GenesisState) Mutable(fd protoreflect.FieldDescriptor) p
 		}
 		value := &_GenesisState_12_list{list: &x.Councils}
 		return protoreflect.ValueOfList(value)
-	case "cardchain.cardchain.GenesisState.RunningAverages":
+	case "cardchain.cardchain.GenesisState.runningAverages":
 		if x.RunningAverages == nil {
 			x.RunningAverages = []*RunningAverage{}
 		}
@@ -1168,7 +1168,7 @@ func (x *fastReflection_GenesisState) Mutable(fd protoreflect.FieldDescriptor) p
 		}
 		value := &_GenesisState_14_list{list: &x.Images}
 		return protoreflect.ValueOfList(value)
-	case "cardchain.cardchain.GenesisState.Servers":
+	case "cardchain.cardchain.GenesisState.servers":
 		if x.Servers == nil {
 			x.Servers = []*Server{}
 		}
@@ -1228,13 +1228,13 @@ func (x *fastReflection_GenesisState) NewField(fd protoreflect.FieldDescriptor) 
 	case "cardchain.cardchain.GenesisState.councils":
 		list := []*Council{}
 		return protoreflect.ValueOfList(&_GenesisState_12_list{list: &list})
-	case "cardchain.cardchain.GenesisState.RunningAverages":
+	case "cardchain.cardchain.GenesisState.runningAverages":
 		list := []*RunningAverage{}
 		return protoreflect.ValueOfList(&_GenesisState_13_list{list: &list})
 	case "cardchain.cardchain.GenesisState.images":
 		list := []*Image{}
 		return protoreflect.ValueOfList(&_GenesisState_14_list{list: &list})
-	case "cardchain.cardchain.GenesisState.Servers":
+	case "cardchain.cardchain.GenesisState.servers":
 		list := []*Server{}
 		return protoreflect.ValueOfList(&_GenesisState_15_list{list: &list})
 	case "cardchain.cardchain.GenesisState.lastCardModified":
@@ -2284,9 +2284,9 @@ type GenesisState struct {
 	Pools            []*v1beta1.Coin   `protobuf:"bytes,9,rep,name=pools,proto3" json:"pools,omitempty"`
 	CardAuctionPrice *v1beta1.Coin     `protobuf:"bytes,11,opt,name=cardAuctionPrice,proto3" json:"cardAuctionPrice,omitempty"`
 	Councils         []*Council        `protobuf:"bytes,12,rep,name=councils,proto3" json:"councils,omitempty"`
-	RunningAverages  []*RunningAverage `protobuf:"bytes,13,rep,name=RunningAverages,proto3" json:"RunningAverages,omitempty"`
+	RunningAverages  []*RunningAverage `protobuf:"bytes,13,rep,name=runningAverages,proto3" json:"runningAverages,omitempty"`
 	Images           []*Image          `protobuf:"bytes,14,rep,name=images,proto3" json:"images,omitempty"`
-	Servers          []*Server         `protobuf:"bytes,15,rep,name=Servers,proto3" json:"Servers,omitempty"`
+	Servers          []*Server         `protobuf:"bytes,15,rep,name=servers,proto3" json:"servers,omitempty"`
 	LastCardModified *TimeStamp        `protobuf:"bytes,16,opt,name=lastCardModified,proto3" json:"lastCardModified,omitempty"`
 	Zealys           []*Zealy          `protobuf:"bytes,17,rep,name=zealys,proto3" json:"zealys,omitempty"`
 }
@@ -2486,18 +2486,18 @@ var file_cardchain_cardchain_genesis_proto_rawDesc = []byte{
 	0x75, 0x6e, 0x63, 0x69, 0x6c, 0x73, 0x18, 0x0c, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x1c, 0x2e, 0x63,
 	0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61,
 	0x69, 0x6e, 0x2e, 0x43, 0x6f, 0x75, 0x6e, 0x63, 0x69, 0x6c, 0x52, 0x08, 0x63, 0x6f, 0x75, 0x6e,
-	0x63, 0x69, 0x6c, 0x73, 0x12, 0x4d, 0x0a, 0x0f, 0x52, 0x75, 0x6e, 0x6e, 0x69, 0x6e, 0x67, 0x41,
+	0x63, 0x69, 0x6c, 0x73, 0x12, 0x4d, 0x0a, 0x0f, 0x72, 0x75, 0x6e, 0x6e, 0x69, 0x6e, 0x67, 0x41,
 	0x76, 0x65, 0x72, 0x61, 0x67, 0x65, 0x73, 0x18, 0x0d, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x23, 0x2e,
 	0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68,
 	0x61, 0x69, 0x6e, 0x2e, 0x52, 0x75, 0x6e, 0x6e, 0x69, 0x6e, 0x67, 0x41, 0x76, 0x65, 0x72, 0x61,
-	0x67, 0x65, 0x52, 0x0f, 0x52, 0x75, 0x6e, 0x6e, 0x69, 0x6e, 0x67, 0x41, 0x76, 0x65, 0x72, 0x61,
+	0x67, 0x65, 0x52, 0x0f, 0x72, 0x75, 0x6e, 0x6e, 0x69, 0x6e, 0x67, 0x41, 0x76, 0x65, 0x72, 0x61,
 	0x67, 0x65, 0x73, 0x12, 0x32, 0x0a, 0x06, 0x69, 0x6d, 0x61, 0x67, 0x65, 0x73, 0x18, 0x0e, 0x20,
 	0x03, 0x28, 0x0b, 0x32, 0x1a, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e,
 	0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x49, 0x6d, 0x61, 0x67, 0x65, 0x52,
-	0x06, 0x69, 0x6d, 0x61, 0x67, 0x65, 0x73, 0x12, 0x35, 0x0a, 0x07, 0x53, 0x65, 0x72, 0x76, 0x65,
+	0x06, 0x69, 0x6d, 0x61, 0x67, 0x65, 0x73, 0x12, 0x35, 0x0a, 0x07, 0x73, 0x65, 0x72, 0x76, 0x65,
 	0x72, 0x73, 0x18, 0x0f, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x1b, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63,
 	0x68, 0x61, 0x69, 0x6e, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x53,
-	0x65, 0x72, 0x76, 0x65, 0x72, 0x52, 0x07, 0x53, 0x65, 0x72, 0x76, 0x65, 0x72, 0x73, 0x12, 0x50,
+	0x65, 0x72, 0x76, 0x65, 0x72, 0x52, 0x07, 0x73, 0x65, 0x72, 0x76, 0x65, 0x72, 0x73, 0x12, 0x50,
 	0x0a, 0x10, 0x6c, 0x61, 0x73, 0x74, 0x43, 0x61, 0x72, 0x64, 0x4d, 0x6f, 0x64, 0x69, 0x66, 0x69,
 	0x65, 0x64, 0x18, 0x10, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1e, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63,
 	0x68, 0x61, 0x69, 0x6e, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x54,
@@ -2562,9 +2562,9 @@ var file_cardchain_cardchain_genesis_proto_depIdxs = []int32{
 	7,  // 6: cardchain.cardchain.GenesisState.pools:type_name -> cosmos.base.v1beta1.Coin
 	7,  // 7: cardchain.cardchain.GenesisState.cardAuctionPrice:type_name -> cosmos.base.v1beta1.Coin
 	8,  // 8: cardchain.cardchain.GenesisState.councils:type_name -> cardchain.cardchain.Council
-	9,  // 9: cardchain.cardchain.GenesisState.RunningAverages:type_name -> cardchain.cardchain.RunningAverage
+	9,  // 9: cardchain.cardchain.GenesisState.runningAverages:type_name -> cardchain.cardchain.RunningAverage
 	10, // 10: cardchain.cardchain.GenesisState.images:type_name -> cardchain.cardchain.Image
-	11, // 11: cardchain.cardchain.GenesisState.Servers:type_name -> cardchain.cardchain.Server
+	11, // 11: cardchain.cardchain.GenesisState.servers:type_name -> cardchain.cardchain.Server
 	12, // 12: cardchain.cardchain.GenesisState.lastCardModified:type_name -> cardchain.cardchain.TimeStamp
 	13, // 13: cardchain.cardchain.GenesisState.zealys:type_name -> cardchain.cardchain.Zealy
 	14, // [14:14] is the sub-list for method output_type

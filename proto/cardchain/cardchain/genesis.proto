@@ -34,9 +34,9 @@ message GenesisState {
   cosmos.base.v1beta1.Coin cardAuctionPrice = 11
       [ (gogoproto.nullable) = false ];
   repeated Council councils = 12;
-  repeated RunningAverage RunningAverages = 13;
+  repeated RunningAverage runningAverages = 13;
   repeated Image images = 14;
-  repeated Server Servers = 15;
+  repeated Server servers = 15;
   TimeStamp lastCardModified = 16 [ (gogoproto.nullable) = false ];
   repeated Zealy zealys = 17;
 }

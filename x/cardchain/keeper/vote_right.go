@@ -5,6 +5,7 @@ import (
 
 	sdkerrors "cosmossdk.io/errors"
 	"cosmossdk.io/math"
+	"github.com/DecentralCardGame/cardchain/util"
 	"github.com/DecentralCardGame/cardchain/x/cardchain/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/errors"
@@ -15,7 +16,7 @@ func (k Keeper) GetVoteReward(ctx sdk.Context) sdk.Coin {
 	params := k.GetParams(ctx)
 
 	pool := k.Pools.Get(ctx, BalancersPoolKey)
-	reward := QuoCoin(*pool, params.VotePoolFraction)
+	reward := util.QuoCoin(*pool, params.VotePoolFraction)
 	if reward.Amount.GTE(math.NewInt(params.VotingRewardCap)) {
 		return sdk.NewInt64Coin(reward.Denom, params.VotingRewardCap)
 	}

@@ -4,6 +4,7 @@ import (
 	"context"
 
 	errorsmod "cosmossdk.io/errors"
+	"github.com/DecentralCardGame/cardchain/util"
 	"github.com/DecentralCardGame/cardchain/x/cardchain/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/errors"
@@ -33,7 +34,7 @@ func (k msgServer) CouncilCreate(goCtx context.Context, msg *types.MsgCouncilCre
 	var voters []string
 	var status types.CouncelingStatus
 	collateralDeposit := k.GetParams(ctx).CollateralDeposit
-	treasury := MulCoin(collateralDeposit, 10)
+	treasury := util.MulCoin(collateralDeposit, 10)
 	councilId := k.Councils.GetNum(ctx)
 	users, addresses := k.GetAllUsers(ctx)
 

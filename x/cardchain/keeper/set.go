@@ -4,6 +4,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/types/errors"
 
 	errorsmod "cosmossdk.io/errors"
+	"github.com/DecentralCardGame/cardchain/util"
 	"github.com/DecentralCardGame/cardchain/x/cardchain/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
@@ -46,9 +47,9 @@ func (k Keeper) GetContributorDistribution(ctx sdk.Context, set types.Set) []*ty
 		amount += contrib.Q
 	}
 
-	var payment = QuoCoin(params.SetPrice, int64(amount))
+	var payment = util.QuoCoin(params.SetPrice, int64(amount))
 	for _, contrib := range contribs {
-		p := MulCoin(payment, int64(contrib.Q))
+		p := util.MulCoin(payment, int64(contrib.Q))
 		contrib.Payment = &p
 	}
 

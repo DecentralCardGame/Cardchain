@@ -6,6 +6,7 @@ import (
 	"strconv"
 
 	errorsmod "cosmossdk.io/errors"
+	"github.com/DecentralCardGame/cardchain/util"
 	"github.com/DecentralCardGame/cardchain/x/cardchain/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/errors"
@@ -55,7 +56,7 @@ func (k msgServer) BoosterPackBuy(goCtx context.Context, msg *types.MsgBoosterPa
 
 	inflationRate, err := strconv.ParseFloat(params.InflationRate, 8)
 	pPool := k.Pools.Get(ctx, PublicPoolKey)
-	newPool := MulCoinFloat(*pPool, inflationRate)
+	newPool := util.MulCoinFloat(*pPool, inflationRate)
 	k.Pools.Set(ctx, PublicPoolKey, &newPool)
 	k.Logger().Info(fmt.Sprintf(":: PublicPool: %s", newPool))
 

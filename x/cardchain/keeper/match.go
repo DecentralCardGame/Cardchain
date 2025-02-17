@@ -6,6 +6,7 @@ import (
 
 	sdkerrors "cosmossdk.io/errors"
 	"cosmossdk.io/math"
+	"github.com/DecentralCardGame/cardchain/util"
 	"github.com/DecentralCardGame/cardchain/x/cardchain/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/errors"
@@ -34,8 +35,8 @@ func (k Keeper) calculateMatchReward(ctx sdk.Context, outcome types.Outcome) (am
 	} else if outcome == types.Outcome_BWon {
 		amountB = reward
 	} else if outcome == types.Outcome_Draw {
-		amountA = QuoCoin(reward, 2)
-		amountB = QuoCoin(reward, 2)
+		amountA = util.QuoCoin(reward, 2)
+		amountB = util.QuoCoin(reward, 2)
 	}
 	if outcome != types.Outcome_Aborted {
 		k.SubPoolCredits(ctx, WinnersPoolKey, reward)
@@ -46,7 +47,7 @@ func (k Keeper) calculateMatchReward(ctx sdk.Context, outcome types.Outcome) (am
 // getMatchReward Calculates winner rewards
 func (k Keeper) getMatchReward(ctx sdk.Context) sdk.Coin {
 	pool := k.Pools.Get(ctx, WinnersPoolKey)
-	reward := QuoCoin(*pool, k.GetParams(ctx).WinnerReward)
+	reward := util.QuoCoin(*pool, k.GetParams(ctx).WinnerReward)
 	if reward.Amount.GTE(math.NewInt(1000000)) {
 		return sdk.NewInt64Coin(reward.Denom, 1000000)
 	}
