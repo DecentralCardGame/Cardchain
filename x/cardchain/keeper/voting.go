@@ -16,7 +16,7 @@ func (k Keeper) voteCard(
 	voteType types.VoteType,
 ) error {
 	// if the vote right is valid, get the Card
-	card := k.cards.Get(ctx, cardId)
+	card := k.CardK.Get(ctx, cardId)
 
 	// check if card status is valid
 	if card.Status != types.CardStatus_permanent && card.Status != types.CardStatus_trial {
@@ -59,7 +59,7 @@ func (k Keeper) voteCard(
 		return err
 	}
 	k.SubPoolCredits(ctx, BalancersPoolKey, amount)
-	k.cards.Set(ctx, cardId, card)
+	k.CardK.Set(ctx, cardId, card)
 
 	return nil
 }

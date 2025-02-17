@@ -17,7 +17,7 @@ func (k Keeper) AccountFromZealy(goCtx context.Context, req *types.QueryAccountF
 
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	zealy := k.zealy.Get(ctx, req.ZealyId)
+	zealy := k.Zealy.Get(ctx, req.ZealyId)
 	if zealy == nil {
 		return nil, fmt.Errorf("zealyId `%s` not in store", req.ZealyId)
 	}

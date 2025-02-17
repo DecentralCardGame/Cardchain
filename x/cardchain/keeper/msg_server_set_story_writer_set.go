@@ -10,7 +10,7 @@ import (
 func (k msgServer) SetStoryWriterSet(goCtx context.Context, msg *types.MsgSetStoryWriterSet) (*types.MsgSetStoryWriterSetResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	set := k.sets.Get(ctx, msg.SetId)
+	set := k.Setk.Get(ctx, msg.SetId)
 	err := checkSetEditable(set, msg.Creator)
 	if err != nil {
 		return nil, err
@@ -18,7 +18,7 @@ func (k msgServer) SetStoryWriterSet(goCtx context.Context, msg *types.MsgSetSto
 
 	set.StoryWriter = msg.StoryWriter
 
-	k.sets.Set(ctx, msg.SetId, set)
+	k.Setk.Set(ctx, msg.SetId, set)
 
 	return &types.MsgSetStoryWriterSetResponse{}, nil
 }

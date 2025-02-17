@@ -3,6 +3,7 @@ package cardchain
 
 import (
 	_ "cosmossdk.io/api/amino"
+	v1beta1 "cosmossdk.io/api/cosmos/base/v1beta1"
 	fmt "fmt"
 	runtime "github.com/cosmos/cosmos-proto/runtime"
 	_ "github.com/cosmos/gogoproto/gogoproto"
@@ -14,15 +15,650 @@ import (
 	sync "sync"
 )
 
+var _ protoreflect.List = (*_GenesisState_2_list)(nil)
+
+type _GenesisState_2_list struct {
+	list *[]*Card
+}
+
+func (x *_GenesisState_2_list) Len() int {
+	if x.list == nil {
+		return 0
+	}
+	return len(*x.list)
+}
+
+func (x *_GenesisState_2_list) Get(i int) protoreflect.Value {
+	return protoreflect.ValueOfMessage((*x.list)[i].ProtoReflect())
+}
+
+func (x *_GenesisState_2_list) Set(i int, value protoreflect.Value) {
+	valueUnwrapped := value.Message()
+	concreteValue := valueUnwrapped.Interface().(*Card)
+	(*x.list)[i] = concreteValue
+}
+
+func (x *_GenesisState_2_list) Append(value protoreflect.Value) {
+	valueUnwrapped := value.Message()
+	concreteValue := valueUnwrapped.Interface().(*Card)
+	*x.list = append(*x.list, concreteValue)
+}
+
+func (x *_GenesisState_2_list) AppendMutable() protoreflect.Value {
+	v := new(Card)
+	*x.list = append(*x.list, v)
+	return protoreflect.ValueOfMessage(v.ProtoReflect())
+}
+
+func (x *_GenesisState_2_list) Truncate(n int) {
+	for i := n; i < len(*x.list); i++ {
+		(*x.list)[i] = nil
+	}
+	*x.list = (*x.list)[:n]
+}
+
+func (x *_GenesisState_2_list) NewElement() protoreflect.Value {
+	v := new(Card)
+	return protoreflect.ValueOfMessage(v.ProtoReflect())
+}
+
+func (x *_GenesisState_2_list) IsValid() bool {
+	return x.list != nil
+}
+
+var _ protoreflect.List = (*_GenesisState_3_list)(nil)
+
+type _GenesisState_3_list struct {
+	list *[]*User
+}
+
+func (x *_GenesisState_3_list) Len() int {
+	if x.list == nil {
+		return 0
+	}
+	return len(*x.list)
+}
+
+func (x *_GenesisState_3_list) Get(i int) protoreflect.Value {
+	return protoreflect.ValueOfMessage((*x.list)[i].ProtoReflect())
+}
+
+func (x *_GenesisState_3_list) Set(i int, value protoreflect.Value) {
+	valueUnwrapped := value.Message()
+	concreteValue := valueUnwrapped.Interface().(*User)
+	(*x.list)[i] = concreteValue
+}
+
+func (x *_GenesisState_3_list) Append(value protoreflect.Value) {
+	valueUnwrapped := value.Message()
+	concreteValue := valueUnwrapped.Interface().(*User)
+	*x.list = append(*x.list, concreteValue)
+}
+
+func (x *_GenesisState_3_list) AppendMutable() protoreflect.Value {
+	v := new(User)
+	*x.list = append(*x.list, v)
+	return protoreflect.ValueOfMessage(v.ProtoReflect())
+}
+
+func (x *_GenesisState_3_list) Truncate(n int) {
+	for i := n; i < len(*x.list); i++ {
+		(*x.list)[i] = nil
+	}
+	*x.list = (*x.list)[:n]
+}
+
+func (x *_GenesisState_3_list) NewElement() protoreflect.Value {
+	v := new(User)
+	return protoreflect.ValueOfMessage(v.ProtoReflect())
+}
+
+func (x *_GenesisState_3_list) IsValid() bool {
+	return x.list != nil
+}
+
+var _ protoreflect.List = (*_GenesisState_4_list)(nil)
+
+type _GenesisState_4_list struct {
+	list *[]string
+}
+
+func (x *_GenesisState_4_list) Len() int {
+	if x.list == nil {
+		return 0
+	}
+	return len(*x.list)
+}
+
+func (x *_GenesisState_4_list) Get(i int) protoreflect.Value {
+	return protoreflect.ValueOfString((*x.list)[i])
+}
+
+func (x *_GenesisState_4_list) Set(i int, value protoreflect.Value) {
+	valueUnwrapped := value.String()
+	concreteValue := valueUnwrapped
+	(*x.list)[i] = concreteValue
+}
+
+func (x *_GenesisState_4_list) Append(value protoreflect.Value) {
+	valueUnwrapped := value.String()
+	concreteValue := valueUnwrapped
+	*x.list = append(*x.list, concreteValue)
+}
+
+func (x *_GenesisState_4_list) AppendMutable() protoreflect.Value {
+	panic(fmt.Errorf("AppendMutable can not be called on message GenesisState at list field Addresses as it is not of Message kind"))
+}
+
+func (x *_GenesisState_4_list) Truncate(n int) {
+	*x.list = (*x.list)[:n]
+}
+
+func (x *_GenesisState_4_list) NewElement() protoreflect.Value {
+	v := ""
+	return protoreflect.ValueOfString(v)
+}
+
+func (x *_GenesisState_4_list) IsValid() bool {
+	return x.list != nil
+}
+
+var _ protoreflect.List = (*_GenesisState_6_list)(nil)
+
+type _GenesisState_6_list struct {
+	list *[]*Match
+}
+
+func (x *_GenesisState_6_list) Len() int {
+	if x.list == nil {
+		return 0
+	}
+	return len(*x.list)
+}
+
+func (x *_GenesisState_6_list) Get(i int) protoreflect.Value {
+	return protoreflect.ValueOfMessage((*x.list)[i].ProtoReflect())
+}
+
+func (x *_GenesisState_6_list) Set(i int, value protoreflect.Value) {
+	valueUnwrapped := value.Message()
+	concreteValue := valueUnwrapped.Interface().(*Match)
+	(*x.list)[i] = concreteValue
+}
+
+func (x *_GenesisState_6_list) Append(value protoreflect.Value) {
+	valueUnwrapped := value.Message()
+	concreteValue := valueUnwrapped.Interface().(*Match)
+	*x.list = append(*x.list, concreteValue)
+}
+
+func (x *_GenesisState_6_list) AppendMutable() protoreflect.Value {
+	v := new(Match)
+	*x.list = append(*x.list, v)
+	return protoreflect.ValueOfMessage(v.ProtoReflect())
+}
+
+func (x *_GenesisState_6_list) Truncate(n int) {
+	for i := n; i < len(*x.list); i++ {
+		(*x.list)[i] = nil
+	}
+	*x.list = (*x.list)[:n]
+}
+
+func (x *_GenesisState_6_list) NewElement() protoreflect.Value {
+	v := new(Match)
+	return protoreflect.ValueOfMessage(v.ProtoReflect())
+}
+
+func (x *_GenesisState_6_list) IsValid() bool {
+	return x.list != nil
+}
+
+var _ protoreflect.List = (*_GenesisState_7_list)(nil)
+
+type _GenesisState_7_list struct {
+	list *[]*Set
+}
+
+func (x *_GenesisState_7_list) Len() int {
+	if x.list == nil {
+		return 0
+	}
+	return len(*x.list)
+}
+
+func (x *_GenesisState_7_list) Get(i int) protoreflect.Value {
+	return protoreflect.ValueOfMessage((*x.list)[i].ProtoReflect())
+}
+
+func (x *_GenesisState_7_list) Set(i int, value protoreflect.Value) {
+	valueUnwrapped := value.Message()
+	concreteValue := valueUnwrapped.Interface().(*Set)
+	(*x.list)[i] = concreteValue
+}
+
+func (x *_GenesisState_7_list) Append(value protoreflect.Value) {
+	valueUnwrapped := value.Message()
+	concreteValue := valueUnwrapped.Interface().(*Set)
+	*x.list = append(*x.list, concreteValue)
+}
+
+func (x *_GenesisState_7_list) AppendMutable() protoreflect.Value {
+	v := new(Set)
+	*x.list = append(*x.list, v)
+	return protoreflect.ValueOfMessage(v.ProtoReflect())
+}
+
+func (x *_GenesisState_7_list) Truncate(n int) {
+	for i := n; i < len(*x.list); i++ {
+		(*x.list)[i] = nil
+	}
+	*x.list = (*x.list)[:n]
+}
+
+func (x *_GenesisState_7_list) NewElement() protoreflect.Value {
+	v := new(Set)
+	return protoreflect.ValueOfMessage(v.ProtoReflect())
+}
+
+func (x *_GenesisState_7_list) IsValid() bool {
+	return x.list != nil
+}
+
+var _ protoreflect.List = (*_GenesisState_8_list)(nil)
+
+type _GenesisState_8_list struct {
+	list *[]*SellOffer
+}
+
+func (x *_GenesisState_8_list) Len() int {
+	if x.list == nil {
+		return 0
+	}
+	return len(*x.list)
+}
+
+func (x *_GenesisState_8_list) Get(i int) protoreflect.Value {
+	return protoreflect.ValueOfMessage((*x.list)[i].ProtoReflect())
+}
+
+func (x *_GenesisState_8_list) Set(i int, value protoreflect.Value) {
+	valueUnwrapped := value.Message()
+	concreteValue := valueUnwrapped.Interface().(*SellOffer)
+	(*x.list)[i] = concreteValue
+}
+
+func (x *_GenesisState_8_list) Append(value protoreflect.Value) {
+	valueUnwrapped := value.Message()
+	concreteValue := valueUnwrapped.Interface().(*SellOffer)
+	*x.list = append(*x.list, concreteValue)
+}
+
+func (x *_GenesisState_8_list) AppendMutable() protoreflect.Value {
+	v := new(SellOffer)
+	*x.list = append(*x.list, v)
+	return protoreflect.ValueOfMessage(v.ProtoReflect())
+}
+
+func (x *_GenesisState_8_list) Truncate(n int) {
+	for i := n; i < len(*x.list); i++ {
+		(*x.list)[i] = nil
+	}
+	*x.list = (*x.list)[:n]
+}
+
+func (x *_GenesisState_8_list) NewElement() protoreflect.Value {
+	v := new(SellOffer)
+	return protoreflect.ValueOfMessage(v.ProtoReflect())
+}
+
+func (x *_GenesisState_8_list) IsValid() bool {
+	return x.list != nil
+}
+
+var _ protoreflect.List = (*_GenesisState_9_list)(nil)
+
+type _GenesisState_9_list struct {
+	list *[]*v1beta1.Coin
+}
+
+func (x *_GenesisState_9_list) Len() int {
+	if x.list == nil {
+		return 0
+	}
+	return len(*x.list)
+}
+
+func (x *_GenesisState_9_list) Get(i int) protoreflect.Value {
+	return protoreflect.ValueOfMessage((*x.list)[i].ProtoReflect())
+}
+
+func (x *_GenesisState_9_list) Set(i int, value protoreflect.Value) {
+	valueUnwrapped := value.Message()
+	concreteValue := valueUnwrapped.Interface().(*v1beta1.Coin)
+	(*x.list)[i] = concreteValue
+}
+
+func (x *_GenesisState_9_list) Append(value protoreflect.Value) {
+	valueUnwrapped := value.Message()
+	concreteValue := valueUnwrapped.Interface().(*v1beta1.Coin)
+	*x.list = append(*x.list, concreteValue)
+}
+
+func (x *_GenesisState_9_list) AppendMutable() protoreflect.Value {
+	v := new(v1beta1.Coin)
+	*x.list = append(*x.list, v)
+	return protoreflect.ValueOfMessage(v.ProtoReflect())
+}
+
+func (x *_GenesisState_9_list) Truncate(n int) {
+	for i := n; i < len(*x.list); i++ {
+		(*x.list)[i] = nil
+	}
+	*x.list = (*x.list)[:n]
+}
+
+func (x *_GenesisState_9_list) NewElement() protoreflect.Value {
+	v := new(v1beta1.Coin)
+	return protoreflect.ValueOfMessage(v.ProtoReflect())
+}
+
+func (x *_GenesisState_9_list) IsValid() bool {
+	return x.list != nil
+}
+
+var _ protoreflect.List = (*_GenesisState_12_list)(nil)
+
+type _GenesisState_12_list struct {
+	list *[]*Council
+}
+
+func (x *_GenesisState_12_list) Len() int {
+	if x.list == nil {
+		return 0
+	}
+	return len(*x.list)
+}
+
+func (x *_GenesisState_12_list) Get(i int) protoreflect.Value {
+	return protoreflect.ValueOfMessage((*x.list)[i].ProtoReflect())
+}
+
+func (x *_GenesisState_12_list) Set(i int, value protoreflect.Value) {
+	valueUnwrapped := value.Message()
+	concreteValue := valueUnwrapped.Interface().(*Council)
+	(*x.list)[i] = concreteValue
+}
+
+func (x *_GenesisState_12_list) Append(value protoreflect.Value) {
+	valueUnwrapped := value.Message()
+	concreteValue := valueUnwrapped.Interface().(*Council)
+	*x.list = append(*x.list, concreteValue)
+}
+
+func (x *_GenesisState_12_list) AppendMutable() protoreflect.Value {
+	v := new(Council)
+	*x.list = append(*x.list, v)
+	return protoreflect.ValueOfMessage(v.ProtoReflect())
+}
+
+func (x *_GenesisState_12_list) Truncate(n int) {
+	for i := n; i < len(*x.list); i++ {
+		(*x.list)[i] = nil
+	}
+	*x.list = (*x.list)[:n]
+}
+
+func (x *_GenesisState_12_list) NewElement() protoreflect.Value {
+	v := new(Council)
+	return protoreflect.ValueOfMessage(v.ProtoReflect())
+}
+
+func (x *_GenesisState_12_list) IsValid() bool {
+	return x.list != nil
+}
+
+var _ protoreflect.List = (*_GenesisState_13_list)(nil)
+
+type _GenesisState_13_list struct {
+	list *[]*RunningAverage
+}
+
+func (x *_GenesisState_13_list) Len() int {
+	if x.list == nil {
+		return 0
+	}
+	return len(*x.list)
+}
+
+func (x *_GenesisState_13_list) Get(i int) protoreflect.Value {
+	return protoreflect.ValueOfMessage((*x.list)[i].ProtoReflect())
+}
+
+func (x *_GenesisState_13_list) Set(i int, value protoreflect.Value) {
+	valueUnwrapped := value.Message()
+	concreteValue := valueUnwrapped.Interface().(*RunningAverage)
+	(*x.list)[i] = concreteValue
+}
+
+func (x *_GenesisState_13_list) Append(value protoreflect.Value) {
+	valueUnwrapped := value.Message()
+	concreteValue := valueUnwrapped.Interface().(*RunningAverage)
+	*x.list = append(*x.list, concreteValue)
+}
+
+func (x *_GenesisState_13_list) AppendMutable() protoreflect.Value {
+	v := new(RunningAverage)
+	*x.list = append(*x.list, v)
+	return protoreflect.ValueOfMessage(v.ProtoReflect())
+}
+
+func (x *_GenesisState_13_list) Truncate(n int) {
+	for i := n; i < len(*x.list); i++ {
+		(*x.list)[i] = nil
+	}
+	*x.list = (*x.list)[:n]
+}
+
+func (x *_GenesisState_13_list) NewElement() protoreflect.Value {
+	v := new(RunningAverage)
+	return protoreflect.ValueOfMessage(v.ProtoReflect())
+}
+
+func (x *_GenesisState_13_list) IsValid() bool {
+	return x.list != nil
+}
+
+var _ protoreflect.List = (*_GenesisState_14_list)(nil)
+
+type _GenesisState_14_list struct {
+	list *[]*Image
+}
+
+func (x *_GenesisState_14_list) Len() int {
+	if x.list == nil {
+		return 0
+	}
+	return len(*x.list)
+}
+
+func (x *_GenesisState_14_list) Get(i int) protoreflect.Value {
+	return protoreflect.ValueOfMessage((*x.list)[i].ProtoReflect())
+}
+
+func (x *_GenesisState_14_list) Set(i int, value protoreflect.Value) {
+	valueUnwrapped := value.Message()
+	concreteValue := valueUnwrapped.Interface().(*Image)
+	(*x.list)[i] = concreteValue
+}
+
+func (x *_GenesisState_14_list) Append(value protoreflect.Value) {
+	valueUnwrapped := value.Message()
+	concreteValue := valueUnwrapped.Interface().(*Image)
+	*x.list = append(*x.list, concreteValue)
+}
+
+func (x *_GenesisState_14_list) AppendMutable() protoreflect.Value {
+	v := new(Image)
+	*x.list = append(*x.list, v)
+	return protoreflect.ValueOfMessage(v.ProtoReflect())
+}
+
+func (x *_GenesisState_14_list) Truncate(n int) {
+	for i := n; i < len(*x.list); i++ {
+		(*x.list)[i] = nil
+	}
+	*x.list = (*x.list)[:n]
+}
+
+func (x *_GenesisState_14_list) NewElement() protoreflect.Value {
+	v := new(Image)
+	return protoreflect.ValueOfMessage(v.ProtoReflect())
+}
+
+func (x *_GenesisState_14_list) IsValid() bool {
+	return x.list != nil
+}
+
+var _ protoreflect.List = (*_GenesisState_15_list)(nil)
+
+type _GenesisState_15_list struct {
+	list *[]*Server
+}
+
+func (x *_GenesisState_15_list) Len() int {
+	if x.list == nil {
+		return 0
+	}
+	return len(*x.list)
+}
+
+func (x *_GenesisState_15_list) Get(i int) protoreflect.Value {
+	return protoreflect.ValueOfMessage((*x.list)[i].ProtoReflect())
+}
+
+func (x *_GenesisState_15_list) Set(i int, value protoreflect.Value) {
+	valueUnwrapped := value.Message()
+	concreteValue := valueUnwrapped.Interface().(*Server)
+	(*x.list)[i] = concreteValue
+}
+
+func (x *_GenesisState_15_list) Append(value protoreflect.Value) {
+	valueUnwrapped := value.Message()
+	concreteValue := valueUnwrapped.Interface().(*Server)
+	*x.list = append(*x.list, concreteValue)
+}
+
+func (x *_GenesisState_15_list) AppendMutable() protoreflect.Value {
+	v := new(Server)
+	*x.list = append(*x.list, v)
+	return protoreflect.ValueOfMessage(v.ProtoReflect())
+}
+
+func (x *_GenesisState_15_list) Truncate(n int) {
+	for i := n; i < len(*x.list); i++ {
+		(*x.list)[i] = nil
+	}
+	*x.list = (*x.list)[:n]
+}
+
+func (x *_GenesisState_15_list) NewElement() protoreflect.Value {
+	v := new(Server)
+	return protoreflect.ValueOfMessage(v.ProtoReflect())
+}
+
+func (x *_GenesisState_15_list) IsValid() bool {
+	return x.list != nil
+}
+
+var _ protoreflect.List = (*_GenesisState_17_list)(nil)
+
+type _GenesisState_17_list struct {
+	list *[]*Zealy
+}
+
+func (x *_GenesisState_17_list) Len() int {
+	if x.list == nil {
+		return 0
+	}
+	return len(*x.list)
+}
+
+func (x *_GenesisState_17_list) Get(i int) protoreflect.Value {
+	return protoreflect.ValueOfMessage((*x.list)[i].ProtoReflect())
+}
+
+func (x *_GenesisState_17_list) Set(i int, value protoreflect.Value) {
+	valueUnwrapped := value.Message()
+	concreteValue := valueUnwrapped.Interface().(*Zealy)
+	(*x.list)[i] = concreteValue
+}
+
+func (x *_GenesisState_17_list) Append(value protoreflect.Value) {
+	valueUnwrapped := value.Message()
+	concreteValue := valueUnwrapped.Interface().(*Zealy)
+	*x.list = append(*x.list, concreteValue)
+}
+
+func (x *_GenesisState_17_list) AppendMutable() protoreflect.Value {
+	v := new(Zealy)
+	*x.list = append(*x.list, v)
+	return protoreflect.ValueOfMessage(v.ProtoReflect())
+}
+
+func (x *_GenesisState_17_list) Truncate(n int) {
+	for i := n; i < len(*x.list); i++ {
+		(*x.list)[i] = nil
+	}
+	*x.list = (*x.list)[:n]
+}
+
+func (x *_GenesisState_17_list) NewElement() protoreflect.Value {
+	v := new(Zealy)
+	return protoreflect.ValueOfMessage(v.ProtoReflect())
+}
+
+func (x *_GenesisState_17_list) IsValid() bool {
+	return x.list != nil
+}
+
 var (
-	md_GenesisState        protoreflect.MessageDescriptor
-	fd_GenesisState_params protoreflect.FieldDescriptor
+	md_GenesisState                  protoreflect.MessageDescriptor
+	fd_GenesisState_params           protoreflect.FieldDescriptor
+	fd_GenesisState_cardRecords      protoreflect.FieldDescriptor
+	fd_GenesisState_users            protoreflect.FieldDescriptor
+	fd_GenesisState_addresses        protoreflect.FieldDescriptor
+	fd_GenesisState_matches          protoreflect.FieldDescriptor
+	fd_GenesisState_sets             protoreflect.FieldDescriptor
+	fd_GenesisState_sellOffers       protoreflect.FieldDescriptor
+	fd_GenesisState_pools            protoreflect.FieldDescriptor
+	fd_GenesisState_cardAuctionPrice protoreflect.FieldDescriptor
+	fd_GenesisState_councils         protoreflect.FieldDescriptor
+	fd_GenesisState_RunningAverages  protoreflect.FieldDescriptor
+	fd_GenesisState_images           protoreflect.FieldDescriptor
+	fd_GenesisState_Servers          protoreflect.FieldDescriptor
+	fd_GenesisState_lastCardModified protoreflect.FieldDescriptor
+	fd_GenesisState_zealys           protoreflect.FieldDescriptor
 )
 
 func init() {
 	file_cardchain_cardchain_genesis_proto_init()
 	md_GenesisState = File_cardchain_cardchain_genesis_proto.Messages().ByName("GenesisState")
 	fd_GenesisState_params = md_GenesisState.Fields().ByName("params")
+	fd_GenesisState_cardRecords = md_GenesisState.Fields().ByName("cardRecords")
+	fd_GenesisState_users = md_GenesisState.Fields().ByName("users")
+	fd_GenesisState_addresses = md_GenesisState.Fields().ByName("addresses")
+	fd_GenesisState_matches = md_GenesisState.Fields().ByName("matches")
+	fd_GenesisState_sets = md_GenesisState.Fields().ByName("sets")
+	fd_GenesisState_sellOffers = md_GenesisState.Fields().ByName("sellOffers")
+	fd_GenesisState_pools = md_GenesisState.Fields().ByName("pools")
+	fd_GenesisState_cardAuctionPrice = md_GenesisState.Fields().ByName("cardAuctionPrice")
+	fd_GenesisState_councils = md_GenesisState.Fields().ByName("councils")
+	fd_GenesisState_RunningAverages = md_GenesisState.Fields().ByName("RunningAverages")
+	fd_GenesisState_images = md_GenesisState.Fields().ByName("images")
+	fd_GenesisState_Servers = md_GenesisState.Fields().ByName("Servers")
+	fd_GenesisState_lastCardModified = md_GenesisState.Fields().ByName("lastCardModified")
+	fd_GenesisState_zealys = md_GenesisState.Fields().ByName("zealys")
 }
 
 var _ protoreflect.Message = (*fastReflection_GenesisState)(nil)
@@ -96,6 +732,90 @@ func (x *fastReflection_GenesisState) Range(f func(protoreflect.FieldDescriptor,
 			return
 		}
 	}
+	if len(x.CardRecords) != 0 {
+		value := protoreflect.ValueOfList(&_GenesisState_2_list{list: &x.CardRecords})
+		if !f(fd_GenesisState_cardRecords, value) {
+			return
+		}
+	}
+	if len(x.Users) != 0 {
+		value := protoreflect.ValueOfList(&_GenesisState_3_list{list: &x.Users})
+		if !f(fd_GenesisState_users, value) {
+			return
+		}
+	}
+	if len(x.Addresses) != 0 {
+		value := protoreflect.ValueOfList(&_GenesisState_4_list{list: &x.Addresses})
+		if !f(fd_GenesisState_addresses, value) {
+			return
+		}
+	}
+	if len(x.Matches) != 0 {
+		value := protoreflect.ValueOfList(&_GenesisState_6_list{list: &x.Matches})
+		if !f(fd_GenesisState_matches, value) {
+			return
+		}
+	}
+	if len(x.Sets) != 0 {
+		value := protoreflect.ValueOfList(&_GenesisState_7_list{list: &x.Sets})
+		if !f(fd_GenesisState_sets, value) {
+			return
+		}
+	}
+	if len(x.SellOffers) != 0 {
+		value := protoreflect.ValueOfList(&_GenesisState_8_list{list: &x.SellOffers})
+		if !f(fd_GenesisState_sellOffers, value) {
+			return
+		}
+	}
+	if len(x.Pools) != 0 {
+		value := protoreflect.ValueOfList(&_GenesisState_9_list{list: &x.Pools})
+		if !f(fd_GenesisState_pools, value) {
+			return
+		}
+	}
+	if x.CardAuctionPrice != nil {
+		value := protoreflect.ValueOfMessage(x.CardAuctionPrice.ProtoReflect())
+		if !f(fd_GenesisState_cardAuctionPrice, value) {
+			return
+		}
+	}
+	if len(x.Councils) != 0 {
+		value := protoreflect.ValueOfList(&_GenesisState_12_list{list: &x.Councils})
+		if !f(fd_GenesisState_councils, value) {
+			return
+		}
+	}
+	if len(x.RunningAverages) != 0 {
+		value := protoreflect.ValueOfList(&_GenesisState_13_list{list: &x.RunningAverages})
+		if !f(fd_GenesisState_RunningAverages, value) {
+			return
+		}
+	}
+	if len(x.Images) != 0 {
+		value := protoreflect.ValueOfList(&_GenesisState_14_list{list: &x.Images})
+		if !f(fd_GenesisState_images, value) {
+			return
+		}
+	}
+	if len(x.Servers) != 0 {
+		value := protoreflect.ValueOfList(&_GenesisState_15_list{list: &x.Servers})
+		if !f(fd_GenesisState_Servers, value) {
+			return
+		}
+	}
+	if x.LastCardModified != nil {
+		value := protoreflect.ValueOfMessage(x.LastCardModified.ProtoReflect())
+		if !f(fd_GenesisState_lastCardModified, value) {
+			return
+		}
+	}
+	if len(x.Zealys) != 0 {
+		value := protoreflect.ValueOfList(&_GenesisState_17_list{list: &x.Zealys})
+		if !f(fd_GenesisState_zealys, value) {
+			return
+		}
+	}
 }
 
 // Has reports whether a field is populated.
@@ -113,6 +833,34 @@ func (x *fastReflection_GenesisState) Has(fd protoreflect.FieldDescriptor) bool 
 	switch fd.FullName() {
 	case "cardchain.cardchain.GenesisState.params":
 		return x.Params != nil
+	case "cardchain.cardchain.GenesisState.cardRecords":
+		return len(x.CardRecords) != 0
+	case "cardchain.cardchain.GenesisState.users":
+		return len(x.Users) != 0
+	case "cardchain.cardchain.GenesisState.addresses":
+		return len(x.Addresses) != 0
+	case "cardchain.cardchain.GenesisState.matches":
+		return len(x.Matches) != 0
+	case "cardchain.cardchain.GenesisState.sets":
+		return len(x.Sets) != 0
+	case "cardchain.cardchain.GenesisState.sellOffers":
+		return len(x.SellOffers) != 0
+	case "cardchain.cardchain.GenesisState.pools":
+		return len(x.Pools) != 0
+	case "cardchain.cardchain.GenesisState.cardAuctionPrice":
+		return x.CardAuctionPrice != nil
+	case "cardchain.cardchain.GenesisState.councils":
+		return len(x.Councils) != 0
+	case "cardchain.cardchain.GenesisState.RunningAverages":
+		return len(x.RunningAverages) != 0
+	case "cardchain.cardchain.GenesisState.images":
+		return len(x.Images) != 0
+	case "cardchain.cardchain.GenesisState.Servers":
+		return len(x.Servers) != 0
+	case "cardchain.cardchain.GenesisState.lastCardModified":
+		return x.LastCardModified != nil
+	case "cardchain.cardchain.GenesisState.zealys":
+		return len(x.Zealys) != 0
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: cardchain.cardchain.GenesisState"))
@@ -131,6 +879,34 @@ func (x *fastReflection_GenesisState) Clear(fd protoreflect.FieldDescriptor) {
 	switch fd.FullName() {
 	case "cardchain.cardchain.GenesisState.params":
 		x.Params = nil
+	case "cardchain.cardchain.GenesisState.cardRecords":
+		x.CardRecords = nil
+	case "cardchain.cardchain.GenesisState.users":
+		x.Users = nil
+	case "cardchain.cardchain.GenesisState.addresses":
+		x.Addresses = nil
+	case "cardchain.cardchain.GenesisState.matches":
+		x.Matches = nil
+	case "cardchain.cardchain.GenesisState.sets":
+		x.Sets = nil
+	case "cardchain.cardchain.GenesisState.sellOffers":
+		x.SellOffers = nil
+	case "cardchain.cardchain.GenesisState.pools":
+		x.Pools = nil
+	case "cardchain.cardchain.GenesisState.cardAuctionPrice":
+		x.CardAuctionPrice = nil
+	case "cardchain.cardchain.GenesisState.councils":
+		x.Councils = nil
+	case "cardchain.cardchain.GenesisState.RunningAverages":
+		x.RunningAverages = nil
+	case "cardchain.cardchain.GenesisState.images":
+		x.Images = nil
+	case "cardchain.cardchain.GenesisState.Servers":
+		x.Servers = nil
+	case "cardchain.cardchain.GenesisState.lastCardModified":
+		x.LastCardModified = nil
+	case "cardchain.cardchain.GenesisState.zealys":
+		x.Zealys = nil
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: cardchain.cardchain.GenesisState"))
@@ -150,6 +926,84 @@ func (x *fastReflection_GenesisState) Get(descriptor protoreflect.FieldDescripto
 	case "cardchain.cardchain.GenesisState.params":
 		value := x.Params
 		return protoreflect.ValueOfMessage(value.ProtoReflect())
+	case "cardchain.cardchain.GenesisState.cardRecords":
+		if len(x.CardRecords) == 0 {
+			return protoreflect.ValueOfList(&_GenesisState_2_list{})
+		}
+		listValue := &_GenesisState_2_list{list: &x.CardRecords}
+		return protoreflect.ValueOfList(listValue)
+	case "cardchain.cardchain.GenesisState.users":
+		if len(x.Users) == 0 {
+			return protoreflect.ValueOfList(&_GenesisState_3_list{})
+		}
+		listValue := &_GenesisState_3_list{list: &x.Users}
+		return protoreflect.ValueOfList(listValue)
+	case "cardchain.cardchain.GenesisState.addresses":
+		if len(x.Addresses) == 0 {
+			return protoreflect.ValueOfList(&_GenesisState_4_list{})
+		}
+		listValue := &_GenesisState_4_list{list: &x.Addresses}
+		return protoreflect.ValueOfList(listValue)
+	case "cardchain.cardchain.GenesisState.matches":
+		if len(x.Matches) == 0 {
+			return protoreflect.ValueOfList(&_GenesisState_6_list{})
+		}
+		listValue := &_GenesisState_6_list{list: &x.Matches}
+		return protoreflect.ValueOfList(listValue)
+	case "cardchain.cardchain.GenesisState.sets":
+		if len(x.Sets) == 0 {
+			return protoreflect.ValueOfList(&_GenesisState_7_list{})
+		}
+		listValue := &_GenesisState_7_list{list: &x.Sets}
+		return protoreflect.ValueOfList(listValue)
+	case "cardchain.cardchain.GenesisState.sellOffers":
+		if len(x.SellOffers) == 0 {
+			return protoreflect.ValueOfList(&_GenesisState_8_list{})
+		}
+		listValue := &_GenesisState_8_list{list: &x.SellOffers}
+		return protoreflect.ValueOfList(listValue)
+	case "cardchain.cardchain.GenesisState.pools":
+		if len(x.Pools) == 0 {
+			return protoreflect.ValueOfList(&_GenesisState_9_list{})
+		}
+		listValue := &_GenesisState_9_list{list: &x.Pools}
+		return protoreflect.ValueOfList(listValue)
+	case "cardchain.cardchain.GenesisState.cardAuctionPrice":
+		value := x.CardAuctionPrice
+		return protoreflect.ValueOfMessage(value.ProtoReflect())
+	case "cardchain.cardchain.GenesisState.councils":
+		if len(x.Councils) == 0 {
+			return protoreflect.ValueOfList(&_GenesisState_12_list{})
+		}
+		listValue := &_GenesisState_12_list{list: &x.Councils}
+		return protoreflect.ValueOfList(listValue)
+	case "cardchain.cardchain.GenesisState.RunningAverages":
+		if len(x.RunningAverages) == 0 {
+			return protoreflect.ValueOfList(&_GenesisState_13_list{})
+		}
+		listValue := &_GenesisState_13_list{list: &x.RunningAverages}
+		return protoreflect.ValueOfList(listValue)
+	case "cardchain.cardchain.GenesisState.images":
+		if len(x.Images) == 0 {
+			return protoreflect.ValueOfList(&_GenesisState_14_list{})
+		}
+		listValue := &_GenesisState_14_list{list: &x.Images}
+		return protoreflect.ValueOfList(listValue)
+	case "cardchain.cardchain.GenesisState.Servers":
+		if len(x.Servers) == 0 {
+			return protoreflect.ValueOfList(&_GenesisState_15_list{})
+		}
+		listValue := &_GenesisState_15_list{list: &x.Servers}
+		return protoreflect.ValueOfList(listValue)
+	case "cardchain.cardchain.GenesisState.lastCardModified":
+		value := x.LastCardModified
+		return protoreflect.ValueOfMessage(value.ProtoReflect())
+	case "cardchain.cardchain.GenesisState.zealys":
+		if len(x.Zealys) == 0 {
+			return protoreflect.ValueOfList(&_GenesisState_17_list{})
+		}
+		listValue := &_GenesisState_17_list{list: &x.Zealys}
+		return protoreflect.ValueOfList(listValue)
 	default:
 		if descriptor.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: cardchain.cardchain.GenesisState"))
@@ -172,6 +1026,58 @@ func (x *fastReflection_GenesisState) Set(fd protoreflect.FieldDescriptor, value
 	switch fd.FullName() {
 	case "cardchain.cardchain.GenesisState.params":
 		x.Params = value.Message().Interface().(*Params)
+	case "cardchain.cardchain.GenesisState.cardRecords":
+		lv := value.List()
+		clv := lv.(*_GenesisState_2_list)
+		x.CardRecords = *clv.list
+	case "cardchain.cardchain.GenesisState.users":
+		lv := value.List()
+		clv := lv.(*_GenesisState_3_list)
+		x.Users = *clv.list
+	case "cardchain.cardchain.GenesisState.addresses":
+		lv := value.List()
+		clv := lv.(*_GenesisState_4_list)
+		x.Addresses = *clv.list
+	case "cardchain.cardchain.GenesisState.matches":
+		lv := value.List()
+		clv := lv.(*_GenesisState_6_list)
+		x.Matches = *clv.list
+	case "cardchain.cardchain.GenesisState.sets":
+		lv := value.List()
+		clv := lv.(*_GenesisState_7_list)
+		x.Sets = *clv.list
+	case "cardchain.cardchain.GenesisState.sellOffers":
+		lv := value.List()
+		clv := lv.(*_GenesisState_8_list)
+		x.SellOffers = *clv.list
+	case "cardchain.cardchain.GenesisState.pools":
+		lv := value.List()
+		clv := lv.(*_GenesisState_9_list)
+		x.Pools = *clv.list
+	case "cardchain.cardchain.GenesisState.cardAuctionPrice":
+		x.CardAuctionPrice = value.Message().Interface().(*v1beta1.Coin)
+	case "cardchain.cardchain.GenesisState.councils":
+		lv := value.List()
+		clv := lv.(*_GenesisState_12_list)
+		x.Councils = *clv.list
+	case "cardchain.cardchain.GenesisState.RunningAverages":
+		lv := value.List()
+		clv := lv.(*_GenesisState_13_list)
+		x.RunningAverages = *clv.list
+	case "cardchain.cardchain.GenesisState.images":
+		lv := value.List()
+		clv := lv.(*_GenesisState_14_list)
+		x.Images = *clv.list
+	case "cardchain.cardchain.GenesisState.Servers":
+		lv := value.List()
+		clv := lv.(*_GenesisState_15_list)
+		x.Servers = *clv.list
+	case "cardchain.cardchain.GenesisState.lastCardModified":
+		x.LastCardModified = value.Message().Interface().(*TimeStamp)
+	case "cardchain.cardchain.GenesisState.zealys":
+		lv := value.List()
+		clv := lv.(*_GenesisState_17_list)
+		x.Zealys = *clv.list
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: cardchain.cardchain.GenesisState"))
@@ -197,6 +1103,88 @@ func (x *fastReflection_GenesisState) Mutable(fd protoreflect.FieldDescriptor) p
 			x.Params = new(Params)
 		}
 		return protoreflect.ValueOfMessage(x.Params.ProtoReflect())
+	case "cardchain.cardchain.GenesisState.cardRecords":
+		if x.CardRecords == nil {
+			x.CardRecords = []*Card{}
+		}
+		value := &_GenesisState_2_list{list: &x.CardRecords}
+		return protoreflect.ValueOfList(value)
+	case "cardchain.cardchain.GenesisState.users":
+		if x.Users == nil {
+			x.Users = []*User{}
+		}
+		value := &_GenesisState_3_list{list: &x.Users}
+		return protoreflect.ValueOfList(value)
+	case "cardchain.cardchain.GenesisState.addresses":
+		if x.Addresses == nil {
+			x.Addresses = []string{}
+		}
+		value := &_GenesisState_4_list{list: &x.Addresses}
+		return protoreflect.ValueOfList(value)
+	case "cardchain.cardchain.GenesisState.matches":
+		if x.Matches == nil {
+			x.Matches = []*Match{}
+		}
+		value := &_GenesisState_6_list{list: &x.Matches}
+		return protoreflect.ValueOfList(value)
+	case "cardchain.cardchain.GenesisState.sets":
+		if x.Sets == nil {
+			x.Sets = []*Set{}
+		}
+		value := &_GenesisState_7_list{list: &x.Sets}
+		return protoreflect.ValueOfList(value)
+	case "cardchain.cardchain.GenesisState.sellOffers":
+		if x.SellOffers == nil {
+			x.SellOffers = []*SellOffer{}
+		}
+		value := &_GenesisState_8_list{list: &x.SellOffers}
+		return protoreflect.ValueOfList(value)
+	case "cardchain.cardchain.GenesisState.pools":
+		if x.Pools == nil {
+			x.Pools = []*v1beta1.Coin{}
+		}
+		value := &_GenesisState_9_list{list: &x.Pools}
+		return protoreflect.ValueOfList(value)
+	case "cardchain.cardchain.GenesisState.cardAuctionPrice":
+		if x.CardAuctionPrice == nil {
+			x.CardAuctionPrice = new(v1beta1.Coin)
+		}
+		return protoreflect.ValueOfMessage(x.CardAuctionPrice.ProtoReflect())
+	case "cardchain.cardchain.GenesisState.councils":
+		if x.Councils == nil {
+			x.Councils = []*Council{}
+		}
+		value := &_GenesisState_12_list{list: &x.Councils}
+		return protoreflect.ValueOfList(value)
+	case "cardchain.cardchain.GenesisState.RunningAverages":
+		if x.RunningAverages == nil {
+			x.RunningAverages = []*RunningAverage{}
+		}
+		value := &_GenesisState_13_list{list: &x.RunningAverages}
+		return protoreflect.ValueOfList(value)
+	case "cardchain.cardchain.GenesisState.images":
+		if x.Images == nil {
+			x.Images = []*Image{}
+		}
+		value := &_GenesisState_14_list{list: &x.Images}
+		return protoreflect.ValueOfList(value)
+	case "cardchain.cardchain.GenesisState.Servers":
+		if x.Servers == nil {
+			x.Servers = []*Server{}
+		}
+		value := &_GenesisState_15_list{list: &x.Servers}
+		return protoreflect.ValueOfList(value)
+	case "cardchain.cardchain.GenesisState.lastCardModified":
+		if x.LastCardModified == nil {
+			x.LastCardModified = new(TimeStamp)
+		}
+		return protoreflect.ValueOfMessage(x.LastCardModified.ProtoReflect())
+	case "cardchain.cardchain.GenesisState.zealys":
+		if x.Zealys == nil {
+			x.Zealys = []*Zealy{}
+		}
+		value := &_GenesisState_17_list{list: &x.Zealys}
+		return protoreflect.ValueOfList(value)
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: cardchain.cardchain.GenesisState"))
@@ -213,6 +1201,48 @@ func (x *fastReflection_GenesisState) NewField(fd protoreflect.FieldDescriptor) 
 	case "cardchain.cardchain.GenesisState.params":
 		m := new(Params)
 		return protoreflect.ValueOfMessage(m.ProtoReflect())
+	case "cardchain.cardchain.GenesisState.cardRecords":
+		list := []*Card{}
+		return protoreflect.ValueOfList(&_GenesisState_2_list{list: &list})
+	case "cardchain.cardchain.GenesisState.users":
+		list := []*User{}
+		return protoreflect.ValueOfList(&_GenesisState_3_list{list: &list})
+	case "cardchain.cardchain.GenesisState.addresses":
+		list := []string{}
+		return protoreflect.ValueOfList(&_GenesisState_4_list{list: &list})
+	case "cardchain.cardchain.GenesisState.matches":
+		list := []*Match{}
+		return protoreflect.ValueOfList(&_GenesisState_6_list{list: &list})
+	case "cardchain.cardchain.GenesisState.sets":
+		list := []*Set{}
+		return protoreflect.ValueOfList(&_GenesisState_7_list{list: &list})
+	case "cardchain.cardchain.GenesisState.sellOffers":
+		list := []*SellOffer{}
+		return protoreflect.ValueOfList(&_GenesisState_8_list{list: &list})
+	case "cardchain.cardchain.GenesisState.pools":
+		list := []*v1beta1.Coin{}
+		return protoreflect.ValueOfList(&_GenesisState_9_list{list: &list})
+	case "cardchain.cardchain.GenesisState.cardAuctionPrice":
+		m := new(v1beta1.Coin)
+		return protoreflect.ValueOfMessage(m.ProtoReflect())
+	case "cardchain.cardchain.GenesisState.councils":
+		list := []*Council{}
+		return protoreflect.ValueOfList(&_GenesisState_12_list{list: &list})
+	case "cardchain.cardchain.GenesisState.RunningAverages":
+		list := []*RunningAverage{}
+		return protoreflect.ValueOfList(&_GenesisState_13_list{list: &list})
+	case "cardchain.cardchain.GenesisState.images":
+		list := []*Image{}
+		return protoreflect.ValueOfList(&_GenesisState_14_list{list: &list})
+	case "cardchain.cardchain.GenesisState.Servers":
+		list := []*Server{}
+		return protoreflect.ValueOfList(&_GenesisState_15_list{list: &list})
+	case "cardchain.cardchain.GenesisState.lastCardModified":
+		m := new(TimeStamp)
+		return protoreflect.ValueOfMessage(m.ProtoReflect())
+	case "cardchain.cardchain.GenesisState.zealys":
+		list := []*Zealy{}
+		return protoreflect.ValueOfList(&_GenesisState_17_list{list: &list})
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: cardchain.cardchain.GenesisState"))
@@ -286,6 +1316,86 @@ func (x *fastReflection_GenesisState) ProtoMethods() *protoiface.Methods {
 			l = options.Size(x.Params)
 			n += 1 + l + runtime.Sov(uint64(l))
 		}
+		if len(x.CardRecords) > 0 {
+			for _, e := range x.CardRecords {
+				l = options.Size(e)
+				n += 1 + l + runtime.Sov(uint64(l))
+			}
+		}
+		if len(x.Users) > 0 {
+			for _, e := range x.Users {
+				l = options.Size(e)
+				n += 1 + l + runtime.Sov(uint64(l))
+			}
+		}
+		if len(x.Addresses) > 0 {
+			for _, s := range x.Addresses {
+				l = len(s)
+				n += 1 + l + runtime.Sov(uint64(l))
+			}
+		}
+		if len(x.Matches) > 0 {
+			for _, e := range x.Matches {
+				l = options.Size(e)
+				n += 1 + l + runtime.Sov(uint64(l))
+			}
+		}
+		if len(x.Sets) > 0 {
+			for _, e := range x.Sets {
+				l = options.Size(e)
+				n += 1 + l + runtime.Sov(uint64(l))
+			}
+		}
+		if len(x.SellOffers) > 0 {
+			for _, e := range x.SellOffers {
+				l = options.Size(e)
+				n += 1 + l + runtime.Sov(uint64(l))
+			}
+		}
+		if len(x.Pools) > 0 {
+			for _, e := range x.Pools {
+				l = options.Size(e)
+				n += 1 + l + runtime.Sov(uint64(l))
+			}
+		}
+		if x.CardAuctionPrice != nil {
+			l = options.Size(x.CardAuctionPrice)
+			n += 1 + l + runtime.Sov(uint64(l))
+		}
+		if len(x.Councils) > 0 {
+			for _, e := range x.Councils {
+				l = options.Size(e)
+				n += 1 + l + runtime.Sov(uint64(l))
+			}
+		}
+		if len(x.RunningAverages) > 0 {
+			for _, e := range x.RunningAverages {
+				l = options.Size(e)
+				n += 1 + l + runtime.Sov(uint64(l))
+			}
+		}
+		if len(x.Images) > 0 {
+			for _, e := range x.Images {
+				l = options.Size(e)
+				n += 1 + l + runtime.Sov(uint64(l))
+			}
+		}
+		if len(x.Servers) > 0 {
+			for _, e := range x.Servers {
+				l = options.Size(e)
+				n += 1 + l + runtime.Sov(uint64(l))
+			}
+		}
+		if x.LastCardModified != nil {
+			l = options.Size(x.LastCardModified)
+			n += 2 + l + runtime.Sov(uint64(l))
+		}
+		if len(x.Zealys) > 0 {
+			for _, e := range x.Zealys {
+				l = options.Size(e)
+				n += 2 + l + runtime.Sov(uint64(l))
+			}
+		}
 		if x.unknownFields != nil {
 			n += len(x.unknownFields)
 		}
@@ -314,6 +1424,223 @@ func (x *fastReflection_GenesisState) ProtoMethods() *protoiface.Methods {
 		if x.unknownFields != nil {
 			i -= len(x.unknownFields)
 			copy(dAtA[i:], x.unknownFields)
+		}
+		if len(x.Zealys) > 0 {
+			for iNdEx := len(x.Zealys) - 1; iNdEx >= 0; iNdEx-- {
+				encoded, err := options.Marshal(x.Zealys[iNdEx])
+				if err != nil {
+					return protoiface.MarshalOutput{
+						NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+						Buf:               input.Buf,
+					}, err
+				}
+				i -= len(encoded)
+				copy(dAtA[i:], encoded)
+				i = runtime.EncodeVarint(dAtA, i, uint64(len(encoded)))
+				i--
+				dAtA[i] = 0x1
+				i--
+				dAtA[i] = 0x8a
+			}
+		}
+		if x.LastCardModified != nil {
+			encoded, err := options.Marshal(x.LastCardModified)
+			if err != nil {
+				return protoiface.MarshalOutput{
+					NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+					Buf:               input.Buf,
+				}, err
+			}
+			i -= len(encoded)
+			copy(dAtA[i:], encoded)
+			i = runtime.EncodeVarint(dAtA, i, uint64(len(encoded)))
+			i--
+			dAtA[i] = 0x1
+			i--
+			dAtA[i] = 0x82
+		}
+		if len(x.Servers) > 0 {
+			for iNdEx := len(x.Servers) - 1; iNdEx >= 0; iNdEx-- {
+				encoded, err := options.Marshal(x.Servers[iNdEx])
+				if err != nil {
+					return protoiface.MarshalOutput{
+						NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+						Buf:               input.Buf,
+					}, err
+				}
+				i -= len(encoded)
+				copy(dAtA[i:], encoded)
+				i = runtime.EncodeVarint(dAtA, i, uint64(len(encoded)))
+				i--
+				dAtA[i] = 0x7a
+			}
+		}
+		if len(x.Images) > 0 {
+			for iNdEx := len(x.Images) - 1; iNdEx >= 0; iNdEx-- {
+				encoded, err := options.Marshal(x.Images[iNdEx])
+				if err != nil {
+					return protoiface.MarshalOutput{
+						NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+						Buf:               input.Buf,
+					}, err
+				}
+				i -= len(encoded)
+				copy(dAtA[i:], encoded)
+				i = runtime.EncodeVarint(dAtA, i, uint64(len(encoded)))
+				i--
+				dAtA[i] = 0x72
+			}
+		}
+		if len(x.RunningAverages) > 0 {
+			for iNdEx := len(x.RunningAverages) - 1; iNdEx >= 0; iNdEx-- {
+				encoded, err := options.Marshal(x.RunningAverages[iNdEx])
+				if err != nil {
+					return protoiface.MarshalOutput{
+						NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+						Buf:               input.Buf,
+					}, err
+				}
+				i -= len(encoded)
+				copy(dAtA[i:], encoded)
+				i = runtime.EncodeVarint(dAtA, i, uint64(len(encoded)))
+				i--
+				dAtA[i] = 0x6a
+			}
+		}
+		if len(x.Councils) > 0 {
+			for iNdEx := len(x.Councils) - 1; iNdEx >= 0; iNdEx-- {
+				encoded, err := options.Marshal(x.Councils[iNdEx])
+				if err != nil {
+					return protoiface.MarshalOutput{
+						NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+						Buf:               input.Buf,
+					}, err
+				}
+				i -= len(encoded)
+				copy(dAtA[i:], encoded)
+				i = runtime.EncodeVarint(dAtA, i, uint64(len(encoded)))
+				i--
+				dAtA[i] = 0x62
+			}
+		}
+		if x.CardAuctionPrice != nil {
+			encoded, err := options.Marshal(x.CardAuctionPrice)
+			if err != nil {
+				return protoiface.MarshalOutput{
+					NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+					Buf:               input.Buf,
+				}, err
+			}
+			i -= len(encoded)
+			copy(dAtA[i:], encoded)
+			i = runtime.EncodeVarint(dAtA, i, uint64(len(encoded)))
+			i--
+			dAtA[i] = 0x5a
+		}
+		if len(x.Pools) > 0 {
+			for iNdEx := len(x.Pools) - 1; iNdEx >= 0; iNdEx-- {
+				encoded, err := options.Marshal(x.Pools[iNdEx])
+				if err != nil {
+					return protoiface.MarshalOutput{
+						NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+						Buf:               input.Buf,
+					}, err
+				}
+				i -= len(encoded)
+				copy(dAtA[i:], encoded)
+				i = runtime.EncodeVarint(dAtA, i, uint64(len(encoded)))
+				i--
+				dAtA[i] = 0x4a
+			}
+		}
+		if len(x.SellOffers) > 0 {
+			for iNdEx := len(x.SellOffers) - 1; iNdEx >= 0; iNdEx-- {
+				encoded, err := options.Marshal(x.SellOffers[iNdEx])
+				if err != nil {
+					return protoiface.MarshalOutput{
+						NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+						Buf:               input.Buf,
+					}, err
+				}
+				i -= len(encoded)
+				copy(dAtA[i:], encoded)
+				i = runtime.EncodeVarint(dAtA, i, uint64(len(encoded)))
+				i--
+				dAtA[i] = 0x42
+			}
+		}
+		if len(x.Sets) > 0 {
+			for iNdEx := len(x.Sets) - 1; iNdEx >= 0; iNdEx-- {
+				encoded, err := options.Marshal(x.Sets[iNdEx])
+				if err != nil {
+					return protoiface.MarshalOutput{
+						NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+						Buf:               input.Buf,
+					}, err
+				}
+				i -= len(encoded)
+				copy(dAtA[i:], encoded)
+				i = runtime.EncodeVarint(dAtA, i, uint64(len(encoded)))
+				i--
+				dAtA[i] = 0x3a
+			}
+		}
+		if len(x.Matches) > 0 {
+			for iNdEx := len(x.Matches) - 1; iNdEx >= 0; iNdEx-- {
+				encoded, err := options.Marshal(x.Matches[iNdEx])
+				if err != nil {
+					return protoiface.MarshalOutput{
+						NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+						Buf:               input.Buf,
+					}, err
+				}
+				i -= len(encoded)
+				copy(dAtA[i:], encoded)
+				i = runtime.EncodeVarint(dAtA, i, uint64(len(encoded)))
+				i--
+				dAtA[i] = 0x32
+			}
+		}
+		if len(x.Addresses) > 0 {
+			for iNdEx := len(x.Addresses) - 1; iNdEx >= 0; iNdEx-- {
+				i -= len(x.Addresses[iNdEx])
+				copy(dAtA[i:], x.Addresses[iNdEx])
+				i = runtime.EncodeVarint(dAtA, i, uint64(len(x.Addresses[iNdEx])))
+				i--
+				dAtA[i] = 0x22
+			}
+		}
+		if len(x.Users) > 0 {
+			for iNdEx := len(x.Users) - 1; iNdEx >= 0; iNdEx-- {
+				encoded, err := options.Marshal(x.Users[iNdEx])
+				if err != nil {
+					return protoiface.MarshalOutput{
+						NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+						Buf:               input.Buf,
+					}, err
+				}
+				i -= len(encoded)
+				copy(dAtA[i:], encoded)
+				i = runtime.EncodeVarint(dAtA, i, uint64(len(encoded)))
+				i--
+				dAtA[i] = 0x1a
+			}
+		}
+		if len(x.CardRecords) > 0 {
+			for iNdEx := len(x.CardRecords) - 1; iNdEx >= 0; iNdEx-- {
+				encoded, err := options.Marshal(x.CardRecords[iNdEx])
+				if err != nil {
+					return protoiface.MarshalOutput{
+						NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+						Buf:               input.Buf,
+					}, err
+				}
+				i -= len(encoded)
+				copy(dAtA[i:], encoded)
+				i = runtime.EncodeVarint(dAtA, i, uint64(len(encoded)))
+				i--
+				dAtA[i] = 0x12
+			}
 		}
 		if x.Params != nil {
 			encoded, err := options.Marshal(x.Params)
@@ -414,6 +1741,484 @@ func (x *fastReflection_GenesisState) ProtoMethods() *protoiface.Methods {
 					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, err
 				}
 				iNdEx = postIndex
+			case 2:
+				if wireType != 2 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field CardRecords", wireType)
+				}
+				var msglen int
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
+					}
+					if iNdEx >= l {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					msglen |= int(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+				if msglen < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				postIndex := iNdEx + msglen
+				if postIndex < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				if postIndex > l {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+				}
+				x.CardRecords = append(x.CardRecords, &Card{})
+				if err := options.Unmarshal(dAtA[iNdEx:postIndex], x.CardRecords[len(x.CardRecords)-1]); err != nil {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, err
+				}
+				iNdEx = postIndex
+			case 3:
+				if wireType != 2 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field Users", wireType)
+				}
+				var msglen int
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
+					}
+					if iNdEx >= l {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					msglen |= int(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+				if msglen < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				postIndex := iNdEx + msglen
+				if postIndex < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				if postIndex > l {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+				}
+				x.Users = append(x.Users, &User{})
+				if err := options.Unmarshal(dAtA[iNdEx:postIndex], x.Users[len(x.Users)-1]); err != nil {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, err
+				}
+				iNdEx = postIndex
+			case 4:
+				if wireType != 2 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field Addresses", wireType)
+				}
+				var stringLen uint64
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
+					}
+					if iNdEx >= l {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					stringLen |= uint64(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+				intStringLen := int(stringLen)
+				if intStringLen < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				postIndex := iNdEx + intStringLen
+				if postIndex < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				if postIndex > l {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+				}
+				x.Addresses = append(x.Addresses, string(dAtA[iNdEx:postIndex]))
+				iNdEx = postIndex
+			case 6:
+				if wireType != 2 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field Matches", wireType)
+				}
+				var msglen int
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
+					}
+					if iNdEx >= l {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					msglen |= int(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+				if msglen < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				postIndex := iNdEx + msglen
+				if postIndex < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				if postIndex > l {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+				}
+				x.Matches = append(x.Matches, &Match{})
+				if err := options.Unmarshal(dAtA[iNdEx:postIndex], x.Matches[len(x.Matches)-1]); err != nil {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, err
+				}
+				iNdEx = postIndex
+			case 7:
+				if wireType != 2 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field Sets", wireType)
+				}
+				var msglen int
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
+					}
+					if iNdEx >= l {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					msglen |= int(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+				if msglen < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				postIndex := iNdEx + msglen
+				if postIndex < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				if postIndex > l {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+				}
+				x.Sets = append(x.Sets, &Set{})
+				if err := options.Unmarshal(dAtA[iNdEx:postIndex], x.Sets[len(x.Sets)-1]); err != nil {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, err
+				}
+				iNdEx = postIndex
+			case 8:
+				if wireType != 2 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field SellOffers", wireType)
+				}
+				var msglen int
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
+					}
+					if iNdEx >= l {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					msglen |= int(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+				if msglen < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				postIndex := iNdEx + msglen
+				if postIndex < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				if postIndex > l {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+				}
+				x.SellOffers = append(x.SellOffers, &SellOffer{})
+				if err := options.Unmarshal(dAtA[iNdEx:postIndex], x.SellOffers[len(x.SellOffers)-1]); err != nil {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, err
+				}
+				iNdEx = postIndex
+			case 9:
+				if wireType != 2 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field Pools", wireType)
+				}
+				var msglen int
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
+					}
+					if iNdEx >= l {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					msglen |= int(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+				if msglen < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				postIndex := iNdEx + msglen
+				if postIndex < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				if postIndex > l {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+				}
+				x.Pools = append(x.Pools, &v1beta1.Coin{})
+				if err := options.Unmarshal(dAtA[iNdEx:postIndex], x.Pools[len(x.Pools)-1]); err != nil {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, err
+				}
+				iNdEx = postIndex
+			case 11:
+				if wireType != 2 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field CardAuctionPrice", wireType)
+				}
+				var msglen int
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
+					}
+					if iNdEx >= l {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					msglen |= int(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+				if msglen < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				postIndex := iNdEx + msglen
+				if postIndex < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				if postIndex > l {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+				}
+				if x.CardAuctionPrice == nil {
+					x.CardAuctionPrice = &v1beta1.Coin{}
+				}
+				if err := options.Unmarshal(dAtA[iNdEx:postIndex], x.CardAuctionPrice); err != nil {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, err
+				}
+				iNdEx = postIndex
+			case 12:
+				if wireType != 2 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field Councils", wireType)
+				}
+				var msglen int
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
+					}
+					if iNdEx >= l {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					msglen |= int(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+				if msglen < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				postIndex := iNdEx + msglen
+				if postIndex < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				if postIndex > l {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+				}
+				x.Councils = append(x.Councils, &Council{})
+				if err := options.Unmarshal(dAtA[iNdEx:postIndex], x.Councils[len(x.Councils)-1]); err != nil {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, err
+				}
+				iNdEx = postIndex
+			case 13:
+				if wireType != 2 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field RunningAverages", wireType)
+				}
+				var msglen int
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
+					}
+					if iNdEx >= l {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					msglen |= int(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+				if msglen < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				postIndex := iNdEx + msglen
+				if postIndex < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				if postIndex > l {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+				}
+				x.RunningAverages = append(x.RunningAverages, &RunningAverage{})
+				if err := options.Unmarshal(dAtA[iNdEx:postIndex], x.RunningAverages[len(x.RunningAverages)-1]); err != nil {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, err
+				}
+				iNdEx = postIndex
+			case 14:
+				if wireType != 2 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field Images", wireType)
+				}
+				var msglen int
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
+					}
+					if iNdEx >= l {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					msglen |= int(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+				if msglen < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				postIndex := iNdEx + msglen
+				if postIndex < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				if postIndex > l {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+				}
+				x.Images = append(x.Images, &Image{})
+				if err := options.Unmarshal(dAtA[iNdEx:postIndex], x.Images[len(x.Images)-1]); err != nil {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, err
+				}
+				iNdEx = postIndex
+			case 15:
+				if wireType != 2 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field Servers", wireType)
+				}
+				var msglen int
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
+					}
+					if iNdEx >= l {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					msglen |= int(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+				if msglen < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				postIndex := iNdEx + msglen
+				if postIndex < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				if postIndex > l {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+				}
+				x.Servers = append(x.Servers, &Server{})
+				if err := options.Unmarshal(dAtA[iNdEx:postIndex], x.Servers[len(x.Servers)-1]); err != nil {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, err
+				}
+				iNdEx = postIndex
+			case 16:
+				if wireType != 2 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field LastCardModified", wireType)
+				}
+				var msglen int
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
+					}
+					if iNdEx >= l {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					msglen |= int(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+				if msglen < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				postIndex := iNdEx + msglen
+				if postIndex < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				if postIndex > l {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+				}
+				if x.LastCardModified == nil {
+					x.LastCardModified = &TimeStamp{}
+				}
+				if err := options.Unmarshal(dAtA[iNdEx:postIndex], x.LastCardModified); err != nil {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, err
+				}
+				iNdEx = postIndex
+			case 17:
+				if wireType != 2 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field Zealys", wireType)
+				}
+				var msglen int
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
+					}
+					if iNdEx >= l {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					msglen |= int(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+				if msglen < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				postIndex := iNdEx + msglen
+				if postIndex < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				if postIndex > l {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+				}
+				x.Zealys = append(x.Zealys, &Zealy{})
+				if err := options.Unmarshal(dAtA[iNdEx:postIndex], x.Zealys[len(x.Zealys)-1]); err != nil {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, err
+				}
+				iNdEx = postIndex
 			default:
 				iNdEx = preIndex
 				skippy, err := runtime.Skip(dAtA[iNdEx:])
@@ -469,7 +2274,21 @@ type GenesisState struct {
 	unknownFields protoimpl.UnknownFields
 
 	// params defines all the parameters of the module.
-	Params *Params `protobuf:"bytes,1,opt,name=params,proto3" json:"params,omitempty"`
+	Params           *Params           `protobuf:"bytes,1,opt,name=params,proto3" json:"params,omitempty"`
+	CardRecords      []*Card           `protobuf:"bytes,2,rep,name=cardRecords,proto3" json:"cardRecords,omitempty"`
+	Users            []*User           `protobuf:"bytes,3,rep,name=users,proto3" json:"users,omitempty"`
+	Addresses        []string          `protobuf:"bytes,4,rep,name=addresses,proto3" json:"addresses,omitempty"`
+	Matches          []*Match          `protobuf:"bytes,6,rep,name=matches,proto3" json:"matches,omitempty"`
+	Sets             []*Set            `protobuf:"bytes,7,rep,name=sets,proto3" json:"sets,omitempty"`
+	SellOffers       []*SellOffer      `protobuf:"bytes,8,rep,name=sellOffers,proto3" json:"sellOffers,omitempty"`
+	Pools            []*v1beta1.Coin   `protobuf:"bytes,9,rep,name=pools,proto3" json:"pools,omitempty"`
+	CardAuctionPrice *v1beta1.Coin     `protobuf:"bytes,11,opt,name=cardAuctionPrice,proto3" json:"cardAuctionPrice,omitempty"`
+	Councils         []*Council        `protobuf:"bytes,12,rep,name=councils,proto3" json:"councils,omitempty"`
+	RunningAverages  []*RunningAverage `protobuf:"bytes,13,rep,name=RunningAverages,proto3" json:"RunningAverages,omitempty"`
+	Images           []*Image          `protobuf:"bytes,14,rep,name=images,proto3" json:"images,omitempty"`
+	Servers          []*Server         `protobuf:"bytes,15,rep,name=Servers,proto3" json:"Servers,omitempty"`
+	LastCardModified *TimeStamp        `protobuf:"bytes,16,opt,name=lastCardModified,proto3" json:"lastCardModified,omitempty"`
+	Zealys           []*Zealy          `protobuf:"bytes,17,rep,name=zealys,proto3" json:"zealys,omitempty"`
 }
 
 func (x *GenesisState) Reset() {
@@ -499,6 +2318,104 @@ func (x *GenesisState) GetParams() *Params {
 	return nil
 }
 
+func (x *GenesisState) GetCardRecords() []*Card {
+	if x != nil {
+		return x.CardRecords
+	}
+	return nil
+}
+
+func (x *GenesisState) GetUsers() []*User {
+	if x != nil {
+		return x.Users
+	}
+	return nil
+}
+
+func (x *GenesisState) GetAddresses() []string {
+	if x != nil {
+		return x.Addresses
+	}
+	return nil
+}
+
+func (x *GenesisState) GetMatches() []*Match {
+	if x != nil {
+		return x.Matches
+	}
+	return nil
+}
+
+func (x *GenesisState) GetSets() []*Set {
+	if x != nil {
+		return x.Sets
+	}
+	return nil
+}
+
+func (x *GenesisState) GetSellOffers() []*SellOffer {
+	if x != nil {
+		return x.SellOffers
+	}
+	return nil
+}
+
+func (x *GenesisState) GetPools() []*v1beta1.Coin {
+	if x != nil {
+		return x.Pools
+	}
+	return nil
+}
+
+func (x *GenesisState) GetCardAuctionPrice() *v1beta1.Coin {
+	if x != nil {
+		return x.CardAuctionPrice
+	}
+	return nil
+}
+
+func (x *GenesisState) GetCouncils() []*Council {
+	if x != nil {
+		return x.Councils
+	}
+	return nil
+}
+
+func (x *GenesisState) GetRunningAverages() []*RunningAverage {
+	if x != nil {
+		return x.RunningAverages
+	}
+	return nil
+}
+
+func (x *GenesisState) GetImages() []*Image {
+	if x != nil {
+		return x.Images
+	}
+	return nil
+}
+
+func (x *GenesisState) GetServers() []*Server {
+	if x != nil {
+		return x.Servers
+	}
+	return nil
+}
+
+func (x *GenesisState) GetLastCardModified() *TimeStamp {
+	if x != nil {
+		return x.LastCardModified
+	}
+	return nil
+}
+
+func (x *GenesisState) GetZealys() []*Zealy {
+	if x != nil {
+		return x.Zealys
+	}
+	return nil
+}
+
 var File_cardchain_cardchain_genesis_proto protoreflect.FileDescriptor
 
 var file_cardchain_cardchain_genesis_proto_rawDesc = []byte{
@@ -510,26 +2427,100 @@ var file_cardchain_cardchain_genesis_proto_rawDesc = []byte{
 	0x6f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2f, 0x67, 0x6f, 0x67, 0x6f, 0x2e, 0x70, 0x72, 0x6f, 0x74,
 	0x6f, 0x1a, 0x20, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2f, 0x63, 0x61, 0x72,
 	0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2f, 0x70, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x2e, 0x70, 0x72,
-	0x6f, 0x74, 0x6f, 0x22, 0x4e, 0x0a, 0x0c, 0x47, 0x65, 0x6e, 0x65, 0x73, 0x69, 0x73, 0x53, 0x74,
-	0x61, 0x74, 0x65, 0x12, 0x3e, 0x0a, 0x06, 0x70, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x18, 0x01, 0x20,
-	0x01, 0x28, 0x0b, 0x32, 0x1b, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e,
-	0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x50, 0x61, 0x72, 0x61, 0x6d, 0x73,
-	0x42, 0x09, 0xc8, 0xde, 0x1f, 0x00, 0xa8, 0xe7, 0xb0, 0x2a, 0x01, 0x52, 0x06, 0x70, 0x61, 0x72,
-	0x61, 0x6d, 0x73, 0x42, 0xd4, 0x01, 0x0a, 0x17, 0x63, 0x6f, 0x6d, 0x2e, 0x63, 0x61, 0x72, 0x64,
-	0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x42,
-	0x0c, 0x47, 0x65, 0x6e, 0x65, 0x73, 0x69, 0x73, 0x50, 0x72, 0x6f, 0x74, 0x6f, 0x50, 0x01, 0x5a,
-	0x3e, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x44, 0x65, 0x63, 0x65,
-	0x6e, 0x74, 0x72, 0x61, 0x6c, 0x43, 0x61, 0x72, 0x64, 0x47, 0x61, 0x6d, 0x65, 0x2f, 0x63, 0x61,
-	0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2f, 0x61, 0x70, 0x69, 0x2f, 0x63, 0x61, 0x72, 0x64,
-	0x63, 0x68, 0x61, 0x69, 0x6e, 0x2f, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0xa2,
-	0x02, 0x03, 0x43, 0x43, 0x58, 0xaa, 0x02, 0x13, 0x43, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69,
-	0x6e, 0x2e, 0x43, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0xca, 0x02, 0x13, 0x43, 0x61,
-	0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x5c, 0x43, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69,
-	0x6e, 0xe2, 0x02, 0x1f, 0x43, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x5c, 0x43, 0x61,
-	0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x5c, 0x47, 0x50, 0x42, 0x4d, 0x65, 0x74, 0x61, 0x64,
-	0x61, 0x74, 0x61, 0xea, 0x02, 0x14, 0x43, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x3a,
-	0x3a, 0x43, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74,
-	0x6f, 0x33,
+	0x6f, 0x74, 0x6f, 0x1a, 0x1e, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2f, 0x63,
+	0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2f, 0x63, 0x61, 0x72, 0x64, 0x2e, 0x70, 0x72,
+	0x6f, 0x74, 0x6f, 0x1a, 0x1e, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2f, 0x63,
+	0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2f, 0x75, 0x73, 0x65, 0x72, 0x2e, 0x70, 0x72,
+	0x6f, 0x74, 0x6f, 0x1a, 0x1f, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2f, 0x63,
+	0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2f, 0x6d, 0x61, 0x74, 0x63, 0x68, 0x2e, 0x70,
+	0x72, 0x6f, 0x74, 0x6f, 0x1a, 0x1d, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2f,
+	0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2f, 0x73, 0x65, 0x74, 0x2e, 0x70, 0x72,
+	0x6f, 0x74, 0x6f, 0x1a, 0x24, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2f, 0x63,
+	0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2f, 0x73, 0x65, 0x6c, 0x6c, 0x5f, 0x6f, 0x66,
+	0x66, 0x65, 0x72, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x1a, 0x29, 0x63, 0x61, 0x72, 0x64, 0x63,
+	0x68, 0x61, 0x69, 0x6e, 0x2f, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2f, 0x72,
+	0x75, 0x6e, 0x6e, 0x69, 0x6e, 0x67, 0x5f, 0x61, 0x76, 0x65, 0x72, 0x61, 0x67, 0x65, 0x2e, 0x70,
+	0x72, 0x6f, 0x74, 0x6f, 0x1a, 0x21, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2f,
+	0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2f, 0x63, 0x6f, 0x75, 0x6e, 0x63, 0x69,
+	0x6c, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x1a, 0x1f, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61,
+	0x69, 0x6e, 0x2f, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2f, 0x69, 0x6d, 0x61,
+	0x67, 0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x1a, 0x20, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68,
+	0x61, 0x69, 0x6e, 0x2f, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2f, 0x73, 0x65,
+	0x72, 0x76, 0x65, 0x72, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x1a, 0x1f, 0x63, 0x61, 0x72, 0x64,
+	0x63, 0x68, 0x61, 0x69, 0x6e, 0x2f, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2f,
+	0x7a, 0x65, 0x61, 0x6c, 0x79, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x1a, 0x1e, 0x63, 0x6f, 0x73,
+	0x6d, 0x6f, 0x73, 0x2f, 0x62, 0x61, 0x73, 0x65, 0x2f, 0x76, 0x31, 0x62, 0x65, 0x74, 0x61, 0x31,
+	0x2f, 0x63, 0x6f, 0x69, 0x6e, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x22, 0xf6, 0x06, 0x0a, 0x0c,
+	0x47, 0x65, 0x6e, 0x65, 0x73, 0x69, 0x73, 0x53, 0x74, 0x61, 0x74, 0x65, 0x12, 0x3e, 0x0a, 0x06,
+	0x70, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1b, 0x2e, 0x63,
+	0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61,
+	0x69, 0x6e, 0x2e, 0x50, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x42, 0x09, 0xc8, 0xde, 0x1f, 0x00, 0xa8,
+	0xe7, 0xb0, 0x2a, 0x01, 0x52, 0x06, 0x70, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x12, 0x3b, 0x0a, 0x0b,
+	0x63, 0x61, 0x72, 0x64, 0x52, 0x65, 0x63, 0x6f, 0x72, 0x64, 0x73, 0x18, 0x02, 0x20, 0x03, 0x28,
+	0x0b, 0x32, 0x19, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x63, 0x61,
+	0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x43, 0x61, 0x72, 0x64, 0x52, 0x0b, 0x63, 0x61,
+	0x72, 0x64, 0x52, 0x65, 0x63, 0x6f, 0x72, 0x64, 0x73, 0x12, 0x2f, 0x0a, 0x05, 0x75, 0x73, 0x65,
+	0x72, 0x73, 0x18, 0x03, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x19, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63,
+	0x68, 0x61, 0x69, 0x6e, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x55,
+	0x73, 0x65, 0x72, 0x52, 0x05, 0x75, 0x73, 0x65, 0x72, 0x73, 0x12, 0x1c, 0x0a, 0x09, 0x61, 0x64,
+	0x64, 0x72, 0x65, 0x73, 0x73, 0x65, 0x73, 0x18, 0x04, 0x20, 0x03, 0x28, 0x09, 0x52, 0x09, 0x61,
+	0x64, 0x64, 0x72, 0x65, 0x73, 0x73, 0x65, 0x73, 0x12, 0x34, 0x0a, 0x07, 0x6d, 0x61, 0x74, 0x63,
+	0x68, 0x65, 0x73, 0x18, 0x06, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x1a, 0x2e, 0x63, 0x61, 0x72, 0x64,
+	0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e,
+	0x4d, 0x61, 0x74, 0x63, 0x68, 0x52, 0x07, 0x6d, 0x61, 0x74, 0x63, 0x68, 0x65, 0x73, 0x12, 0x2c,
+	0x0a, 0x04, 0x73, 0x65, 0x74, 0x73, 0x18, 0x07, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x18, 0x2e, 0x63,
+	0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61,
+	0x69, 0x6e, 0x2e, 0x53, 0x65, 0x74, 0x52, 0x04, 0x73, 0x65, 0x74, 0x73, 0x12, 0x3e, 0x0a, 0x0a,
+	0x73, 0x65, 0x6c, 0x6c, 0x4f, 0x66, 0x66, 0x65, 0x72, 0x73, 0x18, 0x08, 0x20, 0x03, 0x28, 0x0b,
+	0x32, 0x1e, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x63, 0x61, 0x72,
+	0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x53, 0x65, 0x6c, 0x6c, 0x4f, 0x66, 0x66, 0x65, 0x72,
+	0x52, 0x0a, 0x73, 0x65, 0x6c, 0x6c, 0x4f, 0x66, 0x66, 0x65, 0x72, 0x73, 0x12, 0x2f, 0x0a, 0x05,
+	0x70, 0x6f, 0x6f, 0x6c, 0x73, 0x18, 0x09, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x19, 0x2e, 0x63, 0x6f,
+	0x73, 0x6d, 0x6f, 0x73, 0x2e, 0x62, 0x61, 0x73, 0x65, 0x2e, 0x76, 0x31, 0x62, 0x65, 0x74, 0x61,
+	0x31, 0x2e, 0x43, 0x6f, 0x69, 0x6e, 0x52, 0x05, 0x70, 0x6f, 0x6f, 0x6c, 0x73, 0x12, 0x4b, 0x0a,
+	0x10, 0x63, 0x61, 0x72, 0x64, 0x41, 0x75, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x50, 0x72, 0x69, 0x63,
+	0x65, 0x18, 0x0b, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x19, 0x2e, 0x63, 0x6f, 0x73, 0x6d, 0x6f, 0x73,
+	0x2e, 0x62, 0x61, 0x73, 0x65, 0x2e, 0x76, 0x31, 0x62, 0x65, 0x74, 0x61, 0x31, 0x2e, 0x43, 0x6f,
+	0x69, 0x6e, 0x42, 0x04, 0xc8, 0xde, 0x1f, 0x00, 0x52, 0x10, 0x63, 0x61, 0x72, 0x64, 0x41, 0x75,
+	0x63, 0x74, 0x69, 0x6f, 0x6e, 0x50, 0x72, 0x69, 0x63, 0x65, 0x12, 0x38, 0x0a, 0x08, 0x63, 0x6f,
+	0x75, 0x6e, 0x63, 0x69, 0x6c, 0x73, 0x18, 0x0c, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x1c, 0x2e, 0x63,
+	0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61,
+	0x69, 0x6e, 0x2e, 0x43, 0x6f, 0x75, 0x6e, 0x63, 0x69, 0x6c, 0x52, 0x08, 0x63, 0x6f, 0x75, 0x6e,
+	0x63, 0x69, 0x6c, 0x73, 0x12, 0x4d, 0x0a, 0x0f, 0x52, 0x75, 0x6e, 0x6e, 0x69, 0x6e, 0x67, 0x41,
+	0x76, 0x65, 0x72, 0x61, 0x67, 0x65, 0x73, 0x18, 0x0d, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x23, 0x2e,
+	0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68,
+	0x61, 0x69, 0x6e, 0x2e, 0x52, 0x75, 0x6e, 0x6e, 0x69, 0x6e, 0x67, 0x41, 0x76, 0x65, 0x72, 0x61,
+	0x67, 0x65, 0x52, 0x0f, 0x52, 0x75, 0x6e, 0x6e, 0x69, 0x6e, 0x67, 0x41, 0x76, 0x65, 0x72, 0x61,
+	0x67, 0x65, 0x73, 0x12, 0x32, 0x0a, 0x06, 0x69, 0x6d, 0x61, 0x67, 0x65, 0x73, 0x18, 0x0e, 0x20,
+	0x03, 0x28, 0x0b, 0x32, 0x1a, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e,
+	0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x49, 0x6d, 0x61, 0x67, 0x65, 0x52,
+	0x06, 0x69, 0x6d, 0x61, 0x67, 0x65, 0x73, 0x12, 0x35, 0x0a, 0x07, 0x53, 0x65, 0x72, 0x76, 0x65,
+	0x72, 0x73, 0x18, 0x0f, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x1b, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63,
+	0x68, 0x61, 0x69, 0x6e, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x53,
+	0x65, 0x72, 0x76, 0x65, 0x72, 0x52, 0x07, 0x53, 0x65, 0x72, 0x76, 0x65, 0x72, 0x73, 0x12, 0x50,
+	0x0a, 0x10, 0x6c, 0x61, 0x73, 0x74, 0x43, 0x61, 0x72, 0x64, 0x4d, 0x6f, 0x64, 0x69, 0x66, 0x69,
+	0x65, 0x64, 0x18, 0x10, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1e, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63,
+	0x68, 0x61, 0x69, 0x6e, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x54,
+	0x69, 0x6d, 0x65, 0x53, 0x74, 0x61, 0x6d, 0x70, 0x42, 0x04, 0xc8, 0xde, 0x1f, 0x00, 0x52, 0x10,
+	0x6c, 0x61, 0x73, 0x74, 0x43, 0x61, 0x72, 0x64, 0x4d, 0x6f, 0x64, 0x69, 0x66, 0x69, 0x65, 0x64,
+	0x12, 0x32, 0x0a, 0x06, 0x7a, 0x65, 0x61, 0x6c, 0x79, 0x73, 0x18, 0x11, 0x20, 0x03, 0x28, 0x0b,
+	0x32, 0x1a, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x63, 0x61, 0x72,
+	0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x5a, 0x65, 0x61, 0x6c, 0x79, 0x52, 0x06, 0x7a, 0x65,
+	0x61, 0x6c, 0x79, 0x73, 0x42, 0xd4, 0x01, 0x0a, 0x17, 0x63, 0x6f, 0x6d, 0x2e, 0x63, 0x61, 0x72,
+	0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e,
+	0x42, 0x0c, 0x47, 0x65, 0x6e, 0x65, 0x73, 0x69, 0x73, 0x50, 0x72, 0x6f, 0x74, 0x6f, 0x50, 0x01,
+	0x5a, 0x3e, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x44, 0x65, 0x63,
+	0x65, 0x6e, 0x74, 0x72, 0x61, 0x6c, 0x43, 0x61, 0x72, 0x64, 0x47, 0x61, 0x6d, 0x65, 0x2f, 0x63,
+	0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2f, 0x61, 0x70, 0x69, 0x2f, 0x63, 0x61, 0x72,
+	0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2f, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e,
+	0xa2, 0x02, 0x03, 0x43, 0x43, 0x58, 0xaa, 0x02, 0x13, 0x43, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61,
+	0x69, 0x6e, 0x2e, 0x43, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0xca, 0x02, 0x13, 0x43,
+	0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x5c, 0x43, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61,
+	0x69, 0x6e, 0xe2, 0x02, 0x1f, 0x43, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x5c, 0x43,
+	0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x5c, 0x47, 0x50, 0x42, 0x4d, 0x65, 0x74, 0x61,
+	0x64, 0x61, 0x74, 0x61, 0xea, 0x02, 0x14, 0x43, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e,
+	0x3a, 0x3a, 0x43, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x62, 0x06, 0x70, 0x72, 0x6f,
+	0x74, 0x6f, 0x33,
 }
 
 var (
@@ -546,16 +2537,41 @@ func file_cardchain_cardchain_genesis_proto_rawDescGZIP() []byte {
 
 var file_cardchain_cardchain_genesis_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
 var file_cardchain_cardchain_genesis_proto_goTypes = []interface{}{
-	(*GenesisState)(nil), // 0: cardchain.cardchain.GenesisState
-	(*Params)(nil),       // 1: cardchain.cardchain.Params
+	(*GenesisState)(nil),   // 0: cardchain.cardchain.GenesisState
+	(*Params)(nil),         // 1: cardchain.cardchain.Params
+	(*Card)(nil),           // 2: cardchain.cardchain.Card
+	(*User)(nil),           // 3: cardchain.cardchain.User
+	(*Match)(nil),          // 4: cardchain.cardchain.Match
+	(*Set)(nil),            // 5: cardchain.cardchain.Set
+	(*SellOffer)(nil),      // 6: cardchain.cardchain.SellOffer
+	(*v1beta1.Coin)(nil),   // 7: cosmos.base.v1beta1.Coin
+	(*Council)(nil),        // 8: cardchain.cardchain.Council
+	(*RunningAverage)(nil), // 9: cardchain.cardchain.RunningAverage
+	(*Image)(nil),          // 10: cardchain.cardchain.Image
+	(*Server)(nil),         // 11: cardchain.cardchain.Server
+	(*TimeStamp)(nil),      // 12: cardchain.cardchain.TimeStamp
+	(*Zealy)(nil),          // 13: cardchain.cardchain.Zealy
 }
 var file_cardchain_cardchain_genesis_proto_depIdxs = []int32{
-	1, // 0: cardchain.cardchain.GenesisState.params:type_name -> cardchain.cardchain.Params
-	1, // [1:1] is the sub-list for method output_type
-	1, // [1:1] is the sub-list for method input_type
-	1, // [1:1] is the sub-list for extension type_name
-	1, // [1:1] is the sub-list for extension extendee
-	0, // [0:1] is the sub-list for field type_name
+	1,  // 0: cardchain.cardchain.GenesisState.params:type_name -> cardchain.cardchain.Params
+	2,  // 1: cardchain.cardchain.GenesisState.cardRecords:type_name -> cardchain.cardchain.Card
+	3,  // 2: cardchain.cardchain.GenesisState.users:type_name -> cardchain.cardchain.User
+	4,  // 3: cardchain.cardchain.GenesisState.matches:type_name -> cardchain.cardchain.Match
+	5,  // 4: cardchain.cardchain.GenesisState.sets:type_name -> cardchain.cardchain.Set
+	6,  // 5: cardchain.cardchain.GenesisState.sellOffers:type_name -> cardchain.cardchain.SellOffer
+	7,  // 6: cardchain.cardchain.GenesisState.pools:type_name -> cosmos.base.v1beta1.Coin
+	7,  // 7: cardchain.cardchain.GenesisState.cardAuctionPrice:type_name -> cosmos.base.v1beta1.Coin
+	8,  // 8: cardchain.cardchain.GenesisState.councils:type_name -> cardchain.cardchain.Council
+	9,  // 9: cardchain.cardchain.GenesisState.RunningAverages:type_name -> cardchain.cardchain.RunningAverage
+	10, // 10: cardchain.cardchain.GenesisState.images:type_name -> cardchain.cardchain.Image
+	11, // 11: cardchain.cardchain.GenesisState.Servers:type_name -> cardchain.cardchain.Server
+	12, // 12: cardchain.cardchain.GenesisState.lastCardModified:type_name -> cardchain.cardchain.TimeStamp
+	13, // 13: cardchain.cardchain.GenesisState.zealys:type_name -> cardchain.cardchain.Zealy
+	14, // [14:14] is the sub-list for method output_type
+	14, // [14:14] is the sub-list for method input_type
+	14, // [14:14] is the sub-list for extension type_name
+	14, // [14:14] is the sub-list for extension extendee
+	0,  // [0:14] is the sub-list for field type_name
 }
 
 func init() { file_cardchain_cardchain_genesis_proto_init() }
@@ -564,6 +2580,16 @@ func file_cardchain_cardchain_genesis_proto_init() {
 		return
 	}
 	file_cardchain_cardchain_params_proto_init()
+	file_cardchain_cardchain_card_proto_init()
+	file_cardchain_cardchain_user_proto_init()
+	file_cardchain_cardchain_match_proto_init()
+	file_cardchain_cardchain_set_proto_init()
+	file_cardchain_cardchain_sell_offer_proto_init()
+	file_cardchain_cardchain_running_average_proto_init()
+	file_cardchain_cardchain_council_proto_init()
+	file_cardchain_cardchain_image_proto_init()
+	file_cardchain_cardchain_server_proto_init()
+	file_cardchain_cardchain_zealy_proto_init()
 	if !protoimpl.UnsafeEnabled {
 		file_cardchain_cardchain_genesis_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*GenesisState); i {

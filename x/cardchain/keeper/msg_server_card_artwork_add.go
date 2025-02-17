@@ -12,8 +12,8 @@ import (
 func (k msgServer) CardArtworkAdd(goCtx context.Context, msg *types.MsgCardArtworkAdd) (*types.MsgCardArtworkAddResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	card := k.cards.Get(ctx, msg.CardId)
-	image := k.images.Get(ctx, card.ImageId)
+	card := k.CardK.Get(ctx, msg.CardId)
+	image := k.Images.Get(ctx, card.ImageId)
 
 	councilEnabled, err := k.FeatureFlagModuleInstance.Get(ctx, string(types.FeatureFlagName_Council))
 	if err != nil {
@@ -35,8 +35,8 @@ func (k msgServer) CardArtworkAdd(goCtx context.Context, msg *types.MsgCardArtwo
 		card.Status = types.CardStatus_permanent
 	}
 
-	k.cards.Set(ctx, msg.CardId, card)
-	k.images.Set(ctx, card.ImageId, image)
+	k.CardK.Set(ctx, msg.CardId, card)
+	k.Images.Set(ctx, card.ImageId, image)
 
 	return &types.MsgCardArtworkAddResponse{}, nil
 }

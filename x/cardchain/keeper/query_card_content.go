@@ -24,12 +24,12 @@ func (k Keeper) CardContent(goCtx context.Context, req *types.QueryCardContentRe
 }
 
 func (k Keeper) getCardContentFromId(ctx sdk.Context, id uint64) (resp *types.CardContent, err error) {
-	card := k.cards.Get(ctx, id)
+	card := k.CardK.Get(ctx, id)
 	if card == nil {
 		return nil, errorsmod.Wrap(errors.ErrUnknownRequest, "cardId does not represent a card")
 	}
 
-	image := k.images.Get(ctx, card.ImageId)
+	image := k.Images.Get(ctx, card.ImageId)
 
 	return &types.CardContent{
 		Content: string(card.Content),

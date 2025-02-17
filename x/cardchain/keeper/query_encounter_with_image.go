@@ -16,10 +16,10 @@ func (k Keeper) EncounterWithImage(goCtx context.Context, req *types.QueryEncoun
 
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	encounter := k.encounters.Get(ctx, req.EncounterId)
+	encounter := k.Encounterk.Get(ctx, req.EncounterId)
 
 	return &types.QueryEncounterWithImageResponse{Encounter: &types.EncounterWithImage{
 		Encounter: encounter,
-		Image:     k.images.Get(ctx, encounter.ImageId).Image,
+		Image:     k.Images.Get(ctx, encounter.ImageId).Image,
 	}}, nil
 }

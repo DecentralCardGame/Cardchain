@@ -16,7 +16,7 @@ func (k Keeper) Match(goCtx context.Context, req *types.QueryMatchRequest) (*typ
 
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	match := k.matches.Get(ctx, req.MatchId)
+	match := k.MatchK.Get(ctx, req.MatchId)
 
 	return &types.QueryMatchResponse{Match: match}, nil
 }

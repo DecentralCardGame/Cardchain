@@ -16,7 +16,7 @@ func (k Keeper) Council(goCtx context.Context, req *types.QueryCouncilRequest) (
 
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	council := k.councils.Get(ctx, req.CouncilId)
+	council := k.Councils.Get(ctx, req.CouncilId)
 
 	return &types.QueryCouncilResponse{Council: council}, nil
 }

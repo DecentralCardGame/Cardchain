@@ -18,12 +18,12 @@ func (k Keeper) Card(goCtx context.Context, req *types.QueryCardRequest) (*types
 
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	card := k.cards.Get(ctx, req.CardId)
+	card := k.CardK.Get(ctx, req.CardId)
 	if card == nil {
 		return nil, errorsmod.Wrap(errors.ErrUnknownRequest, "cardId does not represent a card")
 	}
 
-	image := k.images.Get(ctx, card.ImageId)
+	image := k.Images.Get(ctx, card.ImageId)
 
 	return &types.QueryCardResponse{Card: &types.CardWithImage{
 		Card: card, Image: string(image.Image), Hash: image.GetHash(),

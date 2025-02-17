@@ -17,12 +17,12 @@ func (k msgServer) ZealyConnect(goCtx context.Context, msg *types.MsgZealyConnec
 		return nil, errorsmod.Wrap(types.ErrUserDoesNotExist, msg.Creator)
 	}
 
-	zealy := k.zealy.Get(ctx, msg.ZealyId)
+	zealy := k.Zealy.Get(ctx, msg.ZealyId)
 	if zealy.ZealyId == msg.ZealyId {
 		return nil, errorsmod.Wrapf(sdkerrors.ErrUnauthorized, "ZealyId `%s` is already registered", msg.ZealyId)
 	}
 
-	iterator := k.zealy.GetIterator(ctx)
+	iterator := k.Zealy.GetIterator(ctx)
 	for ; iterator.Valid(); iterator.Next() {
 
 		var gotten types.Zealy
@@ -33,7 +33,7 @@ func (k msgServer) ZealyConnect(goCtx context.Context, msg *types.MsgZealyConnec
 		}
 	}
 
-	k.zealy.Set(ctx, msg.ZealyId, &types.Zealy{Address: msg.Creator, ZealyId: msg.ZealyId})
+	k.Zealy.Set(ctx, msg.ZealyId, &types.Zealy{Address: msg.Creator, ZealyId: msg.ZealyId})
 
 	return &types.MsgZealyConnectResponse{}, nil
 }

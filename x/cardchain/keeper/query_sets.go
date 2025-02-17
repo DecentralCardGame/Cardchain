@@ -23,7 +23,7 @@ func (k Keeper) Sets(goCtx context.Context, req *types.QuerySetsRequest) (*types
 		allCardsInSet bool = true
 	)
 
-	iter := k.sets.GetItemIterator(ctx)
+	iter := k.Setk.GetItemIterator(ctx)
 	for ; iter.Valid(); iter.Next() {
 		idx, set := iter.Value()
 

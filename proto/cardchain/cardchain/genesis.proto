@@ -5,12 +5,22 @@ package cardchain.cardchain;
 import "amino/amino.proto";
 import "gogoproto/gogo.proto";
 import "cardchain/cardchain/params.proto";
+import "cardchain/cardchain/card.proto";
+import "cardchain/cardchain/user.proto";
+import "cardchain/cardchain/match.proto";
+import "cardchain/cardchain/set.proto";
+import "cardchain/cardchain/sell_offer.proto";
+import "cardchain/cardchain/running_average.proto";
+import "cardchain/cardchain/council.proto";
+import "cardchain/cardchain/image.proto";
+import "cardchain/cardchain/server.proto";
+import "cardchain/cardchain/zealy.proto";
+import "cosmos/base/v1beta1/coin.proto";
 
 option go_package = "github.com/DecentralCardGame/cardchain/x/cardchain/types";
 
 // GenesisState defines the cardchain module's genesis state.
 message GenesisState {
-
   // params defines all the parameters of the module.
   Params params = 1
       [ (gogoproto.nullable) = false, (amino.dont_omitempty) = true ];
@@ -21,14 +31,12 @@ message GenesisState {
   repeated Set sets = 7;
   repeated SellOffer sellOffers = 8;
   repeated cosmos.base.v1beta1.Coin pools = 9;
-  string cardAuctionPrice = 11 [
-    (gogoproto.nullable) = false,
-    (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Coin"
-  ];
+  cosmos.base.v1beta1.Coin cardAuctionPrice = 11
+      [ (gogoproto.nullable) = false ];
   repeated Council councils = 12;
   repeated RunningAverage RunningAverages = 13;
   repeated Image images = 14;
   repeated Server Servers = 15;
-  TimeStamp lastCardModified = 16;
+  TimeStamp lastCardModified = 16 [ (gogoproto.nullable) = false ];
   repeated Zealy zealys = 17;
 }

@@ -21,7 +21,7 @@ func (k Keeper) SellOffers(goCtx context.Context, req *types.QuerySellOffersRequ
 		sellOffersList []*types.SellOffer
 	)
 
-	iter := k.sellOffers.GetItemIterator(ctx)
+	iter := k.SellOfferK.GetItemIterator(ctx)
 	for ; iter.Valid(); iter.Next() {
 		idx, sellOffer := iter.Value()
 		// Checks for price

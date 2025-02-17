@@ -12,7 +12,7 @@ import (
 func (k msgServer) MatchReport(goCtx context.Context, msg *types.MsgMatchReport) (*types.MsgMatchReportResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	match := k.matches.Get(ctx, msg.MatchId)
+	match := k.MatchK.Get(ctx, msg.MatchId)
 
 	creator, err := k.GetUserFromString(ctx, msg.Creator)
 	if err != nil {
@@ -39,7 +39,7 @@ func (k msgServer) MatchReport(goCtx context.Context, msg *types.MsgMatchReport)
 		return nil, err
 	}
 
-	k.matches.Set(ctx, msg.MatchId, match)
+	k.MatchK.Set(ctx, msg.MatchId, match)
 
 	return &types.MsgMatchReportResponse{}, nil
 }

@@ -5,6 +5,7 @@ package types
 
 import (
 	fmt "fmt"
+	types "github.com/cosmos/cosmos-sdk/types"
 	_ "github.com/cosmos/cosmos-sdk/types/tx/amino"
 	_ "github.com/cosmos/gogoproto/gogoproto"
 	proto "github.com/cosmos/gogoproto/proto"
@@ -27,7 +28,21 @@ const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 // GenesisState defines the cardchain module's genesis state.
 type GenesisState struct {
 	// params defines all the parameters of the module.
-	Params Params `protobuf:"bytes,1,opt,name=params,proto3" json:"params"`
+	Params           Params            `protobuf:"bytes,1,opt,name=params,proto3" json:"params"`
+	CardRecords      []*Card           `protobuf:"bytes,2,rep,name=cardRecords,proto3" json:"cardRecords,omitempty"`
+	Users            []*User           `protobuf:"bytes,3,rep,name=users,proto3" json:"users,omitempty"`
+	Addresses        []string          `protobuf:"bytes,4,rep,name=addresses,proto3" json:"addresses,omitempty"`
+	Matches          []*Match          `protobuf:"bytes,6,rep,name=matches,proto3" json:"matches,omitempty"`
+	Sets             []*Set            `protobuf:"bytes,7,rep,name=sets,proto3" json:"sets,omitempty"`
+	SellOffers       []*SellOffer      `protobuf:"bytes,8,rep,name=sellOffers,proto3" json:"sellOffers,omitempty"`
+	Pools            []*types.Coin     `protobuf:"bytes,9,rep,name=pools,proto3" json:"pools,omitempty"`
+	CardAuctionPrice types.Coin        `protobuf:"bytes,11,opt,name=cardAuctionPrice,proto3" json:"cardAuctionPrice"`
+	Councils         []*Council        `protobuf:"bytes,12,rep,name=councils,proto3" json:"councils,omitempty"`
+	RunningAverages  []*RunningAverage `protobuf:"bytes,13,rep,name=RunningAverages,proto3" json:"RunningAverages,omitempty"`
+	Images           []*Image          `protobuf:"bytes,14,rep,name=images,proto3" json:"images,omitempty"`
+	Servers          []*Server         `protobuf:"bytes,15,rep,name=Servers,proto3" json:"Servers,omitempty"`
+	LastCardModified TimeStamp         `protobuf:"bytes,16,opt,name=lastCardModified,proto3" json:"lastCardModified"`
+	Zealys           []*Zealy          `protobuf:"bytes,17,rep,name=zealys,proto3" json:"zealys,omitempty"`
 }
 
 func (m *GenesisState) Reset()         { *m = GenesisState{} }
@@ -70,6 +85,104 @@ func (m *GenesisState) GetParams() Params {
 	return Params{}
 }
 
+func (m *GenesisState) GetCardRecords() []*Card {
+	if m != nil {
+		return m.CardRecords
+	}
+	return nil
+}
+
+func (m *GenesisState) GetUsers() []*User {
+	if m != nil {
+		return m.Users
+	}
+	return nil
+}
+
+func (m *GenesisState) GetAddresses() []string {
+	if m != nil {
+		return m.Addresses
+	}
+	return nil
+}
+
+func (m *GenesisState) GetMatches() []*Match {
+	if m != nil {
+		return m.Matches
+	}
+	return nil
+}
+
+func (m *GenesisState) GetSets() []*Set {
+	if m != nil {
+		return m.Sets
+	}
+	return nil
+}
+
+func (m *GenesisState) GetSellOffers() []*SellOffer {
+	if m != nil {
+		return m.SellOffers
+	}
+	return nil
+}
+
+func (m *GenesisState) GetPools() []*types.Coin {
+	if m != nil {
+		return m.Pools
+	}
+	return nil
+}
+
+func (m *GenesisState) GetCardAuctionPrice() types.Coin {
+	if m != nil {
+		return m.CardAuctionPrice
+	}
+	return types.Coin{}
+}
+
+func (m *GenesisState) GetCouncils() []*Council {
+	if m != nil {
+		return m.Councils
+	}
+	return nil
+}
+
+func (m *GenesisState) GetRunningAverages() []*RunningAverage {
+	if m != nil {
+		return m.RunningAverages
+	}
+	return nil
+}
+
+func (m *GenesisState) GetImages() []*Image {
+	if m != nil {
+		return m.Images
+	}
+	return nil
+}
+
+func (m *GenesisState) GetServers() []*Server {
+	if m != nil {
+		return m.Servers
+	}
+	return nil
+}
+
+func (m *GenesisState) GetLastCardModified() TimeStamp {
+	if m != nil {
+		return m.LastCardModified
+	}
+	return TimeStamp{}
+}
+
+func (m *GenesisState) GetZealys() []*Zealy {
+	if m != nil {
+		return m.Zealys
+	}
+	return nil
+}
+
 func init() {
 	proto.RegisterType((*GenesisState)(nil), "cardchain.cardchain.GenesisState")
 }
@@ -77,21 +190,46 @@ func init() {
 func init() { proto.RegisterFile("cardchain/cardchain/genesis.proto", fileDescriptor_c4e78aa6e403ddd4) }
 
 var fileDescriptor_c4e78aa6e403ddd4 = []byte{
-	// 213 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0x52, 0x4c, 0x4e, 0x2c, 0x4a,
-	0x49, 0xce, 0x48, 0xcc, 0xcc, 0xd3, 0x47, 0xb0, 0xd2, 0x53, 0xf3, 0x52, 0x8b, 0x33, 0x8b, 0xf5,
-	0x0a, 0x8a, 0xf2, 0x4b, 0xf2, 0x85, 0x84, 0xe1, 0x12, 0x7a, 0x70, 0x96, 0x94, 0x60, 0x62, 0x6e,
-	0x66, 0x5e, 0xbe, 0x3e, 0x98, 0x84, 0xa8, 0x93, 0x12, 0x49, 0xcf, 0x4f, 0xcf, 0x07, 0x33, 0xf5,
-	0x41, 0x2c, 0xa8, 0xa8, 0x02, 0x36, 0x0b, 0x0a, 0x12, 0x8b, 0x12, 0x73, 0xa1, 0xe6, 0x2b, 0xf9,
-	0x71, 0xf1, 0xb8, 0x43, 0x2c, 0x0c, 0x2e, 0x49, 0x2c, 0x49, 0x15, 0xb2, 0xe3, 0x62, 0x83, 0xc8,
-	0x4b, 0x30, 0x2a, 0x30, 0x6a, 0x70, 0x1b, 0x49, 0xeb, 0x61, 0x71, 0x80, 0x5e, 0x00, 0x58, 0x89,
-	0x13, 0xe7, 0x89, 0x7b, 0xf2, 0x0c, 0x2b, 0x9e, 0x6f, 0xd0, 0x62, 0x0c, 0x82, 0xea, 0x72, 0x0a,
-	0x3a, 0xf1, 0x48, 0x8e, 0xf1, 0xc2, 0x23, 0x39, 0xc6, 0x07, 0x8f, 0xe4, 0x18, 0x27, 0x3c, 0x96,
-	0x63, 0xb8, 0xf0, 0x58, 0x8e, 0xe1, 0xc6, 0x63, 0x39, 0x86, 0x28, 0x8b, 0xf4, 0xcc, 0x92, 0x8c,
-	0xd2, 0x24, 0xbd, 0xe4, 0xfc, 0x5c, 0x7d, 0x97, 0xd4, 0xe4, 0xd4, 0xbc, 0x92, 0xa2, 0xc4, 0x1c,
-	0xe7, 0xc4, 0xa2, 0x14, 0xf7, 0xc4, 0xdc, 0x54, 0x24, 0xe7, 0x55, 0x20, 0xb1, 0x4b, 0x2a, 0x0b,
-	0x52, 0x8b, 0x93, 0xd8, 0xc0, 0x4e, 0x35, 0x06, 0x04, 0x00, 0x00, 0xff, 0xff, 0xc3, 0x5c, 0x2a,
-	0xef, 0x2f, 0x01, 0x00, 0x00,
+	// 619 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x7c, 0x93, 0xcf, 0x4e, 0x14, 0x41,
+	0x10, 0xc6, 0x77, 0x05, 0x17, 0xb6, 0x17, 0x05, 0x5a, 0x0f, 0xed, 0x82, 0xc3, 0xfa, 0xe7, 0x80,
+	0xc6, 0xcc, 0x04, 0xd4, 0x84, 0xc4, 0x84, 0x04, 0x30, 0x21, 0xc6, 0x10, 0x49, 0xaf, 0x5e, 0xb8,
+	0x90, 0xde, 0xd9, 0x62, 0xe9, 0x64, 0x66, 0x7a, 0xd3, 0xd5, 0x4b, 0xc4, 0xa7, 0xf0, 0x31, 0x3c,
+	0xfa, 0x18, 0x1c, 0x39, 0x7a, 0x32, 0x06, 0x0e, 0xbe, 0x81, 0x67, 0xd3, 0x3d, 0xbd, 0xcb, 0x8a,
+	0xcd, 0x5e, 0x26, 0x95, 0xa9, 0xdf, 0x57, 0x5d, 0x5d, 0x5f, 0x35, 0x79, 0x94, 0x0a, 0xdd, 0x4d,
+	0x8f, 0x85, 0x2c, 0x92, 0xab, 0xa8, 0x07, 0x05, 0xa0, 0xc4, 0xb8, 0xaf, 0x95, 0x51, 0xf4, 0xde,
+	0x28, 0x11, 0x8f, 0xa2, 0xe6, 0xa2, 0xc8, 0x65, 0xa1, 0x12, 0xf7, 0x2d, 0xb9, 0xe6, 0xfd, 0x9e,
+	0xea, 0x29, 0x17, 0x26, 0x36, 0xf2, 0x7f, 0x5b, 0xa1, 0x03, 0xfa, 0x42, 0x8b, 0xdc, 0xd7, 0x6f,
+	0x46, 0x21, 0xc2, 0x46, 0x93, 0xf2, 0x03, 0x04, 0xed, 0xf3, 0x2b, 0xa1, 0x7c, 0x2e, 0x4c, 0x7a,
+	0xec, 0x81, 0x87, 0x21, 0x00, 0xc1, 0xf8, 0xf4, 0xd3, 0x70, 0x3a, 0xcb, 0x0e, 0xd5, 0xd1, 0xd1,
+	0xe8, 0x94, 0x67, 0x21, 0x4a, 0x0f, 0x8a, 0x42, 0x16, 0xbd, 0x43, 0x71, 0x02, 0x5a, 0xf4, 0xc0,
+	0xa3, 0xc1, 0x99, 0xa6, 0x6a, 0x50, 0xa4, 0x32, 0x9b, 0xd4, 0xb3, 0xcc, 0xaf, 0x6a, 0xb4, 0xc2,
+	0x4d, 0xe9, 0x93, 0xc9, 0xd7, 0xfe, 0x02, 0x22, 0x3b, 0x1d, 0xcd, 0x4d, 0x61, 0xae, 0x30, 0xe9,
+	0x08, 0x84, 0xe4, 0x64, 0xad, 0x03, 0x46, 0xac, 0x25, 0xa9, 0x92, 0x45, 0x99, 0x7f, 0xfc, 0xa7,
+	0x46, 0xe6, 0x76, 0x4b, 0xa7, 0xdb, 0x46, 0x18, 0xa0, 0x9b, 0xa4, 0x56, 0x1a, 0xc3, 0xaa, 0xad,
+	0xea, 0x6a, 0x63, 0x7d, 0x29, 0x0e, 0x38, 0x1f, 0xef, 0x3b, 0x64, 0xbb, 0x7e, 0xf6, 0x73, 0xa5,
+	0xf2, 0xed, 0xf7, 0xf7, 0xe7, 0x55, 0xee, 0x55, 0xf4, 0x0d, 0x69, 0x58, 0x8c, 0x43, 0xaa, 0x74,
+	0x17, 0xd9, 0xad, 0xd6, 0xd4, 0x6a, 0x63, 0xfd, 0x41, 0xb0, 0xc8, 0x8e, 0xe5, 0xc6, 0x69, 0x9a,
+	0x90, 0xdb, 0xd6, 0x53, 0x64, 0x53, 0x13, 0x64, 0x9f, 0x10, 0x34, 0x2f, 0x39, 0xba, 0x4c, 0xea,
+	0xa2, 0xdb, 0xd5, 0x80, 0x08, 0xc8, 0xa6, 0x5b, 0x53, 0xab, 0x75, 0x7e, 0xf5, 0x83, 0xbe, 0x22,
+	0x33, 0x6e, 0x05, 0x00, 0x59, 0xcd, 0x15, 0x6c, 0x06, 0x0b, 0xee, 0x59, 0x86, 0x0f, 0x51, 0xfa,
+	0x82, 0x4c, 0x23, 0x18, 0x64, 0x33, 0x4e, 0xc2, 0x82, 0x92, 0x36, 0x18, 0xee, 0x28, 0xba, 0x49,
+	0x88, 0x5d, 0x93, 0x0f, 0x76, 0x4b, 0x90, 0xcd, 0x3a, 0x4d, 0x74, 0x83, 0xc6, 0x63, 0x7c, 0x4c,
+	0x61, 0xaf, 0xdc, 0x57, 0x2a, 0x43, 0x56, 0x1f, 0x5e, 0xd9, 0x19, 0x16, 0x5b, 0xc3, 0x62, 0x6f,
+	0x58, 0xbc, 0xa3, 0x64, 0xc1, 0x4b, 0x8e, 0xbe, 0x27, 0x0b, 0xb6, 0xe6, 0xd6, 0x20, 0x35, 0x52,
+	0x15, 0xfb, 0x5a, 0xa6, 0xc0, 0x1a, 0xce, 0xaa, 0x9b, 0xb5, 0xdb, 0xd3, 0xd6, 0x28, 0xfe, 0x9f,
+	0x90, 0x6e, 0x90, 0x59, 0xbf, 0x93, 0xc8, 0xe6, 0x5c, 0x03, 0xcb, 0x61, 0xab, 0x4a, 0x88, 0x8f,
+	0x68, 0xba, 0x47, 0xe6, 0x79, 0xb9, 0xf8, 0x5b, 0xe5, 0xde, 0x23, 0xbb, 0xe3, 0x0a, 0x3c, 0x09,
+	0x16, 0xf8, 0x97, 0xe5, 0xd7, 0xb5, 0x74, 0x9d, 0xd4, 0xdc, 0xe6, 0x23, 0xbb, 0x3b, 0xc1, 0xa9,
+	0x77, 0x16, 0xe1, 0x9e, 0xa4, 0xaf, 0xc9, 0x4c, 0xdb, 0x3d, 0x06, 0x64, 0xf3, 0x4e, 0xb4, 0x74,
+	0xc3, 0xdc, 0x2d, 0xc3, 0x87, 0x2c, 0xdd, 0x27, 0x0b, 0x99, 0x40, 0x63, 0xb7, 0x6f, 0x4f, 0x75,
+	0xe5, 0x91, 0x84, 0x2e, 0x5b, 0x70, 0x03, 0x0c, 0xfb, 0xf6, 0x51, 0xe6, 0xd0, 0x36, 0x22, 0xef,
+	0x0f, 0xa7, 0x78, 0x5d, 0x6d, 0x9b, 0x77, 0x6f, 0x0e, 0xd9, 0xe2, 0x84, 0xe6, 0x0f, 0x2c, 0xc2,
+	0x3d, 0xb9, 0xcd, 0xcf, 0x2e, 0xa2, 0xea, 0xf9, 0x45, 0x54, 0xfd, 0x75, 0x11, 0x55, 0xbf, 0x5e,
+	0x46, 0x95, 0xf3, 0xcb, 0xa8, 0xf2, 0xe3, 0x32, 0xaa, 0x1c, 0x6c, 0xf4, 0xa4, 0x39, 0x1e, 0x74,
+	0xe2, 0x54, 0xe5, 0xc9, 0x5b, 0x48, 0xa1, 0x30, 0x5a, 0x64, 0xf6, 0xbc, 0x5d, 0x91, 0xc3, 0xd8,
+	0x33, 0xff, 0x3c, 0x16, 0x9b, 0xd3, 0x3e, 0x60, 0xa7, 0xe6, 0xde, 0xf4, 0xcb, 0xbf, 0x01, 0x00,
+	0x00, 0xff, 0xff, 0xfc, 0x84, 0x35, 0xb9, 0xd0, 0x05, 0x00, 0x00,
 }
 
 func (m *GenesisState) Marshal() (dAtA []byte, err error) {
@@ -114,6 +252,193 @@ func (m *GenesisState) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
+	if len(m.Zealys) > 0 {
+		for iNdEx := len(m.Zealys) - 1; iNdEx >= 0; iNdEx-- {
+			{
+				size, err := m.Zealys[iNdEx].MarshalToSizedBuffer(dAtA[:i])
+				if err != nil {
+					return 0, err
+				}
+				i -= size
+				i = encodeVarintGenesis(dAtA, i, uint64(size))
+			}
+			i--
+			dAtA[i] = 0x1
+			i--
+			dAtA[i] = 0x8a
+		}
+	}
+	{
+		size, err := m.LastCardModified.MarshalToSizedBuffer(dAtA[:i])
+		if err != nil {
+			return 0, err
+		}
+		i -= size
+		i = encodeVarintGenesis(dAtA, i, uint64(size))
+	}
+	i--
+	dAtA[i] = 0x1
+	i--
+	dAtA[i] = 0x82
+	if len(m.Servers) > 0 {
+		for iNdEx := len(m.Servers) - 1; iNdEx >= 0; iNdEx-- {
+			{
+				size, err := m.Servers[iNdEx].MarshalToSizedBuffer(dAtA[:i])
+				if err != nil {
+					return 0, err
+				}
+				i -= size
+				i = encodeVarintGenesis(dAtA, i, uint64(size))
+			}
+			i--
+			dAtA[i] = 0x7a
+		}
+	}
+	if len(m.Images) > 0 {
+		for iNdEx := len(m.Images) - 1; iNdEx >= 0; iNdEx-- {
+			{
+				size, err := m.Images[iNdEx].MarshalToSizedBuffer(dAtA[:i])
+				if err != nil {
+					return 0, err
+				}
+				i -= size
+				i = encodeVarintGenesis(dAtA, i, uint64(size))
+			}
+			i--
+			dAtA[i] = 0x72
+		}
+	}
+	if len(m.RunningAverages) > 0 {
+		for iNdEx := len(m.RunningAverages) - 1; iNdEx >= 0; iNdEx-- {
+			{
+				size, err := m.RunningAverages[iNdEx].MarshalToSizedBuffer(dAtA[:i])
+				if err != nil {
+					return 0, err
+				}
+				i -= size
+				i = encodeVarintGenesis(dAtA, i, uint64(size))
+			}
+			i--
+			dAtA[i] = 0x6a
+		}
+	}
+	if len(m.Councils) > 0 {
+		for iNdEx := len(m.Councils) - 1; iNdEx >= 0; iNdEx-- {
+			{
+				size, err := m.Councils[iNdEx].MarshalToSizedBuffer(dAtA[:i])
+				if err != nil {
+					return 0, err
+				}
+				i -= size
+				i = encodeVarintGenesis(dAtA, i, uint64(size))
+			}
+			i--
+			dAtA[i] = 0x62
+		}
+	}
+	{
+		size, err := m.CardAuctionPrice.MarshalToSizedBuffer(dAtA[:i])
+		if err != nil {
+			return 0, err
+		}
+		i -= size
+		i = encodeVarintGenesis(dAtA, i, uint64(size))
+	}
+	i--
+	dAtA[i] = 0x5a
+	if len(m.Pools) > 0 {
+		for iNdEx := len(m.Pools) - 1; iNdEx >= 0; iNdEx-- {
+			{
+				size, err := m.Pools[iNdEx].MarshalToSizedBuffer(dAtA[:i])
+				if err != nil {
+					return 0, err
+				}
+				i -= size
+				i = encodeVarintGenesis(dAtA, i, uint64(size))
+			}
+			i--
+			dAtA[i] = 0x4a
+		}
+	}
+	if len(m.SellOffers) > 0 {
+		for iNdEx := len(m.SellOffers) - 1; iNdEx >= 0; iNdEx-- {
+			{
+				size, err := m.SellOffers[iNdEx].MarshalToSizedBuffer(dAtA[:i])
+				if err != nil {
+					return 0, err
+				}
+				i -= size
+				i = encodeVarintGenesis(dAtA, i, uint64(size))
+			}
+			i--
+			dAtA[i] = 0x42
+		}
+	}
+	if len(m.Sets) > 0 {
+		for iNdEx := len(m.Sets) - 1; iNdEx >= 0; iNdEx-- {
+			{
+				size, err := m.Sets[iNdEx].MarshalToSizedBuffer(dAtA[:i])
+				if err != nil {
+					return 0, err
+				}
+				i -= size
+				i = encodeVarintGenesis(dAtA, i, uint64(size))
+			}
+			i--
+			dAtA[i] = 0x3a
+		}
+	}
+	if len(m.Matches) > 0 {
+		for iNdEx := len(m.Matches) - 1; iNdEx >= 0; iNdEx-- {
+			{
+				size, err := m.Matches[iNdEx].MarshalToSizedBuffer(dAtA[:i])
+				if err != nil {
+					return 0, err
+				}
+				i -= size
+				i = encodeVarintGenesis(dAtA, i, uint64(size))
+			}
+			i--
+			dAtA[i] = 0x32
+		}
+	}
+	if len(m.Addresses) > 0 {
+		for iNdEx := len(m.Addresses) - 1; iNdEx >= 0; iNdEx-- {
+			i -= len(m.Addresses[iNdEx])
+			copy(dAtA[i:], m.Addresses[iNdEx])
+			i = encodeVarintGenesis(dAtA, i, uint64(len(m.Addresses[iNdEx])))
+			i--
+			dAtA[i] = 0x22
+		}
+	}
+	if len(m.Users) > 0 {
+		for iNdEx := len(m.Users) - 1; iNdEx >= 0; iNdEx-- {
+			{
+				size, err := m.Users[iNdEx].MarshalToSizedBuffer(dAtA[:i])
+				if err != nil {
+					return 0, err
+				}
+				i -= size
+				i = encodeVarintGenesis(dAtA, i, uint64(size))
+			}
+			i--
+			dAtA[i] = 0x1a
+		}
+	}
+	if len(m.CardRecords) > 0 {
+		for iNdEx := len(m.CardRecords) - 1; iNdEx >= 0; iNdEx-- {
+			{
+				size, err := m.CardRecords[iNdEx].MarshalToSizedBuffer(dAtA[:i])
+				if err != nil {
+					return 0, err
+				}
+				i -= size
+				i = encodeVarintGenesis(dAtA, i, uint64(size))
+			}
+			i--
+			dAtA[i] = 0x12
+		}
+	}
 	{
 		size, err := m.Params.MarshalToSizedBuffer(dAtA[:i])
 		if err != nil {
@@ -146,6 +471,82 @@ func (m *GenesisState) Size() (n int) {
 	_ = l
 	l = m.Params.Size()
 	n += 1 + l + sovGenesis(uint64(l))
+	if len(m.CardRecords) > 0 {
+		for _, e := range m.CardRecords {
+			l = e.Size()
+			n += 1 + l + sovGenesis(uint64(l))
+		}
+	}
+	if len(m.Users) > 0 {
+		for _, e := range m.Users {
+			l = e.Size()
+			n += 1 + l + sovGenesis(uint64(l))
+		}
+	}
+	if len(m.Addresses) > 0 {
+		for _, s := range m.Addresses {
+			l = len(s)
+			n += 1 + l + sovGenesis(uint64(l))
+		}
+	}
+	if len(m.Matches) > 0 {
+		for _, e := range m.Matches {
+			l = e.Size()
+			n += 1 + l + sovGenesis(uint64(l))
+		}
+	}
+	if len(m.Sets) > 0 {
+		for _, e := range m.Sets {
+			l = e.Size()
+			n += 1 + l + sovGenesis(uint64(l))
+		}
+	}
+	if len(m.SellOffers) > 0 {
+		for _, e := range m.SellOffers {
+			l = e.Size()
+			n += 1 + l + sovGenesis(uint64(l))
+		}
+	}
+	if len(m.Pools) > 0 {
+		for _, e := range m.Pools {
+			l = e.Size()
+			n += 1 + l + sovGenesis(uint64(l))
+		}
+	}
+	l = m.CardAuctionPrice.Size()
+	n += 1 + l + sovGenesis(uint64(l))
+	if len(m.Councils) > 0 {
+		for _, e := range m.Councils {
+			l = e.Size()
+			n += 1 + l + sovGenesis(uint64(l))
+		}
+	}
+	if len(m.RunningAverages) > 0 {
+		for _, e := range m.RunningAverages {
+			l = e.Size()
+			n += 1 + l + sovGenesis(uint64(l))
+		}
+	}
+	if len(m.Images) > 0 {
+		for _, e := range m.Images {
+			l = e.Size()
+			n += 1 + l + sovGenesis(uint64(l))
+		}
+	}
+	if len(m.Servers) > 0 {
+		for _, e := range m.Servers {
+			l = e.Size()
+			n += 1 + l + sovGenesis(uint64(l))
+		}
+	}
+	l = m.LastCardModified.Size()
+	n += 2 + l + sovGenesis(uint64(l))
+	if len(m.Zealys) > 0 {
+		for _, e := range m.Zealys {
+			l = e.Size()
+			n += 2 + l + sovGenesis(uint64(l))
+		}
+	}
 	return n
 }
 
@@ -214,6 +615,478 @@ func (m *GenesisState) Unmarshal(dAtA []byte) error {
 				return io.ErrUnexpectedEOF
 			}
 			if err := m.Params.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field CardRecords", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowGenesis
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthGenesis
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthGenesis
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.CardRecords = append(m.CardRecords, &Card{})
+			if err := m.CardRecords[len(m.CardRecords)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Users", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowGenesis
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthGenesis
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthGenesis
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Users = append(m.Users, &User{})
+			if err := m.Users[len(m.Users)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 4:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Addresses", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowGenesis
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthGenesis
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthGenesis
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Addresses = append(m.Addresses, string(dAtA[iNdEx:postIndex]))
+			iNdEx = postIndex
+		case 6:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Matches", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowGenesis
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthGenesis
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthGenesis
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Matches = append(m.Matches, &Match{})
+			if err := m.Matches[len(m.Matches)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 7:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Sets", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowGenesis
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthGenesis
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthGenesis
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Sets = append(m.Sets, &Set{})
+			if err := m.Sets[len(m.Sets)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 8:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field SellOffers", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowGenesis
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthGenesis
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthGenesis
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.SellOffers = append(m.SellOffers, &SellOffer{})
+			if err := m.SellOffers[len(m.SellOffers)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 9:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Pools", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowGenesis
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthGenesis
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthGenesis
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Pools = append(m.Pools, &types.Coin{})
+			if err := m.Pools[len(m.Pools)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 11:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field CardAuctionPrice", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowGenesis
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthGenesis
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthGenesis
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if err := m.CardAuctionPrice.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 12:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Councils", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowGenesis
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthGenesis
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthGenesis
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Councils = append(m.Councils, &Council{})
+			if err := m.Councils[len(m.Councils)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 13:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field RunningAverages", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowGenesis
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthGenesis
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthGenesis
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.RunningAverages = append(m.RunningAverages, &RunningAverage{})
+			if err := m.RunningAverages[len(m.RunningAverages)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 14:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Images", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowGenesis
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthGenesis
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthGenesis
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Images = append(m.Images, &Image{})
+			if err := m.Images[len(m.Images)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 15:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Servers", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowGenesis
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthGenesis
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthGenesis
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Servers = append(m.Servers, &Server{})
+			if err := m.Servers[len(m.Servers)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 16:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field LastCardModified", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowGenesis
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthGenesis
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthGenesis
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if err := m.LastCardModified.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 17:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Zealys", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowGenesis
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthGenesis
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthGenesis
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Zealys = append(m.Zealys, &Zealy{})
+			if err := m.Zealys[len(m.Zealys)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
 			iNdEx = postIndex

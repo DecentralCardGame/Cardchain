@@ -19,7 +19,7 @@ func (k msgServer) SellOfferCreate(goCtx context.Context, msg *types.MsgSellOffe
 	}
 
 	// Check if card is startercard
-	card := k.cards.Get(ctx, msg.CardId)
+	card := k.CardK.Get(ctx, msg.CardId)
 	if card.StarterCard {
 		return nil, errorsmod.Wrap(sdkerrors.ErrUnauthorized, "Card is startercard and therefore not sellable")
 	}
@@ -30,7 +30,7 @@ func (k msgServer) SellOfferCreate(goCtx context.Context, msg *types.MsgSellOffe
 	}
 	creator.Cards = newCards
 
-	sellOfferId := k.sellOffers.GetNum(ctx)
+	sellOfferId := k.SellOfferK.GetNum(ctx)
 	sellOffer := types.SellOffer{
 		Seller: msg.Creator,
 		Buyer:  "",
@@ -39,7 +39,7 @@ func (k msgServer) SellOfferCreate(goCtx context.Context, msg *types.MsgSellOffe
 		Status: types.SellOfferStatus_open,
 	}
 
-	k.sellOffers.Set(ctx, sellOfferId, &sellOffer)
+	k.SellOfferK.Set(ctx, sellOfferId, &sellOffer)
 	k.SetUserFromUser(ctx, creator)
 
 	return &types.MsgSellOfferCreateResponse{}, nil

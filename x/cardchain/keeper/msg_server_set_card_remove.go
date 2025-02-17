@@ -14,7 +14,7 @@ import (
 func (k msgServer) SetCardRemove(goCtx context.Context, msg *types.MsgSetCardRemove) (*types.MsgSetCardRemoveResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	set := k.sets.Get(ctx, msg.SetId)
+	set := k.Setk.Get(ctx, msg.SetId)
 	if !slices.Contains(set.Contributors, msg.Creator) {
 		return nil, errorsmod.Wrap(sdkerrors.ErrUnauthorized, "Invalid contributor")
 	}
@@ -29,6 +29,6 @@ func (k msgServer) SetCardRemove(goCtx context.Context, msg *types.MsgSetCardRem
 
 	set.Cards = newCards
 
-	k.sets.Set(ctx, msg.SetId, set)
+	k.Setk.Set(ctx, msg.SetId, set)
 	return &types.MsgSetCardRemoveResponse{}, nil
 }

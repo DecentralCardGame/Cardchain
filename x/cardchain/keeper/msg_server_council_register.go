@@ -21,7 +21,7 @@ func (k msgServer) CouncilRegister(goCtx context.Context, msg *types.MsgCouncilR
 		return nil, errorsmod.Wrapf(sdkerrors.ErrUnauthorized, "invalid council status %s", user.CouncilStatus.String())
 	}
 
-	iter := k.councils.GetItemIterator(ctx)
+	iter := k.Councils.GetItemIterator(ctx)
 	for ; iter.Valid(); iter.Next() {
 		idx, council := iter.Value()
 		if council.Status == types.CouncelingStatus_councilOpen {
@@ -41,7 +41,7 @@ func (k msgServer) CouncilRegister(goCtx context.Context, msg *types.MsgCouncilR
 				}
 				k.SetUserFromUser(ctx, usr)
 			}
-			k.councils.Set(ctx, idx, council)
+			k.Councils.Set(ctx, idx, council)
 			break
 		}
 	}

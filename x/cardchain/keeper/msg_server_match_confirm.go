@@ -16,7 +16,7 @@ func (k msgServer) MatchConfirm(goCtx context.Context, msg *types.MsgMatchConfir
 		player *types.MatchPlayer
 	)
 
-	match := k.matches.Get(ctx, msg.MatchId)
+	match := k.MatchK.Get(ctx, msg.MatchId)
 
 	switch msg.Creator {
 	case match.PlayerA.Addr:
@@ -44,7 +44,7 @@ func (k msgServer) MatchConfirm(goCtx context.Context, msg *types.MsgMatchConfir
 		return nil, err
 	}
 
-	k.matches.Set(ctx, msg.MatchId, match)
+	k.MatchK.Set(ctx, msg.MatchId, match)
 
 	return &types.MsgMatchConfirmResponse{}, nil
 }

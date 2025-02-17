@@ -18,7 +18,7 @@ func (k msgServer) ProfileCardSet(goCtx context.Context, msg *types.MsgProfileCa
 		return nil, err
 	}
 
-	card := k.cards.Get(ctx, msg.CardId)
+	card := k.CardK.Get(ctx, msg.CardId)
 	if card.Owner != msg.Creator {
 		return nil, errorsmod.Wrap(sdkerrors.ErrUnauthorized, "You have to own the card")
 	} else if !slices.Contains([]types.CardStatus{types.CardStatus_trial, types.CardStatus_permanent}, card.Status) {

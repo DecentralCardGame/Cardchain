@@ -33,7 +33,7 @@ func (k Keeper) GetContributorDistribution(ctx sdk.Context, set types.Set) []*ty
 	params := k.GetParams(ctx)
 	contribs := []*types.AddrWithQuantity{{Addr: set.StoryWriter, Q: 2}, {Addr: set.Artist, Q: 2}, {Addr: set.Contributors[0], Q: 4}}
 	for _, cardId := range set.Cards {
-		var card = k.cards.Get(ctx, cardId)
+		var card = k.CardK.Get(ctx, cardId)
 		if card.Owner != "" {
 			for _, addr := range []string{card.Owner, card.Artist} {
 				incQ(&contribs, addr)
@@ -67,7 +67,7 @@ func incQ(addrsWithQ *[]*types.AddrWithQuantity, addr string) {
 
 // GetActiveSets Return a list of all active sets ids
 func (k Keeper) GetActiveSets(ctx sdk.Context) (activeSets []uint64) {
-	iter := k.sets.GetItemIterator(ctx)
+	iter := k.Setk.GetItemIterator(ctx)
 	for ; iter.Valid(); iter.Next() {
 		idx, set := iter.Value()
 		if set.Status == types.SetStatus_active {
@@ -87,7 +87,7 @@ func (k Keeper) GetRarityDistribution(ctx sdk.Context, set types.Set, setSize ui
 	commonsAll = uint64(setSize) - raresAll - unCommonsAll
 
 	for _, cardId := range set.Cards {
-		card := k.cards.Get(ctx, cardId)
+		card := k.CardK.Get(ctx, cardId)
 
 		switch card.Rarity {
 		case types.CardRarity_common, types.CardRarity_unique, types.CardRarity_exceptional:

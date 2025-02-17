@@ -18,12 +18,12 @@ func (k Keeper) EncountersWithImage(goCtx context.Context, req *types.QueryEncou
 
 	var encountersWithImage []*types.EncounterWithImage
 
-	encounters := k.encounters.GetAll(ctx)
+	encounters := k.Encounterk.GetAll(ctx)
 
 	for _, encounter := range encounters {
 		encountersWithImage = append(encountersWithImage, &types.EncounterWithImage{
 			Encounter: encounter,
-			Image:     k.images.Get(ctx, encounter.ImageId).Image,
+			Image:     k.Images.Get(ctx, encounter.ImageId).Image,
 		})
 	}
 

@@ -22,7 +22,7 @@ func (k Keeper) Matches(goCtx context.Context, req *types.QueryMatchesRequest) (
 
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	iter := k.matches.GetItemIterator(ctx)
+	iter := k.MatchK.GetItemIterator(ctx)
 	for ; iter.Valid(); iter.Next() {
 		allUsersInMatch := true
 		allCardsInMatch := true

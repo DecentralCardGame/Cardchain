@@ -16,7 +16,7 @@ func (k Keeper) Server(goCtx context.Context, req *types.QueryServerRequest) (*t
 
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	server := k.servers.Get(ctx, req.ServerId)
+	server := k.Servers.Get(ctx, req.ServerId)
 
 	return &types.QueryServerResponse{Server: server}, nil
 }

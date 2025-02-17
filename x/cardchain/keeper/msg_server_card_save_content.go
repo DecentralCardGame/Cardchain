@@ -14,7 +14,7 @@ import (
 func (k msgServer) CardSaveContent(goCtx context.Context, msg *types.MsgCardSaveContent) (*types.MsgCardSaveContentResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	card := k.cards.Get(ctx, msg.CardId)
+	card := k.CardK.Get(ctx, msg.CardId)
 	councilEnabled, err := k.FeatureFlagModuleInstance.Get(ctx, string(types.FeatureFlagName_Council))
 	if err != nil {
 		return nil, err
@@ -66,7 +66,7 @@ func (k msgServer) CardSaveContent(goCtx context.Context, msg *types.MsgCardSave
 	} else {
 		card.Status = types.CardStatus_permanent
 	}
-	k.cards.Set(ctx, msg.CardId, card)
+	k.CardK.Set(ctx, msg.CardId, card)
 	k.SetLastCardModifiedNow(ctx)
 
 	return &types.MsgCardSaveContentResponse{AirdropClaimed: claimedAirdrop}, nil

@@ -82,7 +82,7 @@ func (k Keeper) distributeCoins(ctx sdk.Context, match *types.Match, outcome typ
 			}
 			k.SubPoolCredits(ctx, WinnersPoolKey, amounts[idx])
 
-			user := k.users.Get(ctx, address)
+			user := k.Users.Get(ctx, address)
 			userObj := User{Addr: address, User: user}
 			k.ClaimAirDrop(ctx, &userObj, types.AirDrop_play)
 			k.SetUserFromUser(ctx, userObj)
@@ -97,9 +97,9 @@ func (k Keeper) distributeCoins(ctx sdk.Context, match *types.Match, outcome typ
 
 	if outcome != types.Outcome_Aborted {
 		for _, address := range addresses {
-			user := k.users.Get(ctx, address)
+			user := k.Users.Get(ctx, address)
 			// TODO: Whats going on here
-			k.users.Set(ctx, address, user)
+			k.Users.Set(ctx, address, user)
 		}
 	}
 
@@ -199,7 +199,7 @@ func (k Keeper) MatchWorker(ctx sdk.Context) {
 	now := uint64(ctx.BlockHeight())
 	matchWorkerDelay := k.GetParams(ctx).MatchWorkerDelay
 	if ctx.BlockHeight()%20 == 0 {
-		matchIter := k.matches.GetItemIterator(ctx)
+		matchIter := k.MatchK.GetItemIterator(ctx)
 		for ; matchIter.Valid(); matchIter.Next() {
 			id, match := matchIter.Value()
 			if !match.CoinsDistributed && match.Timestamp != 0 && match.Timestamp+matchWorkerDelay < now {
@@ -209,7 +209,7 @@ func (k Keeper) MatchWorker(ctx sdk.Context) {
 					match.Outcome = types.Outcome_Aborted
 					match.CoinsDistributed = true
 				}
-				k.matches.Set(ctx, id, match)
+				k.MatchK.Set(ctx, id, match)
 			}
 		}
 	}

@@ -17,12 +17,12 @@ func (k Keeper) CardchainInfo(goCtx context.Context, req *types.QueryCardchainIn
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
 	return &types.QueryCardchainInfoResponse{
-		CardAuctionPrice: *k.cardAuctionPrice.Get(ctx),
+		CardAuctionPrice: *k.CardAuctionPrice.Get(ctx),
 		ActiveSets:       k.GetActiveSets(ctx),
-		CardsNumber:      k.cards.GetNum(ctx),
-		MatchesNumber:    k.matches.GetNum(ctx),
-		SellOffersNumber: k.sellOffers.GetNum(ctx),
-		CouncilsNumber:   k.councils.GetNum(ctx),
-		LastCardModified: k.lastCardModified.Get(ctx).TimeStamp,
+		CardsNumber:      k.CardK.GetNum(ctx),
+		MatchesNumber:    k.MatchK.GetNum(ctx),
+		SellOffersNumber: k.SellOfferK.GetNum(ctx),
+		CouncilsNumber:   k.Councils.GetNum(ctx),
+		LastCardModified: k.LastCardModified.Get(ctx).TimeStamp,
 	}, nil
 }

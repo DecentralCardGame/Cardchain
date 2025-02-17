@@ -46,7 +46,7 @@ func (k Keeper) GetUserFromString(ctx sdk.Context, addr string) (user User, err 
 	if err != nil {
 		return user, sdkerrors.Wrap(errors.ErrInvalidAddress, "Unable to convert to AccAddress")
 	}
-	user.User = k.users.Get(ctx, user.Addr)
+	user.User = k.Users.Get(ctx, user.Addr)
 	if err != nil {
 		return
 	}
@@ -55,12 +55,12 @@ func (k Keeper) GetUserFromString(ctx sdk.Context, addr string) (user User, err 
 
 // SetUserFromUser Sets a user in store, but takes a User struct as defined above
 func (k Keeper) SetUserFromUser(ctx sdk.Context, user User) {
-	k.users.Set(ctx, user.Addr, user.User)
+	k.Users.Set(ctx, user.Addr, user.User)
 }
 
 // GetAllUsers Gets all users from store
 func (k Keeper) GetAllUsers(ctx sdk.Context) (allUsers []*types.User, allAddresses []sdk.AccAddress) {
-	iterator := k.users.GetIterator(ctx)
+	iterator := k.Users.GetIterator(ctx)
 	for ; iterator.Valid(); iterator.Next() {
 
 		var gottenUser types.User
