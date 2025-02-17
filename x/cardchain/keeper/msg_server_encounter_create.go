@@ -65,11 +65,13 @@ func (k Keeper) validateDrawlist(ctx sdk.Context, msg *types.MsgEncounterCreate,
 			return err
 		}
 
-		if idx == 0 && cardObj.GetType() != cardobject.HEADQUARTERTYPE {
-			return sdkerrors.Wrapf(
-				types.ErrInvalidData,
-				"first card has to be Headquarter but is: %s", cardObj.GetType(),
-			)
+		if idx == 0 {
+			if cardObj.GetType() != cardobject.HEADQUARTERTYPE {
+				return sdkerrors.Wrapf(
+					types.ErrInvalidData,
+					"first card has to be Headquarter but is: %s", cardObj.GetType(),
+				)
+			}
 		} else if cardObj.GetType() == cardobject.HEADQUARTERTYPE {
 			return sdkerrors.Wrapf(
 				types.ErrInvalidData,
