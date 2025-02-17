@@ -12,7 +12,6 @@ import "cardchain/cardchain/voting.proto";
 import "cardchain/cardchain/match.proto";
 import "cardchain/cardchain/council.proto";
 import "cardchain/cardchain/card.proto";
-import "cardchain/cardchain/product_details.proto";
 
 option go_package = "github.com/DecentralCardGame/cardchain/x/cardchain/types";
 
@@ -80,12 +79,6 @@ service Msg {
   rpc EncounterCreate(MsgEncounterCreate) returns (MsgEncounterCreateResponse);
   rpc EncounterDo(MsgEncounterDo) returns (MsgEncounterDoResponse);
   rpc EncounterClose(MsgEncounterClose) returns (MsgEncounterCloseResponse);
-  rpc CreateProductDetails(MsgCreateProductDetails)
-      returns (MsgCreateProductDetailsResponse);
-  rpc UpdateProductDetails(MsgUpdateProductDetails)
-      returns (MsgUpdateProductDetailsResponse);
-  rpc DeleteProductDetails(MsgDeleteProductDetails)
-      returns (MsgDeleteProductDetailsResponse);
   rpc EarlyAccessDisinvite(MsgEarlyAccessDisinvite)
       returns (MsgEarlyAccessDisinviteResponse);
 }
@@ -518,33 +511,6 @@ message MsgEncounterClose {
 }
 
 message MsgEncounterCloseResponse {}
-
-message MsgCreateProductDetails {
-  option (cosmos.msg.v1.signer) = "creator";
-  string creator = 1;
-  string name = 2;
-  string desc = 3;
-}
-
-message MsgCreateProductDetailsResponse { uint64 id = 1; }
-
-message MsgUpdateProductDetails {
-  option (cosmos.msg.v1.signer) = "creator";
-  string creator = 1;
-  uint64 id = 2;
-  string name = 3;
-  string desc = 4;
-}
-
-message MsgUpdateProductDetailsResponse {}
-
-message MsgDeleteProductDetails {
-  option (cosmos.msg.v1.signer) = "creator";
-  string creator = 1;
-  uint64 id = 2;
-}
-
-message MsgDeleteProductDetailsResponse {}
 
 message MsgEarlyAccessDisinvite {
   option (cosmos.msg.v1.signer) = "creator";

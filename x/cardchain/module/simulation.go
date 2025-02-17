@@ -207,18 +207,6 @@ const (
 	// TODO: Determine the simulation weight value
 	defaultWeightMsgEncounterClose int = 100
 
-	opWeightMsgCreateProductDetails = "op_weight_msg_product_details"
-	// TODO: Determine the simulation weight value
-	defaultWeightMsgCreateProductDetails int = 100
-
-	opWeightMsgUpdateProductDetails = "op_weight_msg_product_details"
-	// TODO: Determine the simulation weight value
-	defaultWeightMsgUpdateProductDetails int = 100
-
-	opWeightMsgDeleteProductDetails = "op_weight_msg_product_details"
-	// TODO: Determine the simulation weight value
-	defaultWeightMsgDeleteProductDetails int = 100
-
 	opWeightMsgEarlyAccessDisinvite = "op_weight_msg_early_access_disinvite"
 	// TODO: Determine the simulation weight value
 	defaultWeightMsgEarlyAccessDisinvite int = 100
@@ -234,17 +222,6 @@ func (AppModule) GenerateGenesisState(simState *module.SimulationState) {
 	}
 	cardchainGenesis := types.GenesisState{
 		Params: types.DefaultParams(),
-		ProductDetailsList: []types.ProductDetails{
-			{
-				Id:      0,
-				Creator: sample.AccAddress(),
-			},
-			{
-				Id:      1,
-				Creator: sample.AccAddress(),
-			},
-		},
-		ProductDetailsCount: 2,
 		// this line is used by starport scaffolding # simapp/module/genesisState
 	}
 	simState.GenState[types.ModuleName] = simState.Cdc.MustMarshalJSON(&cardchainGenesis)
@@ -763,39 +740,6 @@ func (am AppModule) WeightedOperations(simState module.SimulationState) []simtyp
 		cardchainsimulation.SimulateMsgEncounterClose(am.accountKeeper, am.bankKeeper, am.keeper),
 	))
 
-	var weightMsgCreateProductDetails int
-	simState.AppParams.GetOrGenerate(opWeightMsgCreateProductDetails, &weightMsgCreateProductDetails, nil,
-		func(_ *rand.Rand) {
-			weightMsgCreateProductDetails = defaultWeightMsgCreateProductDetails
-		},
-	)
-	operations = append(operations, simulation.NewWeightedOperation(
-		weightMsgCreateProductDetails,
-		cardchainsimulation.SimulateMsgCreateProductDetails(am.accountKeeper, am.bankKeeper, am.keeper),
-	))
-
-	var weightMsgUpdateProductDetails int
-	simState.AppParams.GetOrGenerate(opWeightMsgUpdateProductDetails, &weightMsgUpdateProductDetails, nil,
-		func(_ *rand.Rand) {
-			weightMsgUpdateProductDetails = defaultWeightMsgUpdateProductDetails
-		},
-	)
-	operations = append(operations, simulation.NewWeightedOperation(
-		weightMsgUpdateProductDetails,
-		cardchainsimulation.SimulateMsgUpdateProductDetails(am.accountKeeper, am.bankKeeper, am.keeper),
-	))
-
-	var weightMsgDeleteProductDetails int
-	simState.AppParams.GetOrGenerate(opWeightMsgDeleteProductDetails, &weightMsgDeleteProductDetails, nil,
-		func(_ *rand.Rand) {
-			weightMsgDeleteProductDetails = defaultWeightMsgDeleteProductDetails
-		},
-	)
-	operations = append(operations, simulation.NewWeightedOperation(
-		weightMsgDeleteProductDetails,
-		cardchainsimulation.SimulateMsgDeleteProductDetails(am.accountKeeper, am.bankKeeper, am.keeper),
-	))
-
 	var weightMsgEarlyAccessDisinvite int
 	simState.AppParams.GetOrGenerate(opWeightMsgEarlyAccessDisinvite, &weightMsgEarlyAccessDisinvite, nil,
 		func(_ *rand.Rand) {
@@ -1180,30 +1124,6 @@ func (am AppModule) ProposalMsgs(simState module.SimulationState) []simtypes.Wei
 			defaultWeightMsgEncounterClose,
 			func(r *rand.Rand, ctx sdk.Context, accs []simtypes.Account) sdk.Msg {
 				cardchainsimulation.SimulateMsgEncounterClose(am.accountKeeper, am.bankKeeper, am.keeper)
-				return nil
-			},
-		),
-		simulation.NewWeightedProposalMsg(
-			opWeightMsgCreateProductDetails,
-			defaultWeightMsgCreateProductDetails,
-			func(r *rand.Rand, ctx sdk.Context, accs []simtypes.Account) sdk.Msg {
-				cardchainsimulation.SimulateMsgCreateProductDetails(am.accountKeeper, am.bankKeeper, am.keeper)
-				return nil
-			},
-		),
-		simulation.NewWeightedProposalMsg(
-			opWeightMsgUpdateProductDetails,
-			defaultWeightMsgUpdateProductDetails,
-			func(r *rand.Rand, ctx sdk.Context, accs []simtypes.Account) sdk.Msg {
-				cardchainsimulation.SimulateMsgUpdateProductDetails(am.accountKeeper, am.bankKeeper, am.keeper)
-				return nil
-			},
-		),
-		simulation.NewWeightedProposalMsg(
-			opWeightMsgDeleteProductDetails,
-			defaultWeightMsgDeleteProductDetails,
-			func(r *rand.Rand, ctx sdk.Context, accs []simtypes.Account) sdk.Msg {
-				cardchainsimulation.SimulateMsgDeleteProductDetails(am.accountKeeper, am.bankKeeper, am.keeper)
 				return nil
 			},
 		),

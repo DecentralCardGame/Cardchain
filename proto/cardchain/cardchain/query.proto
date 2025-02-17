@@ -7,7 +7,6 @@ import "gogoproto/gogo.proto";
 import "google/api/annotations.proto";
 import "cosmos/base/query/v1beta1/pagination.proto";
 import "cardchain/cardchain/params.proto";
-import "cardchain/cardchain/product_details.proto";
 import "cardchain/cardchain/card_with_image.proto";
 import "cardchain/cardchain/user.proto";
 import "cardchain/cardchain/card.proto";
@@ -32,18 +31,6 @@ service Query {
   rpc Params(QueryParamsRequest) returns (QueryParamsResponse) {
     option (google.api.http).get =
         "/DecentralCardGame/cardchain/cardchain/params";
-  }
-
-  // Queries a list of ProductDetails items.
-  rpc ProductDetails(QueryGetProductDetailsRequest)
-      returns (QueryGetProductDetailsResponse) {
-    option (google.api.http).get =
-        "/DecentralCardGame/cardchain/cardchain/product_details/{id}";
-  }
-  rpc ProductDetailsAll(QueryAllProductDetailsRequest)
-      returns (QueryAllProductDetailsResponse) {
-    option (google.api.http).get =
-        "/DecentralCardGame/cardchain/cardchain/product_details";
   }
 
   // Queries a list of Card items.
@@ -190,21 +177,6 @@ message QueryParamsResponse {
   // params holds all the parameters of this module.
   Params params = 1
       [ (gogoproto.nullable) = false, (amino.dont_omitempty) = true ];
-}
-
-message QueryGetProductDetailsRequest { uint64 id = 1; }
-
-message QueryGetProductDetailsResponse {
-  ProductDetails ProductDetails = 1 [ (gogoproto.nullable) = false ];
-}
-
-message QueryAllProductDetailsRequest {
-  cosmos.base.query.v1beta1.PageRequest pagination = 1;
-}
-
-message QueryAllProductDetailsResponse {
-  repeated ProductDetails ProductDetails = 1 [ (gogoproto.nullable) = false ];
-  cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }
 
 message QueryCardRequest { uint64 cardId = 1; }

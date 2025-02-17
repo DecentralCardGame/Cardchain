@@ -49,7 +49,6 @@ func NewKeeper(
 	authority string,
 	bankKeeper types.BankKeeper,
 	featureFlagKeeper types.FeatureFlagKeeper,
-
 ) Keeper {
 	if _, err := sdk.AccAddressFromBech32(authority); err != nil {
 		panic(fmt.Sprintf("invalid authority address: %s", authority))

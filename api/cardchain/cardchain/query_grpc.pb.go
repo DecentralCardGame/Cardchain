@@ -20,8 +20,6 @@ const _ = grpc.SupportPackageIsVersion7
 
 const (
 	Query_Params_FullMethodName                = "/cardchain.cardchain.Query/Params"
-	Query_ProductDetails_FullMethodName        = "/cardchain.cardchain.Query/ProductDetails"
-	Query_ProductDetailsAll_FullMethodName     = "/cardchain.cardchain.Query/ProductDetailsAll"
 	Query_Card_FullMethodName                  = "/cardchain.cardchain.Query/Card"
 	Query_User_FullMethodName                  = "/cardchain.cardchain.Query/User"
 	Query_Cards_FullMethodName                 = "/cardchain.cardchain.Query/Cards"
@@ -51,9 +49,6 @@ const (
 type QueryClient interface {
 	// Parameters queries the parameters of the module.
 	Params(ctx context.Context, in *QueryParamsRequest, opts ...grpc.CallOption) (*QueryParamsResponse, error)
-	// Queries a list of ProductDetails items.
-	ProductDetails(ctx context.Context, in *QueryGetProductDetailsRequest, opts ...grpc.CallOption) (*QueryGetProductDetailsResponse, error)
-	ProductDetailsAll(ctx context.Context, in *QueryAllProductDetailsRequest, opts ...grpc.CallOption) (*QueryAllProductDetailsResponse, error)
 	// Queries a list of Card items.
 	Card(ctx context.Context, in *QueryCardRequest, opts ...grpc.CallOption) (*QueryCardResponse, error)
 	// Queries a list of User items.
@@ -109,24 +104,6 @@ func NewQueryClient(cc grpc.ClientConnInterface) QueryClient {
 func (c *queryClient) Params(ctx context.Context, in *QueryParamsRequest, opts ...grpc.CallOption) (*QueryParamsResponse, error) {
 	out := new(QueryParamsResponse)
 	err := c.cc.Invoke(ctx, Query_Params_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *queryClient) ProductDetails(ctx context.Context, in *QueryGetProductDetailsRequest, opts ...grpc.CallOption) (*QueryGetProductDetailsResponse, error) {
-	out := new(QueryGetProductDetailsResponse)
-	err := c.cc.Invoke(ctx, Query_ProductDetails_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *queryClient) ProductDetailsAll(ctx context.Context, in *QueryAllProductDetailsRequest, opts ...grpc.CallOption) (*QueryAllProductDetailsResponse, error) {
-	out := new(QueryAllProductDetailsResponse)
-	err := c.cc.Invoke(ctx, Query_ProductDetailsAll_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -328,9 +305,6 @@ func (c *queryClient) SellOffers(ctx context.Context, in *QuerySellOffersRequest
 type QueryServer interface {
 	// Parameters queries the parameters of the module.
 	Params(context.Context, *QueryParamsRequest) (*QueryParamsResponse, error)
-	// Queries a list of ProductDetails items.
-	ProductDetails(context.Context, *QueryGetProductDetailsRequest) (*QueryGetProductDetailsResponse, error)
-	ProductDetailsAll(context.Context, *QueryAllProductDetailsRequest) (*QueryAllProductDetailsResponse, error)
 	// Queries a list of Card items.
 	Card(context.Context, *QueryCardRequest) (*QueryCardResponse, error)
 	// Queries a list of User items.
@@ -382,12 +356,6 @@ type UnimplementedQueryServer struct {
 
 func (UnimplementedQueryServer) Params(context.Context, *QueryParamsRequest) (*QueryParamsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Params not implemented")
-}
-func (UnimplementedQueryServer) ProductDetails(context.Context, *QueryGetProductDetailsRequest) (*QueryGetProductDetailsResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ProductDetails not implemented")
-}
-func (UnimplementedQueryServer) ProductDetailsAll(context.Context, *QueryAllProductDetailsRequest) (*QueryAllProductDetailsResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ProductDetailsAll not implemented")
 }
 func (UnimplementedQueryServer) Card(context.Context, *QueryCardRequest) (*QueryCardResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Card not implemented")
@@ -479,42 +447,6 @@ func _Query_Params_Handler(srv interface{}, ctx context.Context, dec func(interf
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(QueryServer).Params(ctx, req.(*QueryParamsRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Query_ProductDetails_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(QueryGetProductDetailsRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(QueryServer).ProductDetails(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: Query_ProductDetails_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(QueryServer).ProductDetails(ctx, req.(*QueryGetProductDetailsRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Query_ProductDetailsAll_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(QueryAllProductDetailsRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(QueryServer).ProductDetailsAll(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: Query_ProductDetailsAll_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(QueryServer).ProductDetailsAll(ctx, req.(*QueryAllProductDetailsRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -907,14 +839,6 @@ var Query_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Params",
 			Handler:    _Query_Params_Handler,
-		},
-		{
-			MethodName: "ProductDetails",
-			Handler:    _Query_ProductDetails_Handler,
-		},
-		{
-			MethodName: "ProductDetailsAll",
-			Handler:    _Query_ProductDetailsAll_Handler,
 		},
 		{
 			MethodName: "Card",
