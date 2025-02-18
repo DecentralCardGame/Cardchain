@@ -1,4 +1,5 @@
 syntax = "proto3";
+
 package cardchain.featureflag;
 
 import "amino/amino.proto";
@@ -6,25 +7,49 @@ import "gogoproto/gogo.proto";
 import "google/api/annotations.proto";
 import "cosmos/base/query/v1beta1/pagination.proto";
 import "cardchain/featureflag/params.proto";
+import "cardchain/featureflag/flag.proto";
 
 option go_package = "github.com/DecentralCardGame/cardchain/x/featureflag/types";
 
 // Query defines the gRPC querier service.
 service Query {
+
   // Parameters queries the parameters of the module.
   rpc Params(QueryParamsRequest) returns (QueryParamsResponse) {
-    option (google.api.http).get = "/DecentralCardGame/cardchain/featureflag/params";
+    option (google.api.http).get =
+        "/DecentralCardGame/cardchain/featureflag/params";
+  }
+
+  // Queries a list of Flag items.
+  rpc Flag(QueryFlagRequest) returns (QueryFlagResponse) {
+    option (google.api.http).get =
+        "/DecentralCardGame/cardchain/featureflag/flag/{module}/{name}";
+  }
+
+  // Queries a list of Flags items.
+  rpc Flags(QueryFlagsRequest) returns (QueryFlagsResponse) {
+    option (google.api.http).get =
+        "/DecentralCardGame/cardchain/featureflag/flags";
   }
 }
-
 // QueryParamsRequest is request type for the Query/Params RPC method.
 message QueryParamsRequest {}
 
 // QueryParamsResponse is response type for the Query/Params RPC method.
 message QueryParamsResponse {
+
   // params holds all the parameters of this module.
-  Params params = 1 [
-    (gogoproto.nullable) = false,
-    (amino.dont_omitempty) = true
-  ];
+  Params params = 1
+      [ (gogoproto.nullable) = false, (amino.dont_omitempty) = true ];
 }
+
+message QueryFlagRequest {
+  string module = 1;
+  string name = 2;
+}
+
+message QueryFlagResponse { Flag flag = 1; }
+
+message QueryFlagsRequest {}
+
+message QueryFlagsResponse { repeated Flag flags = 1; }

@@ -23,4 +23,6 @@ set -o pipefail
 #ignite scaffold query sets status contributors:strings containsCards:uints owner --response sets
 #ignite scaffold query cardContent cardId:uint --response cardContent:CardContent
 #ignite scaffold query cardContents cardId:uints --response cardContents
-ignite scaffold query sellOffers  priceDown priceUp seller buyer card:uint status --response sellOffers --response sellOfferIds:uints
+#ignite scaffold query sellOffers  priceDown priceUp seller buyer card:uint status --response sellOffers --response sellOfferIds:uints
+#ignite scaffold query flag module name --response flag --module featureflag -y
+#ignite scaffold query flags --response flags --module featureflag -y
