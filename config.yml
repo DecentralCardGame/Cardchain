@@ -61,6 +61,12 @@ genesis:
       runningAverages:
         - arr: [0]
         - arr: [0]
+    featureflag:
+      flags:
+        cardchain-council:
+          { "Module": "cardchain", "Name": "council", "Set": true }
+        cardchain-matches:
+          { "Module": "cardchain", "Name": "matches", "Set": true }
     crisis:
       constant_fee:
         amount: "1000"

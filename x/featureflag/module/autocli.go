@@ -42,6 +42,12 @@ func (am AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 					RpcMethod: "UpdateParams",
 					Skip:      true, // skipped because authority gated
 				},
+				{
+					RpcMethod:      "Set",
+					Use:            "set [module] [name] [value]",
+					Short:          "Send a Set tx",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "module"}, {ProtoField: "name"}, {ProtoField: "value"}},
+				},
 				// this line is used by ignite scaffolding # autocli/tx
 			},
 		},
