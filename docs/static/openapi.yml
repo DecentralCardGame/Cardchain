@@ -33551,7 +33551,6 @@ paths:
                         type: string
                   image:
                     type: string
-                    format: byte
         default:
           description: An unexpected error response.
           schema:
@@ -33675,7 +33674,6 @@ paths:
                           type: string
                     image:
                       type: string
-                      format: byte
         default:
           description: An unexpected error response.
           schema:
@@ -69223,7 +69221,6 @@ definitions:
             type: string
       image:
         type: string
-        format: byte
   DecentralCardGame.cardchain.cardchain.IgnoreMatches:
     type: object
     properties:
@@ -69907,7 +69904,6 @@ definitions:
                 type: string
           image:
             type: string
-            format: byte
   DecentralCardGame.cardchain.cardchain.QueryQEncountersResponse:
     type: object
     properties:
@@ -69971,7 +69967,6 @@ definitions:
                   type: string
             image:
               type: string
-              format: byte
   DecentralCardGame.cardchain.cardchain.QueryQMatchesResponse:
     type: object
     properties:

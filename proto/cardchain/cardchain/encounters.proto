@@ -17,5 +17,5 @@ message Encounter {
 
 message EncounterWithImage {
   Encounter encounter = 1;
-  bytes image = 2;
+  string image = 2;
 }
