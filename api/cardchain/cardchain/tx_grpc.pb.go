@@ -70,6 +70,7 @@ const (
 	Msg_CardBan_FullMethodName               = "/cardchain.cardchain.Msg/CardBan"
 	Msg_EarlyAccessGrant_FullMethodName      = "/cardchain.cardchain.Msg/EarlyAccessGrant"
 	Msg_SetActivate_FullMethodName           = "/cardchain.cardchain.Msg/SetActivate"
+	Msg_CardCopyrightClaim_FullMethodName    = "/cardchain.cardchain.Msg/CardCopyrightClaim"
 )
 
 // MsgClient is the client API for Msg service.
@@ -129,6 +130,7 @@ type MsgClient interface {
 	CardBan(ctx context.Context, in *MsgCardBan, opts ...grpc.CallOption) (*MsgCardBanResponse, error)
 	EarlyAccessGrant(ctx context.Context, in *MsgEarlyAccessGrant, opts ...grpc.CallOption) (*MsgEarlyAccessGrantResponse, error)
 	SetActivate(ctx context.Context, in *MsgSetActivate, opts ...grpc.CallOption) (*MsgSetActivateResponse, error)
+	CardCopyrightClaim(ctx context.Context, in *MsgCardCopyrightClaim, opts ...grpc.CallOption) (*MsgCardCopyrightClaimResponse, error)
 }
 
 type msgClient struct {
@@ -598,6 +600,15 @@ func (c *msgClient) SetActivate(ctx context.Context, in *MsgSetActivate, opts ..
 	return out, nil
 }
 
+func (c *msgClient) CardCopyrightClaim(ctx context.Context, in *MsgCardCopyrightClaim, opts ...grpc.CallOption) (*MsgCardCopyrightClaimResponse, error) {
+	out := new(MsgCardCopyrightClaimResponse)
+	err := c.cc.Invoke(ctx, Msg_CardCopyrightClaim_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // MsgServer is the server API for Msg service.
 // All implementations must embed UnimplementedMsgServer
 // for forward compatibility
@@ -655,6 +666,7 @@ type MsgServer interface {
 	CardBan(context.Context, *MsgCardBan) (*MsgCardBanResponse, error)
 	EarlyAccessGrant(context.Context, *MsgEarlyAccessGrant) (*MsgEarlyAccessGrantResponse, error)
 	SetActivate(context.Context, *MsgSetActivate) (*MsgSetActivateResponse, error)
+	CardCopyrightClaim(context.Context, *MsgCardCopyrightClaim) (*MsgCardCopyrightClaimResponse, error)
 	mustEmbedUnimplementedMsgServer()
 }
 
@@ -814,6 +826,9 @@ func (UnimplementedMsgServer) EarlyAccessGrant(context.Context, *MsgEarlyAccessG
 }
 func (UnimplementedMsgServer) SetActivate(context.Context, *MsgSetActivate) (*MsgSetActivateResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SetActivate not implemented")
+}
+func (UnimplementedMsgServer) CardCopyrightClaim(context.Context, *MsgCardCopyrightClaim) (*MsgCardCopyrightClaimResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CardCopyrightClaim not implemented")
 }
 func (UnimplementedMsgServer) mustEmbedUnimplementedMsgServer() {}
 
@@ -1746,6 +1761,24 @@ func _Msg_SetActivate_Handler(srv interface{}, ctx context.Context, dec func(int
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Msg_CardCopyrightClaim_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgCardCopyrightClaim)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).CardCopyrightClaim(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Msg_CardCopyrightClaim_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).CardCopyrightClaim(ctx, req.(*MsgCardCopyrightClaim))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Msg_ServiceDesc is the grpc.ServiceDesc for Msg service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -1956,6 +1989,10 @@ var Msg_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "SetActivate",
 			Handler:    _Msg_SetActivate_Handler,
+		},
+		{
+			MethodName: "CardCopyrightClaim",
+			Handler:    _Msg_CardCopyrightClaim_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

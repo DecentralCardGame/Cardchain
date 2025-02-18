@@ -223,6 +223,10 @@ const (
 	// TODO: Determine the simulation weight value
 	defaultWeightMsgSetActivate int = 100
 
+	opWeightMsgCardCopyrightClaim = "op_weight_msg_card_copyright_claim"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgCardCopyrightClaim int = 100
+
 	// this line is used by starport scaffolding # simapp/module/const
 )
 
@@ -796,6 +800,17 @@ func (am AppModule) WeightedOperations(simState module.SimulationState) []simtyp
 		cardchainsimulation.SimulateMsgSetActivate(am.accountKeeper, am.bankKeeper, am.keeper),
 	))
 
+	var weightMsgCardCopyrightClaim int
+	simState.AppParams.GetOrGenerate(opWeightMsgCardCopyrightClaim, &weightMsgCardCopyrightClaim, nil,
+		func(_ *rand.Rand) {
+			weightMsgCardCopyrightClaim = defaultWeightMsgCardCopyrightClaim
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgCardCopyrightClaim,
+		cardchainsimulation.SimulateMsgCardCopyrightClaim(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
 	// this line is used by starport scaffolding # simapp/module/operation
 
 	return operations
@@ -1201,6 +1216,14 @@ func (am AppModule) ProposalMsgs(simState module.SimulationState) []simtypes.Wei
 			defaultWeightMsgSetActivate,
 			func(r *rand.Rand, ctx sdk.Context, accs []simtypes.Account) sdk.Msg {
 				cardchainsimulation.SimulateMsgSetActivate(am.accountKeeper, am.bankKeeper, am.keeper)
+				return nil
+			},
+		),
+		simulation.NewWeightedProposalMsg(
+			opWeightMsgCardCopyrightClaim,
+			defaultWeightMsgCardCopyrightClaim,
+			func(r *rand.Rand, ctx sdk.Context, accs []simtypes.Account) sdk.Msg {
+				cardchainsimulation.SimulateMsgCardCopyrightClaim(am.accountKeeper, am.bankKeeper, am.keeper)
 				return nil
 			},
 		),

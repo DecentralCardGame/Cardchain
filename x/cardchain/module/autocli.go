@@ -477,6 +477,12 @@ func (am AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 					Short:          "Send a SetActivate tx",
 					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "setId"}},
 				},
+				{
+					RpcMethod:      "CardCopyrightClaim",
+					Use:            "card-copyright-claim [card-id]",
+					Short:          "Send a CardCopyrightClaim tx",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "cardId"}},
+				},
 				// this line is used by ignite scaffolding # autocli/tx
 			},
 		},
