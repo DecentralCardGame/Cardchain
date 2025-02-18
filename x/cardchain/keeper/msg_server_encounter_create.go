@@ -31,6 +31,7 @@ func (k msgServer) EncounterCreate(goCtx context.Context, msg *types.MsgEncounte
 	encounter := types.Encounter{
 		Id:         id,
 		Drawlist:   msg.Drawlist,
+		Name:       msg.Name,
 		Proven:     false,
 		Owner:      msg.Creator,
 		Parameters: msg.Parameters,
