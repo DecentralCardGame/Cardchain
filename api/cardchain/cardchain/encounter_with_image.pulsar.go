@@ -97,8 +97,8 @@ func (x *fastReflection_EncounterWithImage) Range(f func(protoreflect.FieldDescr
 			return
 		}
 	}
-	if len(x.Image) != 0 {
-		value := protoreflect.ValueOfBytes(x.Image)
+	if x.Image != "" {
+		value := protoreflect.ValueOfString(x.Image)
 		if !f(fd_EncounterWithImage_image, value) {
 			return
 		}
@@ -121,7 +121,7 @@ func (x *fastReflection_EncounterWithImage) Has(fd protoreflect.FieldDescriptor)
 	case "cardchain.cardchain.EncounterWithImage.encounter":
 		return x.Encounter != nil
 	case "cardchain.cardchain.EncounterWithImage.image":
-		return len(x.Image) != 0
+		return x.Image != ""
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: cardchain.cardchain.EncounterWithImage"))
@@ -141,7 +141,7 @@ func (x *fastReflection_EncounterWithImage) Clear(fd protoreflect.FieldDescripto
 	case "cardchain.cardchain.EncounterWithImage.encounter":
 		x.Encounter = nil
 	case "cardchain.cardchain.EncounterWithImage.image":
-		x.Image = nil
+		x.Image = ""
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: cardchain.cardchain.EncounterWithImage"))
@@ -163,7 +163,7 @@ func (x *fastReflection_EncounterWithImage) Get(descriptor protoreflect.FieldDes
 		return protoreflect.ValueOfMessage(value.ProtoReflect())
 	case "cardchain.cardchain.EncounterWithImage.image":
 		value := x.Image
-		return protoreflect.ValueOfBytes(value)
+		return protoreflect.ValueOfString(value)
 	default:
 		if descriptor.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: cardchain.cardchain.EncounterWithImage"))
@@ -187,7 +187,7 @@ func (x *fastReflection_EncounterWithImage) Set(fd protoreflect.FieldDescriptor,
 	case "cardchain.cardchain.EncounterWithImage.encounter":
 		x.Encounter = value.Message().Interface().(*Encounter)
 	case "cardchain.cardchain.EncounterWithImage.image":
-		x.Image = value.Bytes()
+		x.Image = value.Interface().(string)
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: cardchain.cardchain.EncounterWithImage"))
@@ -232,7 +232,7 @@ func (x *fastReflection_EncounterWithImage) NewField(fd protoreflect.FieldDescri
 		m := new(Encounter)
 		return protoreflect.ValueOfMessage(m.ProtoReflect())
 	case "cardchain.cardchain.EncounterWithImage.image":
-		return protoreflect.ValueOfBytes(nil)
+		return protoreflect.ValueOfString("")
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: cardchain.cardchain.EncounterWithImage"))
@@ -449,7 +449,7 @@ func (x *fastReflection_EncounterWithImage) ProtoMethods() *protoiface.Methods {
 				if wireType != 2 {
 					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field Image", wireType)
 				}
-				var byteLen int
+				var stringLen uint64
 				for shift := uint(0); ; shift += 7 {
 					if shift >= 64 {
 						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
@@ -459,25 +459,23 @@ func (x *fastReflection_EncounterWithImage) ProtoMethods() *protoiface.Methods {
 					}
 					b := dAtA[iNdEx]
 					iNdEx++
-					byteLen |= int(b&0x7F) << shift
+					stringLen |= uint64(b&0x7F) << shift
 					if b < 0x80 {
 						break
 					}
 				}
-				if byteLen < 0 {
+				intStringLen := int(stringLen)
+				if intStringLen < 0 {
 					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
 				}
-				postIndex := iNdEx + byteLen
+				postIndex := iNdEx + intStringLen
 				if postIndex < 0 {
 					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
 				}
 				if postIndex > l {
 					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
 				}
-				x.Image = append(x.Image[:0], dAtA[iNdEx:postIndex]...)
-				if x.Image == nil {
-					x.Image = []byte{}
-				}
+				x.Image = string(dAtA[iNdEx:postIndex])
 				iNdEx = postIndex
 			default:
 				iNdEx = preIndex
@@ -533,7 +531,7 @@ type EncounterWithImage struct {
 	unknownFields protoimpl.UnknownFields
 
 	Encounter *Encounter `protobuf:"bytes,1,opt,name=encounter,proto3" json:"encounter,omitempty"`
-	Image     []byte     `protobuf:"bytes,2,opt,name=image,proto3" json:"image,omitempty"`
+	Image     string     `protobuf:"bytes,2,opt,name=image,proto3" json:"image,omitempty"`
 }
 
 func (x *EncounterWithImage) Reset() {
@@ -563,11 +561,11 @@ func (x *EncounterWithImage) GetEncounter() *Encounter {
 	return nil
 }
 
-func (x *EncounterWithImage) GetImage() []byte {
+func (x *EncounterWithImage) GetImage() string {
 	if x != nil {
 		return x.Image
 	}
-	return nil
+	return ""
 }
 
 var File_cardchain_cardchain_encounter_with_image_proto protoreflect.FileDescriptor
@@ -587,7 +585,7 @@ var file_cardchain_cardchain_encounter_with_image_proto_rawDesc = []byte{
 	0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e,
 	0x45, 0x6e, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x65, 0x72, 0x52, 0x09, 0x65, 0x6e, 0x63, 0x6f, 0x75,
 	0x6e, 0x74, 0x65, 0x72, 0x12, 0x14, 0x0a, 0x05, 0x69, 0x6d, 0x61, 0x67, 0x65, 0x18, 0x02, 0x20,
-	0x01, 0x28, 0x0c, 0x52, 0x05, 0x69, 0x6d, 0x61, 0x67, 0x65, 0x42, 0xdf, 0x01, 0x0a, 0x17, 0x63,
+	0x01, 0x28, 0x09, 0x52, 0x05, 0x69, 0x6d, 0x61, 0x67, 0x65, 0x42, 0xdf, 0x01, 0x0a, 0x17, 0x63,
 	0x6f, 0x6d, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x63, 0x61, 0x72,
 	0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x42, 0x17, 0x45, 0x6e, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x65,
 	0x72, 0x57, 0x69, 0x74, 0x68, 0x49, 0x6d, 0x61, 0x67, 0x65, 0x50, 0x72, 0x6f, 0x74, 0x6f, 0x50,

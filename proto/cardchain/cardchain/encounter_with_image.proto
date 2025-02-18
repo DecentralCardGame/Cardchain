@@ -8,5 +8,5 @@ option go_package = "github.com/DecentralCardGame/cardchain/x/cardchain/types";
 
 message EncounterWithImage {
   Encounter encounter = 1;
-  bytes image = 2;
+  string image = 2;
 }

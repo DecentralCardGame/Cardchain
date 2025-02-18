@@ -40,6 +40,9 @@ func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) 
 	for idx, average := range genState.RunningAverages {
 		k.RunningAverages.Set(ctx, k.RunningAverages.KeyWords[idx], average)
 	}
+	for idx, encounter := range genState.Encounters {
+		k.Encounterk.Set(ctx, uint64(idx), encounter)
+	}
 	if genState.CardAuctionPrice.Denom != "" {
 		k.CardAuctionPrice.Set(ctx, &genState.CardAuctionPrice)
 	}
@@ -114,6 +117,7 @@ func ExportGenesis(ctx sdk.Context, k keeper.Keeper) *types.GenesisState {
 	genesis.Servers = k.Servers.GetAll(ctx)
 	users, accAddresses := k.GetAllUsers(ctx)
 	genesis.Zealys = k.Zealy.GetAll(ctx)
+	genesis.Encounters = k.Encounterk.GetAll(ctx)
 	var addresses []string
 	for _, addr := range accAddresses {
 		addresses = append(addresses, addr.String())

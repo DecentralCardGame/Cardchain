@@ -20,6 +20,6 @@ func (k Keeper) EncounterWithImage(goCtx context.Context, req *types.QueryEncoun
 
 	return &types.QueryEncounterWithImageResponse{Encounter: &types.EncounterWithImage{
 		Encounter: encounter,
-		Image:     k.Images.Get(ctx, encounter.ImageId).Image,
+		Image:     string(k.Images.Get(ctx, encounter.ImageId).Image),
 	}}, nil
 }

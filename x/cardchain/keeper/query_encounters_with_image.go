@@ -23,7 +23,7 @@ func (k Keeper) EncountersWithImage(goCtx context.Context, req *types.QueryEncou
 	for _, encounter := range encounters {
 		encountersWithImage = append(encountersWithImage, &types.EncounterWithImage{
 			Encounter: encounter,
-			Image:     k.Images.Get(ctx, encounter.ImageId).Image,
+			Image:     string(k.Images.Get(ctx, encounter.ImageId).Image),
 		})
 	}
 

@@ -15,6 +15,7 @@ import "cardchain/cardchain/council.proto";
 import "cardchain/cardchain/image.proto";
 import "cardchain/cardchain/server.proto";
 import "cardchain/cardchain/zealy.proto";
+import "cardchain/cardchain/encounter.proto";
 import "cosmos/base/v1beta1/coin.proto";
 
 option go_package = "github.com/DecentralCardGame/cardchain/x/cardchain/types";
@@ -39,4 +40,6 @@ message GenesisState {
   repeated Server servers = 15;
   TimeStamp lastCardModified = 16 [ (gogoproto.nullable) = false ];
   repeated Zealy zealys = 17;
+  repeated Encounter encounters = 18;
+  // this line is used by starport scaffolding # genesis/proto/state
 }
