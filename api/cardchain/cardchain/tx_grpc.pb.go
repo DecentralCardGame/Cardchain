@@ -67,6 +67,7 @@ const (
 	Msg_EncounterDo_FullMethodName           = "/cardchain.cardchain.Msg/EncounterDo"
 	Msg_EncounterClose_FullMethodName        = "/cardchain.cardchain.Msg/EncounterClose"
 	Msg_EarlyAccessDisinvite_FullMethodName  = "/cardchain.cardchain.Msg/EarlyAccessDisinvite"
+	Msg_BanCard_FullMethodName               = "/cardchain.cardchain.Msg/BanCard"
 )
 
 // MsgClient is the client API for Msg service.
@@ -123,6 +124,7 @@ type MsgClient interface {
 	EncounterDo(ctx context.Context, in *MsgEncounterDo, opts ...grpc.CallOption) (*MsgEncounterDoResponse, error)
 	EncounterClose(ctx context.Context, in *MsgEncounterClose, opts ...grpc.CallOption) (*MsgEncounterCloseResponse, error)
 	EarlyAccessDisinvite(ctx context.Context, in *MsgEarlyAccessDisinvite, opts ...grpc.CallOption) (*MsgEarlyAccessDisinviteResponse, error)
+	BanCard(ctx context.Context, in *MsgBanCard, opts ...grpc.CallOption) (*MsgBanCardResponse, error)
 }
 
 type msgClient struct {
@@ -565,6 +567,15 @@ func (c *msgClient) EarlyAccessDisinvite(ctx context.Context, in *MsgEarlyAccess
 	return out, nil
 }
 
+func (c *msgClient) BanCard(ctx context.Context, in *MsgBanCard, opts ...grpc.CallOption) (*MsgBanCardResponse, error) {
+	out := new(MsgBanCardResponse)
+	err := c.cc.Invoke(ctx, Msg_BanCard_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // MsgServer is the server API for Msg service.
 // All implementations must embed UnimplementedMsgServer
 // for forward compatibility
@@ -619,6 +630,7 @@ type MsgServer interface {
 	EncounterDo(context.Context, *MsgEncounterDo) (*MsgEncounterDoResponse, error)
 	EncounterClose(context.Context, *MsgEncounterClose) (*MsgEncounterCloseResponse, error)
 	EarlyAccessDisinvite(context.Context, *MsgEarlyAccessDisinvite) (*MsgEarlyAccessDisinviteResponse, error)
+	BanCard(context.Context, *MsgBanCard) (*MsgBanCardResponse, error)
 	mustEmbedUnimplementedMsgServer()
 }
 
@@ -769,6 +781,9 @@ func (UnimplementedMsgServer) EncounterClose(context.Context, *MsgEncounterClose
 }
 func (UnimplementedMsgServer) EarlyAccessDisinvite(context.Context, *MsgEarlyAccessDisinvite) (*MsgEarlyAccessDisinviteResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method EarlyAccessDisinvite not implemented")
+}
+func (UnimplementedMsgServer) BanCard(context.Context, *MsgBanCard) (*MsgBanCardResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method BanCard not implemented")
 }
 func (UnimplementedMsgServer) mustEmbedUnimplementedMsgServer() {}
 
@@ -1647,6 +1662,24 @@ func _Msg_EarlyAccessDisinvite_Handler(srv interface{}, ctx context.Context, dec
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Msg_BanCard_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgBanCard)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).BanCard(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Msg_BanCard_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).BanCard(ctx, req.(*MsgBanCard))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Msg_ServiceDesc is the grpc.ServiceDesc for Msg service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -1845,6 +1878,10 @@ var Msg_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "EarlyAccessDisinvite",
 			Handler:    _Msg_EarlyAccessDisinvite_Handler,
+		},
+		{
+			MethodName: "BanCard",
+			Handler:    _Msg_BanCard_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

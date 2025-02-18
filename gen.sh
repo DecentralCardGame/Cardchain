@@ -44,8 +44,9 @@
 #ignite scaffold message SetNameSet setId:uint name
 #ignite scaffold message ProfileAliasSet alias
 #ignite scaffold message EarlyAccessInvite user
-ignite scaffold message EarlyAccessDisinvite user
+#ignite scaffold message EarlyAccessDisinvite user
 #ignite scaffold message ZealyConnect zealyId
 #ignite scaffold message EncounterCreate name drawlist:uints parameters image
 #ignite scaffold message EncounterDo encounterId:uint user
 #ignite scaffold message EncounterClose encounterId:uint user won:bool
+ignite scaffold message BanCard cardId:uint --signer authority -y
