@@ -51,4 +51,4 @@
 #ignite scaffold message EncounterClose encounterId:uint user won:bool
 #ignite scaffold message CardBan cardId:uint --signer authority -y
 #ignite scaffold message EarlyAccessGrant user --signer authority -y
-ignite scaffold message EarlyAccessGrant user --signer authority -y
+ignite scaffold message SetActivate setId:uint --signer authority -y

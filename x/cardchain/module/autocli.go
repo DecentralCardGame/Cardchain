@@ -471,6 +471,12 @@ func (am AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 					Short:          "Send a EarlyAccessGrant tx",
 					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "users"}},
 				},
+				{
+					RpcMethod:      "SetActivate",
+					Use:            "set-activate [set-id]",
+					Short:          "Send a SetActivate tx",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "setId"}},
+				},
 				// this line is used by ignite scaffolding # autocli/tx
 			},
 		},

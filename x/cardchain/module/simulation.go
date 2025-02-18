@@ -219,6 +219,10 @@ const (
 	// TODO: Determine the simulation weight value
 	defaultWeightMsgEarlyAccessGrant int = 100
 
+	opWeightMsgSetActivate = "op_weight_msg_set_activate"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgSetActivate int = 100
+
 	// this line is used by starport scaffolding # simapp/module/const
 )
 
@@ -781,6 +785,17 @@ func (am AppModule) WeightedOperations(simState module.SimulationState) []simtyp
 		cardchainsimulation.SimulateMsgEarlyAccessGrant(am.accountKeeper, am.bankKeeper, am.keeper),
 	))
 
+	var weightMsgSetActivate int
+	simState.AppParams.GetOrGenerate(opWeightMsgSetActivate, &weightMsgSetActivate, nil,
+		func(_ *rand.Rand) {
+			weightMsgSetActivate = defaultWeightMsgSetActivate
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgSetActivate,
+		cardchainsimulation.SimulateMsgSetActivate(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
 	// this line is used by starport scaffolding # simapp/module/operation
 
 	return operations
@@ -1178,6 +1193,14 @@ func (am AppModule) ProposalMsgs(simState module.SimulationState) []simtypes.Wei
 			defaultWeightMsgEarlyAccessGrant,
 			func(r *rand.Rand, ctx sdk.Context, accs []simtypes.Account) sdk.Msg {
 				cardchainsimulation.SimulateMsgEarlyAccessGrant(am.accountKeeper, am.bankKeeper, am.keeper)
+				return nil
+			},
+		),
+		simulation.NewWeightedProposalMsg(
+			opWeightMsgSetActivate,
+			defaultWeightMsgSetActivate,
+			func(r *rand.Rand, ctx sdk.Context, accs []simtypes.Account) sdk.Msg {
+				cardchainsimulation.SimulateMsgSetActivate(am.accountKeeper, am.bankKeeper, am.keeper)
 				return nil
 			},
 		),

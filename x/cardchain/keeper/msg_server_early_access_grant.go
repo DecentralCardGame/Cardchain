@@ -21,7 +21,7 @@ func (k msgServer) EarlyAccessGrant(goCtx context.Context, msg *types.MsgEarlyAc
 			return nil, err
 		}
 
-		user.AddEarlyAccess(msg.Authority)
+		user.AddEarlyAccess("")
 
 		k.SetUserFromUser(ctx, user)
 	}

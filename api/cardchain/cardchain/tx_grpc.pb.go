@@ -69,6 +69,7 @@ const (
 	Msg_EarlyAccessDisinvite_FullMethodName  = "/cardchain.cardchain.Msg/EarlyAccessDisinvite"
 	Msg_CardBan_FullMethodName               = "/cardchain.cardchain.Msg/CardBan"
 	Msg_EarlyAccessGrant_FullMethodName      = "/cardchain.cardchain.Msg/EarlyAccessGrant"
+	Msg_SetActivate_FullMethodName           = "/cardchain.cardchain.Msg/SetActivate"
 )
 
 // MsgClient is the client API for Msg service.
@@ -127,6 +128,7 @@ type MsgClient interface {
 	EarlyAccessDisinvite(ctx context.Context, in *MsgEarlyAccessDisinvite, opts ...grpc.CallOption) (*MsgEarlyAccessDisinviteResponse, error)
 	CardBan(ctx context.Context, in *MsgCardBan, opts ...grpc.CallOption) (*MsgCardBanResponse, error)
 	EarlyAccessGrant(ctx context.Context, in *MsgEarlyAccessGrant, opts ...grpc.CallOption) (*MsgEarlyAccessGrantResponse, error)
+	SetActivate(ctx context.Context, in *MsgSetActivate, opts ...grpc.CallOption) (*MsgSetActivateResponse, error)
 }
 
 type msgClient struct {
@@ -587,6 +589,15 @@ func (c *msgClient) EarlyAccessGrant(ctx context.Context, in *MsgEarlyAccessGran
 	return out, nil
 }
 
+func (c *msgClient) SetActivate(ctx context.Context, in *MsgSetActivate, opts ...grpc.CallOption) (*MsgSetActivateResponse, error) {
+	out := new(MsgSetActivateResponse)
+	err := c.cc.Invoke(ctx, Msg_SetActivate_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // MsgServer is the server API for Msg service.
 // All implementations must embed UnimplementedMsgServer
 // for forward compatibility
@@ -643,6 +654,7 @@ type MsgServer interface {
 	EarlyAccessDisinvite(context.Context, *MsgEarlyAccessDisinvite) (*MsgEarlyAccessDisinviteResponse, error)
 	CardBan(context.Context, *MsgCardBan) (*MsgCardBanResponse, error)
 	EarlyAccessGrant(context.Context, *MsgEarlyAccessGrant) (*MsgEarlyAccessGrantResponse, error)
+	SetActivate(context.Context, *MsgSetActivate) (*MsgSetActivateResponse, error)
 	mustEmbedUnimplementedMsgServer()
 }
 
@@ -799,6 +811,9 @@ func (UnimplementedMsgServer) CardBan(context.Context, *MsgCardBan) (*MsgCardBan
 }
 func (UnimplementedMsgServer) EarlyAccessGrant(context.Context, *MsgEarlyAccessGrant) (*MsgEarlyAccessGrantResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method EarlyAccessGrant not implemented")
+}
+func (UnimplementedMsgServer) SetActivate(context.Context, *MsgSetActivate) (*MsgSetActivateResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SetActivate not implemented")
 }
 func (UnimplementedMsgServer) mustEmbedUnimplementedMsgServer() {}
 
@@ -1713,6 +1728,24 @@ func _Msg_EarlyAccessGrant_Handler(srv interface{}, ctx context.Context, dec fun
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Msg_SetActivate_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgSetActivate)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).SetActivate(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Msg_SetActivate_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).SetActivate(ctx, req.(*MsgSetActivate))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Msg_ServiceDesc is the grpc.ServiceDesc for Msg service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -1919,6 +1952,10 @@ var Msg_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "EarlyAccessGrant",
 			Handler:    _Msg_EarlyAccessGrant_Handler,
+		},
+		{
+			MethodName: "SetActivate",
+			Handler:    _Msg_SetActivate_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

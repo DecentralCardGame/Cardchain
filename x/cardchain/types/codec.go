@@ -155,6 +155,9 @@ func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {
 	registry.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgEarlyAccessGrant{},
 	)
+	registry.RegisterImplementations((*sdk.Msg)(nil),
+		&MsgSetActivate{},
+	)
 	// this line is used by starport scaffolding # 3
 
 	registry.RegisterImplementations((*sdk.Msg)(nil),
