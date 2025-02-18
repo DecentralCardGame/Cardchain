@@ -7,3 +7,5 @@ release/
 *.dot
 *.log
 *.ign
+/vue
+/goat/node_modules
