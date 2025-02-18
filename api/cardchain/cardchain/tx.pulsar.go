@@ -43992,27 +43992,27 @@ func (x *fastReflection_MsgEarlyAccessDisinviteResponse) ProtoMethods() *protoif
 }
 
 var (
-	md_MsgBanCard           protoreflect.MessageDescriptor
-	fd_MsgBanCard_authority protoreflect.FieldDescriptor
-	fd_MsgBanCard_cardId    protoreflect.FieldDescriptor
+	md_MsgCardBan           protoreflect.MessageDescriptor
+	fd_MsgCardBan_authority protoreflect.FieldDescriptor
+	fd_MsgCardBan_cardId    protoreflect.FieldDescriptor
 )
 
 func init() {
 	file_cardchain_cardchain_tx_proto_init()
-	md_MsgBanCard = File_cardchain_cardchain_tx_proto.Messages().ByName("MsgBanCard")
-	fd_MsgBanCard_authority = md_MsgBanCard.Fields().ByName("authority")
-	fd_MsgBanCard_cardId = md_MsgBanCard.Fields().ByName("cardId")
+	md_MsgCardBan = File_cardchain_cardchain_tx_proto.Messages().ByName("MsgCardBan")
+	fd_MsgCardBan_authority = md_MsgCardBan.Fields().ByName("authority")
+	fd_MsgCardBan_cardId = md_MsgCardBan.Fields().ByName("cardId")
 }
 
-var _ protoreflect.Message = (*fastReflection_MsgBanCard)(nil)
+var _ protoreflect.Message = (*fastReflection_MsgCardBan)(nil)
 
-type fastReflection_MsgBanCard MsgBanCard
+type fastReflection_MsgCardBan MsgCardBan
 
-func (x *MsgBanCard) ProtoReflect() protoreflect.Message {
-	return (*fastReflection_MsgBanCard)(x)
+func (x *MsgCardBan) ProtoReflect() protoreflect.Message {
+	return (*fastReflection_MsgCardBan)(x)
 }
 
-func (x *MsgBanCard) slowProtoReflect() protoreflect.Message {
+func (x *MsgCardBan) slowProtoReflect() protoreflect.Message {
 	mi := &file_cardchain_cardchain_tx_proto_msgTypes[96]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -44024,43 +44024,43 @@ func (x *MsgBanCard) slowProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-var _fastReflection_MsgBanCard_messageType fastReflection_MsgBanCard_messageType
-var _ protoreflect.MessageType = fastReflection_MsgBanCard_messageType{}
+var _fastReflection_MsgCardBan_messageType fastReflection_MsgCardBan_messageType
+var _ protoreflect.MessageType = fastReflection_MsgCardBan_messageType{}
 
-type fastReflection_MsgBanCard_messageType struct{}
+type fastReflection_MsgCardBan_messageType struct{}
 
-func (x fastReflection_MsgBanCard_messageType) Zero() protoreflect.Message {
-	return (*fastReflection_MsgBanCard)(nil)
+func (x fastReflection_MsgCardBan_messageType) Zero() protoreflect.Message {
+	return (*fastReflection_MsgCardBan)(nil)
 }
-func (x fastReflection_MsgBanCard_messageType) New() protoreflect.Message {
-	return new(fastReflection_MsgBanCard)
+func (x fastReflection_MsgCardBan_messageType) New() protoreflect.Message {
+	return new(fastReflection_MsgCardBan)
 }
-func (x fastReflection_MsgBanCard_messageType) Descriptor() protoreflect.MessageDescriptor {
-	return md_MsgBanCard
+func (x fastReflection_MsgCardBan_messageType) Descriptor() protoreflect.MessageDescriptor {
+	return md_MsgCardBan
 }
 
 // Descriptor returns message descriptor, which contains only the protobuf
 // type information for the message.
-func (x *fastReflection_MsgBanCard) Descriptor() protoreflect.MessageDescriptor {
-	return md_MsgBanCard
+func (x *fastReflection_MsgCardBan) Descriptor() protoreflect.MessageDescriptor {
+	return md_MsgCardBan
 }
 
 // Type returns the message type, which encapsulates both Go and protobuf
 // type information. If the Go type information is not needed,
 // it is recommended that the message descriptor be used instead.
-func (x *fastReflection_MsgBanCard) Type() protoreflect.MessageType {
-	return _fastReflection_MsgBanCard_messageType
+func (x *fastReflection_MsgCardBan) Type() protoreflect.MessageType {
+	return _fastReflection_MsgCardBan_messageType
 }
 
 // New returns a newly allocated and mutable empty message.
-func (x *fastReflection_MsgBanCard) New() protoreflect.Message {
-	return new(fastReflection_MsgBanCard)
+func (x *fastReflection_MsgCardBan) New() protoreflect.Message {
+	return new(fastReflection_MsgCardBan)
 }
 
 // Interface unwraps the message reflection interface and
 // returns the underlying ProtoMessage interface.
-func (x *fastReflection_MsgBanCard) Interface() protoreflect.ProtoMessage {
-	return (*MsgBanCard)(x)
+func (x *fastReflection_MsgCardBan) Interface() protoreflect.ProtoMessage {
+	return (*MsgCardBan)(x)
 }
 
 // Range iterates over every populated field in an undefined order,
@@ -44068,16 +44068,16 @@ func (x *fastReflection_MsgBanCard) Interface() protoreflect.ProtoMessage {
 // Range returns immediately if f returns false.
 // While iterating, mutating operations may only be performed
 // on the current field descriptor.
-func (x *fastReflection_MsgBanCard) Range(f func(protoreflect.FieldDescriptor, protoreflect.Value) bool) {
+func (x *fastReflection_MsgCardBan) Range(f func(protoreflect.FieldDescriptor, protoreflect.Value) bool) {
 	if x.Authority != "" {
 		value := protoreflect.ValueOfString(x.Authority)
-		if !f(fd_MsgBanCard_authority, value) {
+		if !f(fd_MsgCardBan_authority, value) {
 			return
 		}
 	}
 	if x.CardId != uint64(0) {
 		value := protoreflect.ValueOfUint64(x.CardId)
-		if !f(fd_MsgBanCard_cardId, value) {
+		if !f(fd_MsgCardBan_cardId, value) {
 			return
 		}
 	}
@@ -44094,17 +44094,17 @@ func (x *fastReflection_MsgBanCard) Range(f func(protoreflect.FieldDescriptor, p
 // In other cases (aside from the nullable cases above),
 // a proto3 scalar field is populated if it contains a non-zero value, and
 // a repeated field is populated if it is non-empty.
-func (x *fastReflection_MsgBanCard) Has(fd protoreflect.FieldDescriptor) bool {
+func (x *fastReflection_MsgCardBan) Has(fd protoreflect.FieldDescriptor) bool {
 	switch fd.FullName() {
-	case "cardchain.cardchain.MsgBanCard.authority":
+	case "cardchain.cardchain.MsgCardBan.authority":
 		return x.Authority != ""
-	case "cardchain.cardchain.MsgBanCard.cardId":
+	case "cardchain.cardchain.MsgCardBan.cardId":
 		return x.CardId != uint64(0)
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: cardchain.cardchain.MsgBanCard"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: cardchain.cardchain.MsgCardBan"))
 		}
-		panic(fmt.Errorf("message cardchain.cardchain.MsgBanCard does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message cardchain.cardchain.MsgCardBan does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -44114,17 +44114,17 @@ func (x *fastReflection_MsgBanCard) Has(fd protoreflect.FieldDescriptor) bool {
 // associated with the given field number.
 //
 // Clear is a mutating operation and unsafe for concurrent use.
-func (x *fastReflection_MsgBanCard) Clear(fd protoreflect.FieldDescriptor) {
+func (x *fastReflection_MsgCardBan) Clear(fd protoreflect.FieldDescriptor) {
 	switch fd.FullName() {
-	case "cardchain.cardchain.MsgBanCard.authority":
+	case "cardchain.cardchain.MsgCardBan.authority":
 		x.Authority = ""
-	case "cardchain.cardchain.MsgBanCard.cardId":
+	case "cardchain.cardchain.MsgCardBan.cardId":
 		x.CardId = uint64(0)
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: cardchain.cardchain.MsgBanCard"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: cardchain.cardchain.MsgCardBan"))
 		}
-		panic(fmt.Errorf("message cardchain.cardchain.MsgBanCard does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message cardchain.cardchain.MsgCardBan does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -44134,19 +44134,19 @@ func (x *fastReflection_MsgBanCard) Clear(fd protoreflect.FieldDescriptor) {
 // the default value of a bytes scalar is guaranteed to be a copy.
 // For unpopulated composite types, it returns an empty, read-only view
 // of the value; to obtain a mutable reference, use Mutable.
-func (x *fastReflection_MsgBanCard) Get(descriptor protoreflect.FieldDescriptor) protoreflect.Value {
+func (x *fastReflection_MsgCardBan) Get(descriptor protoreflect.FieldDescriptor) protoreflect.Value {
 	switch descriptor.FullName() {
-	case "cardchain.cardchain.MsgBanCard.authority":
+	case "cardchain.cardchain.MsgCardBan.authority":
 		value := x.Authority
 		return protoreflect.ValueOfString(value)
-	case "cardchain.cardchain.MsgBanCard.cardId":
+	case "cardchain.cardchain.MsgCardBan.cardId":
 		value := x.CardId
 		return protoreflect.ValueOfUint64(value)
 	default:
 		if descriptor.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: cardchain.cardchain.MsgBanCard"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: cardchain.cardchain.MsgCardBan"))
 		}
-		panic(fmt.Errorf("message cardchain.cardchain.MsgBanCard does not contain field %s", descriptor.FullName()))
+		panic(fmt.Errorf("message cardchain.cardchain.MsgCardBan does not contain field %s", descriptor.FullName()))
 	}
 }
 
@@ -44160,17 +44160,17 @@ func (x *fastReflection_MsgBanCard) Get(descriptor protoreflect.FieldDescriptor)
 // empty, read-only value, then it panics.
 //
 // Set is a mutating operation and unsafe for concurrent use.
-func (x *fastReflection_MsgBanCard) Set(fd protoreflect.FieldDescriptor, value protoreflect.Value) {
+func (x *fastReflection_MsgCardBan) Set(fd protoreflect.FieldDescriptor, value protoreflect.Value) {
 	switch fd.FullName() {
-	case "cardchain.cardchain.MsgBanCard.authority":
+	case "cardchain.cardchain.MsgCardBan.authority":
 		x.Authority = value.Interface().(string)
-	case "cardchain.cardchain.MsgBanCard.cardId":
+	case "cardchain.cardchain.MsgCardBan.cardId":
 		x.CardId = value.Uint()
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: cardchain.cardchain.MsgBanCard"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: cardchain.cardchain.MsgCardBan"))
 		}
-		panic(fmt.Errorf("message cardchain.cardchain.MsgBanCard does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message cardchain.cardchain.MsgCardBan does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -44184,44 +44184,44 @@ func (x *fastReflection_MsgBanCard) Set(fd protoreflect.FieldDescriptor, value p
 // It panics if the field does not contain a composite type.
 //
 // Mutable is a mutating operation and unsafe for concurrent use.
-func (x *fastReflection_MsgBanCard) Mutable(fd protoreflect.FieldDescriptor) protoreflect.Value {
+func (x *fastReflection_MsgCardBan) Mutable(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
-	case "cardchain.cardchain.MsgBanCard.authority":
-		panic(fmt.Errorf("field authority of message cardchain.cardchain.MsgBanCard is not mutable"))
-	case "cardchain.cardchain.MsgBanCard.cardId":
-		panic(fmt.Errorf("field cardId of message cardchain.cardchain.MsgBanCard is not mutable"))
+	case "cardchain.cardchain.MsgCardBan.authority":
+		panic(fmt.Errorf("field authority of message cardchain.cardchain.MsgCardBan is not mutable"))
+	case "cardchain.cardchain.MsgCardBan.cardId":
+		panic(fmt.Errorf("field cardId of message cardchain.cardchain.MsgCardBan is not mutable"))
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: cardchain.cardchain.MsgBanCard"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: cardchain.cardchain.MsgCardBan"))
 		}
-		panic(fmt.Errorf("message cardchain.cardchain.MsgBanCard does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message cardchain.cardchain.MsgCardBan does not contain field %s", fd.FullName()))
 	}
 }
 
 // NewField returns a new value that is assignable to the field
 // for the given descriptor. For scalars, this returns the default value.
 // For lists, maps, and messages, this returns a new, empty, mutable value.
-func (x *fastReflection_MsgBanCard) NewField(fd protoreflect.FieldDescriptor) protoreflect.Value {
+func (x *fastReflection_MsgCardBan) NewField(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
-	case "cardchain.cardchain.MsgBanCard.authority":
+	case "cardchain.cardchain.MsgCardBan.authority":
 		return protoreflect.ValueOfString("")
-	case "cardchain.cardchain.MsgBanCard.cardId":
+	case "cardchain.cardchain.MsgCardBan.cardId":
 		return protoreflect.ValueOfUint64(uint64(0))
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: cardchain.cardchain.MsgBanCard"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: cardchain.cardchain.MsgCardBan"))
 		}
-		panic(fmt.Errorf("message cardchain.cardchain.MsgBanCard does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message cardchain.cardchain.MsgCardBan does not contain field %s", fd.FullName()))
 	}
 }
 
 // WhichOneof reports which field within the oneof is populated,
 // returning nil if none are populated.
 // It panics if the oneof descriptor does not belong to this message.
-func (x *fastReflection_MsgBanCard) WhichOneof(d protoreflect.OneofDescriptor) protoreflect.FieldDescriptor {
+func (x *fastReflection_MsgCardBan) WhichOneof(d protoreflect.OneofDescriptor) protoreflect.FieldDescriptor {
 	switch d.FullName() {
 	default:
-		panic(fmt.Errorf("%s is not a oneof field in cardchain.cardchain.MsgBanCard", d.FullName()))
+		panic(fmt.Errorf("%s is not a oneof field in cardchain.cardchain.MsgCardBan", d.FullName()))
 	}
 	panic("unreachable")
 }
@@ -44229,7 +44229,7 @@ func (x *fastReflection_MsgBanCard) WhichOneof(d protoreflect.OneofDescriptor) p
 // GetUnknown retrieves the entire list of unknown fields.
 // The caller may only mutate the contents of the RawFields
 // if the mutated bytes are stored back into the message with SetUnknown.
-func (x *fastReflection_MsgBanCard) GetUnknown() protoreflect.RawFields {
+func (x *fastReflection_MsgCardBan) GetUnknown() protoreflect.RawFields {
 	return x.unknownFields
 }
 
@@ -44240,7 +44240,7 @@ func (x *fastReflection_MsgBanCard) GetUnknown() protoreflect.RawFields {
 // An empty RawFields may be passed to clear the fields.
 //
 // SetUnknown is a mutating operation and unsafe for concurrent use.
-func (x *fastReflection_MsgBanCard) SetUnknown(fields protoreflect.RawFields) {
+func (x *fastReflection_MsgCardBan) SetUnknown(fields protoreflect.RawFields) {
 	x.unknownFields = fields
 }
 
@@ -44252,7 +44252,7 @@ func (x *fastReflection_MsgBanCard) SetUnknown(fields protoreflect.RawFields) {
 // message type, but the details are implementation dependent.
 // Validity is not part of the protobuf data model, and may not
 // be preserved in marshaling or other operations.
-func (x *fastReflection_MsgBanCard) IsValid() bool {
+func (x *fastReflection_MsgCardBan) IsValid() bool {
 	return x != nil
 }
 
@@ -44262,9 +44262,9 @@ func (x *fastReflection_MsgBanCard) IsValid() bool {
 // The returned methods type is identical to
 // "google.golang.org/protobuf/runtime/protoiface".Methods.
 // Consult the protoiface package documentation for details.
-func (x *fastReflection_MsgBanCard) ProtoMethods() *protoiface.Methods {
+func (x *fastReflection_MsgCardBan) ProtoMethods() *protoiface.Methods {
 	size := func(input protoiface.SizeInput) protoiface.SizeOutput {
-		x := input.Message.Interface().(*MsgBanCard)
+		x := input.Message.Interface().(*MsgCardBan)
 		if x == nil {
 			return protoiface.SizeOutput{
 				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
@@ -44293,7 +44293,7 @@ func (x *fastReflection_MsgBanCard) ProtoMethods() *protoiface.Methods {
 	}
 
 	marshal := func(input protoiface.MarshalInput) (protoiface.MarshalOutput, error) {
-		x := input.Message.Interface().(*MsgBanCard)
+		x := input.Message.Interface().(*MsgCardBan)
 		if x == nil {
 			return protoiface.MarshalOutput{
 				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
@@ -44335,7 +44335,7 @@ func (x *fastReflection_MsgBanCard) ProtoMethods() *protoiface.Methods {
 		}, nil
 	}
 	unmarshal := func(input protoiface.UnmarshalInput) (protoiface.UnmarshalOutput, error) {
-		x := input.Message.Interface().(*MsgBanCard)
+		x := input.Message.Interface().(*MsgCardBan)
 		if x == nil {
 			return protoiface.UnmarshalOutput{
 				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
@@ -44367,10 +44367,10 @@ func (x *fastReflection_MsgBanCard) ProtoMethods() *protoiface.Methods {
 			fieldNum := int32(wire >> 3)
 			wireType := int(wire & 0x7)
 			if wireType == 4 {
-				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: MsgBanCard: wiretype end group for non-group")
+				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: MsgCardBan: wiretype end group for non-group")
 			}
 			if fieldNum <= 0 {
-				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: MsgBanCard: illegal tag %d (wire type %d)", fieldNum, wire)
+				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: MsgCardBan: illegal tag %d (wire type %d)", fieldNum, wire)
 			}
 			switch fieldNum {
 			case 1:
@@ -44460,23 +44460,23 @@ func (x *fastReflection_MsgBanCard) ProtoMethods() *protoiface.Methods {
 }
 
 var (
-	md_MsgBanCardResponse protoreflect.MessageDescriptor
+	md_MsgCardBanResponse protoreflect.MessageDescriptor
 )
 
 func init() {
 	file_cardchain_cardchain_tx_proto_init()
-	md_MsgBanCardResponse = File_cardchain_cardchain_tx_proto.Messages().ByName("MsgBanCardResponse")
+	md_MsgCardBanResponse = File_cardchain_cardchain_tx_proto.Messages().ByName("MsgCardBanResponse")
 }
 
-var _ protoreflect.Message = (*fastReflection_MsgBanCardResponse)(nil)
+var _ protoreflect.Message = (*fastReflection_MsgCardBanResponse)(nil)
 
-type fastReflection_MsgBanCardResponse MsgBanCardResponse
+type fastReflection_MsgCardBanResponse MsgCardBanResponse
 
-func (x *MsgBanCardResponse) ProtoReflect() protoreflect.Message {
-	return (*fastReflection_MsgBanCardResponse)(x)
+func (x *MsgCardBanResponse) ProtoReflect() protoreflect.Message {
+	return (*fastReflection_MsgCardBanResponse)(x)
 }
 
-func (x *MsgBanCardResponse) slowProtoReflect() protoreflect.Message {
+func (x *MsgCardBanResponse) slowProtoReflect() protoreflect.Message {
 	mi := &file_cardchain_cardchain_tx_proto_msgTypes[97]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -44488,43 +44488,43 @@ func (x *MsgBanCardResponse) slowProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-var _fastReflection_MsgBanCardResponse_messageType fastReflection_MsgBanCardResponse_messageType
-var _ protoreflect.MessageType = fastReflection_MsgBanCardResponse_messageType{}
+var _fastReflection_MsgCardBanResponse_messageType fastReflection_MsgCardBanResponse_messageType
+var _ protoreflect.MessageType = fastReflection_MsgCardBanResponse_messageType{}
 
-type fastReflection_MsgBanCardResponse_messageType struct{}
+type fastReflection_MsgCardBanResponse_messageType struct{}
 
-func (x fastReflection_MsgBanCardResponse_messageType) Zero() protoreflect.Message {
-	return (*fastReflection_MsgBanCardResponse)(nil)
+func (x fastReflection_MsgCardBanResponse_messageType) Zero() protoreflect.Message {
+	return (*fastReflection_MsgCardBanResponse)(nil)
 }
-func (x fastReflection_MsgBanCardResponse_messageType) New() protoreflect.Message {
-	return new(fastReflection_MsgBanCardResponse)
+func (x fastReflection_MsgCardBanResponse_messageType) New() protoreflect.Message {
+	return new(fastReflection_MsgCardBanResponse)
 }
-func (x fastReflection_MsgBanCardResponse_messageType) Descriptor() protoreflect.MessageDescriptor {
-	return md_MsgBanCardResponse
+func (x fastReflection_MsgCardBanResponse_messageType) Descriptor() protoreflect.MessageDescriptor {
+	return md_MsgCardBanResponse
 }
 
 // Descriptor returns message descriptor, which contains only the protobuf
 // type information for the message.
-func (x *fastReflection_MsgBanCardResponse) Descriptor() protoreflect.MessageDescriptor {
-	return md_MsgBanCardResponse
+func (x *fastReflection_MsgCardBanResponse) Descriptor() protoreflect.MessageDescriptor {
+	return md_MsgCardBanResponse
 }
 
 // Type returns the message type, which encapsulates both Go and protobuf
 // type information. If the Go type information is not needed,
 // it is recommended that the message descriptor be used instead.
-func (x *fastReflection_MsgBanCardResponse) Type() protoreflect.MessageType {
-	return _fastReflection_MsgBanCardResponse_messageType
+func (x *fastReflection_MsgCardBanResponse) Type() protoreflect.MessageType {
+	return _fastReflection_MsgCardBanResponse_messageType
 }
 
 // New returns a newly allocated and mutable empty message.
-func (x *fastReflection_MsgBanCardResponse) New() protoreflect.Message {
-	return new(fastReflection_MsgBanCardResponse)
+func (x *fastReflection_MsgCardBanResponse) New() protoreflect.Message {
+	return new(fastReflection_MsgCardBanResponse)
 }
 
 // Interface unwraps the message reflection interface and
 // returns the underlying ProtoMessage interface.
-func (x *fastReflection_MsgBanCardResponse) Interface() protoreflect.ProtoMessage {
-	return (*MsgBanCardResponse)(x)
+func (x *fastReflection_MsgCardBanResponse) Interface() protoreflect.ProtoMessage {
+	return (*MsgCardBanResponse)(x)
 }
 
 // Range iterates over every populated field in an undefined order,
@@ -44532,7 +44532,7 @@ func (x *fastReflection_MsgBanCardResponse) Interface() protoreflect.ProtoMessag
 // Range returns immediately if f returns false.
 // While iterating, mutating operations may only be performed
 // on the current field descriptor.
-func (x *fastReflection_MsgBanCardResponse) Range(f func(protoreflect.FieldDescriptor, protoreflect.Value) bool) {
+func (x *fastReflection_MsgCardBanResponse) Range(f func(protoreflect.FieldDescriptor, protoreflect.Value) bool) {
 }
 
 // Has reports whether a field is populated.
@@ -44546,13 +44546,13 @@ func (x *fastReflection_MsgBanCardResponse) Range(f func(protoreflect.FieldDescr
 // In other cases (aside from the nullable cases above),
 // a proto3 scalar field is populated if it contains a non-zero value, and
 // a repeated field is populated if it is non-empty.
-func (x *fastReflection_MsgBanCardResponse) Has(fd protoreflect.FieldDescriptor) bool {
+func (x *fastReflection_MsgCardBanResponse) Has(fd protoreflect.FieldDescriptor) bool {
 	switch fd.FullName() {
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: cardchain.cardchain.MsgBanCardResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: cardchain.cardchain.MsgCardBanResponse"))
 		}
-		panic(fmt.Errorf("message cardchain.cardchain.MsgBanCardResponse does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message cardchain.cardchain.MsgCardBanResponse does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -44562,13 +44562,13 @@ func (x *fastReflection_MsgBanCardResponse) Has(fd protoreflect.FieldDescriptor)
 // associated with the given field number.
 //
 // Clear is a mutating operation and unsafe for concurrent use.
-func (x *fastReflection_MsgBanCardResponse) Clear(fd protoreflect.FieldDescriptor) {
+func (x *fastReflection_MsgCardBanResponse) Clear(fd protoreflect.FieldDescriptor) {
 	switch fd.FullName() {
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: cardchain.cardchain.MsgBanCardResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: cardchain.cardchain.MsgCardBanResponse"))
 		}
-		panic(fmt.Errorf("message cardchain.cardchain.MsgBanCardResponse does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message cardchain.cardchain.MsgCardBanResponse does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -44578,13 +44578,13 @@ func (x *fastReflection_MsgBanCardResponse) Clear(fd protoreflect.FieldDescripto
 // the default value of a bytes scalar is guaranteed to be a copy.
 // For unpopulated composite types, it returns an empty, read-only view
 // of the value; to obtain a mutable reference, use Mutable.
-func (x *fastReflection_MsgBanCardResponse) Get(descriptor protoreflect.FieldDescriptor) protoreflect.Value {
+func (x *fastReflection_MsgCardBanResponse) Get(descriptor protoreflect.FieldDescriptor) protoreflect.Value {
 	switch descriptor.FullName() {
 	default:
 		if descriptor.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: cardchain.cardchain.MsgBanCardResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: cardchain.cardchain.MsgCardBanResponse"))
 		}
-		panic(fmt.Errorf("message cardchain.cardchain.MsgBanCardResponse does not contain field %s", descriptor.FullName()))
+		panic(fmt.Errorf("message cardchain.cardchain.MsgCardBanResponse does not contain field %s", descriptor.FullName()))
 	}
 }
 
@@ -44598,13 +44598,13 @@ func (x *fastReflection_MsgBanCardResponse) Get(descriptor protoreflect.FieldDes
 // empty, read-only value, then it panics.
 //
 // Set is a mutating operation and unsafe for concurrent use.
-func (x *fastReflection_MsgBanCardResponse) Set(fd protoreflect.FieldDescriptor, value protoreflect.Value) {
+func (x *fastReflection_MsgCardBanResponse) Set(fd protoreflect.FieldDescriptor, value protoreflect.Value) {
 	switch fd.FullName() {
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: cardchain.cardchain.MsgBanCardResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: cardchain.cardchain.MsgCardBanResponse"))
 		}
-		panic(fmt.Errorf("message cardchain.cardchain.MsgBanCardResponse does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message cardchain.cardchain.MsgCardBanResponse does not contain field %s", fd.FullName()))
 	}
 }
 
@@ -44618,36 +44618,36 @@ func (x *fastReflection_MsgBanCardResponse) Set(fd protoreflect.FieldDescriptor,
 // It panics if the field does not contain a composite type.
 //
 // Mutable is a mutating operation and unsafe for concurrent use.
-func (x *fastReflection_MsgBanCardResponse) Mutable(fd protoreflect.FieldDescriptor) protoreflect.Value {
+func (x *fastReflection_MsgCardBanResponse) Mutable(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: cardchain.cardchain.MsgBanCardResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: cardchain.cardchain.MsgCardBanResponse"))
 		}
-		panic(fmt.Errorf("message cardchain.cardchain.MsgBanCardResponse does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message cardchain.cardchain.MsgCardBanResponse does not contain field %s", fd.FullName()))
 	}
 }
 
 // NewField returns a new value that is assignable to the field
 // for the given descriptor. For scalars, this returns the default value.
 // For lists, maps, and messages, this returns a new, empty, mutable value.
-func (x *fastReflection_MsgBanCardResponse) NewField(fd protoreflect.FieldDescriptor) protoreflect.Value {
+func (x *fastReflection_MsgCardBanResponse) NewField(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
 	default:
 		if fd.IsExtension() {
-			panic(fmt.Errorf("proto3 declared messages do not support extensions: cardchain.cardchain.MsgBanCardResponse"))
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: cardchain.cardchain.MsgCardBanResponse"))
 		}
-		panic(fmt.Errorf("message cardchain.cardchain.MsgBanCardResponse does not contain field %s", fd.FullName()))
+		panic(fmt.Errorf("message cardchain.cardchain.MsgCardBanResponse does not contain field %s", fd.FullName()))
 	}
 }
 
 // WhichOneof reports which field within the oneof is populated,
 // returning nil if none are populated.
 // It panics if the oneof descriptor does not belong to this message.
-func (x *fastReflection_MsgBanCardResponse) WhichOneof(d protoreflect.OneofDescriptor) protoreflect.FieldDescriptor {
+func (x *fastReflection_MsgCardBanResponse) WhichOneof(d protoreflect.OneofDescriptor) protoreflect.FieldDescriptor {
 	switch d.FullName() {
 	default:
-		panic(fmt.Errorf("%s is not a oneof field in cardchain.cardchain.MsgBanCardResponse", d.FullName()))
+		panic(fmt.Errorf("%s is not a oneof field in cardchain.cardchain.MsgCardBanResponse", d.FullName()))
 	}
 	panic("unreachable")
 }
@@ -44655,7 +44655,7 @@ func (x *fastReflection_MsgBanCardResponse) WhichOneof(d protoreflect.OneofDescr
 // GetUnknown retrieves the entire list of unknown fields.
 // The caller may only mutate the contents of the RawFields
 // if the mutated bytes are stored back into the message with SetUnknown.
-func (x *fastReflection_MsgBanCardResponse) GetUnknown() protoreflect.RawFields {
+func (x *fastReflection_MsgCardBanResponse) GetUnknown() protoreflect.RawFields {
 	return x.unknownFields
 }
 
@@ -44666,7 +44666,7 @@ func (x *fastReflection_MsgBanCardResponse) GetUnknown() protoreflect.RawFields 
 // An empty RawFields may be passed to clear the fields.
 //
 // SetUnknown is a mutating operation and unsafe for concurrent use.
-func (x *fastReflection_MsgBanCardResponse) SetUnknown(fields protoreflect.RawFields) {
+func (x *fastReflection_MsgCardBanResponse) SetUnknown(fields protoreflect.RawFields) {
 	x.unknownFields = fields
 }
 
@@ -44678,7 +44678,7 @@ func (x *fastReflection_MsgBanCardResponse) SetUnknown(fields protoreflect.RawFi
 // message type, but the details are implementation dependent.
 // Validity is not part of the protobuf data model, and may not
 // be preserved in marshaling or other operations.
-func (x *fastReflection_MsgBanCardResponse) IsValid() bool {
+func (x *fastReflection_MsgCardBanResponse) IsValid() bool {
 	return x != nil
 }
 
@@ -44688,9 +44688,9 @@ func (x *fastReflection_MsgBanCardResponse) IsValid() bool {
 // The returned methods type is identical to
 // "google.golang.org/protobuf/runtime/protoiface".Methods.
 // Consult the protoiface package documentation for details.
-func (x *fastReflection_MsgBanCardResponse) ProtoMethods() *protoiface.Methods {
+func (x *fastReflection_MsgCardBanResponse) ProtoMethods() *protoiface.Methods {
 	size := func(input protoiface.SizeInput) protoiface.SizeOutput {
-		x := input.Message.Interface().(*MsgBanCardResponse)
+		x := input.Message.Interface().(*MsgCardBanResponse)
 		if x == nil {
 			return protoiface.SizeOutput{
 				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
@@ -44712,7 +44712,7 @@ func (x *fastReflection_MsgBanCardResponse) ProtoMethods() *protoiface.Methods {
 	}
 
 	marshal := func(input protoiface.MarshalInput) (protoiface.MarshalOutput, error) {
-		x := input.Message.Interface().(*MsgBanCardResponse)
+		x := input.Message.Interface().(*MsgCardBanResponse)
 		if x == nil {
 			return protoiface.MarshalOutput{
 				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
@@ -44742,7 +44742,7 @@ func (x *fastReflection_MsgBanCardResponse) ProtoMethods() *protoiface.Methods {
 		}, nil
 	}
 	unmarshal := func(input protoiface.UnmarshalInput) (protoiface.UnmarshalOutput, error) {
-		x := input.Message.Interface().(*MsgBanCardResponse)
+		x := input.Message.Interface().(*MsgCardBanResponse)
 		if x == nil {
 			return protoiface.UnmarshalOutput{
 				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
@@ -44774,10 +44774,10 @@ func (x *fastReflection_MsgBanCardResponse) ProtoMethods() *protoiface.Methods {
 			fieldNum := int32(wire >> 3)
 			wireType := int(wire & 0x7)
 			if wireType == 4 {
-				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: MsgBanCardResponse: wiretype end group for non-group")
+				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: MsgCardBanResponse: wiretype end group for non-group")
 			}
 			if fieldNum <= 0 {
-				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: MsgBanCardResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: MsgCardBanResponse: illegal tag %d (wire type %d)", fieldNum, wire)
 			}
 			switch fieldNum {
 			default:
@@ -48545,7 +48545,7 @@ func (*MsgEarlyAccessDisinviteResponse) Descriptor() ([]byte, []int) {
 	return file_cardchain_cardchain_tx_proto_rawDescGZIP(), []int{95}
 }
 
-type MsgBanCard struct {
+type MsgCardBan struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
@@ -48554,8 +48554,8 @@ type MsgBanCard struct {
 	CardId    uint64 `protobuf:"varint,2,opt,name=cardId,proto3" json:"cardId,omitempty"`
 }
 
-func (x *MsgBanCard) Reset() {
-	*x = MsgBanCard{}
+func (x *MsgCardBan) Reset() {
+	*x = MsgCardBan{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_cardchain_cardchain_tx_proto_msgTypes[96]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -48563,39 +48563,39 @@ func (x *MsgBanCard) Reset() {
 	}
 }
 
-func (x *MsgBanCard) String() string {
+func (x *MsgCardBan) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*MsgBanCard) ProtoMessage() {}
+func (*MsgCardBan) ProtoMessage() {}
 
-// Deprecated: Use MsgBanCard.ProtoReflect.Descriptor instead.
-func (*MsgBanCard) Descriptor() ([]byte, []int) {
+// Deprecated: Use MsgCardBan.ProtoReflect.Descriptor instead.
+func (*MsgCardBan) Descriptor() ([]byte, []int) {
 	return file_cardchain_cardchain_tx_proto_rawDescGZIP(), []int{96}
 }
 
-func (x *MsgBanCard) GetAuthority() string {
+func (x *MsgCardBan) GetAuthority() string {
 	if x != nil {
 		return x.Authority
 	}
 	return ""
 }
 
-func (x *MsgBanCard) GetCardId() uint64 {
+func (x *MsgCardBan) GetCardId() uint64 {
 	if x != nil {
 		return x.CardId
 	}
 	return 0
 }
 
-type MsgBanCardResponse struct {
+type MsgCardBanResponse struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 }
 
-func (x *MsgBanCardResponse) Reset() {
-	*x = MsgBanCardResponse{}
+func (x *MsgCardBanResponse) Reset() {
+	*x = MsgCardBanResponse{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_cardchain_cardchain_tx_proto_msgTypes[97]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -48603,14 +48603,14 @@ func (x *MsgBanCardResponse) Reset() {
 	}
 }
 
-func (x *MsgBanCardResponse) String() string {
+func (x *MsgCardBanResponse) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*MsgBanCardResponse) ProtoMessage() {}
+func (*MsgCardBanResponse) ProtoMessage() {}
 
-// Deprecated: Use MsgBanCardResponse.ProtoReflect.Descriptor instead.
-func (*MsgBanCardResponse) Descriptor() ([]byte, []int) {
+// Deprecated: Use MsgCardBanResponse.ProtoReflect.Descriptor instead.
+func (*MsgCardBanResponse) Descriptor() ([]byte, []int) {
 	return file_cardchain_cardchain_tx_proto_rawDescGZIP(), []int{97}
 }
 
@@ -49103,14 +49103,14 @@ var file_cardchain_cardchain_tx_proto_rawDesc = []byte{
 	0xb0, 0x2a, 0x07, 0x63, 0x72, 0x65, 0x61, 0x74, 0x6f, 0x72, 0x22, 0x21, 0x0a, 0x1f, 0x4d, 0x73,
 	0x67, 0x45, 0x61, 0x72, 0x6c, 0x79, 0x41, 0x63, 0x63, 0x65, 0x73, 0x73, 0x44, 0x69, 0x73, 0x69,
 	0x6e, 0x76, 0x69, 0x74, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x6c, 0x0a,
-	0x0a, 0x4d, 0x73, 0x67, 0x42, 0x61, 0x6e, 0x43, 0x61, 0x72, 0x64, 0x12, 0x36, 0x0a, 0x09, 0x61,
+	0x0a, 0x4d, 0x73, 0x67, 0x43, 0x61, 0x72, 0x64, 0x42, 0x61, 0x6e, 0x12, 0x36, 0x0a, 0x09, 0x61,
 	0x75, 0x74, 0x68, 0x6f, 0x72, 0x69, 0x74, 0x79, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x42, 0x18,
 	0xd2, 0xb4, 0x2d, 0x14, 0x63, 0x6f, 0x73, 0x6d, 0x6f, 0x73, 0x2e, 0x41, 0x64, 0x64, 0x72, 0x65,
 	0x73, 0x73, 0x53, 0x74, 0x72, 0x69, 0x6e, 0x67, 0x52, 0x09, 0x61, 0x75, 0x74, 0x68, 0x6f, 0x72,
 	0x69, 0x74, 0x79, 0x12, 0x16, 0x0a, 0x06, 0x63, 0x61, 0x72, 0x64, 0x49, 0x64, 0x18, 0x02, 0x20,
 	0x01, 0x28, 0x04, 0x52, 0x06, 0x63, 0x61, 0x72, 0x64, 0x49, 0x64, 0x3a, 0x0e, 0x82, 0xe7, 0xb0,
 	0x2a, 0x09, 0x61, 0x75, 0x74, 0x68, 0x6f, 0x72, 0x69, 0x74, 0x79, 0x22, 0x14, 0x0a, 0x12, 0x4d,
-	0x73, 0x67, 0x42, 0x61, 0x6e, 0x43, 0x61, 0x72, 0x64, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73,
+	0x73, 0x67, 0x43, 0x61, 0x72, 0x64, 0x42, 0x61, 0x6e, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73,
 	0x65, 0x32, 0xbb, 0x28, 0x0a, 0x03, 0x4d, 0x73, 0x67, 0x12, 0x62, 0x0a, 0x0c, 0x55, 0x70, 0x64,
 	0x61, 0x74, 0x65, 0x50, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x12, 0x24, 0x2e, 0x63, 0x61, 0x72, 0x64,
 	0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e,
@@ -49429,11 +49429,11 @@ var file_cardchain_cardchain_tx_proto_rawDesc = []byte{
 	0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68,
 	0x61, 0x69, 0x6e, 0x2e, 0x4d, 0x73, 0x67, 0x45, 0x61, 0x72, 0x6c, 0x79, 0x41, 0x63, 0x63, 0x65,
 	0x73, 0x73, 0x44, 0x69, 0x73, 0x69, 0x6e, 0x76, 0x69, 0x74, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f,
-	0x6e, 0x73, 0x65, 0x12, 0x53, 0x0a, 0x07, 0x42, 0x61, 0x6e, 0x43, 0x61, 0x72, 0x64, 0x12, 0x1f,
+	0x6e, 0x73, 0x65, 0x12, 0x53, 0x0a, 0x07, 0x43, 0x61, 0x72, 0x64, 0x42, 0x61, 0x6e, 0x12, 0x1f,
 	0x2e, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63,
-	0x68, 0x61, 0x69, 0x6e, 0x2e, 0x4d, 0x73, 0x67, 0x42, 0x61, 0x6e, 0x43, 0x61, 0x72, 0x64, 0x1a,
+	0x68, 0x61, 0x69, 0x6e, 0x2e, 0x4d, 0x73, 0x67, 0x43, 0x61, 0x72, 0x64, 0x42, 0x61, 0x6e, 0x1a,
 	0x27, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x63, 0x61, 0x72, 0x64,
-	0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x4d, 0x73, 0x67, 0x42, 0x61, 0x6e, 0x43, 0x61, 0x72, 0x64,
+	0x63, 0x68, 0x61, 0x69, 0x6e, 0x2e, 0x4d, 0x73, 0x67, 0x43, 0x61, 0x72, 0x64, 0x42, 0x61, 0x6e,
 	0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x1a, 0x05, 0x80, 0xe7, 0xb0, 0x2a, 0x01, 0x42,
 	0xcf, 0x01, 0x0a, 0x17, 0x63, 0x6f, 0x6d, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69,
 	0x6e, 0x2e, 0x63, 0x61, 0x72, 0x64, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x42, 0x07, 0x54, 0x78, 0x50,
@@ -49561,8 +49561,8 @@ var file_cardchain_cardchain_tx_proto_goTypes = []interface{}{
 	(*MsgEncounterCloseResponse)(nil),        // 93: cardchain.cardchain.MsgEncounterCloseResponse
 	(*MsgEarlyAccessDisinvite)(nil),          // 94: cardchain.cardchain.MsgEarlyAccessDisinvite
 	(*MsgEarlyAccessDisinviteResponse)(nil),  // 95: cardchain.cardchain.MsgEarlyAccessDisinviteResponse
-	(*MsgBanCard)(nil),                       // 96: cardchain.cardchain.MsgBanCard
-	(*MsgBanCardResponse)(nil),               // 97: cardchain.cardchain.MsgBanCardResponse
+	(*MsgCardBan)(nil),                       // 96: cardchain.cardchain.MsgCardBan
+	(*MsgCardBanResponse)(nil),               // 97: cardchain.cardchain.MsgCardBanResponse
 	nil,                                      // 98: cardchain.cardchain.MsgEncounterCreate.ParametersEntry
 	(*Params)(nil),                           // 99: cardchain.cardchain.Params
 	(*v1beta1.Coin)(nil),                     // 100: cosmos.base.v1beta1.Coin
@@ -49632,7 +49632,7 @@ var file_cardchain_cardchain_tx_proto_depIdxs = []int32{
 	90,  // 57: cardchain.cardchain.Msg.EncounterDo:input_type -> cardchain.cardchain.MsgEncounterDo
 	92,  // 58: cardchain.cardchain.Msg.EncounterClose:input_type -> cardchain.cardchain.MsgEncounterClose
 	94,  // 59: cardchain.cardchain.Msg.EarlyAccessDisinvite:input_type -> cardchain.cardchain.MsgEarlyAccessDisinvite
-	96,  // 60: cardchain.cardchain.Msg.BanCard:input_type -> cardchain.cardchain.MsgBanCard
+	96,  // 60: cardchain.cardchain.Msg.CardBan:input_type -> cardchain.cardchain.MsgCardBan
 	1,   // 61: cardchain.cardchain.Msg.UpdateParams:output_type -> cardchain.cardchain.MsgUpdateParamsResponse
 	3,   // 62: cardchain.cardchain.Msg.UserCreate:output_type -> cardchain.cardchain.MsgUserCreateResponse
 	5,   // 63: cardchain.cardchain.Msg.CardSchemeBuy:output_type -> cardchain.cardchain.MsgCardSchemeBuyResponse
@@ -49681,7 +49681,7 @@ var file_cardchain_cardchain_tx_proto_depIdxs = []int32{
 	91,  // 106: cardchain.cardchain.Msg.EncounterDo:output_type -> cardchain.cardchain.MsgEncounterDoResponse
 	93,  // 107: cardchain.cardchain.Msg.EncounterClose:output_type -> cardchain.cardchain.MsgEncounterCloseResponse
 	95,  // 108: cardchain.cardchain.Msg.EarlyAccessDisinvite:output_type -> cardchain.cardchain.MsgEarlyAccessDisinviteResponse
-	97,  // 109: cardchain.cardchain.Msg.BanCard:output_type -> cardchain.cardchain.MsgBanCardResponse
+	97,  // 109: cardchain.cardchain.Msg.CardBan:output_type -> cardchain.cardchain.MsgCardBanResponse
 	61,  // [61:110] is the sub-list for method output_type
 	12,  // [12:61] is the sub-list for method input_type
 	12,  // [12:12] is the sub-list for extension type_name
@@ -50853,7 +50853,7 @@ func file_cardchain_cardchain_tx_proto_init() {
 			}
 		}
 		file_cardchain_cardchain_tx_proto_msgTypes[96].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*MsgBanCard); i {
+			switch v := v.(*MsgCardBan); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -50865,7 +50865,7 @@ func file_cardchain_cardchain_tx_proto_init() {
 			}
 		}
 		file_cardchain_cardchain_tx_proto_msgTypes[97].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*MsgBanCardResponse); i {
+			switch v := v.(*MsgCardBanResponse); i {
 			case 0:
 				return &v.state
 			case 1:

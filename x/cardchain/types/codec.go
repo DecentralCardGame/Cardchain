@@ -150,7 +150,7 @@ func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {
 		&MsgEarlyAccessDisinvite{},
 	)
 	registry.RegisterImplementations((*sdk.Msg)(nil),
-		&MsgBanCard{},
+		&MsgCardBan{},
 	)
 	// this line is used by starport scaffolding # 3
 

@@ -211,9 +211,9 @@ const (
 	// TODO: Determine the simulation weight value
 	defaultWeightMsgEarlyAccessDisinvite int = 100
 
-	opWeightMsgBanCard = "op_weight_msg_ban_card"
+	opWeightMsgCardBan = "op_weight_msg_ban_card"
 	// TODO: Determine the simulation weight value
-	defaultWeightMsgBanCard int = 100
+	defaultWeightMsgCardBan int = 100
 
 	// this line is used by starport scaffolding # simapp/module/const
 )
@@ -755,15 +755,15 @@ func (am AppModule) WeightedOperations(simState module.SimulationState) []simtyp
 		cardchainsimulation.SimulateMsgEarlyAccessDisinvite(am.accountKeeper, am.bankKeeper, am.keeper),
 	))
 
-	var weightMsgBanCard int
-	simState.AppParams.GetOrGenerate(opWeightMsgBanCard, &weightMsgBanCard, nil,
+	var weightMsgCardBan int
+	simState.AppParams.GetOrGenerate(opWeightMsgCardBan, &weightMsgCardBan, nil,
 		func(_ *rand.Rand) {
-			weightMsgBanCard = defaultWeightMsgBanCard
+			weightMsgCardBan = defaultWeightMsgCardBan
 		},
 	)
 	operations = append(operations, simulation.NewWeightedOperation(
-		weightMsgBanCard,
-		cardchainsimulation.SimulateMsgBanCard(am.accountKeeper, am.bankKeeper, am.keeper),
+		weightMsgCardBan,
+		cardchainsimulation.SimulateMsgCardBan(am.accountKeeper, am.bankKeeper, am.keeper),
 	))
 
 	// this line is used by starport scaffolding # simapp/module/operation
@@ -1151,10 +1151,10 @@ func (am AppModule) ProposalMsgs(simState module.SimulationState) []simtypes.Wei
 			},
 		),
 		simulation.NewWeightedProposalMsg(
-			opWeightMsgBanCard,
-			defaultWeightMsgBanCard,
+			opWeightMsgCardBan,
+			defaultWeightMsgCardBan,
 			func(r *rand.Rand, ctx sdk.Context, accs []simtypes.Account) sdk.Msg {
-				cardchainsimulation.SimulateMsgBanCard(am.accountKeeper, am.bankKeeper, am.keeper)
+				cardchainsimulation.SimulateMsgCardBan(am.accountKeeper, am.bankKeeper, am.keeper)
 				return nil
 			},
 		),

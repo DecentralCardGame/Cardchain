@@ -8,21 +8,21 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func TestMsgBanCard_ValidateBasic(t *testing.T) {
+func TestMsgCardBan_ValidateBasic(t *testing.T) {
 	tests := []struct {
 		name string
-		msg  MsgBanCard
+		msg  MsgCardBan
 		err  error
 	}{
 		{
 			name: "invalid address",
-			msg: MsgBanCard{
+			msg: MsgCardBan{
 				Authority: "invalid_address",
 			},
 			err: sdkerrors.ErrInvalidAddress,
 		}, {
 			name: "valid address",
-			msg: MsgBanCard{
+			msg: MsgCardBan{
 				Authority: sample.AccAddress(),
 			},
 		},

@@ -8,7 +8,7 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
-func (k msgServer) BanCard(goCtx context.Context, msg *types.MsgBanCard) (*types.MsgBanCardResponse, error) {
+func (k msgServer) CardBan(goCtx context.Context, msg *types.MsgCardBan) (*types.MsgCardBanResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
 	if k.authority != msg.Authority {
@@ -25,5 +25,5 @@ func (k msgServer) BanCard(goCtx context.Context, msg *types.MsgBanCard) (*types
 
 	k.CardK.Set(ctx, msg.CardId, card)
 
-	return &types.MsgBanCardResponse{}, nil
+	return &types.MsgCardBanResponse{}, nil
 }

@@ -67,7 +67,7 @@ const (
 	Msg_EncounterDo_FullMethodName           = "/cardchain.cardchain.Msg/EncounterDo"
 	Msg_EncounterClose_FullMethodName        = "/cardchain.cardchain.Msg/EncounterClose"
 	Msg_EarlyAccessDisinvite_FullMethodName  = "/cardchain.cardchain.Msg/EarlyAccessDisinvite"
-	Msg_BanCard_FullMethodName               = "/cardchain.cardchain.Msg/BanCard"
+	Msg_CardBan_FullMethodName               = "/cardchain.cardchain.Msg/CardBan"
 )
 
 // MsgClient is the client API for Msg service.
@@ -124,7 +124,7 @@ type MsgClient interface {
 	EncounterDo(ctx context.Context, in *MsgEncounterDo, opts ...grpc.CallOption) (*MsgEncounterDoResponse, error)
 	EncounterClose(ctx context.Context, in *MsgEncounterClose, opts ...grpc.CallOption) (*MsgEncounterCloseResponse, error)
 	EarlyAccessDisinvite(ctx context.Context, in *MsgEarlyAccessDisinvite, opts ...grpc.CallOption) (*MsgEarlyAccessDisinviteResponse, error)
-	BanCard(ctx context.Context, in *MsgBanCard, opts ...grpc.CallOption) (*MsgBanCardResponse, error)
+	CardBan(ctx context.Context, in *MsgCardBan, opts ...grpc.CallOption) (*MsgCardBanResponse, error)
 }
 
 type msgClient struct {
@@ -567,9 +567,9 @@ func (c *msgClient) EarlyAccessDisinvite(ctx context.Context, in *MsgEarlyAccess
 	return out, nil
 }
 
-func (c *msgClient) BanCard(ctx context.Context, in *MsgBanCard, opts ...grpc.CallOption) (*MsgBanCardResponse, error) {
-	out := new(MsgBanCardResponse)
-	err := c.cc.Invoke(ctx, Msg_BanCard_FullMethodName, in, out, opts...)
+func (c *msgClient) CardBan(ctx context.Context, in *MsgCardBan, opts ...grpc.CallOption) (*MsgCardBanResponse, error) {
+	out := new(MsgCardBanResponse)
+	err := c.cc.Invoke(ctx, Msg_CardBan_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -630,7 +630,7 @@ type MsgServer interface {
 	EncounterDo(context.Context, *MsgEncounterDo) (*MsgEncounterDoResponse, error)
 	EncounterClose(context.Context, *MsgEncounterClose) (*MsgEncounterCloseResponse, error)
 	EarlyAccessDisinvite(context.Context, *MsgEarlyAccessDisinvite) (*MsgEarlyAccessDisinviteResponse, error)
-	BanCard(context.Context, *MsgBanCard) (*MsgBanCardResponse, error)
+	CardBan(context.Context, *MsgCardBan) (*MsgCardBanResponse, error)
 	mustEmbedUnimplementedMsgServer()
 }
 
@@ -782,8 +782,8 @@ func (UnimplementedMsgServer) EncounterClose(context.Context, *MsgEncounterClose
 func (UnimplementedMsgServer) EarlyAccessDisinvite(context.Context, *MsgEarlyAccessDisinvite) (*MsgEarlyAccessDisinviteResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method EarlyAccessDisinvite not implemented")
 }
-func (UnimplementedMsgServer) BanCard(context.Context, *MsgBanCard) (*MsgBanCardResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method BanCard not implemented")
+func (UnimplementedMsgServer) CardBan(context.Context, *MsgCardBan) (*MsgCardBanResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CardBan not implemented")
 }
 func (UnimplementedMsgServer) mustEmbedUnimplementedMsgServer() {}
 
@@ -1662,20 +1662,20 @@ func _Msg_EarlyAccessDisinvite_Handler(srv interface{}, ctx context.Context, dec
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Msg_BanCard_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(MsgBanCard)
+func _Msg_CardBan_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgCardBan)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(MsgServer).BanCard(ctx, in)
+		return srv.(MsgServer).CardBan(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Msg_BanCard_FullMethodName,
+		FullMethod: Msg_CardBan_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MsgServer).BanCard(ctx, req.(*MsgBanCard))
+		return srv.(MsgServer).CardBan(ctx, req.(*MsgCardBan))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1880,8 +1880,8 @@ var Msg_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _Msg_EarlyAccessDisinvite_Handler,
 		},
 		{
-			MethodName: "BanCard",
-			Handler:    _Msg_BanCard_Handler,
+			MethodName: "CardBan",
+			Handler:    _Msg_CardBan_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

@@ -81,7 +81,7 @@ service Msg {
   rpc EncounterClose(MsgEncounterClose) returns (MsgEncounterCloseResponse);
   rpc EarlyAccessDisinvite(MsgEarlyAccessDisinvite)
       returns (MsgEarlyAccessDisinviteResponse);
-  rpc BanCard(MsgBanCard) returns (MsgBanCardResponse);
+  rpc CardBan(MsgCardBan) returns (MsgCardBanResponse);
 }
 // MsgUpdateParams is the Msg/UpdateParams request type.
 message MsgUpdateParams {
@@ -521,11 +521,11 @@ message MsgEarlyAccessDisinvite {
 
 message MsgEarlyAccessDisinviteResponse {}
 
-message MsgBanCard {
+message MsgCardBan {
   option (cosmos.msg.v1.signer) = "authority";
 
   string authority = 1 [ (cosmos_proto.scalar) = "cosmos.AddressString" ];
   uint64 cardId = 2;
 }
 
-message MsgBanCardResponse {}
+message MsgCardBanResponse {}

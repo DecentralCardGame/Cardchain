@@ -460,9 +460,9 @@ func (am AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "user"}},
 				},
 				{
-					RpcMethod:      "BanCard",
+					RpcMethod:      "CardBan",
 					Use:            "ban-card [card-id]",
-					Short:          "Send a BanCard tx",
+					Short:          "Send a CardBan tx",
 					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "cardId"}},
 				},
 				// this line is used by ignite scaffolding # autocli/tx

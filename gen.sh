@@ -49,4 +49,5 @@
 #ignite scaffold message EncounterCreate name drawlist:uints parameters image
 #ignite scaffold message EncounterDo encounterId:uint user
 #ignite scaffold message EncounterClose encounterId:uint user won:bool
-ignite scaffold message BanCard cardId:uint --signer authority -y
+#ignite scaffold message CardBan cardId:uint --signer authority -y
+#ignite scaffold message CardBan cardId:uint --signer authority -y
