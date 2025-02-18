@@ -17,13 +17,13 @@ func TestMsgMatchReporterAppoint_ValidateBasic(t *testing.T) {
 		{
 			name: "invalid address",
 			msg: MsgMatchReporterAppoint{
-				Creator: "invalid_address",
+				Authority: "invalid_address",
 			},
 			err: sdkerrors.ErrInvalidAddress,
 		}, {
 			name: "valid address",
 			msg: MsgMatchReporterAppoint{
-				Creator: sample.AccAddress(),
+				Authority: sample.AccAddress(),
 			},
 		},
 	}

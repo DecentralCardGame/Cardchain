@@ -8,15 +8,15 @@ import (
 
 var _ sdk.Msg = &MsgMatchReporterAppoint{}
 
-func NewMsgMatchReporterAppoint(creator string, reporter string) *MsgMatchReporterAppoint {
+func NewMsgMatchReporterAppoint(authority string, reporter string) *MsgMatchReporterAppoint {
 	return &MsgMatchReporterAppoint{
-		Creator:  creator,
-		Reporter: reporter,
+		Authority: authority,
+		Reporter:  reporter,
 	}
 }
 
 func (msg *MsgMatchReporterAppoint) ValidateBasic() error {
-	_, err := sdk.AccAddressFromBech32(msg.Creator)
+	_, err := sdk.AccAddressFromBech32(msg.Authority)
 	if err != nil {
 		return errorsmod.Wrapf(sdkerrors.ErrInvalidAddress, "invalid creator address (%s)", err)
 	}

@@ -19,7 +19,7 @@ func SimulateMsgMatchReporterAppoint(
 	) (simtypes.OperationMsg, []simtypes.FutureOperation, error) {
 		simAccount, _ := simtypes.RandomAcc(r, accs)
 		msg := &types.MsgMatchReporterAppoint{
-			Creator: simAccount.Address.String(),
+			Authority: simAccount.Address.String(),
 		}
 
 		// TODO: Handling the MatchReporterAppoint simulation

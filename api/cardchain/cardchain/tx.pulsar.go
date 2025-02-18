@@ -11947,15 +11947,15 @@ func (x *fastReflection_MsgCouncilCreateResponse) ProtoMethods() *protoiface.Met
 }
 
 var (
-	md_MsgMatchReporterAppoint          protoreflect.MessageDescriptor
-	fd_MsgMatchReporterAppoint_creator  protoreflect.FieldDescriptor
-	fd_MsgMatchReporterAppoint_reporter protoreflect.FieldDescriptor
+	md_MsgMatchReporterAppoint           protoreflect.MessageDescriptor
+	fd_MsgMatchReporterAppoint_authority protoreflect.FieldDescriptor
+	fd_MsgMatchReporterAppoint_reporter  protoreflect.FieldDescriptor
 )
 
 func init() {
 	file_cardchain_cardchain_tx_proto_init()
 	md_MsgMatchReporterAppoint = File_cardchain_cardchain_tx_proto.Messages().ByName("MsgMatchReporterAppoint")
-	fd_MsgMatchReporterAppoint_creator = md_MsgMatchReporterAppoint.Fields().ByName("creator")
+	fd_MsgMatchReporterAppoint_authority = md_MsgMatchReporterAppoint.Fields().ByName("authority")
 	fd_MsgMatchReporterAppoint_reporter = md_MsgMatchReporterAppoint.Fields().ByName("reporter")
 }
 
@@ -12024,9 +12024,9 @@ func (x *fastReflection_MsgMatchReporterAppoint) Interface() protoreflect.ProtoM
 // While iterating, mutating operations may only be performed
 // on the current field descriptor.
 func (x *fastReflection_MsgMatchReporterAppoint) Range(f func(protoreflect.FieldDescriptor, protoreflect.Value) bool) {
-	if x.Creator != "" {
-		value := protoreflect.ValueOfString(x.Creator)
-		if !f(fd_MsgMatchReporterAppoint_creator, value) {
+	if x.Authority != "" {
+		value := protoreflect.ValueOfString(x.Authority)
+		if !f(fd_MsgMatchReporterAppoint_authority, value) {
 			return
 		}
 	}
@@ -12051,8 +12051,8 @@ func (x *fastReflection_MsgMatchReporterAppoint) Range(f func(protoreflect.Field
 // a repeated field is populated if it is non-empty.
 func (x *fastReflection_MsgMatchReporterAppoint) Has(fd protoreflect.FieldDescriptor) bool {
 	switch fd.FullName() {
-	case "cardchain.cardchain.MsgMatchReporterAppoint.creator":
-		return x.Creator != ""
+	case "cardchain.cardchain.MsgMatchReporterAppoint.authority":
+		return x.Authority != ""
 	case "cardchain.cardchain.MsgMatchReporterAppoint.reporter":
 		return x.Reporter != ""
 	default:
@@ -12071,8 +12071,8 @@ func (x *fastReflection_MsgMatchReporterAppoint) Has(fd protoreflect.FieldDescri
 // Clear is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_MsgMatchReporterAppoint) Clear(fd protoreflect.FieldDescriptor) {
 	switch fd.FullName() {
-	case "cardchain.cardchain.MsgMatchReporterAppoint.creator":
-		x.Creator = ""
+	case "cardchain.cardchain.MsgMatchReporterAppoint.authority":
+		x.Authority = ""
 	case "cardchain.cardchain.MsgMatchReporterAppoint.reporter":
 		x.Reporter = ""
 	default:
@@ -12091,8 +12091,8 @@ func (x *fastReflection_MsgMatchReporterAppoint) Clear(fd protoreflect.FieldDesc
 // of the value; to obtain a mutable reference, use Mutable.
 func (x *fastReflection_MsgMatchReporterAppoint) Get(descriptor protoreflect.FieldDescriptor) protoreflect.Value {
 	switch descriptor.FullName() {
-	case "cardchain.cardchain.MsgMatchReporterAppoint.creator":
-		value := x.Creator
+	case "cardchain.cardchain.MsgMatchReporterAppoint.authority":
+		value := x.Authority
 		return protoreflect.ValueOfString(value)
 	case "cardchain.cardchain.MsgMatchReporterAppoint.reporter":
 		value := x.Reporter
@@ -12117,8 +12117,8 @@ func (x *fastReflection_MsgMatchReporterAppoint) Get(descriptor protoreflect.Fie
 // Set is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_MsgMatchReporterAppoint) Set(fd protoreflect.FieldDescriptor, value protoreflect.Value) {
 	switch fd.FullName() {
-	case "cardchain.cardchain.MsgMatchReporterAppoint.creator":
-		x.Creator = value.Interface().(string)
+	case "cardchain.cardchain.MsgMatchReporterAppoint.authority":
+		x.Authority = value.Interface().(string)
 	case "cardchain.cardchain.MsgMatchReporterAppoint.reporter":
 		x.Reporter = value.Interface().(string)
 	default:
@@ -12141,8 +12141,8 @@ func (x *fastReflection_MsgMatchReporterAppoint) Set(fd protoreflect.FieldDescri
 // Mutable is a mutating operation and unsafe for concurrent use.
 func (x *fastReflection_MsgMatchReporterAppoint) Mutable(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
-	case "cardchain.cardchain.MsgMatchReporterAppoint.creator":
-		panic(fmt.Errorf("field creator of message cardchain.cardchain.MsgMatchReporterAppoint is not mutable"))
+	case "cardchain.cardchain.MsgMatchReporterAppoint.authority":
+		panic(fmt.Errorf("field authority of message cardchain.cardchain.MsgMatchReporterAppoint is not mutable"))
 	case "cardchain.cardchain.MsgMatchReporterAppoint.reporter":
 		panic(fmt.Errorf("field reporter of message cardchain.cardchain.MsgMatchReporterAppoint is not mutable"))
 	default:
@@ -12158,7 +12158,7 @@ func (x *fastReflection_MsgMatchReporterAppoint) Mutable(fd protoreflect.FieldDe
 // For lists, maps, and messages, this returns a new, empty, mutable value.
 func (x *fastReflection_MsgMatchReporterAppoint) NewField(fd protoreflect.FieldDescriptor) protoreflect.Value {
 	switch fd.FullName() {
-	case "cardchain.cardchain.MsgMatchReporterAppoint.creator":
+	case "cardchain.cardchain.MsgMatchReporterAppoint.authority":
 		return protoreflect.ValueOfString("")
 	case "cardchain.cardchain.MsgMatchReporterAppoint.reporter":
 		return protoreflect.ValueOfString("")
@@ -12231,7 +12231,7 @@ func (x *fastReflection_MsgMatchReporterAppoint) ProtoMethods() *protoiface.Meth
 		var n int
 		var l int
 		_ = l
-		l = len(x.Creator)
+		l = len(x.Authority)
 		if l > 0 {
 			n += 1 + l + runtime.Sov(uint64(l))
 		}
@@ -12275,10 +12275,10 @@ func (x *fastReflection_MsgMatchReporterAppoint) ProtoMethods() *protoiface.Meth
 			i--
 			dAtA[i] = 0x12
 		}
-		if len(x.Creator) > 0 {
-			i -= len(x.Creator)
-			copy(dAtA[i:], x.Creator)
-			i = runtime.EncodeVarint(dAtA, i, uint64(len(x.Creator)))
+		if len(x.Authority) > 0 {
+			i -= len(x.Authority)
+			copy(dAtA[i:], x.Authority)
+			i = runtime.EncodeVarint(dAtA, i, uint64(len(x.Authority)))
 			i--
 			dAtA[i] = 0xa
 		}
@@ -12333,7 +12333,7 @@ func (x *fastReflection_MsgMatchReporterAppoint) ProtoMethods() *protoiface.Meth
 			switch fieldNum {
 			case 1:
 				if wireType != 2 {
-					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field Creator", wireType)
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field Authority", wireType)
 				}
 				var stringLen uint64
 				for shift := uint(0); ; shift += 7 {
@@ -12361,7 +12361,7 @@ func (x *fastReflection_MsgMatchReporterAppoint) ProtoMethods() *protoiface.Meth
 				if postIndex > l {
 					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
 				}
-				x.Creator = string(dAtA[iNdEx:postIndex])
+				x.Authority = string(dAtA[iNdEx:postIndex])
 				iNdEx = postIndex
 			case 2:
 				if wireType != 2 {
@@ -46751,8 +46751,8 @@ type MsgMatchReporterAppoint struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Creator  string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
-	Reporter string `protobuf:"bytes,2,opt,name=reporter,proto3" json:"reporter,omitempty"`
+	Authority string `protobuf:"bytes,1,opt,name=authority,proto3" json:"authority,omitempty"`
+	Reporter  string `protobuf:"bytes,2,opt,name=reporter,proto3" json:"reporter,omitempty"`
 }
 
 func (x *MsgMatchReporterAppoint) Reset() {
@@ -46775,9 +46775,9 @@ func (*MsgMatchReporterAppoint) Descriptor() ([]byte, []int) {
 	return file_cardchain_cardchain_tx_proto_rawDescGZIP(), []int{26}
 }
 
-func (x *MsgMatchReporterAppoint) GetCreator() string {
+func (x *MsgMatchReporterAppoint) GetAuthority() string {
 	if x != nil {
-		return x.Creator
+		return x.Authority
 	}
 	return ""
 }
@@ -49738,13 +49738,15 @@ var file_cardchain_cardchain_tx_proto_rawDesc = []byte{
 	0x63, 0x61, 0x72, 0x64, 0x49, 0x64, 0x18, 0x02, 0x20, 0x01, 0x28, 0x04, 0x52, 0x06, 0x63, 0x61,
 	0x72, 0x64, 0x49, 0x64, 0x3a, 0x0c, 0x82, 0xe7, 0xb0, 0x2a, 0x07, 0x63, 0x72, 0x65, 0x61, 0x74,
 	0x6f, 0x72, 0x22, 0x1a, 0x0a, 0x18, 0x4d, 0x73, 0x67, 0x43, 0x6f, 0x75, 0x6e, 0x63, 0x69, 0x6c,
-	0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x5d,
+	0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x7d,
 	0x0a, 0x17, 0x4d, 0x73, 0x67, 0x4d, 0x61, 0x74, 0x63, 0x68, 0x52, 0x65, 0x70, 0x6f, 0x72, 0x74,
-	0x65, 0x72, 0x41, 0x70, 0x70, 0x6f, 0x69, 0x6e, 0x74, 0x12, 0x18, 0x0a, 0x07, 0x63, 0x72, 0x65,
-	0x61, 0x74, 0x6f, 0x72, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x63, 0x72, 0x65, 0x61,
-	0x74, 0x6f, 0x72, 0x12, 0x1a, 0x0a, 0x08, 0x72, 0x65, 0x70, 0x6f, 0x72, 0x74, 0x65, 0x72, 0x18,
-	0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x72, 0x65, 0x70, 0x6f, 0x72, 0x74, 0x65, 0x72, 0x3a,
-	0x0c, 0x82, 0xe7, 0xb0, 0x2a, 0x07, 0x63, 0x72, 0x65, 0x61, 0x74, 0x6f, 0x72, 0x22, 0x21, 0x0a,
+	0x65, 0x72, 0x41, 0x70, 0x70, 0x6f, 0x69, 0x6e, 0x74, 0x12, 0x36, 0x0a, 0x09, 0x61, 0x75, 0x74,
+	0x68, 0x6f, 0x72, 0x69, 0x74, 0x79, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x42, 0x18, 0xd2, 0xb4,
+	0x2d, 0x14, 0x63, 0x6f, 0x73, 0x6d, 0x6f, 0x73, 0x2e, 0x41, 0x64, 0x64, 0x72, 0x65, 0x73, 0x73,
+	0x53, 0x74, 0x72, 0x69, 0x6e, 0x67, 0x52, 0x09, 0x61, 0x75, 0x74, 0x68, 0x6f, 0x72, 0x69, 0x74,
+	0x79, 0x12, 0x1a, 0x0a, 0x08, 0x72, 0x65, 0x70, 0x6f, 0x72, 0x74, 0x65, 0x72, 0x18, 0x02, 0x20,
+	0x01, 0x28, 0x09, 0x52, 0x08, 0x72, 0x65, 0x70, 0x6f, 0x72, 0x74, 0x65, 0x72, 0x3a, 0x0e, 0x82,
+	0xe7, 0xb0, 0x2a, 0x09, 0x61, 0x75, 0x74, 0x68, 0x6f, 0x72, 0x69, 0x74, 0x79, 0x22, 0x21, 0x0a,
 	0x1f, 0x4d, 0x73, 0x67, 0x4d, 0x61, 0x74, 0x63, 0x68, 0x52, 0x65, 0x70, 0x6f, 0x72, 0x74, 0x65,
 	0x72, 0x41, 0x70, 0x70, 0x6f, 0x69, 0x6e, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65,
 	0x22, 0xa8, 0x01, 0x0a, 0x0c, 0x4d, 0x73, 0x67, 0x53, 0x65, 0x74, 0x43, 0x72, 0x65, 0x61, 0x74,
