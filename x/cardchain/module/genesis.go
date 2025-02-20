@@ -77,7 +77,6 @@ func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) 
 
 		k.CardK.Set(ctx, uint64(currId), record)
 	}
-	k.Logger().Info("Params", genState.Params)
 	if genState.Params.AirDropValue.Denom == "" {
 		defaultParams := types.DefaultParams()
 		genState.Params.AirDropValue = defaultParams.AirDropValue
@@ -86,16 +85,17 @@ func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) 
 	if genState.Params.MatchWorkerDelay == 0 {
 		genState.Params.MatchWorkerDelay = types.DefaultMatchWorkerDelay
 	}
+
+	if err := k.SetParams(ctx, genState.Params); err != nil {
+		panic(err)
+	}
+
 	for id, set := range genState.Sets {
 		if set.Status == types.SetStatus_active || set.Status == types.SetStatus_finalized {
 			set.ContributorsDistribution = k.GetContributorDistribution(ctx, *set)
 			set.Rarities = k.GetCardRaritiesInSet(ctx, set)
 		}
 		k.SetK.Set(ctx, uint64(id), set)
-	}
-
-	if err := k.SetParams(ctx, genState.Params); err != nil {
-		panic(err)
 	}
 }
 

@@ -1,0 +1,27 @@
+1. voting power to jannik -> delegate to validator
+cardchaind q staking validators
+cardchaind tx staking delegate ccvaloper1c2htcglks224ua32qd4p95p4ydumd0zaq9y3sj 5000000ubpf --from jannik
+
+2. set size adjust? => paramchange folder
+
+3.
+bash create-set.sh
+cardchaind query cardchain q-sets design "[]" "[]" ""
+
+4. 
+yes | bash add-cards.sh 1
+
+5.
+yes | bash card-rarity.sh 1
+
+6.
+bash story.sh
+
+7.
+bash add-artwork.sh
+
+8.
+bash finalize-set.sh
+
+9.
+bash vote.sh

@@ -1,0 +1,12 @@
+{
+  "title": "Param change setSize: 135",
+  "description": "We want to change the set size",
+  "changes": [
+    {
+      "subspace": "cardchain",
+      "key": "SetSize",
+      "value": "135"
+    }
+  ],
+  "deposit": "10000000ubpf"
+}
