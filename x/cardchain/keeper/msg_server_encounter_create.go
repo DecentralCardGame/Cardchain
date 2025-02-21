@@ -31,7 +31,11 @@ func (k msgServer) EncounterCreate(goCtx context.Context, msg *types.MsgEncounte
 
 		if encounter.Name == msg.Name {
 			if encounter.Owner != msg.Creator {
-				return nil, sdkerrors.Wrapf(errors.ErrUnauthorized, "encounter with same name already exists and is owned by '%s'", encounter.Owner)
+				return nil, sdkerrors.Wrapf(
+					errors.ErrUnauthorized,
+					"encounter with same name already exists and is owned by '%s'",
+					encounter.Owner,
+				)
 			}
 			id = encounterId
 			imageId = encounter.ImageId
