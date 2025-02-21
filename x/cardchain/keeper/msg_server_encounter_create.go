@@ -20,13 +20,34 @@ func (k msgServer) EncounterCreate(goCtx context.Context, msg *types.MsgEncounte
 		return nil, err
 	}
 
+	var (
+		id, imageId uint64
+		override    bool = false
+	)
+
+	iter := k.Encounters.GetItemIterator(ctx)
+	for ; iter.Valid(); iter.Next() {
+		encounterId, encounter := iter.Value()
+
+		if encounter.Name == msg.Name {
+			if encounter.Owner != msg.Creator {
+				return nil, sdkerrors.Wrapf(errors.ErrUnauthorized, "encounter with same name already exists and is owned by '%s'", encounter.Owner)
+			}
+			id = encounterId
+			imageId = encounter.ImageId
+			override = true
+		}
+	}
+
+	if !override {
+		id = k.Encounters.GetNum(ctx)
+		imageId = k.Images.GetNum(ctx)
+	}
+
 	err = k.validateDrawlist(ctx, msg, &creator)
 	if err != nil {
 		return nil, err
 	}
-
-	id := k.Encounters.GetNum(ctx)
-	imageId := k.Images.GetNum(ctx)
 
 	encounter := types.Encounter{
 		Id:         id,
