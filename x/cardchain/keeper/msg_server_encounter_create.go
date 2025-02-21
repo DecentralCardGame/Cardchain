@@ -8,6 +8,7 @@ import (
 	"github.com/DecentralCardGame/cardchain/x/cardchain/types"
 	"github.com/DecentralCardGame/cardobject/cardobject"
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	"github.com/cosmos/cosmos-sdk/types/errors"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 )
 
@@ -19,13 +20,34 @@ func (k msgServer) EncounterCreate(goCtx context.Context, msg *types.MsgEncounte
 		return nil, err
 	}
 
+	var (
+		id, imageId uint64
+		override    bool = false
+	)
+
+	iter := k.Encounterk.GetItemIterator(ctx)
+	for ; iter.Valid(); iter.Next() {
+		encounterId, encounter := iter.Value()
+
+		if encounter.Name == msg.Name {
+			if encounter.Owner != msg.Creator {
+				return nil, errorsmod.Wrapf(errors.ErrUnauthorized, "encounter with same name already exists and is owned by '%s'", encounter.Owner)
+			}
+			id = encounterId
+			imageId = encounter.ImageId
+			override = true
+		}
+	}
+
+	if !override {
+		id = k.Encounterk.GetNum(ctx)
+		imageId = k.Images.GetNum(ctx)
+	}
+
 	err = k.validateDrawlist(ctx, msg, &creator)
 	if err != nil {
 		return nil, err
 	}
-
-	id := k.Encounterk.GetNum(ctx)
-	imageId := k.Images.GetNum(ctx)
 
 	encounter := types.Encounter{
 		Id:         id,
