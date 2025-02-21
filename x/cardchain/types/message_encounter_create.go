@@ -49,8 +49,8 @@ func (msg *MsgEncounterCreate) ValidateBasic() error {
 		return sdkerrors.Wrapf(errors.ErrInvalidAddress, "invalid creator address (%s)", err)
 	}
 
-	if len(msg.Drawlist) != 40 {
-		return sdkerrors.Wrapf(ErrInvalidData, "invalid drawlist length, must be 40 is '%d'", len(msg.Drawlist))
+	if len(msg.Drawlist) > 40 || len(msg.Drawlist) < 1 {
+		return sdkerrors.Wrapf(ErrInvalidData, "invalid drawlist length, max 40 is '%d'", len(msg.Drawlist))
 	}
 
 	if msg.Name == "" {
