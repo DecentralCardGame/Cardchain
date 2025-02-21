@@ -48,7 +48,7 @@ service Query {
   // Queries a list of Cards items.
   rpc Cards(QueryCardsRequest) returns (QueryCardsResponse) {
     option (google.api.http).get =
-        "/DecentralCardGame/cardchain/cardchain/cards/{owner}";
+        "/DecentralCardGame/cardchain/cardchain/cards";
   }
 
   // Queries a list of Match items.

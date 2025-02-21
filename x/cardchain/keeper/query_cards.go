@@ -256,5 +256,5 @@ func (k Keeper) Cards(goCtx context.Context, req *types.QueryCardsRequest) (*typ
 		}
 	}
 
-	return &types.QueryCardsResponse{}, nil
+	return &types.QueryCardsResponse{CardIds: cardsList}, nil
 }
