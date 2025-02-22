@@ -14,13 +14,13 @@ RUN pip install tendermint-chunked-genesis-download
 
 # install correct go version
 RUN if [ $(uname -m) = "x86_64" ]; then \
-    wget https://go.dev/dl/go1.21.3.linux-amd64.tar.gz; \
-    tar -xvf go1.21.3.linux-amd64.tar.gz; \
+    wget https://go.dev/dl/go1.23.6.linux-amd64.tar.gz; \
+    tar -xvf go1.23.6.linux-amd64.tar.gz; \
     rm /usr/local/go -rf; \
     mv go /usr/local; \
     elif [ $(uname -m) = "aarch64" ]; then \
-    wget https://go.dev/dl/go1.21.3.linux-arm64.tar.gz; \
-    tar -xvf go1.21.3.linux-arm64.tar.gz; \
+    wget https://go.dev/dl/go1.23.6.linux-arm64.tar.gz; \
+    tar -xvf go1.23.6.linux-arm64.tar.gz; \
     rm /usr/local/go -rf; \
     mv go /usr/local; \
     else \
