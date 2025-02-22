@@ -2,7 +2,6 @@ package keeper
 
 import (
 	"context"
-	"fmt"
 
 	sdkerrors "cosmossdk.io/errors"
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
@@ -21,10 +20,6 @@ func (k msgServer) AddArtworkToSet(goCtx context.Context, msg *types.MsgAddArtwo
 	}
 	if set.Status != types.CStatus_design {
 		return nil, types.ErrSetNotInDesign
-	}
-
-	if len(msg.Image) > 500000 {
-		return nil, sdkerrors.Wrap(types.ErrImageSizeExceeded, fmt.Sprint(len(msg.Image)))
 	}
 
 	err := k.CollectSetConributionFee(ctx, msg.Creator)

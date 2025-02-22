@@ -29,6 +29,7 @@ func CardchainKeeper(t testing.TB) (*keeper.Keeper, sdk.Context) {
 	poolsStoreKey := sdk.NewKVStoreKey(types.PoolsStoreKey)
 	serversStoreKey := sdk.NewKVStoreKey(types.ServersStoreKey)
 	zealyStoreKey := sdk.NewKVStoreKey(types.ZealyStoreKey)
+	encountersStoreKey := sdk.NewKVStoreKey(types.EncountersStoreKey)
 	runningAveragesStoreKey := sdk.NewKVStoreKey(types.RunningAveragesStoreKey)
 	councilsStoreKey := sdk.NewKVStoreKey(types.CouncilsStoreKey)
 
