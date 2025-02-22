@@ -26,8 +26,8 @@ func (k msgServer) SaveCardContent(goCtx context.Context, msg *types.MsgSaveCard
 	}
 
 	// Checks card status
-	if councilEnabled && card.Status != types.Status_prototype {
-		return nil, sdkerrors.Wrap(types.ErrInvalidCardStatus, "Card has to be a prototype to be changeable")
+	if councilEnabled && card.Status != types.Status_prototype && card.Status != types.Status_scheme {
+		return nil, sdkerrors.Wrap(types.ErrInvalidCardStatus, "Card has to be a prototype or scheme to be changeable")
 	}
 
 	if card.Owner == "" {

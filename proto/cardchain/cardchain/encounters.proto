@@ -1,0 +1,21 @@
+syntax = "proto3";
+package DecentralCardGame.cardchain.cardchain;
+
+import "gogoproto/gogo.proto";
+
+option go_package = "github.com/DecentralCardGame/Cardchain/x/cardchain/types";
+
+message Encounter {
+  uint64 Id = 1;
+  repeated uint64 Drawlist = 2;
+  bool proven = 3;
+  string owner = 4;
+  map<string, string> parameters = 5;
+  uint64 imageId = 6;
+  string name = 7;
+}
+
+message EncounterWithImage {
+  Encounter encounter = 1;
+  string image = 2;
+}

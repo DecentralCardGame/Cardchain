@@ -2,7 +2,6 @@ package keeper
 
 import (
 	"context"
-	"fmt"
 
 	"github.com/cosmos/cosmos-sdk/types/errors"
 
@@ -17,17 +16,17 @@ func (k msgServer) AddArtwork(goCtx context.Context, msg *types.MsgAddArtwork) (
 	card := k.Cards.Get(ctx, msg.CardId)
 	image := k.Images.Get(ctx, card.ImageId)
 
-	// TODO
-	//if card.Status != types.Status_prototype {
-	//	return nil, sdkerrors.Wrap(types.ErrInvalidCardStatus, "Card has to be a prototype to be changeable")
-	//}
+	councilEnabled, err := k.FeatureFlagModuleInstance.Get(ctx, string(types.FeatureFlagName_Council))
+	if err != nil {
+		return nil, err
+	}
+
+	if councilEnabled && card.Status != types.Status_prototype && card.Status != types.Status_scheme {
+		return nil, sdkerrors.Wrap(types.ErrInvalidCardStatus, "Card has to be a prototype to be changeable")
+	}
 
 	if card.Artist != msg.Creator {
 		return nil, sdkerrors.Wrap(errors.ErrUnauthorized, "Incorrect Artist")
-	}
-
-	if len(msg.Image) > 500000 {
-		return nil, sdkerrors.Wrap(types.ErrImageSizeExceeded, fmt.Sprint(len(msg.Image)))
 	}
 
 	card.FullArt = msg.FullArt

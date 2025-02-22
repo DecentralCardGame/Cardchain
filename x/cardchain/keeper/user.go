@@ -6,6 +6,10 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
+type MsgWithCreator interface {
+	GetSigners() []sdk.AccAddress
+}
+
 const MAX_ALIAS_LEN = 25
 
 // User Combines types.User and it's account address for better usability
@@ -71,6 +75,13 @@ func (k Keeper) GetUser(ctx sdk.Context, address sdk.AccAddress) (types.User, er
 
 	k.cdc.MustUnmarshal(bz, &gottenUser)
 	return gottenUser, nil
+}
+
+func (k Keeper) GetMsgCreator(ctx sdk.Context, msg MsgWithCreator) (user User, err error) {
+	user.Addr = msg.GetSigners()[0]
+
+	user.User, err = k.GetUser(ctx, user.Addr)
+	return
 }
 
 // GetUserFromString Gets a user from store, but instead of taking an accountaddress it takes a string and returns a User struct (defined above)

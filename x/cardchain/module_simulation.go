@@ -212,6 +212,18 @@ const (
 	// TODO: Determine the simulation weight value
 	defaultWeightMsgConnectZealyAccount int = 100
 
+	opWeightMsgEncounterCreate = "op_weight_msg_encounter_create"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgEncounterCreate int = 100
+
+	opWeightMsgEncounterDo = "op_weight_msg_encounter_do"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgEncounterDo int = 100
+
+	opWeightMsgEncounterClose = "op_weight_msg_encounter_close"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgEncounterClose int = 100
+
 	// this line is used by starport scaffolding # simapp/module/const
 )
 
@@ -727,6 +739,39 @@ func (am AppModule) WeightedOperations(simState module.SimulationState) []simtyp
 	operations = append(operations, simulation.NewWeightedOperation(
 		weightMsgConnectZealyAccount,
 		cardchainsimulation.SimulateMsgConnectZealyAccount(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
+	var weightMsgEncounterCreate int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgEncounterCreate, &weightMsgEncounterCreate, nil,
+		func(_ *rand.Rand) {
+			weightMsgEncounterCreate = defaultWeightMsgEncounterCreate
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgEncounterCreate,
+		cardchainsimulation.SimulateMsgEncounterCreate(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
+	var weightMsgEncounterDo int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgEncounterDo, &weightMsgEncounterDo, nil,
+		func(_ *rand.Rand) {
+			weightMsgEncounterDo = defaultWeightMsgEncounterDo
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgEncounterDo,
+		cardchainsimulation.SimulateMsgEncounterDo(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
+	var weightMsgEncounterClose int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgEncounterClose, &weightMsgEncounterClose, nil,
+		func(_ *rand.Rand) {
+			weightMsgEncounterClose = defaultWeightMsgEncounterClose
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgEncounterClose,
+		cardchainsimulation.SimulateMsgEncounterClose(am.accountKeeper, am.bankKeeper, am.keeper),
 	))
 
 	// this line is used by starport scaffolding # simapp/module/operation

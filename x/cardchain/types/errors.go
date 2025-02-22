@@ -34,4 +34,5 @@ var (
 	ErrUninitializedType      = sdkerrors.Register(ModuleName, 24, "Type not yet initialized")
 	ErrFinalizeSet            = sdkerrors.Register(ModuleName, 25, "Set can't be finalized")
 	InvalidAlias              = sdkerrors.Register(ModuleName, 26, "Invalid alias")
+	ErrInvalidData            = sdkerrors.Register(ModuleName, 27, "Invalid data in transaction")
 )

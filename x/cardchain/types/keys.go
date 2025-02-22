@@ -15,6 +15,7 @@ const (
 	CouncilsStoreKey        = "Councils"
 	ServersStoreKey         = "Servers"
 	ZealyStoreKey           = "Zealy"
+	EncountersStoreKey      = "Encounters"
 	InternalStoreKey        = "Internal"
 	RunningAveragesStoreKey = "RunningAverages"
 	ImagesStoreKey          = "Images"
