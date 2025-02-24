@@ -1,14 +1,15 @@
 
-FROM ignitehq/cli:v0.26.1
-
+#FROM ignitehq/cli:v0.26.1
+FROM debian:bookworm
 
 USER root
 RUN apt-get -y -qq update && \
-    apt-get install -y -qq apt-transport-https curl wget unzip screen bash jq python3 pip && \
+    apt-get install -y -qq apt-transport-https curl wget unzip screen bash jq python3 pip python3.11-venv && \
     apt-get clean
 
-
 # install python script to download genesis
+RUN python3 -m venv /opt/venv
+ENV PATH="/opt/venv/bin:$PATH"
 RUN pip install tendermint-chunked-genesis-download
 
 
@@ -27,11 +28,15 @@ RUN if [ $(uname -m) = "x86_64" ]; then \
     echo "what the hell is your OS? Go will not work that way."; \
     fi
 
+RUN wget https://github.com/DecentralCardGame/Cardchain/releases/download/v0.17.0/cardchaind -O /usr/local/go/bin/cardchaind
+RUN chmod +x /usr/local/go/bin/cardchaind
 
+RUN useradd -ms /bin/bash tendermint
 USER tendermint
 WORKDIR /home/tendermint
 
-RUN export GOPATH=$HOME/go
+ENV PATH="$PATH:/usr/local/go/bin"
+RUN go version
 RUN wget https://github.com/DecentralCardGame/go-faucet/archive/master.zip && \
     unzip master.zip -d . && cd go-faucet-master && go build
 
@@ -44,10 +49,12 @@ EXPOSE 4500
 
 COPY --chown=tendermint:tendermint . .
 
-RUN ignite chain build --skip-proto
-RUN ignite chain init --skip-proto
+#RUN ignite chain build --skip-proto
+#RUN ignite chain init --skip-proto
+#RUN mv $HOME/.Cardchain $HOME/.cardchaind
 
-RUN mv $HOME/.Cardchain $HOME/.cardchaind
+
+RUN cardchaind init gonninode
 
 COPY scripts/download_genesis.py download_genesis.py
 RUN python3 download_genesis.py
