@@ -7,6 +7,7 @@ services:
     volumes:
       - ./backup:/backup
       - ./docker-run.sh:/home/tendermint/docker-run.sh
+      - ./peer_nodes.json:/home/tendermint/peer_nodes.json
     ports:
       - 26657:26657
       - 26658:26658
