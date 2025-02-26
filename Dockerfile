@@ -51,6 +51,7 @@ RUN mv $HOME/.Cardchain $HOME/.cardchaind
 
 COPY scripts/download_genesis.py download_genesis.py
 RUN python3 download_genesis.py
+RUN cp genesis.json files/
 RUN mv genesis.json $HOME/.cardchaind/config/genesis.json
 
 RUN chmod +x ./docker-run.sh
