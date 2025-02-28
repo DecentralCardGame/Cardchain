@@ -83,6 +83,9 @@ then
 
 fi
 
+# copy genesis.json to nginx server
+cp $HOME/.cardchaind/config/genesis.json $HOME/files/genesis.json 
+
 # config pruning
 indexer="kv"
 pruning="custom"
