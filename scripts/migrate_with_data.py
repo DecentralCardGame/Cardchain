@@ -34,7 +34,7 @@ with open(os.path.join(__location__, "./zealy.tsv"), "r", encoding="utf8") as ze
 
 genesisAccs = []
 # here we load the balances of addresses that start with balances on CC
-with open(os.path.join(__location__, "./genesis_balances.tsv"), "r", encoding="utf8") as genesis_file:
+with open(os.path.join(__location__, "./merged_genesis_balances.tsv"), "r", encoding="utf8") as genesis_file:
     tsv_reader = csv.DictReader(genesis_file, delimiter="\t")
     for entry in tsv_reader:
         genesisAccs.append((entry["Address"], entry["Balance"]))
@@ -136,11 +136,11 @@ for idx, addr in enumerate(old_dict["app_state"]["cardchain"]["addresses"]):
 
                     # give bpf to alpha creator (jannik)
                     if addr == alpha_creator:
-                        i["coins"][idx]["amount"] = "1000000000"
+                        i["coins"][idx]["amount"] = "10000000000"
                 # adjust Credits
                 if coin["denom"] == "ucredits":
                     if addr == alpha_creator:
-                        i["coins"][idx]["amount"] = "100000000000"
+                        i["coins"][idx]["amount"] = "10000000000000"
             new_dict["app_state"]["bank"]["balances"].append(i)
             break
 

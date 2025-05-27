@@ -9,4 +9,5 @@ release/
 /build
 /cs
 /goat/node_modules
+/scripts/validators/node_modules
 /files
