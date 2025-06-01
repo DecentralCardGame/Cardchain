@@ -7,6 +7,7 @@ import "cardchain/cardchain/council.proto";
 import "cardchain/cardchain/match.proto";
 import "cardchain/cardchain/voting.proto";
 import "cardchain/cardchain/card.proto";
+import "cardchain/cardchain/encounters.proto";
 import "cosmos/base/v1beta1/coin.proto";
 
 // this line is used by starport scaffolding # proto/tx/import
@@ -438,11 +439,6 @@ message MsgBuyCardScheme {
   }
 
   message MsgConnectZealyAccountResponse {}
-
-  message Parameter {
-    string key = 1;
-    string value = 2;
-  }
 
   message MsgEncounterCreate {
     string creator = 1;
