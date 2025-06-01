@@ -439,11 +439,16 @@ message MsgBuyCardScheme {
 
   message MsgConnectZealyAccountResponse {}
 
+  message Parameter {
+    string key = 1;
+    string value = 2;
+  }
+
   message MsgEncounterCreate {
     string creator = 1;
     string name = 2;
     repeated uint64 Drawlist = 3;
-    map<string, string> parameters = 4;
+    repeated Parameter parameters = 4;
     bytes image = 5;
   }
 

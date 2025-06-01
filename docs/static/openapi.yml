@@ -69646,6 +69646,13 @@ definitions:
               items:
                 type: string
                 format: uint64
+  DecentralCardGame.cardchain.cardchain.Parameter:
+    type: object
+    properties:
+      key:
+        type: string
+      value:
+        type: string
   DecentralCardGame.cardchain.cardchain.Params:
     type: object
     properties:
