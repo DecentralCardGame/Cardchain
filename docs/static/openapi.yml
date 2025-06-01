@@ -33478,9 +33478,14 @@ paths:
                   owner:
                     type: string
                   parameters:
-                    type: object
-                    additionalProperties:
-                      type: string
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        key:
+                          type: string
+                        value:
+                          type: string
                   imageId:
                     type: string
                     format: uint64
@@ -33541,9 +33546,14 @@ paths:
                       owner:
                         type: string
                       parameters:
-                        type: object
-                        additionalProperties:
-                          type: string
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            key:
+                              type: string
+                            value:
+                              type: string
                       imageId:
                         type: string
                         format: uint64
@@ -33605,9 +33615,14 @@ paths:
                     owner:
                       type: string
                     parameters:
-                      type: object
-                      additionalProperties:
-                        type: string
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          key:
+                            type: string
+                          value:
+                            type: string
                     imageId:
                       type: string
                       format: uint64
@@ -33664,9 +33679,14 @@ paths:
                         owner:
                           type: string
                         parameters:
-                          type: object
-                          additionalProperties:
-                            type: string
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              key:
+                                type: string
+                              value:
+                                type: string
                         imageId:
                           type: string
                           format: uint64
@@ -69184,9 +69204,14 @@ definitions:
       owner:
         type: string
       parameters:
-        type: object
-        additionalProperties:
-          type: string
+        type: array
+        items:
+          type: object
+          properties:
+            key:
+              type: string
+            value:
+              type: string
       imageId:
         type: string
         format: uint64
@@ -69211,9 +69236,14 @@ definitions:
           owner:
             type: string
           parameters:
-            type: object
-            additionalProperties:
-              type: string
+            type: array
+            items:
+              type: object
+              properties:
+                key:
+                  type: string
+                value:
+                  type: string
           imageId:
             type: string
             format: uint64
@@ -69646,6 +69676,13 @@ definitions:
               items:
                 type: string
                 format: uint64
+  DecentralCardGame.cardchain.cardchain.Parameter:
+    type: object
+    properties:
+      key:
+        type: string
+      value:
+        type: string
   DecentralCardGame.cardchain.cardchain.Params:
     type: object
     properties:
@@ -69864,9 +69901,14 @@ definitions:
           owner:
             type: string
           parameters:
-            type: object
-            additionalProperties:
-              type: string
+            type: array
+            items:
+              type: object
+              properties:
+                key:
+                  type: string
+                value:
+                  type: string
           imageId:
             type: string
             format: uint64
@@ -69894,9 +69936,14 @@ definitions:
               owner:
                 type: string
               parameters:
-                type: object
-                additionalProperties:
-                  type: string
+                type: array
+                items:
+                  type: object
+                  properties:
+                    key:
+                      type: string
+                    value:
+                      type: string
               imageId:
                 type: string
                 format: uint64
@@ -69925,9 +69972,14 @@ definitions:
             owner:
               type: string
             parameters:
-              type: object
-              additionalProperties:
-                type: string
+              type: array
+              items:
+                type: object
+                properties:
+                  key:
+                    type: string
+                  value:
+                    type: string
             imageId:
               type: string
               format: uint64
@@ -69957,9 +70009,14 @@ definitions:
                 owner:
                   type: string
                 parameters:
-                  type: object
-                  additionalProperties:
-                    type: string
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      key:
+                        type: string
+                      value:
+                        type: string
                 imageId:
                   type: string
                   format: uint64

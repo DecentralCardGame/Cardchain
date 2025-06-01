@@ -23,21 +23,73 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
+type Parameter struct {
+	Key   string `protobuf:"bytes,1,opt,name=key,proto3" json:"key,omitempty"`
+	Value string `protobuf:"bytes,2,opt,name=value,proto3" json:"value,omitempty"`
+}
+
+func (m *Parameter) Reset()         { *m = Parameter{} }
+func (m *Parameter) String() string { return proto.CompactTextString(m) }
+func (*Parameter) ProtoMessage()    {}
+func (*Parameter) Descriptor() ([]byte, []int) {
+	return fileDescriptor_bd29899b36e899bc, []int{0}
+}
+func (m *Parameter) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *Parameter) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_Parameter.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *Parameter) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Parameter.Merge(m, src)
+}
+func (m *Parameter) XXX_Size() int {
+	return m.Size()
+}
+func (m *Parameter) XXX_DiscardUnknown() {
+	xxx_messageInfo_Parameter.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_Parameter proto.InternalMessageInfo
+
+func (m *Parameter) GetKey() string {
+	if m != nil {
+		return m.Key
+	}
+	return ""
+}
+
+func (m *Parameter) GetValue() string {
+	if m != nil {
+		return m.Value
+	}
+	return ""
+}
+
 type Encounter struct {
-	Id         uint64            `protobuf:"varint,1,opt,name=Id,proto3" json:"Id,omitempty"`
-	Drawlist   []uint64          `protobuf:"varint,2,rep,packed,name=Drawlist,proto3" json:"Drawlist,omitempty"`
-	Proven     bool              `protobuf:"varint,3,opt,name=proven,proto3" json:"proven,omitempty"`
-	Owner      string            `protobuf:"bytes,4,opt,name=owner,proto3" json:"owner,omitempty"`
-	Parameters map[string]string `protobuf:"bytes,5,rep,name=parameters,proto3" json:"parameters,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
-	ImageId    uint64            `protobuf:"varint,6,opt,name=imageId,proto3" json:"imageId,omitempty"`
-	Name       string            `protobuf:"bytes,7,opt,name=name,proto3" json:"name,omitempty"`
+	Id         uint64       `protobuf:"varint,1,opt,name=Id,proto3" json:"Id,omitempty"`
+	Drawlist   []uint64     `protobuf:"varint,2,rep,packed,name=Drawlist,proto3" json:"Drawlist,omitempty"`
+	Proven     bool         `protobuf:"varint,3,opt,name=proven,proto3" json:"proven,omitempty"`
+	Owner      string       `protobuf:"bytes,4,opt,name=owner,proto3" json:"owner,omitempty"`
+	Parameters []*Parameter `protobuf:"bytes,5,rep,name=parameters,proto3" json:"parameters,omitempty"`
+	ImageId    uint64       `protobuf:"varint,6,opt,name=imageId,proto3" json:"imageId,omitempty"`
+	Name       string       `protobuf:"bytes,7,opt,name=name,proto3" json:"name,omitempty"`
 }
 
 func (m *Encounter) Reset()         { *m = Encounter{} }
 func (m *Encounter) String() string { return proto.CompactTextString(m) }
 func (*Encounter) ProtoMessage()    {}
 func (*Encounter) Descriptor() ([]byte, []int) {
-	return fileDescriptor_bd29899b36e899bc, []int{0}
+	return fileDescriptor_bd29899b36e899bc, []int{1}
 }
 func (m *Encounter) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -94,7 +146,7 @@ func (m *Encounter) GetOwner() string {
 	return ""
 }
 
-func (m *Encounter) GetParameters() map[string]string {
+func (m *Encounter) GetParameters() []*Parameter {
 	if m != nil {
 		return m.Parameters
 	}
@@ -124,7 +176,7 @@ func (m *EncounterWithImage) Reset()         { *m = EncounterWithImage{} }
 func (m *EncounterWithImage) String() string { return proto.CompactTextString(m) }
 func (*EncounterWithImage) ProtoMessage()    {}
 func (*EncounterWithImage) Descriptor() ([]byte, []int) {
-	return fileDescriptor_bd29899b36e899bc, []int{1}
+	return fileDescriptor_bd29899b36e899bc, []int{2}
 }
 func (m *EncounterWithImage) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -168,8 +220,8 @@ func (m *EncounterWithImage) GetImage() string {
 }
 
 func init() {
+	proto.RegisterType((*Parameter)(nil), "DecentralCardGame.cardchain.cardchain.Parameter")
 	proto.RegisterType((*Encounter)(nil), "DecentralCardGame.cardchain.cardchain.Encounter")
-	proto.RegisterMapType((map[string]string)(nil), "DecentralCardGame.cardchain.cardchain.Encounter.ParametersEntry")
 	proto.RegisterType((*EncounterWithImage)(nil), "DecentralCardGame.cardchain.cardchain.EncounterWithImage")
 }
 
@@ -178,30 +230,67 @@ func init() {
 }
 
 var fileDescriptor_bd29899b36e899bc = []byte{
-	// 368 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x94, 0x52, 0xcd, 0x4a, 0xeb, 0x40,
-	0x18, 0xed, 0x24, 0xe9, 0x4f, 0xa6, 0x70, 0xef, 0x65, 0x28, 0x97, 0xa1, 0x8b, 0x10, 0x8a, 0x42,
-	0x56, 0x89, 0xd4, 0x4d, 0x11, 0x04, 0xb1, 0x2d, 0x92, 0x8d, 0xc8, 0x6c, 0x04, 0x57, 0x4e, 0x93,
-	0x21, 0x0d, 0x36, 0x33, 0x61, 0x3a, 0x6d, 0xad, 0x4f, 0xe1, 0xc3, 0xf8, 0x10, 0x2e, 0xbb, 0x74,
-	0x29, 0xed, 0x8b, 0x48, 0xa6, 0x36, 0x2d, 0xba, 0xd1, 0xdd, 0x39, 0x30, 0xdf, 0xf9, 0x61, 0x0e,
-	0x3c, 0x8a, 0xa8, 0x8c, 0xa3, 0x31, 0x4d, 0x79, 0xb0, 0x47, 0x8c, 0x47, 0x62, 0xc6, 0x15, 0x93,
-	0x53, 0x3f, 0x97, 0x42, 0x09, 0x74, 0x3c, 0x60, 0x11, 0xe3, 0x4a, 0xd2, 0x49, 0x9f, 0xca, 0xf8,
-	0x8a, 0x66, 0xcc, 0x2f, 0x5f, 0xef, 0x51, 0xbb, 0x95, 0x88, 0x44, 0xe8, 0x8b, 0xa0, 0x40, 0xdb,
-	0xe3, 0xce, 0x8b, 0x01, 0xed, 0xe1, 0x4e, 0x11, 0xfd, 0x81, 0x46, 0x18, 0x63, 0xe0, 0x02, 0xcf,
-	0x22, 0x46, 0x18, 0xa3, 0x36, 0x6c, 0x0c, 0x24, 0x5d, 0x4c, 0xd2, 0xa9, 0xc2, 0x86, 0x6b, 0x7a,
-	0x16, 0x29, 0x39, 0xfa, 0x0f, 0x6b, 0xb9, 0x14, 0x73, 0xc6, 0xb1, 0xe9, 0x02, 0xaf, 0x41, 0x3e,
-	0x19, 0x6a, 0xc1, 0xaa, 0x58, 0x70, 0x26, 0xb1, 0xe5, 0x02, 0xcf, 0x26, 0x5b, 0x82, 0xee, 0x21,
-	0xcc, 0xa9, 0xa4, 0x19, 0x2b, 0x82, 0xe3, 0xaa, 0x6b, 0x7a, 0xcd, 0xee, 0x85, 0xff, 0xa3, 0xe4,
-	0x7e, 0x99, 0xcf, 0xbf, 0x29, 0x25, 0x86, 0x5c, 0xc9, 0x25, 0x39, 0xd0, 0x44, 0x18, 0xd6, 0xd3,
-	0x8c, 0x26, 0x2c, 0x8c, 0x71, 0x4d, 0x17, 0xd8, 0x51, 0x84, 0xa0, 0xc5, 0x69, 0xc6, 0x70, 0x5d,
-	0x07, 0xd2, 0xb8, 0x7d, 0x0e, 0xff, 0x7e, 0x11, 0x43, 0xff, 0xa0, 0xf9, 0xc0, 0x96, 0xba, 0xbd,
-	0x4d, 0x0a, 0x58, 0x54, 0x99, 0xd3, 0xc9, 0x8c, 0x61, 0x63, 0x5b, 0x45, 0x93, 0x33, 0xa3, 0x07,
-	0x3a, 0x4f, 0x10, 0x95, 0xa9, 0x6e, 0x53, 0x35, 0x0e, 0x0b, 0x2b, 0x74, 0x0d, 0xed, 0xf2, 0x77,
-	0xb4, 0x4e, 0xb3, 0x7b, 0xf2, 0xdb, 0x8e, 0x64, 0x2f, 0x51, 0xf8, 0xeb, 0x0e, 0x3b, 0x7f, 0x4d,
-	0x2e, 0xc9, 0xeb, 0xda, 0x01, 0xab, 0xb5, 0x03, 0xde, 0xd7, 0x0e, 0x78, 0xde, 0x38, 0x95, 0xd5,
-	0xc6, 0xa9, 0xbc, 0x6d, 0x9c, 0xca, 0x5d, 0x2f, 0x49, 0xd5, 0x78, 0x36, 0xf2, 0x23, 0x91, 0x05,
-	0xdf, 0x6c, 0x83, 0x7e, 0x39, 0xa1, 0xc7, 0x83, 0x39, 0xa9, 0x65, 0xce, 0xa6, 0xa3, 0x9a, 0x5e,
-	0xc3, 0xe9, 0x47, 0x00, 0x00, 0x00, 0xff, 0xff, 0xe2, 0x37, 0x50, 0x9b, 0x72, 0x02, 0x00, 0x00,
+	// 353 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x8c, 0x52, 0x3d, 0x6b, 0xeb, 0x40,
+	0x10, 0xb4, 0x3e, 0xfc, 0xa1, 0x7d, 0xf0, 0x78, 0x1c, 0xe6, 0x71, 0xb8, 0x10, 0xc2, 0x24, 0xa0,
+	0x4a, 0x0a, 0x71, 0x93, 0x3a, 0x76, 0x08, 0x6a, 0x82, 0x51, 0x13, 0x48, 0x77, 0x96, 0x16, 0x59,
+	0xc4, 0xd2, 0x89, 0xd3, 0xd9, 0x8e, 0xf3, 0x2b, 0xf2, 0xb3, 0x52, 0xba, 0x4c, 0x19, 0x6c, 0xf2,
+	0x3f, 0x82, 0xce, 0x91, 0x6c, 0x48, 0xe3, 0x6e, 0xe6, 0xd8, 0xdd, 0x99, 0xb9, 0x5d, 0xb8, 0x88,
+	0x98, 0x88, 0xa3, 0x39, 0x4b, 0x73, 0xff, 0x88, 0x30, 0x8f, 0xf8, 0x32, 0x97, 0x28, 0x4a, 0xaf,
+	0x10, 0x5c, 0x72, 0x72, 0x39, 0xc1, 0x08, 0x73, 0x29, 0xd8, 0x62, 0xcc, 0x44, 0x7c, 0xcf, 0x32,
+	0xf4, 0x9a, 0xea, 0x23, 0x1a, 0xf4, 0x13, 0x9e, 0x70, 0xd5, 0xe1, 0x57, 0xe8, 0xd0, 0x3c, 0x1c,
+	0x81, 0x35, 0x65, 0x82, 0x65, 0x28, 0x51, 0x90, 0x7f, 0x60, 0x3c, 0xe3, 0x86, 0x6a, 0x8e, 0xe6,
+	0x5a, 0x61, 0x05, 0x49, 0x1f, 0xda, 0x2b, 0xb6, 0x58, 0x22, 0xd5, 0xd5, 0xdb, 0x81, 0x0c, 0xbf,
+	0x34, 0xb0, 0xee, 0x6a, 0x1b, 0xe4, 0x2f, 0xe8, 0x41, 0xac, 0x9a, 0xcc, 0x50, 0x0f, 0x62, 0x32,
+	0x80, 0xde, 0x44, 0xb0, 0xf5, 0x22, 0x2d, 0x25, 0xd5, 0x1d, 0xc3, 0x35, 0xc3, 0x86, 0x93, 0xff,
+	0xd0, 0x29, 0x04, 0x5f, 0x61, 0x4e, 0x0d, 0x47, 0x73, 0x7b, 0xe1, 0x0f, 0xab, 0x74, 0xf8, 0x3a,
+	0x47, 0x41, 0xcd, 0x83, 0x8e, 0x22, 0x64, 0x0a, 0x50, 0xd4, 0xe6, 0x4a, 0xda, 0x76, 0x0c, 0xf7,
+	0xcf, 0xf5, 0x95, 0x77, 0x56, 0x5c, 0xaf, 0x49, 0x15, 0x9e, 0xcc, 0x20, 0x14, 0xba, 0x69, 0xc6,
+	0x12, 0x0c, 0x62, 0xda, 0x51, 0x86, 0x6b, 0x4a, 0x08, 0x98, 0x39, 0xcb, 0x90, 0x76, 0x95, 0x01,
+	0x85, 0x87, 0xaf, 0x40, 0x9a, 0x98, 0x8f, 0xa9, 0x9c, 0x07, 0x55, 0x2d, 0x79, 0x00, 0xab, 0xd9,
+	0x81, 0x8a, 0x7d, 0xbe, 0xa9, 0x66, 0x5a, 0x78, 0x1c, 0x51, 0x65, 0x57, 0x26, 0xea, 0x3f, 0x56,
+	0xe4, 0x36, 0x7c, 0xdf, 0xd9, 0xda, 0x76, 0x67, 0x6b, 0x9f, 0x3b, 0x5b, 0x7b, 0xdb, 0xdb, 0xad,
+	0xed, 0xde, 0x6e, 0x7d, 0xec, 0xed, 0xd6, 0xd3, 0x4d, 0x92, 0xca, 0xf9, 0x72, 0xe6, 0x45, 0x3c,
+	0xf3, 0x7f, 0xc9, 0xfa, 0xe3, 0xe6, 0x50, 0x5e, 0x4e, 0x8e, 0x46, 0x6e, 0x0a, 0x2c, 0x67, 0x1d,
+	0xb5, 0xf3, 0xd1, 0x77, 0x00, 0x00, 0x00, 0xff, 0xff, 0x6f, 0x93, 0xe9, 0x78, 0x58, 0x02, 0x00,
+	0x00,
+}
+
+func (m *Parameter) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *Parameter) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *Parameter) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.Value) > 0 {
+		i -= len(m.Value)
+		copy(dAtA[i:], m.Value)
+		i = encodeVarintEncounters(dAtA, i, uint64(len(m.Value)))
+		i--
+		dAtA[i] = 0x12
+	}
+	if len(m.Key) > 0 {
+		i -= len(m.Key)
+		copy(dAtA[i:], m.Key)
+		i = encodeVarintEncounters(dAtA, i, uint64(len(m.Key)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
 }
 
 func (m *Encounter) Marshal() (dAtA []byte, err error) {
@@ -237,20 +326,15 @@ func (m *Encounter) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 		dAtA[i] = 0x30
 	}
 	if len(m.Parameters) > 0 {
-		for k := range m.Parameters {
-			v := m.Parameters[k]
-			baseI := i
-			i -= len(v)
-			copy(dAtA[i:], v)
-			i = encodeVarintEncounters(dAtA, i, uint64(len(v)))
-			i--
-			dAtA[i] = 0x12
-			i -= len(k)
-			copy(dAtA[i:], k)
-			i = encodeVarintEncounters(dAtA, i, uint64(len(k)))
-			i--
-			dAtA[i] = 0xa
-			i = encodeVarintEncounters(dAtA, i, uint64(baseI-i))
+		for iNdEx := len(m.Parameters) - 1; iNdEx >= 0; iNdEx-- {
+			{
+				size, err := m.Parameters[iNdEx].MarshalToSizedBuffer(dAtA[:i])
+				if err != nil {
+					return 0, err
+				}
+				i -= size
+				i = encodeVarintEncounters(dAtA, i, uint64(size))
+			}
 			i--
 			dAtA[i] = 0x2a
 		}
@@ -351,6 +435,23 @@ func encodeVarintEncounters(dAtA []byte, offset int, v uint64) int {
 	dAtA[offset] = uint8(v)
 	return base
 }
+func (m *Parameter) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.Key)
+	if l > 0 {
+		n += 1 + l + sovEncounters(uint64(l))
+	}
+	l = len(m.Value)
+	if l > 0 {
+		n += 1 + l + sovEncounters(uint64(l))
+	}
+	return n
+}
+
 func (m *Encounter) Size() (n int) {
 	if m == nil {
 		return 0
@@ -375,11 +476,9 @@ func (m *Encounter) Size() (n int) {
 		n += 1 + l + sovEncounters(uint64(l))
 	}
 	if len(m.Parameters) > 0 {
-		for k, v := range m.Parameters {
-			_ = k
-			_ = v
-			mapEntrySize := 1 + len(k) + sovEncounters(uint64(len(k))) + 1 + len(v) + sovEncounters(uint64(len(v)))
-			n += mapEntrySize + 1 + sovEncounters(uint64(mapEntrySize))
+		for _, e := range m.Parameters {
+			l = e.Size()
+			n += 1 + l + sovEncounters(uint64(l))
 		}
 	}
 	if m.ImageId != 0 {
@@ -414,6 +513,120 @@ func sovEncounters(x uint64) (n int) {
 }
 func sozEncounters(x uint64) (n int) {
 	return sovEncounters(uint64((x << 1) ^ uint64((int64(x) >> 63))))
+}
+func (m *Parameter) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowEncounters
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: Parameter: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: Parameter: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Key", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowEncounters
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthEncounters
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthEncounters
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Key = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Value", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowEncounters
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthEncounters
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthEncounters
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Value = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipEncounters(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthEncounters
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
 }
 func (m *Encounter) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
@@ -620,103 +833,10 @@ func (m *Encounter) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			if m.Parameters == nil {
-				m.Parameters = make(map[string]string)
+			m.Parameters = append(m.Parameters, &Parameter{})
+			if err := m.Parameters[len(m.Parameters)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
 			}
-			var mapkey string
-			var mapvalue string
-			for iNdEx < postIndex {
-				entryPreIndex := iNdEx
-				var wire uint64
-				for shift := uint(0); ; shift += 7 {
-					if shift >= 64 {
-						return ErrIntOverflowEncounters
-					}
-					if iNdEx >= l {
-						return io.ErrUnexpectedEOF
-					}
-					b := dAtA[iNdEx]
-					iNdEx++
-					wire |= uint64(b&0x7F) << shift
-					if b < 0x80 {
-						break
-					}
-				}
-				fieldNum := int32(wire >> 3)
-				if fieldNum == 1 {
-					var stringLenmapkey uint64
-					for shift := uint(0); ; shift += 7 {
-						if shift >= 64 {
-							return ErrIntOverflowEncounters
-						}
-						if iNdEx >= l {
-							return io.ErrUnexpectedEOF
-						}
-						b := dAtA[iNdEx]
-						iNdEx++
-						stringLenmapkey |= uint64(b&0x7F) << shift
-						if b < 0x80 {
-							break
-						}
-					}
-					intStringLenmapkey := int(stringLenmapkey)
-					if intStringLenmapkey < 0 {
-						return ErrInvalidLengthEncounters
-					}
-					postStringIndexmapkey := iNdEx + intStringLenmapkey
-					if postStringIndexmapkey < 0 {
-						return ErrInvalidLengthEncounters
-					}
-					if postStringIndexmapkey > l {
-						return io.ErrUnexpectedEOF
-					}
-					mapkey = string(dAtA[iNdEx:postStringIndexmapkey])
-					iNdEx = postStringIndexmapkey
-				} else if fieldNum == 2 {
-					var stringLenmapvalue uint64
-					for shift := uint(0); ; shift += 7 {
-						if shift >= 64 {
-							return ErrIntOverflowEncounters
-						}
-						if iNdEx >= l {
-							return io.ErrUnexpectedEOF
-						}
-						b := dAtA[iNdEx]
-						iNdEx++
-						stringLenmapvalue |= uint64(b&0x7F) << shift
-						if b < 0x80 {
-							break
-						}
-					}
-					intStringLenmapvalue := int(stringLenmapvalue)
-					if intStringLenmapvalue < 0 {
-						return ErrInvalidLengthEncounters
-					}
-					postStringIndexmapvalue := iNdEx + intStringLenmapvalue
-					if postStringIndexmapvalue < 0 {
-						return ErrInvalidLengthEncounters
-					}
-					if postStringIndexmapvalue > l {
-						return io.ErrUnexpectedEOF
-					}
-					mapvalue = string(dAtA[iNdEx:postStringIndexmapvalue])
-					iNdEx = postStringIndexmapvalue
-				} else {
-					iNdEx = entryPreIndex
-					skippy, err := skipEncounters(dAtA[iNdEx:])
-					if err != nil {
-						return err
-					}
-					if (skippy < 0) || (iNdEx+skippy) < 0 {
-						return ErrInvalidLengthEncounters
-					}
-					if (iNdEx + skippy) > postIndex {
-						return io.ErrUnexpectedEOF
-					}
-					iNdEx += skippy
-				}
-			}
-			m.Parameters[mapkey] = mapvalue
 			iNdEx = postIndex
 		case 6:
 			if wireType != 0 {

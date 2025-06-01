@@ -25,7 +25,7 @@ func CmdEncounterCreate() *cobra.Command {
 				return err
 			}
 
-			var reqParameters map[string]string
+			var reqParameters []*types.Parameter
 			err = json.Unmarshal([]byte(args[2]), &reqParameters)
 			if err != nil {
 				return err
