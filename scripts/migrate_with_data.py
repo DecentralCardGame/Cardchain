@@ -163,8 +163,8 @@ for addr, user in zip(new_dict["app_state"]["cardchain"]["addresses"], new_dict[
     if addr in early_access_addr:
         user["earlyAccess"]["active"] = True
 
-for id in new_dict["app_state"]["cardchain"]["encounters"]:
-    if isinstance(new_dict["app_state"]["cardchain"]["encounters"][id]["parameters"], dict):
+for id, encounter in enumerate(new_dict["app_state"]["cardchain"]["encounters"]):
+    if isinstance(encounter["parameters"], dict):
         new_dict["app_state"]["cardchain"]["encounters"][id]["parameters"] = []
 
 
