@@ -113,12 +113,12 @@ for idx, addr in enumerate(old_dict["app_state"]["cardchain"]["addresses"]):
             new_dict["app_state"]["auth"]["accounts"].append(i)
             break
     # limit balances to 5k for all old accounts (genesis accs + alice and bob will have more)
-    for i in old_dict["app_state"]["bank"]["balances"]:  
+    for i in old_dict["app_state"]["bank"]["balances"]:
         if i["address"] == addr:
             for idx, coin in enumerate(i["coins"]):
                 # adjust BPFs
                 if coin["denom"] == "ubpf":
-                    bpf = 0                    
+                    bpf = 0
                     # use real bpf value for genesisAddresses
                     for acc in genesisAccs:
                         if acc[0] == addr:
@@ -155,13 +155,18 @@ for addr, user in zip(new_dict["app_state"]["cardchain"]["addresses"], new_dict[
             num_packs = int(entry[1])
             for x in range(num_packs):
                 user["boosterPacks"].append({'dropRatiosPerPack': ['150', '50', '1'], 'raritiesPerPack': ['4', '2', '1'], 'setId': '1', 'timeStamp': '0'})
-    
+
     user["earlyAccess"] = user.get(
         "earlyAccess",
         {"active": False, "invitedUser": "", "invitedByUser": ""}
     )  # add earlyAccess
     if addr in early_access_addr:
         user["earlyAccess"]["active"] = True
+
+for id in new_dict["app_state"]["cardchain"]["encounters"]:
+    if isinstance(new_dict["app_state"]["cardchain"]["encounters"][id]["parameters"], dict):
+        new_dict["app_state"]["cardchain"]["encounters"][id]["parameters"] = []
+
 
 with open(file_path_new, "w") as file:
     json.dump(new_dict, file, indent=2)
