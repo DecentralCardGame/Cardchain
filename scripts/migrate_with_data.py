@@ -13,6 +13,8 @@ __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file
 
 gameserver_addr = ["cc1z94z55n2rr4rmjf4ea0m7ykgh9a8urwzrlsxt4", "cc1ch66e3f0szxy8q976rsq5y07esmgdqzj70dfpu"]
 alpha_creator = "cc14km80077s0hch3sh38wh2hfk7kxfau4456r3ej"
+ruslan_creator = "cc1szj8cguttxn27xg4rg6xlag8qe6ajd4kqsca5k"
+
 del_cards = []  # [370, 346, 258]
 
 file_path_old = args[1]
@@ -66,14 +68,24 @@ with open(file_path_new, "r") as file:
 # delete all sets
 # old_dict["app_state"]["cardchain"]["sets"] = []
 
+# fix first encounters (those are bugged)
+fix_encounters = [0,1,2,3]
+for encounter in fix_encounters:
+    old_dict["app_state"]["cardchain"]["encounters"][encounter]["name"] = "test"+str(encounter)
 
 params = new_dict["app_state"]["cardchain"]["params"]
 new_dict["app_state"]["featureflag"] = old_dict["app_state"].get("featureflag", new_dict["app_state"]["featureflag"])
 new_dict["app_state"]["cardchain"] = old_dict["app_state"]["cardchain"].copy()
 new_dict["app_state"]["cardchain"]["addresses"] = []
 new_dict["app_state"]["cardchain"]["users"] = []
+
 for card in del_cards:
     new_dict["app_state"]["cardchain"]["cardRecords"][card] = {}
+
+# delete all cards except jannik and ruslan
+for key, card in enumerate(new_dict["app_state"]["cardchain"]["cardRecords"]):
+     if card["owner"] != alpha_creator and card["owner"] != ruslan_creator:
+        new_dict["app_state"]["cardchain"]["cardRecords"][key] = {}
 
 if new_dict["app_state"]["cardchain"]["cardRecords"]:
     # write rarities into cards
