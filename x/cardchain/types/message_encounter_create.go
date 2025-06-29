@@ -12,7 +12,7 @@ const TypeMsgEncounterCreate = "encounter_create"
 
 var _ sdk.Msg = &MsgEncounterCreate{}
 
-func NewMsgEncounterCreate(creator string, name string, drawlist []uint64, parameters map[string]string, image []byte) *MsgEncounterCreate {
+func NewMsgEncounterCreate(creator string, name string, drawlist []uint64, parameters []*Parameter, image []byte) *MsgEncounterCreate {
 	return &MsgEncounterCreate{
 		Creator:    creator,
 		Name:       name,

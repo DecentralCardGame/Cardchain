@@ -5,12 +5,17 @@ import "gogoproto/gogo.proto";
 
 option go_package = "github.com/DecentralCardGame/Cardchain/x/cardchain/types";
 
+message Parameter {
+  string key = 1;
+  string value = 2;
+}
+
 message Encounter {
   uint64 Id = 1;
   repeated uint64 Drawlist = 2;
   bool proven = 3;
   string owner = 4;
-  map<string, string> parameters = 5;
+  repeated Parameter parameters = 5;
   uint64 imageId = 6;
   string name = 7;
 }

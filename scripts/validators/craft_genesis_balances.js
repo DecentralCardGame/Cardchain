@@ -21,10 +21,10 @@ data.forEach(file => {
 	})
 })
 
-saveableData = []
+saveableData = ["Address\tBalance"]
 R.mapObjIndexed((val, key) => saveableData.push(key+"\t"+val), dataObj)
 saveableData = saveableData.join("\n")
 
 console.log(saveableData)
-fs.writeFileSync("merged_genesis_balances.tsv", saveableData); 
+fs.writeFileSync("../merged_genesis_balances.tsv", saveableData); 
 
