@@ -1,40 +1,37 @@
+# Use Go 1.23 bookworm as base image
+FROM golang:1.23-bookworm AS base
 
-FROM ignitehq/cli:v0.26.1
-
-
-USER root
 RUN apt-get -y -qq update && \
-    apt-get install -y -qq apt-transport-https curl wget unzip screen bash jq python3 pip && \
-    apt-get clean
-
+    apt-get install -y -qq apt-transport-https curl wget unzip screen bash jq python3 python3-pip python3-venv && \
+    rm -rf /var/lib/apt/lists/*
 
 # install python script to download genesis
+RUN python3 -m venv /opt/venv
+ENV PATH="/opt/venv/bin:$PATH"
 RUN pip install tendermint-chunked-genesis-download
 
+RUN pip install tendermint-chunked-genesis-download
 
-# install correct go version
-RUN if [ $(uname -m) = "x86_64" ]; then \
-    wget https://go.dev/dl/go1.23.6.linux-amd64.tar.gz; \
-    tar -xvf go1.23.6.linux-amd64.tar.gz; \
-    rm /usr/local/go -rf; \
-    mv go /usr/local; \
-    elif [ $(uname -m) = "aarch64" ]; then \
-    wget https://go.dev/dl/go1.23.6.linux-arm64.tar.gz; \
-    tar -xvf go1.23.6.linux-arm64.tar.gz; \
-    rm /usr/local/go -rf; \
-    mv go /usr/local; \
-    else \
-    echo "what the hell is your OS? Go will not work that way."; \
-    fi
+# Move to working directory /build
+WORKDIR /build
 
+# Copy the go.mod and go.sum files to the /build directory
+COPY . .
 
-USER tendermint
-WORKDIR /home/tendermint
-
-RUN export GOPATH=$HOME/go
 RUN wget https://github.com/DecentralCardGame/go-faucet/archive/master.zip && \
     unzip master.zip -d . && cd go-faucet-master && go build
 
+# Install dependencies
+RUN go install github.com/lxgr-linux/ignite-vm@latest
+
+# Build the application
+RUN ignite-vm install v0.26.2
+RUN ignite-vm set v0.26.2
+
+RUN ~/.local/bin/ignite chain init --home /build/.cardchaind
+RUN ~/.local/bin/ignite chain build
+
+# Document the port that may need to be published
 EXPOSE 1317
 EXPOSE 26657
 EXPOSE 26658
@@ -42,17 +39,10 @@ EXPOSE 9090
 EXPOSE 9091
 EXPOSE 4500
 
-COPY --chown=tendermint:tendermint . .
-
-RUN ignite chain build --skip-proto
-RUN ignite chain init --skip-proto
-
-RUN mv $HOME/.Cardchain $HOME/.cardchaind
-
 COPY scripts/download_genesis.py download_genesis.py
 RUN python3 download_genesis.py
-RUN cp genesis.json files/
-RUN mv genesis.json $HOME/.cardchaind/config/genesis.json
+RUN mv genesis.json /build/.cardchaind/config/genesis.json
 
+# Start the application
 RUN chmod +x ./docker-run.sh
 ENTRYPOINT bash docker-run.sh
