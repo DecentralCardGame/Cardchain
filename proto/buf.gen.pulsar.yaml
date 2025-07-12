@@ -1,23 +1,23 @@
-# This file is auto-generated from Ignite. You can edit
-# the file content but do not change the file name or path.
-#
-# buf.gen.pulsar.yaml
-#
-version: v1
+version: v2
 managed:
   enabled: true
-  go_package_prefix:
-    default: github.com/DecentralCardGame/cardchain/api
-    except:
-      - buf.build/googleapis/googleapis
-      - buf.build/cosmos/gogo-proto
-      - buf.build/cosmos/cosmos-proto
-    override:
-      buf.build/cosmos/cosmos-sdk: cosmossdk.io/api
+  disable:
+    - file_option: go_package
+      module: buf.build/googleapis/googleapis
+    - file_option: go_package
+      module: buf.build/cosmos/gogo-proto
+    - file_option: go_package
+      module: buf.build/cosmos/cosmos-proto
+  override:
+    - file_option: go_package_prefix
+      value: github.com/DecentralCardGame/cardchain/api
+    - file_option: go_package_prefix
+      module: buf.build/cosmos/cosmos-sdk
+      value: cosmossdk.io/api
 plugins:
-  - name: go-pulsar
+  - local: protoc-gen-go-pulsar
     out: ./api
     opt: paths=source_relative
-  - name: go-grpc
+  - local: protoc-gen-go-grpc
     out: ./api
     opt: paths=source_relative
