@@ -735,84 +735,19 @@ func local_request_Query_VotingResults_0(ctx context.Context, marshaler runtime.
 
 }
 
+var (
+	filter_Query_Matches_0 = &utilities.DoubleArray{Encoding: map[string]int{}, Base: []int(nil), Check: []int(nil)}
+)
+
 func request_Query_Matches_0(ctx context.Context, marshaler runtime.Marshaler, client QueryClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq QueryMatchesRequest
 	var metadata runtime.ServerMetadata
 
-	var (
-		val string
-		e   int32
-		ok  bool
-		err error
-		_   = err
-	)
-
-	val, ok = pathParams["timestampDown"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "timestampDown")
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
-	protoReq.TimestampDown, err = runtime.Uint64(val)
-
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "timestampDown", err)
-	}
-
-	val, ok = pathParams["timestampUp"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "timestampUp")
-	}
-
-	protoReq.TimestampUp, err = runtime.Uint64(val)
-
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "timestampUp", err)
-	}
-
-	val, ok = pathParams["containsUsers"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "containsUsers")
-	}
-
-	protoReq.ContainsUsers, err = runtime.StringSlice(val, ",")
-
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "containsUsers", err)
-	}
-
-	val, ok = pathParams["reporter"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "reporter")
-	}
-
-	protoReq.Reporter, err = runtime.String(val)
-
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "reporter", err)
-	}
-
-	val, ok = pathParams["outcome"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "outcome")
-	}
-
-	e, err = runtime.Enum(val, Outcome_value)
-
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "outcome", err)
-	}
-
-	protoReq.Outcome = Outcome(e)
-
-	val, ok = pathParams["cardsPlayed"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "cardsPlayed")
-	}
-
-	protoReq.CardsPlayed, err = runtime.Uint64Slice(val, ",")
-
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "cardsPlayed", err)
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Query_Matches_0); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
 	msg, err := client.Matches(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -824,86 +759,21 @@ func local_request_Query_Matches_0(ctx context.Context, marshaler runtime.Marsha
 	var protoReq QueryMatchesRequest
 	var metadata runtime.ServerMetadata
 
-	var (
-		val string
-		e   int32
-		ok  bool
-		err error
-		_   = err
-	)
-
-	val, ok = pathParams["timestampDown"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "timestampDown")
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
-	protoReq.TimestampDown, err = runtime.Uint64(val)
-
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "timestampDown", err)
-	}
-
-	val, ok = pathParams["timestampUp"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "timestampUp")
-	}
-
-	protoReq.TimestampUp, err = runtime.Uint64(val)
-
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "timestampUp", err)
-	}
-
-	val, ok = pathParams["containsUsers"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "containsUsers")
-	}
-
-	protoReq.ContainsUsers, err = runtime.StringSlice(val, ",")
-
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "containsUsers", err)
-	}
-
-	val, ok = pathParams["reporter"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "reporter")
-	}
-
-	protoReq.Reporter, err = runtime.String(val)
-
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "reporter", err)
-	}
-
-	val, ok = pathParams["outcome"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "outcome")
-	}
-
-	e, err = runtime.Enum(val, Outcome_value)
-
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "outcome", err)
-	}
-
-	protoReq.Outcome = Outcome(e)
-
-	val, ok = pathParams["cardsPlayed"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "cardsPlayed")
-	}
-
-	protoReq.CardsPlayed, err = runtime.Uint64Slice(val, ",")
-
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "cardsPlayed", err)
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Query_Matches_0); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
 	msg, err := server.Matches(ctx, &protoReq)
 	return msg, metadata, err
 
 }
+
+var (
+	filter_Query_Sets_0 = &utilities.DoubleArray{Encoding: map[string]int{"status": 0}, Base: []int{1, 1, 0}, Check: []int{0, 1, 2}}
+)
 
 func request_Query_Sets_0(ctx context.Context, marshaler runtime.Marshaler, client QueryClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq QuerySetsRequest
@@ -930,37 +800,11 @@ func request_Query_Sets_0(ctx context.Context, marshaler runtime.Marshaler, clie
 
 	protoReq.Status = SetStatus(e)
 
-	val, ok = pathParams["contributors"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "contributors")
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
-	protoReq.Contributors, err = runtime.StringSlice(val, ",")
-
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "contributors", err)
-	}
-
-	val, ok = pathParams["containsCards"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "containsCards")
-	}
-
-	protoReq.ContainsCards, err = runtime.Uint64Slice(val, ",")
-
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "containsCards", err)
-	}
-
-	val, ok = pathParams["owner"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "owner")
-	}
-
-	protoReq.Owner, err = runtime.String(val)
-
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "owner", err)
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Query_Sets_0); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
 	msg, err := client.Sets(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -993,37 +837,11 @@ func local_request_Query_Sets_0(ctx context.Context, marshaler runtime.Marshaler
 
 	protoReq.Status = SetStatus(e)
 
-	val, ok = pathParams["contributors"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "contributors")
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-
-	protoReq.Contributors, err = runtime.StringSlice(val, ",")
-
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "contributors", err)
-	}
-
-	val, ok = pathParams["containsCards"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "containsCards")
-	}
-
-	protoReq.ContainsCards, err = runtime.Uint64Slice(val, ",")
-
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "containsCards", err)
-	}
-
-	val, ok = pathParams["owner"]
-	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "owner")
-	}
-
-	protoReq.Owner, err = runtime.String(val)
-
-	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "owner", err)
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Query_Sets_0); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
 	msg, err := server.Sets(ctx, &protoReq)
@@ -2188,9 +2006,9 @@ var (
 
 	pattern_Query_VotingResults_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 1, 2, 2}, []string{"DecentralCardGame", "cardchain", "voting_results"}, "", runtime.AssumeColonVerbOpt(false)))
 
-	pattern_Query_Matches_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 1, 0, 4, 1, 5, 4, 1, 0, 4, 1, 5, 5, 1, 0, 4, 1, 5, 6, 1, 0, 4, 1, 5, 7, 1, 0, 4, 1, 5, 8}, []string{"DecentralCardGame", "cardchain", "matches", "timestampDown", "timestampUp", "containsUsers", "reporter", "outcome", "cardsPlayed"}, "", runtime.AssumeColonVerbOpt(false)))
+	pattern_Query_Matches_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 1, 2, 2}, []string{"DecentralCardGame", "cardchain", "matches"}, "", runtime.AssumeColonVerbOpt(false)))
 
-	pattern_Query_Sets_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 1, 0, 4, 1, 5, 4, 1, 0, 4, 1, 5, 5, 1, 0, 4, 1, 5, 6}, []string{"DecentralCardGame", "cardchain", "sets", "status", "contributors", "containsCards", "owner"}, "", runtime.AssumeColonVerbOpt(false)))
+	pattern_Query_Sets_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"DecentralCardGame", "cardchain", "sets", "status"}, "", runtime.AssumeColonVerbOpt(false)))
 
 	pattern_Query_CardContent_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"DecentralCardGame", "cardchain", "card_content", "cardId"}, "", runtime.AssumeColonVerbOpt(false)))
 

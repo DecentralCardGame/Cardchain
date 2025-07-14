@@ -138,15 +138,13 @@ service Query {
   // Queries a list of Matches items.
   rpc Matches(QueryMatchesRequest) returns (QueryMatchesResponse) {
     option (google.api.http).get =
-        "/DecentralCardGame/cardchain/cardchain/matches/{timestampDown}/"
-        "{timestampUp}/{containsUsers}/{reporter}/{outcome}/{cardsPlayed}";
+        "/DecentralCardGame/cardchain/cardchain/matches";
   }
 
   // Queries a list of Sets items.
   rpc Sets(QuerySetsRequest) returns (QuerySetsResponse) {
     option (google.api.http).get =
-        "/DecentralCardGame/cardchain/cardchain/sets/{status}/{contributors}/"
-        "{containsCards}/{owner}";
+        "/DecentralCardGame/cardchain/cardchain/sets/{status}";
   }
 
   // Queries a list of CardContent items.
