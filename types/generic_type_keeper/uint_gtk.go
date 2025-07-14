@@ -43,6 +43,15 @@ func (gtk GenericUint64TypeKeeper[T]) Append(ctx sdk.Context, new T) (count uint
 	return
 }
 
+func (gtk GenericUint64TypeKeeper[T]) Set(ctx sdk.Context, id uint64, new T) {
+	gtk.GenericTypeKeeper.Set(ctx, id, new)
+
+	num := gtk.GetNum(ctx)
+	if id == num {
+		gtk.setNum(ctx, num+1)
+	}
+}
+
 // GetNum Returns the number of items stored, way more performant than GetNumber
 func (gtk GenericUint64TypeKeeper[T]) GetNum(ctx sdk.Context) uint64 {
 	store := gtk.getCountStore(ctx)
