@@ -7,6 +7,6 @@ import "cardchain/cardchain/encounter.proto";
 option go_package = "github.com/DecentralCardGame/cardchain/x/cardchain/types";
 
 message EncounterWithImage {
-  Encounter encounter = 1;
+  Encounter encounter = 1 [ (gogoproto.nullable) = false ];
   string image = 2;
 }
