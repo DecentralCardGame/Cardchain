@@ -1,16 +1,17 @@
 syntax = "proto3";
-package DecentralCardGame.cardchain.cardchain;
+package cardchain.cardchain;
 
 import "gogoproto/gogo.proto";
+import "cosmos/base/v1beta1/coin.proto";
 
-option go_package = "github.com/DecentralCardGame/Cardchain/x/cardchain/types";
+option go_package = "github.com/DecentralCardGame/cardchain/x/cardchain/types";
 
 message Council {
   uint64 cardId = 1;
   repeated string voters = 2;
   repeated WrapHashResponse hashResponses = 3;
   repeated WrapClearResponse clearResponses = 4;
-  string treasury = 5 [(gogoproto.nullable) = false, (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Coin"];;
+  cosmos.base.v1beta1.Coin treasury = 8 [ (gogoproto.nullable) = false ];
   CouncelingStatus status = 6;
   uint64 trialStart = 7;
 }

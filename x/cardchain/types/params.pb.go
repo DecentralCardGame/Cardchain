@@ -5,9 +5,10 @@ package types
 
 import (
 	fmt "fmt"
-	github_com_cosmos_cosmos_sdk_types "github.com/cosmos/cosmos-sdk/types"
-	_ "github.com/gogo/protobuf/gogoproto"
-	proto "github.com/gogo/protobuf/proto"
+	types "github.com/cosmos/cosmos-sdk/types"
+	_ "github.com/cosmos/cosmos-sdk/types/tx/amino"
+	_ "github.com/cosmos/gogoproto/gogoproto"
+	proto "github.com/cosmos/gogoproto/proto"
 	io "io"
 	math "math"
 	math_bits "math/bits"
@@ -26,34 +27,35 @@ const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
 // Params defines the parameters for the module.
 type Params struct {
-	VotingRightsExpirationTime      int64                                   `protobuf:"varint,1,opt,name=votingRightsExpirationTime,proto3" json:"votingRightsExpirationTime,omitempty"`
-	SetSize                         uint64                                  `protobuf:"varint,2,opt,name=setSize,proto3" json:"setSize,omitempty"`
-	SetPrice                        github_com_cosmos_cosmos_sdk_types.Coin `protobuf:"bytes,3,opt,name=setPrice,proto3,customtype=github.com/cosmos/cosmos-sdk/types.Coin" json:"setPrice"`
-	ActiveSetsAmount                uint64                                  `protobuf:"varint,4,opt,name=activeSetsAmount,proto3" json:"activeSetsAmount,omitempty"`
-	SetCreationFee                  github_com_cosmos_cosmos_sdk_types.Coin `protobuf:"bytes,5,opt,name=setCreationFee,proto3,customtype=github.com/cosmos/cosmos-sdk/types.Coin" json:"setCreationFee"`
-	CollateralDeposit               github_com_cosmos_cosmos_sdk_types.Coin `protobuf:"bytes,6,opt,name=collateralDeposit,proto3,customtype=github.com/cosmos/cosmos-sdk/types.Coin" json:"collateralDeposit"`
-	WinnerReward                    int64                                   `protobuf:"varint,7,opt,name=winnerReward,proto3" json:"winnerReward,omitempty"`
-	HourlyFaucet                    github_com_cosmos_cosmos_sdk_types.Coin `protobuf:"bytes,9,opt,name=hourlyFaucet,proto3,customtype=github.com/cosmos/cosmos-sdk/types.Coin" json:"hourlyFaucet"`
-	InflationRate                   string                                  `protobuf:"bytes,10,opt,name=inflationRate,proto3" json:"inflationRate,omitempty"`
-	RaresPerPack                    uint64                                  `protobuf:"varint,11,opt,name=raresPerPack,proto3" json:"raresPerPack,omitempty"`
-	CommonsPerPack                  uint64                                  `protobuf:"varint,12,opt,name=commonsPerPack,proto3" json:"commonsPerPack,omitempty"`
-	UnCommonsPerPack                uint64                                  `protobuf:"varint,13,opt,name=unCommonsPerPack,proto3" json:"unCommonsPerPack,omitempty"`
-	TrialPeriod                     uint64                                  `protobuf:"varint,14,opt,name=trialPeriod,proto3" json:"trialPeriod,omitempty"`
-	GameVoteRatio                   int64                                   `protobuf:"varint,15,opt,name=gameVoteRatio,proto3" json:"gameVoteRatio,omitempty"`
-	CardAuctionPriceReductionPeriod int64                                   `protobuf:"varint,16,opt,name=cardAuctionPriceReductionPeriod,proto3" json:"cardAuctionPriceReductionPeriod,omitempty"`
-	AirDropValue                    github_com_cosmos_cosmos_sdk_types.Coin `protobuf:"bytes,17,opt,name=airDropValue,proto3,customtype=github.com/cosmos/cosmos-sdk/types.Coin" json:"airDropValue"`
-	AirDropMaxBlockHeight           int64                                   `protobuf:"varint,18,opt,name=airDropMaxBlockHeight,proto3" json:"airDropMaxBlockHeight,omitempty"`
-	TrialVoteReward                 github_com_cosmos_cosmos_sdk_types.Coin `protobuf:"bytes,19,opt,name=trialVoteReward,proto3,customtype=github.com/cosmos/cosmos-sdk/types.Coin" json:"trialVoteReward"`
-	VotePoolFraction                int64                                   `protobuf:"varint,20,opt,name=votePoolFraction,proto3" json:"votePoolFraction,omitempty"`
-	VotingRewardCap                 int64                                   `protobuf:"varint,8,opt,name=votingRewardCap,proto3" json:"votingRewardCap,omitempty"`
-	MatchWorkerDelay                uint64                                  `protobuf:"varint,21,opt,name=matchWorkerDelay,proto3" json:"matchWorkerDelay,omitempty"`
-	RareDropRatio                   uint64                                  `protobuf:"varint,22,opt,name=rareDropRatio,proto3" json:"rareDropRatio,omitempty"`
-	ExceptionalDropRatio            uint64                                  `protobuf:"varint,23,opt,name=exceptionalDropRatio,proto3" json:"exceptionalDropRatio,omitempty"`
-	UniqueDropRatio                 uint64                                  `protobuf:"varint,24,opt,name=uniqueDropRatio,proto3" json:"uniqueDropRatio,omitempty"`
+	VotingRightsExpirationTime      int64      `protobuf:"varint,1,opt,name=votingRightsExpirationTime,proto3" json:"votingRightsExpirationTime,omitempty"`
+	SetSize                         uint64     `protobuf:"varint,2,opt,name=setSize,proto3" json:"setSize,omitempty"`
+	SetPrice                        types.Coin `protobuf:"bytes,3,opt,name=setPrice,proto3" json:"setPrice"`
+	ActiveSetsAmount                uint64     `protobuf:"varint,4,opt,name=activeSetsAmount,proto3" json:"activeSetsAmount,omitempty"`
+	SetCreationFee                  types.Coin `protobuf:"bytes,5,opt,name=setCreationFee,proto3" json:"setCreationFee"`
+	CollateralDeposit               types.Coin `protobuf:"bytes,6,opt,name=collateralDeposit,proto3" json:"collateralDeposit"`
+	WinnerReward                    int64      `protobuf:"varint,7,opt,name=winnerReward,proto3" json:"winnerReward,omitempty"`
+	HourlyFaucet                    types.Coin `protobuf:"bytes,9,opt,name=hourlyFaucet,proto3" json:"hourlyFaucet"`
+	InflationRate                   string     `protobuf:"bytes,10,opt,name=inflationRate,proto3" json:"inflationRate,omitempty"`
+	RaresPerPack                    uint64     `protobuf:"varint,11,opt,name=raresPerPack,proto3" json:"raresPerPack,omitempty"`
+	CommonsPerPack                  uint64     `protobuf:"varint,12,opt,name=commonsPerPack,proto3" json:"commonsPerPack,omitempty"`
+	UnCommonsPerPack                uint64     `protobuf:"varint,13,opt,name=unCommonsPerPack,proto3" json:"unCommonsPerPack,omitempty"`
+	TrialPeriod                     uint64     `protobuf:"varint,14,opt,name=trialPeriod,proto3" json:"trialPeriod,omitempty"`
+	GameVoteRatio                   int64      `protobuf:"varint,15,opt,name=gameVoteRatio,proto3" json:"gameVoteRatio,omitempty"`
+	CardAuctionPriceReductionPeriod int64      `protobuf:"varint,16,opt,name=cardAuctionPriceReductionPeriod,proto3" json:"cardAuctionPriceReductionPeriod,omitempty"`
+	AirDropValue                    types.Coin `protobuf:"bytes,17,opt,name=airDropValue,proto3" json:"airDropValue"`
+	AirDropMaxBlockHeight           int64      `protobuf:"varint,18,opt,name=airDropMaxBlockHeight,proto3" json:"airDropMaxBlockHeight,omitempty"`
+	TrialVoteReward                 types.Coin `protobuf:"bytes,19,opt,name=trialVoteReward,proto3" json:"trialVoteReward"`
+	VotePoolFraction                int64      `protobuf:"varint,20,opt,name=votePoolFraction,proto3" json:"votePoolFraction,omitempty"`
+	VotingRewardCap                 int64      `protobuf:"varint,8,opt,name=votingRewardCap,proto3" json:"votingRewardCap,omitempty"`
+	MatchWorkerDelay                uint64     `protobuf:"varint,21,opt,name=matchWorkerDelay,proto3" json:"matchWorkerDelay,omitempty"`
+	RareDropRatio                   uint64     `protobuf:"varint,22,opt,name=rareDropRatio,proto3" json:"rareDropRatio,omitempty"`
+	ExceptionalDropRatio            uint64     `protobuf:"varint,23,opt,name=exceptionalDropRatio,proto3" json:"exceptionalDropRatio,omitempty"`
+	UniqueDropRatio                 uint64     `protobuf:"varint,24,opt,name=uniqueDropRatio,proto3" json:"uniqueDropRatio,omitempty"`
 }
 
-func (m *Params) Reset()      { *m = Params{} }
-func (*Params) ProtoMessage() {}
+func (m *Params) Reset()         { *m = Params{} }
+func (m *Params) String() string { return proto.CompactTextString(m) }
+func (*Params) ProtoMessage()    {}
 func (*Params) Descriptor() ([]byte, []int) {
 	return fileDescriptor_8843e481ee664a23, []int{0}
 }
@@ -98,6 +100,13 @@ func (m *Params) GetSetSize() uint64 {
 	return 0
 }
 
+func (m *Params) GetSetPrice() types.Coin {
+	if m != nil {
+		return m.SetPrice
+	}
+	return types.Coin{}
+}
+
 func (m *Params) GetActiveSetsAmount() uint64 {
 	if m != nil {
 		return m.ActiveSetsAmount
@@ -105,11 +114,32 @@ func (m *Params) GetActiveSetsAmount() uint64 {
 	return 0
 }
 
+func (m *Params) GetSetCreationFee() types.Coin {
+	if m != nil {
+		return m.SetCreationFee
+	}
+	return types.Coin{}
+}
+
+func (m *Params) GetCollateralDeposit() types.Coin {
+	if m != nil {
+		return m.CollateralDeposit
+	}
+	return types.Coin{}
+}
+
 func (m *Params) GetWinnerReward() int64 {
 	if m != nil {
 		return m.WinnerReward
 	}
 	return 0
+}
+
+func (m *Params) GetHourlyFaucet() types.Coin {
+	if m != nil {
+		return m.HourlyFaucet
+	}
+	return types.Coin{}
 }
 
 func (m *Params) GetInflationRate() string {
@@ -161,11 +191,25 @@ func (m *Params) GetCardAuctionPriceReductionPeriod() int64 {
 	return 0
 }
 
+func (m *Params) GetAirDropValue() types.Coin {
+	if m != nil {
+		return m.AirDropValue
+	}
+	return types.Coin{}
+}
+
 func (m *Params) GetAirDropMaxBlockHeight() int64 {
 	if m != nil {
 		return m.AirDropMaxBlockHeight
 	}
 	return 0
+}
+
+func (m *Params) GetTrialVoteReward() types.Coin {
+	if m != nil {
+		return m.TrialVoteReward
+	}
+	return types.Coin{}
 }
 
 func (m *Params) GetVotePoolFraction() int64 {
@@ -211,56 +255,151 @@ func (m *Params) GetUniqueDropRatio() uint64 {
 }
 
 func init() {
-	proto.RegisterType((*Params)(nil), "DecentralCardGame.cardchain.cardchain.Params")
+	proto.RegisterType((*Params)(nil), "cardchain.cardchain.Params")
 }
 
 func init() { proto.RegisterFile("cardchain/cardchain/params.proto", fileDescriptor_8843e481ee664a23) }
 
 var fileDescriptor_8843e481ee664a23 = []byte{
-	// 651 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x9c, 0x54, 0x4d, 0x6f, 0x13, 0x3d,
-	0x10, 0xce, 0xbe, 0xed, 0xdb, 0x0f, 0xf7, 0xdb, 0xb4, 0x60, 0xf5, 0x90, 0x44, 0x15, 0x1f, 0x11,
-	0x12, 0x89, 0x04, 0x1c, 0x10, 0x07, 0xa4, 0x36, 0xa1, 0x54, 0x42, 0x48, 0xd1, 0x16, 0xb5, 0x02,
-	0x89, 0xc3, 0xd4, 0x19, 0x12, 0x2b, 0xbb, 0xeb, 0xc5, 0xeb, 0x6d, 0x53, 0x7e, 0x05, 0x47, 0x8e,
-	0xfc, 0x02, 0x7e, 0x47, 0x8f, 0x3d, 0x22, 0x0e, 0x15, 0x6a, 0xff, 0x08, 0xf2, 0x24, 0xa4, 0xd9,
-	0x4d, 0x05, 0x52, 0x4e, 0x6b, 0x3f, 0xfb, 0xcc, 0xe3, 0x67, 0x66, 0xec, 0x61, 0x65, 0x09, 0xa6,
-	0x25, 0x3b, 0xa0, 0xa2, 0xda, 0xf5, 0x2a, 0x06, 0x03, 0x61, 0x52, 0x8d, 0x8d, 0xb6, 0x9a, 0xdf,
-	0x6b, 0xa0, 0xc4, 0xc8, 0x1a, 0x08, 0xea, 0x60, 0x5a, 0xaf, 0x20, 0xc4, 0xea, 0x90, 0x79, 0xbd,
-	0xda, 0x5c, 0x6f, 0xeb, 0xb6, 0xa6, 0x88, 0x9a, 0x5b, 0xf5, 0x83, 0xb7, 0xbe, 0x33, 0x36, 0xd3,
-	0x24, 0x35, 0xfe, 0x82, 0x6d, 0x1e, 0x6b, 0xab, 0xa2, 0xb6, 0xaf, 0xda, 0x1d, 0x9b, 0xbc, 0xec,
-	0xc5, 0xca, 0x80, 0x55, 0x3a, 0x7a, 0xab, 0x42, 0x14, 0x5e, 0xd9, 0xab, 0x4c, 0xf9, 0x7f, 0x61,
-	0x70, 0xc1, 0x66, 0x13, 0xb4, 0xfb, 0xea, 0x33, 0x8a, 0xff, 0xca, 0x5e, 0x65, 0xda, 0xff, 0xb3,
-	0xe5, 0xaf, 0xd9, 0x5c, 0x82, 0xb6, 0x69, 0x94, 0x44, 0x31, 0x55, 0xf6, 0x2a, 0xf3, 0x3b, 0xb5,
-	0xb3, 0x8b, 0x52, 0xe1, 0xe7, 0x45, 0xe9, 0x41, 0x5b, 0xd9, 0x4e, 0x7a, 0x54, 0x95, 0x3a, 0xac,
-	0x49, 0x9d, 0x84, 0x3a, 0x19, 0x7c, 0x1e, 0x25, 0xad, 0x6e, 0xcd, 0x9e, 0xc6, 0x98, 0x54, 0xeb,
-	0x5a, 0x45, 0xfe, 0x50, 0x80, 0x3f, 0x64, 0xab, 0x20, 0xad, 0x3a, 0xc6, 0x7d, 0xb4, 0xc9, 0x76,
-	0xa8, 0xd3, 0xc8, 0x8a, 0x69, 0x3a, 0x6f, 0x0c, 0xe7, 0x87, 0x6c, 0x39, 0x41, 0x5b, 0x37, 0x48,
-	0x2e, 0x77, 0x11, 0xc5, 0xff, 0x93, 0x1d, 0x9f, 0x93, 0xe1, 0x1f, 0xd8, 0x9a, 0xd4, 0x41, 0x00,
-	0x16, 0x0d, 0x04, 0x0d, 0x8c, 0x75, 0xa2, 0xac, 0x98, 0x99, 0x4c, 0x7b, 0x5c, 0x89, 0x6f, 0xb1,
-	0xc5, 0x13, 0x15, 0x45, 0x68, 0x7c, 0x3c, 0x01, 0xd3, 0x12, 0xb3, 0x54, 0xfc, 0x0c, 0xc6, 0xf7,
-	0xd9, 0x62, 0x47, 0xa7, 0x26, 0x38, 0xdd, 0x85, 0x54, 0xa2, 0x15, 0xf3, 0x93, 0x9d, 0x9e, 0x11,
-	0xe1, 0x77, 0xd9, 0x92, 0x8a, 0x3e, 0x06, 0x94, 0xa7, 0x0f, 0x16, 0x05, 0x73, 0xaa, 0x7e, 0x16,
-	0x74, 0xf6, 0x0c, 0x18, 0x4c, 0x9a, 0x68, 0x9a, 0x20, 0xbb, 0x62, 0x81, 0xca, 0x9f, 0xc1, 0xf8,
-	0x7d, 0xb6, 0x2c, 0x75, 0x18, 0xea, 0x68, 0xc8, 0x5a, 0x24, 0x56, 0x0e, 0x75, 0xed, 0x4c, 0xa3,
-	0x7a, 0x96, 0xb9, 0xd4, 0x6f, 0x67, 0x1e, 0xe7, 0x65, 0xb6, 0x60, 0x8d, 0x82, 0xa0, 0x89, 0x46,
-	0xe9, 0x96, 0x58, 0x26, 0xda, 0x28, 0xe4, 0xfc, 0xb7, 0x21, 0xc4, 0x03, 0x6d, 0xd1, 0x77, 0x7e,
-	0xc5, 0x0a, 0x55, 0x2e, 0x0b, 0xf2, 0x3d, 0x56, 0x72, 0xef, 0x62, 0x3b, 0x95, 0x2e, 0x25, 0xba,
-	0x56, 0x3e, 0xb6, 0x06, 0xbb, 0xbe, 0xf6, 0x2a, 0xc5, 0xfd, 0x8b, 0xe6, 0x9a, 0x00, 0xca, 0x34,
-	0x8c, 0x8e, 0x0f, 0x20, 0x48, 0x51, 0xac, 0x4d, 0xd8, 0x84, 0x51, 0x11, 0xfe, 0x94, 0x6d, 0x0c,
-	0xf6, 0x6f, 0xa0, 0xb7, 0x13, 0x68, 0xd9, 0xdd, 0x43, 0xf7, 0xe0, 0x04, 0x27, 0x53, 0x37, 0xff,
-	0xe4, 0xef, 0xd8, 0x0a, 0x55, 0x82, 0xd2, 0xec, 0x5f, 0x9b, 0x5b, 0x93, 0xb9, 0xc9, 0xeb, 0xb8,
-	0x1e, 0x1d, 0x6b, 0x8b, 0x4d, 0xad, 0x83, 0x5d, 0x03, 0x94, 0xbf, 0x58, 0x27, 0x2f, 0x63, 0x38,
-	0xaf, 0xb0, 0x95, 0xc1, 0x8c, 0xa0, 0xd8, 0x3a, 0xc4, 0x62, 0x8e, 0xa8, 0x79, 0xd8, 0xa9, 0x86,
-	0x60, 0x65, 0xe7, 0x50, 0x9b, 0x2e, 0x9a, 0x06, 0x06, 0x70, 0x2a, 0x36, 0xfa, 0x9d, 0xcf, 0xe3,
-	0xae, 0xaf, 0xee, 0x76, 0xb9, 0xb4, 0xfb, 0x7d, 0xbd, 0x4d, 0xc4, 0x2c, 0xc8, 0x1f, 0xb3, 0x75,
-	0xec, 0x49, 0x8c, 0x9d, 0x11, 0x08, 0xae, 0xc9, 0x77, 0x88, 0x7c, 0xe3, 0x3f, 0xe7, 0x37, 0x8d,
-	0xd4, 0xa7, 0x74, 0x44, 0x5b, 0x10, 0x3d, 0x0f, 0x3f, 0x9f, 0xfe, 0xfa, 0xad, 0x54, 0xd8, 0xf1,
-	0xcf, 0x2e, 0x8b, 0xde, 0xf9, 0x65, 0xd1, 0xfb, 0x75, 0x59, 0xf4, 0xbe, 0x5c, 0x15, 0x0b, 0xe7,
-	0x57, 0xc5, 0xc2, 0x8f, 0xab, 0x62, 0xe1, 0xfd, 0xb3, 0x91, 0xfa, 0x8e, 0x8d, 0xe4, 0x5a, 0x7d,
-	0x38, 0xbc, 0x7b, 0x23, 0x83, 0x9c, 0xaa, 0x7e, 0x34, 0x43, 0xb3, 0xf8, 0xc9, 0xef, 0x00, 0x00,
-	0x00, 0xff, 0xff, 0x7c, 0x7a, 0xa5, 0x82, 0xec, 0x05, 0x00, 0x00,
+	// 681 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x8c, 0x54, 0xcd, 0x6e, 0x13, 0x3d,
+	0x14, 0xcd, 0x7c, 0xed, 0xd7, 0x1f, 0xf7, 0xdf, 0x6d, 0xc1, 0x54, 0x28, 0x8d, 0x2a, 0x40, 0x51,
+	0x17, 0x19, 0xb5, 0xb0, 0x40, 0x20, 0x21, 0xb5, 0x09, 0x6d, 0x59, 0x54, 0x8a, 0xa6, 0xa8, 0x48,
+	0xec, 0x6e, 0x9c, 0x4b, 0x62, 0x75, 0xc6, 0x1e, 0x3c, 0x9e, 0x34, 0xe5, 0x11, 0x58, 0xf1, 0x08,
+	0x3c, 0x02, 0x8f, 0xd1, 0x65, 0x97, 0xac, 0x10, 0x6a, 0x17, 0xb0, 0xe3, 0x15, 0x90, 0x3d, 0x21,
+	0x4d, 0xa6, 0x15, 0x64, 0x33, 0xf2, 0x1c, 0x9f, 0x73, 0xef, 0xb9, 0xf7, 0xda, 0x26, 0x25, 0x0e,
+	0xba, 0xc9, 0xdb, 0x20, 0xa4, 0x7f, 0xbd, 0x8a, 0x41, 0x43, 0x94, 0x54, 0x62, 0xad, 0x8c, 0xa2,
+	0xcb, 0x7d, 0xbc, 0xd2, 0x5f, 0xad, 0x2d, 0x41, 0x24, 0xa4, 0xf2, 0xdd, 0x37, 0xe3, 0xad, 0xad,
+	0xb4, 0x54, 0x4b, 0xb9, 0xa5, 0x6f, 0x57, 0x3d, 0xb4, 0xc8, 0x55, 0x12, 0xa9, 0xc4, 0x6f, 0x40,
+	0x82, 0x7e, 0x67, 0xab, 0x81, 0x06, 0xb6, 0x7c, 0xae, 0x84, 0xcc, 0xf6, 0x37, 0x7e, 0x4d, 0x93,
+	0x89, 0xba, 0x4b, 0x47, 0x5f, 0x90, 0xb5, 0x8e, 0x32, 0x42, 0xb6, 0x02, 0xd1, 0x6a, 0x9b, 0xe4,
+	0x65, 0x37, 0x16, 0x1a, 0x8c, 0x50, 0xf2, 0xb5, 0x88, 0x90, 0x79, 0x25, 0xaf, 0x3c, 0x16, 0xfc,
+	0x85, 0x41, 0x19, 0x99, 0x4c, 0xd0, 0x1c, 0x89, 0x0f, 0xc8, 0xfe, 0x2b, 0x79, 0xe5, 0xf1, 0xe0,
+	0xcf, 0x2f, 0x7d, 0x4e, 0xa6, 0x12, 0x34, 0x75, 0x2d, 0x38, 0xb2, 0xb1, 0x92, 0x57, 0x9e, 0xd9,
+	0xbe, 0x57, 0xc9, 0x7c, 0x55, 0xac, 0xaf, 0x4a, 0xcf, 0x57, 0xa5, 0xaa, 0x84, 0xdc, 0x1d, 0x3f,
+	0xff, 0xb6, 0x5e, 0x08, 0xfa, 0x02, 0xba, 0x49, 0x16, 0x81, 0x1b, 0xd1, 0xc1, 0x23, 0x34, 0xc9,
+	0x4e, 0xa4, 0x52, 0x69, 0xd8, 0xb8, 0x8b, 0x7f, 0x03, 0xa7, 0xfb, 0x64, 0x3e, 0x41, 0x53, 0xd5,
+	0xe8, 0x5c, 0xed, 0x21, 0xb2, 0xff, 0x47, 0x4b, 0x97, 0x93, 0xd1, 0x43, 0xb2, 0xc4, 0x55, 0x18,
+	0x82, 0x41, 0x0d, 0x61, 0x0d, 0x63, 0x95, 0x08, 0xc3, 0x26, 0x46, 0x8b, 0x75, 0x53, 0x49, 0x37,
+	0xc8, 0xec, 0xa9, 0x90, 0x12, 0x75, 0x80, 0xa7, 0xa0, 0x9b, 0x6c, 0xd2, 0x35, 0x73, 0x08, 0xa3,
+	0x55, 0x32, 0xdb, 0x56, 0xa9, 0x0e, 0xcf, 0xf6, 0x20, 0xe5, 0x68, 0xd8, 0xf4, 0x68, 0xd9, 0x86,
+	0x44, 0xf4, 0x01, 0x99, 0x13, 0xf2, 0x5d, 0xe8, 0xea, 0x08, 0xc0, 0x20, 0x23, 0x25, 0xaf, 0x3c,
+	0x1d, 0x0c, 0x83, 0xd6, 0x8e, 0x06, 0x8d, 0x49, 0x1d, 0x75, 0x1d, 0xf8, 0x09, 0x9b, 0x71, 0xed,
+	0x1c, 0xc2, 0xe8, 0x23, 0x32, 0xcf, 0x55, 0x14, 0x29, 0xd9, 0x67, 0xcd, 0x3a, 0x56, 0x0e, 0xb5,
+	0xe3, 0x49, 0x65, 0x75, 0x98, 0x39, 0x97, 0x8d, 0x27, 0x8f, 0xd3, 0x12, 0x99, 0x31, 0x5a, 0x40,
+	0x58, 0x47, 0x2d, 0x54, 0x93, 0xcd, 0x3b, 0xda, 0x20, 0x64, 0xfd, 0xb7, 0x20, 0xc2, 0x63, 0x65,
+	0x30, 0xb0, 0x7e, 0xd9, 0x82, 0xeb, 0xd4, 0x30, 0x48, 0x0f, 0xc8, 0xba, 0xbd, 0x0a, 0x3b, 0x29,
+	0xb7, 0x25, 0xb9, 0x63, 0x12, 0x60, 0xb3, 0xf7, 0x97, 0xc5, 0x5e, 0x74, 0xba, 0x7f, 0xd1, 0x6c,
+	0xd3, 0x41, 0xe8, 0x9a, 0x56, 0xf1, 0x31, 0x84, 0x29, 0xb2, 0xa5, 0x11, 0x9b, 0x3e, 0x28, 0xa2,
+	0x4f, 0xc8, 0x6a, 0xef, 0xff, 0x10, 0xba, 0xbb, 0xa1, 0xe2, 0x27, 0x07, 0x68, 0x2f, 0x08, 0xa3,
+	0xce, 0xc4, 0xed, 0x9b, 0xf4, 0x15, 0x59, 0x70, 0x95, 0xbb, 0xb2, 0xb2, 0x63, 0xb1, 0x3c, 0x5a,
+	0xf6, 0xbc, 0xce, 0xce, 0xa0, 0xa3, 0x0c, 0xd6, 0x95, 0x0a, 0xf7, 0x34, 0xb8, 0xfa, 0xd8, 0x8a,
+	0xcb, 0x7d, 0x03, 0xa7, 0x65, 0xb2, 0xd0, 0xbb, 0xc3, 0x4e, 0x5b, 0x85, 0x98, 0x4d, 0x39, 0x6a,
+	0x1e, 0xb6, 0x51, 0x23, 0x30, 0xbc, 0xfd, 0x46, 0xe9, 0x13, 0xd4, 0x35, 0x0c, 0xe1, 0x8c, 0xad,
+	0x66, 0x93, 0xcd, 0xe3, 0x76, 0x6e, 0xf6, 0xf4, 0xd8, 0x32, 0xb3, 0xb9, 0xdd, 0x71, 0xc4, 0x61,
+	0x90, 0x6e, 0x93, 0x15, 0xec, 0x72, 0x8c, 0xad, 0x11, 0x08, 0xaf, 0xc9, 0x77, 0x1d, 0xf9, 0xd6,
+	0x3d, 0xeb, 0x37, 0x95, 0xe2, 0x7d, 0x3a, 0x10, 0x9b, 0x39, 0x7a, 0x1e, 0x7e, 0xf6, 0xf0, 0xe7,
+	0xe7, 0x75, 0xef, 0xe3, 0x8f, 0x2f, 0x9b, 0xf7, 0xaf, 0x5f, 0xd2, 0xee, 0xc0, 0xab, 0x9a, 0x3d,
+	0x73, 0xbb, 0xc1, 0xf9, 0x65, 0xd1, 0xbb, 0xb8, 0x2c, 0x7a, 0xdf, 0x2f, 0x8b, 0xde, 0xa7, 0xab,
+	0x62, 0xe1, 0xe2, 0xaa, 0x58, 0xf8, 0x7a, 0x55, 0x2c, 0xbc, 0x7d, 0xda, 0x12, 0xa6, 0x9d, 0x36,
+	0x2a, 0x5c, 0x45, 0x7e, 0x0d, 0x39, 0x4a, 0xa3, 0x21, 0xac, 0x82, 0x6e, 0xee, 0x43, 0x84, 0xfe,
+	0xed, 0x41, 0xcd, 0x59, 0x8c, 0x49, 0x63, 0xc2, 0x3d, 0xa6, 0x8f, 0x7f, 0x07, 0x00, 0x00, 0xff,
+	0xff, 0x78, 0x1e, 0x18, 0xc1, 0xce, 0x05, 0x00, 0x00,
 }
 
+func (this *Params) Equal(that interface{}) bool {
+	if that == nil {
+		return this == nil
+	}
+
+	that1, ok := that.(*Params)
+	if !ok {
+		that2, ok := that.(Params)
+		if ok {
+			that1 = &that2
+		} else {
+			return false
+		}
+	}
+	if that1 == nil {
+		return this == nil
+	} else if this == nil {
+		return false
+	}
+	if this.VotingRightsExpirationTime != that1.VotingRightsExpirationTime {
+		return false
+	}
+	if this.SetSize != that1.SetSize {
+		return false
+	}
+	if !this.SetPrice.Equal(&that1.SetPrice) {
+		return false
+	}
+	if this.ActiveSetsAmount != that1.ActiveSetsAmount {
+		return false
+	}
+	if !this.SetCreationFee.Equal(&that1.SetCreationFee) {
+		return false
+	}
+	if !this.CollateralDeposit.Equal(&that1.CollateralDeposit) {
+		return false
+	}
+	if this.WinnerReward != that1.WinnerReward {
+		return false
+	}
+	if !this.HourlyFaucet.Equal(&that1.HourlyFaucet) {
+		return false
+	}
+	if this.InflationRate != that1.InflationRate {
+		return false
+	}
+	if this.RaresPerPack != that1.RaresPerPack {
+		return false
+	}
+	if this.CommonsPerPack != that1.CommonsPerPack {
+		return false
+	}
+	if this.UnCommonsPerPack != that1.UnCommonsPerPack {
+		return false
+	}
+	if this.TrialPeriod != that1.TrialPeriod {
+		return false
+	}
+	if this.GameVoteRatio != that1.GameVoteRatio {
+		return false
+	}
+	if this.CardAuctionPriceReductionPeriod != that1.CardAuctionPriceReductionPeriod {
+		return false
+	}
+	if !this.AirDropValue.Equal(&that1.AirDropValue) {
+		return false
+	}
+	if this.AirDropMaxBlockHeight != that1.AirDropMaxBlockHeight {
+		return false
+	}
+	if !this.TrialVoteReward.Equal(&that1.TrialVoteReward) {
+		return false
+	}
+	if this.VotePoolFraction != that1.VotePoolFraction {
+		return false
+	}
+	if this.VotingRewardCap != that1.VotingRewardCap {
+		return false
+	}
+	if this.MatchWorkerDelay != that1.MatchWorkerDelay {
+		return false
+	}
+	if this.RareDropRatio != that1.RareDropRatio {
+		return false
+	}
+	if this.ExceptionalDropRatio != that1.ExceptionalDropRatio {
+		return false
+	}
+	if this.UniqueDropRatio != that1.UniqueDropRatio {
+		return false
+	}
+	return true
+}
 func (m *Params) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
@@ -317,11 +456,11 @@ func (m *Params) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 		dAtA[i] = 0xa0
 	}
 	{
-		size := m.TrialVoteReward.Size()
-		i -= size
-		if _, err := m.TrialVoteReward.MarshalTo(dAtA[i:]); err != nil {
+		size, err := m.TrialVoteReward.MarshalToSizedBuffer(dAtA[:i])
+		if err != nil {
 			return 0, err
 		}
+		i -= size
 		i = encodeVarintParams(dAtA, i, uint64(size))
 	}
 	i--
@@ -336,11 +475,11 @@ func (m *Params) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 		dAtA[i] = 0x90
 	}
 	{
-		size := m.AirDropValue.Size()
-		i -= size
-		if _, err := m.AirDropValue.MarshalTo(dAtA[i:]); err != nil {
+		size, err := m.AirDropValue.MarshalToSizedBuffer(dAtA[:i])
+		if err != nil {
 			return 0, err
 		}
+		i -= size
 		i = encodeVarintParams(dAtA, i, uint64(size))
 	}
 	i--
@@ -387,11 +526,11 @@ func (m *Params) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 		dAtA[i] = 0x52
 	}
 	{
-		size := m.HourlyFaucet.Size()
-		i -= size
-		if _, err := m.HourlyFaucet.MarshalTo(dAtA[i:]); err != nil {
+		size, err := m.HourlyFaucet.MarshalToSizedBuffer(dAtA[:i])
+		if err != nil {
 			return 0, err
 		}
+		i -= size
 		i = encodeVarintParams(dAtA, i, uint64(size))
 	}
 	i--
@@ -407,21 +546,21 @@ func (m *Params) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 		dAtA[i] = 0x38
 	}
 	{
-		size := m.CollateralDeposit.Size()
-		i -= size
-		if _, err := m.CollateralDeposit.MarshalTo(dAtA[i:]); err != nil {
+		size, err := m.CollateralDeposit.MarshalToSizedBuffer(dAtA[:i])
+		if err != nil {
 			return 0, err
 		}
+		i -= size
 		i = encodeVarintParams(dAtA, i, uint64(size))
 	}
 	i--
 	dAtA[i] = 0x32
 	{
-		size := m.SetCreationFee.Size()
-		i -= size
-		if _, err := m.SetCreationFee.MarshalTo(dAtA[i:]); err != nil {
+		size, err := m.SetCreationFee.MarshalToSizedBuffer(dAtA[:i])
+		if err != nil {
 			return 0, err
 		}
+		i -= size
 		i = encodeVarintParams(dAtA, i, uint64(size))
 	}
 	i--
@@ -432,11 +571,11 @@ func (m *Params) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 		dAtA[i] = 0x20
 	}
 	{
-		size := m.SetPrice.Size()
-		i -= size
-		if _, err := m.SetPrice.MarshalTo(dAtA[i:]); err != nil {
+		size, err := m.SetPrice.MarshalToSizedBuffer(dAtA[:i])
+		if err != nil {
 			return 0, err
 		}
+		i -= size
 		i = encodeVarintParams(dAtA, i, uint64(size))
 	}
 	i--
@@ -618,7 +757,7 @@ func (m *Params) Unmarshal(dAtA []byte) error {
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field SetPrice", wireType)
 			}
-			var stringLen uint64
+			var msglen int
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowParams
@@ -628,16 +767,15 @@ func (m *Params) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				stringLen |= uint64(b&0x7F) << shift
+				msglen |= int(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
-			intStringLen := int(stringLen)
-			if intStringLen < 0 {
+			if msglen < 0 {
 				return ErrInvalidLengthParams
 			}
-			postIndex := iNdEx + intStringLen
+			postIndex := iNdEx + msglen
 			if postIndex < 0 {
 				return ErrInvalidLengthParams
 			}
@@ -671,7 +809,7 @@ func (m *Params) Unmarshal(dAtA []byte) error {
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field SetCreationFee", wireType)
 			}
-			var stringLen uint64
+			var msglen int
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowParams
@@ -681,16 +819,15 @@ func (m *Params) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				stringLen |= uint64(b&0x7F) << shift
+				msglen |= int(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
-			intStringLen := int(stringLen)
-			if intStringLen < 0 {
+			if msglen < 0 {
 				return ErrInvalidLengthParams
 			}
-			postIndex := iNdEx + intStringLen
+			postIndex := iNdEx + msglen
 			if postIndex < 0 {
 				return ErrInvalidLengthParams
 			}
@@ -705,7 +842,7 @@ func (m *Params) Unmarshal(dAtA []byte) error {
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field CollateralDeposit", wireType)
 			}
-			var stringLen uint64
+			var msglen int
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowParams
@@ -715,16 +852,15 @@ func (m *Params) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				stringLen |= uint64(b&0x7F) << shift
+				msglen |= int(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
-			intStringLen := int(stringLen)
-			if intStringLen < 0 {
+			if msglen < 0 {
 				return ErrInvalidLengthParams
 			}
-			postIndex := iNdEx + intStringLen
+			postIndex := iNdEx + msglen
 			if postIndex < 0 {
 				return ErrInvalidLengthParams
 			}
@@ -777,7 +913,7 @@ func (m *Params) Unmarshal(dAtA []byte) error {
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field HourlyFaucet", wireType)
 			}
-			var stringLen uint64
+			var msglen int
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowParams
@@ -787,16 +923,15 @@ func (m *Params) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				stringLen |= uint64(b&0x7F) << shift
+				msglen |= int(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
-			intStringLen := int(stringLen)
-			if intStringLen < 0 {
+			if msglen < 0 {
 				return ErrInvalidLengthParams
 			}
-			postIndex := iNdEx + intStringLen
+			postIndex := iNdEx + msglen
 			if postIndex < 0 {
 				return ErrInvalidLengthParams
 			}
@@ -957,7 +1092,7 @@ func (m *Params) Unmarshal(dAtA []byte) error {
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field AirDropValue", wireType)
 			}
-			var stringLen uint64
+			var msglen int
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowParams
@@ -967,16 +1102,15 @@ func (m *Params) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				stringLen |= uint64(b&0x7F) << shift
+				msglen |= int(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
-			intStringLen := int(stringLen)
-			if intStringLen < 0 {
+			if msglen < 0 {
 				return ErrInvalidLengthParams
 			}
-			postIndex := iNdEx + intStringLen
+			postIndex := iNdEx + msglen
 			if postIndex < 0 {
 				return ErrInvalidLengthParams
 			}
@@ -1010,7 +1144,7 @@ func (m *Params) Unmarshal(dAtA []byte) error {
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field TrialVoteReward", wireType)
 			}
-			var stringLen uint64
+			var msglen int
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowParams
@@ -1020,16 +1154,15 @@ func (m *Params) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				stringLen |= uint64(b&0x7F) << shift
+				msglen |= int(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
-			intStringLen := int(stringLen)
-			if intStringLen < 0 {
+			if msglen < 0 {
 				return ErrInvalidLengthParams
 			}
-			postIndex := iNdEx + intStringLen
+			postIndex := iNdEx + msglen
 			if postIndex < 0 {
 				return ErrInvalidLengthParams
 			}

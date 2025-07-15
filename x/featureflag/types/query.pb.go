@@ -7,9 +7,10 @@ import (
 	context "context"
 	fmt "fmt"
 	_ "github.com/cosmos/cosmos-sdk/types/query"
-	_ "github.com/gogo/protobuf/gogoproto"
-	grpc1 "github.com/gogo/protobuf/grpc"
-	proto "github.com/gogo/protobuf/proto"
+	_ "github.com/cosmos/cosmos-sdk/types/tx/amino"
+	_ "github.com/cosmos/gogoproto/gogoproto"
+	grpc1 "github.com/cosmos/gogoproto/grpc"
+	proto "github.com/cosmos/gogoproto/proto"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
@@ -113,23 +114,23 @@ func (m *QueryParamsResponse) GetParams() Params {
 	return Params{}
 }
 
-type QueryQFlagRequest struct {
+type QueryFlagRequest struct {
 	Module string `protobuf:"bytes,1,opt,name=module,proto3" json:"module,omitempty"`
 	Name   string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
 }
 
-func (m *QueryQFlagRequest) Reset()         { *m = QueryQFlagRequest{} }
-func (m *QueryQFlagRequest) String() string { return proto.CompactTextString(m) }
-func (*QueryQFlagRequest) ProtoMessage()    {}
-func (*QueryQFlagRequest) Descriptor() ([]byte, []int) {
+func (m *QueryFlagRequest) Reset()         { *m = QueryFlagRequest{} }
+func (m *QueryFlagRequest) String() string { return proto.CompactTextString(m) }
+func (*QueryFlagRequest) ProtoMessage()    {}
+func (*QueryFlagRequest) Descriptor() ([]byte, []int) {
 	return fileDescriptor_fb461e75899978b4, []int{2}
 }
-func (m *QueryQFlagRequest) XXX_Unmarshal(b []byte) error {
+func (m *QueryFlagRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *QueryQFlagRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *QueryFlagRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_QueryQFlagRequest.Marshal(b, m, deterministic)
+		return xxx_messageInfo_QueryFlagRequest.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -139,48 +140,48 @@ func (m *QueryQFlagRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, e
 		return b[:n], nil
 	}
 }
-func (m *QueryQFlagRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_QueryQFlagRequest.Merge(m, src)
+func (m *QueryFlagRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryFlagRequest.Merge(m, src)
 }
-func (m *QueryQFlagRequest) XXX_Size() int {
+func (m *QueryFlagRequest) XXX_Size() int {
 	return m.Size()
 }
-func (m *QueryQFlagRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_QueryQFlagRequest.DiscardUnknown(m)
+func (m *QueryFlagRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryFlagRequest.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_QueryQFlagRequest proto.InternalMessageInfo
+var xxx_messageInfo_QueryFlagRequest proto.InternalMessageInfo
 
-func (m *QueryQFlagRequest) GetModule() string {
+func (m *QueryFlagRequest) GetModule() string {
 	if m != nil {
 		return m.Module
 	}
 	return ""
 }
 
-func (m *QueryQFlagRequest) GetName() string {
+func (m *QueryFlagRequest) GetName() string {
 	if m != nil {
 		return m.Name
 	}
 	return ""
 }
 
-type QueryQFlagResponse struct {
+type QueryFlagResponse struct {
 	Flag *Flag `protobuf:"bytes,1,opt,name=flag,proto3" json:"flag,omitempty"`
 }
 
-func (m *QueryQFlagResponse) Reset()         { *m = QueryQFlagResponse{} }
-func (m *QueryQFlagResponse) String() string { return proto.CompactTextString(m) }
-func (*QueryQFlagResponse) ProtoMessage()    {}
-func (*QueryQFlagResponse) Descriptor() ([]byte, []int) {
+func (m *QueryFlagResponse) Reset()         { *m = QueryFlagResponse{} }
+func (m *QueryFlagResponse) String() string { return proto.CompactTextString(m) }
+func (*QueryFlagResponse) ProtoMessage()    {}
+func (*QueryFlagResponse) Descriptor() ([]byte, []int) {
 	return fileDescriptor_fb461e75899978b4, []int{3}
 }
-func (m *QueryQFlagResponse) XXX_Unmarshal(b []byte) error {
+func (m *QueryFlagResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *QueryQFlagResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *QueryFlagResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_QueryQFlagResponse.Marshal(b, m, deterministic)
+		return xxx_messageInfo_QueryFlagResponse.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -190,40 +191,40 @@ func (m *QueryQFlagResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, 
 		return b[:n], nil
 	}
 }
-func (m *QueryQFlagResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_QueryQFlagResponse.Merge(m, src)
+func (m *QueryFlagResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryFlagResponse.Merge(m, src)
 }
-func (m *QueryQFlagResponse) XXX_Size() int {
+func (m *QueryFlagResponse) XXX_Size() int {
 	return m.Size()
 }
-func (m *QueryQFlagResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_QueryQFlagResponse.DiscardUnknown(m)
+func (m *QueryFlagResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryFlagResponse.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_QueryQFlagResponse proto.InternalMessageInfo
+var xxx_messageInfo_QueryFlagResponse proto.InternalMessageInfo
 
-func (m *QueryQFlagResponse) GetFlag() *Flag {
+func (m *QueryFlagResponse) GetFlag() *Flag {
 	if m != nil {
 		return m.Flag
 	}
 	return nil
 }
 
-type QueryQFlagsRequest struct {
+type QueryFlagsRequest struct {
 }
 
-func (m *QueryQFlagsRequest) Reset()         { *m = QueryQFlagsRequest{} }
-func (m *QueryQFlagsRequest) String() string { return proto.CompactTextString(m) }
-func (*QueryQFlagsRequest) ProtoMessage()    {}
-func (*QueryQFlagsRequest) Descriptor() ([]byte, []int) {
+func (m *QueryFlagsRequest) Reset()         { *m = QueryFlagsRequest{} }
+func (m *QueryFlagsRequest) String() string { return proto.CompactTextString(m) }
+func (*QueryFlagsRequest) ProtoMessage()    {}
+func (*QueryFlagsRequest) Descriptor() ([]byte, []int) {
 	return fileDescriptor_fb461e75899978b4, []int{4}
 }
-func (m *QueryQFlagsRequest) XXX_Unmarshal(b []byte) error {
+func (m *QueryFlagsRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *QueryQFlagsRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *QueryFlagsRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_QueryQFlagsRequest.Marshal(b, m, deterministic)
+		return xxx_messageInfo_QueryFlagsRequest.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -233,34 +234,34 @@ func (m *QueryQFlagsRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, 
 		return b[:n], nil
 	}
 }
-func (m *QueryQFlagsRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_QueryQFlagsRequest.Merge(m, src)
+func (m *QueryFlagsRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryFlagsRequest.Merge(m, src)
 }
-func (m *QueryQFlagsRequest) XXX_Size() int {
+func (m *QueryFlagsRequest) XXX_Size() int {
 	return m.Size()
 }
-func (m *QueryQFlagsRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_QueryQFlagsRequest.DiscardUnknown(m)
+func (m *QueryFlagsRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryFlagsRequest.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_QueryQFlagsRequest proto.InternalMessageInfo
+var xxx_messageInfo_QueryFlagsRequest proto.InternalMessageInfo
 
-type QueryQFlagsResponse struct {
+type QueryFlagsResponse struct {
 	Flags []*Flag `protobuf:"bytes,1,rep,name=flags,proto3" json:"flags,omitempty"`
 }
 
-func (m *QueryQFlagsResponse) Reset()         { *m = QueryQFlagsResponse{} }
-func (m *QueryQFlagsResponse) String() string { return proto.CompactTextString(m) }
-func (*QueryQFlagsResponse) ProtoMessage()    {}
-func (*QueryQFlagsResponse) Descriptor() ([]byte, []int) {
+func (m *QueryFlagsResponse) Reset()         { *m = QueryFlagsResponse{} }
+func (m *QueryFlagsResponse) String() string { return proto.CompactTextString(m) }
+func (*QueryFlagsResponse) ProtoMessage()    {}
+func (*QueryFlagsResponse) Descriptor() ([]byte, []int) {
 	return fileDescriptor_fb461e75899978b4, []int{5}
 }
-func (m *QueryQFlagsResponse) XXX_Unmarshal(b []byte) error {
+func (m *QueryFlagsResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *QueryQFlagsResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *QueryFlagsResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_QueryQFlagsResponse.Marshal(b, m, deterministic)
+		return xxx_messageInfo_QueryFlagsResponse.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -270,19 +271,19 @@ func (m *QueryQFlagsResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte,
 		return b[:n], nil
 	}
 }
-func (m *QueryQFlagsResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_QueryQFlagsResponse.Merge(m, src)
+func (m *QueryFlagsResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryFlagsResponse.Merge(m, src)
 }
-func (m *QueryQFlagsResponse) XXX_Size() int {
+func (m *QueryFlagsResponse) XXX_Size() int {
 	return m.Size()
 }
-func (m *QueryQFlagsResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_QueryQFlagsResponse.DiscardUnknown(m)
+func (m *QueryFlagsResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryFlagsResponse.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_QueryQFlagsResponse proto.InternalMessageInfo
+var xxx_messageInfo_QueryFlagsResponse proto.InternalMessageInfo
 
-func (m *QueryQFlagsResponse) GetFlags() []*Flag {
+func (m *QueryFlagsResponse) GetFlags() []*Flag {
 	if m != nil {
 		return m.Flags
 	}
@@ -290,49 +291,49 @@ func (m *QueryQFlagsResponse) GetFlags() []*Flag {
 }
 
 func init() {
-	proto.RegisterType((*QueryParamsRequest)(nil), "DecentralCardGame.cardchain.featureflag.QueryParamsRequest")
-	proto.RegisterType((*QueryParamsResponse)(nil), "DecentralCardGame.cardchain.featureflag.QueryParamsResponse")
-	proto.RegisterType((*QueryQFlagRequest)(nil), "DecentralCardGame.cardchain.featureflag.QueryQFlagRequest")
-	proto.RegisterType((*QueryQFlagResponse)(nil), "DecentralCardGame.cardchain.featureflag.QueryQFlagResponse")
-	proto.RegisterType((*QueryQFlagsRequest)(nil), "DecentralCardGame.cardchain.featureflag.QueryQFlagsRequest")
-	proto.RegisterType((*QueryQFlagsResponse)(nil), "DecentralCardGame.cardchain.featureflag.QueryQFlagsResponse")
+	proto.RegisterType((*QueryParamsRequest)(nil), "cardchain.featureflag.QueryParamsRequest")
+	proto.RegisterType((*QueryParamsResponse)(nil), "cardchain.featureflag.QueryParamsResponse")
+	proto.RegisterType((*QueryFlagRequest)(nil), "cardchain.featureflag.QueryFlagRequest")
+	proto.RegisterType((*QueryFlagResponse)(nil), "cardchain.featureflag.QueryFlagResponse")
+	proto.RegisterType((*QueryFlagsRequest)(nil), "cardchain.featureflag.QueryFlagsRequest")
+	proto.RegisterType((*QueryFlagsResponse)(nil), "cardchain.featureflag.QueryFlagsResponse")
 }
 
 func init() { proto.RegisterFile("cardchain/featureflag/query.proto", fileDescriptor_fb461e75899978b4) }
 
 var fileDescriptor_fb461e75899978b4 = []byte{
-	// 485 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x9c, 0x54, 0x4f, 0x6b, 0x13, 0x41,
-	0x14, 0xcf, 0xd4, 0x64, 0xc1, 0xf1, 0xe4, 0x58, 0xa4, 0x04, 0x59, 0xeb, 0x5e, 0x14, 0xc1, 0x1d,
-	0x13, 0x0f, 0x4a, 0x2b, 0x94, 0x36, 0x62, 0x4f, 0x82, 0x0d, 0x82, 0xd0, 0x8b, 0xbc, 0x6c, 0xa6,
-	0xd3, 0x85, 0xdd, 0x99, 0xcd, 0xce, 0xac, 0x58, 0x4a, 0x2f, 0x7e, 0x02, 0xc1, 0xaf, 0xa3, 0xf7,
-	0x7a, 0x2b, 0x7a, 0xf1, 0x24, 0x92, 0xf8, 0x41, 0x64, 0xdf, 0x4c, 0x43, 0x43, 0x4b, 0x49, 0x72,
-	0x49, 0x66, 0x67, 0xdf, 0xef, 0xcf, 0xfb, 0xbd, 0xc7, 0xd2, 0x07, 0x09, 0x94, 0xc3, 0xe4, 0x10,
-	0x52, 0xc5, 0x0f, 0x04, 0xd8, 0xaa, 0x14, 0x07, 0x19, 0x48, 0x3e, 0xaa, 0x44, 0x79, 0x14, 0x17,
-	0xa5, 0xb6, 0x9a, 0x3d, 0x7c, 0x25, 0x12, 0xa1, 0x6c, 0x09, 0x59, 0x0f, 0xca, 0xe1, 0x2e, 0xe4,
-	0x22, 0x9e, 0x82, 0xe2, 0x0b, 0xa0, 0xf6, 0xaa, 0xd4, 0x52, 0x23, 0x86, 0xd7, 0x27, 0x07, 0x6f,
-	0xdf, 0x93, 0x5a, 0xcb, 0x4c, 0x70, 0x28, 0x52, 0x0e, 0x4a, 0x69, 0x0b, 0x36, 0xd5, 0xca, 0xf8,
-	0xb7, 0x8f, 0x13, 0x6d, 0x72, 0x6d, 0xf8, 0x00, 0x8c, 0x70, 0xaa, 0xfc, 0x63, 0x67, 0x20, 0x2c,
-	0x74, 0x78, 0x01, 0x32, 0x55, 0x58, 0xec, 0x6b, 0xa3, 0xab, 0xbd, 0x16, 0x50, 0x42, 0x7e, 0xce,
-	0xb7, 0x7e, 0x75, 0x4d, 0xfd, 0xe3, 0x2a, 0xa2, 0x55, 0xca, 0xf6, 0x6a, 0x9d, 0xb7, 0x08, 0xeb,
-	0x8b, 0x51, 0x25, 0x8c, 0x8d, 0x86, 0xf4, 0xce, 0xcc, 0xad, 0x29, 0xb4, 0x32, 0x82, 0xbd, 0xa1,
-	0x81, 0xa3, 0x5f, 0x23, 0xeb, 0xe4, 0xd1, 0xad, 0x2e, 0x8f, 0xe7, 0x0c, 0x23, 0x76, 0x44, 0x3b,
-	0xcd, 0xd3, 0x3f, 0xf7, 0x1b, 0x7d, 0x4f, 0x12, 0x6d, 0xd1, 0xdb, 0xa8, 0xb2, 0xf7, 0x3a, 0x03,
-	0xe9, 0xa5, 0xd9, 0x5d, 0x1a, 0xe4, 0x7a, 0x58, 0x65, 0x02, 0x35, 0x6e, 0xf6, 0xfd, 0x13, 0x63,
-	0xb4, 0xa9, 0x20, 0x17, 0x6b, 0x2b, 0x78, 0x8b, 0xe7, 0xe8, 0xbd, 0x37, 0xef, 0x09, 0xbc, 0xcb,
-	0x6d, 0xda, 0xac, 0x35, 0xbd, 0xc7, 0x27, 0x73, 0x7b, 0x44, 0x12, 0x84, 0x4e, 0x53, 0x41, 0xe2,
-	0x69, 0x2a, 0xfb, 0x3e, 0x95, 0xf3, 0x5b, 0xaf, 0xd7, 0xa3, 0xad, 0x1a, 0x54, 0x87, 0x72, 0x63,
-	0x71, 0x41, 0x87, 0xed, 0xfe, 0x6c, 0xd2, 0x16, 0x92, 0xb3, 0x6f, 0x84, 0x06, 0x2e, 0x2e, 0xb6,
-	0x39, 0x37, 0xd5, 0xe5, 0x19, 0xb6, 0x5f, 0x2e, 0x07, 0x76, 0x4d, 0x45, 0xcf, 0x3f, 0xff, 0xfa,
-	0xf7, 0x75, 0xa5, 0xc3, 0x38, 0xbf, 0xc4, 0xc2, 0x7b, 0xd7, 0x2c, 0x1e, 0xfb, 0x41, 0x68, 0x0b,
-	0x03, 0x62, 0x1b, 0x8b, 0x19, 0xb8, 0xb8, 0x05, 0xed, 0xcd, 0xa5, 0xb0, 0xde, 0xfb, 0x2e, 0x7a,
-	0xdf, 0x66, 0x5b, 0x73, 0x7b, 0x1f, 0x7d, 0xc0, 0xbf, 0x63, 0xb7, 0x6b, 0x27, 0xfc, 0xb8, 0x5e,
-	0xaf, 0x13, 0xf6, 0x9d, 0xd0, 0xc0, 0x0d, 0x9b, 0x2d, 0x63, 0x68, 0xd9, 0x51, 0xcc, 0xee, 0x57,
-	0xf4, 0x02, 0xdb, 0xe9, 0xb2, 0xa7, 0x0b, 0xb6, 0x63, 0x76, 0xde, 0x9d, 0x8e, 0x43, 0x72, 0x36,
-	0x0e, 0xc9, 0xdf, 0x71, 0x48, 0xbe, 0x4c, 0xc2, 0xc6, 0xd9, 0x24, 0x6c, 0xfc, 0x9e, 0x84, 0x8d,
-	0xfd, 0x0d, 0x99, 0xda, 0xc3, 0x6a, 0x10, 0x27, 0x3a, 0xbf, 0x96, 0xf5, 0xd3, 0x0c, 0xaf, 0x3d,
-	0x2a, 0x84, 0x19, 0x04, 0xf8, 0xe5, 0x78, 0xf6, 0x3f, 0x00, 0x00, 0xff, 0xff, 0xe2, 0xff, 0x8b,
-	0xa0, 0x2d, 0x05, 0x00, 0x00,
+	// 493 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x94, 0x53, 0x4f, 0x6b, 0x13, 0x41,
+	0x14, 0xcf, 0xb4, 0x49, 0xa0, 0xe3, 0xc5, 0x4e, 0xab, 0x94, 0xa8, 0x6b, 0xdd, 0x8b, 0x6d, 0x0e,
+	0x3b, 0xa6, 0x82, 0x82, 0xe0, 0x1f, 0x6a, 0xb5, 0x57, 0x0d, 0x82, 0xe0, 0xed, 0x65, 0x33, 0xdd,
+	0x2e, 0xec, 0xce, 0x6c, 0x77, 0x66, 0xc5, 0x52, 0x7a, 0xf1, 0x13, 0x08, 0x7a, 0xf0, 0xe8, 0xd1,
+	0xa3, 0x1f, 0xa3, 0xc7, 0x82, 0x17, 0x0f, 0x22, 0x92, 0x08, 0x7e, 0x0d, 0x99, 0x37, 0x63, 0x48,
+	0x31, 0x4d, 0xe2, 0x65, 0x78, 0xfb, 0xf6, 0xf7, 0x6f, 0xde, 0xdb, 0xa5, 0x37, 0x62, 0x28, 0xfb,
+	0xf1, 0x3e, 0xa4, 0x92, 0xef, 0x09, 0x30, 0x55, 0x29, 0xf6, 0x32, 0x48, 0xf8, 0x41, 0x25, 0xca,
+	0xc3, 0xa8, 0x28, 0x95, 0x51, 0xec, 0xd2, 0x08, 0x12, 0x8d, 0x41, 0x5a, 0xcb, 0x90, 0xa7, 0x52,
+	0x71, 0x3c, 0x1d, 0xb2, 0xb5, 0x9a, 0xa8, 0x44, 0x61, 0xc9, 0x6d, 0xe5, 0xbb, 0x57, 0x13, 0xa5,
+	0x92, 0x4c, 0x70, 0x28, 0x52, 0x0e, 0x52, 0x2a, 0x03, 0x26, 0x55, 0x52, 0xfb, 0xb7, 0xed, 0x58,
+	0xe9, 0x5c, 0x69, 0xde, 0x03, 0x2d, 0x9c, 0x2d, 0x7f, 0xdd, 0xe9, 0x09, 0x03, 0x1d, 0x5e, 0x40,
+	0x92, 0x4a, 0x04, 0x7b, 0x6c, 0x38, 0x39, 0x6c, 0x01, 0x25, 0xe4, 0x7f, 0xf5, 0xd6, 0x27, 0x63,
+	0xec, 0xe1, 0x10, 0xe1, 0x2a, 0x65, 0xcf, 0xad, 0xcf, 0x33, 0xa4, 0x75, 0xc5, 0x41, 0x25, 0xb4,
+	0x09, 0x5f, 0xd2, 0x95, 0x33, 0x5d, 0x5d, 0x28, 0xa9, 0x05, 0x7b, 0x44, 0x9b, 0x4e, 0x7e, 0x8d,
+	0xac, 0x93, 0x8d, 0x0b, 0x5b, 0xd7, 0xa2, 0x89, 0xd3, 0x88, 0x1c, 0x6d, 0x7b, 0xe9, 0xe4, 0xc7,
+	0xf5, 0xda, 0xe7, 0xdf, 0x5f, 0xda, 0xa4, 0xeb, 0x79, 0xe1, 0x03, 0x7a, 0x11, 0x85, 0x9f, 0x66,
+	0x90, 0x78, 0x33, 0x76, 0x99, 0x36, 0x73, 0xd5, 0xaf, 0x32, 0x81, 0xaa, 0x4b, 0x5d, 0xff, 0xc4,
+	0x18, 0xad, 0x4b, 0xc8, 0xc5, 0xda, 0x02, 0x76, 0xb1, 0x0e, 0x77, 0xe8, 0xf2, 0x18, 0xdf, 0xc7,
+	0xe2, 0xb4, 0x6e, 0x6d, 0x7d, 0xa8, 0x2b, 0xe7, 0x84, 0x42, 0x0a, 0x02, 0xc3, 0x95, 0x31, 0x95,
+	0xd1, 0x9d, 0x77, 0xfd, 0x24, 0x7c, 0xd3, 0x6b, 0x77, 0x68, 0xc3, 0x52, 0xec, 0x8d, 0x17, 0x67,
+	0x89, 0x3b, 0xe4, 0xd6, 0xf7, 0x45, 0xda, 0x40, 0x25, 0xf6, 0x91, 0xd0, 0xa6, 0x9b, 0x05, 0xdb,
+	0x3c, 0x87, 0xf8, 0xef, 0xf0, 0x5b, 0xed, 0x79, 0xa0, 0x2e, 0x5e, 0x78, 0xf7, 0xed, 0xd7, 0x5f,
+	0xef, 0x17, 0x3a, 0x8c, 0xf3, 0x1d, 0x11, 0x0b, 0x69, 0x4a, 0xc8, 0x1e, 0x43, 0xd9, 0xdf, 0x85,
+	0x5c, 0xf0, 0x69, 0xdf, 0x07, 0xfb, 0x44, 0x68, 0xdd, 0x86, 0x66, 0x37, 0xa7, 0xb9, 0x8d, 0xad,
+	0xa9, 0xb5, 0x31, 0x1b, 0xe8, 0x43, 0x3d, 0xc1, 0x50, 0x0f, 0xd9, 0xfd, 0xb9, 0x43, 0xe1, 0x71,
+	0xe4, 0xf6, 0x7e, 0xcc, 0x8f, 0xec, 0xaa, 0x8f, 0xd9, 0x07, 0x42, 0x1b, 0xb8, 0x0c, 0x36, 0xd3,
+	0x7a, 0x34, 0xbb, 0xcd, 0x39, 0x90, 0x3e, 0xe5, 0x1d, 0x4c, 0x79, 0x8b, 0x45, 0xff, 0x95, 0x52,
+	0x6f, 0xbf, 0x38, 0x19, 0x04, 0xe4, 0x74, 0x10, 0x90, 0x9f, 0x83, 0x80, 0xbc, 0x1b, 0x06, 0xb5,
+	0xd3, 0x61, 0x50, 0xfb, 0x36, 0x0c, 0x6a, 0xaf, 0xee, 0x25, 0xa9, 0xd9, 0xaf, 0x7a, 0x51, 0xac,
+	0xf2, 0xa9, 0x9a, 0x6f, 0xce, 0xa8, 0x9a, 0xc3, 0x42, 0xe8, 0x5e, 0x13, 0x7f, 0xc7, 0xdb, 0x7f,
+	0x02, 0x00, 0x00, 0xff, 0xff, 0xe4, 0x17, 0x52, 0x86, 0x83, 0x04, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -349,10 +350,10 @@ const _ = grpc.SupportPackageIsVersion4
 type QueryClient interface {
 	// Parameters queries the parameters of the module.
 	Params(ctx context.Context, in *QueryParamsRequest, opts ...grpc.CallOption) (*QueryParamsResponse, error)
-	// Queries a list of QFlag items.
-	QFlag(ctx context.Context, in *QueryQFlagRequest, opts ...grpc.CallOption) (*QueryQFlagResponse, error)
-	// Queries a list of QFlags items.
-	QFlags(ctx context.Context, in *QueryQFlagsRequest, opts ...grpc.CallOption) (*QueryQFlagsResponse, error)
+	// Queries a list of Flag items.
+	Flag(ctx context.Context, in *QueryFlagRequest, opts ...grpc.CallOption) (*QueryFlagResponse, error)
+	// Queries a list of Flags items.
+	Flags(ctx context.Context, in *QueryFlagsRequest, opts ...grpc.CallOption) (*QueryFlagsResponse, error)
 }
 
 type queryClient struct {
@@ -365,25 +366,25 @@ func NewQueryClient(cc grpc1.ClientConn) QueryClient {
 
 func (c *queryClient) Params(ctx context.Context, in *QueryParamsRequest, opts ...grpc.CallOption) (*QueryParamsResponse, error) {
 	out := new(QueryParamsResponse)
-	err := c.cc.Invoke(ctx, "/DecentralCardGame.cardchain.featureflag.Query/Params", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/cardchain.featureflag.Query/Params", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *queryClient) QFlag(ctx context.Context, in *QueryQFlagRequest, opts ...grpc.CallOption) (*QueryQFlagResponse, error) {
-	out := new(QueryQFlagResponse)
-	err := c.cc.Invoke(ctx, "/DecentralCardGame.cardchain.featureflag.Query/QFlag", in, out, opts...)
+func (c *queryClient) Flag(ctx context.Context, in *QueryFlagRequest, opts ...grpc.CallOption) (*QueryFlagResponse, error) {
+	out := new(QueryFlagResponse)
+	err := c.cc.Invoke(ctx, "/cardchain.featureflag.Query/Flag", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *queryClient) QFlags(ctx context.Context, in *QueryQFlagsRequest, opts ...grpc.CallOption) (*QueryQFlagsResponse, error) {
-	out := new(QueryQFlagsResponse)
-	err := c.cc.Invoke(ctx, "/DecentralCardGame.cardchain.featureflag.Query/QFlags", in, out, opts...)
+func (c *queryClient) Flags(ctx context.Context, in *QueryFlagsRequest, opts ...grpc.CallOption) (*QueryFlagsResponse, error) {
+	out := new(QueryFlagsResponse)
+	err := c.cc.Invoke(ctx, "/cardchain.featureflag.Query/Flags", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -394,10 +395,10 @@ func (c *queryClient) QFlags(ctx context.Context, in *QueryQFlagsRequest, opts .
 type QueryServer interface {
 	// Parameters queries the parameters of the module.
 	Params(context.Context, *QueryParamsRequest) (*QueryParamsResponse, error)
-	// Queries a list of QFlag items.
-	QFlag(context.Context, *QueryQFlagRequest) (*QueryQFlagResponse, error)
-	// Queries a list of QFlags items.
-	QFlags(context.Context, *QueryQFlagsRequest) (*QueryQFlagsResponse, error)
+	// Queries a list of Flag items.
+	Flag(context.Context, *QueryFlagRequest) (*QueryFlagResponse, error)
+	// Queries a list of Flags items.
+	Flags(context.Context, *QueryFlagsRequest) (*QueryFlagsResponse, error)
 }
 
 // UnimplementedQueryServer can be embedded to have forward compatible implementations.
@@ -407,11 +408,11 @@ type UnimplementedQueryServer struct {
 func (*UnimplementedQueryServer) Params(ctx context.Context, req *QueryParamsRequest) (*QueryParamsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Params not implemented")
 }
-func (*UnimplementedQueryServer) QFlag(ctx context.Context, req *QueryQFlagRequest) (*QueryQFlagResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method QFlag not implemented")
+func (*UnimplementedQueryServer) Flag(ctx context.Context, req *QueryFlagRequest) (*QueryFlagResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Flag not implemented")
 }
-func (*UnimplementedQueryServer) QFlags(ctx context.Context, req *QueryQFlagsRequest) (*QueryQFlagsResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method QFlags not implemented")
+func (*UnimplementedQueryServer) Flags(ctx context.Context, req *QueryFlagsRequest) (*QueryFlagsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Flags not implemented")
 }
 
 func RegisterQueryServer(s grpc1.Server, srv QueryServer) {
@@ -428,7 +429,7 @@ func _Query_Params_Handler(srv interface{}, ctx context.Context, dec func(interf
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/DecentralCardGame.cardchain.featureflag.Query/Params",
+		FullMethod: "/cardchain.featureflag.Query/Params",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(QueryServer).Params(ctx, req.(*QueryParamsRequest))
@@ -436,44 +437,45 @@ func _Query_Params_Handler(srv interface{}, ctx context.Context, dec func(interf
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Query_QFlag_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(QueryQFlagRequest)
+func _Query_Flag_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryFlagRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(QueryServer).QFlag(ctx, in)
+		return srv.(QueryServer).Flag(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/DecentralCardGame.cardchain.featureflag.Query/QFlag",
+		FullMethod: "/cardchain.featureflag.Query/Flag",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(QueryServer).QFlag(ctx, req.(*QueryQFlagRequest))
+		return srv.(QueryServer).Flag(ctx, req.(*QueryFlagRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Query_QFlags_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(QueryQFlagsRequest)
+func _Query_Flags_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryFlagsRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(QueryServer).QFlags(ctx, in)
+		return srv.(QueryServer).Flags(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/DecentralCardGame.cardchain.featureflag.Query/QFlags",
+		FullMethod: "/cardchain.featureflag.Query/Flags",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(QueryServer).QFlags(ctx, req.(*QueryQFlagsRequest))
+		return srv.(QueryServer).Flags(ctx, req.(*QueryFlagsRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
+var Query_serviceDesc = _Query_serviceDesc
 var _Query_serviceDesc = grpc.ServiceDesc{
-	ServiceName: "DecentralCardGame.cardchain.featureflag.Query",
+	ServiceName: "cardchain.featureflag.Query",
 	HandlerType: (*QueryServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -481,12 +483,12 @@ var _Query_serviceDesc = grpc.ServiceDesc{
 			Handler:    _Query_Params_Handler,
 		},
 		{
-			MethodName: "QFlag",
-			Handler:    _Query_QFlag_Handler,
+			MethodName: "Flag",
+			Handler:    _Query_Flag_Handler,
 		},
 		{
-			MethodName: "QFlags",
-			Handler:    _Query_QFlags_Handler,
+			MethodName: "Flags",
+			Handler:    _Query_Flags_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
@@ -549,7 +551,7 @@ func (m *QueryParamsResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	return len(dAtA) - i, nil
 }
 
-func (m *QueryQFlagRequest) Marshal() (dAtA []byte, err error) {
+func (m *QueryFlagRequest) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -559,12 +561,12 @@ func (m *QueryQFlagRequest) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *QueryQFlagRequest) MarshalTo(dAtA []byte) (int, error) {
+func (m *QueryFlagRequest) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *QueryQFlagRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *QueryFlagRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
@@ -586,7 +588,7 @@ func (m *QueryQFlagRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	return len(dAtA) - i, nil
 }
 
-func (m *QueryQFlagResponse) Marshal() (dAtA []byte, err error) {
+func (m *QueryFlagResponse) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -596,12 +598,12 @@ func (m *QueryQFlagResponse) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *QueryQFlagResponse) MarshalTo(dAtA []byte) (int, error) {
+func (m *QueryFlagResponse) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *QueryQFlagResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *QueryFlagResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
@@ -621,7 +623,7 @@ func (m *QueryQFlagResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	return len(dAtA) - i, nil
 }
 
-func (m *QueryQFlagsRequest) Marshal() (dAtA []byte, err error) {
+func (m *QueryFlagsRequest) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -631,12 +633,12 @@ func (m *QueryQFlagsRequest) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *QueryQFlagsRequest) MarshalTo(dAtA []byte) (int, error) {
+func (m *QueryFlagsRequest) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *QueryQFlagsRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *QueryFlagsRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
@@ -644,7 +646,7 @@ func (m *QueryQFlagsRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	return len(dAtA) - i, nil
 }
 
-func (m *QueryQFlagsResponse) Marshal() (dAtA []byte, err error) {
+func (m *QueryFlagsResponse) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -654,12 +656,12 @@ func (m *QueryQFlagsResponse) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *QueryQFlagsResponse) MarshalTo(dAtA []byte) (int, error) {
+func (m *QueryFlagsResponse) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *QueryQFlagsResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *QueryFlagsResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
@@ -712,7 +714,7 @@ func (m *QueryParamsResponse) Size() (n int) {
 	return n
 }
 
-func (m *QueryQFlagRequest) Size() (n int) {
+func (m *QueryFlagRequest) Size() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -729,7 +731,7 @@ func (m *QueryQFlagRequest) Size() (n int) {
 	return n
 }
 
-func (m *QueryQFlagResponse) Size() (n int) {
+func (m *QueryFlagResponse) Size() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -742,7 +744,7 @@ func (m *QueryQFlagResponse) Size() (n int) {
 	return n
 }
 
-func (m *QueryQFlagsRequest) Size() (n int) {
+func (m *QueryFlagsRequest) Size() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -751,7 +753,7 @@ func (m *QueryQFlagsRequest) Size() (n int) {
 	return n
 }
 
-func (m *QueryQFlagsResponse) Size() (n int) {
+func (m *QueryFlagsResponse) Size() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -905,7 +907,7 @@ func (m *QueryParamsResponse) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *QueryQFlagRequest) Unmarshal(dAtA []byte) error {
+func (m *QueryFlagRequest) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -928,10 +930,10 @@ func (m *QueryQFlagRequest) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: QueryQFlagRequest: wiretype end group for non-group")
+			return fmt.Errorf("proto: QueryFlagRequest: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: QueryQFlagRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: QueryFlagRequest: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		case 1:
@@ -1019,7 +1021,7 @@ func (m *QueryQFlagRequest) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *QueryQFlagResponse) Unmarshal(dAtA []byte) error {
+func (m *QueryFlagResponse) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -1042,10 +1044,10 @@ func (m *QueryQFlagResponse) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: QueryQFlagResponse: wiretype end group for non-group")
+			return fmt.Errorf("proto: QueryFlagResponse: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: QueryQFlagResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: QueryFlagResponse: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		case 1:
@@ -1105,7 +1107,7 @@ func (m *QueryQFlagResponse) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *QueryQFlagsRequest) Unmarshal(dAtA []byte) error {
+func (m *QueryFlagsRequest) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -1128,10 +1130,10 @@ func (m *QueryQFlagsRequest) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: QueryQFlagsRequest: wiretype end group for non-group")
+			return fmt.Errorf("proto: QueryFlagsRequest: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: QueryQFlagsRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: QueryFlagsRequest: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		default:
@@ -1155,7 +1157,7 @@ func (m *QueryQFlagsRequest) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *QueryQFlagsResponse) Unmarshal(dAtA []byte) error {
+func (m *QueryFlagsResponse) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -1178,10 +1180,10 @@ func (m *QueryQFlagsResponse) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: QueryQFlagsResponse: wiretype end group for non-group")
+			return fmt.Errorf("proto: QueryFlagsResponse: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: QueryQFlagsResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: QueryFlagsResponse: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		case 1:

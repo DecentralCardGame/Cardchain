@@ -1,21 +1,26 @@
 syntax = "proto3";
-package DecentralCardGame.cardchain.cardchain;
+package cardchain.cardchain;
 
+import "amino/amino.proto";
 import "gogoproto/gogo.proto";
+import "cosmos/base/v1beta1/coin.proto";
 
-option go_package = "github.com/DecentralCardGame/Cardchain/x/cardchain/types";
+option go_package = "github.com/DecentralCardGame/cardchain/x/cardchain/types";
 
 // Params defines the parameters for the module.
 message Params {
-  option (gogoproto.goproto_stringer) = false;
+  option (amino.name) = "cardchain/x/cardchain/Params";
+  option (gogoproto.equal) = true;
+
   int64 votingRightsExpirationTime = 1;
   uint64 setSize = 2;
-  string setPrice = 3 [(gogoproto.nullable) = false, (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Coin"];;
+  cosmos.base.v1beta1.Coin setPrice = 3 [ (gogoproto.nullable) = false ];
   uint64 activeSetsAmount = 4;
-  string setCreationFee = 5 [(gogoproto.nullable) = false, (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Coin"];;
-  string collateralDeposit = 6 [(gogoproto.nullable) = false, (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Coin"];;
+  cosmos.base.v1beta1.Coin setCreationFee = 5 [ (gogoproto.nullable) = false ];
+  cosmos.base.v1beta1.Coin collateralDeposit = 6
+      [ (gogoproto.nullable) = false ];
   int64 winnerReward = 7;
-  string hourlyFaucet = 9 [(gogoproto.nullable) = false, (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Coin"];;
+  cosmos.base.v1beta1.Coin hourlyFaucet = 9 [ (gogoproto.nullable) = false ];
   string inflationRate = 10;
   uint64 raresPerPack = 11;
   uint64 commonsPerPack = 12;
@@ -23,9 +28,10 @@ message Params {
   uint64 trialPeriod = 14;
   int64 gameVoteRatio = 15;
   int64 cardAuctionPriceReductionPeriod = 16;
-  string airDropValue = 17 [(gogoproto.nullable) = false, (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Coin"];;
+  cosmos.base.v1beta1.Coin airDropValue = 17 [ (gogoproto.nullable) = false ];
   int64 airDropMaxBlockHeight = 18;
-  string trialVoteReward = 19 [(gogoproto.nullable) = false, (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Coin"];;
+  cosmos.base.v1beta1.Coin trialVoteReward = 19
+      [ (gogoproto.nullable) = false ];
   int64 votePoolFraction = 20;
   int64 votingRewardCap = 8;
   uint64 matchWorkerDelay = 21;

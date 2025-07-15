@@ -1,0 +1,5 @@
+[*.proto]
+indent_style = space
+trim_trailing_whitespace = false
+indent_size = 2
+tab_width = 2

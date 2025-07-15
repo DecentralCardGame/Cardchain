@@ -1,11 +1,14 @@
-/backup
 vue/node_modules
 vue/dist
-/vue
 release/
 .idea/
 .vscode/
 .DS_Store
+*.dot
+*.log
+*.ign
+/vue
+/goat/node_modules
 /build
 /cs
 /goat/node_modules
