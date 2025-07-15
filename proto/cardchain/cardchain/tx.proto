@@ -11,6 +11,7 @@ import "cosmos/base/v1beta1/coin.proto";
 import "cardchain/cardchain/voting.proto";
 import "cardchain/cardchain/match.proto";
 import "cardchain/cardchain/council.proto";
+import "cardchain/cardchain/encounter.proto";
 import "cardchain/cardchain/card.proto";
 
 option go_package = "github.com/DecentralCardGame/cardchain/x/cardchain/types";
@@ -493,7 +494,7 @@ message MsgEncounterCreate {
   string creator = 1;
   string name = 2;
   repeated uint64 drawlist = 3;
-  map<string, string> parameters = 4;
+  repeated Parameter parameters = 4;
   bytes image = 5;
 }
 
