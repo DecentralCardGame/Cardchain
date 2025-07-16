@@ -237,6 +237,11 @@ for idx, set in enumerate(new_dict["app_state"]["cardchain"]["sets"]):
         (key[0].lower() + key[1:]): value for key, value in set.items()
     }
 
+for idx, enc in enumerate(new_dict["app_state"]["cardchain"]["encounters"]):
+    new_dict["app_state"]["cardchain"]["encounters"][idx] = {
+        (key[0].lower() + key[1:]): value for key, value in enc.items()
+    }
+
 coinMap = {}
 for account in new_dict["app_state"]["bank"]["balances"]:
     for coin in account["coins"]:
