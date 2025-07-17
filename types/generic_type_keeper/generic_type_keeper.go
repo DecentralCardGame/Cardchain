@@ -66,7 +66,7 @@ func (gtk GenericTypeKeeper[T, K]) Set(ctx sdk.Context, id K, new T) {
 // GetIterator Returns an iterator for all objects
 func (gtk GenericTypeKeeper[T, K]) GetIterator(ctx sdk.Context) db.Iterator {
 	store := gtk.getValueStore(ctx)
-	return storetypes.KVStorePrefixIterator(store, []byte{})
+	return storetypes.KVStorePrefixIterator(store, types.KeyPrefix(gtk.valueKey()))
 }
 
 // GetAll Gets all objs from store -- use GetItemIterator instead

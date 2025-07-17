@@ -67,7 +67,7 @@ func (k Keeper) GetAllUsers(ctx sdk.Context) (allUsers []*types.User, allAddress
 		k.cdc.MustUnmarshal(iterator.Value(), &gottenUser)
 
 		allUsers = append(allUsers, &gottenUser)
-		allAddresses = append(allAddresses, iterator.Key())
+		allAddresses = append(allAddresses, k.Users.NormalizeAddress(iterator.Key()))
 	}
 	return
 }

@@ -163,6 +163,7 @@ for idx, addr in enumerate(old_dict["app_state"]["cardchain"]["addresses"]):
     new_dict["app_state"]["cardchain"]["users"].append(
         old_dict["app_state"]["cardchain"]["users"][idx]
     )
+
     for i in old_dict["app_state"]["auth"]["accounts"]:
         if i.get("address") == addr:
             new_dict["app_state"]["auth"]["accounts"].append(i)

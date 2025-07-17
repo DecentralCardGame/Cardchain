@@ -123,6 +123,7 @@ func ExportGenesis(ctx sdk.Context, k keeper.Keeper) *types.GenesisState {
 		addresses = append(addresses, addr.String())
 	}
 	genesis.Users = users
+	genesis.Addresses = addresses
 	// this line is used by starport scaffolding # genesis/module/export
 
 	return genesis
