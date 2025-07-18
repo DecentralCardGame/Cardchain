@@ -3,6 +3,7 @@ vue/dist
 release/
 .idea/
 .vscode/
+.zed/
 .DS_Store
 *.dot
 *.log
