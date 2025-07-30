@@ -537,19 +537,26 @@ func local_request_Query_Encounters_0(ctx context.Context, marshaler runtime.Mar
 
 }
 
-var (
-	filter_Query_EncounterWithImage_0 = &utilities.DoubleArray{Encoding: map[string]int{}, Base: []int(nil), Check: []int(nil)}
-)
-
 func request_Query_EncounterWithImage_0(ctx context.Context, marshaler runtime.Marshaler, client QueryClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq QueryEncounterWithImageRequest
 	var metadata runtime.ServerMetadata
 
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
+	val, ok = pathParams["encounterId"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "encounterId")
 	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Query_EncounterWithImage_0); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+
+	protoReq.EncounterId, err = runtime.Uint64(val)
+
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "encounterId", err)
 	}
 
 	msg, err := client.EncounterWithImage(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -561,11 +568,22 @@ func local_request_Query_EncounterWithImage_0(ctx context.Context, marshaler run
 	var protoReq QueryEncounterWithImageRequest
 	var metadata runtime.ServerMetadata
 
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
+	val, ok = pathParams["encounterId"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "encounterId")
 	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Query_EncounterWithImage_0); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+
+	protoReq.EncounterId, err = runtime.Uint64(val)
+
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "encounterId", err)
 	}
 
 	msg, err := server.EncounterWithImage(ctx, &protoReq)
@@ -1994,7 +2012,7 @@ var (
 
 	pattern_Query_Encounters_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 1, 2, 2}, []string{"DecentralCardGame", "cardchain", "encounters"}, "", runtime.AssumeColonVerbOpt(false)))
 
-	pattern_Query_EncounterWithImage_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 1, 2, 2}, []string{"DecentralCardGame", "cardchain", "encounter_with_image"}, "", runtime.AssumeColonVerbOpt(false)))
+	pattern_Query_EncounterWithImage_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"DecentralCardGame", "cardchain", "encounter_with_image", "encounterId"}, "", runtime.AssumeColonVerbOpt(false)))
 
 	pattern_Query_EncountersWithImage_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 1, 2, 2}, []string{"DecentralCardGame", "cardchain", "encounters_with_image"}, "", runtime.AssumeColonVerbOpt(false)))
 

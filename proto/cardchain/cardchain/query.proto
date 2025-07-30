@@ -96,8 +96,8 @@ service Query {
   // Queries a list of EncounterWithImage items.
   rpc EncounterWithImage(QueryEncounterWithImageRequest)
       returns (QueryEncounterWithImageResponse) {
-    option (google.api.http).get =
-        "/DecentralCardGame/cardchain/cardchain/encounter_with_image";
+    option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/"
+                                   "encounter_with_image/{encounterId}";
   }
 
   // Queries a list of EncountersWithImage items.
