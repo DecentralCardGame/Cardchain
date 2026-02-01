@@ -4,7 +4,7 @@
 # Takes optional `--path <path>` option to specify an ingite installation at a different location then the default one
 # All other arguments are passed on to ignite
 
-IGNITE_VERSION="v29.2.0-dev"
+IGNITE_VERSION="v29.7.0-dev"
 
 
 if [[ $1 == "--path" ]]; then
