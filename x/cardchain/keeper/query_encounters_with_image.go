@@ -18,13 +18,13 @@ func (k Keeper) EncountersWithImage(goCtx context.Context, req *types.QueryEncou
 
 	var encountersWithImage []*types.EncounterWithImage
 
-	encounters := k.Encounterk.GetAll(ctx)
-
-	for _, encounter := range encounters {
-		encountersWithImage = append(encountersWithImage, &types.EncounterWithImage{
-			Encounter: *encounter,
-			Image:     string(k.Images.Get(ctx, encounter.ImageId).Image),
-		})
+	for _, encounter := range k.Encounterk.GetAll(ctx) {
+		if req.Owner == "" || encounter.Owner == req.Owner {
+			encountersWithImage = append(encountersWithImage, &types.EncounterWithImage{
+				Encounter: *encounter,
+				Image:     string(k.Images.Get(ctx, encounter.ImageId).Image),
+			})
+		}
 	}
 
 	return &types.QueryEncountersWithImageResponse{Encounters: encountersWithImage}, nil
