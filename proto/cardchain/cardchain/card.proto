@@ -3,6 +3,7 @@ package cardchain.cardchain;
 
 import "gogoproto/gogo.proto";
 import "cosmos/base/v1beta1/coin.proto";
+import "cardchain/cardchain/parameter.proto";
 
 option go_package = "github.com/DecentralCardGame/cardchain/x/cardchain/types";
 
@@ -14,7 +15,7 @@ message Card {
   bool fullArt = 5;
   string notes = 6;
   CardStatus status = 7;
-  cosmos.base.v1beta1.Coin votePool = 8 [ (gogoproto.nullable) = false ];
+  cosmos.base.v1beta1.Coin votePool = 8 [(gogoproto.nullable) = false];
   repeated string voters = 14;
   uint64 fairEnoughVotes = 9;
   uint64 overpoweredVotes = 10;
@@ -24,6 +25,7 @@ message Card {
   bool balanceAnchor = 15;
   bool starterCard = 16;
   CardRarity rarity = 17;
+  repeated Parameter parameters = 18;
 }
 
 enum CardStatus {
@@ -61,4 +63,4 @@ enum CardType {
   headquarter = 3;
 }
 
-message TimeStamp { uint64 timeStamp = 1; }
+message TimeStamp {uint64 timeStamp = 1;}

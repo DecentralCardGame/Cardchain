@@ -49,6 +49,7 @@ func (k msgServer) CardSaveContent(goCtx context.Context, msg *types.MsgCardSave
 
 	card.Notes = msg.Notes
 	card.Artist = msg.Artist
+	card.Parameters = msg.Parameters
 	card.BalanceAnchor = msg.BalanceAnchor
 	if card.Status == types.CardStatus_scheme {
 		err = msgOwner.SchemeToCard(msg.CardId)

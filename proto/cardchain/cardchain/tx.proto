@@ -13,6 +13,7 @@ import "cardchain/cardchain/match.proto";
 import "cardchain/cardchain/council.proto";
 import "cardchain/cardchain/encounter.proto";
 import "cardchain/cardchain/card.proto";
+import "cardchain/cardchain/parameter.proto";
 
 option go_package = "github.com/DecentralCardGame/cardchain/x/cardchain/types";
 
@@ -124,6 +125,7 @@ message MsgCardSaveContent {
   string notes = 4;
   string artist = 5;
   bool   balanceAnchor = 6;
+  repeated Parameter parameters = 7;
 }
 
 message MsgCardSaveContentResponse {
