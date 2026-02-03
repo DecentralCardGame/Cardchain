@@ -490,7 +490,13 @@ func (am AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "cardId"}},
 				},
 
-				// this line is used by ignite scaffolding # autocli/tx
+				{
+			RpcMethod: "EncounterDelete",
+			Use: "encounter-delete [id]",
+			Short: "Send a EncounterDelete tx",
+			PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "id"}},
+		},
+		// this line is used by ignite scaffolding # autocli/tx
 			},
 		},
 	}
