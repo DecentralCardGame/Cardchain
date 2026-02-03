@@ -5240,7 +5240,7 @@ func init() {
 func init() { proto.RegisterFile("cardchain/cardchain/tx.proto", fileDescriptor_3b4a3aba0ac94bc8) }
 
 var fileDescriptor_3b4a3aba0ac94bc8 = []byte{
-	// 2973 bytes of a gzipped FileDescriptorProto
+	// 2974 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xb4, 0x5b, 0x4f, 0x6f, 0x1b, 0xc7,
 	0x15, 0x37, 0x45, 0x51, 0x96, 0xc6, 0xb2, 0x9c, 0xac, 0x15, 0x87, 0xa6, 0x6d, 0x49, 0xa6, 0x25,
 	0x5b, 0xb6, 0x65, 0x29, 0x96, 0x63, 0x27, 0x35, 0x5a, 0x17, 0xa2, 0xe4, 0x06, 0x01, 0xaa, 0xd8,
@@ -5413,20 +5413,20 @@ var fileDescriptor_3b4a3aba0ac94bc8 = []byte{
 	0xd2, 0x0e, 0x20, 0xce, 0xad, 0xf6, 0x02, 0xae, 0xe5, 0x1c, 0x8f, 0x04, 0x68, 0x76, 0x6e, 0x43,
 	0x27, 0x80, 0xf8, 0xd8, 0x70, 0x1b, 0xc0, 0x68, 0x8a, 0x21, 0xa8, 0xd9, 0xc7, 0x8c, 0x8d, 0x00,
 	0xe2, 0x63, 0x99, 0x2e, 0x80, 0xd1, 0xc7, 0x64, 0x94, 0xd9, 0xc7, 0x74, 0xc5, 0x7f, 0x62, 0x43,
-	0xb5, 0xf0, 0x6f, 0xb4, 0xa1, 0x02, 0x34, 0xdb, 0xd0, 0x50, 0x86, 0x27, 0xd9, 0xa0, 0x5c, 0x7a,
-	0xbe, 0x92, 0xbb, 0x7e, 0x27, 0x34, 0x67, 0x83, 0x9a, 0xa2, 0x32, 0x09, 0x19, 0x4a, 0x41, 0xf9,
-	0x6a, 0xbe, 0x8c, 0x04, 0x67, 0x0e, 0x19, 0xfa, 0xda, 0x30, 0x79, 0x1c, 0x68, 0x0b, 0xc3, 0x6b,
-	0x05, 0xb6, 0x59, 0xa0, 0xcd, 0x8f, 0x03, 0x5b, 0x75, 0xd8, 0xd9, 0x03, 0x27, 0x93, 0xd2, 0xf0,
-	0xa2, 0xed, 0xa8, 0x37, 0x60, 0x50, 0xbb, 0x96, 0x03, 0x90, 0x8b, 0x22, 0x43, 0xb5, 0xde, 0xd5,
-	0x02, 0xe2, 0x51, 0xa4, 0xb9, 0x28, 0x62, 0x2a, 0xe5, 0xf2, 0x97, 0x81, 0xa8, 0xe3, 0xda, 0x5e,
-	0x06, 0x09, 0xc8, 0xfa, 0x32, 0x50, 0x2b, 0xb4, 0x0e, 0x06, 0x8e, 0xa6, 0x3c, 0x6b, 0xad, 0x48,
-	0x65, 0xb1, 0xb5, 0xcd, 0xe2, 0x58, 0xf9, 0xce, 0xce, 0x76, 0x99, 0x56, 0x72, 0x1d, 0x8b, 0xc0,
-	0xcc, 0x77, 0xb6, 0xb6, 0x8f, 0x53, 0xab, 0xfc, 0xfa, 0xe5, 0xb3, 0x1b, 0xa5, 0x86, 0xfb, 0xf5,
-	0xf3, 0x85, 0xd2, 0x37, 0xcf, 0x17, 0x4a, 0xff, 0x7e, 0xbe, 0x50, 0xfa, 0xc3, 0x8b, 0x85, 0x13,
-	0xdf, 0xbc, 0x58, 0x38, 0xf1, 0xcf, 0x17, 0x0b, 0x27, 0x3e, 0x79, 0xb7, 0xed, 0xe3, 0x83, 0x7e,
-	0x73, 0xdd, 0x0b, 0xbb, 0x1b, 0x3b, 0xc8, 0x43, 0x01, 0x8e, 0x60, 0x87, 0xc8, 0xfd, 0x1e, 0xec,
-	0xa2, 0x0d, 0xfd, 0x5f, 0x65, 0xe1, 0xe3, 0x1e, 0x8a, 0x9b, 0x53, 0xf4, 0x0f, 0xcb, 0xee, 0xfc,
-	0x2f, 0x00, 0x00, 0xff, 0xff, 0x17, 0xe2, 0xe5, 0xa5, 0xd7, 0x37, 0x00, 0x00,
+	0xb5, 0xf0, 0x6f, 0xb4, 0xa1, 0x02, 0x34, 0xdb, 0xd0, 0x50, 0x86, 0x27, 0x0e, 0x9d, 0x2d, 0xc1,
+	0xaf, 0xe4, 0x52, 0x20, 0x30, 0xb3, 0x43, 0x6b, 0x8b, 0xdc, 0x24, 0xe9, 0x94, 0x2b, 0xdc, 0x57,
+	0x72, 0x57, 0xef, 0x84, 0xe6, 0xa4, 0x53, 0x53, 0xbb, 0x26, 0x91, 0x49, 0xa9, 0x5b, 0x5f, 0xcd,
+	0x37, 0x05, 0xc1, 0x99, 0x23, 0x93, 0xbe, 0x04, 0x4d, 0xde, 0x20, 0xda, 0xfa, 0xf3, 0x5a, 0x01,
+	0x6f, 0x12, 0x68, 0xf3, 0x1b, 0xc4, 0x56, 0x84, 0x76, 0xf6, 0xc0, 0xc9, 0xa4, 0x02, 0xbd, 0x68,
+	0xbb, 0x51, 0x1a, 0x30, 0xa8, 0x5d, 0xcb, 0x01, 0xc8, 0xb5, 0x97, 0xa1, 0x92, 0xf2, 0x6a, 0x01,
+	0xf1, 0x28, 0xd2, 0x5c, 0x7b, 0x31, 0x55, 0x8c, 0xf9, 0x03, 0x44, 0x94, 0x8b, 0x6d, 0x0f, 0x90,
+	0x04, 0x64, 0x7d, 0x80, 0xa8, 0x85, 0x60, 0x07, 0x03, 0x47, 0x53, 0x05, 0xb6, 0x16, 0xbe, 0xb2,
+	0xd8, 0xda, 0x66, 0x71, 0x6c, 0xc2, 0xb5, 0x56, 0xf9, 0xf5, 0xcb, 0x67, 0x37, 0x4a, 0x0d, 0xf7,
+	0xeb, 0xe7, 0x0b, 0xa5, 0x6f, 0x9e, 0x2f, 0x94, 0xfe, 0xfd, 0x7c, 0xa1, 0xf4, 0x87, 0x17, 0x0b,
+	0x27, 0xbe, 0x79, 0xb1, 0x70, 0xe2, 0x9f, 0x2f, 0x16, 0x4e, 0x7c, 0xf2, 0x6e, 0xdb, 0xc7, 0x07,
+	0xfd, 0xe6, 0xba, 0x17, 0x76, 0x37, 0x76, 0x90, 0x87, 0x02, 0x1c, 0xc1, 0x0e, 0x21, 0xf8, 0x1e,
+	0xec, 0xa2, 0x0d, 0xfd, 0x5f, 0x65, 0xe1, 0xe3, 0x1e, 0x8a, 0x9b, 0x53, 0xf4, 0x0f, 0xcb, 0xee,
+	0xfc, 0x2f, 0x00, 0x00, 0xff, 0xff, 0xdf, 0x95, 0xf5, 0x97, 0xd7, 0x37, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -5488,6 +5488,7 @@ type MsgClient interface {
 	EarlyAccessInvite(ctx context.Context, in *MsgEarlyAccessInvite, opts ...grpc.CallOption) (*MsgEarlyAccessInviteResponse, error)
 	ZealyConnect(ctx context.Context, in *MsgZealyConnect, opts ...grpc.CallOption) (*MsgZealyConnectResponse, error)
 	EncounterCreate(ctx context.Context, in *MsgEncounterCreate, opts ...grpc.CallOption) (*MsgEncounterCreateResponse, error)
+	EncounterEdit(ctx context.Context, in *MsgEncounterEdit, opts ...grpc.CallOption) (*MsgEncounterEditResponse, error)
 	EncounterDo(ctx context.Context, in *MsgEncounterDo, opts ...grpc.CallOption) (*MsgEncounterDoResponse, error)
 	EncounterClose(ctx context.Context, in *MsgEncounterClose, opts ...grpc.CallOption) (*MsgEncounterCloseResponse, error)
 	EarlyAccessDisinvite(ctx context.Context, in *MsgEarlyAccessDisinvite, opts ...grpc.CallOption) (*MsgEarlyAccessDisinviteResponse, error)
@@ -5495,8 +5496,6 @@ type MsgClient interface {
 	EarlyAccessGrant(ctx context.Context, in *MsgEarlyAccessGrant, opts ...grpc.CallOption) (*MsgEarlyAccessGrantResponse, error)
 	SetActivate(ctx context.Context, in *MsgSetActivate, opts ...grpc.CallOption) (*MsgSetActivateResponse, error)
 	CardCopyrightClaim(ctx context.Context, in *MsgCardCopyrightClaim, opts ...grpc.CallOption) (*MsgCardCopyrightClaimResponse, error)
-	// EncounterEdit defines the EncounterEdit RPC.
-	EncounterEdit(ctx context.Context, in *MsgEncounterEdit, opts ...grpc.CallOption) (*MsgEncounterEditResponse, error)
 }
 
 type msgClient struct {
@@ -5912,6 +5911,15 @@ func (c *msgClient) EncounterCreate(ctx context.Context, in *MsgEncounterCreate,
 	return out, nil
 }
 
+func (c *msgClient) EncounterEdit(ctx context.Context, in *MsgEncounterEdit, opts ...grpc.CallOption) (*MsgEncounterEditResponse, error) {
+	out := new(MsgEncounterEditResponse)
+	err := c.cc.Invoke(ctx, "/cardchain.cardchain.Msg/EncounterEdit", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *msgClient) EncounterDo(ctx context.Context, in *MsgEncounterDo, opts ...grpc.CallOption) (*MsgEncounterDoResponse, error) {
 	out := new(MsgEncounterDoResponse)
 	err := c.cc.Invoke(ctx, "/cardchain.cardchain.Msg/EncounterDo", in, out, opts...)
@@ -5975,15 +5983,6 @@ func (c *msgClient) CardCopyrightClaim(ctx context.Context, in *MsgCardCopyright
 	return out, nil
 }
 
-func (c *msgClient) EncounterEdit(ctx context.Context, in *MsgEncounterEdit, opts ...grpc.CallOption) (*MsgEncounterEditResponse, error) {
-	out := new(MsgEncounterEditResponse)
-	err := c.cc.Invoke(ctx, "/cardchain.cardchain.Msg/EncounterEdit", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 // MsgServer is the server API for Msg service.
 type MsgServer interface {
 	// UpdateParams defines a (governance) operation for updating the module
@@ -6033,6 +6032,7 @@ type MsgServer interface {
 	EarlyAccessInvite(context.Context, *MsgEarlyAccessInvite) (*MsgEarlyAccessInviteResponse, error)
 	ZealyConnect(context.Context, *MsgZealyConnect) (*MsgZealyConnectResponse, error)
 	EncounterCreate(context.Context, *MsgEncounterCreate) (*MsgEncounterCreateResponse, error)
+	EncounterEdit(context.Context, *MsgEncounterEdit) (*MsgEncounterEditResponse, error)
 	EncounterDo(context.Context, *MsgEncounterDo) (*MsgEncounterDoResponse, error)
 	EncounterClose(context.Context, *MsgEncounterClose) (*MsgEncounterCloseResponse, error)
 	EarlyAccessDisinvite(context.Context, *MsgEarlyAccessDisinvite) (*MsgEarlyAccessDisinviteResponse, error)
@@ -6040,8 +6040,6 @@ type MsgServer interface {
 	EarlyAccessGrant(context.Context, *MsgEarlyAccessGrant) (*MsgEarlyAccessGrantResponse, error)
 	SetActivate(context.Context, *MsgSetActivate) (*MsgSetActivateResponse, error)
 	CardCopyrightClaim(context.Context, *MsgCardCopyrightClaim) (*MsgCardCopyrightClaimResponse, error)
-	// EncounterEdit defines the EncounterEdit RPC.
-	EncounterEdit(context.Context, *MsgEncounterEdit) (*MsgEncounterEditResponse, error)
 }
 
 // UnimplementedMsgServer can be embedded to have forward compatible implementations.
@@ -6183,6 +6181,9 @@ func (*UnimplementedMsgServer) ZealyConnect(ctx context.Context, req *MsgZealyCo
 func (*UnimplementedMsgServer) EncounterCreate(ctx context.Context, req *MsgEncounterCreate) (*MsgEncounterCreateResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method EncounterCreate not implemented")
 }
+func (*UnimplementedMsgServer) EncounterEdit(ctx context.Context, req *MsgEncounterEdit) (*MsgEncounterEditResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method EncounterEdit not implemented")
+}
 func (*UnimplementedMsgServer) EncounterDo(ctx context.Context, req *MsgEncounterDo) (*MsgEncounterDoResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method EncounterDo not implemented")
 }
@@ -6203,9 +6204,6 @@ func (*UnimplementedMsgServer) SetActivate(ctx context.Context, req *MsgSetActiv
 }
 func (*UnimplementedMsgServer) CardCopyrightClaim(ctx context.Context, req *MsgCardCopyrightClaim) (*MsgCardCopyrightClaimResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CardCopyrightClaim not implemented")
-}
-func (*UnimplementedMsgServer) EncounterEdit(ctx context.Context, req *MsgEncounterEdit) (*MsgEncounterEditResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method EncounterEdit not implemented")
 }
 
 func RegisterMsgServer(s grpc1.Server, srv MsgServer) {
@@ -7022,6 +7020,24 @@ func _Msg_EncounterCreate_Handler(srv interface{}, ctx context.Context, dec func
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Msg_EncounterEdit_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgEncounterEdit)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).EncounterEdit(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/cardchain.cardchain.Msg/EncounterEdit",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).EncounterEdit(ctx, req.(*MsgEncounterEdit))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _Msg_EncounterDo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(MsgEncounterDo)
 	if err := dec(in); err != nil {
@@ -7144,24 +7160,6 @@ func _Msg_CardCopyrightClaim_Handler(srv interface{}, ctx context.Context, dec f
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(MsgServer).CardCopyrightClaim(ctx, req.(*MsgCardCopyrightClaim))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Msg_EncounterEdit_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(MsgEncounterEdit)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(MsgServer).EncounterEdit(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/cardchain.cardchain.Msg/EncounterEdit",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MsgServer).EncounterEdit(ctx, req.(*MsgEncounterEdit))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -7352,6 +7350,10 @@ var _Msg_serviceDesc = grpc.ServiceDesc{
 			Handler:    _Msg_EncounterCreate_Handler,
 		},
 		{
+			MethodName: "EncounterEdit",
+			Handler:    _Msg_EncounterEdit_Handler,
+		},
+		{
 			MethodName: "EncounterDo",
 			Handler:    _Msg_EncounterDo_Handler,
 		},
@@ -7378,10 +7380,6 @@ var _Msg_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CardCopyrightClaim",
 			Handler:    _Msg_CardCopyrightClaim_Handler,
-		},
-		{
-			MethodName: "EncounterEdit",
-			Handler:    _Msg_EncounterEdit_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

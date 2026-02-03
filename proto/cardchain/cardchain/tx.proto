@@ -67,6 +67,7 @@ service Msg {
   rpc EarlyAccessInvite     (MsgEarlyAccessInvite) returns (MsgEarlyAccessInviteResponse);
   rpc ZealyConnect          (MsgZealyConnect) returns (MsgZealyConnectResponse);
   rpc EncounterCreate       (MsgEncounterCreate) returns (MsgEncounterCreateResponse);
+  rpc EncounterEdit         (MsgEncounterEdit) returns (MsgEncounterEditResponse);
   rpc EncounterDo           (MsgEncounterDo) returns (MsgEncounterDoResponse);
   rpc EncounterClose        (MsgEncounterClose) returns (MsgEncounterCloseResponse);
   rpc EarlyAccessDisinvite  (MsgEarlyAccessDisinvite) returns (MsgEarlyAccessDisinviteResponse);
@@ -76,7 +77,6 @@ service Msg {
   rpc CardCopyrightClaim    (MsgCardCopyrightClaim) returns (MsgCardCopyrightClaimResponse);
 
   // EncounterEdit defines the EncounterEdit RPC.
-  rpc EncounterEdit (MsgEncounterEdit) returns (MsgEncounterEditResponse);
 }
 // MsgUpdateParams is the Msg/UpdateParams request type.
 message MsgUpdateParams {
