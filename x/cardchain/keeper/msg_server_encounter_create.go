@@ -61,7 +61,7 @@ func (k Keeper) validateEncounter(ctx sdk.Context, encounter *types.Encounter, c
 	for ; iter.Valid(); iter.Next() {
 		_, e := iter.Value()
 
-		if e.Name == encounter.Name {
+		if e.Name == encounter.Name && e.Id != encounter.Id {
 			return errorsmod.Wrapf(
 				errors.ErrUnauthorized,
 				"encounter with same name already exists and is owned by '%s'",
