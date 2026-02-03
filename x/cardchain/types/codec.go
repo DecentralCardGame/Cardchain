@@ -9,6 +9,10 @@ import (
 
 func RegisterInterfaces(registrar cdctypes.InterfaceRegistry) {
 	registrar.RegisterImplementations((*sdk.Msg)(nil),
+		&MsgEncounterDelete{},
+	)
+
+	registrar.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgEncounterEdit{},
 	)
 	registrar.RegisterImplementations((*sdk.Msg)(nil),

@@ -825,6 +825,21 @@ func (am AppModule) WeightedOperations(simState module.SimulationState) []simtyp
 		weightMsgEncounterEdit,
 		cardchainsimulation.SimulateMsgEncounterEdit(am.accountKeeper, am.bankKeeper, am.keeper),
 	))
+	const (
+		opWeightMsgEncounterDelete          = "op_weight_msg_cardchain"
+		defaultWeightMsgEncounterDelete int = 100
+	)
+
+	var weightMsgEncounterDelete int
+	simState.AppParams.GetOrGenerate(opWeightMsgEncounterDelete, &weightMsgEncounterDelete, nil,
+		func(_ *rand.Rand) {
+			weightMsgEncounterDelete = defaultWeightMsgEncounterDelete
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgEncounterDelete,
+		cardchainsimulation.SimulateMsgEncounterDelete(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
 
 	// this line is used by starport scaffolding # simapp/module/operation
 

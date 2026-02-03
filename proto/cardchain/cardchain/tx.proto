@@ -71,6 +71,7 @@ service Msg {
   rpc EncounterEdit         (MsgEncounterEdit) returns (MsgEncounterEditResponse);
   rpc EncounterDo           (MsgEncounterDo) returns (MsgEncounterDoResponse);
   rpc EncounterClose        (MsgEncounterClose) returns (MsgEncounterCloseResponse);
+  rpc EncounterDelete       (MsgEncounterDelete) returns (MsgEncounterDeleteResponse);
   rpc EarlyAccessDisinvite  (MsgEarlyAccessDisinvite) returns (MsgEarlyAccessDisinviteResponse);
   rpc CardBan               (MsgCardBan) returns (MsgCardBanResponse);
   rpc EarlyAccessGrant      (MsgEarlyAccessGrant) returns (MsgEarlyAccessGrantResponse);
@@ -78,6 +79,8 @@ service Msg {
   rpc CardCopyrightClaim    (MsgCardCopyrightClaim) returns (MsgCardCopyrightClaimResponse);
 
   // EncounterEdit defines the EncounterEdit RPC.
+
+  // EncounterDelete defines the EncounterDelete RPC.
 }
 // MsgUpdateParams is the Msg/UpdateParams request type.
 message MsgUpdateParams {
@@ -119,12 +122,12 @@ message MsgCardSchemeBuyResponse {
 
 message MsgCardSaveContent {
   option (cosmos.msg.v1.signer) = "creator";
-  string creator = 1;
-  uint64 cardId = 2;
-  bytes  content = 3;
-  string notes = 4;
-  string artist = 5;
-  bool   balanceAnchor = 6;
+  string    creator = 1;
+  uint64    cardId = 2;
+  bytes     content = 3;
+  string    notes = 4;
+  string    artist = 5;
+  bool      balanceAnchor = 6;
   repeated Parameter parameters = 7;
 }
 
@@ -507,17 +510,16 @@ message MsgEncounterCreateResponse {}
 // MsgEncounterEdit defines the MsgEncounterEdit message.
 message MsgEncounterEdit {
   option (cosmos.msg.v1.signer) = "creator";
-  string creator = 1 [(cosmos_proto.scalar) = "cosmos.AddressString"];
-  uint64 id = 2;
-  string name = 3;
-  repeated uint64 drawlist = 4;
+  string    creator = 1 [(cosmos_proto.scalar) = "cosmos.AddressString"];
+  uint64    id = 2;
+  string    name = 3;
+  repeated uint64    drawlist = 4;
   repeated Parameter parameters = 5;
-  bytes  image = 6;
+  bytes     image = 6;
 }
 
 // MsgEncounterEditResponse defines the MsgEncounterEditResponse message.
 message MsgEncounterEditResponse {}
-
 
 message MsgEncounterDo {
   option (cosmos.msg.v1.signer) = "creator";
@@ -577,3 +579,14 @@ message MsgCardCopyrightClaim {
 }
 
 message MsgCardCopyrightClaimResponse {}
+
+// MsgEncounterDelete defines the MsgEncounterDelete message.
+message MsgEncounterDelete {
+  option (cosmos.msg.v1.signer) = "creator";
+  string creator = 1 [(cosmos_proto.scalar) = "cosmos.AddressString"];
+  uint64 id = 2;
+}
+
+// MsgEncounterDeleteResponse defines the MsgEncounterDeleteResponse message.
+message MsgEncounterDeleteResponse {}
+
