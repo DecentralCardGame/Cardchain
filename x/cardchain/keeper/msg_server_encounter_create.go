@@ -62,13 +62,11 @@ func (k Keeper) validateEncounter(ctx sdk.Context, encounter *types.Encounter, c
 		_, e := iter.Value()
 
 		if e.Name == encounter.Name {
-			if e.Owner != creator {
-				return errorsmod.Wrapf(
-					errors.ErrUnauthorized,
-					"encounter with same name already exists and is owned by '%s'",
-					e.Owner,
-				)
-			}
+			return errorsmod.Wrapf(
+				errors.ErrUnauthorized,
+				"encounter with same name already exists and is owned by '%s'",
+				e.Owner,
+			)
 		}
 	}
 
