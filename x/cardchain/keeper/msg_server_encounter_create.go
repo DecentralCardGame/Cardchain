@@ -18,6 +18,11 @@ func (k msgServer) EncounterCreate(goCtx context.Context, msg *types.MsgEncounte
 		return nil, errorsmod.Wrap(err, "invalid authority address")
 	}
 
+	err := types.ValidateImage(msg)
+	if err != nil {
+		return nil, err
+	}
+
 	id := k.Encounterk.GetNum(ctx)
 	imageId := k.Images.GetNum(ctx)
 
@@ -31,7 +36,7 @@ func (k msgServer) EncounterCreate(goCtx context.Context, msg *types.MsgEncounte
 		ImageId:    imageId,
 	}
 
-	err := k.validateEncounter(ctx, &encounter, msg.Creator)
+	err = k.validateEncounter(ctx, &encounter, msg.Creator)
 	if err != nil {
 		return nil, err
 	}
@@ -42,6 +47,16 @@ func (k msgServer) EncounterCreate(goCtx context.Context, msg *types.MsgEncounte
 }
 
 func (k Keeper) validateEncounter(ctx sdk.Context, encounter *types.Encounter, creator string) error {
+	if len(encounter.Drawlist) > 40 || len(encounter.Drawlist) < 1 {
+		return errorsmod.Wrapf(
+			types.ErrInvalidData, "invalid drawlist length, max 40 is '%d'", len(encounter.Drawlist),
+		)
+	}
+
+	if encounter.Name == "" {
+		return errorsmod.Wrap(types.ErrInvalidData, "encounter needs a name")
+	}
+
 	iter := k.Encounterk.GetItemIterator(ctx)
 	for ; iter.Valid(); iter.Next() {
 		_, e := iter.Value()

@@ -12,6 +12,11 @@ import (
 func (k msgServer) CardArtworkAdd(goCtx context.Context, msg *types.MsgCardArtworkAdd) (*types.MsgCardArtworkAddResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
+	err := types.ValidateImage(msg)
+	if err != nil {
+		return nil, err
+	}
+	
 	card := k.CardK.Get(ctx, msg.CardId)
 	image := k.Images.Get(ctx, card.ImageId)
 
