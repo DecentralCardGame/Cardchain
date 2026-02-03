@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 
+	"cosmossdk.io/core/address"
 	"cosmossdk.io/core/appmodule"
 	"cosmossdk.io/core/store"
 	"cosmossdk.io/depinject"
@@ -238,6 +239,7 @@ type ModuleInputs struct {
 	depinject.In
 
 	StoreService store.KVStoreService
+	AddressCodec address.Codec
 	Cdc          codec.Codec
 	Config       *modulev1.Module
 	Logger       log.Logger
@@ -263,6 +265,7 @@ func ProvideModule(in ModuleInputs) ModuleOutputs {
 	k := keeper.NewKeeper(
 		in.Cdc,
 		in.StoreService,
+		in.AddressCodec,
 		in.Logger,
 		authority.String(),
 		in.BankKeeper,

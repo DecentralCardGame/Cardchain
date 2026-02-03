@@ -483,7 +483,13 @@ func (am AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 					Short:          "Send a CardCopyrightClaim tx",
 					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "cardId"}},
 				},
-				// this line is used by ignite scaffolding # autocli/tx
+				{
+			RpcMethod: "EncounterEdit",
+			Use: "encounter-edit [id] [name] [drawlist] [parameters] [image]",
+			Short: "Send a EncounterEdit tx",
+			PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "id"}, {ProtoField: "name"}, {ProtoField: "drawlist"}, {ProtoField: "parameters"}, {ProtoField: "image", Varargs: true}},
+		},
+		// this line is used by ignite scaffolding # autocli/tx
 			},
 		},
 	}
