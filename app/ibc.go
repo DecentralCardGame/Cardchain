@@ -3,7 +3,7 @@ package app
 import (
 	"cosmossdk.io/core/appmodule"
 	storetypes "cosmossdk.io/store/types"
-	cdctypes "github.com/cosmos/cosmos-sdk/codec/types"
+	"github.com/cosmos/cosmos-sdk/codec"
 	servertypes "github.com/cosmos/cosmos-sdk/server/types"
 	"github.com/cosmos/cosmos-sdk/types/module"
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
@@ -188,7 +188,7 @@ func (app *App) registerIBCModules(appOpts servertypes.AppOptions) error {
 // RegisterIBC Since the IBC modules don't support dependency injection,
 // we need to manually register the modules on the client side.
 // This needs to be removed after IBC supports App Wiring.
-func RegisterIBC(registry cdctypes.InterfaceRegistry) map[string]appmodule.AppModule {
+func RegisterIBC(cdc codec.Codec) map[string]appmodule.AppModule {
 	modules := map[string]appmodule.AppModule{
 		ibcexported.ModuleName:      ibc.AppModule{},
 		ibctransfertypes.ModuleName: ibctransfer.AppModule{},
@@ -199,8 +199,10 @@ func RegisterIBC(registry cdctypes.InterfaceRegistry) map[string]appmodule.AppMo
 		solomachine.ModuleName:      solomachine.AppModule{},
 	}
 
-	for name, m := range modules {
-		module.CoreAppModuleBasicAdaptor(name, m).RegisterInterfaces(registry)
+	for _, m := range modules {
+		if mr, ok := m.(module.AppModuleBasic); ok {
+			mr.RegisterInterfaces(cdc.InterfaceRegistry())
+		}
 	}
 
 	return modules

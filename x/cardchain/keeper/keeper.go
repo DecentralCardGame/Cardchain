@@ -3,6 +3,7 @@ package keeper
 import (
 	"fmt"
 
+	"cosmossdk.io/core/address"
 	"cosmossdk.io/core/store"
 	"cosmossdk.io/log"
 	"github.com/cosmos/cosmos-sdk/codec"
@@ -16,6 +17,7 @@ import (
 type Keeper struct {
 	cdc          codec.BinaryCodec
 	storeService store.KVStoreService
+	addressCodec address.Codec
 	logger       log.Logger
 
 	CardK             gtk.GenericUint64TypeKeeper[*types.Card]
@@ -45,6 +47,7 @@ type Keeper struct {
 func NewKeeper(
 	cdc codec.BinaryCodec,
 	storeService store.KVStoreService,
+	addressCodec address.Codec,
 	logger log.Logger,
 	authority string,
 	bankKeeper types.BankKeeper,
@@ -57,6 +60,7 @@ func NewKeeper(
 	return Keeper{
 		cdc:          cdc,
 		storeService: storeService,
+		addressCodec: addressCodec,
 		authority:    authority,
 		logger:       logger,
 

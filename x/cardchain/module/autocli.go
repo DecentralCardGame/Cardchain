@@ -3,14 +3,14 @@ package cardchain
 import (
 	autocliv1 "cosmossdk.io/api/cosmos/autocli/v1"
 
-	modulev1 "github.com/DecentralCardGame/cardchain/api/cardchain/cardchain"
+	"github.com/DecentralCardGame/cardchain/x/cardchain/types"
 )
 
 // AutoCLIOptions implements the autocli.HasAutoCLIConfig interface.
 func (am AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 	return &autocliv1.ModuleOptions{
 		Query: &autocliv1.ServiceCommandDescriptor{
-			Service: modulev1.Query_ServiceDesc.ServiceName,
+			Service: types.Query_serviceDesc.ServiceName,
 			RpcCommandOptions: []*autocliv1.RpcCommandOptions{
 				{
 					RpcMethod: "Params",
@@ -169,7 +169,7 @@ func (am AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 			},
 		},
 		Tx: &autocliv1.ServiceCommandDescriptor{
-			Service:              modulev1.Msg_ServiceDesc.ServiceName,
+			Service:              types.Msg_serviceDesc.ServiceName,
 			EnhanceCustomCommand: true, // only required if you want to use the custom command
 			RpcCommandOptions: []*autocliv1.RpcCommandOptions{
 				{
@@ -441,6 +441,12 @@ func (am AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "name"}, {ProtoField: "drawlist"}, {ProtoField: "parameters"}, {ProtoField: "image"}},
 				},
 				{
+					RpcMethod:      "EncounterEdit",
+					Use:            "encounter-edit [id] [name] [drawlist] [parameters] [image]",
+					Short:          "Send a EncounterEdit tx",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "id"}, {ProtoField: "name"}, {ProtoField: "drawlist"}, {ProtoField: "parameters"}, {ProtoField: "image", Varargs: true}},
+				},
+				{
 					RpcMethod:      "EncounterDo",
 					Use:            "encounter-do [encounter-id] [user]",
 					Short:          "Send a EncounterDo tx",
@@ -483,6 +489,7 @@ func (am AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 					Short:          "Send a CardCopyrightClaim tx",
 					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "cardId"}},
 				},
+
 				// this line is used by ignite scaffolding # autocli/tx
 			},
 		},

@@ -12,6 +12,10 @@ import (
 func (k msgServer) UserCreate(goCtx context.Context, msg *types.MsgUserCreate) (*types.MsgUserCreateResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
+	if err := types.CheckAliasLimit(msg.Alias); err != nil {
+		return nil, err
+	}
+
 	user, err := k.GetUserFromString(ctx, msg.NewUser)
 	if err != nil {
 		return nil, errorsmod.Wrapf(sdkerrors.ErrInvalidAddress, "invalid creator address (%s)", err)

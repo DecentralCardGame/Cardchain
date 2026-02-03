@@ -53,8 +53,6 @@ import (
 	ibcexported "github.com/cosmos/ibc-go/v8/modules/core/exported"
 	"google.golang.org/protobuf/types/known/durationpb"
 
-	cardchainmodulev1 "github.com/DecentralCardGame/cardchain/api/cardchain/cardchain/module"
-	featureflagmodulev1 "github.com/DecentralCardGame/cardchain/api/cardchain/featureflag/module"
 	_ "github.com/DecentralCardGame/cardchain/x/cardchain/module" // import for side-effects
 	cardchainmoduletypes "github.com/DecentralCardGame/cardchain/x/cardchain/types"
 	_ "github.com/DecentralCardGame/cardchain/x/featureflag/module" // import for side-effects
@@ -304,11 +302,11 @@ var (
 			},
 			{
 				Name:   cardchainmoduletypes.ModuleName,
-				Config: appconfig.WrapAny(&cardchainmodulev1.Module{}),
+				Config: appconfig.WrapAny(&cardchainmoduletypes.Module{}),
 			},
 			{
 				Name:   featureflagmoduletypes.ModuleName,
-				Config: appconfig.WrapAny(&featureflagmodulev1.Module{}),
+				Config: appconfig.WrapAny(&featureflagmoduletypes.Module{}),
 			},
 			// this line is used by starport scaffolding # stargate/app/moduleConfig
 		},

@@ -20,7 +20,6 @@ import (
 
 	// this line is used by starport scaffolding # 1
 
-	modulev1 "github.com/DecentralCardGame/cardchain/api/cardchain/featureflag/module"
 	"github.com/DecentralCardGame/cardchain/x/featureflag/keeper"
 	"github.com/DecentralCardGame/cardchain/x/featureflag/types"
 )
@@ -167,7 +166,7 @@ func (am AppModule) IsAppModule() {}
 
 func init() {
 	appmodule.Register(
-		&modulev1.Module{},
+		&types.Module{},
 		appmodule.Provide(ProvideModule),
 	)
 }
@@ -177,7 +176,7 @@ type ModuleInputs struct {
 
 	StoreService store.KVStoreService
 	Cdc          codec.Codec
-	Config       *modulev1.Module
+	Config       *types.Module
 	Logger       log.Logger
 
 	AccountKeeper types.AccountKeeper

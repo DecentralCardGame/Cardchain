@@ -47,9 +47,6 @@ func (k Keeper) GetUserFromString(ctx sdk.Context, addr string) (user User, err 
 		return user, sdkerrors.Wrap(errors.ErrInvalidAddress, "Unable to convert to AccAddress")
 	}
 	user.User = k.Users.Get(ctx, user.Addr)
-	if err != nil {
-		return
-	}
 	return
 }
 
