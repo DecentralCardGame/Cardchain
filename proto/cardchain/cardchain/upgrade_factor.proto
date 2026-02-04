@@ -1,0 +1,14 @@
+syntax = "proto3";
+package cardchain.cardchain;
+
+option go_package = "github.com/DecentralCardGame/cardchain/x/cardchain/types";
+
+message UpgradeFactor {
+  uint64 cost = 1;
+  float picks = 2;
+  uint64 occurrence = 3;
+  uint64 mythChance = 4;
+  uint64 techChance = 5;
+  uint64 cultureChance = 6;
+  uint64 natureChance = 7;
+}
