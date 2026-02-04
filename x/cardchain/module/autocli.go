@@ -165,6 +165,13 @@ func (am AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "priceDown"}, {ProtoField: "priceUp"}, {ProtoField: "seller"}, {ProtoField: "buyer"}, {ProtoField: "card"}, {ProtoField: "status"}},
 				},
 
+				{
+					RpcMethod: "UpgradeFactors",
+					Use: "upgrade-factors ",
+					Short: "Query UpgradeFactors",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{},
+				},
+
 				// this line is used by ignite scaffolding # autocli/query
 			},
 		},
