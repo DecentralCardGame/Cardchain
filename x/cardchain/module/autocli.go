@@ -503,6 +503,12 @@ func (am AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 			Short: "Send a EncounterDelete tx",
 			PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "id"}},
 		},
+		{
+			RpcMethod: "UpgradePicksReport",
+			Use: "upgrade-picks-report [picked] [dismissed]",
+			Short: "Send a UpgradePicksReport tx",
+			PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "picked"}, {ProtoField: "dismissed", Varargs: true}},
+		},
 		// this line is used by ignite scaffolding # autocli/tx
 			},
 		},

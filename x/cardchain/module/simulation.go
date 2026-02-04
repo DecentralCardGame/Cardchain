@@ -1,12 +1,11 @@
 package cardchain
 
 import (
-	"math/rand"
-
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/module"
 	simtypes "github.com/cosmos/cosmos-sdk/types/simulation"
 	"github.com/cosmos/cosmos-sdk/x/simulation"
+	"math/rand"
 
 	"github.com/DecentralCardGame/cardchain/testutil/sample"
 	cardchainsimulation "github.com/DecentralCardGame/cardchain/x/cardchain/simulation"
@@ -839,6 +838,21 @@ func (am AppModule) WeightedOperations(simState module.SimulationState) []simtyp
 	operations = append(operations, simulation.NewWeightedOperation(
 		weightMsgEncounterDelete,
 		cardchainsimulation.SimulateMsgEncounterDelete(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+	const (
+		opWeightMsgUpgradePicksReport          = "op_weight_msg_cardchain"
+		defaultWeightMsgUpgradePicksReport int = 100
+	)
+
+	var weightMsgUpgradePicksReport int
+	simState.AppParams.GetOrGenerate(opWeightMsgUpgradePicksReport, &weightMsgUpgradePicksReport, nil,
+		func(_ *rand.Rand) {
+			weightMsgUpgradePicksReport = defaultWeightMsgUpgradePicksReport
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgUpgradePicksReport,
+		cardchainsimulation.SimulateMsgUpgradePicksReport(am.accountKeeper, am.bankKeeper, am.keeper),
 	))
 
 	// this line is used by starport scaffolding # simapp/module/operation
