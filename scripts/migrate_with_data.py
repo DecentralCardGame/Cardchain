@@ -253,6 +253,11 @@ for account in new_dict["app_state"]["bank"]["balances"]:
 new_dict["app_state"]["bank"]["supply"] = [
     {"denom": denom, "amount": str(amount)} for denom, amount in coinMap.items()
 ]
+
+if len(new_dict["app_state"]["cardchain"].get("upgradeFactors", [])) == 0:
+    with open(os.path.join(__location__, "./default_upgrade_factors.json"), "r") as file:
+        new_dict["app_state"]["cardchain"]["upgradeFactors"] = json.load(file)
+
 for id, encounter in enumerate(
     new_dict["app_state"]["cardchain"].get("encounters", [])
 ):
