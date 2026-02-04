@@ -31,12 +31,14 @@ func (k msgServer) UpgradePicksReport(goCtx context.Context, msg *types.MsgUpgra
 	for _, dismissed := range msg.Dismissed {
 		upgradeFactor := k.UpgradeFactorK.Get(ctx, dismissed)
 		upgradeFactor.Picks--
+		upgradeFactor.Occurrence++
 		k.UpgradeFactorK.Set(ctx, dismissed, upgradeFactor)
 	}
 
 	for _, picked := range msg.Picked {
 		upgradeFactor := k.UpgradeFactorK.Get(ctx, picked)
 		upgradeFactor.Picks += pickAddition
+		upgradeFactor.Occurrence++
 		k.UpgradeFactorK.Set(ctx, picked, upgradeFactor)
 	}
 

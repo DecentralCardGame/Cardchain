@@ -1,11 +1,11 @@
 syntax = "proto3";
 package cardchain.cardchain;
 
-option go_package = "github.com/DecentralCardGame/cardchain/x/cardchain/types";
 import "cardchain/cardchain/voting.proto";
 
-message Match {
+option go_package = "github.com/DecentralCardGame/cardchain/x/cardchain/types";
 
+message Match {
   uint64 timestamp = 1;
   string reporter = 2;
   MatchPlayer playerA = 3;

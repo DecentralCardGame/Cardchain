@@ -3,4 +3,6 @@ package cardchain.cardchain;
 
 option go_package = "github.com/DecentralCardGame/cardchain/x/cardchain/types";
 
-message Image { bytes image = 1; }
+message Image {
+  bytes image = 1;
+}

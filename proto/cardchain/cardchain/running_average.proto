@@ -3,4 +3,6 @@ package cardchain.cardchain;
 
 option go_package = "github.com/DecentralCardGame/cardchain/x/cardchain/types";
 
-message RunningAverage { repeated int64 arr = 1; }
+message RunningAverage {
+  repeated int64 arr = 1;
+}

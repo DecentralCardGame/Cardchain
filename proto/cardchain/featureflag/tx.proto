@@ -3,10 +3,10 @@ syntax = "proto3";
 package cardchain.featureflag;
 
 import "amino/amino.proto";
+import "cardchain/featureflag/params.proto";
 import "cosmos/msg/v1/msg.proto";
 import "cosmos_proto/cosmos.proto";
 import "gogoproto/gogo.proto";
-import "cardchain/featureflag/params.proto";
 
 option go_package = "github.com/DecentralCardGame/cardchain/x/featureflag/types";
 
@@ -19,6 +19,7 @@ service Msg {
   rpc UpdateParams(MsgUpdateParams) returns (MsgUpdateParamsResponse);
   rpc Set(MsgSet) returns (MsgSetResponse);
 }
+
 // MsgUpdateParams is the Msg/UpdateParams request type.
 message MsgUpdateParams {
   option (cosmos.msg.v1.signer) = "authority";
@@ -26,13 +27,15 @@ message MsgUpdateParams {
 
   // authority is the address that controls the module (defaults to x/gov unless
   // overwritten).
-  string authority = 1 [ (cosmos_proto.scalar) = "cosmos.AddressString" ];
+  string authority = 1 [(cosmos_proto.scalar) = "cosmos.AddressString"];
 
   // params defines the module parameters to update.
 
   // NOTE: All parameters must be supplied.
-  Params params = 2
-      [ (gogoproto.nullable) = false, (amino.dont_omitempty) = true ];
+  Params params = 2 [
+    (gogoproto.nullable) = false,
+    (amino.dont_omitempty) = true
+  ];
 }
 
 // MsgUpdateParamsResponse defines the response structure for executing a
@@ -41,7 +44,7 @@ message MsgUpdateParamsResponse {}
 
 message MsgSet {
   option (cosmos.msg.v1.signer) = "authority";
-  string authority = 1 [ (cosmos_proto.scalar) = "cosmos.AddressString" ];
+  string authority = 1 [(cosmos_proto.scalar) = "cosmos.AddressString"];
   string module = 2;
   string name = 3;
   bool value = 4;

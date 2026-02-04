@@ -19,7 +19,9 @@ message Set {
   repeated InnerRarities rarities = 11;
 }
 
-message InnerRarities { repeated uint64 R = 1; }
+message InnerRarities {
+  repeated uint64 R = 1;
+}
 
 enum SetStatus {
   undefined = 0;
