@@ -15,7 +15,7 @@ func (k msgServer) EncounterEdit(goCtx context.Context, msg *types.MsgEncounterE
 		return nil, errorsmod.Wrap(err, "invalid authority address")
 	}
 
-	encounter := k.Encounterk.Get(ctx, msg.Id)
+	encounter := k.EncounterK.Get(ctx, msg.Id)
 
 	if encounter.Owner != msg.Creator {
 		return nil, errorsmod.Wrapf(sdkerrors.ErrUnauthorized, "Invalid Owner, owned by '%s'", encounter.Owner)
@@ -37,7 +37,7 @@ func (k msgServer) EncounterEdit(goCtx context.Context, msg *types.MsgEncounterE
 	}
 
 	k.Images.Set(ctx, encounter.ImageId, &types.Image{Image: msg.Image})
-	k.Encounterk.Set(ctx, msg.Id, &newEncounter)
+	k.EncounterK.Set(ctx, msg.Id, &newEncounter)
 
 	return &types.MsgEncounterEditResponse{}, nil
 }

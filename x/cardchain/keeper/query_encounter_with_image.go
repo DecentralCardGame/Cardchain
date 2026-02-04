@@ -18,7 +18,7 @@ func (k Keeper) EncounterWithImage(goCtx context.Context, req *types.QueryEncoun
 
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	encounter := k.Encounterk.Get(ctx, req.EncounterId)
+	encounter := k.EncounterK.Get(ctx, req.EncounterId)
 	if encounter == nil {
 		return nil, errorsmod.Wrap(errors.ErrInvalidRequest, "encounterId does not represent an encounter")
 	}

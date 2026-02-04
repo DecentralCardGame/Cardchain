@@ -16,7 +16,7 @@ func (k Keeper) Encounter(goCtx context.Context, req *types.QueryEncounterReques
 
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	encounter := k.Encounterk.Get(ctx, req.EncounterId)
+	encounter := k.EncounterK.Get(ctx, req.EncounterId)
 
 	return &types.QueryEncounterResponse{Encounter: encounter}, nil
 }

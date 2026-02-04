@@ -16,7 +16,7 @@ func (k msgServer) EncounterDelete(goCtx context.Context, msg *types.MsgEncounte
 		return nil, errorsmod.Wrap(err, "invalid authority address")
 	}
 
-	encounter := k.Encounterk.Get(ctx, msg.Id)
+	encounter := k.EncounterK.Get(ctx, msg.Id)
 
 	if encounter.Owner != msg.Creator {
 		return nil, errorsmod.Wrap(errors.ErrUnauthorized, "incorrect owner")
@@ -24,7 +24,7 @@ func (k msgServer) EncounterDelete(goCtx context.Context, msg *types.MsgEncounte
 	}
 
 	k.Images.Set(ctx, encounter.ImageId, nil)
-	k.Encounterk.Set(ctx, msg.Id, nil)
+	k.EncounterK.Set(ctx, msg.Id, nil)
 
 	return &types.MsgEncounterDeleteResponse{}, nil
 }

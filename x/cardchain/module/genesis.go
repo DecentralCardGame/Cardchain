@@ -41,7 +41,7 @@ func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) 
 		k.RunningAverages.Set(ctx, k.RunningAverages.KeyWords[idx], average)
 	}
 	for idx, encounter := range genState.Encounters {
-		k.Encounterk.Set(ctx, uint64(idx), encounter)
+		k.EncounterK.Set(ctx, uint64(idx), encounter)
 	}
 	if genState.CardAuctionPrice.Denom != "" {
 		k.CardAuctionPrice.Set(ctx, &genState.CardAuctionPrice)
@@ -49,6 +49,9 @@ func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) 
 	k.LastCardModified.Set(ctx, &genState.LastCardModified)
 	for _, zealy := range genState.Zealys {
 		k.Zealy.Set(ctx, zealy.ZealyId, zealy)
+	}
+	for _, upgradeFactor := range genState.UpgradeFactors {
+		k.UpgradeFactorK.Set(ctx, upgradeFactor.Name, upgradeFactor)
 	}
 	k.Logger().Info("reading cards with id:")
 	for currId, record := range genState.CardRecords {
@@ -117,7 +120,8 @@ func ExportGenesis(ctx sdk.Context, k keeper.Keeper) *types.GenesisState {
 	genesis.Servers = k.Servers.GetAll(ctx)
 	users, accAddresses := k.GetAllUsers(ctx)
 	genesis.Zealys = k.Zealy.GetAll(ctx)
-	genesis.Encounters = k.Encounterk.GetAll(ctx)
+	genesis.Encounters = k.EncounterK.GetAll(ctx)
+	genesis.UpgradeFactors = k.UpgradeFactorK.GetAll(ctx)
 	var addresses []string
 	for _, addr := range accAddresses {
 		addresses = append(addresses, addr.String())
