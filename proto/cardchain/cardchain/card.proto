@@ -1,9 +1,9 @@
 syntax = "proto3";
 package cardchain.cardchain;
 
-import "gogoproto/gogo.proto";
-import "cosmos/base/v1beta1/coin.proto";
 import "cardchain/cardchain/parameter.proto";
+import "cosmos/base/v1beta1/coin.proto";
+import "gogoproto/gogo.proto";
 
 option go_package = "github.com/DecentralCardGame/cardchain/x/cardchain/types";
 
@@ -63,4 +63,6 @@ enum CardType {
   headquarter = 3;
 }
 
-message TimeStamp {uint64 timeStamp = 1;}
+message TimeStamp {
+  uint64 timeStamp = 1;
+}

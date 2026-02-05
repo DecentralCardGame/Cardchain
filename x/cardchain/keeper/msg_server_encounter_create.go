@@ -23,7 +23,7 @@ func (k msgServer) EncounterCreate(goCtx context.Context, msg *types.MsgEncounte
 		return nil, err
 	}
 
-	id := k.Encounterk.GetNum(ctx)
+	id := k.EncounterK.GetNum(ctx)
 	imageId := k.Images.GetNum(ctx)
 
 	encounter := types.Encounter{
@@ -42,7 +42,7 @@ func (k msgServer) EncounterCreate(goCtx context.Context, msg *types.MsgEncounte
 	}
 
 	k.Images.Set(ctx, imageId, &types.Image{Image: msg.Image})
-	k.Encounterk.Set(ctx, id, &encounter)
+	k.EncounterK.Set(ctx, id, &encounter)
 	return &types.MsgEncounterCreateResponse{}, nil
 }
 
@@ -57,7 +57,7 @@ func (k Keeper) validateEncounter(ctx sdk.Context, encounter *types.Encounter, c
 		return errorsmod.Wrap(types.ErrInvalidData, "encounter needs a name")
 	}
 
-	iter := k.Encounterk.GetItemIterator(ctx)
+	iter := k.EncounterK.GetItemIterator(ctx)
 	for ; iter.Valid(); iter.Next() {
 		_, e := iter.Value()
 

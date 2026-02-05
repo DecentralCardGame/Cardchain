@@ -17,7 +17,7 @@ func (k Keeper) Encounters(goCtx context.Context, req *types.QueryEncountersRequ
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
 	var encounters []*types.Encounter
-	for _, encounter := range k.Encounterk.GetAll(ctx) {
+	for _, encounter := range k.EncounterK.GetAll(ctx) {
 		if req.Owner == "" || encounter.Owner == req.Owner {
 			encounters = append(encounters, encounter)
 		}

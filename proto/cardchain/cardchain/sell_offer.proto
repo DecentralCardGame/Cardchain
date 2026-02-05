@@ -1,8 +1,8 @@
 syntax = "proto3";
 package cardchain.cardchain;
 
-import "gogoproto/gogo.proto";
 import "cosmos/base/v1beta1/coin.proto";
+import "gogoproto/gogo.proto";
 
 option go_package = "github.com/DecentralCardGame/cardchain/x/cardchain/types";
 
@@ -10,7 +10,7 @@ message SellOffer {
   string seller = 1;
   string buyer = 2;
   uint64 card = 3;
-  cosmos.base.v1beta1.Coin price = 4 [ (gogoproto.nullable) = false ];
+  cosmos.base.v1beta1.Coin price = 4 [(gogoproto.nullable) = false];
   SellOfferStatus status = 5;
 }
 

@@ -165,6 +165,13 @@ func (am AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "priceDown"}, {ProtoField: "priceUp"}, {ProtoField: "seller"}, {ProtoField: "buyer"}, {ProtoField: "card"}, {ProtoField: "status"}},
 				},
 
+				{
+					RpcMethod: "UpgradeFactors",
+					Use: "upgrade-factors ",
+					Short: "Query UpgradeFactors",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{},
+				},
+
 				// this line is used by ignite scaffolding # autocli/query
 			},
 		},
@@ -495,6 +502,12 @@ func (am AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 			Use: "encounter-delete [id]",
 			Short: "Send a EncounterDelete tx",
 			PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "id"}},
+		},
+		{
+			RpcMethod: "UpgradePicksReport",
+			Use: "upgrade-picks-report [picked] [dismissed]",
+			Short: "Send a UpgradePicksReport tx",
+			PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "picked"}, {ProtoField: "dismissed", Varargs: true}},
 		},
 		// this line is used by ignite scaffolding # autocli/tx
 			},

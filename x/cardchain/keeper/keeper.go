@@ -20,18 +20,20 @@ type Keeper struct {
 	addressCodec address.Codec
 	logger       log.Logger
 
-	CardK             gtk.GenericUint64TypeKeeper[*types.Card]
-	Councils          gtk.GenericUint64TypeKeeper[*types.Council]
-	SellOfferK        gtk.GenericUint64TypeKeeper[*types.SellOffer]
-	SetK              gtk.GenericUint64TypeKeeper[*types.Set]
-	MatchK            gtk.GenericUint64TypeKeeper[*types.Match]
-	Servers           gtk.GenericUint64TypeKeeper[*types.Server]
-	RunningAverages   gtk.KeywordedGenericTypeKeeper[*types.RunningAverage]
-	Pools             gtk.KeywordedGenericTypeKeeper[*sdk.Coin]
-	Images            gtk.GenericUint64TypeKeeper[*types.Image]
-	Encounterk        gtk.GenericUint64TypeKeeper[*types.Encounter]
-	Users             gtk.GenericAddressTypeKeeper[*types.User]
-	Zealy             gtk.GenericStringTypeKeeper[*types.Zealy]
+	CardK           gtk.GenericUint64TypeKeeper[*types.Card]
+	Councils        gtk.GenericUint64TypeKeeper[*types.Council]
+	SellOfferK      gtk.GenericUint64TypeKeeper[*types.SellOffer]
+	SetK            gtk.GenericUint64TypeKeeper[*types.Set]
+	MatchK          gtk.GenericUint64TypeKeeper[*types.Match]
+	Servers         gtk.GenericUint64TypeKeeper[*types.Server]
+	RunningAverages gtk.KeywordedGenericTypeKeeper[*types.RunningAverage]
+	Pools           gtk.KeywordedGenericTypeKeeper[*sdk.Coin]
+	Images          gtk.GenericUint64TypeKeeper[*types.Image]
+	EncounterK      gtk.GenericUint64TypeKeeper[*types.Encounter]
+	Users           gtk.GenericAddressTypeKeeper[*types.User]
+	Zealy           gtk.GenericStringTypeKeeper[*types.Zealy]
+	UpgradeFactorK  gtk.GenericStringTypeKeeper[*types.UpgradeFactor]
+
 	LastCardModified  gtk.SingleValueGenericTypeKeeper[*types.TimeStamp]
 	CardAuctionPrice  gtk.SingleValueGenericTypeKeeper[*sdk.Coin]
 	LastVotingResults gtk.SingleValueGenericTypeKeeper[*types.VotingResults]
@@ -73,9 +75,10 @@ func NewKeeper(
 		Pools:             gtk.NewKGTK[*sdk.Coin]("Pools", storeService, cdc, gtk.GetEmpty[sdk.Coin], []string{PublicPoolKey, WinnersPoolKey, BalancersPoolKey}),
 		Images:            gtk.NewUintGTK[*types.Image]("Images", storeService, cdc, gtk.GetEmpty[types.Image]),
 		Servers:           gtk.NewUintGTK[*types.Server]("Servers", storeService, cdc, gtk.GetEmpty[types.Server]),
-		Encounterk:        gtk.NewUintGTK[*types.Encounter]("Encounters", storeService, cdc, gtk.GetEmpty[types.Encounter]),
+		EncounterK:        gtk.NewUintGTK[*types.Encounter]("Encounters", storeService, cdc, gtk.GetEmpty[types.Encounter]),
 		Users:             gtk.NewAddressGTK[*types.User]("Users", storeService, cdc, gtk.GetEmpty[types.User]),
 		Zealy:             gtk.NewStringGTK[*types.Zealy]("Zealy", storeService, cdc, gtk.GetEmpty[types.Zealy]),
+		UpgradeFactorK:    gtk.NewStringGTK[*types.UpgradeFactor]("UpgradeFactors", storeService, cdc, gtk.GetEmpty[types.UpgradeFactor]),
 		LastCardModified:  gtk.NewSingleValueGenericTypeKeeper[*types.TimeStamp]("LastCardModified", storeService, cdc, gtk.GetEmpty[types.TimeStamp]),
 		CardAuctionPrice:  gtk.NewSingleValueGenericTypeKeeper[*sdk.Coin]("CardAuctionPrice", storeService, cdc, gtk.GetEmpty[sdk.Coin]),
 		LastVotingResults: gtk.NewSingleValueGenericTypeKeeper[*types.VotingResults]("LastVotingResults", storeService, cdc, gtk.GetEmpty[types.VotingResults]),

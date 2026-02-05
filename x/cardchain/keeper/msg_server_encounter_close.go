@@ -39,10 +39,10 @@ func (k msgServer) EncounterClose(goCtx context.Context, msg *types.MsgEncounter
 		user.WonEncounters = append(user.WonEncounters, msg.EncounterId)
 		// TODO: Treasury reward here
 
-		encounter := k.Encounterk.Get(ctx, msg.EncounterId)
+		encounter := k.EncounterK.Get(ctx, msg.EncounterId)
 		if !encounter.Proven {
 			encounter.Proven = true
-			k.Encounterk.Set(ctx, msg.EncounterId, encounter)
+			k.EncounterK.Set(ctx, msg.EncounterId, encounter)
 		}
 	}
 

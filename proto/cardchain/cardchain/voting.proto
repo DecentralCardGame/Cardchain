@@ -4,7 +4,6 @@ package cardchain.cardchain;
 option go_package = "github.com/DecentralCardGame/cardchain/x/cardchain/types";
 
 message VotingResult {
-
   uint64 cardId = 1;
   uint64 fairEnoughVotes = 2;
   uint64 overpoweredVotes = 3;

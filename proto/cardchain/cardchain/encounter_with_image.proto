@@ -1,12 +1,12 @@
 syntax = "proto3";
 package cardchain.cardchain;
 
-import "gogoproto/gogo.proto";
 import "cardchain/cardchain/encounter.proto";
+import "gogoproto/gogo.proto";
 
 option go_package = "github.com/DecentralCardGame/cardchain/x/cardchain/types";
 
 message EncounterWithImage {
-  Encounter encounter = 1 [ (gogoproto.nullable) = false ];
+  Encounter encounter = 1 [(gogoproto.nullable) = false];
   string image = 2;
 }

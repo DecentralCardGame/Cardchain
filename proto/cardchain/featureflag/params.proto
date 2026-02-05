@@ -10,6 +10,4 @@ option go_package = "github.com/DecentralCardGame/cardchain/x/featureflag/types"
 message Params {
   option (amino.name) = "cardchain/x/featureflag/Params";
   option (gogoproto.equal) = true;
-
-  
 }

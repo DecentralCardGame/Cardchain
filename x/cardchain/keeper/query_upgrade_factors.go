@@ -9,14 +9,12 @@ import (
 	"google.golang.org/grpc/status"
 )
 
-func (k Keeper) Encounter(goCtx context.Context, req *types.QueryEncounterRequest) (*types.QueryEncounterResponse, error) {
+func (k Keeper) UpgradeFactors(goCtx context.Context, req *types.QueryUpgradeFactorsRequest) (*types.QueryUpgradeFactorsResponse, error) {
 	if req == nil {
 		return nil, status.Error(codes.InvalidArgument, "invalid request")
 	}
 
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	encounter := k.EncounterK.Get(ctx, req.EncounterId)
-
-	return &types.QueryEncounterResponse{Encounter: encounter}, nil
+	return &types.QueryUpgradeFactorsResponse{UpgradeFactors: k.UpgradeFactorK.GetAll(ctx)}, nil
 }

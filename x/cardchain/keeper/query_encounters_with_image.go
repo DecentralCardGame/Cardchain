@@ -18,7 +18,7 @@ func (k Keeper) EncountersWithImage(goCtx context.Context, req *types.QueryEncou
 
 	var encountersWithImage []*types.EncounterWithImage
 
-	for _, encounter := range k.Encounterk.GetAll(ctx) {
+	for _, encounter := range k.EncounterK.GetAll(ctx) {
 		if req.Owner == "" || encounter.Owner == req.Owner {
 			encountersWithImage = append(encountersWithImage, &types.EncounterWithImage{
 				Encounter: *encounter,

@@ -20,10 +20,10 @@ faucet:
 client:
   typescript:
     path: ../decentralcardgame-cardchain-client-ts
-  vuex:
-    path: vue/src/store
-  composables:
-    path: vue/src/composables
+  #vuex:
+  #  path: vue/src/store
+  #composables:
+  #  path: vue/src/composables
   openapi:
     path: docs/static/openapi.yml
 genesis:

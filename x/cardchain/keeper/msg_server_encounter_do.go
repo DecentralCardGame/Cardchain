@@ -21,7 +21,7 @@ func (k msgServer) EncounterDo(goCtx context.Context, msg *types.MsgEncounterDo)
 		return nil, errorsmod.Wrap(sdkerrors.ErrUnauthorized, "unauthorized reporter")
 	}
 
-	maxId := k.Encounterk.GetNum(ctx)
+	maxId := k.EncounterK.GetNum(ctx)
 	if msg.EncounterId >= maxId {
 		return nil, errorsmod.Wrap(types.ErrInvalidData, "encounter doesnt exist")
 	}
