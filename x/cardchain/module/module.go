@@ -162,6 +162,7 @@ func (am AppModule) EndBlock(goCtx context.Context) error {
 	// automated nerf/buff happens here
 	if ctx.BlockHeight()%epochBlockTime == 0 {
 		am.keeper.UpdateNerfLevels(ctx)
+		am.keeper.UpdateUpgradeCostFactors(ctx)
 		matchesEnabled, _ := am.keeper.FeatureFlagModuleInstance.Get(ctx, string(types.FeatureFlagName_Matches))
 		if matchesEnabled { // Only give voterigths to all users, when matches are not anabled
 			am.keeper.AddVoteRightsToAllUsers(ctx)
