@@ -2,56 +2,29 @@ package keeper
 
 import (
 	"context"
-	"slices"
 
-	sdkerrors "cosmossdk.io/errors"
-	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
+	errorsmod "cosmossdk.io/errors"
+	"github.com/DecentralCardGame/cardchain/x/cardchain/types"
 	"github.com/DecentralCardGame/cardobject/cardobject"
-	"github.com/DecentralCardGame/cardobject/keywords"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cosmos/cosmos-sdk/x/group/errors"
+	"github.com/cosmos/cosmos-sdk/types/errors"
+	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 )
 
 func (k msgServer) EncounterCreate(goCtx context.Context, msg *types.MsgEncounterCreate) (*types.MsgEncounterCreateResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	creator, err := k.GetMsgCreator(ctx, msg)
+	if _, err := k.addressCodec.StringToBytes(msg.Creator); err != nil {
+		return nil, errorsmod.Wrap(err, "invalid authority address")
+	}
+
+	err := types.ValidateImage(msg)
 	if err != nil {
 		return nil, err
 	}
 
-	var (
-		id, imageId uint64
-		override    bool = false
-	)
-
-	iter := k.Encounters.GetItemIterator(ctx)
-	for ; iter.Valid(); iter.Next() {
-		encounterId, encounter := iter.Value()
-
-		if encounter.Name == msg.Name {
-			if encounter.Owner != msg.Creator {
-				return nil, sdkerrors.Wrapf(
-					errors.ErrUnauthorized,
-					"encounter with same name already exists and is owned by '%s'",
-					encounter.Owner,
-				)
-			}
-			id = encounterId
-			imageId = encounter.ImageId
-			override = true
-		}
-	}
-
-	if !override {
-		id = k.Encounters.GetNum(ctx)
-		imageId = k.Images.GetNum(ctx)
-	}
-
-	err = k.validateDrawlist(ctx, msg, &creator)
-	if err != nil {
-		return nil, err
-	}
+	id := k.EncounterK.GetNum(ctx)
+	imageId := k.Images.GetNum(ctx)
 
 	encounter := types.Encounter{
 		Id:         id,
@@ -63,43 +36,73 @@ func (k msgServer) EncounterCreate(goCtx context.Context, msg *types.MsgEncounte
 		ImageId:    imageId,
 	}
 
-	k.Images.Set(ctx, imageId, &types.Image{Image: msg.Image})
-	k.Encounters.Set(ctx, id, &encounter)
-	k.SetUserFromUser(ctx, creator)
+	err = k.validateEncounter(ctx, &encounter, msg.Creator)
+	if err != nil {
+		return nil, err
+	}
 
+	k.Images.Set(ctx, imageId, &types.Image{Image: msg.Image})
+	k.EncounterK.Set(ctx, id, &encounter)
 	return &types.MsgEncounterCreateResponse{}, nil
 }
 
-func (k Keeper) validateDrawlist(ctx sdk.Context, msg *types.MsgEncounterCreate, creator *User) error {
-	for idx, cardId := range msg.Drawlist {
-		card := k.Cards.Get(ctx, cardId)
+func (k Keeper) validateEncounter(ctx sdk.Context, encounter *types.Encounter, creator string) error {
+	if len(encounter.Drawlist) > 40 || len(encounter.Drawlist) < 1 {
+		return errorsmod.Wrapf(
+			types.ErrInvalidData, "invalid drawlist length, max 40 is '%d'", len(encounter.Drawlist),
+		)
+	}
 
-		if card.Owner != msg.Creator {
-			index := slices.Index(creator.Cards, cardId)
-			if index != -1 {
-				creator.Cards = append(creator.Cards[:index], creator.Cards[index+1:]...)
-			} else {
-				return sdkerrors.Wrapf(
-					errors.ErrUnauthorized,
-					"creator has to own all cards, doesnt own '%d'", cardId,
-				)
-			}
+	if encounter.Name == "" {
+		return errorsmod.Wrap(types.ErrInvalidData, "encounter needs a name")
+	}
+
+	iter := k.EncounterK.GetItemIterator(ctx)
+	for ; iter.Valid(); iter.Next() {
+		_, e := iter.Value()
+
+		if e.Name == encounter.Name && e.Id != encounter.Id {
+			return errorsmod.Wrapf(
+				errors.ErrUnauthorized,
+				"encounter with same name already exists and is owned by '%s'",
+				e.Owner,
+			)
+		}
+	}
+
+	err := k.validateDrawlist(ctx, encounter, creator)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (k Keeper) validateDrawlist(ctx sdk.Context, encounter *types.Encounter, creator string) error {
+	for idx, cardId := range encounter.Drawlist {
+		card := k.CardK.Get(ctx, cardId)
+
+		if card.Owner != creator {
+			return errorsmod.Wrapf(
+				sdkerrors.ErrUnauthorized,
+				"creator has to own all cards, doesnt own '%d'", cardId,
+			)
 		}
 
-		cardObj, err := keywords.Unmarshal(card.Content)
+		cardObj, err := card.GetCardObj()
 		if err != nil {
 			return err
 		}
 
 		if idx == 0 {
 			if cardObj.GetType() != cardobject.HEADQUARTERTYPE {
-				return sdkerrors.Wrapf(
+				return errorsmod.Wrapf(
 					types.ErrInvalidData,
 					"first card has to be Headquarter but is: %s", cardObj.GetType(),
 				)
 			}
 		} else if cardObj.GetType() == cardobject.HEADQUARTERTYPE {
-			return sdkerrors.Wrapf(
+			return errorsmod.Wrapf(
 				types.ErrInvalidData,
 				"only first card can be headquartter but card-%d is ", idx,
 			)

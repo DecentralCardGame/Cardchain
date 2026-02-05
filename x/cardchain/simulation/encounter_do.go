@@ -3,8 +3,8 @@ package simulation
 import (
 	"math/rand"
 
-	"github.com/DecentralCardGame/Cardchain/x/cardchain/keeper"
-	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
+	"github.com/DecentralCardGame/cardchain/x/cardchain/keeper"
+	"github.com/DecentralCardGame/cardchain/x/cardchain/types"
 	"github.com/cosmos/cosmos-sdk/baseapp"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	simtypes "github.com/cosmos/cosmos-sdk/types/simulation"
@@ -24,6 +24,6 @@ func SimulateMsgEncounterDo(
 
 		// TODO: Handling the EncounterDo simulation
 
-		return simtypes.NoOpMsg(types.ModuleName, msg.Type(), "EncounterDo simulation not implemented"), nil, nil
+		return simtypes.NoOpMsg(types.ModuleName, sdk.MsgTypeURL(msg), "EncounterDo simulation not implemented"), nil, nil
 	}
 }

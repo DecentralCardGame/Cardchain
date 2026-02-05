@@ -1,0 +1,12 @@
+syntax = "proto3";
+package cardchain.cardchain;
+
+import "cardchain/cardchain/set.proto";
+import "gogoproto/gogo.proto";
+
+option go_package = "github.com/DecentralCardGame/cardchain/x/cardchain/types";
+
+message SetWithArtwork {
+  Set set = 1 [(gogoproto.nullable) = false];
+  bytes artwork = 2;
+}

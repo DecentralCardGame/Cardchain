@@ -3,16 +3,16 @@ package keeper_test
 import (
 	"testing"
 
-	testkeeper "github.com/DecentralCardGame/Cardchain/testutil/keeper"
-	"github.com/DecentralCardGame/Cardchain/x/featureflag/types"
 	"github.com/stretchr/testify/require"
+
+	keepertest "github.com/DecentralCardGame/cardchain/testutil/keeper"
+	"github.com/DecentralCardGame/cardchain/x/featureflag/types"
 )
 
 func TestGetParams(t *testing.T) {
-	k, ctx := testkeeper.FeatureflagKeeper(t)
+	k, ctx := keepertest.FeatureflagKeeper(t)
 	params := types.DefaultParams()
 
-	k.SetParams(ctx, params)
-
+	require.NoError(t, k.SetParams(ctx, params))
 	require.EqualValues(t, params, k.GetParams(ctx))
 }
