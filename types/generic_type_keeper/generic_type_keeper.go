@@ -47,6 +47,11 @@ func (gtk GenericTypeKeeper[T, K]) getCountStore(ctx sdk.Context) prefix.Store {
 	return prefix.NewStore(storeAdapter, []byte{})
 }
 
+// Has distinguishes absent keys from zero-valued decoded records.
+func (gtk GenericTypeKeeper[T, K]) Has(ctx sdk.Context, id K) bool {
+	return gtk.getValueStore(ctx).Has(gtk.getIDBytes(id))
+}
+
 // Get Gets an object from store
 func (gtk GenericTypeKeeper[T, K]) Get(ctx sdk.Context, id K) T {
 	store := gtk.getValueStore(ctx)

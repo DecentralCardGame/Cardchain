@@ -1,19 +1,23 @@
 package cardchain
 
 import (
-	"encoding/json"
 	"fmt"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
 	"github.com/DecentralCardGame/cardchain/x/cardchain/keeper"
 	"github.com/DecentralCardGame/cardchain/x/cardchain/types"
-	"github.com/DecentralCardGame/cardobject/cardobject"
-	"github.com/DecentralCardGame/cardobject/keywords"
 )
 
 // InitGenesis initializes the module's state from a provided genesis state.
 func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) {
+	// Validate before writing state. Never silently strip invalid card effects.
+	if err := validateGenesisCards(genState.CardRecords); err != nil {
+		panic(fmt.Errorf("invalid cardchain genesis: %w", err))
+	}
+	if err := genState.ValidateRunDeckReferences(); err != nil {
+		panic(err)
+	}
 	// this line is used by starport scaffolding # genesis/module/init
 	for id := range genState.Users {
 		address, _ := sdk.AccAddressFromBech32(genState.Addresses[id])
@@ -55,30 +59,10 @@ func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) 
 	}
 	k.Logger().Info("reading cards with id:")
 	for currId, record := range genState.CardRecords {
-		if len(record.Content) != 0 {
-			_, err := keywords.Unmarshal(record.Content)
-
-			if err != nil {
-				k.Logger().Info(fmt.Sprintf("Failed to read %d :\n\t%s\n\t%s\n-----", currId, err.Error(), record.Content))
-				var card keywords.Card
-				json.Unmarshal(record.Content, &card)
-
-				switch card.GetType() {
-				case cardobject.ENTITYTYPE:
-					card.Entity.Abilities.Clear()
-				case cardobject.PLACETYPE:
-					card.Place.Abilities.Clear()
-				case cardobject.HEADQUARTERTYPE:
-					card.Headquarter.Abilities.Clear()
-				case cardobject.ACTIONTYPE:
-					card.Action.Effects.Clear()
-				}
-				jsonBytes, _ := json.Marshal(card)
-				record.Content = jsonBytes
-			}
-		}
-
 		k.CardK.Set(ctx, uint64(currId), record)
+	}
+	if err := k.InitRunDeckGenesis(ctx, genState.RunDecks); err != nil {
+		panic(err)
 	}
 	if genState.Params.AirDropValue.Denom == "" {
 		defaultParams := types.DefaultParams()
@@ -106,6 +90,7 @@ func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) 
 func ExportGenesis(ctx sdk.Context, k keeper.Keeper) *types.GenesisState {
 	genesis := types.DefaultGenesis()
 
+	genesis.RunDecks = k.ExportRunDeckGenesis(ctx)
 	genesis.Params = k.GetParams(ctx)
 	genesis.CardAuctionPrice = *k.CardAuctionPrice.Get(ctx)
 	genesis.LastCardModified = *k.LastCardModified.Get(ctx)

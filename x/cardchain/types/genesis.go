@@ -16,5 +16,8 @@ func DefaultGenesis() *GenesisState {
 func (gs GenesisState) Validate() error {
 	// this line is used by starport scaffolding # genesis/types/validate
 
+	if err := gs.ValidateRunDeckReferences(); err != nil {
+		return err
+	}
 	return gs.Params.Validate()
 }

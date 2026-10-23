@@ -1,0 +1,26 @@
+{
+  "format_version": 1,
+  "description": "Reviewed local state export prepared for the Run Deck / All-Star release",
+  "source_chain_id": "cardchain-local-2",
+  "initial_height": 4302316,
+  "active_cards": 552,
+  "card_id_slots": 1114,
+  "empty_card_slots": 562,
+  "saved_run_decks": 0,
+  "all_star_cards": 0,
+  "cardchain_module_consensus_version": 2,
+  "cardobject_version": "v0.5.3-0.20261023051040-c8c0da79c0db",
+  "cardobject_commit": "c8c0da79c0db8b4b27c083754325f1e40ca3c07b",
+  "artifacts": {
+    "genesis.json": {"sha256": "e961738fa02a3dd9813b0ef3a79c3495671c1ac8611d029266150873799c7980"},
+    "genesis.json.gz": {"sha256": "fd4f9570239103f6bda8e0e8349a10a91c809e52785806c73a08f7aef29d1309"}
+  },
+  "normalization": [
+    "Add empty run_decks state, preserving all existing card IDs and contents",
+    "Recreate built-in localhost IBC client and connection; retain IBC parameters",
+    "Clear app_hash and set a fresh genesis_time"
+  ],
+  "private_keys_included": false,
+  "frame_economy_changed": false,
+  "deployment_instructions": "deployment-run-decks.md"
+}
