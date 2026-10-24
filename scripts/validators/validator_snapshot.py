@@ -6,7 +6,7 @@ import base64
 import bech32 
 from datetime import datetime
 
-api = "http://202.61.225.157:1317/"
+api = "http://152.53.103.89:1317"
 pagination_limit = 150
 uptime_percentage = 0.8
 signing_window = 30000

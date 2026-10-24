@@ -1,0 +1,23 @@
+version: v2
+managed:
+  enabled: true
+  disable:
+    - file_option: go_package
+      module: buf.build/googleapis/googleapis
+    - file_option: go_package
+      module: buf.build/cosmos/gogo-proto
+    - file_option: go_package
+      module: buf.build/cosmos/cosmos-proto
+  override:
+    - file_option: go_package_prefix
+      value: github.com/DecentralCardGame/cardchain/api
+    - file_option: go_package_prefix
+      module: buf.build/cosmos/cosmos-sdk
+      value: cosmossdk.io/api
+plugins:
+  - local: protoc-gen-go-pulsar
+    out: ./api
+    opt: paths=source_relative
+  - local: protoc-gen-go-grpc
+    out: ./api
+    opt: paths=source_relative

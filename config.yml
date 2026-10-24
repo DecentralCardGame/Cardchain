@@ -1,12 +1,4 @@
 version: 1
-build:
-  main: cmd/Cardchaind/
-  binary: "cardchaind"
-  proto:
-    path: proto
-    third_party_paths:
-      - third_party/proto
-      - proto_vendor
 accounts:
   - name: alice
     coins:
@@ -28,10 +20,10 @@ faucet:
 client:
   typescript:
     path: ../decentralcardgame-cardchain-client-ts
-  vuex:
-    path: vue/src/store
-  composables:
-    path: vue/src/composables
+  #vuex:
+  #  path: vue/src/store
+  #composables:
+  #  path: vue/src/composables
   openapi:
     path: docs/static/openapi.yml
 genesis:
@@ -56,6 +48,25 @@ genesis:
     cardchain:
       params:
         airDropMaxBlockHeight: "10000000"
+      cardAuctionPrice:
+        amount: "10000000"
+        denom: ucredits
+      pools:
+        - amount: "1000000000"
+          denom: ucredits
+        - amount: "1000000000"
+          denom: ucredits
+        - amount: "1000000000"
+          denom: ucredits
+      runningAverages:
+        - arr: [0]
+        - arr: [0]
+    featureflag:
+      flags:
+        cardchain-council:
+          { "Module": "cardchain", "Name": "council", "Set": true }
+        cardchain-matches:
+          { "Module": "cardchain", "Name": "matches", "Set": true }
     crisis:
       constant_fee:
         amount: "1000"

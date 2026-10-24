@@ -5,10 +5,10 @@ services:
     build: .
     command: ./docker-run.sh
     volumes:
-      - ./backup:/backup
-      - ./docker-run.sh:/home/tendermint/docker-run.sh
-      - ./peer_nodes.json:/home/tendermint/peer_nodes.json
-      - ./files/:/home/tendermint/files/
+      - ./backup:/build/backup
+      - ./docker-run.sh:/build/docker-run.sh
+      - ./peer_nodes.json:/build/peer_nodes.json
+      - ./files/:/build/files/
     ports:
       - 26657:26657
       - 26658:26658
@@ -36,6 +36,6 @@ services:
       - 81:81
       - 443:443
     command: /bin/bash -c "exec nginx -g 'daemon off;'"
-    depends_on: 
+    depends_on:
       - blockchain
       - goat

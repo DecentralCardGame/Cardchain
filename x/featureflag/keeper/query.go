@@ -1,7 +1,7 @@
 package keeper
 
 import (
-	"github.com/DecentralCardGame/Cardchain/x/featureflag/types"
+	"github.com/DecentralCardGame/cardchain/x/featureflag/types"
 )
 
 var _ types.QueryServer = Keeper{}

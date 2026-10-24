@@ -3,9 +3,9 @@ package keeper_test
 import (
 	"testing"
 
-	testkeeper "github.com/DecentralCardGame/Cardchain/testutil/keeper"
+	testkeeper "github.com/DecentralCardGame/cardchain/testutil/keeper"
 	// "github.com/DecentralCardGame/Cardchain/x/cardchain/types"
-	"github.com/DecentralCardGame/Cardchain/x/cardchain/keeper"
+	"github.com/DecentralCardGame/cardchain/x/cardchain/keeper"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/stretchr/testify/require"
 )
@@ -23,7 +23,7 @@ func SetUpPools(ctx sdk.Context, k keeper.Keeper) (sdk.Coin, sdk.Coin, sdk.Coin)
 
 func TestPools(t *testing.T) {
 	k, ctx := testkeeper.CardchainKeeper(t)
-	pool, pool1, pool2 := SetUpPools(ctx, *k)
+	pool, pool1, pool2 := SetUpPools(ctx, k)
 
 	require.EqualValues(t, pool, *k.Pools.Get(ctx, keeper.PublicPoolKey))
 	require.EqualValues(t, []*sdk.Coin{&pool, &pool1, &pool2}, k.Pools.GetAll(ctx))

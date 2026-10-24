@@ -1,17 +1,22 @@
 #!/usr/bin/env python3
 
-import sys
-import json
 import csv
+import json
 import os
+import sys
 
 args = sys.argv
 
 assert len(args) == 3, f"Error: Syntax: {args[0]} [old_genesis] [new_genesis]"
 
-__location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
+__location__ = os.path.realpath(
+    os.path.join(os.getcwd(), os.path.dirname(__file__))
+)
 
-gameserver_addr = ["cc1z94z55n2rr4rmjf4ea0m7ykgh9a8urwzrlsxt4", "cc1ch66e3f0szxy8q976rsq5y07esmgdqzj70dfpu"]
+gameserver_addr = [
+    "cc1z94z55n2rr4rmjf4ea0m7ykgh9a8urwzrlsxt4",
+    "cc1ch66e3f0szxy8q976rsq5y07esmgdqzj70dfpu",
+]
 alpha_creator = "cc14km80077s0hch3sh38wh2hfk7kxfau4456r3ej"
 ruslan_creator = "cc1szj8cguttxn27xg4rg6xlag8qe6ajd4kqsca5k"
 
@@ -25,8 +30,13 @@ file_path_new = args[2]
 
 airdrop_accs = []
 boosterpack_accs = []
-early_access_addr = ["cc14km80077s0hch3sh38wh2hfk7kxfau4456r3ej", "cc1tmhtms6ahkrxltx3hkmmf2dteqj4pv0thwhdxa"]
-with open(os.path.join(__location__, "./zealy.tsv"), "r", encoding="utf8") as zealy_file:
+early_access_addr = [
+    "cc14km80077s0hch3sh38wh2hfk7kxfau4456r3ej",
+    "cc1tmhtms6ahkrxltx3hkmmf2dteqj4pv0thwhdxa",
+]
+with open(
+    os.path.join(__location__, "./zealy.tsv"), "r", encoding="utf8"
+) as zealy_file:
     tsv_reader = csv.DictReader(zealy_file, delimiter="\t")
     for entry in tsv_reader:
         airdrop_accs.append((entry["CCAddress"], entry["Airdrop"]))
@@ -36,7 +46,11 @@ with open(os.path.join(__location__, "./zealy.tsv"), "r", encoding="utf8") as ze
 
 genesisAccs = []
 # here we load the balances of addresses that start with balances on CC
-with open(os.path.join(__location__, "./merged_genesis_balances.tsv"), "r", encoding="utf8") as genesis_file:
+with open(
+    os.path.join(__location__, "./merged_genesis_balances.tsv"),
+    "r",
+    encoding="utf8",
+) as genesis_file:
     tsv_reader = csv.DictReader(genesis_file, delimiter="\t")
     for entry in tsv_reader:
         genesisAccs.append((entry["Address"], entry["Balance"]))
@@ -44,14 +58,18 @@ with open(os.path.join(__location__, "./merged_genesis_balances.tsv"), "r", enco
 
 rarities = []
 # here we load the table with card rarities
-with open(os.path.join(__location__, "./card_rarities.tsv"), "r", encoding="utf8") as rarity_file:
+with open(
+    os.path.join(__location__, "./card_rarities.tsv"), "r", encoding="utf8"
+) as rarity_file:
     tsv_reader = csv.DictReader(rarity_file, delimiter="\t")
     for entry in tsv_reader:
         rarities.append((entry["CardId"], entry["Rarity"]))
 
 starters = []
 # here we load the table with starter card
-with open(os.path.join(__location__, "./card_starters.tsv"), "r", encoding="utf8") as starter_file:
+with open(
+    os.path.join(__location__, "./card_starters.tsv"), "r", encoding="utf8"
+) as starter_file:
     tsv_reader = csv.DictReader(starter_file, delimiter="\t")
     for entry in tsv_reader:
         starters.append(entry["CardId"])
@@ -69,37 +87,60 @@ with open(file_path_new, "r") as file:
 # old_dict["app_state"]["cardchain"]["sets"] = []
 
 # fix first encounters (those are bugged)
-fix_encounters = [0,1,2,3]
-for encounter in fix_encounters:
-    old_dict["app_state"]["cardchain"]["encounters"][encounter]["name"] = "test"+str(encounter)
+# fix_encounters = [0, 1, 2, 3]
+# for encounter in fix_encounters:
+#    old_dict["app_state"]["cardchain"]["encounters"][encounter]["name"] = (
+#        "test" + str(encounter)
+#    )
 
 params = new_dict["app_state"]["cardchain"]["params"]
-new_dict["app_state"]["featureflag"] = old_dict["app_state"].get("featureflag", new_dict["app_state"]["featureflag"])
+new_dict["app_state"]["featureflag"] = old_dict["app_state"].get(
+    "featureflag", new_dict["app_state"]["featureflag"]
+)
 new_dict["app_state"]["cardchain"] = old_dict["app_state"]["cardchain"].copy()
 new_dict["app_state"]["cardchain"]["addresses"] = []
 new_dict["app_state"]["cardchain"]["users"] = []
+
+if "RunningAverages" in new_dict["app_state"]["cardchain"]:
+    new_dict["app_state"]["cardchain"]["runningAverages"] = new_dict[
+        "app_state"
+    ]["cardchain"]["RunningAverages"].copy()
+    del new_dict["app_state"]["cardchain"]["RunningAverages"]
+if "Servers" in new_dict["app_state"]["cardchain"]:
+    new_dict["app_state"]["cardchain"]["servers"] = new_dict["app_state"][
+        "cardchain"
+    ]["Servers"].copy()
+    del new_dict["app_state"]["cardchain"]["Servers"]
 
 for card in del_cards:
     new_dict["app_state"]["cardchain"]["cardRecords"][card] = {}
 
 # delete all cards except jannik and ruslan
 for key, card in enumerate(new_dict["app_state"]["cardchain"]["cardRecords"]):
-     if card["owner"] != alpha_creator and card["owner"] != ruslan_creator:
+    if card["owner"] != alpha_creator and card["owner"] != ruslan_creator:
         new_dict["app_state"]["cardchain"]["cardRecords"][key] = {}
 
 if new_dict["app_state"]["cardchain"]["cardRecords"]:
     # write rarities into cards
     for card in rarities:
         if card[1] == "C":
-            new_dict["app_state"]["cardchain"]["cardRecords"][int(card[0])]["rarity"] = "common"
+            new_dict["app_state"]["cardchain"]["cardRecords"][int(card[0])][
+                "rarity"
+            ] = "common"
         if card[1] == "U":
-            new_dict["app_state"]["cardchain"]["cardRecords"][int(card[0])]["rarity"] = "uncommon"
+            new_dict["app_state"]["cardchain"]["cardRecords"][int(card[0])][
+                "rarity"
+            ] = "uncommon"
         if card[1] == "R":
-            new_dict["app_state"]["cardchain"]["cardRecords"][int(card[0])]["rarity"] = "rare"
+            new_dict["app_state"]["cardchain"]["cardRecords"][int(card[0])][
+                "rarity"
+            ] = "rare"
 
     # set starter cards
     for card in starters:
-        new_dict["app_state"]["cardchain"]["cardRecords"][int(card)]["starterCard"] = True
+        new_dict["app_state"]["cardchain"]["cardRecords"][int(card)][
+            "starterCard"
+        ] = True
 
 for param in params:
     if param in old_dict["app_state"]["cardchain"]["params"]:
@@ -119,7 +160,10 @@ for idx, addr in enumerate(old_dict["app_state"]["cardchain"]["addresses"]):
         old_dict["app_state"]["cardchain"]["users"][idx]["ReportMatches"] = True
 
     new_dict["app_state"]["cardchain"]["addresses"].append(addr)
-    new_dict["app_state"]["cardchain"]["users"].append(old_dict["app_state"]["cardchain"]["users"][idx])
+    new_dict["app_state"]["cardchain"]["users"].append(
+        old_dict["app_state"]["cardchain"]["users"][idx]
+    )
+
     for i in old_dict["app_state"]["auth"]["accounts"]:
         if i.get("address") == addr:
             new_dict["app_state"]["auth"]["accounts"].append(i)
@@ -157,8 +201,10 @@ for idx, addr in enumerate(old_dict["app_state"]["cardchain"]["addresses"]):
             break
 
 # Remove deprecated voteRights from users and more shenanigans like booster packs and early access
-for addr, user in zip(new_dict["app_state"]["cardchain"]["addresses"], new_dict["app_state"]["cardchain"]["users"]):
-
+for addr, user in zip(
+    new_dict["app_state"]["cardchain"]["addresses"],
+    new_dict["app_state"]["cardchain"]["users"],
+):
     if "voteRights" in user:
         del user["voteRights"]
 
@@ -166,16 +212,55 @@ for addr, user in zip(new_dict["app_state"]["cardchain"]["addresses"], new_dict[
         if entry[0] == addr:
             num_packs = int(entry[1])
             for x in range(num_packs):
-                user["boosterPacks"].append({'dropRatiosPerPack': ['150', '50', '1'], 'raritiesPerPack': ['4', '2', '1'], 'setId': '1', 'timeStamp': '0'})
+                user["boosterPacks"].append(
+                    {
+                        "dropRatiosPerPack": ["150", "50", "1"],
+                        "raritiesPerPack": ["4", "2", "1"],
+                        "setId": "1",
+                        "timeStamp": "0",
+                    }
+                )
 
     user["earlyAccess"] = user.get(
-        "earlyAccess",
-        {"active": False, "invitedUser": "", "invitedByUser": ""}
+        "earlyAccess", {"active": False, "invitedUser": "", "invitedByUser": ""}
     )  # add earlyAccess
     if addr in early_access_addr:
         user["earlyAccess"]["active"] = True
 
-for id, encounter in enumerate(new_dict["app_state"]["cardchain"]["encounters"]):
+
+for idx, user in enumerate(new_dict["app_state"]["cardchain"]["users"]):
+    new_dict["app_state"]["cardchain"]["users"][idx] = {
+        (key[0].lower() + key[1:]): value for key, value in user.items()
+    }
+
+for idx, set in enumerate(new_dict["app_state"]["cardchain"]["sets"]):
+    new_dict["app_state"]["cardchain"]["sets"][idx] = {
+        (key[0].lower() + key[1:]): value for key, value in set.items()
+    }
+
+for idx, enc in enumerate(new_dict["app_state"]["cardchain"]["encounters"]):
+    new_dict["app_state"]["cardchain"]["encounters"][idx] = {
+        (key[0].lower() + key[1:]): value for key, value in enc.items()
+    }
+
+coinMap = {}
+for account in new_dict["app_state"]["bank"]["balances"]:
+    for coin in account["coins"]:
+        coinMap[coin["denom"]] = coinMap.get(coin["denom"], 0) + int(
+            coin["amount"]
+        )
+
+new_dict["app_state"]["bank"]["supply"] = [
+    {"denom": denom, "amount": str(amount)} for denom, amount in coinMap.items()
+]
+
+if len(new_dict["app_state"]["cardchain"].get("upgradeFactors", [])) == 0:
+    with open(os.path.join(__location__, "./default_upgrade_factors.json"), "r") as file:
+        new_dict["app_state"]["cardchain"]["upgradeFactors"] = json.load(file)
+
+for id, encounter in enumerate(
+    new_dict["app_state"]["cardchain"].get("encounters", [])
+):
     if isinstance(encounter["parameters"], dict):
         new_dict["app_state"]["cardchain"]["encounters"][id]["parameters"] = []
 
