@@ -28,7 +28,7 @@ require (
 	cosmossdk.io/x/feegrant v0.1.1
 	cosmossdk.io/x/nft v0.1.0
 	cosmossdk.io/x/upgrade v0.1.4
-	github.com/DecentralCardGame/cardobject v0.5.3-0.20261023051040-c8c0da79c0db
+	github.com/DecentralCardGame/cardobject v0.5.4-0.20261024120417-dad764e41bae
 	github.com/cometbft/cometbft v0.38.20
 	github.com/cosmos/cosmos-db v1.1.3
 	github.com/cosmos/cosmos-proto v1.0.0-beta.5
