@@ -267,6 +267,8 @@ github.com/DataDog/datadog-go v3.2.0+incompatible h1:qSG2N4FghB1He/r2mFrWKCaL7dX
 github.com/DataDog/datadog-go v3.2.0+incompatible/go.mod h1:LButxg5PwREeZtORoXG3tL4fMGNddJ+vMq1mwgfaqoQ=
 github.com/DataDog/zstd v1.5.7 h1:ybO8RBeh29qrxIhCA9E8gKY6xfONU9T6G6aP9DTKfLE=
 github.com/DataDog/zstd v1.5.7/go.mod h1:g4AWEaM3yOg3HYfnJ3YIawPnVdXJh9QME85blwSAmyw=
+github.com/DecentralCardGame/cardobject v0.5.3-0.20261023051040-c8c0da79c0db h1:fRkceJFfEqAXR+ISLyrZ8aCBwmmVwbHcFkPXx8rmLJ4=
+github.com/DecentralCardGame/cardobject v0.5.3-0.20261023051040-c8c0da79c0db/go.mod h1:waAoRvDCDVTBlPjEroIIfXpX2PQnJvgUssRN4Ji4VFM=
 github.com/DecentralCardGame/cardobject v0.5.3 h1:Ama1q0ij7iFV6ZcOtaH3n4DbmmPojlC6QR7G+Md5sPE=
 github.com/DecentralCardGame/cardobject v0.5.3/go.mod h1:waAoRvDCDVTBlPjEroIIfXpX2PQnJvgUssRN4Ji4VFM=
 github.com/Djarvur/go-err113 v0.0.0-20210108212216-aea10b59be24 h1:sHglBQTwgx+rWPdisA5ynNEsoARbiCBOyGcJM4/OzsM=

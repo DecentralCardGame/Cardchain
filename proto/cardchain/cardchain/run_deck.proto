@@ -1,0 +1,87 @@
+syntax = "proto3";
+package cardchain.cardchain;
+
+import "cosmos/msg/v1/msg.proto";
+import "cosmos_proto/cosmos.proto";
+import "google/api/annotations.proto";
+
+option go_package = "github.com/DecentralCardGame/cardchain/x/cardchain/types";
+
+message RunDeckCard {
+  uint64 instance_id = 1;
+  uint64 base_card_id = 2;
+  // Ordered canonical ForgeRecipe JSON documents. Not evaluated card content.
+  repeated string forge_recipes = 3;
+}
+message SavedRunDeck {
+  uint64 id = 1;
+  string owner = 2;
+  string reporter = 3;
+  string run_ref = 4;
+  uint32 recipe_format_version = 5;
+  repeated RunDeckCard cards = 6;
+  int64 created_height = 7;
+  bool consumed = 8;
+  int64 consumed_height = 9;
+  // Meaningful only when consumed=true; zero is a valid All-Star ID.
+  uint64 all_star_id = 10;
+}
+message AllStarCard {
+  uint64 id = 1;
+  string owner = 2;
+  uint64 source_deck_id = 3;
+  uint32 recipe_format_version = 4;
+  RunDeckCard card = 5;
+  int64 created_height = 6;
+}
+message RunDeckGenesis {
+  repeated SavedRunDeck decks = 1;
+  repeated AllStarCard all_stars = 2;
+}
+
+service RunDeckMsg {
+  option (cosmos.msg.v1.service) = true;
+  rpc SubmitRunDeck(MsgSubmitRunDeck) returns (MsgSubmitRunDeckResponse);
+  rpc DistillRunDeck(MsgDistillRunDeck) returns (MsgDistillRunDeckResponse);
+}
+message MsgSubmitRunDeck {
+  option (cosmos.msg.v1.signer) = "reporter";
+  string reporter = 1 [(cosmos_proto.scalar) = "cosmos.AddressString"];
+  string owner = 2 [(cosmos_proto.scalar) = "cosmos.AddressString"];
+  string run_ref = 3;
+  uint32 recipe_format_version = 4;
+  repeated RunDeckCard cards = 5;
+}
+message MsgSubmitRunDeckResponse { uint64 deck_id = 1; }
+message MsgDistillRunDeck {
+  option (cosmos.msg.v1.signer) = "owner";
+  string owner = 1 [(cosmos_proto.scalar) = "cosmos.AddressString"];
+  uint64 deck_id = 2;
+  uint64 instance_id = 3;
+}
+message MsgDistillRunDeckResponse { uint64 all_star_id = 1; }
+
+service RunDeckQuery {
+  rpc RunDeck(QueryRunDeckRequest) returns (QueryRunDeckResponse) {
+    option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/run_decks/{id}";
+  }
+  rpc RunDecksByOwner(QueryRunDecksRequest) returns (QueryRunDecksResponse) {
+    option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/owners/{owner}/run_decks";
+  }
+  rpc AllStar(QueryAllStarRequest) returns (QueryAllStarResponse) {
+    option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/all_stars/{id}";
+  }
+  rpc AllStars(QueryAllStarsRequest) returns (QueryAllStarsResponse) {
+    option (google.api.http).get = "/DecentralCardGame/cardchain/cardchain/owners/{owner}/all_stars";
+  }
+}
+message QueryRunDeckRequest { uint64 id = 1; }
+message QueryRunDeckResponse { SavedRunDeck deck = 1; }
+// Cursor is the inclusive minimum chain ID; next_cursor is valid only if has_more.
+// Limits default to 20 and cannot exceed 100. No unbounded count-all operation.
+message QueryRunDecksRequest { string owner = 1; uint64 cursor = 2; uint32 limit = 3; }
+message QueryRunDecksResponse { repeated SavedRunDeck decks = 1; uint64 next_cursor = 2; bool has_more = 3; }
+message QueryAllStarRequest { uint64 id = 1; }
+message QueryAllStarResponse { AllStarCard all_star = 1; }
+message QueryAllStarsRequest { string owner = 1; uint64 cursor = 2; uint32 limit = 3; }
+message QueryAllStarsResponse { repeated AllStarCard all_stars = 1; uint64 next_cursor = 2; bool has_more = 3; }

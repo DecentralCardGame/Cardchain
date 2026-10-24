@@ -8,6 +8,8 @@ import (
 )
 
 func RegisterInterfaces(registrar cdctypes.InterfaceRegistry) {
+	registrar.RegisterImplementations((*sdk.Msg)(nil), &MsgSubmitRunDeck{}, &MsgDistillRunDeck{})
+	msgservice.RegisterMsgServiceDesc(registrar, &_RunDeckMsg_serviceDesc)
 	registrar.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgUpgradePicksReport{},
 	)

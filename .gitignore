@@ -15,3 +15,5 @@ release/
 /goat/node_modules
 /scripts/validators/node_modules
 /files
+__pycache__/
+*.py[cod]

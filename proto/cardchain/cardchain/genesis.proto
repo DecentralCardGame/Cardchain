@@ -10,6 +10,7 @@ import "cardchain/cardchain/image.proto";
 import "cardchain/cardchain/match.proto";
 import "cardchain/cardchain/params.proto";
 import "cardchain/cardchain/running_average.proto";
+import "cardchain/cardchain/run_deck.proto";
 import "cardchain/cardchain/sell_offer.proto";
 import "cardchain/cardchain/server.proto";
 import "cardchain/cardchain/set.proto";
@@ -44,5 +45,6 @@ message GenesisState {
   repeated Zealy zealys = 17;
   repeated Encounter encounters = 18;
   repeated UpgradeFactor upgradeFactors = 19;
+  RunDeckGenesis run_decks = 20;
   // this line is used by starport scaffolding # genesis/proto/state
 }

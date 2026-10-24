@@ -20,6 +20,8 @@ type Keeper struct {
 	addressCodec address.Codec
 	logger       log.Logger
 
+	RunDecks        gtk.GenericUint64TypeKeeper[*types.SavedRunDeck]
+	AllStarCards    gtk.GenericUint64TypeKeeper[*types.AllStarCard]
 	CardK           gtk.GenericUint64TypeKeeper[*types.Card]
 	Councils        gtk.GenericUint64TypeKeeper[*types.Council]
 	SellOfferK      gtk.GenericUint64TypeKeeper[*types.SellOffer]
@@ -66,6 +68,8 @@ func NewKeeper(
 		authority:    authority,
 		logger:       logger,
 
+		RunDecks:          gtk.NewUintGTK[*types.SavedRunDeck]("RunDecksV1", storeService, cdc, gtk.GetEmpty[types.SavedRunDeck]),
+		AllStarCards:      gtk.NewUintGTK[*types.AllStarCard]("AllStarCardsV1", storeService, cdc, gtk.GetEmpty[types.AllStarCard]),
 		CardK:             gtk.NewUintGTK[*types.Card]("Cards", storeService, cdc, gtk.GetEmpty[types.Card]),
 		Councils:          gtk.NewUintGTK[*types.Council]("Councils", storeService, cdc, gtk.GetEmpty[types.Council]),
 		SellOfferK:        gtk.NewUintGTK[*types.SellOffer]("SellOffers", storeService, cdc, gtk.GetEmpty[types.SellOffer]),

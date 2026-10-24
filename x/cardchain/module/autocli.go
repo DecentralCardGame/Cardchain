@@ -11,6 +11,9 @@ func (am AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 	return &autocliv1.ModuleOptions{
 		Query: &autocliv1.ServiceCommandDescriptor{
 			Service: types.Query_serviceDesc.ServiceName,
+			SubCommands: map[string]*autocliv1.ServiceCommandDescriptor{
+				"run-decks": {Service: types.RunDeckQuery_serviceDesc.ServiceName},
+			},
 			RpcCommandOptions: []*autocliv1.RpcCommandOptions{
 				{
 					RpcMethod: "Params",
@@ -166,9 +169,9 @@ func (am AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 				},
 
 				{
-					RpcMethod: "UpgradeFactors",
-					Use: "upgrade-factors ",
-					Short: "Query UpgradeFactors",
+					RpcMethod:      "UpgradeFactors",
+					Use:            "upgrade-factors ",
+					Short:          "Query UpgradeFactors",
 					PositionalArgs: []*autocliv1.PositionalArgDescriptor{},
 				},
 
@@ -176,7 +179,10 @@ func (am AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 			},
 		},
 		Tx: &autocliv1.ServiceCommandDescriptor{
-			Service:              types.Msg_serviceDesc.ServiceName,
+			Service: types.Msg_serviceDesc.ServiceName,
+			SubCommands: map[string]*autocliv1.ServiceCommandDescriptor{
+				"run-decks": {Service: types.RunDeckMsg_serviceDesc.ServiceName},
+			},
 			EnhanceCustomCommand: true, // only required if you want to use the custom command
 			RpcCommandOptions: []*autocliv1.RpcCommandOptions{
 				{
@@ -498,18 +504,18 @@ func (am AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 				},
 
 				{
-			RpcMethod: "EncounterDelete",
-			Use: "encounter-delete [id]",
-			Short: "Send a EncounterDelete tx",
-			PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "id"}},
-		},
-		{
-			RpcMethod: "UpgradePicksReport",
-			Use: "upgrade-picks-report [picked] [dismissed]",
-			Short: "Send a UpgradePicksReport tx",
-			PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "picked"}, {ProtoField: "dismissed", Varargs: true}},
-		},
-		// this line is used by ignite scaffolding # autocli/tx
+					RpcMethod:      "EncounterDelete",
+					Use:            "encounter-delete [id]",
+					Short:          "Send a EncounterDelete tx",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "id"}},
+				},
+				{
+					RpcMethod:      "UpgradePicksReport",
+					Use:            "upgrade-picks-report [picked] [dismissed]",
+					Short:          "Send a UpgradePicksReport tx",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "picked"}, {ProtoField: "dismissed", Varargs: true}},
+				},
+				// this line is used by ignite scaffolding # autocli/tx
 			},
 		},
 	}
