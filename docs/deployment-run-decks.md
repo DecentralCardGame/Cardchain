@@ -8,8 +8,8 @@ No gameclient integration or All-Star frontend UI is included.
 
 - PR base: Cardchain `development`.
 - Go toolchain: **1.24.5** (see `go.mod`).
-- Cardobject is pinned to **`v0.5.3-0.20261023051040-c8c0da79c0db`**, commit
-  `c8c0da79c0db8b4b27c083754325f1e40ca3c07b`.
+- Cardobject is pinned to **`v0.5.4-0.20261024120417-dad764e41bae`**, merged master commit
+  `dad764e41bae3da9e929a34f32193c7f6f84e9b4` (Cardobject PR #107).
 - No sibling checkout, local `replace` directive, private module or vendored snapshot is needed.
 - Generated protobuf and gateway code is committed. Regeneration additionally requires
   `protoc`; use `bash scripts/generate-run-deck-proto.sh`.
@@ -25,6 +25,8 @@ go build -mod=readonly -trimpath -o build/cardchaind ./cmd/cardchaind
 The separate `genesis.json` / `genesis.json.gz` artifact is derived from a fresh export
 of the reviewed local chain, not from the original, uncurated testnet genesis.
 Its fingerprint and inventory are recorded in `release-snapshot.json` alongside this document.
+That manifest intentionally retains the original snapshot's build provenance (Cardobject
+`c8c0da79c0db`); updating the dependency does not regenerate or relabel the existing artifact.
 The file is hundreds of MB because historical image data is retained; it is deliberately
 not committed to Git. Obtain the artifact accompanying the PR/release, then verify:
 

@@ -271,6 +271,8 @@ github.com/DecentralCardGame/cardobject v0.5.3-0.20261023051040-c8c0da79c0db h1:
 github.com/DecentralCardGame/cardobject v0.5.3-0.20261023051040-c8c0da79c0db/go.mod h1:waAoRvDCDVTBlPjEroIIfXpX2PQnJvgUssRN4Ji4VFM=
 github.com/DecentralCardGame/cardobject v0.5.3 h1:Ama1q0ij7iFV6ZcOtaH3n4DbmmPojlC6QR7G+Md5sPE=
 github.com/DecentralCardGame/cardobject v0.5.3/go.mod h1:waAoRvDCDVTBlPjEroIIfXpX2PQnJvgUssRN4Ji4VFM=
+github.com/DecentralCardGame/cardobject v0.5.4-0.20261024120417-dad764e41bae h1:eDv5ksjeCVFvgS11yyLTxjLxdy7MQnGaQIrP8lCq8PE=
+github.com/DecentralCardGame/cardobject v0.5.4-0.20261024120417-dad764e41bae/go.mod h1:waAoRvDCDVTBlPjEroIIfXpX2PQnJvgUssRN4Ji4VFM=
 github.com/Djarvur/go-err113 v0.0.0-20210108212216-aea10b59be24 h1:sHglBQTwgx+rWPdisA5ynNEsoARbiCBOyGcJM4/OzsM=
 github.com/Djarvur/go-err113 v0.0.0-20210108212216-aea10b59be24/go.mod h1:4UJr5HIiMZrwgkSPdsjy2uOQExX/WEILpIrO9UPGuXs=
 github.com/GaijinEntertainment/go-exhaustruct/v2 v2.3.0 h1:+r1rSv4gvYn0wmRjC8X7IAzX8QezqtFV9m0MUHFJgts=
